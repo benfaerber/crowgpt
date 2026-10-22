@@ -1,0 +1,25 @@
+{
+  "model-long9": {
+    "n": 100,
+    "mean_units": 3.7,
+    "single_share": 0.16,
+    "gaps_per_clip": 2.78,
+    "median_gap_s": 0.245,
+    "dust_rate": 0.087
+  },
+  "model-longctx": {
+    "n": 100,
+    "mean_units": 4.42,
+    "single_share": 0.15,
+    "gaps_per_clip": 3.51,
+    "median_gap_s": 0.288,
+    "dust_rate": 0.297
+  },
+  "real-9s": {
+    "n": 200,
+    "mean_units": 5.69,
+    "single_share": 0.09,
+    "gaps_per_clip": 4.75,
+    "median_gap_s": 0.277
+  }
+}

@@ -1,0 +1,34 @@
+[project]
+name = "fieldserver"
+version = "0.1.0"
+description = "Cawtalker field capture + command-and-control server for the recordist fleet"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "alembic>=1.18.5",
+    "flask>=3.0",
+    "numpy>=1.26",
+]
+
+[project.scripts]
+fieldserver = "fieldserver.app:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-xdist>=3.8.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fieldserver"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Puts src/ on the path so tests import the package the same way the app does,
+# without a sys.path prelude in every module.
+pythonpath = ["src"]
+addopts = "-q --strict-markers"

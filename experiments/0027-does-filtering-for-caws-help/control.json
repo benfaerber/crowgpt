@@ -1,0 +1,13 @@
+{
+  "kept_bouts": 37183,
+  "subset_seed": 17,
+  "best_val": 4.808863663673401,
+  "final": {
+    "step": 22000,
+    "train": 4.4559,
+    "val": 4.8785,
+    "gap": 0.4226,
+    "train_minibatch": 4.5381
+  },
+  "sequences": 30049
+}

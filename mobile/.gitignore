@@ -1,0 +1,35 @@
+# Expo / React Native
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+.metro-health-check*
+*.log
+
+# Generated native projects — `expo prebuild` recreates these from app.json,
+# so they are build output, not source.
+/android
+/ios
+.kotlin/
+*.class
+
+# Gradle output from local native modules (the .kt/.swift source IS tracked)
+modules/*/android/build/
+modules/*/android/.gradle/
+
+# Signing material — never commit
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+
+*.tsbuildinfo
+.env
+.env*.local
+.DS_Store
+
+# host-side test build output (make test)
+.test-build/

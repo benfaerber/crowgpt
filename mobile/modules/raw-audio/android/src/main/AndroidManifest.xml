@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      Holding the microphone while the app is not on screen.
+
+      Since Android 9 a backgrounded app loses the microphone outright, so the
+      pre-roll ring stopped filling the moment the screen slept. A recording is
+      most likely to be wanted exactly then — the phone is in a pocket, a crow
+      calls, and by the time it is out and unlocked the call is over. That is
+      the whole reason the ring exists, and it was switched off in the one
+      situation it was built for.
+
+      A foreground service is the only sanctioned way to keep the microphone.
+      Android 14+ also requires the microphone-specific permission below, and a
+      visible ongoing notification that cannot be suppressed — which is correct:
+      an app holding the mic from a pocket should be impossible to forget about.
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application>
+        <service
+            android:name=".ListeningService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
+    </application>
+</manifest>

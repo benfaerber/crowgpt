@@ -1,0 +1,74 @@
+{
+  "knn": {
+    "accuracy": 0.598,
+    "macro_f1": 0.326,
+    "confusion": [
+      [
+        0,
+        8,
+        2,
+        0
+      ],
+      [
+        4,
+        52,
+        14,
+        1
+      ],
+      [
+        0,
+        7,
+        18,
+        0
+      ],
+      [
+        0,
+        10,
+        1,
+        0
+      ]
+    ]
+  },
+  "logreg": {
+    "accuracy": 0.53,
+    "macro_f1": 0.364,
+    "confusion": [
+      [
+        2,
+        6,
+        1,
+        1
+      ],
+      [
+        8,
+        45,
+        11,
+        7
+      ],
+      [
+        1,
+        9,
+        14,
+        1
+      ],
+      [
+        0,
+        7,
+        3,
+        1
+      ]
+    ]
+  },
+  "baseline_majority_acc": 0.607,
+  "silhouette_true_labels": -0.06,
+  "kmeans_ari": 0.008,
+  "classes": {
+    "alarm call": 10,
+    "call": 71,
+    "flight call": 25,
+    "song": 11
+  },
+  "n_clips": 117,
+  "n_features": 86,
+  "decode_failures": 0
+}

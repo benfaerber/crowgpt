@@ -1,0 +1,17 @@
+{
+  "kept_bouts": 37183,
+  "of": 81389,
+  "best_val": 4.660239124298096,
+  "final": {
+    "step": 19000,
+    "train": 4.35,
+    "val": 4.7034,
+    "gap": 0.3534,
+    "train_minibatch": 4.5981
+  },
+  "min_conf": 0.8,
+  "caw_types": [
+    "alarm call",
+    "call"
+  ]
+}

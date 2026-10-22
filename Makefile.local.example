@@ -1,0 +1,32 @@
+# Copy to Makefile.local (gitignored) and fill in your own handset serials.
+#
+#   cp Makefile.local.example Makefile.local
+#   make devices          # serials are the first column
+#
+# Why bother: `make install-app` with a single phone attached picks it without
+# asking, which is how the wrong handset gets flashed. A named target per phone
+# is one you cannot mistype into the other.
+#
+# Use the *hardware* serial. A phone on wireless adb answers to its address
+# instead, and that changes on every DHCP lease — resolve_device.sh finds the
+# current one by matching ro.serialno, so this line never goes stale.
+.PHONY: install-phone install-phone-wireless wireless-phone
+
+MY_PHONE := REPLACE_WITH_SERIAL
+RESOLVE  := mobile/tools/resolve_device.sh
+
+# `target=$$(...) && ...` so a resolver failure fails the recipe. Substituting
+# straight into DEVICE= would expand to the empty string and install to whatever
+# else happened to be attached.
+# Pin the transport per phone rather than taking whatever is attached. A
+# desk-bound test handset wants --usb, one that goes out in a pocket wants
+# --wireless, and each then fails instead of silently falling back to the other.
+install-phone:
+	@target=$$($(RESOLVE) --usb $(MY_PHONE)) && $(MAKE) install-app DEVICE=$$target
+
+install-phone-wireless:
+	@target=$$($(RESOLVE) --wireless $(MY_PHONE)) && $(MAKE) install-app DEVICE=$$target
+
+# One cable, once. After this the phone stays reachable over Wi-Fi.
+wireless-phone:
+	$(MAKE) -C mobile wireless DEVICE=$(MY_PHONE)

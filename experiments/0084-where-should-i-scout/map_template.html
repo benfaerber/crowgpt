@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where to scout for new crows</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  html, body, #map { height: 100%; margin: 0; }
+  .target-pin { display: grid; place-items: center; width: 30px; height: 30px;
+    border-radius: 50%; background: #1b5e20; color: #fff;
+    font: 700 14px system-ui; border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.5); }
+  .target-pin.top { background: #b71c1c; }
+  .legend { background: rgba(255,255,255,.92); padding: .6rem .8rem;
+    border-radius: 8px; font: 13px/1.45 system-ui, sans-serif; max-width: 15rem; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+const targets = __TARGETS__;
+const owls = __OWLS__;
+const map = L.map("map").setView([40.7608, -111.891], 12);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "&copy; OpenStreetMap · iNaturalist · Meta/WRI canopy",
+}).addTo(map);
+
+for (const t of targets) {
+  const icon = L.divIcon({
+    html: `<div class="target-pin${t.rank <= 5 ? " top" : ""}">${t.rank}</div>`,
+    className: "", iconSize: [30, 30], iconAnchor: [15, 15],
+  });
+  const s = t.signals;
+  L.marker([t.lat, t.lon], { icon }).bindPopup(
+    `<b>#${t.rank}</b>${t.near ? " · " + t.near : ""}<br>` +
+    `crows seen ${Math.round(s.inat * 100)}% · trees ${Math.round(s.trees * 100)}%` +
+    ` · green ${Math.round(s.green * 100)}% · water ${Math.round(s.water * 100)}%<br>` +
+    `<a href="https://www.google.com/maps?q=${t.lat},${t.lon}" target="_blank">Navigate</a>`
+  ).addTo(map);
+}
+
+for (const o of owls) {
+  L.circleMarker([o.lat, o.lon], {
+    radius: 5, color: "#4a148c", fillColor: "#4a148c", fillOpacity: 0.5,
+    weight: 1,
+  }).bindPopup("Great Horned Owl sighting — crow families avoid these").addTo(map);
+}
+
+const legend = L.control({ position: "bottomleft" });
+legend.onAdd = () => {
+  const div = L.DomUtil.create("div", "legend");
+  div.innerHTML = "<b>Scouting targets</b><br>" +
+    "Red = top five. Score blends other people's crow sightings, tall canopy, " +
+    "parks &amp; turf, and water. Purple dots are Great Horned Owl sightings — subtracted from the score, because owls eat crow nests. Home territory excluded. Go at dawn; " +
+    "log what you find — each visit grades the score.";
+  return div;
+};
+legend.addTo(map);
+</script>
+</body>
+</html>

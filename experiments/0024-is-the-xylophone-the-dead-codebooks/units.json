@@ -1,0 +1,35 @@
+{
+  "A_real": {
+    "clips": 30,
+    "mean_units": 3.37,
+    "median_units": 4.0,
+    "single_unit_share": 0.333,
+    "histogram": {
+      "0": 2,
+      "1": 8,
+      "2": 4,
+      "4": 3,
+      "5": 8,
+      "6": 3,
+      "7": 1,
+      "8": 1
+    }
+  },
+  "C_generated": {
+    "clips": 30,
+    "mean_units": 1.37,
+    "median_units": 1.0,
+    "single_unit_share": 0.7,
+    "histogram": {
+      "1": 21,
+      "2": 7,
+      "3": 2
+    }
+  },
+  "comparison": {
+    "real_single_share": 0.333,
+    "generated_single_share": 0.7,
+    "mannwhitney_p": 0.0008,
+    "significant": true
+  }
+}

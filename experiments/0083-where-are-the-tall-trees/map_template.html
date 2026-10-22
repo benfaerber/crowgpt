@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tall trees of the Salt Lake valley</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  html, body, #map { height: 100%; margin: 0; }
+  .legend { background: rgba(255,255,255,.92); padding: .6rem .8rem;
+    border-radius: 8px; font: 13px/1.4 system-ui, sans-serif; }
+  .legend .dot { display: inline-block; width: 11px; height: 11px;
+    border-radius: 50%; margin-right: .35rem; vertical-align: -1px; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+const data = __DATA__;
+const MIN_H = __MIN_HEIGHT__;
+
+const map = L.map("map").setView([40.7608, -111.891], 12);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19, attribution: "&copy; OpenStreetMap · canopy: Meta/WRI CHM",
+}).addTo(map);
+
+function color(h) {
+  if (h >= 30) return "#7b1fa2";
+  if (h >= 25) return "#c2185b";
+  if (h >= 21) return "#e64a19";
+  return "#f9a825";
+}
+
+for (const f of data.features) {
+  const [lon, lat] = f.geometry.coordinates;
+  const { h, area_m2 } = f.properties;
+  L.circleMarker([lat, lon], {
+    radius: Math.max(4, Math.min(14, Math.sqrt(area_m2) / 8)),
+    color: color(h), fillColor: color(h), fillOpacity: 0.55, weight: 1,
+  }).bindPopup(
+    `<b>${h} m</b> · ~${area_m2.toLocaleString()} m²<br>` +
+    `<a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">` +
+    `navigate</a>`
+  ).addTo(map);
+}
+
+const legend = L.control({ position: "bottomleft" });
+legend.onAdd = () => {
+  const div = L.DomUtil.create("div", "legend");
+  div.innerHTML =
+    `<b>Canopy ≥ ${MIN_H} m</b><br>` +
+    `<span class="dot" style="background:#f9a825"></span>18–20 m<br>` +
+    `<span class="dot" style="background:#e64a19"></span>21–24 m<br>` +
+    `<span class="dot" style="background:#c2185b"></span>25–29 m<br>` +
+    `<span class="dot" style="background:#7b1fa2"></span>30 m+<br>` +
+    `dot size ≈ stand area`;
+  return div;
+};
+legend.addTo(map);
+</script>
+</body>
+</html>

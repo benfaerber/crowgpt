@@ -1,0 +1,24 @@
+{
+  "degenerate_pooling": {
+    "rows": 2494,
+    "segment_dim": 1024,
+    "rows_with_nonzero_std": 0,
+    "rows_where_max_eq_mean": 2494
+  },
+  "flight_call_leak": {
+    "crowtools_flight": 0,
+    "archive_rows": 160,
+    "archive_nonzero_std": 155,
+    "archive_flight": 40,
+    "archive_flight_nonzero_std": 40
+  },
+  "span_durations": {
+    "1": 3162
+  },
+  "row_drift": {
+    "cached_rows": 2494,
+    "cached_recordings": 1195,
+    "current_rows": 2339,
+    "current_recordings": 1098
+  }
+}

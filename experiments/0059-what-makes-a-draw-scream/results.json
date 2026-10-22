@@ -1,0 +1,80 @@
+{
+  "reference": {
+    "real_churn0": 0.868,
+    "real_units_per_bout": 3.37
+  },
+  "clips": {
+    "2": {
+      "seconds": 2.39,
+      "churn0": 0.713,
+      "longest_run_s": 0.107,
+      "units": 5,
+      "units_per_sec": 2.09,
+      "duty_cycle": 0.507,
+      "crest_db": 14.1,
+      "hf_share": 0.015,
+      "tag": "no clear scream \u2014 C+, 'matches shape, coarse'",
+      "matches_0057": true
+    },
+    "3": {
+      "seconds": 1.12,
+      "churn0": 0.964,
+      "longest_run_s": 0.027,
+      "units": 3,
+      "units_per_sec": 2.68,
+      "duty_cycle": 0.292,
+      "crest_db": 15.9,
+      "hf_share": 0.105,
+      "tag": "no clear scream \u2014 D+",
+      "matches_0057": true
+    },
+    "4": {
+      "seconds": 2.76,
+      "churn0": 0.859,
+      "longest_run_s": 0.08,
+      "units": 4,
+      "units_per_sec": 1.45,
+      "duty_cycle": 0.142,
+      "crest_db": 16.1,
+      "hf_share": 0.064,
+      "tag": "SCREAM \u2014 'That is a scream. That is a clear example.' (D+)",
+      "matches_0057": true
+    },
+    "5": {
+      "seconds": 1.51,
+      "churn0": 0.911,
+      "longest_run_s": 0.04,
+      "units": 2,
+      "units_per_sec": 1.33,
+      "duty_cycle": 0.531,
+      "crest_db": 14.6,
+      "hf_share": 0.041,
+      "tag": "no clear scream \u2014 D+",
+      "matches_0057": true
+    },
+    "6": {
+      "seconds": 2.28,
+      "churn0": 0.853,
+      "longest_run_s": 0.04,
+      "units": 6,
+      "units_per_sec": 2.63,
+      "duty_cycle": 0.47,
+      "crest_db": 14.7,
+      "hf_share": 0.013,
+      "tag": "no clear scream \u2014 C- to C+",
+      "matches_0057": true
+    },
+    "7": {
+      "seconds": 1.49,
+      "churn0": 0.721,
+      "longest_run_s": 0.067,
+      "units": 3,
+      "units_per_sec": 2.01,
+      "duty_cycle": 0.603,
+      "crest_db": 14.2,
+      "hf_share": 0.008,
+      "tag": "no clear scream \u2014 D+",
+      "matches_0057": true
+    }
+  }
+}

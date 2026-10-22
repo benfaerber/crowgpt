@@ -1,0 +1,11 @@
+{
+  "feature": "birdnet_pooled_mean_std_max",
+  "n_segments": 2494,
+  "dim": 3072,
+  "per_class_positives": {
+    "alarm call": 1283,
+    "song": 605,
+    "call": 542,
+    "begging": 307
+  }
+}

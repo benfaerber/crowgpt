@@ -1,0 +1,22 @@
+# Deploy config for the public site at cawtalker.org.
+#
+# The name has to match the Worker the dashboard created when the site was first
+# uploaded — cawtalker-promo-site — or a deploy makes a second, separate Worker
+# and the custom domain keeps pointing at the old one.
+#
+# There is no `main`: this is an assets-only Worker, so Cloudflare serves the
+# built files directly and no script runs on the request path.
+#
+# The custom domain (cawtalker.org) is bound to the Worker rather than to any
+# one deployment, so it survives every deploy. Nothing here needs to know about
+# it, and nothing here can break it.
+
+name = "cawtalker-promo-site"
+compatibility_date = "2026-08-06"
+
+[assets]
+# Built by `make build-public`, which roots the page at / rather than /promo.
+# Never point this at the field server's copy — that one is built for a
+# subdirectory and every asset URL would be wrong.
+directory = "./dist"
+not_found_handling = "404-page"

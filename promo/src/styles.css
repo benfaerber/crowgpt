@@ -1,0 +1,2018 @@
+/* Playpen Sans, self-hosted rather than pulled from Google — one less
+ * third-party request, and the page keeps working if fonts.gstatic.com is
+ * blocked. Referenced relatively so Vite hashes it and the URL stays correct
+ * under both base paths (/ for cawtalker.org, /promo for the field server).
+ * Variable weight axis, so one file covers the whole range. OFL 1.1. */
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("./assets/fonts/playpen-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Fredoka, same self-hosting reasoning. A rounded sans between Playpen's
+ * handwriting and a text face: the titles keep the warmth without the wobble.
+ * Variable weight axis 300-700. OFL 1.1. */
+@font-face {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("./assets/fonts/fredoka-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* CrowGPT promo site.
+ *
+ * Warm dark by default — dusk, brick, feathers — with a light theme that is a
+ * selected set of steps rather than an inversion. The two series colours are
+ * validated against both surfaces, so the chart is legible either way.
+ */
+
+:root {
+  color-scheme: dark;
+
+  --surface-0: #17130f;
+  --surface-1: #201a15;
+  --surface-2: #2b231b;
+  --border: #3a2f25;
+  --border-strong: #524335;
+
+  --text-primary: #f7f0e6;
+  --text-secondary: #c8bcab;
+  --text-muted: #97897a;
+
+  /* series-1 is the weak-label arm, series-2 the hand-reviewed one that wins.
+   * Both pass the lightness, chroma, CVD and contrast checks on this surface. */
+  --series-1: #2f9ab5;
+  --series-2: #cf7327;
+  --accent: #e08a3c;
+  --accent-ink: #17130f;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --measure: 62ch;
+  --page: 74rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --surface-0: #faf5ec;
+    --surface-1: #fffdf8;
+    --surface-2: #f1e7d7;
+    --border: #e3d6c2;
+    --border-strong: #c9b79c;
+
+    --text-primary: #241c14;
+    --text-secondary: #5a4c3d;
+    --text-muted: #7d6d5c;
+
+    --series-1: #0b83a6;
+    --series-2: #c96a1e;
+    /* Dark enough to carry small uppercase text (the eyebrow, the step
+     * numbers) at AA on the cream surface — 4.5:1 is the bar, and the lighter
+     * orange that reads better as a button fill missed it at 4.2. */
+    --accent: #a3550f;
+    --accent-ink: #fffdf8;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-0);
+  color: var(--text-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* Fredoka for the big titles — the headline and the section heads — and
+ * Playpen only for the wordmark, where the handwriting is the brand. Smaller
+ * headings (h3, the split dts) stay in the body face. */
+h1,
+h2 {
+  font-family: "Fredoka", ui-rounded, "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.wordmark {
+  font-family: "Playpen Sans", ui-rounded, "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- flying crows -------------------------------------------------------- */
+
+/* A ten-frame flight cycle laid out as one horizontal strip, walked by a
+ * steps() animation over background-position.
+ */
+/* Above the hero content, not behind it: a bird passing behind the headline is
+ * a bird you cannot hover, because the text takes the pointer first. The layer
+ * itself stays click-through, so only the birds catch the mouse and the words
+ * underneath are still selectable. */
+.sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+
+.crow {
+  position: absolute;
+  top: var(--y, 20%);
+  left: 0;
+  /* The sky ignores the pointer; the birds in it do not. */
+  pointer-events: auto;
+  cursor: pointer;
+  width: var(--w, 64px);
+  aspect-ratio: 190 / 263;
+  /* The artwork itself, not a flat silhouette — every frame is registered on
+   * the beak so the bird holds still and only the wings move. */
+  background: url("./assets/crow-flight.png") 0 0 / 1000% 100% no-repeat;
+  /* jump-none, not the default: the strip is ten frames wide, so mask-position
+   * has to stop on 0%, 1/9, … 9/9. Plain steps(10) samples 0–90% instead, which
+   * lands between frames and splices one bird's tail onto the next one's head. */
+  /* Only the wingbeat is CSS. The crossing is scripted, because each bird has to
+   * come back somewhere new rather than repeat one path. */
+  animation: flap var(--flap, 0.75s) steps(10, jump-none) infinite;
+  will-change: transform;
+}
+
+.crow:hover,
+.crow:focus-visible,
+.crow.is-held {
+  opacity: 1;
+  outline: none;
+  filter: drop-shadow(0 0 10px rgb(0 0 0 / 0.55));
+}
+
+/* Gilded, for a bird nobody has pressed yet. The wingbeat is redeclared here
+ * because `animation` is one property — naming only the glow would drop the
+ * flap and leave a stiff bird glowing at you. */
+.crow.is-inviting {
+  opacity: 1;
+  animation:
+    flap var(--flap, 0.75s) steps(10, jump-none) infinite,
+    beckon 1.9s ease-in-out infinite;
+}
+
+@keyframes beckon {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 3px rgb(255 200 90 / 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgb(255 196 74 / 0.95))
+      drop-shadow(0 0 26px rgb(255 170 40 / 0.55));
+  }
+}
+
+/* Hovering wins: once the pointer is on the bird the tooltip is doing the
+ * explaining, and the glow has served its purpose. */
+.crow.is-inviting:hover,
+.crow.is-inviting.is-held {
+  animation: flap var(--flap, 0.75s) steps(10, jump-none) infinite;
+}
+
+.crow-tip {
+  position: fixed;
+  z-index: 40;
+  transform: translateX(-50%);
+  min-width: 12rem;
+  max-width: 19rem;
+  padding: 0.7rem 0.85rem 0.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-1);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  pointer-events: auto;
+}
+
+.crow-tip[hidden] {
+  display: none;
+}
+
+.crow-tip strong {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.crow-tip-role {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.crow-tip p {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.crow-tip-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 560;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.crow-tip-play:hover {
+  filter: brightness(1.08);
+}
+
+/* The two buttons wrap rather than squeeze: "Play Shredder's caw" beside
+   "See Shredder" overflows the tooltip's max-width on a phone. */
+.crow-tip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+/* Secondary to the caw: hearing the bird is the thing this page can do that a
+   photograph cannot, so the photo button reads quieter than the play button. */
+.crow-tip-photo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 560;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.crow-tip-photo:hover,
+.crow-tip-photo:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.crow-tip-play-icon {
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.crow-tip-source {
+  margin-top: 0.5rem;
+  font-size: 0.75rem !important;
+  color: var(--text-muted) !important;
+}
+
+@keyframes flap {
+  to {
+    background-position: 100% 0;
+  }
+}
+
+/* Decorative motion only — a page that moves for someone who asked it not to
+ * is worse than a still one. */
+/* The birds carry names and descriptions, so motion-off parks them rather than
+ * removing them — the script places them and drops the wingbeat. */
+@media (prefers-reduced-motion: reduce) {
+  .crow {
+    animation: none;
+  }
+}
+
+
+/* ---- flock debug panel --------------------------------------------------- */
+
+/* Only ever present with ?crows=debug. Fixed to the bottom so it survives
+ * scrolling, and readable on a phone, which is where the bug shows up. */
+.crow-debug {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  padding: 0.5rem 0.6rem 0.7rem;
+  background: rgb(8 6 4 / 0.92);
+  color: #d8ffd0;
+  border-top: 1px solid rgb(255 255 255 / 0.18);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  line-height: 1.45;
+  overflow-x: auto;
+  pointer-events: none;
+}
+
+.crow-debug strong {
+  display: block;
+  color: #ffcf7a;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.crow-debug pre {
+  margin: 0;
+  white-space: pre;
+}
+
+/* ---- hero ---------------------------------------------------------------- */
+
+/* Full bleed, so the valley runs the width of the window and the birds have
+ * the whole sky to cross. The measure is restored by .hero-inner. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  background-image: url("./assets/slc.jpg");
+  background-size: cover;
+  background-position: center 22%;
+  background-repeat: no-repeat;
+}
+
+/* A scrim, not a tint: the photograph is bright at the top and busy at the
+ * bottom, and the type has to stay readable over both, then hand off to the
+ * page colour without a seam. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(23 19 15 / 0.62) 0%,
+    rgb(23 19 15 / 0.82) 42%,
+    rgb(23 19 15 / 0.97) 78%,
+    var(--surface-0) 100%
+  );
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .hero::before {
+    background: linear-gradient(
+      to bottom,
+      rgb(250 245 236 / 0.55) 0%,
+      rgb(250 245 236 / 0.8) 42%,
+      rgb(250 245 236 / 0.96) 78%,
+      var(--surface-0) 100%
+    );
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 3.5rem;
+}
+
+/* Layout only. The face comes from the h1/.wordmark rule above — repeating
+ * font-family here silently overrode it, since both rules have the same
+ * specificity and this one comes later. */
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.25rem;
+}
+
+.wordmark .caw {
+  color: var(--accent);
+}
+
+/* The CrowGPT mark (images/cawtalker-logo.svg at the repo root) on its
+ * light ground, cut to a circle. The icons bake in enough margin that the
+ * crop never clips the beak; the ring keeps the light disc from glaring
+ * against the dark theme. */
+.wordmark-icon {
+  width: 1.9rem;
+  height: 1.9rem;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px var(--border-strong);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.nav-links a {
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.hero-body {
+  max-width: var(--measure);
+}
+
+.eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+h1 {
+  font-size: clamp(2.7rem, 7vw, 4.6rem);
+  margin-bottom: 1.5rem;
+}
+
+.lede {
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.lede strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.68rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  font-weight: 520;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  border-color: var(--text-muted);
+  background: var(--surface-2);
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 580;
+}
+
+.button-primary:hover {
+  background: var(--accent);
+  filter: brightness(1.07);
+}
+
+/* ---- photos -------------------------------------------------------------- */
+
+.hero-photo {
+  margin: 3.5rem 0 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+}
+
+.hero-photo img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.photo {
+  margin: 2.5rem 0 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+}
+
+.photo img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.hero-photo figcaption,
+.photo figcaption {
+  padding: 0.85rem 1.2rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.gallery .photo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery .photo img {
+  aspect-ratio: 4 / 5;
+  /* The birds sit high in every one of these frames — a centred crop puts the
+   * subject against the top edge or loses it entirely. */
+  object-position: center 35%;
+}
+
+.gallery figcaption {
+  flex: 1;
+}
+
+/* A portrait shot beside prose, rather than a full-bleed band. */
+.aside-photo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-top: 2.5rem;
+}
+
+.aside-photo .photo {
+  margin: 0;
+}
+
+.aside-photo .photo img {
+  aspect-ratio: 1 / 1;
+}
+
+/* Beside a photo the grid is already narrow; letting it wrap to two columns
+ * leaves an empty cell whenever the piece count is odd. */
+.aside-photo .pieces {
+  grid-template-columns: 1fr;
+  margin-top: 0;
+}
+
+/* A phone screenshot in the aside slot keeps its own aspect ratio — the square
+ * crop that suits photographs would cut the map in half — and is reined in so a
+ * full-height phone doesn't tower over the prose beside it. */
+.aside-photo .shot {
+  width: 100%;
+  max-width: 19rem;
+  justify-self: center;
+}
+
+@media (max-width: 720px) {
+  .aside-photo {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ---- phone screenshots --------------------------------------------------- */
+
+/* Never cropped: a phone screenshot is the whole point of its own aspect
+ * ratio, and trimming one to fit a grid throws away the part being shown. */
+.shots {
+  display: grid;
+  /* Seven shots: four and three on a wide page rather than five and an
+   * orphaned pair, now that the grid leads its section. */
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.5rem 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.shot {
+  margin: 0;
+}
+
+.shot img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-1);
+}
+
+.shot figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ---- video --------------------------------------------------------------- */
+
+/* Narrower than the column it sits in. At full width the light post fills the
+ * page and outweighs the photographs either side of it, which are the section's
+ * actual subject. */
+/*
+ * Both clips are portrait, so side by side at the old 46rem each they were
+ * taller than the window and pushed the section apart. Paired and narrower
+ * instead — auto-fit keeps them on one line down to a phone and only stacks
+ * when even that is too tight.
+ */
+.videos {
+  display: grid;
+  /* Paired where there is room, stacked on a phone — two portrait clips side by
+     side on a narrow screen are smaller than their own controls. */
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1.5rem 1.25rem;
+  max-width: 46rem;
+  margin: 2.5rem auto 0;
+}
+
+.video {
+  margin: 0;
+}
+
+.video video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+}
+
+.video figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ---- lightbox ------------------------------------------------------------ */
+
+.hero-photo img,
+.photo img,
+.shot img {
+  cursor: zoom-in;
+}
+
+.lightbox-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgb(8 6 4 / 0.94);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-stage {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: min(100%, 78rem);
+  max-height: 100%;
+}
+
+.lightbox-stage img,
+.lightbox-stage video {
+  min-height: 0;
+  max-height: calc(100vh - 9rem);
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.lightbox-stage video[hidden],
+.lightbox-stage img[hidden] {
+  display: none;
+}
+
+/* Held back until the new picture has decoded — see showImage() in lightbox.ts.
+   visibility rather than display, so the stage keeps its box and the viewer
+   does not jump as each photo arrives. */
+.lightbox-stage img.is-loading {
+  visibility: hidden;
+}
+
+.lightbox-stage figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  color: rgb(230 220 208 / 0.85);
+  font-size: 0.9rem;
+}
+
+.lightbox-counter {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  color: rgb(230 220 208 / 0.55);
+}
+
+.lightbox-close,
+.lightbox-nav {
+  position: absolute;
+  background: rgb(255 255 255 / 0.08);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  color: #f7f0e6;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  transition: background 0.15s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+  background: rgb(255 255 255 / 0.18);
+}
+
+.lightbox-close {
+  top: 1rem;
+  right: 1rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  font-size: 1.6rem;
+}
+
+.lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.8rem;
+}
+
+.lightbox-prev {
+  left: 1rem;
+}
+
+.lightbox-next {
+  right: 1rem;
+}
+
+@media (max-width: 640px) {
+  .lightbox-nav {
+    top: auto;
+    bottom: 1rem;
+    transform: none;
+  }
+}
+
+/* ---- stat row ------------------------------------------------------------ */
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1px;
+  margin: 3.5rem 0 0;
+  padding: 0;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.stat {
+  background: var(--surface-1);
+  padding: 1.4rem 1.35rem 1.5rem;
+}
+
+.stat dt {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  min-height: 2.2em;
+}
+
+.stat-value {
+  margin: 0.55rem 0 0.4rem;
+  font-family: ui-serif, Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.stat-unit {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-left: 0.1rem;
+}
+
+.stat-note {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ---- sections ------------------------------------------------------------ */
+
+main {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  position: relative;
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Anything that is not the flight layer sits above it. */
+.section > *:not(.sky) {
+  position: relative;
+  z-index: 1;
+}
+
+.section h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  margin-bottom: 1.25rem;
+}
+
+.section-lede {
+  max-width: var(--measure);
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.section-lede strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.section-lede-after {
+  margin-top: 2.5rem;
+}
+
+/* ---- cards --------------------------------------------------------------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.card-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-muted);
+}
+
+.card-tag::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  flex: none;
+}
+
+.card-done .card-tag::before {
+  background: var(--series-1);
+}
+
+.card-open .card-tag::before {
+  background: var(--series-2);
+}
+
+/* ---- split --------------------------------------------------------------- */
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem 3rem;
+  margin: 2.5rem 0 0;
+}
+
+.split-item dt {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  padding-top: 1rem;
+  border-top: 2px solid var(--border-strong);
+}
+
+.split-done dt {
+  border-top-color: var(--series-1);
+}
+
+.split-open dt {
+  border-top-color: var(--series-2);
+}
+
+.split-status {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 550;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.split-item dd {
+  margin: 0.7rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ---- figure -------------------------------------------------------------- */
+
+.figure {
+  margin: 2.5rem 0 0;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+}
+
+.figure-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.figure-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.figure-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: var(--measure);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.87rem;
+}
+
+.legend-swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 3px;
+  flex: none;
+  transform: translateY(0.05rem);
+}
+
+.legend-label {
+  color: var(--text-primary);
+}
+
+.legend-note {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+[data-series="1"] {
+  background: var(--series-1);
+}
+
+[data-series="2"] {
+  background: var(--series-2);
+}
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.bar-group-name {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.6rem;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 3px 0;
+  outline: none;
+}
+
+.bar-track {
+  flex: 1;
+  min-width: 0;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--surface-2);
+}
+
+.bar-fill {
+  height: 100%;
+  width: var(--fraction);
+  border-radius: 2px 4px 4px 2px;
+  transition: filter 0.15s ease;
+}
+
+.bar-value {
+  width: 2.9rem;
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+  font-weight: 560;
+  color: var(--text-primary);
+}
+
+.bar:hover .bar-fill,
+.bar:focus-visible .bar-fill {
+  filter: brightness(1.12);
+}
+
+.bar:focus-visible .bar-track {
+  outline: 2px solid var(--text-muted);
+  outline-offset: 3px;
+}
+
+.bar-tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  z-index: 2;
+  display: none;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-0);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.28);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.bar-tip strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.bar-tip-value {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.bar:hover .bar-tip,
+.bar:focus-visible .bar-tip {
+  display: flex;
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 3.6rem;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.figure-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.75rem;
+}
+
+.figure-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+
+.table-toggle {
+  flex: none;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.table-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+.table-wrap {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+}
+
+.table-wrap table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.88rem;
+}
+
+.table-wrap caption {
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding-bottom: 0.6rem;
+}
+
+.table-wrap th,
+.table-wrap td {
+  text-align: left;
+  padding: 0.5rem 0.9rem 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.table-wrap thead th {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.table-wrap tbody th {
+  color: var(--text-primary);
+}
+
+.table-wrap td {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+/* ---- steps --------------------------------------------------------------- */
+
+.steps {
+  list-style: none;
+  counter-reset: step;
+  padding: 0;
+  margin: 2.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.75rem 2rem;
+}
+
+.steps li {
+  counter-increment: step;
+  border-top: 2px solid var(--border-strong);
+  padding-top: 1rem;
+}
+
+.steps h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.steps h3::before {
+  content: counter(step);
+  display: block;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.35rem;
+}
+
+.steps p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+/* ---- pieces & callouts --------------------------------------------------- */
+
+.pieces {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1px;
+  margin-top: 2.5rem;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.piece {
+  background: var(--surface-1);
+  padding: 1.6rem;
+}
+
+.piece h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.piece p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.callout {
+  margin-top: 1.75rem;
+  padding: 1.6rem 1.7rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: var(--surface-1);
+}
+
+.callout h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.callout p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: var(--measure);
+}
+
+.callout strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ---- honest list --------------------------------------------------------- */
+
+.honest-list {
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-width: 72ch;
+}
+
+.honest-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  color: var(--text-secondary);
+  font-size: 0.97rem;
+}
+
+.honest-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.honest-list strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ---- pull quote ---------------------------------------------------------- */
+
+.pull {
+  margin: 2.5rem 0 0;
+  padding: 0 0 0 1.5rem;
+  border-left: 3px solid var(--accent);
+  font-family: ui-serif, Georgia, serif;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.4;
+  color: var(--text-primary);
+  max-width: 46ch;
+}
+
+/* ---- code ---------------------------------------------------------------- */
+
+.code {
+  margin: 1.5rem 0 2rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.code code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  white-space: pre;
+}
+
+.code .comment {
+  color: var(--text-muted);
+}
+
+.section-cta {
+  border-bottom: none;
+}
+
+
+
+/* ---- reading list -------------------------------------------------------- */
+
+.reading-list {
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1rem;
+}
+
+.reading-list li {
+  padding: 1.5rem 1.6rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+}
+
+.reading-list > li > a {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration-color: var(--accent);
+}
+
+.reading-list p {
+  margin-top: 0.6rem;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+/* ---- credits page -------------------------------------------------------- */
+
+.credits-page {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 4rem;
+}
+
+.credits-page .nav {
+  padding-bottom: 3rem;
+}
+
+.credits-page .wordmark {
+  text-decoration: none;
+}
+
+.credits-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin-bottom: 1.25rem;
+}
+
+.credits-page .stat-row {
+  margin: 2.5rem 0 0;
+}
+
+.credits-controls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 3rem 0 0;
+}
+
+.credits-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1 1 22rem;
+}
+
+.credits-search span {
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.credits-search input {
+  padding: 0.6rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.credits-search input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.credits-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.credits-roll {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.credit {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.credit-name {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--text-primary);
+}
+
+.credit-tally {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+/* The IDs are the point of the page, so they wrap freely and stay small enough
+ * that a recordist with four hundred of them is still one readable block. */
+.credit-ids {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.9;
+  word-break: break-word;
+}
+
+.credit-id {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+  padding: 0.1rem 0.35rem;
+  border-radius: 5px;
+  background: var(--surface-2);
+}
+
+.credit-id:hover {
+  color: var(--text-primary);
+  background: var(--surface-1);
+  outline: 1px solid var(--border-strong);
+}
+
+.credits-loading {
+  padding: 2rem 0;
+  color: var(--text-muted);
+}
+
+/* ---- footer -------------------------------------------------------------- */
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface-1);
+}
+
+.footer-grid {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 2rem;
+}
+
+.footer h3 {
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.7rem;
+  font-weight: 550;
+}
+
+.footer-note {
+  font-size: 0.87rem;
+  color: var(--text-secondary);
+  max-width: 42ch;
+  margin-top: 0.6rem;
+}
+
+.footer-legal {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 2.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  /* The wordmark takes its own line and the links wrap under it. Left as one
+   * row they run off the side of the screen — .nav wraps, but the link strip
+   * inside it did not, so the last item was simply cut off the edge. */
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  /* Faded on a phone. There is no room to keep the birds clear of the words, so
+   * they become atmosphere rather than an obstacle — on a wide screen they have
+   * their own sky and stay solid. Hovering is a desktop idea anyway; on touch
+   * nobody is reading a tooltip off a moving bird. */
+  .crow {
+    opacity: 0.62;
+  }
+
+  /* No play button on touch. A tap on the bird already fires it, and the button
+   * exists to solve a desktop problem — pressing a target that keeps moving. */
+  .crow-tip-play {
+    display: none;
+  }
+
+  .crow-tip-source {
+    margin-top: 0.6rem;
+  }
+
+  /* The two demo buttons share a line and the honest one takes the next; a
+   * third squeezed onto one row is narrower than its own label. */
+  .hero-actions {
+    gap: 0.5rem;
+  }
+
+  .hero-actions .button {
+    flex: 1 1 40%;
+    min-width: 0;
+    padding: 0.62rem 0.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .hero-photo {
+    margin-top: 2.5rem;
+  }
+
+  .hero-photo img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .stat-row {
+    margin-top: 2.5rem;
+  }
+
+  .bar-value {
+    width: 2.5rem;
+  }
+
+  .scale {
+    padding-right: 3.2rem;
+  }
+}
+
+/* The CrowGPT comparison players: a strip of sky for a progress bar, a crow
+ * for a playhead. The sprite and its wingbeat are the flock's; only the
+ * crossing differs — here it is playback progress, not a scripted flight. */
+.caw-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.caw-player {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.caw-player figcaption {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.caw-deck {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  /* Captions wrap to different line counts; pinning the deck to the figure's
+     bottom keeps the three players on one level. */
+  margin-top: auto;
+}
+
+.caw-play {
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.caw-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.45rem 0 0.45rem 0.75rem;
+  border-color: transparent transparent transparent currentColor;
+  translate: 2px 0;
+}
+
+.caw-play.is-playing::before {
+  width: 0.7rem;
+  height: 0.8rem;
+  border-width: 0;
+  border-left: 0.26rem solid currentColor;
+  border-right: 0.26rem solid currentColor;
+  translate: 0 0;
+}
+
+.caw-play:hover {
+  filter: brightness(1.08);
+}
+
+.caw-sky {
+  position: relative;
+  flex: 1;
+  height: 4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  /* Day sky, deliberately not a theme surface: the same blue reads as sky on
+   * the dark page and the light one. */
+  background: linear-gradient(180deg, #a8d4f2 0%, #7ab5e0 55%, #4f90c4 100%);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.caw-sky-crow {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  left: 5px;
+  width: 44px;
+  aspect-ratio: 84 / 74;
+  /* A cawing crow, not the flock's flying one: sixteen uniform steps baked
+   * from the source gif, its caw-then-hold rhythm reproduced by repeating the
+   * held frame, so play-state can freeze it mid-bob like any sprite. */
+  background: url("./assets/crow-caw.png") 0 0 / 1600% 100% no-repeat;
+  animation: flap 1.6s steps(16, jump-none) infinite;
+  animation-play-state: paused;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.25));
+  pointer-events: none;
+}
+
+/* The playhead: squiggly sound waves out of the beak. Two sine layers — a
+ * crisp white one over a longer, fainter navy one — sliding right at
+ * different speeds while the clip plays, so the sound reads as leaving the
+ * bird. Width is the progress; the tip of the squiggle is the playhead. */
+.caw-wave {
+  position: absolute;
+  left: 38px;
+  top: calc(50% - 10px);
+  translate: 0 -50%;
+  height: 18px;
+  width: 0;
+  pointer-events: none;
+  background-image:
+    url('data:image/svg+xml;utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2226%22%20height=%2218%22%20viewBox=%220%200%2026%2018%22%3E%3Cpath%20d=%22M0%209%20Q6.5%202%2013%209%20T26%209%22%20fill=%22none%22%20stroke=%22rgb(255%20255%20255%20/%200.95)%22%20stroke-width=%222.2%22%20stroke-linecap=%22round%22/%3E%3C/svg%3E'),
+    url('data:image/svg+xml;utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2242%22%20height=%2218%22%20viewBox=%220%200%2042%2018%22%3E%3Cpath%20d=%22M0%209%20Q10.5%2017%2021%209%20T42%209%22%20fill=%22none%22%20stroke=%22rgb(21%2062%2094%20/%200.55)%22%20stroke-width=%222.6%22%20stroke-linecap=%22round%22/%3E%3C/svg%3E');
+  background-repeat: repeat-x, repeat-x;
+  background-position: 0 50%, 0 50%;
+  background-size: 26px 18px, 42px 18px;
+  /* The right edge is a hard cut mid-squiggle otherwise. */
+  mask-image: linear-gradient(90deg, #000 calc(100% - 10px), transparent);
+  transition: width 0.25s linear;
+  animation: wave-out 0.9s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes wave-out {
+  to {
+    /* One period of each layer per cycle — different tile widths, so the two
+     * squiggles drift apart and the wave shimmers instead of marching. */
+    background-position: 26px 50%, 42px 50%;
+  }
+}
+
+.caw-sky-crow.is-flying,
+.caw-wave.is-flying {
+  animation-play-state: running;
+}
+
+/* The generated players get the machine: same sprite with a chrome faceplate,
+ * wing armor and a red eye baked in, and the squiggle out of its beak turns
+ * red to match. The field recording keeps the flesh-and-feather bird. */
+.caw-player-bot .caw-sky-crow {
+  background-image: url("./assets/crow-caw-cyborg.png");
+}
+
+.caw-player-bot .caw-wave {
+  background-image:
+    url('data:image/svg+xml;utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2226%22%20height=%2218%22%20viewBox=%220%200%2026%2018%22%3E%3Cpath%20d=%22M0%209%20Q6.5%202%2013%209%20T26%209%22%20fill=%22none%22%20stroke=%22rgb(255%2059%2048%20/%200.95)%22%20stroke-width=%222.2%22%20stroke-linecap=%22round%22/%3E%3C/svg%3E'),
+    url('data:image/svg+xml;utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2242%22%20height=%2218%22%20viewBox=%220%200%2042%2018%22%3E%3Cpath%20d=%22M0%209%20Q10.5%2017%2021%209%20T42%209%22%20fill=%22none%22%20stroke=%22rgb(120%2015%2020%20/%200.6)%22%20stroke-width=%222.6%22%20stroke-linecap=%22round%22/%3E%3C/svg%3E');
+}
+
+.caw-clock {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- context chip tooltip ------------------------------------------------ */
+/*
+ * The words that mention context chips, with the vocabulary a hover away. The
+ * term stays inline in the sentence; the panel is absolutely positioned off it,
+ * centred and then nudged back inside the viewport by chip-tip.ts.
+ */
+
+.chips {
+  position: relative;
+  display: inline-block;
+}
+
+.chips-term {
+  font: inherit;
+  color: inherit;
+  font-weight: inherit;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: help;
+  /* Dotted rather than solid, so it reads as "there is more here" and not as a
+     link that will navigate away. */
+  border-bottom: 1px dotted var(--border-strong);
+}
+
+.chips-term:hover,
+.chips-term:focus-visible {
+  border-bottom-color: var(--accent);
+}
+
+.chips-tip {
+  /* Fixed, not absolute: the "labeling desk" host sits inside the .pieces
+     card grid, whose overflow: hidden (there for the rounded corners) clips
+     an absolutely positioned panel in half. Fixed positioning escapes that
+     clip; chip-tip.ts supplies the anchor from the word's viewport rect. */
+  position: fixed;
+  left: var(--anchor-x, 50%);
+  bottom: var(--anchor-bottom, auto);
+  z-index: 3;
+  transform: translateX(calc(-50% + var(--shift, 0px)));
+  display: none;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: max-content;
+  max-width: min(30rem, calc(100vw - 1.5rem));
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-0);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.32);
+  text-align: left;
+  /* 23 chips stack taller than a phone. Cap it and let the panel scroll rather
+     than run off the bottom with no way to reach the rest. */
+  /* chip-tip.ts measures the room on the chosen side and sets --max-height when
+     the panel does not fit; the fallback is for the moment before it runs. */
+  max-height: var(--max-height, min(60vh, 34rem));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/*
+ * Bridges the gap between the word and the panel. The panel is a child of the
+ * host, so moving onto it does not fire pointerleave — but the 8px between them
+ * is not, and crossing it would close the thing on its way to being read.
+ */
+.chips-tip::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+
+.chips:not([data-below]) .chips-tip::before {
+  bottom: -10px;
+}
+
+.chips[data-below] .chips-tip::before {
+  top: -10px;
+}
+
+.chips[data-open] .chips-tip {
+  display: flex;
+}
+
+/* Not enough room above the word — the panel goes under it instead. */
+.chips[data-below] .chips-tip {
+  bottom: auto;
+  top: var(--anchor-top, calc(100% + 8px));
+}
+
+.chips-tip-head {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.chips-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.chips-group-name {
+  flex: none;
+  width: 4.2rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.chips-chip {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  /* The label column costs too much of a phone's width; stack instead. */
+  .chips-group {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .chips-group-name {
+    width: auto;
+  }
+
+  .chips-chip {
+    white-space: normal;
+  }
+}
+
+.chips-chip[data-unused] {
+  border-style: dashed;
+  background: none;
+  color: var(--text-muted);
+}

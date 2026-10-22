@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrowGPT credits</title>
+    <meta
+      name="description"
+      content="Every Xeno-canto recording CrowGPT learned from, with its recordist and its ID."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icon-16.png" />
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png" />
+    <script type="module" src="/src/credits.ts"></script>
+  </head>
+  <body>
+    <main class="credits-page">
+      <nav class="nav">
+        <a class="wordmark" href="./">
+          <img
+            class="wordmark-icon"
+            src="./src/assets/icon-180.png"
+            alt=""
+            width="180"
+            height="180"
+          /><span><span class="caw">Caw</span>Talker</span>
+        </a>
+        <div class="nav-links"><a href="./">← Back to the project</a></div>
+      </nav>
+
+      <h1 class="credits-title">Credits</h1>
+      <p class="section-lede">
+        CrowGPT learned from recordings made by people who went out, stood still, and
+        pointed a microphone at a bird, then gave the result away under a Creative
+        Commons licence. Every one of them is listed here, with the ID of each recording.
+      </p>
+      <p class="section-lede">
+        All of it comes from <a href="https://xeno-canto.org/">Xeno-canto</a>. Each ID
+        links back to the recording on their site, where the original audio, the notes and
+        the exact licence live.
+      </p>
+
+      <dl class="stat-row" id="credits-summary"></dl>
+
+      <div class="credits-controls">
+        <label class="credits-search">
+          <span>Find a recordist or an ID</span>
+          <input type="search" id="credits-filter" placeholder="e.g. Magarian, or 543338" />
+        </label>
+        <p class="credits-count" id="credits-count"></p>
+      </div>
+
+      <div id="credits-roll" class="credits-roll">
+        <p class="credits-loading">Loading the roll…</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-legal">
+        Recordings © their recordists, used under the Creative Commons licences listed
+        above. <a href="./">Back to CrowGPT</a>
+      </p>
+    </footer>
+  </body>
+</html>

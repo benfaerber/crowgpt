@@ -1,0 +1,25 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+
+    // React Native 0.86 ships public .d.ts files that import from paths its own
+    // package.json exports map sets to null — View.d.ts imports `Constructor`
+    // from react-native/types/private/Utilities, which resolution then refuses
+    // to load. An unresolved `Constructor` breaks View's base class, so View's
+    // instance type has no `props`, so TypeScript rejects *every* React Native
+    // component with "cannot be used as a JSX component".
+    //
+    // That one unresolved import produced 562 errors and made this check
+    // useless. It read like a React 19 incompatibility and was a packaging bug.
+    // These mappings let type resolution reach the files RN's own declarations
+    // depend on. Metro never consults this file, so bundling is unaffected.
+    "paths": {
+      "react-native/types/*": ["./node_modules/react-native/types/*"],
+      "react-native/Libraries/*": ["./node_modules/react-native/Libraries/*"]
+    }
+  },
+  // tests/ targets Node, not the app runtime — it is typechecked by
+  // tsconfig.tests.json (make test) and would otherwise fail here on node: imports.
+  "exclude": ["node_modules", "tests", ".test-build"]
+}

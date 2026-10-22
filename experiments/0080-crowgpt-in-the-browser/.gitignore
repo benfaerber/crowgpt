@@ -1,0 +1,5 @@
+node_modules/
+web/models/
+web/vendor/
+package-lock.json
+*.wav

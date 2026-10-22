@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CrowGPT in the browser</title>
+<style>
+  :root {
+    --ink: #1d232a; --soft: #5b6673; --line: #d9dee5; --card: #ffffff;
+    --ground: #f2f4f7; --accent: #14532d; --accent-soft: #dcfce7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 16px/1.5 system-ui, sans-serif;
+  }
+  main { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+  .sub { color: var(--soft); margin: 0 0 1.75rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;
+  }
+  label { display: block; font-size: .85rem; color: var(--soft); margin-bottom: .3rem; }
+  .row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .row > div { flex: 1 1 10rem; }
+  select, input {
+    width: 100%; padding: .45rem .6rem; font: inherit;
+    border: 1px solid var(--line); border-radius: 8px; background: var(--card);
+  }
+  button {
+    font: inherit; font-weight: 600; padding: .55rem 1.4rem; border: 0;
+    border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  progress { width: 100%; height: 10px; accent-color: var(--accent); }
+  .status { font-size: .85rem; color: var(--soft); margin-top: .5rem; min-height: 1.2em; }
+  .clip { display: flex; align-items: center; gap: .9rem; padding: .6rem 0; border-top: 1px solid var(--line); }
+  .clip:first-child { border-top: 0; }
+  .clip audio { flex: 1 1 auto; min-width: 0; height: 38px; }
+  .clip .meta { font-size: .8rem; color: var(--soft); white-space: nowrap; }
+  .clip a { color: var(--accent); font-size: .8rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; padding: .1rem .5rem;
+    border-radius: 99px; background: var(--accent-soft); color: var(--accent);
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>CrowGPT in the browser</h1>
+  <p class="sub">The whole model runs on this page — nothing is sent anywhere.
+    <span class="badge" id="engine-badge">loading…</span></p>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <label for="species">Species</label>
+        <select id="species"></select>
+      </div>
+      <div>
+        <label for="temperature">Temperature</label>
+        <input id="temperature" type="number" step="0.05" min="0.5" max="1.6">
+      </div>
+      <div>
+        <label for="seed">Seed (blank = random)</label>
+        <input id="seed" type="number" placeholder="random">
+      </div>
+    </div>
+    <button id="generate" disabled>Generate a crow</button>
+    <div style="margin-top: 1rem">
+      <progress id="progress" value="0" max="1" hidden></progress>
+      <div class="status" id="status">Loading model…</div>
+    </div>
+  </div>
+
+  <div class="card" id="clips-card" hidden>
+    <div id="clips"></div>
+  </div>
+</main>
+
+<script type="module">
+import * as ort from "./vendor/ort.all.min.mjs";
+import { CrowGpt, seeded, wavBytes } from "./crowgpt.js";
+
+const el = (id) => document.getElementById(id);
+const status = (text) => { el("status").textContent = text; };
+
+ort.env.wasm.wasmPaths = new URL("vendor/", document.baseURI).href;
+ort.env.wasm.numThreads = crossOriginIsolated
+  ? Math.min(4, navigator.hardwareConcurrency || 1) : 1;
+
+let model = null;
+let engine = "wasm";
+
+async function load() {
+  const providers = [];
+  if (navigator.gpu) providers.push("webgpu");
+  providers.push("wasm");
+  for (const provider of providers) {
+    try {
+      model = await CrowGpt.load(ort, "./models", {
+        sessionOptions: { executionProviders: [provider] },
+      });
+      engine = provider;
+      break;
+    } catch (error) {
+      console.warn(`${provider} failed`, error);
+    }
+  }
+  if (!model) { status("Could not initialise any engine."); return; }
+
+  el("engine-badge").textContent =
+    engine + (engine === "wasm" ? ` ×${ort.env.wasm.numThreads} threads` : "");
+  const select = el("species");
+  for (const slug of model.config.species) {
+    const option = document.createElement("option");
+    option.value = slug;
+    option.textContent = slug.replaceAll("-", " ");
+    if (slug === model.config.default_species) option.selected = true;
+    select.appendChild(option);
+  }
+  el("temperature").value = model.config.sampling.temperature;
+  el("generate").disabled = false;
+  status(`${model.config.title} ready.`);
+}
+
+async function generate() {
+  el("generate").disabled = true;
+  el("progress").hidden = false;
+  const seedText = el("seed").value.trim();
+  const seed = seedText === "" ? Math.floor(Math.random() * 1e9) : Number(seedText);
+  const began = performance.now();
+  try {
+    const result = await model.generate({
+      species: el("species").value,
+      temperature: Number(el("temperature").value),
+      random: seeded(seed),
+      onStep: async (done, total) => {
+        el("progress").value = done / total;
+        status(`Sampling… ${done} tokens, ` +
+          `${(done / ((performance.now() - began) / 1000)).toFixed(0)} tok/s`);
+        await new Promise((r) => setTimeout(r));
+      },
+    });
+    if (result.audio.length === 0) {
+      status("The model went straight to EOS — try another seed.");
+      return;
+    }
+    addClip(result, seed);
+    status(`${(result.audio.length / model.config.sample_rate).toFixed(2)} s of crow ` +
+      `in ${result.sampleSeconds.toFixed(1)} s ` +
+      `(${(result.steps / result.sampleSeconds).toFixed(0)} tok/s, ` +
+      `decode ${result.decodeSeconds.toFixed(2)} s)`);
+  } catch (error) {
+    console.error(error);
+    status(`Failed: ${error.message}`);
+  } finally {
+    el("progress").hidden = true;
+    el("progress").value = 0;
+    el("generate").disabled = false;
+  }
+}
+
+function addClip(result, seed) {
+  const bytes = wavBytes(result.audio, model.config.sample_rate);
+  const url = URL.createObjectURL(new Blob([bytes], { type: "audio/wav" }));
+  const clip = document.createElement("div");
+  clip.className = "clip";
+  const species = el("species").value;
+  clip.innerHTML = `
+    <audio controls src="${url}"></audio>
+    <span class="meta">${species} · seed ${seed}</span>
+    <a href="${url}" download="crowgpt-${species}-${seed}.wav">wav</a>`;
+  el("clips").prepend(clip);
+  el("clips-card").hidden = false;
+  clip.querySelector("audio").play().catch(() => {});
+}
+
+el("generate").addEventListener("click", generate);
+await load();
+const auto = new URLSearchParams(location.search).get("auto");
+if (auto !== null && model) {
+  el("seed").value = auto;
+  await generate();
+  document.title = "done: " + el("status").textContent;
+}
+</script>
+</body>
+</html>

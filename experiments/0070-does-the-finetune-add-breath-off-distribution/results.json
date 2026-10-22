@@ -1,0 +1,27 @@
+{
+  "roundtrip": {
+    "n": 150,
+    "mean_delta": {
+      "pitch_strength": -0.0331,
+      "flatness": 0.0029,
+      "centroid_hz": 55.1601,
+      "attack_ms": -2.1728
+    },
+    "wilcoxon_p_pitch": 0.0,
+    "dusty_finetuned": 48,
+    "dusty_frozen": 34
+  },
+  "generated": {
+    "n": 150,
+    "mean_delta": {
+      "pitch_strength": -0.0281,
+      "flatness": 0.0003,
+      "centroid_hz": 45.9976,
+      "attack_ms": -3.2368
+    },
+    "wilcoxon_p_pitch": 0.0,
+    "dusty_finetuned": 55,
+    "dusty_frozen": 47
+  },
+  "between_conditions_mw_p_pitch": 0.45401
+}

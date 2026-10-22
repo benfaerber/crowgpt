@@ -1,0 +1,354 @@
+{
+  "flat_k16": {
+    "stages": [
+      {
+        "stage": 0,
+        "n": 9724,
+        "cross_entropy_bits": 4.1473,
+        "predictive_entropy_bits": 4.1793,
+        "marginal_bits": 6.3,
+        "bits_recovered": 2.1527,
+        "overconfidence": -0.032,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 7.57,
+        "bits_recovered_0028": 3.4227
+      },
+      {
+        "stage": 1,
+        "n": 9724,
+        "cross_entropy_bits": 5.5159,
+        "predictive_entropy_bits": 5.5516,
+        "marginal_bits": 7.06,
+        "bits_recovered": 1.5441,
+        "overconfidence": -0.0357,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 8.37,
+        "bits_recovered_0028": 2.8541
+      },
+      {
+        "stage": 2,
+        "n": 9724,
+        "cross_entropy_bits": 6.0589,
+        "predictive_entropy_bits": 6.1101,
+        "marginal_bits": 7.34,
+        "bits_recovered": 1.2811,
+        "overconfidence": -0.0512,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 8.86,
+        "bits_recovered_0028": 2.8011
+      },
+      {
+        "stage": 3,
+        "n": 9724,
+        "cross_entropy_bits": 6.7471,
+        "predictive_entropy_bits": 6.7448,
+        "marginal_bits": 7.5,
+        "bits_recovered": 0.7529,
+        "overconfidence": 0.0023,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.19,
+        "bits_recovered_0028": 2.4429
+      },
+      {
+        "stage": 4,
+        "n": 9724,
+        "cross_entropy_bits": 7.182,
+        "predictive_entropy_bits": 7.1794,
+        "marginal_bits": 7.63,
+        "bits_recovered": 0.448,
+        "overconfidence": 0.0026,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.39,
+        "bits_recovered_0028": 2.208
+      },
+      {
+        "stage": 5,
+        "n": 9724,
+        "cross_entropy_bits": 7.4888,
+        "predictive_entropy_bits": 7.4814,
+        "marginal_bits": 7.73,
+        "bits_recovered": 0.2412,
+        "overconfidence": 0.0073,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.49,
+        "bits_recovered_0028": 2.0012
+      },
+      {
+        "stage": 6,
+        "n": 9724,
+        "cross_entropy_bits": 7.7319,
+        "predictive_entropy_bits": 7.7326,
+        "marginal_bits": 7.8,
+        "bits_recovered": 0.0681,
+        "overconfidence": -0.0006,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.55,
+        "bits_recovered_0028": 1.8181
+      },
+      {
+        "stage": 7,
+        "n": 9724,
+        "cross_entropy_bits": 7.8885,
+        "predictive_entropy_bits": 7.9105,
+        "marginal_bits": 7.84,
+        "bits_recovered": -0.0485,
+        "overconfidence": -0.0219,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.55,
+        "bits_recovered_0028": 1.6615
+      },
+      {
+        "stage": 8,
+        "n": 9724,
+        "cross_entropy_bits": 8.1027,
+        "predictive_entropy_bits": 8.111,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": -0.0083,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.63,
+        "bits_recovered_0028": 1.5273
+      },
+      {
+        "stage": 9,
+        "n": 9724,
+        "cross_entropy_bits": 8.1423,
+        "predictive_entropy_bits": 8.1681,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": -0.0258,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.58,
+        "bits_recovered_0028": 1.4377
+      },
+      {
+        "stage": 10,
+        "n": 9724,
+        "cross_entropy_bits": 8.2661,
+        "predictive_entropy_bits": 8.2673,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": -0.0012,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.58,
+        "bits_recovered_0028": 1.3139
+      },
+      {
+        "stage": 11,
+        "n": 9724,
+        "cross_entropy_bits": 8.3148,
+        "predictive_entropy_bits": 8.3088,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": 0.006,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.56,
+        "bits_recovered_0028": 1.2452
+      },
+      {
+        "stage": 12,
+        "n": 9724,
+        "cross_entropy_bits": 8.3172,
+        "predictive_entropy_bits": 8.3499,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": -0.0327,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.5,
+        "bits_recovered_0028": 1.1828
+      },
+      {
+        "stage": 13,
+        "n": 9724,
+        "cross_entropy_bits": 8.3983,
+        "predictive_entropy_bits": 8.3792,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": 0.0191,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.47,
+        "bits_recovered_0028": 1.0717
+      },
+      {
+        "stage": 14,
+        "n": 9724,
+        "cross_entropy_bits": 8.4058,
+        "predictive_entropy_bits": 8.4207,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": -0.015,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.43,
+        "bits_recovered_0028": 1.0242
+      },
+      {
+        "stage": 15,
+        "n": 9724,
+        "cross_entropy_bits": 8.441,
+        "predictive_entropy_bits": 8.4529,
+        "marginal_bits": NaN,
+        "bits_recovered": NaN,
+        "overconfidence": -0.0119,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.38,
+        "bits_recovered_0028": 0.939
+      }
+    ],
+    "prefix": {
+      "n": 144,
+      "cross_entropy_bits": 1.7714,
+      "calibration_t": 0.95
+    },
+    "species": {
+      "american-crow": 7.43,
+      "carrion-crow": 7.3641,
+      "common-raven": 7.039,
+      "eurasian-jackdaw": 7.6662,
+      "hooded-crow": 6.9553,
+      "rook": 7.627
+    },
+    "eos": {
+      "ending": {
+        "n": 72,
+        "median_rank": 0.0,
+        "inside_top_200": 1.0
+      },
+      "mid": {
+        "n": 9724,
+        "median_rank": 290.0,
+        "inside_top_200": 0.3817
+      }
+    },
+    "verdict": "flat calibration \u2014 a per-stage temperature is a global one in a costume, and the idea is dead",
+    "coarse_bits_recovered": 2.401,
+    "fine_bits_recovered": 1.218
+  },
+  "fair_k8": {
+    "stages": [
+      {
+        "stage": 0,
+        "n": 27720,
+        "cross_entropy_bits": 4.2924,
+        "predictive_entropy_bits": 4.3205,
+        "marginal_bits": 6.3,
+        "bits_recovered": 2.0076,
+        "overconfidence": -0.0281,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 7.57,
+        "bits_recovered_0028": 3.2776
+      },
+      {
+        "stage": 1,
+        "n": 27720,
+        "cross_entropy_bits": 5.6052,
+        "predictive_entropy_bits": 5.6576,
+        "marginal_bits": 7.06,
+        "bits_recovered": 1.4548,
+        "overconfidence": -0.0524,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 8.37,
+        "bits_recovered_0028": 2.7648
+      },
+      {
+        "stage": 2,
+        "n": 27720,
+        "cross_entropy_bits": 6.1723,
+        "predictive_entropy_bits": 6.212,
+        "marginal_bits": 7.34,
+        "bits_recovered": 1.1677,
+        "overconfidence": -0.0397,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 8.86,
+        "bits_recovered_0028": 2.6877
+      },
+      {
+        "stage": 3,
+        "n": 27720,
+        "cross_entropy_bits": 6.7868,
+        "predictive_entropy_bits": 6.8079,
+        "marginal_bits": 7.5,
+        "bits_recovered": 0.7132,
+        "overconfidence": -0.0211,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.19,
+        "bits_recovered_0028": 2.4032
+      },
+      {
+        "stage": 4,
+        "n": 27720,
+        "cross_entropy_bits": 7.2705,
+        "predictive_entropy_bits": 7.2586,
+        "marginal_bits": 7.63,
+        "bits_recovered": 0.3595,
+        "overconfidence": 0.0119,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.39,
+        "bits_recovered_0028": 2.1195
+      },
+      {
+        "stage": 5,
+        "n": 27720,
+        "cross_entropy_bits": 7.6069,
+        "predictive_entropy_bits": 7.6022,
+        "marginal_bits": 7.73,
+        "bits_recovered": 0.1231,
+        "overconfidence": 0.0048,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.49,
+        "bits_recovered_0028": 1.8831
+      },
+      {
+        "stage": 6,
+        "n": 27720,
+        "cross_entropy_bits": 7.8728,
+        "predictive_entropy_bits": 7.879,
+        "marginal_bits": 7.8,
+        "bits_recovered": -0.0728,
+        "overconfidence": -0.0061,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.55,
+        "bits_recovered_0028": 1.6772
+      },
+      {
+        "stage": 7,
+        "n": 27720,
+        "cross_entropy_bits": 8.0899,
+        "predictive_entropy_bits": 8.0891,
+        "marginal_bits": 7.84,
+        "bits_recovered": -0.2499,
+        "overconfidence": 0.0008,
+        "calibration_t": 1.0,
+        "marginal_bits_0028": 9.55,
+        "bits_recovered_0028": 1.4601
+      }
+    ],
+    "prefix": {
+      "n": 432,
+      "cross_entropy_bits": 1.8583,
+      "calibration_t": 1.05
+    },
+    "species": {
+      "american-crow": 6.6214,
+      "carrion-crow": 6.7064,
+      "common-raven": 6.715,
+      "eurasian-jackdaw": 7.2296,
+      "hooded-crow": 6.1042,
+      "rook": 6.9795
+    },
+    "eos": {
+      "ending": {
+        "n": 216,
+        "median_rank": 0.0,
+        "inside_top_200": 1.0
+      },
+      "mid": {
+        "n": 27720,
+        "median_rank": 357.0,
+        "inside_top_200": 0.3019
+      }
+    },
+    "verdict": "flat calibration \u2014 a per-stage temperature is a global one in a costume, and the idea is dead",
+    "coarse_bits_recovered": 2.284,
+    "fine_bits_recovered": null
+  }
+}

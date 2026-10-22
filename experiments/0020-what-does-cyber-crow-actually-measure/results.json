@@ -1,0 +1,227 @@
+{
+  "model": "model-d384-6k",
+  "species": [
+    "american-crow"
+  ],
+  "n": {
+    "real": 40,
+    "codec": 40,
+    "generated": 40
+  },
+  "arms": {
+    "A real": {
+      "stitch_db": {
+        "n": 39,
+        "median": 0.2642,
+        "ci": [
+          -1.3978,
+          1.6268
+        ]
+      },
+      "rise_ms": {
+        "n": 40,
+        "median": 4.0,
+        "ci": [
+          2.0,
+          4.0
+        ]
+      },
+      "crest": {
+        "n": 40,
+        "median": 3.324,
+        "ci": [
+          2.7699,
+          3.7003
+        ]
+      },
+      "jitter": {
+        "n": 40,
+        "median": 0.0014,
+        "ci": [
+          0.0,
+          0.0102
+        ]
+      },
+      "hnr_db": {
+        "n": 40,
+        "median": 2.5551,
+        "ci": [
+          0.5699,
+          3.3299
+        ]
+      },
+      "voiced_fraction": {
+        "n": 40,
+        "median": 0.9648,
+        "ci": [
+          0.8405,
+          0.9914
+        ]
+      }
+    },
+    "B codec": {
+      "stitch_db": {
+        "n": 39,
+        "median": 12.5672,
+        "ci": [
+          9.939,
+          13.1454
+        ]
+      },
+      "rise_ms": {
+        "n": 40,
+        "median": 4.0,
+        "ci": [
+          4.0,
+          4.0
+        ]
+      },
+      "crest": {
+        "n": 40,
+        "median": 2.9887,
+        "ci": [
+          2.5987,
+          3.4629
+        ]
+      },
+      "jitter": {
+        "n": 40,
+        "median": 0.0026,
+        "ci": [
+          0.0,
+          0.0115
+        ]
+      },
+      "hnr_db": {
+        "n": 40,
+        "median": 2.5901,
+        "ci": [
+          0.6261,
+          3.8447
+        ]
+      },
+      "voiced_fraction": {
+        "n": 40,
+        "median": 0.9614,
+        "ci": [
+          0.8131,
+          0.9906
+        ]
+      }
+    },
+    "C generated": {
+      "stitch_db": {
+        "n": 38,
+        "median": 12.9019,
+        "ci": [
+          11.0491,
+          14.312
+        ]
+      },
+      "rise_ms": {
+        "n": 40,
+        "median": 4.0,
+        "ci": [
+          4.0,
+          6.0
+        ]
+      },
+      "crest": {
+        "n": 40,
+        "median": 2.9152,
+        "ci": [
+          2.6117,
+          3.122
+        ]
+      },
+      "jitter": {
+        "n": 40,
+        "median": 0.0115,
+        "ci": [
+          0.0036,
+          0.016
+        ]
+      },
+      "hnr_db": {
+        "n": 40,
+        "median": 1.8275,
+        "ci": [
+          1.3086,
+          2.5371
+        ]
+      },
+      "voiced_fraction": {
+        "n": 40,
+        "median": 0.9851,
+        "ci": [
+          0.9798,
+          0.9903
+        ]
+      }
+    }
+  },
+  "codec_paired": {
+    "crest": {
+      "mean_difference": 0.08759165335410328,
+      "ci": [
+        -0.011065188132894277,
+        0.201684129914724
+      ],
+      "significant": false,
+      "n_pairs": 40
+    },
+    "hnr_db": {
+      "mean_difference": -0.05439855343918065,
+      "ci": [
+        -0.17866071454103855,
+        0.0823653140511851
+      ],
+      "significant": false,
+      "n_pairs": 40
+    },
+    "jitter": {
+      "mean_difference": -0.019718406488236705,
+      "ci": [
+        -0.05453061834127591,
+        0.004440518522200601
+      ],
+      "significant": false,
+      "n_pairs": 40
+    },
+    "rise_ms": {
+      "mean_difference": 0.85,
+      "ci": [
+        -2.15,
+        4.65
+      ],
+      "significant": false,
+      "n_pairs": 40
+    },
+    "stitch_db": {
+      "mean_difference": -11.897200892869556,
+      "ci": [
+        -13.874210203809135,
+        -9.823369000245691
+      ],
+      "significant": true,
+      "n_pairs": 39
+    },
+    "voiced_fraction": {
+      "mean_difference": 0.013870998972868535,
+      "ci": [
+        -0.0017188678173735885,
+        0.03172148760614167
+      ],
+      "significant": false,
+      "n_pairs": 40
+    }
+  },
+  "verdicts": {
+    "crest": "NO SEPARATION at this n \u2014 generated sits inside the codec interval",
+    "hnr_db": "NO SEPARATION at this n \u2014 generated sits inside the codec interval",
+    "jitter": "NO SEPARATION at this n \u2014 generated sits inside the codec interval",
+    "rise_ms": "NO SEPARATION at this n \u2014 generated sits inside the codec interval",
+    "stitch_db": "NO SEPARATION at this n \u2014 generated sits inside the codec interval",
+    "voiced_fraction": "NO SEPARATION at this n \u2014 generated sits inside the codec interval"
+  }
+}

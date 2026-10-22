@@ -1,0 +1,3272 @@
+{
+ "seed": 0,
+ "crow_min": 0.25,
+ "strong": 0.5,
+ "cap_seconds": 120.0,
+ "window": 3.0,
+ "summary": {
+  "contact": {
+   "recordings": 28,
+   "bouts": 78,
+   "detected": 66,
+   "rate": 0.846,
+   "strong_rate": 0.756,
+   "confidence_quartiles": [
+    0.523,
+    0.789,
+    0.93
+   ],
+   "by_species": {
+    "Hooded Crow": {
+     "bouts": 33,
+     "detected": 31,
+     "rate": 0.939
+    },
+    "Northern Raven": {
+     "bouts": 45,
+     "detected": 35,
+     "rate": 0.778
+    }
+   }
+  },
+  "alarm": {
+   "recordings": 28,
+   "bouts": 381,
+   "detected": 320,
+   "rate": 0.84,
+   "strong_rate": 0.703,
+   "confidence_quartiles": [
+    0.461,
+    0.706,
+    0.848
+   ],
+   "by_species": {
+    "Hooded Crow": {
+     "bouts": 306,
+     "detected": 255,
+     "rate": 0.833
+    },
+    "Northern Raven": {
+     "bouts": 75,
+     "detected": 65,
+     "rate": 0.867
+    }
+   }
+  }
+ },
+ "bouts": [
+  {
+   "arm": "contact",
+   "recording": 2121,
+   "species": "Hooded Crow",
+   "start": 0.2,
+   "confidence": 0.7796486020088196
+  },
+  {
+   "arm": "contact",
+   "recording": 2121,
+   "species": "Hooded Crow",
+   "start": 2.108,
+   "confidence": 0.8535162806510925
+  },
+  {
+   "arm": "contact",
+   "recording": 2121,
+   "species": "Hooded Crow",
+   "start": 28.288,
+   "confidence": 0.14626967906951904
+  },
+  {
+   "arm": "contact",
+   "recording": 2121,
+   "species": "Hooded Crow",
+   "start": 35.884,
+   "confidence": 0.8267212510108948
+  },
+  {
+   "arm": "contact",
+   "recording": 2121,
+   "species": "Hooded Crow",
+   "start": 41.432,
+   "confidence": 0.7991080284118652
+  },
+  {
+   "arm": "contact",
+   "recording": 2121,
+   "species": "Hooded Crow",
+   "start": 102.752,
+   "confidence": 0.8852511644363403
+  },
+  {
+   "arm": "contact",
+   "recording": 2121,
+   "species": "Hooded Crow",
+   "start": 106.0,
+   "confidence": 0.7859275341033936
+  },
+  {
+   "arm": "contact",
+   "recording": 2163,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.6592200994491577
+  },
+  {
+   "arm": "contact",
+   "recording": 2279,
+   "species": "Hooded Crow",
+   "start": 1.188,
+   "confidence": 0.9379499554634094
+  },
+  {
+   "arm": "contact",
+   "recording": 15435,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.9326037764549255
+  },
+  {
+   "arm": "contact",
+   "recording": 15998,
+   "species": "Hooded Crow",
+   "start": 0.296,
+   "confidence": 0.711988627910614
+  },
+  {
+   "arm": "contact",
+   "recording": 15998,
+   "species": "Hooded Crow",
+   "start": 3.136,
+   "confidence": 0.10686834901571274
+  },
+  {
+   "arm": "contact",
+   "recording": 16002,
+   "species": "Hooded Crow",
+   "start": 0.38,
+   "confidence": 0.6854913234710693
+  },
+  {
+   "arm": "contact",
+   "recording": 16017,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.8202383518218994
+  },
+  {
+   "arm": "contact",
+   "recording": 16018,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.7405662536621094
+  },
+  {
+   "arm": "contact",
+   "recording": 16020,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.9570427536964417
+  },
+  {
+   "arm": "contact",
+   "recording": 16020,
+   "species": "Hooded Crow",
+   "start": 1.0,
+   "confidence": 0.9236581325531006
+  },
+  {
+   "arm": "contact",
+   "recording": 16021,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.966977596282959
+  },
+  {
+   "arm": "contact",
+   "recording": 16027,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.6429027318954468
+  },
+  {
+   "arm": "contact",
+   "recording": 16027,
+   "species": "Hooded Crow",
+   "start": 4.0,
+   "confidence": 0.9670861959457397
+  },
+  {
+   "arm": "contact",
+   "recording": 16036,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.9627425670623779
+  },
+  {
+   "arm": "contact",
+   "recording": 16037,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.9523947238922119
+  },
+  {
+   "arm": "contact",
+   "recording": 16050,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.584875762462616
+  },
+  {
+   "arm": "contact",
+   "recording": 16056,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.7713512778282166
+  },
+  {
+   "arm": "contact",
+   "recording": 16061,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.8593959808349609
+  },
+  {
+   "arm": "contact",
+   "recording": 16062,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.8490273952484131
+  },
+  {
+   "arm": "contact",
+   "recording": 16068,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.8604918718338013
+  },
+  {
+   "arm": "contact",
+   "recording": 16115,
+   "species": "Hooded Crow",
+   "start": 1.0,
+   "confidence": 0.8089908957481384
+  },
+  {
+   "arm": "contact",
+   "recording": 16118,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.4165773391723633
+  },
+  {
+   "arm": "contact",
+   "recording": 16119,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.33027222752571106
+  },
+  {
+   "arm": "contact",
+   "recording": 16120,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.8762633204460144
+  },
+  {
+   "arm": "contact",
+   "recording": 16121,
+   "species": "Hooded Crow",
+   "start": 0.488,
+   "confidence": 0.61368727684021
+  },
+  {
+   "arm": "contact",
+   "recording": 16195,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.772097647190094
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 0.56,
+   "confidence": 0.9420056343078613
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 4.664,
+   "confidence": 0.8477988243103027
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 8.584,
+   "confidence": 0.8821107149124146
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 13.224,
+   "confidence": 0.7205229997634888
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 15.624,
+   "confidence": 0.5754062533378601
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 18.612,
+   "confidence": 0.8483914732933044
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 21.888,
+   "confidence": 0.5710373520851135
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 23.928,
+   "confidence": 0.7646015286445618
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 28.256,
+   "confidence": 0.6269640922546387
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 32.3,
+   "confidence": 0.45432814955711365
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 34.304,
+   "confidence": 0.6350226402282715
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 37.736,
+   "confidence": 0.5537582039833069
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 40.748,
+   "confidence": 0.9612502455711365
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 44.328,
+   "confidence": 0.8436780571937561
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 47.976,
+   "confidence": 0.512283980846405
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 50.68,
+   "confidence": 0.8599813580513
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 54.576,
+   "confidence": 0.9098271131515503
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 59.084,
+   "confidence": 0.17611095309257507
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 65.616,
+   "confidence": 0.22397315502166748
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 74.024,
+   "confidence": 0.0
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 80.8,
+   "confidence": 0.0
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 86.784,
+   "confidence": 0.9880297780036926
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 96.82,
+   "confidence": 0.36711618304252625
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 100.04,
+   "confidence": 0.844304084777832
+  },
+  {
+   "arm": "contact",
+   "recording": 18919,
+   "species": "Northern Raven",
+   "start": 107.972,
+   "confidence": 0.35592901706695557
+  },
+  {
+   "arm": "contact",
+   "recording": 18920,
+   "species": "Northern Raven",
+   "start": 2.468,
+   "confidence": 0.9851391911506653
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 0.0,
+   "confidence": 0.3193412125110626
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 5.64,
+   "confidence": 0.0
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 11.052,
+   "confidence": 0.14995832741260529
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 13.072,
+   "confidence": 0.0
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 17.864,
+   "confidence": 0.2803282141685486
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 20.856,
+   "confidence": 0.7162526845932007
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 24.048,
+   "confidence": 0.0
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 26.496,
+   "confidence": 0.19572846591472626
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 29.068,
+   "confidence": 0.7919012308120728
+  },
+  {
+   "arm": "contact",
+   "recording": 19461,
+   "species": "Northern Raven",
+   "start": 31.372,
+   "confidence": 0.15603896975517273
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 1.812,
+   "confidence": 0.9889710545539856
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 4.716,
+   "confidence": 0.9909824728965759
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 13.756,
+   "confidence": 0.9947475790977478
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 22.788,
+   "confidence": 0.9874215126037598
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 24.864,
+   "confidence": 0.9920074939727783
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 35.028,
+   "confidence": 0.9874386191368103
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 37.336,
+   "confidence": 0.9921646118164062
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 45.024,
+   "confidence": 0.9746094942092896
+  },
+  {
+   "arm": "contact",
+   "recording": 19651,
+   "species": "Northern Raven",
+   "start": 53.592,
+   "confidence": 0.9917134046554565
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 0.396,
+   "confidence": 0.78653484582901
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 2.36,
+   "confidence": 0.8044014573097229
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 11.168,
+   "confidence": 0.8564794659614563
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 14.72,
+   "confidence": 0.1378220170736313
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 17.448,
+   "confidence": 0.7647568583488464
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 19.168,
+   "confidence": 0.5758355259895325
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 20.7,
+   "confidence": 0.7878861427307129
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 32.4,
+   "confidence": 0.46300435066223145
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 35.224,
+   "confidence": 0.6653305292129517
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 38.404,
+   "confidence": 0.8086921572685242
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 41.676,
+   "confidence": 0.612158477306366
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 44.824,
+   "confidence": 0.5696609020233154
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 46.7,
+   "confidence": 0.7610592246055603
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 48.808,
+   "confidence": 0.7447044253349304
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 51.82,
+   "confidence": 0.6959222555160522
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 54.04,
+   "confidence": 0.8438406586647034
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 56.6,
+   "confidence": 0.6575846672058105
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 59.68,
+   "confidence": 0.8870359063148499
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 63.628,
+   "confidence": 0.548323929309845
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 65.876,
+   "confidence": 0.2319709062576294
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 67.76,
+   "confidence": 0.3824959099292755
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 69.392,
+   "confidence": 0.6466103792190552
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 71.1,
+   "confidence": 0.7223918437957764
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 76.248,
+   "confidence": 0.7806007862091064
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 78.132,
+   "confidence": 0.7719500064849854
+  },
+  {
+   "arm": "alarm",
+   "recording": 1853,
+   "species": "Hooded Crow",
+   "start": 81.6,
+   "confidence": 0.5885473489761353
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 0.232,
+   "confidence": 0.6985323429107666
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 3.612,
+   "confidence": 0.8391968011856079
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 10.476,
+   "confidence": 0.7304129004478455
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 15.752,
+   "confidence": 0.8954545855522156
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 18.444,
+   "confidence": 0.8941929340362549
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 20.836,
+   "confidence": 0.9231393337249756
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 24.628,
+   "confidence": 0.9044580459594727
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 26.936,
+   "confidence": 0.940635621547699
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 29.94,
+   "confidence": 0.9362267851829529
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 34.056,
+   "confidence": 0.9636864066123962
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 38.448,
+   "confidence": 0.8162399530410767
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 41.244,
+   "confidence": 0.9243761301040649
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 43.98,
+   "confidence": 0.7265984416007996
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 46.512,
+   "confidence": 0.9034627079963684
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 50.496,
+   "confidence": 0.43717244267463684
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 53.332,
+   "confidence": 0.8241358995437622
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 56.332,
+   "confidence": 0.5194118618965149
+  },
+  {
+   "arm": "alarm",
+   "recording": 2002,
+   "species": "Hooded Crow",
+   "start": 58.0,
+   "confidence": 0.9968506693840027
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.645900547504425
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 2.376,
+   "confidence": 0.7736932635307312
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 5.44,
+   "confidence": 0.15755201876163483
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 9.204,
+   "confidence": 0.42980581521987915
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 15.752,
+   "confidence": 0.2110815793275833
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 22.112,
+   "confidence": 0.935917317867279
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 28.9,
+   "confidence": 0.6436253190040588
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 30.828,
+   "confidence": 0.6943790912628174
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 40.736,
+   "confidence": 0.5754731893539429
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 48.516,
+   "confidence": 0.7123891711235046
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 51.324,
+   "confidence": 0.5658124685287476
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 55.536,
+   "confidence": 0.6513242125511169
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 58.656,
+   "confidence": 0.28145313262939453
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 60.504,
+   "confidence": 0.5264049768447876
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 66.112,
+   "confidence": 0.39529529213905334
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 68.7,
+   "confidence": 0.908829391002655
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 73.828,
+   "confidence": 0.8466175198554993
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 76.592,
+   "confidence": 0.7471927404403687
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 78.812,
+   "confidence": 0.8063517808914185
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 91.236,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 93.464,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 98.956,
+   "confidence": 0.8537812829017639
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 101.408,
+   "confidence": 0.544090986251831
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 106.032,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 112.572,
+   "confidence": 0.5209761261940002
+  },
+  {
+   "arm": "alarm",
+   "recording": 2050,
+   "species": "Hooded Crow",
+   "start": 114.944,
+   "confidence": 0.5535089373588562
+  },
+  {
+   "arm": "alarm",
+   "recording": 2256,
+   "species": "Hooded Crow",
+   "start": 0.312,
+   "confidence": 0.4588930308818817
+  },
+  {
+   "arm": "alarm",
+   "recording": 2256,
+   "species": "Hooded Crow",
+   "start": 2.62,
+   "confidence": 0.8481253981590271
+  },
+  {
+   "arm": "alarm",
+   "recording": 2256,
+   "species": "Hooded Crow",
+   "start": 11.0,
+   "confidence": 0.8539251685142517
+  },
+  {
+   "arm": "alarm",
+   "recording": 2374,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.9007526636123657
+  },
+  {
+   "arm": "alarm",
+   "recording": 2374,
+   "species": "Hooded Crow",
+   "start": 1.168,
+   "confidence": 0.9806336760520935
+  },
+  {
+   "arm": "alarm",
+   "recording": 2374,
+   "species": "Hooded Crow",
+   "start": 4.876,
+   "confidence": 0.916808009147644
+  },
+  {
+   "arm": "alarm",
+   "recording": 2374,
+   "species": "Hooded Crow",
+   "start": 6.844,
+   "confidence": 0.9159570932388306
+  },
+  {
+   "arm": "alarm",
+   "recording": 2374,
+   "species": "Hooded Crow",
+   "start": 9.352,
+   "confidence": 0.6300947070121765
+  },
+  {
+   "arm": "alarm",
+   "recording": 2374,
+   "species": "Hooded Crow",
+   "start": 13.588,
+   "confidence": 0.5211719870567322
+  },
+  {
+   "arm": "alarm",
+   "recording": 2374,
+   "species": "Hooded Crow",
+   "start": 16.38,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 0.2,
+   "confidence": 0.6619403958320618
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 3.208,
+   "confidence": 0.7894734144210815
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 5.556,
+   "confidence": 0.3921325206756592
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 8.072,
+   "confidence": 0.6403877139091492
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 10.884,
+   "confidence": 0.7341296076774597
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 13.904,
+   "confidence": 0.6276504993438721
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 16.66,
+   "confidence": 0.8348609805107117
+  },
+  {
+   "arm": "alarm",
+   "recording": 2602,
+   "species": "Hooded Crow",
+   "start": 18.0,
+   "confidence": 0.7331998348236084
+  },
+  {
+   "arm": "alarm",
+   "recording": 2629,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.27781420946121216
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 0.024,
+   "confidence": 0.9750677347183228
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 2.112,
+   "confidence": 0.993855893611908
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 4.408,
+   "confidence": 0.5974828004837036
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 6.408,
+   "confidence": 0.8260495066642761
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 8.856,
+   "confidence": 0.9666865468025208
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 10.94,
+   "confidence": 0.545547604560852
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 13.86,
+   "confidence": 0.6982049942016602
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 16.408,
+   "confidence": 0.973379373550415
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 22.068,
+   "confidence": 0.5564520955085754
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 27.592,
+   "confidence": 0.9151524901390076
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 29.948,
+   "confidence": 0.7909091711044312
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 32.996,
+   "confidence": 0.7621631026268005
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 34.6,
+   "confidence": 0.9506851434707642
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 38.768,
+   "confidence": 0.9139623641967773
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 40.92,
+   "confidence": 0.9829780459403992
+  },
+  {
+   "arm": "alarm",
+   "recording": 2630,
+   "species": "Hooded Crow",
+   "start": 43.792,
+   "confidence": 0.989059567451477
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 1.448,
+   "confidence": 0.2252490520477295
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 4.4,
+   "confidence": 0.13440990447998047
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 7.096,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 9.22,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 11.52,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 14.632,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 16.208,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 17.316,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 19.928,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 21.868,
+   "confidence": 0.2107521891593933
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 27.388,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 32.232,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 33.968,
+   "confidence": 0.10458462685346603
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 36.356,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 38.448,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 40.356,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15447,
+   "species": "Hooded Crow",
+   "start": 42.036,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15771,
+   "species": "Hooded Crow",
+   "start": 0.384,
+   "confidence": 0.39185237884521484
+  },
+  {
+   "arm": "alarm",
+   "recording": 15771,
+   "species": "Hooded Crow",
+   "start": 3.228,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15771,
+   "species": "Hooded Crow",
+   "start": 6.052,
+   "confidence": 0.4950823485851288
+  },
+  {
+   "arm": "alarm",
+   "recording": 15771,
+   "species": "Hooded Crow",
+   "start": 8.556,
+   "confidence": 0.7055591940879822
+  },
+  {
+   "arm": "alarm",
+   "recording": 15917,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.791027843952179
+  },
+  {
+   "arm": "alarm",
+   "recording": 15917,
+   "species": "Hooded Crow",
+   "start": 6.392,
+   "confidence": 0.7019035816192627
+  },
+  {
+   "arm": "alarm",
+   "recording": 15917,
+   "species": "Hooded Crow",
+   "start": 11.628,
+   "confidence": 0.7955042123794556
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.6306935548782349
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 2.66,
+   "confidence": 0.5980883836746216
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 7.832,
+   "confidence": 0.6443560123443604
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 14.988,
+   "confidence": 0.9019570350646973
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 22.208,
+   "confidence": 0.6798839569091797
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 30.468,
+   "confidence": 0.4837705194950104
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 38.212,
+   "confidence": 0.765753448009491
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 44.144,
+   "confidence": 0.817184567451477
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 47.996,
+   "confidence": 0.7818635702133179
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 52.752,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 59.2,
+   "confidence": 0.7766683101654053
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 70.684,
+   "confidence": 0.6730706095695496
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 74.176,
+   "confidence": 0.808529794216156
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 79.628,
+   "confidence": 0.3271278142929077
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 81.864,
+   "confidence": 0.42387858033180237
+  },
+  {
+   "arm": "alarm",
+   "recording": 15920,
+   "species": "Hooded Crow",
+   "start": 85.0,
+   "confidence": 0.8049242496490479
+  },
+  {
+   "arm": "alarm",
+   "recording": 16001,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 15.664,
+   "confidence": 0.48243317008018494
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 17.672,
+   "confidence": 0.4436957538127899
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 20.672,
+   "confidence": 0.558130145072937
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 23.672,
+   "confidence": 0.7959586381912231
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 26.416,
+   "confidence": 0.647198498249054
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 29.448,
+   "confidence": 0.8161394000053406
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 31.6,
+   "confidence": 0.8067893385887146
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 34.132,
+   "confidence": 0.8412309885025024
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 37.548,
+   "confidence": 0.4953932464122772
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 40.452,
+   "confidence": 0.6369563937187195
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 43.236,
+   "confidence": 0.9204767942428589
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 45.504,
+   "confidence": 0.7274228930473328
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 47.424,
+   "confidence": 0.7243545055389404
+  },
+  {
+   "arm": "alarm",
+   "recording": 16041,
+   "species": "Hooded Crow",
+   "start": 50.428,
+   "confidence": 0.8073126077651978
+  },
+  {
+   "arm": "alarm",
+   "recording": 16231,
+   "species": "Hooded Crow",
+   "start": 4.684,
+   "confidence": 0.951105535030365
+  },
+  {
+   "arm": "alarm",
+   "recording": 16231,
+   "species": "Hooded Crow",
+   "start": 6.0,
+   "confidence": 0.761652410030365
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.8204975724220276
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 4.072,
+   "confidence": 0.8385834097862244
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 9.032,
+   "confidence": 0.9270905256271362
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 14.168,
+   "confidence": 0.5943793654441833
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 24.584,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 26.344,
+   "confidence": 0.915164053440094
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 29.344,
+   "confidence": 0.8641767501831055
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 32.344,
+   "confidence": 0.9651341438293457
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 33.912,
+   "confidence": 0.7420933246612549
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 34.556,
+   "confidence": 0.8610712885856628
+  },
+  {
+   "arm": "alarm",
+   "recording": 16251,
+   "species": "Hooded Crow",
+   "start": 62.972,
+   "confidence": 0.780289888381958
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 1.172,
+   "confidence": 0.6909942626953125
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 4.164,
+   "confidence": 0.8827205300331116
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 10.148,
+   "confidence": 0.5863878130912781
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 12.572,
+   "confidence": 0.7699698805809021
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 21.812,
+   "confidence": 0.3610899746417999
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 24.804,
+   "confidence": 0.1320953518152237
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 27.76,
+   "confidence": 0.22474247217178345
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 29.98,
+   "confidence": 0.7947016954421997
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 59.268,
+   "confidence": 0.6799471378326416
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 76.496,
+   "confidence": 0.9241017699241638
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 78.356,
+   "confidence": 0.8505764603614807
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 112.312,
+   "confidence": 0.8703619241714478
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 115.38,
+   "confidence": 0.9097010493278503
+  },
+  {
+   "arm": "alarm",
+   "recording": 16367,
+   "species": "Hooded Crow",
+   "start": 117.0,
+   "confidence": 0.8284308314323425
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.9243568778038025
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 2.24,
+   "confidence": 0.9390318393707275
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 4.204,
+   "confidence": 0.9559340476989746
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 10.544,
+   "confidence": 0.47140252590179443
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 13.424,
+   "confidence": 0.6454477906227112
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 16.168,
+   "confidence": 0.8288305997848511
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 18.648,
+   "confidence": 0.8001585006713867
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 21.22,
+   "confidence": 0.8181810975074768
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 23.62,
+   "confidence": 0.8880688548088074
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 26.6,
+   "confidence": 0.9214436411857605
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 28.416,
+   "confidence": 0.905143141746521
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 32.724,
+   "confidence": 0.6367207765579224
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 40.012,
+   "confidence": 0.9720098376274109
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 42.724,
+   "confidence": 0.8948180675506592
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 45.768,
+   "confidence": 0.8581475615501404
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 48.46,
+   "confidence": 0.8823975920677185
+  },
+  {
+   "arm": "alarm",
+   "recording": 16393,
+   "species": "Hooded Crow",
+   "start": 50.0,
+   "confidence": 0.7874906659126282
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 0.316,
+   "confidence": 0.7202280163764954
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 2.804,
+   "confidence": 0.9162423014640808
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 8.996,
+   "confidence": 0.4858376085758209
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 15.108,
+   "confidence": 0.9090277552604675
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 20.108,
+   "confidence": 0.7888360619544983
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 25.1,
+   "confidence": 0.884457528591156
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 27.824,
+   "confidence": 0.5906484127044678
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 29.872,
+   "confidence": 0.7984253764152527
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 33.328,
+   "confidence": 0.48227354884147644
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 36.092,
+   "confidence": 0.40575405955314636
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 39.088,
+   "confidence": 0.6180405020713806
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 41.56,
+   "confidence": 0.40607979893684387
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 44.016,
+   "confidence": 0.822605550289154
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 45.908,
+   "confidence": 0.7896103262901306
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 48.964,
+   "confidence": 0.7703028321266174
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 51.22,
+   "confidence": 0.44663360714912415
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 54.396,
+   "confidence": 0.46068239212036133
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 57.336,
+   "confidence": 0.6285065412521362
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 60.448,
+   "confidence": 0.5113247632980347
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 63.144,
+   "confidence": 0.5428809523582458
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 68.248,
+   "confidence": 0.4827888011932373
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 79.876,
+   "confidence": 0.7854242324829102
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 82.536,
+   "confidence": 0.8905404806137085
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 86.336,
+   "confidence": 0.5666547417640686
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 89.532,
+   "confidence": 0.5457876324653625
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 92.02,
+   "confidence": 0.627800703048706
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 97.052,
+   "confidence": 0.6850826144218445
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 99.536,
+   "confidence": 0.49800148606300354
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 103.464,
+   "confidence": 0.3763853907585144
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 106.312,
+   "confidence": 0.5075725317001343
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 108.252,
+   "confidence": 0.6186626553535461
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 111.864,
+   "confidence": 0.4589236378669739
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 114.864,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16547,
+   "species": "Hooded Crow",
+   "start": 117.0,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16558,
+   "species": "Hooded Crow",
+   "start": 0.892,
+   "confidence": 0.43097957968711853
+  },
+  {
+   "arm": "alarm",
+   "recording": 16558,
+   "species": "Hooded Crow",
+   "start": 6.084,
+   "confidence": 0.2991917133331299
+  },
+  {
+   "arm": "alarm",
+   "recording": 16558,
+   "species": "Hooded Crow",
+   "start": 9.208,
+   "confidence": 0.46773937344551086
+  },
+  {
+   "arm": "alarm",
+   "recording": 16558,
+   "species": "Hooded Crow",
+   "start": 12.664,
+   "confidence": 0.10114725679159164
+  },
+  {
+   "arm": "alarm",
+   "recording": 16558,
+   "species": "Hooded Crow",
+   "start": 15.944,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16558,
+   "species": "Hooded Crow",
+   "start": 17.0,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16686,
+   "species": "Hooded Crow",
+   "start": 0.032,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 0.0,
+   "confidence": 0.8883651494979858
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 3.164,
+   "confidence": 0.4689803421497345
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 6.532,
+   "confidence": 0.5936151146888733
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 8.36,
+   "confidence": 0.8113994598388672
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 11.588,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 14.876,
+   "confidence": 0.49398672580718994
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 18.388,
+   "confidence": 0.9063997268676758
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 22.744,
+   "confidence": 0.3895070552825928
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 25.704,
+   "confidence": 0.4706786572933197
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 29.448,
+   "confidence": 0.766676664352417
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 32.5,
+   "confidence": 0.9551413059234619
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 35.444,
+   "confidence": 0.26276472210884094
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 40.612,
+   "confidence": 0.7374495267868042
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 43.344,
+   "confidence": 0.15050940215587616
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 45.332,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 47.632,
+   "confidence": 0.8577758073806763
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 52.108,
+   "confidence": 0.6856039762496948
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 57.972,
+   "confidence": 0.5764975547790527
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 61.612,
+   "confidence": 0.8885073065757751
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 64.628,
+   "confidence": 0.7600685954093933
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 70.436,
+   "confidence": 0.484251469373703
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 72.472,
+   "confidence": 0.5307505130767822
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 75.644,
+   "confidence": 0.7869311571121216
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 80.92,
+   "confidence": 0.7629122734069824
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 83.196,
+   "confidence": 0.8436216115951538
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 86.12,
+   "confidence": 0.6466919779777527
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 88.112,
+   "confidence": 0.570497989654541
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 90.32,
+   "confidence": 0.8945630192756653
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 92.744,
+   "confidence": 0.8038721084594727
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 96.12,
+   "confidence": 0.7348864078521729
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 98.056,
+   "confidence": 0.5811510682106018
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 100.116,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 103.216,
+   "confidence": 0.731185257434845
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 105.988,
+   "confidence": 0.43439027667045593
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 109.432,
+   "confidence": 0.8271262049674988
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 111.484,
+   "confidence": 0.6977345943450928
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 113.52,
+   "confidence": 0.25839823484420776
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 115.732,
+   "confidence": 0.9055142402648926
+  },
+  {
+   "arm": "alarm",
+   "recording": 16836,
+   "species": "Hooded Crow",
+   "start": 117.0,
+   "confidence": 0.6609510183334351
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 0.24,
+   "confidence": 0.7061591744422913
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 4.616,
+   "confidence": 0.8606557846069336
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 8.236,
+   "confidence": 0.4071331322193146
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 11.668,
+   "confidence": 0.7656304836273193
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 15.624,
+   "confidence": 0.8026154637336731
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 18.368,
+   "confidence": 0.8030321598052979
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 20.888,
+   "confidence": 0.8234720826148987
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 23.436,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16942,
+   "species": "Hooded Crow",
+   "start": 26.532,
+   "confidence": 0.7066596746444702
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 1.032,
+   "confidence": 0.5781241655349731
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 3.764,
+   "confidence": 0.4037618637084961
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 5.944,
+   "confidence": 0.12129056453704834
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 15.072,
+   "confidence": 0.1279672533273697
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 19.82,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 36.344,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 39.72,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 45.82,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 51.8,
+   "confidence": 0.18617898225784302
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 58.536,
+   "confidence": 0.25373706221580505
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 75.076,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 87.548,
+   "confidence": 0.3491476774215698
+  },
+  {
+   "arm": "alarm",
+   "recording": 16954,
+   "species": "Hooded Crow",
+   "start": 99.872,
+   "confidence": 0.24961157143115997
+  },
+  {
+   "arm": "alarm",
+   "recording": 9973,
+   "species": "Northern Raven",
+   "start": 1.028,
+   "confidence": 0.7398000955581665
+  },
+  {
+   "arm": "alarm",
+   "recording": 9973,
+   "species": "Northern Raven",
+   "start": 4.096,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 9973,
+   "species": "Northern Raven",
+   "start": 6.644,
+   "confidence": 0.7879869341850281
+  },
+  {
+   "arm": "alarm",
+   "recording": 9973,
+   "species": "Northern Raven",
+   "start": 13.9,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 9973,
+   "species": "Northern Raven",
+   "start": 16.856,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 9973,
+   "species": "Northern Raven",
+   "start": 20.968,
+   "confidence": 0.9278099536895752
+  },
+  {
+   "arm": "alarm",
+   "recording": 9973,
+   "species": "Northern Raven",
+   "start": 25.0,
+   "confidence": 0.20729683339595795
+  },
+  {
+   "arm": "alarm",
+   "recording": 19168,
+   "species": "Northern Raven",
+   "start": 1.58,
+   "confidence": 0.9664276242256165
+  },
+  {
+   "arm": "alarm",
+   "recording": 19168,
+   "species": "Northern Raven",
+   "start": 2.0,
+   "confidence": 0.9533476233482361
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 0.044,
+   "confidence": 0.7718219757080078
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 1.812,
+   "confidence": 0.8910070657730103
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 5.08,
+   "confidence": 0.8420476317405701
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 11.096,
+   "confidence": 0.4764546751976013
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 13.22,
+   "confidence": 0.9200900197029114
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 15.524,
+   "confidence": 0.44417113065719604
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 17.912,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 20.36,
+   "confidence": 0.8377648591995239
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 24.948,
+   "confidence": 0.8883154392242432
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 28.192,
+   "confidence": 0.8792343735694885
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 31.584,
+   "confidence": 0.7679809331893921
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 34.304,
+   "confidence": 0.31716984510421753
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 37.528,
+   "confidence": 0.9350911974906921
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 39.768,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 42.82,
+   "confidence": 0.8803450465202332
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 44.44,
+   "confidence": 0.8997642993927002
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 49.488,
+   "confidence": 0.8293662071228027
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 51.3,
+   "confidence": 0.8982918858528137
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 55.436,
+   "confidence": 0.711275041103363
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 57.416,
+   "confidence": 0.7157042622566223
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 62.964,
+   "confidence": 0.49510690569877625
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 67.172,
+   "confidence": 0.5898213386535645
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 69.304,
+   "confidence": 0.7784240245819092
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 71.72,
+   "confidence": 0.9759740233421326
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 74.524,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 76.832,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 78.836,
+   "confidence": 0.9463688731193542
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 81.576,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 84.496,
+   "confidence": 0.0
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 87.416,
+   "confidence": 0.6425542235374451
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 93.744,
+   "confidence": 0.8988850116729736
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 103.248,
+   "confidence": 0.9834850430488586
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 106.344,
+   "confidence": 0.9925587177276611
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 108.1,
+   "confidence": 0.9908748865127563
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 111.712,
+   "confidence": 0.8443936705589294
+  },
+  {
+   "arm": "alarm",
+   "recording": 19189,
+   "species": "Northern Raven",
+   "start": 114.784,
+   "confidence": 0.9806600213050842
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 1.008,
+   "confidence": 0.688956618309021
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 4.44,
+   "confidence": 0.7139077186584473
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 7.504,
+   "confidence": 0.8347799181938171
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 10.516,
+   "confidence": 0.8557219505310059
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 13.392,
+   "confidence": 0.8898607492446899
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 15.936,
+   "confidence": 0.7919504642486572
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 19.78,
+   "confidence": 0.959377646446228
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 22.62,
+   "confidence": 0.706188440322876
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 25.504,
+   "confidence": 0.6863662004470825
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 28.456,
+   "confidence": 0.9275373816490173
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 31.248,
+   "confidence": 0.9635822772979736
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 33.996,
+   "confidence": 0.6769258975982666
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 36.548,
+   "confidence": 0.3739399313926697
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 39.672,
+   "confidence": 0.8316897749900818
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 42.952,
+   "confidence": 0.8699132204055786
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 45.536,
+   "confidence": 0.7197562456130981
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 48.404,
+   "confidence": 0.4513174295425415
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 51.616,
+   "confidence": 0.8654888868331909
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 54.696,
+   "confidence": 0.6119951009750366
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 60.72,
+   "confidence": 0.8705060482025146
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 63.692,
+   "confidence": 0.8605421781539917
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 66.404,
+   "confidence": 0.9269147515296936
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 69.348,
+   "confidence": 0.8853235244750977
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 72.136,
+   "confidence": 0.9270709753036499
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 75.104,
+   "confidence": 0.45077282190322876
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 79.364,
+   "confidence": 0.9331452250480652
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 82.784,
+   "confidence": 0.45666465163230896
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 84.628,
+   "confidence": 0.6462653875350952
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 90.188,
+   "confidence": 0.5803365111351013
+  },
+  {
+   "arm": "alarm",
+   "recording": 19491,
+   "species": "Northern Raven",
+   "start": 92.672,
+   "confidence": 0.6748611927032471
+  }
+ ]
+}

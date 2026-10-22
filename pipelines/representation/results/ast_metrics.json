@@ -1,0 +1,28 @@
+{
+  "embedder": "AST",
+  "n_clips": 117,
+  "dim": 768,
+  "classes": {
+    "alarm call": 10,
+    "call": 71,
+    "flight call": 25,
+    "song": 11
+  },
+  "knn": {
+    "accuracy": 0.598,
+    "macro_f1": 0.315
+  },
+  "logreg": {
+    "accuracy": 0.59,
+    "macro_f1": 0.475
+  },
+  "baseline_majority_acc": 0.607,
+  "silhouette_true_labels": -0.04,
+  "kmeans_ari": -0.01,
+  "one_vs_rest_auc": {
+    "alarm call": 0.673,
+    "call": 0.549,
+    "flight call": 0.738,
+    "song": 0.609
+  }
+}

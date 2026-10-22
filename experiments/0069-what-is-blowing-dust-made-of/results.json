@@ -1,0 +1,169 @@
+{
+  "probe_n": {
+    "clean": 19,
+    "real": 6,
+    "dust": 11
+  },
+  "probe_auc_dust_vs_clean": {
+    "pitch_strength": {
+      "auc_dust_higher": 0.301,
+      "dust_mean": 0.3876,
+      "clean_mean": 0.5076,
+      "real_mean": 0.5176
+    },
+    "flatness": {
+      "auc_dust_higher": 0.593,
+      "dust_mean": 0.0645,
+      "clean_mean": 0.0494,
+      "real_mean": 0.0508
+    },
+    "centroid_hz": {
+      "auc_dust_higher": 0.507,
+      "dust_mean": 1748.7436,
+      "clean_mean": 1755.3574,
+      "real_mean": 1530.001
+    },
+    "attack_ms": {
+      "auc_dust_higher": 0.469,
+      "dust_mean": 70.6981,
+      "clean_mean": 81.4491,
+      "real_mean": 75.6479
+    }
+  },
+  "probe_choice": {
+    "feature": "pitch_strength",
+    "auc": 0.301,
+    "dust_is_high": false,
+    "threshold": 0.4105,
+    "youden": 0.502,
+    "validated": false
+  },
+  "decoder_ab": {
+    "n": 29,
+    "feature": "pitch_strength",
+    "mean_finetuned_minus_frozen": -0.043,
+    "dusty_finetuned": 15,
+    "dusty_frozen": 12
+  },
+  "grid": {
+    "T0.85_k50": {
+      "n": 40,
+      "keep_rate": 0.63,
+      "dust_rate": 0.525,
+      "mean_units": 4.15,
+      "gaps_per_clip": 3.15
+    },
+    "T0.85_k100": {
+      "n": 40,
+      "keep_rate": 0.62,
+      "dust_rate": 0.575,
+      "mean_units": 4.3,
+      "gaps_per_clip": 3.3
+    },
+    "T0.85_k200": {
+      "n": 40,
+      "keep_rate": 0.65,
+      "dust_rate": 0.475,
+      "mean_units": 4.25,
+      "gaps_per_clip": 3.25
+    },
+    "T0.85_k400": {
+      "n": 40,
+      "keep_rate": 0.63,
+      "dust_rate": 0.4,
+      "mean_units": 4.38,
+      "gaps_per_clip": 3.38
+    },
+    "T0.95_k50": {
+      "n": 40,
+      "keep_rate": 0.71,
+      "dust_rate": 0.375,
+      "mean_units": 4.53,
+      "gaps_per_clip": 3.52
+    },
+    "T0.95_k100": {
+      "n": 40,
+      "keep_rate": 0.68,
+      "dust_rate": 0.475,
+      "mean_units": 5.28,
+      "gaps_per_clip": 4.28
+    },
+    "T0.95_k200": {
+      "n": 40,
+      "keep_rate": 0.7,
+      "dust_rate": 0.475,
+      "mean_units": 3.92,
+      "gaps_per_clip": 2.92
+    },
+    "T0.95_k400": {
+      "n": 40,
+      "keep_rate": 0.62,
+      "dust_rate": 0.35,
+      "mean_units": 4.5,
+      "gaps_per_clip": 3.5
+    },
+    "T1.0_k50": {
+      "n": 40,
+      "keep_rate": 0.73,
+      "dust_rate": 0.35,
+      "mean_units": 5.12,
+      "gaps_per_clip": 4.12
+    },
+    "T1.0_k100": {
+      "n": 40,
+      "keep_rate": 0.73,
+      "dust_rate": 0.475,
+      "mean_units": 4.5,
+      "gaps_per_clip": 3.5
+    },
+    "T1.0_k200": {
+      "n": 40,
+      "keep_rate": 0.7,
+      "dust_rate": 0.375,
+      "mean_units": 4.75,
+      "gaps_per_clip": 3.75
+    },
+    "T1.0_k400": {
+      "n": 40,
+      "keep_rate": 0.65,
+      "dust_rate": 0.325,
+      "mean_units": 5.0,
+      "gaps_per_clip": 4.0
+    },
+    "T1.1_k50": {
+      "n": 40,
+      "keep_rate": 0.7,
+      "dust_rate": 0.45,
+      "mean_units": 5.17,
+      "gaps_per_clip": 4.17
+    },
+    "T1.1_k100": {
+      "n": 40,
+      "keep_rate": 0.73,
+      "dust_rate": 0.35,
+      "mean_units": 5.12,
+      "gaps_per_clip": 4.12
+    },
+    "T1.1_k200": {
+      "n": 40,
+      "keep_rate": 0.67,
+      "dust_rate": 0.275,
+      "mean_units": 4.95,
+      "gaps_per_clip": 3.95
+    },
+    "T1.1_k400": {
+      "n": 40,
+      "keep_rate": 0.7,
+      "dust_rate": 0.325,
+      "mean_units": 5.0,
+      "gaps_per_clip": 4.0
+    }
+  },
+  "default_cell": {
+    "n": 40,
+    "keep_rate": 0.7,
+    "dust_rate": 0.375,
+    "mean_units": 4.75,
+    "gaps_per_clip": 3.75
+  }
+}

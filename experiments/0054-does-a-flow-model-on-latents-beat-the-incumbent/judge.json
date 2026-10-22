@@ -1,0 +1,33 @@
+{
+  "A_real": {
+    "n": 36,
+    "detected": 0.9444,
+    "mean_conf": 0.7486,
+    "median_conf": 0.8842
+  },
+  "B_real_continuous": {
+    "n": 36,
+    "detected": 0.9167,
+    "mean_conf": 0.765,
+    "median_conf": 0.9019
+  },
+  "C_flow": {
+    "n": 36,
+    "detected": 0.4167,
+    "mean_conf": 0.3237,
+    "median_conf": 0.2031
+  },
+  "D_marginal": {
+    "n": 36,
+    "detected": 0.0,
+    "mean_conf": 0.0,
+    "median_conf": 0.0
+  },
+  "E_incumbent": {
+    "n": 36,
+    "detected": 0.9444,
+    "mean_conf": 0.8601,
+    "median_conf": 0.9442
+  },
+  "share_of_ceiling": 0.4546
+}

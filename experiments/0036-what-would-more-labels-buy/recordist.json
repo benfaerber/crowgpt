@@ -1,0 +1,144 @@
+{
+  "coverage": {
+    "segments": 2338,
+    "recordings": 1097,
+    "segments_with_a_recordist": 2338,
+    "distinct_recordists": 567,
+    "recordings_per_recordist_mean": 1.9347442680776015,
+    "biggest_recordists": [
+      {
+        "recordist": "library-1:Bob McGuire",
+        "segments": 75
+      },
+      {
+        "recordist": "library-1:Geoffrey A. Keller",
+        "segments": 63
+      },
+      {
+        "recordist": "library-1:Laura Sebastianelli",
+        "segments": 58
+      },
+      {
+        "recordist": "library-1:Nathan Pieplow",
+        "segments": 58
+      },
+      {
+        "recordist": "library-1:Michael Hurben",
+        "segments": 52
+      }
+    ]
+  },
+  "note": "recording-grouped against recordist-grouped, same rows, same head, same folds \u2014 only the grouping key changes",
+  "core_macro_f1": {
+    "by_recording": 0.8523681565168456,
+    "by_recordist": 0.8545322091145018,
+    "cost_of_the_stricter_group": -0.002164052597656174
+  },
+  "flags": {
+    "alert": {
+      "prevalence": 0.21899059024807527,
+      "ap_by_recording": 0.6380801261011496,
+      "ap_by_recordist": 0.6292271287633049,
+      "cost_of_the_stricter_group": 0.008852997337844726,
+      "lift_over_chance_by_recordist": 2.8733066934543103
+    },
+    "begging": {
+      "prevalence": 0.1193327630453379,
+      "ap_by_recording": 0.7843262843441313,
+      "ap_by_recordist": 0.7570447813646504,
+      "cost_of_the_stricter_group": 0.027281502979480954,
+      "lift_over_chance_by_recordist": 6.343980999392661
+    },
+    "softSong": {
+      "prevalence": 0.24764756201881952,
+      "ap_by_recording": 0.8127294565468955,
+      "ap_by_recordist": 0.8140352266198201,
+      "cost_of_the_stricter_group": -0.0013057700729245392,
+      "lift_over_chance_by_recordist": 3.2870714332247655
+    },
+    "rattle": {
+      "prevalence": 0.218562874251497,
+      "ap_by_recording": 0.9123739635305875,
+      "ap_by_recordist": 0.9053180341186139,
+      "cost_of_the_stricter_group": 0.007055929411973638,
+      "lift_over_chance_by_recordist": 4.142140046515302
+    },
+    "mob": {
+      "prevalence": 0.2946963216424294,
+      "ap_by_recording": 0.7064560062222769,
+      "ap_by_recordist": 0.6938579334942088,
+      "cost_of_the_stricter_group": 0.012598072728068122,
+      "lift_over_chance_by_recordist": 2.354484540652337
+    }
+  },
+  "overlap_wall_lift_corrected": {
+    "note": "AP must be read against prevalence. mob's AP RISES with more crows (0.551 -> 0.867) while its prevalence rises 0.19 -> 0.65, so its lift over chance FALLS \u2014 mobbing detection is substantially crowd detection.",
+    "flags": {
+      "alert": {
+        "one_crow": {
+          "average_precision": 0.7094410157209875,
+          "prevalence": 0.22699386503067484,
+          "lift_over_chance": 3.1253752854735395
+        },
+        "two_or_more": {
+          "average_precision": 0.36526681972987557,
+          "prevalence": 0.19402985074626866,
+          "lift_over_chance": 1.8825289939924357
+        },
+        "lift_drop": 1.2428462914811038
+      },
+      "begging": {
+        "one_crow": {
+          "average_precision": 0.7998839382911138,
+          "prevalence": 0.12269938650306748,
+          "lift_over_chance": 6.519054097072577
+        },
+        "two_or_more": {
+          "average_precision": 0.73257098373888,
+          "prevalence": 0.10820895522388059,
+          "lift_over_chance": 6.769966332483443
+        },
+        "lift_drop": -0.2509122354108655
+      },
+      "softSong": {
+        "one_crow": {
+          "average_precision": 0.8295621815128009,
+          "prevalence": 0.2810931399888455,
+          "lift_over_chance": 2.9512003798659765
+        },
+        "two_or_more": {
+          "average_precision": 0.6923851700101543,
+          "prevalence": 0.13805970149253732,
+          "lift_over_chance": 5.015114204397874
+        },
+        "lift_drop": -2.0639138245318978
+      },
+      "rattle": {
+        "one_crow": {
+          "average_precision": 0.9234912740144795,
+          "prevalence": 0.24707194645844952,
+          "lift_over_chance": 3.737742334780952
+        },
+        "two_or_more": {
+          "average_precision": 0.8332553758602377,
+          "prevalence": 0.125,
+          "lift_over_chance": 6.666043006881901
+        },
+        "lift_drop": -2.9283006721009492
+      },
+      "mob": {
+        "one_crow": {
+          "average_precision": 0.5507498207763949,
+          "prevalence": 0.1879531511433352,
+          "lift_over_chance": 2.9302505301248547
+        },
+        "two_or_more": {
+          "average_precision": 0.8671804823033957,
+          "prevalence": 0.6511194029850746,
+          "lift_over_chance": 1.331830196316963
+        },
+        "lift_drop": 1.5984203338078917
+      }
+    }
+  }
+}

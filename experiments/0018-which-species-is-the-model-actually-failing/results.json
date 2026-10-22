@@ -1,0 +1,52 @@
+{
+  "bimodality": {
+    "near_zero": 20,
+    "strong": 18,
+    "middling": 34,
+    "n": 72
+  },
+  "per_species": {
+    "american-crow": {
+      "real": 0.805,
+      "codec_ceiling": 0.693,
+      "generated": 0.686,
+      "share_of_ceiling": 0.991,
+      "strong_of_12": 8
+    },
+    "carrion-crow": {
+      "real": 0.603,
+      "codec_ceiling": 0.443,
+      "generated": 0.296,
+      "share_of_ceiling": 0.667,
+      "strong_of_12": 0
+    },
+    "common-raven": {
+      "real": 0.591,
+      "codec_ceiling": 0.347,
+      "generated": 0.258,
+      "share_of_ceiling": 0.744,
+      "strong_of_12": 1
+    },
+    "eurasian-jackdaw": {
+      "real": 0.749,
+      "codec_ceiling": 0.722,
+      "generated": 0.425,
+      "share_of_ceiling": 0.589,
+      "strong_of_12": 4
+    },
+    "hooded-crow": {
+      "real": 0.665,
+      "codec_ceiling": 0.55,
+      "generated": 0.263,
+      "share_of_ceiling": 0.478,
+      "strong_of_12": 2
+    },
+    "rook": {
+      "real": 0.73,
+      "codec_ceiling": 0.527,
+      "generated": 0.427,
+      "share_of_ceiling": 0.809,
+      "strong_of_12": 3
+    }
+  }
+}

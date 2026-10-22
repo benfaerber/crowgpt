@@ -1,0 +1,11 @@
+{
+  "name": "raw-audio",
+  "version": "0.1.0",
+  "description": "Unprocessed 48 kHz WAV capture for Cawtalker field recordings",
+  "main": "src/index.ts",
+  "expo": {
+    "platforms": [
+      "android"
+    ]
+  }
+}

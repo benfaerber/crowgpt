@@ -1,0 +1,2106 @@
+{
+  "eligible": 139,
+  "buckets": {
+    "channel-031": {
+      "bouts": 232,
+      "recordings": 66,
+      "human": 0.7032280701754386,
+      "rated": 228,
+      "flatness": 0.03440843770901054,
+      "birdnet": 0.7642198275862069
+    },
+    "channel-007": {
+      "bouts": 573,
+      "recordings": 21,
+      "human": 0.958111692844677,
+      "rated": 573,
+      "flatness": 0.14051275442730193,
+      "birdnet": 0.9126439790575915
+    },
+    "channel-199": {
+      "bouts": 536,
+      "recordings": 47,
+      "human": 0.8750917141049969,
+      "rated": 527,
+      "flatness": 0.1905204528296109,
+      "birdnet": 0.8992518656716418
+    },
+    "channel-239": {
+      "bouts": 88,
+      "recordings": 8,
+      "human": 0.8955681818181819,
+      "rated": 88,
+      "flatness": 0.34996524407937907,
+      "birdnet": 0.8584886363636364
+    },
+    "channel-085": {
+      "bouts": 365,
+      "recordings": 56,
+      "human": 0.7798249534450651,
+      "rated": 358,
+      "flatness": 0.2632949368046016,
+      "birdnet": 0.9069835616438355
+    },
+    "channel-040": {
+      "bouts": 558,
+      "recordings": 71,
+      "human": 0.7823537906137183,
+      "rated": 554,
+      "flatness": 0.22729933782695644,
+      "birdnet": 0.826426523297491
+    },
+    "channel-202": {
+      "bouts": 381,
+      "recordings": 51,
+      "human": 0.8191023622047245,
+      "rated": 381,
+      "flatness": 0.16978022123022712,
+      "birdnet": 0.9051233595800524
+    },
+    "channel-102": {
+      "bouts": 533,
+      "recordings": 84,
+      "human": 0.7245748884639898,
+      "rated": 523,
+      "flatness": 0.1712370295216464,
+      "birdnet": 0.8321482176360224
+    },
+    "channel-255": {
+      "bouts": 253,
+      "recordings": 20,
+      "human": 0.747304347826087,
+      "rated": 253,
+      "flatness": 0.12438010206041526,
+      "birdnet": 0.8352015810276681
+    },
+    "channel-234": {
+      "bouts": 341,
+      "recordings": 85,
+      "human": 0.7032380952380952,
+      "rated": 336,
+      "flatness": 0.05355101529351101,
+      "birdnet": 0.7695454545454544
+    },
+    "channel-245": {
+      "bouts": 554,
+      "recordings": 90,
+      "human": 0.7430520446096656,
+      "rated": 538,
+      "flatness": 0.20848369349520274,
+      "birdnet": 0.746231046931408
+    },
+    "channel-227": {
+      "bouts": 35,
+      "recordings": 16,
+      "human": 0.7677142857142858,
+      "rated": 35,
+      "flatness": 0.2723325793101578,
+      "birdnet": 0.6148285714285715
+    },
+    "channel-147": {
+      "bouts": 105,
+      "recordings": 12,
+      "human": 0.8951111111111111,
+      "rated": 105,
+      "flatness": 0.2124101270103429,
+      "birdnet": 0.9356095238095239
+    },
+    "channel-004": {
+      "bouts": 299,
+      "recordings": 48,
+      "human": 0.8388698630136987,
+      "rated": 292,
+      "flatness": 0.1738533497655304,
+      "birdnet": 0.8777792642140467
+    },
+    "channel-063": {
+      "bouts": 233,
+      "recordings": 24,
+      "human": 0.7196698113207548,
+      "rated": 212,
+      "flatness": 0.3342990759727395,
+      "birdnet": 0.7114034334763949
+    },
+    "channel-134": {
+      "bouts": 315,
+      "recordings": 29,
+      "human": 0.7815606557377048,
+      "rated": 305,
+      "flatness": 0.43415102049920107,
+      "birdnet": 0.7276476190476191
+    },
+    "channel-076": {
+      "bouts": 203,
+      "recordings": 48,
+      "human": 0.8322234234234236,
+      "rated": 185,
+      "flatness": 0.30050241872215855,
+      "birdnet": 0.8115615763546798
+    },
+    "channel-006": {
+      "bouts": 73,
+      "recordings": 9,
+      "human": 0.7777499999999999,
+      "rated": 72,
+      "flatness": 0.056339752884957274,
+      "birdnet": 0.785904109589041
+    },
+    "channel-175": {
+      "bouts": 195,
+      "recordings": 43,
+      "human": 0.7340705467372135,
+      "rated": 189,
+      "flatness": 0.08872424995735444,
+      "birdnet": 0.7886102564102564
+    },
+    "channel-164": {
+      "bouts": 146,
+      "recordings": 22,
+      "human": 0.8043013698630136,
+      "rated": 146,
+      "flatness": 0.5882866785270257,
+      "birdnet": 0.8652876712328766
+    },
+    "channel-070": {
+      "bouts": 418,
+      "recordings": 78,
+      "human": 0.7173542168674699,
+      "rated": 415,
+      "flatness": 0.15629934590659017,
+      "birdnet": 0.825244019138756
+    },
+    "channel-201": {
+      "bouts": 164,
+      "recordings": 8,
+      "human": 0.9304878048780489,
+      "rated": 164,
+      "flatness": 0.1847432309480929,
+      "birdnet": 0.7744817073170731
+    },
+    "channel-003": {
+      "bouts": 53,
+      "recordings": 5,
+      "human": 0.8792452830188681,
+      "rated": 53,
+      "flatness": 0.23200799220252655,
+      "birdnet": 0.8818301886792452
+    },
+    "channel-118": {
+      "bouts": 99,
+      "recordings": 30,
+      "human": 0.7505918367346938,
+      "rated": 98,
+      "flatness": 0.002400158111356778,
+      "birdnet": 0.8040303030303029
+    },
+    "channel-075": {
+      "bouts": 403,
+      "recordings": 76,
+      "human": 0.7613263888888889,
+      "rated": 384,
+      "flatness": 0.05171520392243519,
+      "birdnet": 0.8215756823821341
+    },
+    "channel-219": {
+      "bouts": 264,
+      "recordings": 24,
+      "human": 0.8751666666666668,
+      "rated": 264,
+      "flatness": 0.2001893428305446,
+      "birdnet": 0.905689393939394
+    },
+    "channel-011": {
+      "bouts": 361,
+      "recordings": 56,
+      "human": 0.7513962962962963,
+      "rated": 360,
+      "flatness": 0.2799401406999224,
+      "birdnet": 0.8844404432132964
+    },
+    "channel-224": {
+      "bouts": 141,
+      "recordings": 25,
+      "human": 0.8063687943262412,
+      "rated": 141,
+      "flatness": 0.050093755099317315,
+      "birdnet": 0.8489503546099292
+    },
+    "channel-128": {
+      "bouts": 319,
+      "recordings": 74,
+      "human": 0.7528248945147679,
+      "rated": 316,
+      "flatness": 0.2346445014606723,
+      "birdnet": 0.7898777429467084
+    },
+    "channel-233": {
+      "bouts": 359,
+      "recordings": 27,
+      "human": 0.7670552380952381,
+      "rated": 350,
+      "flatness": 0.36087282546728255,
+      "birdnet": 0.7024707520891365
+    },
+    "channel-050": {
+      "bouts": 207,
+      "recordings": 40,
+      "human": 0.6347074829931971,
+      "rated": 196,
+      "flatness": 0.1977090213031111,
+      "birdnet": 0.7182077294685989
+    },
+    "channel-029": {
+      "bouts": 486,
+      "recordings": 46,
+      "human": 0.8435089163237314,
+      "rated": 486,
+      "flatness": 0.16481596398689816,
+      "birdnet": 0.8935205761316872
+    },
+    "channel-190": {
+      "bouts": 414,
+      "recordings": 73,
+      "human": 0.681610705596107,
+      "rated": 411,
+      "flatness": 0.041387080825321186,
+      "birdnet": 0.7863671497584541
+    },
+    "channel-153": {
+      "bouts": 121,
+      "recordings": 26,
+      "human": 0.7386833333333332,
+      "rated": 120,
+      "flatness": 0.06646905948124437,
+      "birdnet": 0.8820743801652892
+    },
+    "channel-189": {
+      "bouts": 179,
+      "recordings": 24,
+      "human": 0.7888409090909092,
+      "rated": 176,
+      "flatness": 0.21359081996229654,
+      "birdnet": 0.8849497206703911
+    },
+    "channel-213": {
+      "bouts": 124,
+      "recordings": 43,
+      "human": 0.7364098360655738,
+      "rated": 122,
+      "flatness": 0.005718760300879478,
+      "birdnet": 0.7844193548387096
+    },
+    "channel-060": {
+      "bouts": 324,
+      "recordings": 55,
+      "human": 0.669569755058573,
+      "rated": 313,
+      "flatness": 0.334048486497615,
+      "birdnet": 0.736679012345679
+    },
+    "channel-250": {
+      "bouts": 438,
+      "recordings": 81,
+      "human": 0.719191780821918,
+      "rated": 438,
+      "flatness": 0.25080104556964744,
+      "birdnet": 0.8187351598173516
+    },
+    "channel-053": {
+      "bouts": 215,
+      "recordings": 22,
+      "human": 0.7038232558139536,
+      "rated": 215,
+      "flatness": 0.3408445829219828,
+      "birdnet": 0.7315395348837208
+    },
+    "channel-054": {
+      "bouts": 409,
+      "recordings": 75,
+      "human": 0.6675506172839505,
+      "rated": 405,
+      "flatness": 0.18577959973293595,
+      "birdnet": 0.7523398533007335
+    },
+    "channel-220": {
+      "bouts": 254,
+      "recordings": 30,
+      "human": 0.8605439330543934,
+      "rated": 239,
+      "flatness": 0.22203597258155744,
+      "birdnet": 0.9641141732283465
+    },
+    "channel-168": {
+      "bouts": 393,
+      "recordings": 34,
+      "human": 0.7293994910941476,
+      "rated": 393,
+      "flatness": 0.1184219235194454,
+      "birdnet": 0.8559007633587785
+    },
+    "channel-191": {
+      "bouts": 83,
+      "recordings": 38,
+      "human": 0.8373589743589747,
+      "rated": 78,
+      "flatness": 0.09242459615546328,
+      "birdnet": 0.9018674698795179
+    },
+    "channel-061": {
+      "bouts": 125,
+      "recordings": 10,
+      "human": 0.7939200000000002,
+      "rated": 125,
+      "flatness": 0.1004743207129069,
+      "birdnet": 0.770896
+    },
+    "channel-221": {
+      "bouts": 509,
+      "recordings": 90,
+      "human": 0.7809940357852884,
+      "rated": 503,
+      "flatness": 0.05850896491227097,
+      "birdnet": 0.8591768172888015
+    },
+    "channel-240": {
+      "bouts": 218,
+      "recordings": 73,
+      "human": 0.6847284552845527,
+      "rated": 205,
+      "flatness": 0.05820793667955811,
+      "birdnet": 0.6869403669724772
+    },
+    "channel-112": {
+      "bouts": 193,
+      "recordings": 26,
+      "human": 0.7758860103626942,
+      "rated": 193,
+      "flatness": 0.030869073489361642,
+      "birdnet": 0.7636476683937825
+    },
+    "channel-012": {
+      "bouts": 384,
+      "recordings": 74,
+      "human": 0.6839947780678852,
+      "rated": 383,
+      "flatness": 0.08375777991441115,
+      "birdnet": 0.7240598958333333
+    },
+    "channel-113": {
+      "bouts": 371,
+      "recordings": 81,
+      "human": 0.7333534246575342,
+      "rated": 365,
+      "flatness": 0.016326792589607782,
+      "birdnet": 0.7881913746630728
+    },
+    "channel-042": {
+      "bouts": 658,
+      "recordings": 77,
+      "human": 0.8010188295165395,
+      "rated": 655,
+      "flatness": 0.271994661001503,
+      "birdnet": 0.8863297872340427
+    },
+    "channel-167": {
+      "bouts": 244,
+      "recordings": 46,
+      "human": 0.7756218487394958,
+      "rated": 238,
+      "flatness": 0.3997851212222713,
+      "birdnet": 0.806016393442623
+    },
+    "channel-043": {
+      "bouts": 25,
+      "recordings": 10,
+      "human": 0.568,
+      "rated": 25,
+      "flatness": 0.20312533793069842,
+      "birdnet": 0.75192
+    },
+    "channel-018": {
+      "bouts": 150,
+      "recordings": 37,
+      "human": 0.5877794117647058,
+      "rated": 136,
+      "flatness": 0.3620860458102698,
+      "birdnet": 0.63376
+    },
+    "channel-022": {
+      "bouts": 142,
+      "recordings": 24,
+      "human": 0.7285142857142857,
+      "rated": 140,
+      "flatness": 0.15113155288210736,
+      "birdnet": 0.8023732394366196
+    },
+    "channel-026": {
+      "bouts": 275,
+      "recordings": 47,
+      "human": 0.8535238095238096,
+      "rated": 273,
+      "flatness": 0.01889956647310865,
+      "birdnet": 0.8570327272727272
+    },
+    "channel-243": {
+      "bouts": 65,
+      "recordings": 13,
+      "human": 0.8615384615384615,
+      "rated": 65,
+      "flatness": 0.4987827498543044,
+      "birdnet": 0.866676923076923
+    },
+    "channel-148": {
+      "bouts": 365,
+      "recordings": 34,
+      "human": 0.7275170454545455,
+      "rated": 352,
+      "flatness": 0.5509403849095084,
+      "birdnet": 0.7993424657534246
+    },
+    "channel-126": {
+      "bouts": 691,
+      "recordings": 92,
+      "human": 0.7869237536656891,
+      "rated": 682,
+      "flatness": 0.11647534442213936,
+      "birdnet": 0.8333646888567294
+    },
+    "channel-099": {
+      "bouts": 490,
+      "recordings": 81,
+      "human": 0.6613485477178423,
+      "rated": 482,
+      "flatness": 0.32086312853088483,
+      "birdnet": 0.7763122448979592
+    },
+    "channel-122": {
+      "bouts": 509,
+      "recordings": 95,
+      "human": 0.7156871287128713,
+      "rated": 505,
+      "flatness": 0.12598067947859265,
+      "birdnet": 0.7820157170923379
+    },
+    "channel-033": {
+      "bouts": 658,
+      "recordings": 56,
+      "human": 0.8218338658146966,
+      "rated": 626,
+      "flatness": 0.26276099358586236,
+      "birdnet": 0.7402902735562311
+    },
+    "channel-124": {
+      "bouts": 79,
+      "recordings": 16,
+      "human": 0.8197974683544301,
+      "rated": 79,
+      "flatness": 0.11183159326173422,
+      "birdnet": 0.8447341772151898
+    },
+    "channel-103": {
+      "bouts": 256,
+      "recordings": 39,
+      "human": 0.7277233201581029,
+      "rated": 253,
+      "flatness": 0.020810131835190867,
+      "birdnet": 0.77430078125
+    },
+    "channel-141": {
+      "bouts": 67,
+      "recordings": 5,
+      "human": 0.7762388059701494,
+      "rated": 67,
+      "flatness": 0.43996864038638944,
+      "birdnet": 0.7678358208955225
+    },
+    "channel-225": {
+      "bouts": 685,
+      "recordings": 123,
+      "human": 0.744082717872969,
+      "rated": 677,
+      "flatness": 0.1891686639510286,
+      "birdnet": 0.7378510948905109
+    },
+    "channel-021": {
+      "bouts": 201,
+      "recordings": 27,
+      "human": 0.8277512437810948,
+      "rated": 201,
+      "flatness": 0.2329748681549845,
+      "birdnet": 0.7918507462686566
+    },
+    "channel-068": {
+      "bouts": 288,
+      "recordings": 81,
+      "human": 0.6563642857142856,
+      "rated": 280,
+      "flatness": 0.031641568170009106,
+      "birdnet": 0.7750694444444445
+    },
+    "channel-163": {
+      "bouts": 273,
+      "recordings": 59,
+      "human": 0.7444758364312271,
+      "rated": 269,
+      "flatness": 0.33563389716742975,
+      "birdnet": 0.6764908424908426
+    },
+    "channel-082": {
+      "bouts": 365,
+      "recordings": 61,
+      "human": 0.769718232044199,
+      "rated": 362,
+      "flatness": 0.145267508075286,
+      "birdnet": 0.8516849315068493
+    },
+    "channel-174": {
+      "bouts": 219,
+      "recordings": 54,
+      "human": 0.693247619047619,
+      "rated": 210,
+      "flatness": 0.19494529816345998,
+      "birdnet": 0.7319634703196345
+    },
+    "channel-251": {
+      "bouts": 93,
+      "recordings": 19,
+      "human": 0.8554838709677418,
+      "rated": 93,
+      "flatness": 0.05483663560496218,
+      "birdnet": 0.9310107526881721
+    },
+    "channel-145": {
+      "bouts": 639,
+      "recordings": 70,
+      "human": 0.7551841418883672,
+      "rated": 639,
+      "flatness": 0.05837969823992073,
+      "birdnet": 0.8815539906103285
+    },
+    "channel-080": {
+      "bouts": 854,
+      "recordings": 160,
+      "human": 0.7674401913875598,
+      "rated": 836,
+      "flatness": 0.15295392672399372,
+      "birdnet": 0.7765468384074941
+    },
+    "channel-035": {
+      "bouts": 87,
+      "recordings": 22,
+      "human": 0.7905526315789474,
+      "rated": 76,
+      "flatness": 0.22555152485417548,
+      "birdnet": 0.7497931034482759
+    },
+    "channel-048": {
+      "bouts": 377,
+      "recordings": 43,
+      "human": 0.7558345679012346,
+      "rated": 270,
+      "flatness": 0.11578214917663796,
+      "birdnet": 0.7809416445623342
+    },
+    "channel-216": {
+      "bouts": 392,
+      "recordings": 79,
+      "human": 0.7276752136752137,
+      "rated": 390,
+      "flatness": 0.020439664992131137,
+      "birdnet": 0.8034974489795919
+    },
+    "channel-196": {
+      "bouts": 450,
+      "recordings": 92,
+      "human": 0.7070608272506084,
+      "rated": 411,
+      "flatness": 0.11040885171443723,
+      "birdnet": 0.7524088888888888
+    },
+    "channel-244": {
+      "bouts": 183,
+      "recordings": 40,
+      "human": 0.7821395348837209,
+      "rated": 172,
+      "flatness": 0.09655225790338308,
+      "birdnet": 0.7964262295081966
+    },
+    "channel-000": {
+      "bouts": 2642,
+      "recordings": 448,
+      "human": 0.8546977862112586,
+      "rated": 2635,
+      "flatness": 0.12512307597402594,
+      "birdnet": 0.789570022710068
+    },
+    "channel-143": {
+      "bouts": 231,
+      "recordings": 26,
+      "human": 0.8462434782608694,
+      "rated": 230,
+      "flatness": 0.28340360144360616,
+      "birdnet": 0.8688701298701299
+    },
+    "channel-186": {
+      "bouts": 227,
+      "recordings": 17,
+      "human": 0.8775525925925927,
+      "rated": 225,
+      "flatness": 0.29633271924645554,
+      "birdnet": 0.8781101321585904
+    },
+    "channel-129": {
+      "bouts": 337,
+      "recordings": 70,
+      "human": 0.7333684210526317,
+      "rated": 323,
+      "flatness": 0.1327754725239106,
+      "birdnet": 0.7750652818991098
+    },
+    "channel-172": {
+      "bouts": 422,
+      "recordings": 59,
+      "human": 0.8455714285714286,
+      "rated": 406,
+      "flatness": 0.20470343277289682,
+      "birdnet": 0.8981611374407583
+    },
+    "channel-246": {
+      "bouts": 415,
+      "recordings": 68,
+      "human": 0.7784959349593498,
+      "rated": 410,
+      "flatness": 0.2563158484476359,
+      "birdnet": 0.8699975903614457
+    },
+    "channel-181": {
+      "bouts": 369,
+      "recordings": 83,
+      "human": 0.7107386888273316,
+      "rated": 361,
+      "flatness": 0.2744076497484874,
+      "birdnet": 0.796929539295393
+    },
+    "channel-071": {
+      "bouts": 447,
+      "recordings": 119,
+      "human": 0.6847809523809524,
+      "rated": 420,
+      "flatness": 0.045413510968387846,
+      "birdnet": 0.7687136465324385
+    },
+    "channel-138": {
+      "bouts": 585,
+      "recordings": 99,
+      "human": 0.7412341880341882,
+      "rated": 585,
+      "flatness": 0.15669393658664846,
+      "birdnet": 0.7157863247863248
+    },
+    "channel-125": {
+      "bouts": 644,
+      "recordings": 92,
+      "human": 0.5997063740856844,
+      "rated": 638,
+      "flatness": 0.14288219679280212,
+      "birdnet": 0.6146583850931677
+    },
+    "channel-013": {
+      "bouts": 517,
+      "recordings": 68,
+      "human": 0.8040425531914894,
+      "rated": 517,
+      "flatness": 0.05292981338386175,
+      "birdnet": 0.8161876208897485
+    },
+    "channel-176": {
+      "bouts": 122,
+      "recordings": 20,
+      "human": 0.647622950819672,
+      "rated": 122,
+      "flatness": 0.24842488499442084,
+      "birdnet": 0.8600983606557377
+    },
+    "channel-200": {
+      "bouts": 431,
+      "recordings": 81,
+      "human": 0.6833016627078385,
+      "rated": 421,
+      "flatness": 0.22595761763726002,
+      "birdnet": 0.7809419953596288
+    },
+    "channel-177": {
+      "bouts": 276,
+      "recordings": 44,
+      "human": 0.7478141263940522,
+      "rated": 269,
+      "flatness": 0.2033249686901558,
+      "birdnet": 0.7116992753623187
+    },
+    "channel-077": {
+      "bouts": 150,
+      "recordings": 13,
+      "human": 0.7308918918918919,
+      "rated": 148,
+      "flatness": 0.1428489029641088,
+      "birdnet": 0.8548533333333332
+    },
+    "channel-036": {
+      "bouts": 140,
+      "recordings": 43,
+      "human": 0.6754714285714286,
+      "rated": 140,
+      "flatness": 0.003869830597130038,
+      "birdnet": 0.7550785714285715
+    },
+    "channel-037": {
+      "bouts": 683,
+      "recordings": 50,
+      "human": 0.742431718061674,
+      "rated": 681,
+      "flatness": 0.04408189057482704,
+      "birdnet": 0.8439165446559297
+    },
+    "channel-016": {
+      "bouts": 119,
+      "recordings": 34,
+      "human": 0.6720336134453784,
+      "rated": 119,
+      "flatness": 0.04252068817976871,
+      "birdnet": 0.7477563025210083
+    },
+    "channel-108": {
+      "bouts": 49,
+      "recordings": 10,
+      "human": 0.7802448979591836,
+      "rated": 49,
+      "flatness": 0.06304068902816892,
+      "birdnet": 0.894734693877551
+    },
+    "channel-170": {
+      "bouts": 23,
+      "recordings": 10,
+      "human": 0.7711304347826089,
+      "rated": 23,
+      "flatness": 0.05071682310939533,
+      "birdnet": 0.8180434782608696
+    },
+    "channel-237": {
+      "bouts": 127,
+      "recordings": 27,
+      "human": 0.7827401574803153,
+      "rated": 127,
+      "flatness": 0.11174211898497335,
+      "birdnet": 0.83244094488189
+    },
+    "channel-132": {
+      "bouts": 349,
+      "recordings": 89,
+      "human": 0.6554431137724551,
+      "rated": 334,
+      "flatness": 0.24046844267224157,
+      "birdnet": 0.715323782234957
+    },
+    "channel-208": {
+      "bouts": 113,
+      "recordings": 26,
+      "human": 0.7136415094339624,
+      "rated": 106,
+      "flatness": 0.2524950799184153,
+      "birdnet": 0.6516106194690265
+    },
+    "channel-100": {
+      "bouts": 569,
+      "recordings": 81,
+      "human": 0.7380961182994455,
+      "rated": 541,
+      "flatness": 0.1403575799955278,
+      "birdnet": 0.8224762741652021
+    },
+    "channel-078": {
+      "bouts": 305,
+      "recordings": 67,
+      "human": 0.6674814814814816,
+      "rated": 297,
+      "flatness": 0.18843214864061106,
+      "birdnet": 0.7310262295081968
+    },
+    "channel-171": {
+      "bouts": 197,
+      "recordings": 61,
+      "human": 0.548173469387755,
+      "rated": 196,
+      "flatness": 0.2520349671673827,
+      "birdnet": 0.6245634517766497
+    },
+    "channel-222": {
+      "bouts": 254,
+      "recordings": 55,
+      "human": 0.7315691056910569,
+      "rated": 246,
+      "flatness": 0.17439872631927103,
+      "birdnet": 0.7241811023622048
+    },
+    "channel-105": {
+      "bouts": 272,
+      "recordings": 74,
+      "human": 0.6806877470355731,
+      "rated": 253,
+      "flatness": 0.022058502109235857,
+      "birdnet": 0.7247169117647059
+    },
+    "channel-106": {
+      "bouts": 315,
+      "recordings": 80,
+      "human": 0.652255737704918,
+      "rated": 305,
+      "flatness": 0.12480945677615246,
+      "birdnet": 0.7302761904761904
+    },
+    "channel-059": {
+      "bouts": 530,
+      "recordings": 114,
+      "human": 0.6886240310077519,
+      "rated": 516,
+      "flatness": 0.12391363921358882,
+      "birdnet": 0.7073698113207547
+    },
+    "channel-253": {
+      "bouts": 107,
+      "recordings": 23,
+      "human": 0.7489158878504671,
+      "rated": 107,
+      "flatness": 0.13858987117989993,
+      "birdnet": 0.7761028037383176
+    },
+    "channel-135": {
+      "bouts": 408,
+      "recordings": 74,
+      "human": 0.7496930693069306,
+      "rated": 404,
+      "flatness": 0.17941194896448062,
+      "birdnet": 0.8158406862745097
+    },
+    "channel-008": {
+      "bouts": 82,
+      "recordings": 13,
+      "human": 0.8412682926829268,
+      "rated": 82,
+      "flatness": 0.4349438801477909,
+      "birdnet": 0.763280487804878
+    },
+    "channel-161": {
+      "bouts": 248,
+      "recordings": 59,
+      "human": 0.7551129707112972,
+      "rated": 239,
+      "flatness": 0.07903627262234633,
+      "birdnet": 0.7581209677419355
+    },
+    "channel-236": {
+      "bouts": 599,
+      "recordings": 86,
+      "human": 0.7244214046822742,
+      "rated": 598,
+      "flatness": 0.2933882733032919,
+      "birdnet": 0.789838063439065
+    },
+    "channel-130": {
+      "bouts": 434,
+      "recordings": 107,
+      "human": 0.6949733656174333,
+      "rated": 413,
+      "flatness": 0.11517441269305635,
+      "birdnet": 0.7061797235023042
+    },
+    "channel-214": {
+      "bouts": 85,
+      "recordings": 19,
+      "human": 0.6184470588235291,
+      "rated": 85,
+      "flatness": 0.0026395145243741543,
+      "birdnet": 0.6998705882352942
+    },
+    "channel-046": {
+      "bouts": 358,
+      "recordings": 37,
+      "human": 0.741346516007533,
+      "rated": 354,
+      "flatness": 0.3319490019580727,
+      "birdnet": 0.7245530726256982
+    },
+    "channel-030": {
+      "bouts": 240,
+      "recordings": 27,
+      "human": 0.777238888888889,
+      "rated": 240,
+      "flatness": 0.1749939168796904,
+      "birdnet": 0.8319624999999999
+    },
+    "channel-173": {
+      "bouts": 218,
+      "recordings": 76,
+      "human": 0.631729468599034,
+      "rated": 207,
+      "flatness": 0.4647453478642093,
+      "birdnet": 0.679894495412844
+    },
+    "channel-207": {
+      "bouts": 178,
+      "recordings": 44,
+      "human": 0.6397411764705883,
+      "rated": 170,
+      "flatness": 0.39545171072058577,
+      "birdnet": 0.6343314606741574
+    },
+    "channel-051": {
+      "bouts": 135,
+      "recordings": 22,
+      "human": 0.726417910447761,
+      "rated": 134,
+      "flatness": 0.08025664008546778,
+      "birdnet": 0.6311851851851852
+    },
+    "channel-142": {
+      "bouts": 182,
+      "recordings": 30,
+      "human": 0.7787784679089026,
+      "rated": 161,
+      "flatness": 0.1609424001522257,
+      "birdnet": 0.8324725274725274
+    },
+    "channel-178": {
+      "bouts": 172,
+      "recordings": 13,
+      "human": 0.7073619631901841,
+      "rated": 163,
+      "flatness": 0.09289333945945293,
+      "birdnet": 0.8317383720930233
+    },
+    "channel-230": {
+      "bouts": 109,
+      "recordings": 24,
+      "human": 0.5807961165048544,
+      "rated": 103,
+      "flatness": 0.12947888809504637,
+      "birdnet": 0.6595504587155965
+    },
+    "channel-193": {
+      "bouts": 53,
+      "recordings": 8,
+      "human": 0.6817610062893079,
+      "rated": 53,
+      "flatness": 0.16584981632267257,
+      "birdnet": 0.5750377358490566
+    },
+    "channel-209": {
+      "bouts": 91,
+      "recordings": 35,
+      "human": 0.6674698795180722,
+      "rated": 83,
+      "flatness": 0.2225123324016874,
+      "birdnet": 0.5844175824175823
+    },
+    "channel-109": {
+      "bouts": 134,
+      "recordings": 17,
+      "human": 0.7093893129770992,
+      "rated": 131,
+      "flatness": 0.26516844979236537,
+      "birdnet": 0.7157462686567165
+    },
+    "channel-027": {
+      "bouts": 732,
+      "recordings": 48,
+      "human": 0.8338512396694214,
+      "rated": 726,
+      "flatness": 0.09752631487758782,
+      "birdnet": 0.8475874316939892
+    },
+    "channel-091": {
+      "bouts": 83,
+      "recordings": 12,
+      "human": 0.8875903614457833,
+      "rated": 83,
+      "flatness": 0.3524722756102266,
+      "birdnet": 0.9130481927710844
+    },
+    "channel-062": {
+      "bouts": 18,
+      "recordings": 5,
+      "human": 0.8684444444444446,
+      "rated": 18,
+      "flatness": 0.13576957992924824,
+      "birdnet": 0.7317777777777777
+    },
+    "channel-014": {
+      "bouts": 386,
+      "recordings": 112,
+      "human": 0.712484375,
+      "rated": 384,
+      "flatness": 0.06564611276124051,
+      "birdnet": 0.6760103626943005
+    },
+    "channel-137": {
+      "bouts": 435,
+      "recordings": 20,
+      "human": 0.8294716049382717,
+      "rated": 405,
+      "flatness": 0.10915697598017145,
+      "birdnet": 0.6871563218390805
+    },
+    "channel-017": {
+      "bouts": 275,
+      "recordings": 46,
+      "human": 0.6975371069182391,
+      "rated": 265,
+      "flatness": 0.47639330941872504,
+      "birdnet": 0.7468727272727272
+    },
+    "channel-005": {
+      "bouts": 352,
+      "recordings": 63,
+      "human": 0.674160458452722,
+      "rated": 349,
+      "flatness": 0.06859002569279231,
+      "birdnet": 0.7130369318181818
+    },
+    "channel-020": {
+      "bouts": 291,
+      "recordings": 51,
+      "human": 0.689573883161512,
+      "rated": 291,
+      "flatness": 0.21396912158127623,
+      "birdnet": 0.6700034364261168
+    },
+    "channel-088": {
+      "bouts": 248,
+      "recordings": 58,
+      "human": 0.6688897849462366,
+      "rated": 248,
+      "flatness": 0.06516806234276348,
+      "birdnet": 0.7210967741935483
+    },
+    "channel-032": {
+      "bouts": 205,
+      "recordings": 72,
+      "human": 0.6250456852791878,
+      "rated": 197,
+      "flatness": 0.04447938370324715,
+      "birdnet": 0.6503121951219514
+    },
+    "channel-089": {
+      "bouts": 140,
+      "recordings": 21,
+      "human": 0.7192428571428571,
+      "rated": 140,
+      "flatness": 0.2785634552651629,
+      "birdnet": 0.7736285714285713
+    },
+    "channel-069": {
+      "bouts": 90,
+      "recordings": 29,
+      "human": 0.6385407407407407,
+      "rated": 90,
+      "flatness": 0.0013757849823614915,
+      "birdnet": 0.7776333333333333
+    },
+    "channel-057": {
+      "bouts": 220,
+      "recordings": 74,
+      "human": 0.6391538461538461,
+      "rated": 208,
+      "flatness": 0.1318943558138326,
+      "birdnet": 0.6760090909090908
+    },
+    "channel-192": {
+      "bouts": 311,
+      "recordings": 90,
+      "human": 0.572925566343042,
+      "rated": 309,
+      "flatness": 0.3510917216165502,
+      "birdnet": 0.582138263665595
+    },
+    "channel-049": {
+      "bouts": 55,
+      "recordings": 23,
+      "human": 0.7781454545454544,
+      "rated": 55,
+      "flatness": 0.13307522583784684,
+      "birdnet": 0.7982181818181819
+    },
+    "channel-204": {
+      "bouts": 196,
+      "recordings": 58,
+      "human": 0.7197346938775511,
+      "rated": 196,
+      "flatness": 0.18777428864594461,
+      "birdnet": 0.6575918367346939
+    },
+    "channel-197": {
+      "bouts": 131,
+      "recordings": 47,
+      "human": 0.7747989821882952,
+      "rated": 131,
+      "flatness": 0.3897162057914715,
+      "birdnet": 0.8216717557251909
+    },
+    "channel-133": {
+      "bouts": 686,
+      "recordings": 120,
+      "human": 0.6731005917159762,
+      "rated": 676,
+      "flatness": 0.05421894548382873,
+      "birdnet": 0.7312186588921282
+    },
+    "channel-123": {
+      "bouts": 151,
+      "recordings": 65,
+      "human": 0.5959599999999998,
+      "rated": 150,
+      "flatness": 0.11353721477769599,
+      "birdnet": 0.583748344370861
+    },
+    "channel-206": {
+      "bouts": 443,
+      "recordings": 106,
+      "human": 0.6851900452488688,
+      "rated": 442,
+      "flatness": 0.2627652433882259,
+      "birdnet": 0.7358939051918736
+    },
+    "channel-015": {
+      "bouts": 417,
+      "recordings": 50,
+      "human": 0.730227602905569,
+      "rated": 413,
+      "flatness": 0.1023743739559591,
+      "birdnet": 0.7163309352517987
+    },
+    "channel-045": {
+      "bouts": 330,
+      "recordings": 46,
+      "human": 0.6785877466251299,
+      "rated": 321,
+      "flatness": 0.09204105486484354,
+      "birdnet": 0.7435030303030303
+    },
+    "channel-157": {
+      "bouts": 138,
+      "recordings": 72,
+      "human": 0.578,
+      "rated": 132,
+      "flatness": 0.21133128055868827,
+      "birdnet": 0.6499782608695652
+    },
+    "channel-055": {
+      "bouts": 478,
+      "recordings": 70,
+      "human": 0.7825618556701033,
+      "rated": 388,
+      "flatness": 0.19793682609778726,
+      "birdnet": 0.7905543933054393
+    },
+    "channel-025": {
+      "bouts": 84,
+      "recordings": 12,
+      "human": 0.8840714285714287,
+      "rated": 84,
+      "flatness": 0.10029748287949075,
+      "birdnet": 0.880261904761905
+    },
+    "channel-185": {
+      "bouts": 47,
+      "recordings": 5,
+      "human": 0.6575744680851067,
+      "rated": 47,
+      "flatness": 0.09423246558557602,
+      "birdnet": 0.793127659574468
+    },
+    "channel-074": {
+      "bouts": 382,
+      "recordings": 108,
+      "human": 0.5926035087719298,
+      "rated": 380,
+      "flatness": 0.18752820781249185,
+      "birdnet": 0.6203743455497382
+    },
+    "channel-149": {
+      "bouts": 655,
+      "recordings": 74,
+      "human": 0.7255416666666666,
+      "rated": 624,
+      "flatness": 0.24525129369983867,
+      "birdnet": 0.8423129770992365
+    },
+    "channel-116": {
+      "bouts": 303,
+      "recordings": 44,
+      "human": 0.7199730639730639,
+      "rated": 297,
+      "flatness": 0.40500005332890976,
+      "birdnet": 0.7507821782178218
+    },
+    "channel-160": {
+      "bouts": 168,
+      "recordings": 47,
+      "human": 0.709568862275449,
+      "rated": 167,
+      "flatness": 0.39860258098943374,
+      "birdnet": 0.7928511904761906
+    },
+    "channel-212": {
+      "bouts": 156,
+      "recordings": 46,
+      "human": 0.7212428571428571,
+      "rated": 140,
+      "flatness": 0.08168574826970056,
+      "birdnet": 0.7102435897435898
+    },
+    "channel-187": {
+      "bouts": 108,
+      "recordings": 55,
+      "human": 0.7339047619047621,
+      "rated": 105,
+      "flatness": 0.35941863605365737,
+      "birdnet": 0.7486296296296295
+    },
+    "channel-081": {
+      "bouts": 331,
+      "recordings": 52,
+      "human": 0.7148650306748466,
+      "rated": 326,
+      "flatness": 0.5601392441337135,
+      "birdnet": 0.6570241691842901
+    },
+    "channel-218": {
+      "bouts": 6,
+      "recordings": 1,
+      "human": 0.866,
+      "rated": 6,
+      "flatness": 0.11065055645102034,
+      "birdnet": 0.6718333333333334
+    },
+    "channel-205": {
+      "bouts": 164,
+      "recordings": 22,
+      "human": 0.7731463414634147,
+      "rated": 164,
+      "flatness": 0.009691478808312608,
+      "birdnet": 0.6630548780487804
+    },
+    "channel-028": {
+      "bouts": 267,
+      "recordings": 73,
+      "human": 0.6410570342205322,
+      "rated": 263,
+      "flatness": 0.1952569247748589,
+      "birdnet": 0.6620786516853933
+    },
+    "channel-044": {
+      "bouts": 178,
+      "recordings": 40,
+      "human": 0.6280229885057472,
+      "rated": 174,
+      "flatness": 0.23259240773438103,
+      "birdnet": 0.7414943820224719
+    },
+    "channel-144": {
+      "bouts": 475,
+      "recordings": 39,
+      "human": 0.6985155367231637,
+      "rated": 472,
+      "flatness": 0.28327116148430775,
+      "birdnet": 0.73396
+    },
+    "channel-242": {
+      "bouts": 182,
+      "recordings": 57,
+      "human": 0.7531391941391941,
+      "rated": 182,
+      "flatness": 0.1536599535397747,
+      "birdnet": 0.8201483516483516
+    },
+    "channel-067": {
+      "bouts": 266,
+      "recordings": 73,
+      "human": 0.6779543726235743,
+      "rated": 263,
+      "flatness": 0.35866206361352304,
+      "birdnet": 0.7254736842105263
+    },
+    "channel-107": {
+      "bouts": 117,
+      "recordings": 16,
+      "human": 0.8079316239316237,
+      "rated": 117,
+      "flatness": 0.43962461825001714,
+      "birdnet": 0.6822051282051282
+    },
+    "channel-104": {
+      "bouts": 223,
+      "recordings": 49,
+      "human": 0.686140186915888,
+      "rated": 214,
+      "flatness": 0.030328276702517556,
+      "birdnet": 0.8472825112107624
+    },
+    "channel-090": {
+      "bouts": 94,
+      "recordings": 24,
+      "human": 0.7899787234042555,
+      "rated": 94,
+      "flatness": 0.023505147231801537,
+      "birdnet": 0.7854255319148936
+    },
+    "channel-217": {
+      "bouts": 48,
+      "recordings": 15,
+      "human": 0.6618750000000001,
+      "rated": 48,
+      "flatness": 0.055983543363906235,
+      "birdnet": 0.7421458333333334
+    },
+    "channel-073": {
+      "bouts": 194,
+      "recordings": 89,
+      "human": 0.6588167539267015,
+      "rated": 191,
+      "flatness": 0.1717966964884659,
+      "birdnet": 0.753262886597938
+    },
+    "channel-034": {
+      "bouts": 219,
+      "recordings": 46,
+      "human": 0.721455399061033,
+      "rated": 213,
+      "flatness": 0.09615935166601074,
+      "birdnet": 0.7471232876712329
+    },
+    "channel-146": {
+      "bouts": 262,
+      "recordings": 62,
+      "human": 0.5964701195219122,
+      "rated": 251,
+      "flatness": 0.17434830139694293,
+      "birdnet": 0.7466641221374045
+    },
+    "channel-140": {
+      "bouts": 445,
+      "recordings": 52,
+      "human": 0.7028566978193147,
+      "rated": 214,
+      "flatness": 0.14004376372565192,
+      "birdnet": 0.7741056179775281
+    },
+    "channel-023": {
+      "bouts": 167,
+      "recordings": 25,
+      "human": 0.7973895582329318,
+      "rated": 166,
+      "flatness": 0.09099179937392358,
+      "birdnet": 0.866131736526946
+    },
+    "channel-010": {
+      "bouts": 148,
+      "recordings": 55,
+      "human": 0.7706349206349207,
+      "rated": 126,
+      "flatness": 0.15881301915377724,
+      "birdnet": 0.7897094594594595
+    },
+    "channel-241": {
+      "bouts": 156,
+      "recordings": 41,
+      "human": 0.7081496598639456,
+      "rated": 147,
+      "flatness": 0.04997922542269696,
+      "birdnet": 0.74525
+    },
+    "channel-009": {
+      "bouts": 159,
+      "recordings": 49,
+      "human": 0.659431623931624,
+      "rated": 156,
+      "flatness": 0.4520247939035754,
+      "birdnet": 0.6482327044025158
+    },
+    "channel-235": {
+      "bouts": 145,
+      "recordings": 31,
+      "human": 0.7401834862385323,
+      "rated": 109,
+      "flatness": 0.11338653387010787,
+      "birdnet": 0.9064068965517241
+    },
+    "channel-154": {
+      "bouts": 215,
+      "recordings": 29,
+      "human": 0.6813953488372093,
+      "rated": 215,
+      "flatness": 0.07129382293092745,
+      "birdnet": 0.7714093023255815
+    },
+    "channel-150": {
+      "bouts": 49,
+      "recordings": 10,
+      "human": 0.7346938775510202,
+      "rated": 49,
+      "flatness": 0.19572442419244357,
+      "birdnet": 0.7571224489795919
+    },
+    "channel-096": {
+      "bouts": 90,
+      "recordings": 19,
+      "human": 0.8066666666666668,
+      "rated": 90,
+      "flatness": 0.36723761760772494,
+      "birdnet": 0.7057222222222223
+    },
+    "channel-139": {
+      "bouts": 354,
+      "recordings": 101,
+      "human": 0.691741935483871,
+      "rated": 341,
+      "flatness": 0.13154974490344598,
+      "birdnet": 0.7257994350282486
+    },
+    "channel-079": {
+      "bouts": 349,
+      "recordings": 100,
+      "human": 0.6324716417910446,
+      "rated": 335,
+      "flatness": 0.07757474021172868,
+      "birdnet": 0.6469627507163325
+    },
+    "channel-249": {
+      "bouts": 128,
+      "recordings": 36,
+      "human": 0.5532755905511811,
+      "rated": 127,
+      "flatness": 0.14079947790381123,
+      "birdnet": 0.6516718750000001
+    },
+    "channel-094": {
+      "bouts": 85,
+      "recordings": 48,
+      "human": 0.675105882352941,
+      "rated": 85,
+      "flatness": 0.29286905777416605,
+      "birdnet": 0.755305882352941
+    },
+    "channel-131": {
+      "bouts": 11,
+      "recordings": 1,
+      "human": 1.0,
+      "rated": 11,
+      "flatness": 0.6043447021794932,
+      "birdnet": 0.855090909090909
+    },
+    "channel-188": {
+      "bouts": 329,
+      "recordings": 26,
+      "human": 0.6494387031408307,
+      "rated": 329,
+      "flatness": 0.09268320076616555,
+      "birdnet": 0.8379361702127661
+    },
+    "channel-223": {
+      "bouts": 248,
+      "recordings": 38,
+      "human": 0.7081290322580646,
+      "rated": 248,
+      "flatness": 0.2610968170059806,
+      "birdnet": 0.8082782258064516
+    },
+    "channel-058": {
+      "bouts": 376,
+      "recordings": 79,
+      "human": 0.7130160427807487,
+      "rated": 374,
+      "flatness": 0.24259434187655285,
+      "birdnet": 0.7018271276595744
+    },
+    "channel-083": {
+      "bouts": 69,
+      "recordings": 22,
+      "human": 0.6579710144927536,
+      "rated": 69,
+      "flatness": 0.00424304805400315,
+      "birdnet": 0.7446956521739132
+    },
+    "channel-228": {
+      "bouts": 128,
+      "recordings": 38,
+      "human": 0.6775729166666666,
+      "rated": 128,
+      "flatness": 0.07864646403781066,
+      "birdnet": 0.700078125
+    },
+    "channel-215": {
+      "bouts": 397,
+      "recordings": 93,
+      "human": 0.6362821158690176,
+      "rated": 397,
+      "flatness": 0.1437761015214705,
+      "birdnet": 0.6610982367758187
+    },
+    "channel-024": {
+      "bouts": 16,
+      "recordings": 2,
+      "human": 0.8500000000000001,
+      "rated": 16,
+      "flatness": 0.1416383569766378,
+      "birdnet": 0.7651874999999999
+    },
+    "channel-121": {
+      "bouts": 50,
+      "recordings": 17,
+      "human": 0.736,
+      "rated": 50,
+      "flatness": 0.09412111308170013,
+      "birdnet": 0.8388800000000001
+    },
+    "channel-052": {
+      "bouts": 120,
+      "recordings": 21,
+      "human": 0.6658166666666666,
+      "rated": 120,
+      "flatness": 0.07424732950936298,
+      "birdnet": 0.833125
+    },
+    "channel-095": {
+      "bouts": 152,
+      "recordings": 50,
+      "human": 0.7587763157894735,
+      "rated": 152,
+      "flatness": 0.15113998321723604,
+      "birdnet": 0.7431381578947368
+    },
+    "channel-039": {
+      "bouts": 101,
+      "recordings": 51,
+      "human": 0.6626930693069306,
+      "rated": 101,
+      "flatness": 0.2754954077193235,
+      "birdnet": 0.7268613861386138
+    },
+    "channel-226": {
+      "bouts": 13,
+      "recordings": 6,
+      "human": 0.8769230769230769,
+      "rated": 13,
+      "flatness": 0.12199659965326362,
+      "birdnet": 0.9289230769230769
+    },
+    "channel-047": {
+      "bouts": 147,
+      "recordings": 38,
+      "human": 0.7170204081632654,
+      "rated": 147,
+      "flatness": 0.25516755963745735,
+      "birdnet": 0.7228027210884355
+    },
+    "channel-119": {
+      "bouts": 75,
+      "recordings": 13,
+      "human": 0.7853333333333332,
+      "rated": 75,
+      "flatness": 0.09085786296827635,
+      "birdnet": 0.6439466666666667
+    },
+    "channel-198": {
+      "bouts": 62,
+      "recordings": 8,
+      "human": 0.6861612903225804,
+      "rated": 62,
+      "flatness": 0.015411518612129634,
+      "birdnet": 0.7285645161290323
+    },
+    "channel-169": {
+      "bouts": 80,
+      "recordings": 13,
+      "human": 0.7962499999999999,
+      "rated": 80,
+      "flatness": 0.07432555656000596,
+      "birdnet": 0.7814375
+    },
+    "channel-184": {
+      "bouts": 47,
+      "recordings": 10,
+      "human": 0.6634146341463415,
+      "rated": 41,
+      "flatness": 0.06394911375718204,
+      "birdnet": 0.7597872340425529
+    },
+    "channel-093": {
+      "bouts": 83,
+      "recordings": 18,
+      "human": 0.6923855421686747,
+      "rated": 83,
+      "flatness": 0.2777342711457104,
+      "birdnet": 0.7460361445783132
+    },
+    "channel-254": {
+      "bouts": 47,
+      "recordings": 12,
+      "human": 0.683688888888889,
+      "rated": 45,
+      "flatness": 0.20248085107666,
+      "birdnet": 0.5509999999999999
+    },
+    "channel-086": {
+      "bouts": 74,
+      "recordings": 21,
+      "human": 0.713963963963964,
+      "rated": 74,
+      "flatness": 0.4957115973914223,
+      "birdnet": 0.7253243243243243
+    },
+    "channel-001": {
+      "bouts": 139,
+      "recordings": 30,
+      "human": 0.6666666666666667,
+      "rated": 138,
+      "flatness": 0.012331307747202709,
+      "birdnet": 0.6938705035971223
+    },
+    "channel-231": {
+      "bouts": 25,
+      "recordings": 11,
+      "human": 0.7029565217391304,
+      "rated": 23,
+      "flatness": 0.04253122614758952,
+      "birdnet": 0.5604399999999999
+    },
+    "channel-248": {
+      "bouts": 412,
+      "recordings": 46,
+      "human": 0.6995993431855501,
+      "rated": 406,
+      "flatness": 0.2485917523145071,
+      "birdnet": 0.7900388349514562
+    },
+    "channel-247": {
+      "bouts": 16,
+      "recordings": 2,
+      "human": 1.0,
+      "rated": 16,
+      "flatness": 0.1952495459715979,
+      "birdnet": 0.5291874999999999
+    },
+    "channel-056": {
+      "bouts": 19,
+      "recordings": 8,
+      "human": 0.59375,
+      "rated": 16,
+      "flatness": 0.22826810466392922,
+      "birdnet": 0.8223684210526316
+    },
+    "channel-165": {
+      "bouts": 63,
+      "recordings": 11,
+      "human": 0.6618620689655172,
+      "rated": 58,
+      "flatness": 0.09889927026998296,
+      "birdnet": 0.768079365079365
+    },
+    "channel-136": {
+      "bouts": 152,
+      "recordings": 19,
+      "human": 0.6178333333333333,
+      "rated": 148,
+      "flatness": 0.15670469746532892,
+      "birdnet": 0.7521907894736842
+    },
+    "channel-084": {
+      "bouts": 16,
+      "recordings": 4,
+      "human": 0.71875,
+      "rated": 16,
+      "flatness": 0.06130204321982767,
+      "birdnet": 0.8925
+    },
+    "channel-252": {
+      "bouts": 40,
+      "recordings": 10,
+      "human": 0.7375,
+      "rated": 40,
+      "flatness": 0.45110172928498526,
+      "birdnet": 0.9101000000000001
+    },
+    "channel-002": {
+      "bouts": 153,
+      "recordings": 31,
+      "human": 0.7172587412587411,
+      "rated": 143,
+      "flatness": 0.5109318217672133,
+      "birdnet": 0.6963660130718955
+    },
+    "channel-182": {
+      "bouts": 114,
+      "recordings": 39,
+      "human": 0.6432432432432433,
+      "rated": 111,
+      "flatness": 0.26068217254085363,
+      "birdnet": 0.6659912280701754
+    },
+    "channel-151": {
+      "bouts": 170,
+      "recordings": 37,
+      "human": 0.6805764705882353,
+      "rated": 170,
+      "flatness": 0.09676194136625146,
+      "birdnet": 0.6810764705882353
+    },
+    "channel-203": {
+      "bouts": 72,
+      "recordings": 32,
+      "human": 0.6094647887323943,
+      "rated": 71,
+      "flatness": 0.5590930330072811,
+      "birdnet": 0.5988333333333333
+    },
+    "channel-158": {
+      "bouts": 99,
+      "recordings": 23,
+      "human": 0.6756969696969695,
+      "rated": 99,
+      "flatness": 0.04618922208282027,
+      "birdnet": 0.8106969696969698
+    },
+    "channel-180": {
+      "bouts": 2,
+      "recordings": 1,
+      "human": 0.9,
+      "rated": 2,
+      "flatness": 0.0031995972626358967,
+      "birdnet": 0.999
+    },
+    "channel-210": {
+      "bouts": 47,
+      "recordings": 9,
+      "human": 0.7085106382978724,
+      "rated": 47,
+      "flatness": 0.03912145650627395,
+      "birdnet": 0.7730212765957446
+    },
+    "channel-211": {
+      "bouts": 92,
+      "recordings": 14,
+      "human": 0.5927608695652173,
+      "rated": 92,
+      "flatness": 0.3065756910806774,
+      "birdnet": 0.7630108695652172
+    },
+    "channel-098": {
+      "bouts": 72,
+      "recordings": 8,
+      "human": 0.7565833333333336,
+      "rated": 72,
+      "flatness": 0.32556021393624507,
+      "birdnet": 0.7366666666666668
+    },
+    "channel-066": {
+      "bouts": 52,
+      "recordings": 9,
+      "human": 0.7493461538461539,
+      "rated": 52,
+      "flatness": 0.26664259928810824,
+      "birdnet": 0.6251346153846153
+    },
+    "channel-229": {
+      "bouts": 32,
+      "recordings": 12,
+      "human": 0.6143999999999997,
+      "rated": 30,
+      "flatness": 0.0020497409952490637,
+      "birdnet": 0.6558437500000001
+    },
+    "channel-156": {
+      "bouts": 111,
+      "recordings": 20,
+      "human": 0.7478198198198199,
+      "rated": 111,
+      "flatness": 0.06567743991971078,
+      "birdnet": 0.7143603603603601
+    },
+    "channel-072": {
+      "bouts": 117,
+      "recordings": 12,
+      "human": 0.8888888888888888,
+      "rated": 117,
+      "flatness": 0.11041058968575397,
+      "birdnet": 0.8324188034188035
+    },
+    "channel-019": {
+      "bouts": 80,
+      "recordings": 22,
+      "human": 0.606,
+      "rated": 50,
+      "flatness": 0.00023699881104641984,
+      "birdnet": 0.625875
+    },
+    "channel-155": {
+      "bouts": 304,
+      "recordings": 23,
+      "human": 0.6046270627062705,
+      "rated": 303,
+      "flatness": 0.014652020566584403,
+      "birdnet": 0.56575
+    },
+    "channel-041": {
+      "bouts": 91,
+      "recordings": 27,
+      "human": 0.6235955056179775,
+      "rated": 89,
+      "flatness": 0.11732044997566174,
+      "birdnet": 0.6847032967032967
+    },
+    "channel-195": {
+      "bouts": 11,
+      "recordings": 4,
+      "human": 0.7090909090909091,
+      "rated": 11,
+      "flatness": 0.010203552993862702,
+      "birdnet": 0.7858181818181819
+    },
+    "channel-238": {
+      "bouts": 11,
+      "recordings": 3,
+      "human": 0.8181818181818182,
+      "rated": 11,
+      "flatness": 0.16623580470748378,
+      "birdnet": 0.8970000000000001
+    },
+    "channel-232": {
+      "bouts": 1,
+      "recordings": 1,
+      "human": 0.9,
+      "rated": 1,
+      "flatness": 0.11821746257227439,
+      "birdnet": 0.76
+    },
+    "channel-097": {
+      "bouts": 258,
+      "recordings": 17,
+      "human": 0.7833798449612404,
+      "rated": 258,
+      "flatness": 0.20763964852616723,
+      "birdnet": 0.6904728682170542
+    },
+    "channel-114": {
+      "bouts": 143,
+      "recordings": 36,
+      "human": 0.6322957746478872,
+      "rated": 142,
+      "flatness": 0.5043402600208471,
+      "birdnet": 0.6773496503496503
+    },
+    "channel-183": {
+      "bouts": 49,
+      "recordings": 11,
+      "human": 0.6020408163265306,
+      "rated": 49,
+      "flatness": 0.2852152739012875,
+      "birdnet": 0.7508367346938777
+    },
+    "channel-115": {
+      "bouts": 13,
+      "recordings": 5,
+      "human": 0.6111111111111112,
+      "rated": 9,
+      "flatness": 0.06944416581410646,
+      "birdnet": 0.6597692307692308
+    },
+    "channel-101": {
+      "bouts": 11,
+      "recordings": 1,
+      "human": 0.8,
+      "rated": 11,
+      "flatness": 0.12819034670470356,
+      "birdnet": 0.7344545454545455
+    },
+    "channel-179": {
+      "bouts": 78,
+      "recordings": 15,
+      "human": 0.6398701298701297,
+      "rated": 77,
+      "flatness": 0.000990590107880923,
+      "birdnet": 0.8029358974358973
+    },
+    "channel-087": {
+      "bouts": 29,
+      "recordings": 6,
+      "human": 0.7344827586206898,
+      "rated": 29,
+      "flatness": 0.32129073847767337,
+      "birdnet": 0.7433793103448277
+    },
+    "channel-064": {
+      "bouts": 10,
+      "recordings": 4,
+      "human": 0.6799999999999999,
+      "rated": 10,
+      "flatness": 0.02904847903291734,
+      "birdnet": 0.8088
+    },
+    "channel-092": {
+      "bouts": 6,
+      "recordings": 4,
+      "human": 0.5556666666666668,
+      "rated": 6,
+      "flatness": 0.05810169577746792,
+      "birdnet": 0.7181666666666667
+    },
+    "channel-038": {
+      "bouts": 3,
+      "recordings": 2,
+      "human": 0.6666666666666666,
+      "rated": 3,
+      "flatness": 0.461077431264073,
+      "birdnet": 0.7663333333333333
+    },
+    "channel-152": {
+      "bouts": 36,
+      "recordings": 2,
+      "human": 0.786111111111111,
+      "rated": 36,
+      "flatness": 0.15044031714359155,
+      "birdnet": 0.8116666666666666
+    },
+    "channel-065": {
+      "bouts": 46,
+      "recordings": 4,
+      "human": 0.6224347826086959,
+      "rated": 46,
+      "flatness": 0.09673345375559111,
+      "birdnet": 0.8796956521739129
+    },
+    "channel-162": {
+      "bouts": 28,
+      "recordings": 7,
+      "human": 0.5785714285714285,
+      "rated": 28,
+      "flatness": 0.04292501466848324,
+      "birdnet": 0.8673928571428571
+    },
+    "channel-166": {
+      "bouts": 10,
+      "recordings": 2,
+      "human": 0.5166000000000001,
+      "rated": 10,
+      "flatness": 0.16297491385016794,
+      "birdnet": 0.5933999999999999
+    },
+    "channel-117": {
+      "bouts": 1,
+      "recordings": 1,
+      "human": 1.0,
+      "rated": 1,
+      "flatness": 0.002172307281646082,
+      "birdnet": 0.877
+    },
+    "channel-159": {
+      "bouts": 12,
+      "recordings": 7,
+      "human": 0.5723333333333332,
+      "rated": 12,
+      "flatness": 0.0006105697859553523,
+      "birdnet": 0.6131666666666667
+    },
+    "channel-110": {
+      "bouts": 26,
+      "recordings": 3,
+      "human": 0.6,
+      "rated": 16,
+      "flatness": 0.1350557563525695,
+      "birdnet": 0.9030769230769232
+    },
+    "channel-111": {
+      "bouts": 4,
+      "recordings": 2,
+      "human": 0.475,
+      "rated": 4,
+      "flatness": 5.424142335143511e-06,
+      "birdnet": 0.72775
+    },
+    "channel-127": {
+      "bouts": 1,
+      "recordings": 1,
+      "human": 0.4,
+      "rated": 1,
+      "flatness": 0.0955861444944689,
+      "birdnet": 0.66
+    },
+    "channel-194": {
+      "bouts": 3,
+      "recordings": 2,
+      "human": 0.5777777777777778,
+      "rated": 3,
+      "flatness": 0.0005816393987468051,
+      "birdnet": 0.706
+    }
+  },
+  "candidates": [
+    "channel-000",
+    "channel-007",
+    "channel-186",
+    "channel-219",
+    "channel-205",
+    "channel-155",
+    "channel-113",
+    "channel-081",
+    "channel-148",
+    "channel-002",
+    "channel-171",
+    "channel-192",
+    "channel-018"
+  ],
+  "why": {
+    "channel-000": [
+      "incumbent: channels[0] and the fallback sink"
+    ],
+    "channel-007": [
+      "human quality top"
+    ],
+    "channel-186": [
+      "human quality top"
+    ],
+    "channel-219": [
+      "human quality top"
+    ],
+    "channel-205": [
+      "least hiss top"
+    ],
+    "channel-155": [
+      "least hiss top"
+    ],
+    "channel-113": [
+      "least hiss top"
+    ],
+    "channel-081": [
+      "most hiss bottom"
+    ],
+    "channel-148": [
+      "most hiss bottom"
+    ],
+    "channel-002": [
+      "most hiss bottom"
+    ],
+    "channel-171": [
+      "worst human quality bottom"
+    ],
+    "channel-192": [
+      "worst human quality bottom"
+    ],
+    "channel-018": [
+      "worst human quality bottom"
+    ]
+  },
+  "fallback": "channel-000",
+  "thresholds": {
+    "min_bouts": 150,
+    "min_recordings": 15
+  }
+}

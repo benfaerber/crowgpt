@@ -1,0 +1,63 @@
+{
+  "n": {
+    "crow_bouts": 300,
+    "recordings": 60,
+    "species_bouts": 144
+  },
+  "ast": {
+    "n_rows": 300,
+    "species_control_silhouette": 0.0533,
+    "recording_silhouette": 0.1883,
+    "recording_silhouette_after_cmvn": -0.2257,
+    "kmeans": {
+      "2": {
+        "silhouette_raw": 0.1962,
+        "silhouette_cmvn": 0.1383
+      },
+      "3": {
+        "silhouette_raw": 0.0999,
+        "silhouette_cmvn": 0.1057
+      },
+      "4": {
+        "silhouette_raw": 0.1408,
+        "silhouette_cmvn": 0.0715
+      },
+      "6": {
+        "silhouette_raw": 0.0977,
+        "silhouette_cmvn": 0.0779
+      },
+      "8": {
+        "silhouette_raw": 0.0938,
+        "silhouette_cmvn": 0.0615
+      }
+    }
+  },
+  "birdnet": {
+    "n_rows": 262,
+    "species_control_silhouette": 0.2132,
+    "recording_silhouette": 0.2965,
+    "recording_silhouette_after_cmvn": -0.2436,
+    "kmeans": {
+      "2": {
+        "silhouette_raw": 0.1859,
+        "silhouette_cmvn": 0.07
+      },
+      "3": {
+        "silhouette_raw": 0.1874,
+        "silhouette_cmvn": 0.0503
+      },
+      "4": {
+        "silhouette_raw": 0.1249,
+        "silhouette_cmvn": 0.0395
+      },
+      "6": {
+        "silhouette_raw": 0.0661,
+        "silhouette_cmvn": 0.0305
+      },
+      "8": {
+        "silhouette_raw": 0.1204,
+        "silhouette_cmvn": 0.0241
+      }
+    }
+  }
+}

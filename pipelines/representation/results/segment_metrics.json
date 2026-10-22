@@ -1,0 +1,21 @@
+{
+  "n_events": 1562,
+  "avg_events_per_clip": 13,
+  "classes": {
+    "alarm call": 150,
+    "call": 967,
+    "flight call": 311,
+    "song": 134
+  },
+  "multiclass": {
+    "accuracy": 0.417,
+    "macro_f1": 0.332,
+    "baseline_majority_acc": 0.619
+  },
+  "one_vs_rest_auc": {
+    "alarm call": 0.69,
+    "call": 0.517,
+    "flight call": 0.711,
+    "song": 0.38
+  }
+}

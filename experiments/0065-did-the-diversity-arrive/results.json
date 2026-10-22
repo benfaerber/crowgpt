@@ -1,0 +1,28 @@
+{
+  "novelty_threshold_p95_curated_self": 0.2404,
+  "xeno_canto": {
+    "n": 335,
+    "dispersion": 0.2866,
+    "novelty": 0.018
+  },
+  "soundscape_archive": {
+    "n": 95,
+    "dispersion": 0.2805,
+    "novelty": 0.421
+  },
+  "archive_3": {
+    "n": 56,
+    "dispersion": 0.263,
+    "novelty": 0.929
+  },
+  "macaulay": {
+    "n": 329,
+    "dispersion": 0.2829,
+    "novelty": 0.033
+  },
+  "community_archive": {
+    "n": 314,
+    "dispersion": 0.2837,
+    "novelty": 0.118
+  }
+}

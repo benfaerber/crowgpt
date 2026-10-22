@@ -1,0 +1,306 @@
+{
+  "_readme": "Every number the promo page prints. `make -C promo stats` refreshes the entries marked auto from where they are measured; the rest are typed by hand and the script only tells you when it cannot check them. The page prints `text`, never `value` — so what a visitor reads is in this file verbatim. See promo/README.md.",
+  "refreshed_at": "2026-08-09",
+  "figures": {
+    "project.since": {
+      "value": "18 July 2026",
+      "text": "18 July 2026",
+      "about": "First day of the project, in the hero eyebrow",
+      "source": "the repo's first commit"
+    },
+    "labels.count": {
+      "value": 66,
+      "text": "66",
+      "auto": true,
+      "about": "Human labels on the field server",
+      "source": "field.db · labels where label_source = 'human'"
+    },
+    "labels.captures": {
+      "value": 16,
+      "text": "16",
+      "auto": true,
+      "about": "Captures carrying at least one human label",
+      "source": "field.db · distinct capture_id in labels"
+    },
+    "labels.seconds": {
+      "value": 441.0,
+      "text": "441",
+      "auto": true,
+      "about": "Total human-labelled call audio, in seconds",
+      "source": "field.db · sum of end_sec - start_sec over human labels"
+    },
+    "labels.minutes": {
+      "value": 7.3,
+      "text": "7.3",
+      "auto": true,
+      "about": "The same span in minutes — the number that limits the project",
+      "source": "field.db · labels.seconds / 60"
+    },
+    "context.events": {
+      "value": 158,
+      "text": "158",
+      "auto": true,
+      "about": "Context events attached to labelled calls",
+      "source": "field.db · context_events"
+    },
+    "context.tags": {
+      "value": 23,
+      "text": "23",
+      "auto": true,
+      "about": "Context chips a recordist can put on a call today",
+      "source": "field.db · context_defs where active = 1"
+    },
+    "context.categories": {
+      "value": 5,
+      "text": "5",
+      "auto": true,
+      "about": "Groups those chips are shown in — animals, crows, food, people, quiet",
+      "source": "field.db · distinct category over active context_defs"
+    },
+    "context.tags_used": {
+      "value": 18,
+      "text": "18",
+      "auto": true,
+      "about": "Chips witnessed at least once. Counts retired keys too, so it is not a subset of context.tags — the vocabulary changed and the old events kept their key.",
+      "source": "field.db · distinct key in context_events"
+    },
+    "context.tags_witnessed": {
+      "value": 14,
+      "text": "14",
+      "auto": true,
+      "about": "Active chips that have actually come up at least once. The gap to context.tags is the point: the rest are options on the phone that no situation has called for yet, so the vocabulary describes what can be recorded, not what has been.",
+      "source": "field.db · active context_defs having a context_event"
+    },
+    "context.vocabulary": {
+      "value": [
+        {
+          "key": "dog_visible",
+          "category": "animals",
+          "label": "Dog visible",
+          "used": 1
+        },
+        {
+          "key": "cat_visible",
+          "category": "animals",
+          "label": "Cat visible",
+          "used": 0
+        },
+        {
+          "key": "raptor_overhead",
+          "category": "animals",
+          "label": "Hawk / raptor overhead",
+          "used": 0
+        },
+        {
+          "key": "squirrel",
+          "category": "animals",
+          "label": "Squirrel",
+          "used": 0
+        },
+        {
+          "key": "crow_arrives",
+          "category": "crows",
+          "label": "Another crow arrives",
+          "used": 0
+        },
+        {
+          "key": "crow_departs",
+          "category": "crows",
+          "label": "Crow flies off",
+          "used": 5
+        },
+        {
+          "key": "group_gathers",
+          "category": "crows",
+          "label": "Group gathers",
+          "used": 1
+        },
+        {
+          "key": "juvenile_present",
+          "category": "crows",
+          "label": "Juvenile present",
+          "used": 0
+        },
+        {
+          "key": "crows_still",
+          "category": "crows",
+          "label": "Crows still, not moving",
+          "used": 24
+        },
+        {
+          "key": "crows_agitated",
+          "category": "crows",
+          "label": "Crows agitated",
+          "used": 6
+        },
+        {
+          "key": "caller_stays",
+          "category": "crows",
+          "label": "Caller stayed put",
+          "used": 28
+        },
+        {
+          "key": "caller_leaves",
+          "category": "crows",
+          "label": "Caller flew off",
+          "used": 0
+        },
+        {
+          "key": "human_gives_food",
+          "category": "food",
+          "label": "Human gives food",
+          "used": 7
+        },
+        {
+          "key": "foraging",
+          "category": "food",
+          "label": "Foraging",
+          "used": 0
+        },
+        {
+          "key": "feeding_young",
+          "category": "food",
+          "label": "Feeding young",
+          "used": 0
+        },
+        {
+          "key": "stranger_approaching",
+          "category": "people",
+          "label": "Stranger approaches them",
+          "used": 7
+        },
+        {
+          "key": "known_approaching",
+          "category": "people",
+          "label": "Someone they know approaches",
+          "used": 4
+        },
+        {
+          "key": "stranger_passing",
+          "category": "people",
+          "label": "Stranger walks past them",
+          "used": 6
+        },
+        {
+          "key": "known_passing",
+          "category": "people",
+          "label": "Someone they know walks past",
+          "used": 10
+        },
+        {
+          "key": "vehicle",
+          "category": "people",
+          "label": "Vehicle",
+          "used": 2
+        },
+        {
+          "key": "loud_worker",
+          "category": "people",
+          "label": "Someone working with machinery",
+          "used": 10
+        },
+        {
+          "key": "person_shouting",
+          "category": "people",
+          "label": "Someone shouting or agitated",
+          "used": 0
+        },
+        {
+          "key": "nothing_obvious",
+          "category": "quiet",
+          "label": "Nothing else happening",
+          "used": 4
+        }
+      ],
+      "text": "Dog visible · Cat visible · Hawk / raptor overhead · Squirrel · Another crow arrives · Crow flies off · Group gathers · Juvenile present · Crows still, not moving · Crows agitated · Caller stayed put · Caller flew off · Human gives food · Foraging · Feeding young · Stranger approaches them · Someone they know approaches · Stranger walks past them · Someone they know walks past · Vehicle · Someone working with machinery · Someone shouting or agitated · Nothing else happening",
+      "auto": true,
+      "about": "The whole active chip vocabulary — key, category, English label and how often it has been witnessed. `text` is the labels joined, for prose; the structure is for anything that wants to lay them out. Event counts here are honest: context is typed by a person watching, so no seeded audio contributes.",
+      "source": "field.db · context_defs joined to translations (namespace 'context', locale 'en') and counted over context_events"
+    },
+    "captures.kept": {
+      "value": 24,
+      "text": "24",
+      "auto": true,
+      "about": "Genuine field recordings — the ★ Keep flag, set by hand",
+      "source": "field.db · captures where keep = 1"
+    },
+    "captures.total": {
+      "value": 152,
+      "text": "152",
+      "auto": true,
+      "about": "Every capture row, mostly seeded archive clips and test uploads. A pipeline number, not a finding about crows — do not put it on the page as one.",
+      "source": "field.db · captures"
+    },
+    "species.heads": {
+      "value": 5,
+      "text": "5",
+      "auto": true,
+      "about": "Corvid species with their own call-type head",
+      "source": "pipelines/training/models/*/metrics.json"
+    },
+    "crowtools.segments": {
+      "value": 3162,
+      "text": "3,162",
+      "auto": true,
+      "about": "Hand-reviewed one-second segments behind the clean-label AUCs",
+      "source": "pipelines/ingest/crowtools/labels.json"
+    },
+    "credits.recordings": {
+      "value": 10637,
+      "text": "10,637",
+      "auto": true,
+      "about": "Xeno-canto recordings CrowGPT learned from, all credited by name and ID",
+      "source": "promo/public/credits.json · build_credits.py"
+    },
+    "credits.recordists": {
+      "value": 939,
+      "text": "939",
+      "auto": true,
+      "about": "People who made and shared those recordings",
+      "source": "promo/public/credits.json · build_credits.py"
+    },
+    "credits.species": {
+      "value": 48,
+      "text": "48",
+      "auto": true,
+      "about": "Corvid species across the whole archive pull",
+      "source": "promo/public/credits.json · build_credits.py"
+    },
+    "crowgpt.call_types": {
+      "value": 4,
+      "text": "4",
+      "about": "Call types CrowGPT can be asked for",
+      "source": "experiments/0021-does-the-call-type-token-do-anything/ — no manifest on disk carries the conditioned vocabulary, so this is read off the experiment"
+    },
+    "crowgpt.call_type_list": {
+      "value": "Alarm, generic call, flight call, begging",
+      "text": "Alarm, generic call, flight call, begging",
+      "about": "Those four, spelled out under the stat",
+      "source": "experiments/0021-does-the-call-type-token-do-anything/"
+    },
+    "auc.alarm.clean": {
+      "value": 0.97,
+      "text": "0.97",
+      "about": "Alarm call, one-vs-rest AUC on hand-reviewed labels",
+      "source": "pipelines/ingest/, crow-tools corpus — a different measurement from pipelines/training/models/american-crow/metrics.json, which pools whole clips"
+    },
+    "auc.alarm.weak": {
+      "value": 0.65,
+      "text": "0.65",
+      "about": "Alarm call, same pipeline on the archives' free-text tags",
+      "source": "pipelines/representation/results/report.md"
+    },
+    "auc.song.clean": {
+      "value": 0.91,
+      "text": "0.91",
+      "about": "Song, one-vs-rest AUC on hand-reviewed labels",
+      "source": "pipelines/ingest/, crow-tools corpus"
+    },
+    "auc.song.weak": {
+      "value": 0.56,
+      "text": "0.56",
+      "about": "Song, same pipeline on the archives' free-text tags",
+      "source": "pipelines/representation/results/report.md"
+    }
+  }
+}

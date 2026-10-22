@@ -1,0 +1,143 @@
+{
+  "name": "longctx-t11",
+  "title": "Long-context CrowGPT \u2014 the current best",
+  "note": "model-longctx at T1.1/k200, finetuned decoder. 300 draws; dust and churn vetoed 190; BirdNET ranked the rest. Bouts up to 6s.",
+  "source": "experiments/0073-the-best-longctx-calls/candidates.json",
+  "model": "model-longctx",
+  "sorted_by": "birdnet",
+  "clips": [
+    {
+      "file": "1-crowgpt-both-2.3s.wav",
+      "rank": 1,
+      "seconds": 2.32,
+      "birdnet": 0.9951,
+      "churn": 0.8728,
+      "churn_gap": 0.0048,
+      "seed": 30287,
+      "clears_both": true,
+      "pitch_strength": 0.6251,
+      "units": 4
+    },
+    {
+      "file": "2-crowgpt-birdnet-5.1s.wav",
+      "rank": 2,
+      "seconds": 5.07,
+      "birdnet": 0.9947,
+      "churn": 0.8153,
+      "churn_gap": 0.0527,
+      "seed": 30014,
+      "pitch_strength": 0.5525,
+      "units": 12
+    },
+    {
+      "file": "3-crowgpt-birdnet-4.0s.wav",
+      "rank": 3,
+      "seconds": 4.04,
+      "birdnet": 0.9919,
+      "churn": 0.8974,
+      "churn_gap": 0.0294,
+      "seed": 30071,
+      "pitch_strength": 0.4873,
+      "units": 8
+    },
+    {
+      "file": "4-crowgpt-birdnet-5.8s.wav",
+      "rank": 4,
+      "seconds": 5.75,
+      "birdnet": 0.9898,
+      "churn": 0.7512,
+      "churn_gap": 0.1168,
+      "seed": 30296,
+      "pitch_strength": 0.6708,
+      "units": 16
+    },
+    {
+      "file": "5-crowgpt-birdnet-5.5s.wav",
+      "rank": 5,
+      "seconds": 5.53,
+      "birdnet": 0.9875,
+      "churn": 0.9444,
+      "churn_gap": 0.0764,
+      "seed": 30286,
+      "pitch_strength": 0.5297,
+      "units": 13
+    },
+    {
+      "file": "6-crowgpt-birdnet-4.5s.wav",
+      "rank": 6,
+      "seconds": 4.49,
+      "birdnet": 0.9871,
+      "churn": 0.8601,
+      "churn_gap": 0.0079,
+      "seed": 30241,
+      "pitch_strength": 0.4343,
+      "units": 11
+    },
+    {
+      "file": "7-crowgpt-birdnet-5.1s.wav",
+      "rank": 7,
+      "seconds": 5.07,
+      "birdnet": 0.9851,
+      "churn": 0.9446,
+      "churn_gap": 0.0766,
+      "seed": 30108,
+      "pitch_strength": 0.517,
+      "units": 9
+    },
+    {
+      "file": "8-crowgpt-birdnet-2.1s.wav",
+      "rank": 8,
+      "seconds": 2.09,
+      "birdnet": 0.9828,
+      "churn": 0.8397,
+      "churn_gap": 0.0283,
+      "seed": 30235,
+      "pitch_strength": 0.434,
+      "units": 6
+    },
+    {
+      "file": "9-crowgpt-birdnet-4.1s.wav",
+      "rank": 9,
+      "seconds": 4.11,
+      "birdnet": 0.9804,
+      "churn": 0.7655,
+      "churn_gap": 0.1025,
+      "seed": 30268,
+      "pitch_strength": 0.4981,
+      "units": 7
+    },
+    {
+      "file": "10-crowgpt-birdnet-5.9s.wav",
+      "rank": 10,
+      "seconds": 5.92,
+      "birdnet": 0.979,
+      "churn": 0.921,
+      "churn_gap": 0.053,
+      "seed": 30066,
+      "pitch_strength": 0.6546,
+      "units": 2
+    },
+    {
+      "file": "11-crowgpt-birdnet-1.9s.wav",
+      "rank": 11,
+      "seconds": 1.87,
+      "birdnet": 0.9773,
+      "churn": 0.7626,
+      "churn_gap": 0.1054,
+      "seed": 30118,
+      "pitch_strength": 0.4379,
+      "units": 5
+    },
+    {
+      "file": "12-crowgpt-birdnet-6.0s.wav",
+      "rank": 12,
+      "seconds": 6.0,
+      "birdnet": 0.9753,
+      "churn": 0.9465,
+      "churn_gap": 0.0785,
+      "seed": 30203,
+      "pitch_strength": 0.7498,
+      "units": 1
+    }
+  ]
+}

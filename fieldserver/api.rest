@@ -1,0 +1,226 @@
+### Cawtalker field server — API smoke test
+# Run these inline with the VS Code "REST Client" extension (or JetBrains HTTP Client).
+# Start the server first:   cd fieldserver && uv run fieldserver     (serves :5100)
+# Two secrets, and they are not interchangeable: the enroll token (default
+# "dev-enroll", override with FIELD_ENROLL_TOKEN) lets a device join and see its
+# own captures; the operator token (default "dev-operator", FIELD_OPERATOR_TOKEN)
+# is what /api/fleet/* — everyone's captures — is gated on. Both defaults work on
+# loopback only; the server refuses to bind the network with them.
+# Requests are ordered; later ones reuse the token/ids captured from earlier responses.
+
+@base = http://127.0.0.1:5100
+@enroll = dev-enroll
+@operator = dev-operator
+
+### Health
+GET {{base}}/api/health
+
+### Config — English (the fleet's command-and-control document)
+GET {{base}}/api/config?locale=en
+
+### Config — German (labels/instructions/UI/species all localized)
+GET {{base}}/api/config?locale=de
+
+### Config — unchanged since v1 → 304 (client already has it)
+GET {{base}}/api/config?since=1
+
+### Negative: enroll with the wrong token → 403
+POST {{base}}/api/devices/register
+Content-Type: application/json
+
+{ "enroll_token": "wrong", "contributor_name": "nobody" }
+
+### Negative: claim is_operator without the operator token → 403
+POST {{base}}/api/devices/register
+Content-Type: application/json
+
+{ "enroll_token": "{{enroll}}", "contributor_name": "sneaky", "is_operator": true }
+
+### Enroll this device → returns a device bearer token
+# Drop `operator_token` (and `is_operator`) to enroll an ordinary contributor
+# device: it can push its own captures but gets 403 from every /api/fleet/ route.
+# @name register
+POST {{base}}/api/devices/register
+Content-Type: application/json
+
+{
+  "enroll_token": "{{enroll}}",
+  "contributor_name": "Ben",
+  "platform": "android",
+  "locale": "en",
+  "is_operator": true,
+  "operator_token": "{{operator}}"
+}
+
+@token = {{register.response.body.$.device_token}}
+
+### Negative: an ingest call with no/invalid token → 401
+POST {{base}}/api/captures
+Authorization: Bearer not-a-real-token
+Content-Type: application/json
+
+{ "latitude": 40.76, "longitude": -111.89 }
+
+### Create a capture (a recording session with GPS)
+# `client_uuid` is the device's own id for this capture and makes the create
+# idempotent: the app records offline and syncs on demand, so a POST whose
+# response was lost gets retried. Replaying the same uuid returns the SAME row
+# rather than a duplicate. Optional — omit it and every POST creates a new row.
+# @name capture
+POST {{base}}/api/captures
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "client_uuid": "b3f1c2d4e5a60718",
+  "latitude": 40.76, "longitude": -111.89,
+  "duration_sec": 12.5, "notes": "caw near the roof"
+}
+
+@captureId = {{capture.response.body.$.id}}
+
+### Replay the identical create → same id, no duplicate (what a retried sync does)
+POST {{base}}/api/captures
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "client_uuid": "b3f1c2d4e5a60718",
+  "latitude": 40.76, "longitude": -111.89,
+  "duration_sec": 12.5, "notes": "caw near the roof"
+}
+
+### List my captures
+GET {{base}}/api/captures
+Authorization: Bearer {{token}}
+
+### Register a media slot for the capture
+# Same idempotency: replaying `client_uuid` returns the existing slot, and its
+# `bytes` is the offset the next Content-Range should resume from.
+# `input_device` is which microphone the phone actually recorded through, read
+# back from the audio policy rather than assumed. It is here because it cannot be
+# recovered later: nothing in a WAV says it arrived over a Bluetooth headset, and
+# such a clip is narrowband and speech-processed — much less use for training.
+# `input_honoured` is false when a pinned mic was refused and another was used.
+# @name media
+POST {{base}}/api/captures/{{captureId}}/media
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "client_uuid": "9a8b7c6d5e4f3021", "kind": "audio", "format": "mp3",
+  "sample_rate": 48000, "channels": 1,
+  "input_device": "BUILTIN_MIC", "input_honoured": true
+}
+
+@mediaId = {{media.response.body.$.id}}
+
+### Upload the audio (whole file, no Content-Range → server finalizes on this PUT).
+# Swap the path for any local audio/video file; here we reuse a corvid test clip so
+# the analyze step below actually has a real recording to work on once the worker runs.
+PUT {{base}}/api/media/{{mediaId}}
+Authorization: Bearer {{token}}
+Content-Type: application/octet-stream
+
+< ../test_examples/rcrows_sample.mp3
+
+### (Alternative) resumable upload — what the mobile client does over cellular.
+# Run these two INSTEAD of the whole-file PUT above, on a fresh media slot.
+# PUT {{base}}/api/media/{{mediaId}}
+# Authorization: Bearer {{token}}
+# Content-Type: application/octet-stream
+# Content-Range: bytes 0-9/20
+#
+# 0123456789
+#
+# ###
+# PUT {{base}}/api/media/{{mediaId}}
+# Content-Range: bytes 10-19/20
+# ... second chunk ...
+
+### Enqueue analysis (202). Needs the inference worker running to reach "done".
+# @name analyze
+POST {{base}}/api/captures/{{captureId}}/analyze
+Authorization: Bearer {{token}}
+
+@jobId = {{analyze.response.body.$.id}}
+
+### Poll the job (queued → running → done, once the worker is built + running)
+GET {{base}}/api/jobs/{{jobId}}
+Authorization: Bearer {{token}}
+
+### Detected calls for the capture (species + call type + confidence; filled by the worker)
+GET {{base}}/api/captures/{{captureId}}/calls
+Authorization: Bearer {{token}}
+
+### Free-text observation — the context half, written back at the desk.
+# Presets (labels) train the model; this is for debugging a confusing prediction
+# and for spotting which situations recur often enough to earn a preset later.
+# @name observation
+POST {{base}}/api/captures/{{captureId}}/observations
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "body": "Edgar is alone, cawing and searching. I think he's calling the other four home."
+}
+
+@observationId = {{observation.response.body.$.id}}
+
+### A dictated note — same field, flagged as transcribed rather than typed
+POST {{base}}/api/captures/{{captureId}}/observations
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "body": "Zwei kamen etwa vier Minuten spaeter zurueck.", "source": "voice", "locale": "de" }
+
+### Negative: an empty body is not an observation → 400
+POST {{base}}/api/captures/{{captureId}}/observations
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "body": "   " }
+
+### List the capture's observations (oldest first)
+GET {{base}}/api/captures/{{captureId}}/observations
+Authorization: Bearer {{token}}
+
+### Revise one — interpretation changes as you learn more; updated_at moves
+PATCH {{base}}/api/observations/{{observationId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "body": "Edgar is alone, cawing and searching. I think he's calling the other four home. Two returned ~4 min later."
+}
+
+### Delete an observation (author or operator only) → 204
+DELETE {{base}}/api/observations/{{observationId}}
+Authorization: Bearer {{token}}
+
+### --- operator dashboard (read-only, operator token required) ---
+# The dashboard itself is just {{base}}/ in a browser; these are what it calls.
+
+### Fleet summary — the tiles
+GET {{base}}/api/fleet/summary
+Authorization: Bearer {{token}}
+
+### All captures across the fleet, newest first
+GET {{base}}/api/fleet/captures
+Authorization: Bearer {{token}}
+
+### Everything about one capture (media + calls + labels + observations)
+GET {{base}}/api/fleet/captures/{{captureId}}
+Authorization: Bearer {{token}}
+
+### Contributors and their counts
+GET {{base}}/api/fleet/devices
+Authorization: Bearer {{token}}
+
+### Label totals — what the retrain corpus actually contains
+GET {{base}}/api/fleet/labels
+Authorization: Bearer {{token}}
+
+### Stream the stored original (untouched bytes, no transcode)
+GET {{base}}/api/media/{{mediaId}}/raw
+Authorization: Bearer {{token}}

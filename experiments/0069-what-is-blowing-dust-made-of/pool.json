@@ -1,0 +1,763 @@
+{
+  "name": "dust-0069",
+  "question": "Which clip sounds closer to the reference \u2014 the whole calling sequence and the voice itself. Same model both sides, different sampling. \u201cThey are the same\u201d is a real answer. Your per-clip notes (\u201c1. \u2026 2. \u2026\u201d) were the most useful thing the last sitting produced \u2014 bellows, robo, hoarse, where in the clip it happens.",
+  "clip_dir": "/home/ben/Code/cawtalker/crowgpt/results/listening-pools/dust-0069",
+  "trials": [
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-00.wav",
+      "first_clip": "hot-000.wav",
+      "second_clip": "default-000.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 4.47,
+        "default_s": 3.24
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-01.wav",
+      "first_clip": "real-00.wav",
+      "second_clip": "hot-040.wav",
+      "first_arm": "real",
+      "second_arm": "hot"
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-02.wav",
+      "first_clip": "default-001.wav",
+      "second_clip": "hot-001.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.96,
+        "default_s": 1.76
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-03.wav",
+      "first_clip": "hot-002.wav",
+      "second_clip": "default-002.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 1.43,
+        "default_s": 1.81
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-04.wav",
+      "first_clip": "default-003.wav",
+      "second_clip": "hot-003.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 6.0,
+        "default_s": 2.01
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-05.wav",
+      "first_clip": "hot-004.wav",
+      "second_clip": "default-004.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 4.24,
+        "default_s": 5.92
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-06.wav",
+      "first_clip": "default-005.wav",
+      "second_clip": "hot-005.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 3.88,
+        "default_s": 5.45
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-07.wav",
+      "first_clip": "hot-041.wav",
+      "second_clip": "real-01.wav",
+      "first_arm": "hot",
+      "second_arm": "real"
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-08.wav",
+      "first_clip": "real-02.wav",
+      "second_clip": "hot-042.wav",
+      "first_arm": "real",
+      "second_arm": "hot"
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-09.wav",
+      "first_clip": "hot-006.wav",
+      "second_clip": "default-006.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 1.92,
+        "default_s": 4.71
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-10.wav",
+      "first_clip": "default-007.wav",
+      "second_clip": "hot-007.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 5.77,
+        "default_s": 1.41
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-11.wav",
+      "first_clip": "hot-008.wav",
+      "second_clip": "default-008.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 6.0,
+        "default_s": 5.59
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-12.wav",
+      "first_clip": "default-009.wav",
+      "second_clip": "hot-009.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.79,
+        "default_s": 2.77
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-13.wav",
+      "first_clip": "hot-010.wav",
+      "second_clip": "default-010.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 1.83,
+        "default_s": 1.89
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-14.wav",
+      "first_clip": "default-011.wav",
+      "second_clip": "hot-011.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.44,
+        "default_s": 1.87
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-15.wav",
+      "first_clip": "hot-012.wav",
+      "second_clip": "default-012.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 5.8,
+        "default_s": 1.69
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-16.wav",
+      "first_clip": "default-013.wav",
+      "second_clip": "hot-013.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 6.0,
+        "default_s": 4.57
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-17.wav",
+      "first_clip": "hot-014.wav",
+      "second_clip": "default-014.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 3.76,
+        "default_s": 5.2
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-18.wav",
+      "first_clip": "default-015.wav",
+      "second_clip": "hot-015.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.36,
+        "default_s": 4.17
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-19.wav",
+      "first_clip": "hot-016.wav",
+      "second_clip": "default-016.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 1.6,
+        "default_s": 1.56
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-20.wav",
+      "first_clip": "default-017.wav",
+      "second_clip": "hot-017.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 5.72,
+        "default_s": 1.92
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-21.wav",
+      "first_clip": "hot-018.wav",
+      "second_clip": "default-018.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 6.0,
+        "default_s": 4.51
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-22.wav",
+      "first_clip": "default-019.wav",
+      "second_clip": "hot-019.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.21,
+        "default_s": 3.35
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-23.wav",
+      "first_clip": "hot-020.wav",
+      "second_clip": "default-020.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 3.07,
+        "default_s": 1.21
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-24.wav",
+      "first_clip": "default-021.wav",
+      "second_clip": "hot-021.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.43,
+        "default_s": 4.48
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-25.wav",
+      "first_clip": "hot-043.wav",
+      "second_clip": "real-03.wav",
+      "first_arm": "hot",
+      "second_arm": "real"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-26.wav",
+      "first_clip": "hot-022.wav",
+      "second_clip": "default-022.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 4.31,
+        "default_s": 1.43
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-27.wav",
+      "first_clip": "real-04.wav",
+      "second_clip": "default-040.wav",
+      "first_arm": "real",
+      "second_arm": "default"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-28.wav",
+      "first_clip": "default-023.wav",
+      "second_clip": "hot-023.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.11,
+        "default_s": 4.15
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-29.wav",
+      "first_clip": "hot-024.wav",
+      "second_clip": "default-024.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 1.12,
+        "default_s": 1.04
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-30.wav",
+      "first_clip": "default-025.wav",
+      "second_clip": "hot-025.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.44,
+        "default_s": 4.19
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-31.wav",
+      "first_clip": "hot-026.wav",
+      "second_clip": "default-026.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 1.53,
+        "default_s": 1.48
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-32.wav",
+      "first_clip": "default-027.wav",
+      "second_clip": "hot-027.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.28,
+        "default_s": 1.05
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-33.wav",
+      "first_clip": "hot-028.wav",
+      "second_clip": "default-028.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 5.64,
+        "default_s": 5.76
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-34.wav",
+      "first_clip": "default-029.wav",
+      "second_clip": "hot-029.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 2.81,
+        "default_s": 2.41
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-35.wav",
+      "first_clip": "default-041.wav",
+      "second_clip": "real-05.wav",
+      "first_arm": "default",
+      "second_arm": "real"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-36.wav",
+      "first_clip": "hot-030.wav",
+      "second_clip": "default-030.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 4.08,
+        "default_s": 5.85
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-37.wav",
+      "first_clip": "default-031.wav",
+      "second_clip": "hot-031.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.0,
+        "default_s": 1.0
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-38.wav",
+      "first_clip": "hot-032.wav",
+      "second_clip": "default-032.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 2.89,
+        "default_s": 4.69
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-39.wav",
+      "first_clip": "default-033.wav",
+      "second_clip": "hot-033.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 2.31,
+        "default_s": 2.04
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-40.wav",
+      "first_clip": "hot-034.wav",
+      "second_clip": "default-034.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 5.93,
+        "default_s": 5.83
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "anchor-41.wav",
+      "first_clip": "real-06.wav",
+      "second_clip": "default-042.wav",
+      "first_arm": "real",
+      "second_arm": "default"
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-42.wav",
+      "first_clip": "default-035.wav",
+      "second_clip": "hot-035.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 2.35,
+        "default_s": 2.6
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-43.wav",
+      "first_clip": "hot-036.wav",
+      "second_clip": "default-036.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 5.8,
+        "default_s": 4.39
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-44.wav",
+      "first_clip": "default-037.wav",
+      "second_clip": "hot-037.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 3.17,
+        "default_s": 5.6
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-45.wav",
+      "first_clip": "hot-038.wav",
+      "second_clip": "default-038.wav",
+      "first_arm": "hot",
+      "second_arm": "default",
+      "facts": {
+        "hot_s": 2.35,
+        "default_s": 2.35
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "anchor-46.wav",
+      "first_clip": "default-043.wav",
+      "second_clip": "real-07.wav",
+      "first_arm": "default",
+      "second_arm": "real"
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-47.wav",
+      "first_clip": "default-039.wav",
+      "second_clip": "hot-039.wav",
+      "first_arm": "default",
+      "second_arm": "hot",
+      "facts": {
+        "hot_s": 1.75,
+        "default_s": 2.87
+      }
+    }
+  ],
+  "spec": {
+    "experiment": "0069 dust sitting",
+    "model": "model-longctx, finetuned decoder, both arms",
+    "arms": {
+      "hot": {
+        "temperature": 1.1,
+        "top_k": 200
+      },
+      "default": {
+        "temperature": 1.0,
+        "top_k": 200
+      }
+    },
+    "hot_seeds": [
+      3000,
+      3001,
+      3003,
+      3004,
+      3005,
+      3006,
+      3007,
+      3009,
+      3011,
+      3012,
+      3013,
+      3016,
+      3017,
+      3018,
+      3020,
+      3021,
+      3023,
+      3024,
+      3025,
+      3026,
+      3027,
+      3028,
+      3029,
+      3031,
+      3032,
+      3033,
+      3034,
+      3035,
+      3036,
+      3037,
+      3039,
+      3040,
+      3041,
+      3043,
+      3044,
+      3045,
+      3046,
+      3047,
+      3048,
+      3050,
+      3051,
+      3052,
+      3054,
+      3056
+    ],
+    "default_seeds": [
+      3000,
+      3001,
+      3002,
+      3003,
+      3004,
+      3005,
+      3006,
+      3007,
+      3009,
+      3011,
+      3012,
+      3013,
+      3016,
+      3017,
+      3018,
+      3020,
+      3021,
+      3023,
+      3024,
+      3025,
+      3026,
+      3027,
+      3028,
+      3029,
+      3031,
+      3033,
+      3034,
+      3035,
+      3036,
+      3037,
+      3039,
+      3040,
+      3041,
+      3043,
+      3044,
+      3045,
+      3046,
+      3047,
+      3048,
+      3050,
+      3051,
+      3052,
+      3054,
+      3058
+    ],
+    "anchor_bouts": [
+      11792,
+      11804,
+      12045,
+      12125,
+      12173,
+      12463,
+      12469,
+      12485,
+      12772,
+      12825,
+      12996,
+      13120,
+      13139,
+      13160,
+      13176,
+      13188,
+      13330,
+      13342,
+      13390,
+      13400,
+      13426,
+      13479,
+      13546,
+      13575,
+      13727,
+      13890,
+      13960,
+      14105,
+      14138,
+      14182,
+      14203,
+      14338,
+      14342,
+      14405,
+      14688,
+      14729,
+      14778,
+      14869,
+      15461,
+      15495,
+      15559,
+      15623,
+      15644,
+      15706,
+      15813,
+      15840,
+      15871,
+      16073,
+      16077,
+      16212,
+      16214,
+      16288,
+      16344,
+      16446,
+      16535,
+      16791
+    ]
+  }
+}

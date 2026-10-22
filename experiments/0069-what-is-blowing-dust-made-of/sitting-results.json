@@ -1,0 +1,62 @@
+{
+  "compares": {
+    "decided": 26,
+    "hot": 11,
+    "default": 15,
+    "ties": 14
+  },
+  "p_hot": [
+    0.423,
+    0.255,
+    0.611
+  ],
+  "graded_margin_toward_hot": {
+    "mean": -0.05,
+    "distribution": {
+      "-2": 1,
+      "-1": 14,
+      "0": 14,
+      "1": 8,
+      "2": 3
+    }
+  },
+  "length_check_p_longer_preferred": [
+    0.5,
+    0.321,
+    0.679
+  ],
+  "catch": {
+    "real_preferred": 8,
+    "of": 8
+  },
+  "defect_tags": {
+    "hoarse": 1,
+    "background": 1
+  },
+  "described_trials": 42,
+  "note_families_by_arm": {
+    "default": {
+      "hoarse2": 8,
+      "scratchy-static": 7,
+      "clean": 8,
+      "machine": 3,
+      "hoarse": 7,
+      "blowing-dust": 3
+    },
+    "hot": {
+      "hoarse2": 5,
+      "clean": 6,
+      "machine": 6,
+      "blowing-dust": 4,
+      "hoarse": 4,
+      "scratchy-static": 2
+    },
+    "real": {
+      "clean": 7
+    }
+  },
+  "dose_breaks_minutes": [
+    40.2,
+    17.9
+  ]
+}

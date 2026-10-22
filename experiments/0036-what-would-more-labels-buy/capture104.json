@@ -1,0 +1,226 @@
+{
+  "capture": 104,
+  "reported_by_ear": {
+    "caw_at_12s": "surfaced as alternate `call` 0.998 inside the 9-27s region",
+    "caw_at_27s": "no alternate on the 27-30s region"
+  },
+  "note": "one-vs-rest probabilities do not sum to one, so two can be high at once \u2014 that is the point of the head",
+  "ladder": {
+    "caw_at_12s": {
+      "3s": {
+        "n_windows": 2,
+        "span": [
+          10.5,
+          13.5
+        ],
+        "probabilities": {
+          "begging": 0.9243,
+          "call": 0.0941,
+          "alarm call": 0.0082,
+          "song": 0.0056,
+          "flight call": 0.0
+        }
+      },
+      "6s": {
+        "n_windows": 2,
+        "span": [
+          9.0,
+          15.0
+        ],
+        "probabilities": {
+          "begging": 0.9243,
+          "call": 0.0941,
+          "alarm call": 0.0082,
+          "song": 0.0056,
+          "flight call": 0.0
+        }
+      },
+      "9s": {
+        "n_windows": 4,
+        "span": [
+          7.5,
+          16.5
+        ],
+        "probabilities": {
+          "begging": 0.9957,
+          "call": 0.7448,
+          "flight call": 0.0035,
+          "song": 0.0005,
+          "alarm call": 0.0
+        }
+      },
+      "12s": {
+        "n_windows": 4,
+        "span": [
+          6.0,
+          18.0
+        ],
+        "probabilities": {
+          "begging": 0.9957,
+          "call": 0.7448,
+          "flight call": 0.0035,
+          "song": 0.0005,
+          "alarm call": 0.0
+        }
+      },
+      "18s": {
+        "n_windows": 6,
+        "span": [
+          3.0,
+          21.0
+        ],
+        "probabilities": {
+          "begging": 0.9995,
+          "call": 0.9902,
+          "flight call": 0.0081,
+          "song": 0.0001,
+          "alarm call": 0.0
+        }
+      }
+    },
+    "caw_at_27s": {
+      "3s": {
+        "n_windows": 2,
+        "span": [
+          25.5,
+          28.5
+        ],
+        "probabilities": {
+          "begging": 1.0,
+          "call": 0.9937,
+          "song": 0.0009,
+          "flight call": 0.0,
+          "alarm call": 0.0
+        }
+      },
+      "6s": {
+        "n_windows": 2,
+        "span": [
+          24.0,
+          30.0
+        ],
+        "probabilities": {
+          "begging": 1.0,
+          "call": 0.9937,
+          "song": 0.0009,
+          "flight call": 0.0,
+          "alarm call": 0.0
+        }
+      },
+      "9s": {
+        "n_windows": 4,
+        "span": [
+          22.5,
+          31.5
+        ],
+        "probabilities": {
+          "call": 0.9999,
+          "begging": 0.9999,
+          "flight call": 0.0132,
+          "alarm call": 0.0007,
+          "song": 0.0
+        }
+      },
+      "12s": {
+        "n_windows": 4,
+        "span": [
+          21.0,
+          33.0
+        ],
+        "probabilities": {
+          "call": 0.9999,
+          "begging": 0.9999,
+          "flight call": 0.0132,
+          "alarm call": 0.0007,
+          "song": 0.0
+        }
+      },
+      "18s": {
+        "n_windows": 6,
+        "span": [
+          18.0,
+          36.0
+        ],
+        "probabilities": {
+          "call": 1.0,
+          "begging": 0.9999,
+          "flight call": 0.0358,
+          "alarm call": 0.0003,
+          "song": 0.0002
+        }
+      }
+    },
+    "control_at_45s": {
+      "3s": {
+        "n_windows": 2,
+        "span": [
+          43.5,
+          46.5
+        ],
+        "probabilities": {
+          "call": 0.3905,
+          "flight call": 0.3904,
+          "song": 0.302,
+          "begging": 0.1962,
+          "alarm call": 0.0049
+        }
+      },
+      "6s": {
+        "n_windows": 2,
+        "span": [
+          42.0,
+          48.0
+        ],
+        "probabilities": {
+          "call": 0.3905,
+          "flight call": 0.3904,
+          "song": 0.302,
+          "begging": 0.1962,
+          "alarm call": 0.0049
+        }
+      },
+      "9s": {
+        "n_windows": 4,
+        "span": [
+          40.5,
+          49.5
+        ],
+        "probabilities": {
+          "call": 0.9978,
+          "song": 0.7764,
+          "begging": 0.5013,
+          "flight call": 0.0002,
+          "alarm call": 0.0
+        }
+      },
+      "12s": {
+        "n_windows": 4,
+        "span": [
+          39.0,
+          51.0
+        ],
+        "probabilities": {
+          "call": 0.9978,
+          "song": 0.7764,
+          "begging": 0.5013,
+          "flight call": 0.0002,
+          "alarm call": 0.0
+        }
+      },
+      "18s": {
+        "n_windows": 6,
+        "span": [
+          36.0,
+          54.0
+        ],
+        "probabilities": {
+          "call": 0.9995,
+          "begging": 0.9578,
+          "song": 0.0244,
+          "flight call": 0.0003,
+          "alarm call": 0.0
+        }
+      }
+    }
+  }
+}

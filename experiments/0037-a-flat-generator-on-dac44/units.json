@@ -1,0 +1,40 @@
+{
+  "real": {
+    "mean_units": 3.21,
+    "single_unit_share": 0.25,
+    "histogram": {
+      "0": 5,
+      "1": 1,
+      "2": 2,
+      "3": 7,
+      "4": 3,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 2
+    }
+  },
+  "dac44_gen": {
+    "mean_units": 0.96,
+    "single_unit_share": 0.667,
+    "histogram": {
+      "0": 12,
+      "1": 4,
+      "2": 6,
+      "3": 1,
+      "4": 1
+    }
+  },
+  "fairk8_gen": {
+    "mean_units": 2.25,
+    "single_unit_share": 0.375,
+    "histogram": {
+      "0": 9,
+      "2": 4,
+      "3": 4,
+      "4": 3,
+      "5": 3,
+      "7": 1
+    }
+  }
+}

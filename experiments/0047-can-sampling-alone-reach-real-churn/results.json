@@ -1,0 +1,103 @@
+{
+  "target_stage0": 0.868,
+  "arms": {
+    "baseline top_k=200": {
+      "stage0": 0.8194,
+      "mean": 0.9538,
+      "gap": -0.0486,
+      "clips": 40,
+      "fragments": 9
+    },
+    "no truncation": {
+      "stage0": 0.8555,
+      "mean": 0.9611,
+      "gap": -0.0125,
+      "clips": 40,
+      "fragments": 9
+    },
+    "temperature 1.1": {
+      "stage0": 0.8864,
+      "mean": 0.9686,
+      "gap": 0.0184,
+      "clips": 40,
+      "fragments": 11
+    },
+    "temperature 1.2": {
+      "stage0": 0.9071,
+      "mean": 0.9772,
+      "gap": 0.0391,
+      "clips": 40,
+      "fragments": 10
+    },
+    "top_k 500": {
+      "stage0": 0.8486,
+      "mean": 0.9631,
+      "gap": -0.0194,
+      "clips": 40,
+      "fragments": 8
+    },
+    "top_k 50": {
+      "stage0": 0.7581,
+      "mean": 0.9279,
+      "gap": -0.1099,
+      "clips": 40,
+      "fragments": 9
+    },
+    "top_p 0.95": {
+      "stage0": 0.772,
+      "mean": 0.9444,
+      "gap": -0.096,
+      "clips": 40,
+      "fragments": 6
+    },
+    "top_p 0.99": {
+      "stage0": 0.8337,
+      "mean": 0.9592,
+      "gap": -0.0343,
+      "clips": 40,
+      "fragments": 10
+    },
+    "min_p 0.02": {
+      "stage0": 0.713,
+      "mean": 0.8971,
+      "gap": -0.155,
+      "clips": 40,
+      "fragments": 10
+    },
+    "min_p 0.05": {
+      "stage0": 0.6238,
+      "mean": 0.8481,
+      "gap": -0.2442,
+      "clips": 40,
+      "fragments": 8
+    },
+    "repeat 1.05": {
+      "stage0": 0.8655,
+      "mean": 0.9651,
+      "gap": -0.0025,
+      "clips": 40,
+      "fragments": 10
+    },
+    "repeat 1.15": {
+      "stage0": 0.93,
+      "mean": 0.9785,
+      "gap": 0.062,
+      "clips": 40,
+      "fragments": 10
+    },
+    "repeat 1.30": {
+      "stage0": 0.964,
+      "mean": 0.9884,
+      "gap": 0.096,
+      "clips": 40,
+      "fragments": 10
+    },
+    "repeat 1.15 no-topk": {
+      "stage0": 0.9321,
+      "mean": 0.9844,
+      "gap": 0.0641,
+      "clips": 40,
+      "fragments": 10
+    }
+  }
+}

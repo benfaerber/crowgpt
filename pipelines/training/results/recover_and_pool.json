@@ -1,0 +1,43 @@
+{
+  "n_clips": 160,
+  "recovered_counts": {
+    "alarm call": 28,
+    "begging": 4,
+    "call": 112,
+    "flight call": 40,
+    "song": 18
+  },
+  "old_single_label_counts": {
+    "alarm call": 10,
+    "call": 71,
+    "flight call": 25,
+    "song": 11
+  },
+  "per_class_auc": {
+    "baseline_mean_singlelabel": {
+      "alarm call": 0.681,
+      "call": 0.716,
+      "flight call": 0.87,
+      "song": 0.592
+    },
+    "multilabel_mean": {
+      "alarm call": 0.642,
+      "begging": null,
+      "call": 0.669,
+      "flight call": 0.755,
+      "song": 0.624
+    },
+    "multilabel_mean_std_max": {
+      "alarm call": 0.65,
+      "begging": null,
+      "call": 0.623,
+      "flight call": 0.777,
+      "song": 0.674
+    }
+  },
+  "binary_alarm_vs_rest": {
+    "auc": 0.65,
+    "f1": 0.453,
+    "positives": 28
+  }
+}

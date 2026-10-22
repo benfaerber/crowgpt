@@ -1,0 +1,425 @@
+{
+  "best_val": 5.651071071624756,
+  "history": [
+    {
+      "step": 500,
+      "train": 6.5867,
+      "val": 6.6259,
+      "gap": 0.0392,
+      "train_minibatch": 3.284
+    },
+    {
+      "step": 1000,
+      "train": 6.4764,
+      "val": 6.5144,
+      "gap": 0.038,
+      "train_minibatch": 3.2743
+    },
+    {
+      "step": 1500,
+      "train": 6.4463,
+      "val": 6.4647,
+      "gap": 0.0184,
+      "train_minibatch": 3.2029
+    },
+    {
+      "step": 2000,
+      "train": 6.4146,
+      "val": 6.4339,
+      "gap": 0.0193,
+      "train_minibatch": 3.2104
+    },
+    {
+      "step": 2500,
+      "train": 6.3933,
+      "val": 6.3844,
+      "gap": -0.0089,
+      "train_minibatch": 3.2455
+    },
+    {
+      "step": 3000,
+      "train": 6.3312,
+      "val": 6.3777,
+      "gap": 0.0465,
+      "train_minibatch": 3.1735
+    },
+    {
+      "step": 3500,
+      "train": 6.2813,
+      "val": 6.3253,
+      "gap": 0.044,
+      "train_minibatch": 3.1684
+    },
+    {
+      "step": 4000,
+      "train": 6.2681,
+      "val": 6.3066,
+      "gap": 0.0386,
+      "train_minibatch": 3.0826
+    },
+    {
+      "step": 4500,
+      "train": 6.2206,
+      "val": 6.2458,
+      "gap": 0.0252,
+      "train_minibatch": 3.1513
+    },
+    {
+      "step": 5000,
+      "train": 6.2116,
+      "val": 6.2139,
+      "gap": 0.0023,
+      "train_minibatch": 3.0512
+    },
+    {
+      "step": 5500,
+      "train": 6.1086,
+      "val": 6.1229,
+      "gap": 0.0144,
+      "train_minibatch": 3.0558
+    },
+    {
+      "step": 6000,
+      "train": 6.0958,
+      "val": 6.1199,
+      "gap": 0.0241,
+      "train_minibatch": 2.9954
+    },
+    {
+      "step": 6500,
+      "train": 6.0999,
+      "val": 6.0809,
+      "gap": -0.0191,
+      "train_minibatch": 2.957
+    },
+    {
+      "step": 7000,
+      "train": 6.0674,
+      "val": 6.0931,
+      "gap": 0.0258,
+      "train_minibatch": 3.0728
+    },
+    {
+      "step": 7500,
+      "train": 6.0005,
+      "val": 6.0121,
+      "gap": 0.0116,
+      "train_minibatch": 3.0327
+    },
+    {
+      "step": 8000,
+      "train": 5.9988,
+      "val": 5.9702,
+      "gap": -0.0286,
+      "train_minibatch": 2.9365
+    },
+    {
+      "step": 8500,
+      "train": 5.9738,
+      "val": 5.9626,
+      "gap": -0.0112,
+      "train_minibatch": 3.0257
+    },
+    {
+      "step": 9000,
+      "train": 5.9476,
+      "val": 6.0087,
+      "gap": 0.061,
+      "train_minibatch": 3.0214
+    },
+    {
+      "step": 9500,
+      "train": 5.9225,
+      "val": 5.9489,
+      "gap": 0.0264,
+      "train_minibatch": 2.8381
+    },
+    {
+      "step": 10000,
+      "train": 5.9694,
+      "val": 5.9416,
+      "gap": -0.0278,
+      "train_minibatch": 3.0256
+    },
+    {
+      "step": 10500,
+      "train": 5.8825,
+      "val": 5.909,
+      "gap": 0.0265,
+      "train_minibatch": 3.0167
+    },
+    {
+      "step": 11000,
+      "train": 5.8258,
+      "val": 5.8795,
+      "gap": 0.0536,
+      "train_minibatch": 2.8858
+    },
+    {
+      "step": 11500,
+      "train": 5.9007,
+      "val": 5.9283,
+      "gap": 0.0276,
+      "train_minibatch": 2.9813
+    },
+    {
+      "step": 12000,
+      "train": 5.8402,
+      "val": 5.8918,
+      "gap": 0.0516,
+      "train_minibatch": 2.9358
+    },
+    {
+      "step": 12500,
+      "train": 5.8746,
+      "val": 5.8798,
+      "gap": 0.0053,
+      "train_minibatch": 2.8672
+    },
+    {
+      "step": 13000,
+      "train": 5.8448,
+      "val": 5.895,
+      "gap": 0.0502,
+      "train_minibatch": 2.8232
+    },
+    {
+      "step": 13500,
+      "train": 5.8038,
+      "val": 5.813,
+      "gap": 0.0092,
+      "train_minibatch": 2.902
+    },
+    {
+      "step": 14000,
+      "train": 5.801,
+      "val": 5.8382,
+      "gap": 0.0372,
+      "train_minibatch": 2.9225
+    },
+    {
+      "step": 14500,
+      "train": 5.8119,
+      "val": 5.8344,
+      "gap": 0.0224,
+      "train_minibatch": 2.9322
+    },
+    {
+      "step": 15000,
+      "train": 5.8356,
+      "val": 5.7659,
+      "gap": -0.0697,
+      "train_minibatch": 2.8237
+    },
+    {
+      "step": 15500,
+      "train": 5.7769,
+      "val": 5.8188,
+      "gap": 0.042,
+      "train_minibatch": 2.8844
+    },
+    {
+      "step": 16000,
+      "train": 5.7822,
+      "val": 5.7967,
+      "gap": 0.0145,
+      "train_minibatch": 2.8316
+    },
+    {
+      "step": 16500,
+      "train": 5.7259,
+      "val": 5.7727,
+      "gap": 0.0468,
+      "train_minibatch": 2.8925
+    },
+    {
+      "step": 17000,
+      "train": 5.8044,
+      "val": 5.8007,
+      "gap": -0.0037,
+      "train_minibatch": 2.8415
+    },
+    {
+      "step": 17500,
+      "train": 5.7472,
+      "val": 5.7763,
+      "gap": 0.029,
+      "train_minibatch": 2.9708
+    },
+    {
+      "step": 18000,
+      "train": 5.7523,
+      "val": 5.7336,
+      "gap": -0.0187,
+      "train_minibatch": 2.9196
+    },
+    {
+      "step": 18500,
+      "train": 5.765,
+      "val": 5.7678,
+      "gap": 0.0028,
+      "train_minibatch": 2.9296
+    },
+    {
+      "step": 19000,
+      "train": 5.6801,
+      "val": 5.7983,
+      "gap": 0.1182,
+      "train_minibatch": 2.8938
+    },
+    {
+      "step": 19500,
+      "train": 5.7119,
+      "val": 5.7445,
+      "gap": 0.0326,
+      "train_minibatch": 2.7293
+    },
+    {
+      "step": 20000,
+      "train": 5.761,
+      "val": 5.7344,
+      "gap": -0.0266,
+      "train_minibatch": 2.9548
+    },
+    {
+      "step": 20500,
+      "train": 5.7356,
+      "val": 5.7699,
+      "gap": 0.0343,
+      "train_minibatch": 2.7796
+    },
+    {
+      "step": 21000,
+      "train": 5.7353,
+      "val": 5.7165,
+      "gap": -0.0188,
+      "train_minibatch": 2.9113
+    },
+    {
+      "step": 21500,
+      "train": 5.7357,
+      "val": 5.7397,
+      "gap": 0.004,
+      "train_minibatch": 2.8241
+    },
+    {
+      "step": 22000,
+      "train": 5.7075,
+      "val": 5.7035,
+      "gap": -0.004,
+      "train_minibatch": 2.7452
+    },
+    {
+      "step": 22500,
+      "train": 5.7176,
+      "val": 5.7661,
+      "gap": 0.0485,
+      "train_minibatch": 2.8434
+    },
+    {
+      "step": 23000,
+      "train": 5.6798,
+      "val": 5.7817,
+      "gap": 0.1019,
+      "train_minibatch": 2.7801
+    },
+    {
+      "step": 23500,
+      "train": 5.7546,
+      "val": 5.6771,
+      "gap": -0.0775,
+      "train_minibatch": 2.8803
+    },
+    {
+      "step": 24000,
+      "train": 5.6969,
+      "val": 5.7763,
+      "gap": 0.0794,
+      "train_minibatch": 2.8342
+    },
+    {
+      "step": 24500,
+      "train": 5.7232,
+      "val": 5.6964,
+      "gap": -0.0268,
+      "train_minibatch": 2.9
+    },
+    {
+      "step": 25000,
+      "train": 5.6739,
+      "val": 5.7127,
+      "gap": 0.0388,
+      "train_minibatch": 2.9286
+    },
+    {
+      "step": 25500,
+      "train": 5.6877,
+      "val": 5.7587,
+      "gap": 0.0709,
+      "train_minibatch": 2.8283
+    },
+    {
+      "step": 26000,
+      "train": 5.685,
+      "val": 5.6768,
+      "gap": -0.0081,
+      "train_minibatch": 2.8928
+    },
+    {
+      "step": 26500,
+      "train": 5.6913,
+      "val": 5.6961,
+      "gap": 0.0049,
+      "train_minibatch": 2.8559
+    },
+    {
+      "step": 27000,
+      "train": 5.6742,
+      "val": 5.6648,
+      "gap": -0.0094,
+      "train_minibatch": 2.8164
+    },
+    {
+      "step": 27500,
+      "train": 5.6491,
+      "val": 5.6749,
+      "gap": 0.0258,
+      "train_minibatch": 2.9548
+    },
+    {
+      "step": 28000,
+      "train": 5.6712,
+      "val": 5.6511,
+      "gap": -0.0202,
+      "train_minibatch": 2.9405
+    },
+    {
+      "step": 28500,
+      "train": 5.7047,
+      "val": 5.6817,
+      "gap": -0.023,
+      "train_minibatch": 2.8736
+    },
+    {
+      "step": 29000,
+      "train": 5.6888,
+      "val": 5.7245,
+      "gap": 0.0357,
+      "train_minibatch": 2.7747
+    },
+    {
+      "step": 29500,
+      "train": 5.6902,
+      "val": 5.7057,
+      "gap": 0.0156,
+      "train_minibatch": 2.8645
+    },
+    {
+      "step": 30000,
+      "train": 5.7101,
+      "val": 5.6697,
+      "gap": -0.0404,
+      "train_minibatch": 2.7546
+    }
+  ]
+}

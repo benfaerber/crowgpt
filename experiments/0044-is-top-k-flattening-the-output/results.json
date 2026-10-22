@@ -1,0 +1,96 @@
+{
+  "session_id": "pooled",
+  "note": "pooled over gujmcz5l, y9z10996",
+  "rated": 120,
+  "of": 120,
+  "pairings": {
+    "channel256 vs fairk8": {
+      "wins": 24,
+      "n": 40,
+      "p": 0.6,
+      "ci": [
+        0.445956198273935,
+        0.7365188938759863
+      ],
+      "exact_p": 0.26818725105476915,
+      "resolved": false
+    },
+    "notopk vs topk200": {
+      "wins": 21,
+      "n": 60,
+      "p": 0.35,
+      "ci": [
+        0.24167601723815488,
+        0.4763761619052249
+      ],
+      "exact_p": 0.027340133868077935,
+      "resolved": true
+    }
+  },
+  "catch": {
+    "wins": 20,
+    "n": 20,
+    "p": 1.0,
+    "ci": [
+      0.8388698745050667,
+      1.0
+    ],
+    "exact_p": 1.9073486328125e-06,
+    "resolved": true
+  },
+  "side_bias": {
+    "wins": 63,
+    "n": 120,
+    "p": 0.525,
+    "ci": [
+      0.43626835924004914,
+      0.6121806272071544
+    ],
+    "exact_p": 0.6482600518210058,
+    "resolved": false
+  },
+  "side_bias_by_pairing": {
+    "channel256 vs fairk8": {
+      "wins": 22,
+      "n": 40,
+      "p": 0.55,
+      "ci": [
+        0.39828829888440775,
+        0.6929492471905531
+      ],
+      "exact_p": 0.6358280026288412,
+      "resolved": false
+    },
+    "notopk vs topk200": {
+      "wins": 31,
+      "n": 60,
+      "p": 0.5166666666666667,
+      "ci": [
+        0.39307594850843575,
+        0.6382515871422999
+      ],
+      "exact_p": 0.8974218269914305,
+      "resolved": false
+    },
+    "catch": {
+      "wins": 10,
+      "n": 20,
+      "p": 0.5,
+      "ci": [
+        0.2992949144298199,
+        0.7007050855701801
+      ],
+      "exact_p": 1.0,
+      "resolved": false
+    }
+  },
+  "length": null,
+  "median_seconds": {
+    "channel256": 1.973,
+    "fairk8": 2.427,
+    "notopk": 2.52,
+    "real": 2.144,
+    "topk200": 2.547
+  },
+  "median_decision_ms": 3903
+}

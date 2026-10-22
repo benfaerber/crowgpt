@@ -1,0 +1,753 @@
+{
+  "name": "longctx-0067",
+  "question": "Which clip sounds closer to the reference \u2014 as a whole <strong>calling sequence</strong>: the rhythm, the spacing between caws, the way a real session unfolds, as well as the voice itself. Clips differ in length by design; judge the crow, not the clock. \u201cThey are the same\u201d is a real answer.",
+  "clip_dir": "/home/ben/Code/cawtalker/crowgpt/results/listening-pools/longctx-0067",
+  "trials": [
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-00.wav",
+      "first_clip": "longctx-000.wav",
+      "second_clip": "units-000.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 5.28,
+        "units_s": 2.97
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-01.wav",
+      "first_clip": "real-00.wav",
+      "second_clip": "longctx-040.wav",
+      "first_arm": "real",
+      "second_arm": "model-longctx"
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-02.wav",
+      "first_clip": "units-001.wav",
+      "second_clip": "longctx-001.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 3.83,
+        "units_s": 2.95
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-03.wav",
+      "first_clip": "longctx-002.wav",
+      "second_clip": "units-002.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.05,
+        "units_s": 1.16
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-04.wav",
+      "first_clip": "units-003.wav",
+      "second_clip": "longctx-003.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 2.39,
+        "units_s": 1.77
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-05.wav",
+      "first_clip": "longctx-004.wav",
+      "second_clip": "units-004.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.32,
+        "units_s": 1.27
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-06.wav",
+      "first_clip": "units-005.wav",
+      "second_clip": "longctx-005.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 5.68,
+        "units_s": 2.72
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-07.wav",
+      "first_clip": "longctx-006.wav",
+      "second_clip": "units-006.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.59,
+        "units_s": 1.12
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-08.wav",
+      "first_clip": "units-007.wav",
+      "second_clip": "longctx-007.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 5.04,
+        "units_s": 1.72
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-09.wav",
+      "first_clip": "longctx-008.wav",
+      "second_clip": "units-008.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 2.0,
+        "units_s": 3.0
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-10.wav",
+      "first_clip": "units-009.wav",
+      "second_clip": "longctx-009.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 3.51,
+        "units_s": 2.35
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-11.wav",
+      "first_clip": "longctx-010.wav",
+      "second_clip": "units-010.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 2.27,
+        "units_s": 2.6
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-12.wav",
+      "first_clip": "units-011.wav",
+      "second_clip": "longctx-011.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 5.95,
+        "units_s": 1.28
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-13.wav",
+      "first_clip": "longctx-012.wav",
+      "second_clip": "units-012.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.28,
+        "units_s": 1.48
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-14.wav",
+      "first_clip": "longctx-041.wav",
+      "second_clip": "real-01.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "real"
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-15.wav",
+      "first_clip": "real-02.wav",
+      "second_clip": "longctx-042.wav",
+      "first_arm": "real",
+      "second_arm": "model-longctx"
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-16.wav",
+      "first_clip": "units-013.wav",
+      "second_clip": "longctx-013.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 1.23,
+        "units_s": 1.64
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-17.wav",
+      "first_clip": "longctx-014.wav",
+      "second_clip": "units-014.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.95,
+        "units_s": 1.68
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-18.wav",
+      "first_clip": "units-015.wav",
+      "second_clip": "longctx-015.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 1.15,
+        "units_s": 1.83
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-19.wav",
+      "first_clip": "longctx-016.wav",
+      "second_clip": "units-016.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.35,
+        "units_s": 1.64
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-20.wav",
+      "first_clip": "units-017.wav",
+      "second_clip": "longctx-017.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 3.84,
+        "units_s": 2.56
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-21.wav",
+      "first_clip": "longctx-018.wav",
+      "second_clip": "units-018.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 3.25,
+        "units_s": 2.88
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-22.wav",
+      "first_clip": "units-019.wav",
+      "second_clip": "longctx-019.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 4.64,
+        "units_s": 2.56
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-23.wav",
+      "first_clip": "longctx-020.wav",
+      "second_clip": "units-020.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 5.21,
+        "units_s": 2.73
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-24.wav",
+      "first_clip": "units-021.wav",
+      "second_clip": "longctx-021.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 5.71,
+        "units_s": 2.01
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-25.wav",
+      "first_clip": "longctx-022.wav",
+      "second_clip": "units-022.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 5.51,
+        "units_s": 2.81
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-26.wav",
+      "first_clip": "units-023.wav",
+      "second_clip": "longctx-023.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 5.59,
+        "units_s": 1.49
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-27.wav",
+      "first_clip": "longctx-024.wav",
+      "second_clip": "units-024.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.97,
+        "units_s": 2.16
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-28.wav",
+      "first_clip": "longctx-043.wav",
+      "second_clip": "real-03.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "real"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-29.wav",
+      "first_clip": "units-025.wav",
+      "second_clip": "longctx-025.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 4.21,
+        "units_s": 2.75
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-30.wav",
+      "first_clip": "longctx-026.wav",
+      "second_clip": "units-026.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.47,
+        "units_s": 3.0
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-31.wav",
+      "first_clip": "units-027.wav",
+      "second_clip": "longctx-027.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 5.75,
+        "units_s": 3.0
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-32.wav",
+      "first_clip": "longctx-028.wav",
+      "second_clip": "units-028.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 2.05,
+        "units_s": 2.05
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-33.wav",
+      "first_clip": "real-04.wav",
+      "second_clip": "units-040.wav",
+      "first_arm": "real",
+      "second_arm": "model-units"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-34.wav",
+      "first_clip": "units-029.wav",
+      "second_clip": "longctx-029.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 1.12,
+        "units_s": 1.51
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-35.wav",
+      "first_clip": "longctx-030.wav",
+      "second_clip": "units-030.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.59,
+        "units_s": 2.44
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-36.wav",
+      "first_clip": "units-031.wav",
+      "second_clip": "longctx-031.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 2.55,
+        "units_s": 2.99
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-37.wav",
+      "first_clip": "longctx-032.wav",
+      "second_clip": "units-032.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 5.93,
+        "units_s": 1.67
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-38.wav",
+      "first_clip": "units-041.wav",
+      "second_clip": "real-05.wav",
+      "first_arm": "model-units",
+      "second_arm": "real"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-39.wav",
+      "first_clip": "units-033.wav",
+      "second_clip": "longctx-033.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 4.87,
+        "units_s": 2.07
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-40.wav",
+      "first_clip": "longctx-034.wav",
+      "second_clip": "units-034.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 1.99,
+        "units_s": 3.0
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "anchor-41.wav",
+      "first_clip": "real-06.wav",
+      "second_clip": "units-042.wav",
+      "first_arm": "real",
+      "second_arm": "model-units"
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "anchor-42.wav",
+      "first_clip": "units-043.wav",
+      "second_clip": "real-07.wav",
+      "first_arm": "model-units",
+      "second_arm": "real"
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-43.wav",
+      "first_clip": "units-035.wav",
+      "second_clip": "longctx-035.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 2.92,
+        "units_s": 1.84
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-44.wav",
+      "first_clip": "longctx-036.wav",
+      "second_clip": "units-036.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 3.53,
+        "units_s": 1.45
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-45.wav",
+      "first_clip": "units-037.wav",
+      "second_clip": "longctx-037.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 1.19,
+        "units_s": 2.24
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-46.wav",
+      "first_clip": "longctx-038.wav",
+      "second_clip": "units-038.wav",
+      "first_arm": "model-longctx",
+      "second_arm": "model-units",
+      "facts": {
+        "longctx_s": 5.92,
+        "units_s": 3.0
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-47.wav",
+      "first_clip": "units-039.wav",
+      "second_clip": "longctx-039.wav",
+      "first_arm": "model-units",
+      "second_arm": "model-longctx",
+      "facts": {
+        "longctx_s": 1.03,
+        "units_s": 1.89
+      }
+    }
+  ],
+  "spec": {
+    "experiment": "0067",
+    "decoder": "finetuned (0063), both arms",
+    "longctx_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      23,
+      24,
+      25,
+      26,
+      28,
+      29,
+      31,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      43,
+      44,
+      45,
+      46,
+      47,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54
+    ],
+    "units_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      21,
+      22,
+      23,
+      25,
+      26,
+      28,
+      29,
+      30,
+      31,
+      34,
+      35,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      49,
+      51,
+      52,
+      53,
+      54,
+      55
+    ],
+    "anchor_bouts": [
+      48,
+      51,
+      66,
+      314,
+      350,
+      431,
+      503,
+      593,
+      605,
+      607,
+      758,
+      1133,
+      1263,
+      1269,
+      1836,
+      2062,
+      2210,
+      2300,
+      2794,
+      3288,
+      3325,
+      3496,
+      3509,
+      3594,
+      3622,
+      3721,
+      4119,
+      4295,
+      4326,
+      4385,
+      4413,
+      4623,
+      4640,
+      4820,
+      4977,
+      5127,
+      5337,
+      5345,
+      5354,
+      5371,
+      5691,
+      5770,
+      5777,
+      5928,
+      6225,
+      6226,
+      6266,
+      6355,
+      6378,
+      6681,
+      6682,
+      6790,
+      6867,
+      6883,
+      7005,
+      7027
+    ]
+  }
+}

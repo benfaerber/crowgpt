@@ -1,0 +1,52 @@
+{
+  "baseline": "0074 results.json + serving_structure.json",
+  "anchor_accuracy": 0.833,
+  "serving_structure": {
+    "alarm call": {
+      "n": 60,
+      "mean_units": 4.72,
+      "single_share": 0.217,
+      "gaps_per_clip": 3.88,
+      "median_gap_s": 0.235,
+      "dust_rate": 0.08
+    },
+    "begging": {
+      "n": 60,
+      "mean_units": 4.22,
+      "single_share": 0.167,
+      "gaps_per_clip": 3.28,
+      "median_gap_s": 0.299,
+      "dust_rate": 0.375
+    },
+    "call": {
+      "n": 60,
+      "mean_units": 4.77,
+      "single_share": 0.167,
+      "gaps_per_clip": 3.88,
+      "median_gap_s": 0.256,
+      "dust_rate": 0.189
+    },
+    "song": {
+      "n": 60,
+      "mean_units": 4.45,
+      "single_share": 0.167,
+      "gaps_per_clip": 3.58,
+      "median_gap_s": 0.267,
+      "dust_rate": 0.269
+    }
+  },
+  "recall": {
+    "alarm call": 0.911,
+    "begging": 0.127,
+    "call": 0.02,
+    "song": 0.25
+  },
+  "verdict": {
+    "val_ct": 4.781202960014343,
+    "val_b32": 4.689320373535156,
+    "val_improved": true,
+    "alarm_recall_held": true,
+    "serving_structure_held": true,
+    "b32_becomes_candidate": true
+  }
+}

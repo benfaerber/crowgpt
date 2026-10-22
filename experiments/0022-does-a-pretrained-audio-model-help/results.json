@@ -1,0 +1,80 @@
+{
+  "real": {
+    "birdnet": {
+      "clips": 80,
+      "scored": 80,
+      "detected": 52,
+      "rate": 0.65,
+      "mean_confidence": 0.55,
+      "threshold": 0.25
+    },
+    "calltype": {
+      "embedded": 54,
+      "agreement": 0.778,
+      "detected_mix": {
+        "alarm call": 34,
+        "call": 5,
+        "song": 4,
+        "begging": 11
+      }
+    }
+  },
+  "crowgpt": {
+    "birdnet": {
+      "clips": 120,
+      "scored": 120,
+      "detected": 86,
+      "rate": 0.717,
+      "mean_confidence": 0.623,
+      "threshold": 0.25
+    },
+    "calltype": {
+      "embedded": 105,
+      "agreement": 0.381,
+      "detected_mix": {
+        "alarm call": 72,
+        "song": 15,
+        "begging": 18
+      }
+    }
+  },
+  "base": {
+    "birdnet": {
+      "clips": 120,
+      "scored": 120,
+      "detected": 13,
+      "rate": 0.108,
+      "mean_confidence": 0.076,
+      "threshold": 0.25
+    },
+    "calltype": {
+      "embedded": 120,
+      "agreement": 0.458,
+      "detected_mix": {
+        "alarm call": 32,
+        "begging": 41,
+        "song": 47
+      }
+    }
+  },
+  "lora": {
+    "birdnet": {
+      "clips": 120,
+      "scored": 120,
+      "detected": 42,
+      "rate": 0.35,
+      "mean_confidence": 0.228,
+      "threshold": 0.25
+    },
+    "calltype": {
+      "embedded": 120,
+      "agreement": 0.467,
+      "detected_mix": {
+        "begging": 63,
+        "alarm call": 27,
+        "song": 27,
+        "call": 3
+      }
+    }
+  }
+}

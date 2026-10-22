@@ -1,0 +1,9 @@
+{
+  "name": "crash-log",
+  "version": "0.1.0",
+  "description": "Catches native crashes and hands them to the app's log on the next launch",
+  "main": "src/index.ts",
+  "expo": {
+    "platforms": ["android"]
+  }
+}

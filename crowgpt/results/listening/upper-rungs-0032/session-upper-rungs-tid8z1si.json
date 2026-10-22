@@ -1,0 +1,1213 @@
+{
+  "session_id": "tid8z1si",
+  "subject": "ben",
+  "kind": "rating",
+  "title": "Which of these sound good?",
+  "started_at": "2026-08-02T14:54:31.866Z",
+  "finished_at": "2026-08-02T14:59:33.450Z",
+  "rated": 120,
+  "of": 120,
+  "note": "k32 far superior most of the times. k24 can keep up most of the time but fails. clips under ~1 second were very hard to grade.",
+  "trials": [
+    {
+      "trial_index": 1,
+      "clip_id": 0,
+      "rating": "good",
+      "decision_ms": 4232,
+      "plays": 2,
+      "arm": "k32",
+      "bout": 28005,
+      "recording": "622825960"
+    },
+    {
+      "trial_index": 2,
+      "clip_id": 1,
+      "rating": "bad",
+      "decision_ms": 3138,
+      "plays": 2,
+      "arm": "k24",
+      "bout": 25617,
+      "recording": "471316161"
+    },
+    {
+      "trial_index": 3,
+      "clip_id": 2,
+      "rating": "good",
+      "decision_ms": 2992,
+      "plays": 2,
+      "arm": "k16",
+      "bout": 23992,
+      "recording": "622234975"
+    },
+    {
+      "trial_index": 4,
+      "clip_id": 3,
+      "rating": "good",
+      "decision_ms": 2829,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28591,
+      "recording": "506833011"
+    },
+    {
+      "trial_index": 5,
+      "clip_id": 4,
+      "rating": "good",
+      "decision_ms": 1317,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21241,
+      "recording": "220139261"
+    },
+    {
+      "trial_index": 6,
+      "clip_id": 5,
+      "rating": "good",
+      "decision_ms": 1272,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23478,
+      "recording": "631750077"
+    },
+    {
+      "trial_index": 7,
+      "clip_id": 6,
+      "rating": "good",
+      "decision_ms": 1203,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22649,
+      "recording": "52691601"
+    },
+    {
+      "trial_index": 8,
+      "clip_id": 7,
+      "rating": "good",
+      "decision_ms": 941,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22841,
+      "recording": "647578886"
+    },
+    {
+      "trial_index": 9,
+      "clip_id": 8,
+      "rating": "good",
+      "decision_ms": 959,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28284,
+      "recording": "53668411"
+    },
+    {
+      "trial_index": 10,
+      "clip_id": 9,
+      "rating": "good",
+      "decision_ms": 2757,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23528,
+      "recording": "630446808"
+    },
+    {
+      "trial_index": 11,
+      "clip_id": 10,
+      "rating": "good",
+      "decision_ms": 1140,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21833,
+      "recording": "163231911"
+    },
+    {
+      "trial_index": 12,
+      "clip_id": 11,
+      "rating": "good",
+      "decision_ms": 2381,
+      "plays": 2,
+      "arm": "k16",
+      "bout": 24611,
+      "recording": "612847836"
+    },
+    {
+      "trial_index": 13,
+      "clip_id": 12,
+      "rating": "bad",
+      "decision_ms": 1217,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 27070,
+      "recording": "187320711"
+    },
+    {
+      "trial_index": 14,
+      "clip_id": 13,
+      "rating": "bad",
+      "decision_ms": 1322,
+      "plays": 2,
+      "arm": "k16",
+      "bout": 24464,
+      "recording": "615021543"
+    },
+    {
+      "trial_index": 15,
+      "clip_id": 14,
+      "rating": "good",
+      "decision_ms": 2433,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27967,
+      "recording": "631457238"
+    },
+    {
+      "trial_index": 16,
+      "clip_id": 15,
+      "rating": "bad",
+      "decision_ms": 1393,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28004,
+      "recording": "622922844"
+    },
+    {
+      "trial_index": 17,
+      "clip_id": 16,
+      "rating": "good",
+      "decision_ms": 1920,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28460,
+      "recording": "655452543"
+    },
+    {
+      "trial_index": 18,
+      "clip_id": 17,
+      "rating": "good",
+      "decision_ms": 1663,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28990,
+      "recording": "643735694"
+    },
+    {
+      "trial_index": 19,
+      "clip_id": 18,
+      "rating": "good",
+      "decision_ms": 2302,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27985,
+      "recording": "627738181"
+    },
+    {
+      "trial_index": 20,
+      "clip_id": 19,
+      "rating": "bad",
+      "decision_ms": 1595,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 27265,
+      "recording": "164954801"
+    },
+    {
+      "trial_index": 21,
+      "clip_id": 20,
+      "rating": "good",
+      "decision_ms": 1706,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28370,
+      "recording": "661633322"
+    },
+    {
+      "trial_index": 22,
+      "clip_id": 21,
+      "rating": "good",
+      "decision_ms": 4770,
+      "plays": 2,
+      "arm": "k32",
+      "bout": 27716,
+      "recording": "250601531"
+    },
+    {
+      "trial_index": 23,
+      "clip_id": 22,
+      "rating": "good",
+      "decision_ms": 1028,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23410,
+      "recording": "634594968"
+    },
+    {
+      "trial_index": 24,
+      "clip_id": 23,
+      "rating": "good",
+      "decision_ms": 2937,
+      "plays": 3,
+      "arm": "k16",
+      "bout": 23864,
+      "recording": "624282689"
+    },
+    {
+      "trial_index": 25,
+      "clip_id": 24,
+      "rating": "good",
+      "decision_ms": 1470,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 27390,
+      "recording": "142744131"
+    },
+    {
+      "trial_index": 26,
+      "clip_id": 25,
+      "rating": "good",
+      "decision_ms": 2063,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22380,
+      "recording": "547227881"
+    },
+    {
+      "trial_index": 27,
+      "clip_id": 26,
+      "rating": "good",
+      "decision_ms": 3003,
+      "plays": 2,
+      "arm": "k16",
+      "bout": 24206,
+      "recording": "618743916"
+    },
+    {
+      "trial_index": 28,
+      "clip_id": 27,
+      "rating": "bad",
+      "decision_ms": 1115,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28182,
+      "recording": "106097591"
+    },
+    {
+      "trial_index": 29,
+      "clip_id": 28,
+      "rating": "good",
+      "decision_ms": 2803,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28530,
+      "recording": "647557676"
+    },
+    {
+      "trial_index": 30,
+      "clip_id": 29,
+      "rating": "good",
+      "decision_ms": 1141,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25863,
+      "recording": "370493431"
+    },
+    {
+      "trial_index": 31,
+      "clip_id": 30,
+      "rating": "bad",
+      "decision_ms": 2045,
+      "plays": 3,
+      "arm": "k16",
+      "bout": 24627,
+      "recording": "612678586"
+    },
+    {
+      "trial_index": 32,
+      "clip_id": 31,
+      "rating": "good",
+      "decision_ms": 2467,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22477,
+      "recording": "242800021"
+    },
+    {
+      "trial_index": 33,
+      "clip_id": 32,
+      "rating": "good",
+      "decision_ms": 1022,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26821,
+      "recording": "213762271"
+    },
+    {
+      "trial_index": 34,
+      "clip_id": 33,
+      "rating": "good",
+      "decision_ms": 1875,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21944,
+      "recording": "111241431"
+    },
+    {
+      "trial_index": 35,
+      "clip_id": 34,
+      "rating": "good",
+      "decision_ms": 890,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22196,
+      "recording": "372934491"
+    },
+    {
+      "trial_index": 36,
+      "clip_id": 35,
+      "rating": "bad",
+      "decision_ms": 1155,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24111,
+      "recording": "620306484"
+    },
+    {
+      "trial_index": 37,
+      "clip_id": 36,
+      "rating": "good",
+      "decision_ms": 1617,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23460,
+      "recording": "632629874"
+    },
+    {
+      "trial_index": 38,
+      "clip_id": 37,
+      "rating": "good",
+      "decision_ms": 1154,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22938,
+      "recording": "644394062"
+    },
+    {
+      "trial_index": 39,
+      "clip_id": 38,
+      "rating": "good",
+      "decision_ms": 1004,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25473,
+      "recording": "496284191"
+    },
+    {
+      "trial_index": 40,
+      "clip_id": 39,
+      "rating": "bad",
+      "decision_ms": 1413,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26795,
+      "recording": "219775041"
+    },
+    {
+      "trial_index": 41,
+      "clip_id": 40,
+      "rating": "bad",
+      "decision_ms": 1274,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24816,
+      "recording": "610601868"
+    },
+    {
+      "trial_index": 42,
+      "clip_id": 41,
+      "rating": "good",
+      "decision_ms": 1210,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21637,
+      "recording": "178114631"
+    },
+    {
+      "trial_index": 43,
+      "clip_id": 42,
+      "rating": "good",
+      "decision_ms": 1499,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23505,
+      "recording": "630758305"
+    },
+    {
+      "trial_index": 44,
+      "clip_id": 43,
+      "rating": "good",
+      "decision_ms": 1903,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27507,
+      "recording": "114125741"
+    },
+    {
+      "trial_index": 45,
+      "clip_id": 44,
+      "rating": "good",
+      "decision_ms": 2676,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28359,
+      "recording": "541533821"
+    },
+    {
+      "trial_index": 46,
+      "clip_id": 45,
+      "rating": "good",
+      "decision_ms": 1842,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24769,
+      "recording": "611740359"
+    },
+    {
+      "trial_index": 47,
+      "clip_id": 46,
+      "rating": "good",
+      "decision_ms": 3883,
+      "plays": 2,
+      "arm": "k24",
+      "bout": 26034,
+      "recording": "342252021"
+    },
+    {
+      "trial_index": 48,
+      "clip_id": 47,
+      "rating": "good",
+      "decision_ms": 1831,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26073,
+      "recording": "324921581"
+    },
+    {
+      "trial_index": 49,
+      "clip_id": 48,
+      "rating": "bad",
+      "decision_ms": 2145,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25836,
+      "recording": "375015311"
+    },
+    {
+      "trial_index": 50,
+      "clip_id": 49,
+      "rating": "good",
+      "decision_ms": 1263,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21458,
+      "recording": "195117621"
+    },
+    {
+      "trial_index": 51,
+      "clip_id": 50,
+      "rating": "good",
+      "decision_ms": 1072,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27541,
+      "recording": "112960681"
+    },
+    {
+      "trial_index": 52,
+      "clip_id": 51,
+      "rating": "good",
+      "decision_ms": 1042,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26813,
+      "recording": "216219361"
+    },
+    {
+      "trial_index": 53,
+      "clip_id": 52,
+      "rating": "bad",
+      "decision_ms": 1137,
+      "plays": 2,
+      "arm": "k16",
+      "bout": 24347,
+      "recording": "616337017"
+    },
+    {
+      "trial_index": 54,
+      "clip_id": 53,
+      "rating": "bad",
+      "decision_ms": 3070,
+      "plays": 3,
+      "arm": "raw",
+      "bout": 22782,
+      "recording": "652017332"
+    },
+    {
+      "trial_index": 55,
+      "clip_id": 54,
+      "rating": "bad",
+      "decision_ms": 2603,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 23684,
+      "recording": "626618374"
+    },
+    {
+      "trial_index": 56,
+      "clip_id": 55,
+      "rating": "good",
+      "decision_ms": 1783,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21448,
+      "recording": "200615841"
+    },
+    {
+      "trial_index": 57,
+      "clip_id": 56,
+      "rating": "bad",
+      "decision_ms": 983,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 23970,
+      "recording": "622825959"
+    },
+    {
+      "trial_index": 58,
+      "clip_id": 57,
+      "rating": "good",
+      "decision_ms": 2481,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27545,
+      "recording": "111968981"
+    },
+    {
+      "trial_index": 59,
+      "clip_id": 58,
+      "rating": "good",
+      "decision_ms": 1380,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26679,
+      "recording": "237528951"
+    },
+    {
+      "trial_index": 60,
+      "clip_id": 59,
+      "rating": "good",
+      "decision_ms": 939,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24459,
+      "recording": "615197367"
+    },
+    {
+      "trial_index": 61,
+      "clip_id": 60,
+      "rating": "good",
+      "decision_ms": 1039,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22895,
+      "recording": "646137305"
+    },
+    {
+      "trial_index": 62,
+      "clip_id": 61,
+      "rating": "good",
+      "decision_ms": 1042,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27455,
+      "recording": "129774151"
+    },
+    {
+      "trial_index": 63,
+      "clip_id": 62,
+      "rating": "good",
+      "decision_ms": 1143,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23605,
+      "recording": "628568721"
+    },
+    {
+      "trial_index": 64,
+      "clip_id": 63,
+      "rating": "good",
+      "decision_ms": 1350,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25334,
+      "recording": "513946221"
+    },
+    {
+      "trial_index": 65,
+      "clip_id": 64,
+      "rating": "good",
+      "decision_ms": 1678,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 22911,
+      "recording": "645407157"
+    },
+    {
+      "trial_index": 66,
+      "clip_id": 65,
+      "rating": "good",
+      "decision_ms": 1792,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21866,
+      "recording": "144522241"
+    },
+    {
+      "trial_index": 67,
+      "clip_id": 66,
+      "rating": "good",
+      "decision_ms": 929,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25399,
+      "recording": "507811011"
+    },
+    {
+      "trial_index": 68,
+      "clip_id": 67,
+      "rating": "good",
+      "decision_ms": 1150,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25695,
+      "recording": "407856261"
+    },
+    {
+      "trial_index": 69,
+      "clip_id": 68,
+      "rating": "good",
+      "decision_ms": 1020,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23490,
+      "recording": "631674360"
+    },
+    {
+      "trial_index": 70,
+      "clip_id": 69,
+      "rating": "bad",
+      "decision_ms": 1087,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 27262,
+      "recording": "164954841"
+    },
+    {
+      "trial_index": 71,
+      "clip_id": 70,
+      "rating": "bad",
+      "decision_ms": 1521,
+      "plays": 2,
+      "arm": "k16",
+      "bout": 24880,
+      "recording": "609015992"
+    },
+    {
+      "trial_index": 72,
+      "clip_id": 71,
+      "rating": "good",
+      "decision_ms": 968,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23423,
+      "recording": "634267585"
+    },
+    {
+      "trial_index": 73,
+      "clip_id": 72,
+      "rating": "good",
+      "decision_ms": 1324,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27462,
+      "recording": "123887601"
+    },
+    {
+      "trial_index": 74,
+      "clip_id": 73,
+      "rating": "bad",
+      "decision_ms": 1220,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 27249,
+      "recording": "170682441"
+    },
+    {
+      "trial_index": 75,
+      "clip_id": 74,
+      "rating": "good",
+      "decision_ms": 1188,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28092,
+      "recording": "247610321"
+    },
+    {
+      "trial_index": 76,
+      "clip_id": 75,
+      "rating": "good",
+      "decision_ms": 1631,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24580,
+      "recording": "613513378"
+    },
+    {
+      "trial_index": 77,
+      "clip_id": 76,
+      "rating": "bad",
+      "decision_ms": 1524,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21239,
+      "recording": "220306861"
+    },
+    {
+      "trial_index": 78,
+      "clip_id": 77,
+      "rating": "good",
+      "decision_ms": 1971,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25155,
+      "recording": "537551531"
+    },
+    {
+      "trial_index": 79,
+      "clip_id": 78,
+      "rating": "bad",
+      "decision_ms": 1283,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25825,
+      "recording": "376486411"
+    },
+    {
+      "trial_index": 80,
+      "clip_id": 79,
+      "rating": "good",
+      "decision_ms": 1513,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25235,
+      "recording": "528147341"
+    },
+    {
+      "trial_index": 81,
+      "clip_id": 80,
+      "rating": "good",
+      "decision_ms": 1527,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24469,
+      "recording": "614856515"
+    },
+    {
+      "trial_index": 82,
+      "clip_id": 81,
+      "rating": "good",
+      "decision_ms": 2600,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28017,
+      "recording": "587961561"
+    },
+    {
+      "trial_index": 83,
+      "clip_id": 82,
+      "rating": "good",
+      "decision_ms": 1257,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23514,
+      "recording": "630666365"
+    },
+    {
+      "trial_index": 84,
+      "clip_id": 83,
+      "rating": "good",
+      "decision_ms": 799,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24625,
+      "recording": "612710494"
+    },
+    {
+      "trial_index": 85,
+      "clip_id": 84,
+      "rating": "good",
+      "decision_ms": 778,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24594,
+      "recording": "613146662"
+    },
+    {
+      "trial_index": 86,
+      "clip_id": 85,
+      "rating": "good",
+      "decision_ms": 1488,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27678,
+      "recording": "627927831"
+    },
+    {
+      "trial_index": 87,
+      "clip_id": 86,
+      "rating": "good",
+      "decision_ms": 1590,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28489,
+      "recording": "650455182"
+    },
+    {
+      "trial_index": 88,
+      "clip_id": 87,
+      "rating": "good",
+      "decision_ms": 823,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28796,
+      "recording": "654279337"
+    },
+    {
+      "trial_index": 89,
+      "clip_id": 88,
+      "rating": "bad",
+      "decision_ms": 1154,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24237,
+      "recording": "618219292"
+    },
+    {
+      "trial_index": 90,
+      "clip_id": 89,
+      "rating": "good",
+      "decision_ms": 1138,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25205,
+      "recording": "534442431"
+    },
+    {
+      "trial_index": 91,
+      "clip_id": 90,
+      "rating": "bad",
+      "decision_ms": 1061,
+      "plays": 2,
+      "arm": "raw",
+      "bout": 22493,
+      "recording": "216219351"
+    },
+    {
+      "trial_index": 92,
+      "clip_id": 91,
+      "rating": "good",
+      "decision_ms": 1244,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 29003,
+      "recording": "643252775"
+    },
+    {
+      "trial_index": 93,
+      "clip_id": 92,
+      "rating": "bad",
+      "decision_ms": 1475,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 23753,
+      "recording": "625651956"
+    },
+    {
+      "trial_index": 94,
+      "clip_id": 93,
+      "rating": "bad",
+      "decision_ms": 1013,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28872,
+      "recording": "647162435"
+    },
+    {
+      "trial_index": 95,
+      "clip_id": 94,
+      "rating": "good",
+      "decision_ms": 1600,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 27422,
+      "recording": "140931521"
+    },
+    {
+      "trial_index": 96,
+      "clip_id": 95,
+      "rating": "bad",
+      "decision_ms": 1494,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24516,
+      "recording": "614099503"
+    },
+    {
+      "trial_index": 97,
+      "clip_id": 96,
+      "rating": "bad",
+      "decision_ms": 2607,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24881,
+      "recording": "608858355"
+    },
+    {
+      "trial_index": 98,
+      "clip_id": 97,
+      "rating": "bad",
+      "decision_ms": 988,
+      "plays": 2,
+      "arm": "raw",
+      "bout": 22654,
+      "recording": "50671801"
+    },
+    {
+      "trial_index": 99,
+      "clip_id": 98,
+      "rating": "bad",
+      "decision_ms": 2203,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25906,
+      "recording": "367043631"
+    },
+    {
+      "trial_index": 100,
+      "clip_id": 99,
+      "rating": "good",
+      "decision_ms": 1862,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24189,
+      "recording": "619240540"
+    },
+    {
+      "trial_index": 101,
+      "clip_id": 100,
+      "rating": "bad",
+      "decision_ms": 1690,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28195,
+      "recording": "100924921"
+    },
+    {
+      "trial_index": 102,
+      "clip_id": 101,
+      "rating": "good",
+      "decision_ms": 1489,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 23750,
+      "recording": "625891671"
+    },
+    {
+      "trial_index": 103,
+      "clip_id": 102,
+      "rating": "bad",
+      "decision_ms": 2143,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28300,
+      "recording": "45016561"
+    },
+    {
+      "trial_index": 104,
+      "clip_id": 103,
+      "rating": "good",
+      "decision_ms": 2148,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24592,
+      "recording": "613308595"
+    },
+    {
+      "trial_index": 105,
+      "clip_id": 104,
+      "rating": "good",
+      "decision_ms": 1227,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26104,
+      "recording": "320180891"
+    },
+    {
+      "trial_index": 106,
+      "clip_id": 105,
+      "rating": "bad",
+      "decision_ms": 2770,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26082,
+      "recording": "323576161"
+    },
+    {
+      "trial_index": 107,
+      "clip_id": 106,
+      "rating": "good",
+      "decision_ms": 1192,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 21914,
+      "recording": "131355101"
+    },
+    {
+      "trial_index": 108,
+      "clip_id": 107,
+      "rating": "good",
+      "decision_ms": 1296,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 28061,
+      "recording": "462975851"
+    },
+    {
+      "trial_index": 109,
+      "clip_id": 108,
+      "rating": "good",
+      "decision_ms": 1200,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25278,
+      "recording": "523280521"
+    },
+    {
+      "trial_index": 110,
+      "clip_id": 109,
+      "rating": "good",
+      "decision_ms": 1591,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 29040,
+      "recording": "642128602"
+    },
+    {
+      "trial_index": 111,
+      "clip_id": 110,
+      "rating": "good",
+      "decision_ms": 1128,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 25766,
+      "recording": "395759011"
+    },
+    {
+      "trial_index": 112,
+      "clip_id": 111,
+      "rating": "good",
+      "decision_ms": 1527,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26388,
+      "recording": "275351991"
+    },
+    {
+      "trial_index": 113,
+      "clip_id": 112,
+      "rating": "good",
+      "decision_ms": 1348,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 25081,
+      "recording": "546396471"
+    },
+    {
+      "trial_index": 114,
+      "clip_id": 113,
+      "rating": "good",
+      "decision_ms": 1811,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24790,
+      "recording": "611315538"
+    },
+    {
+      "trial_index": 115,
+      "clip_id": 114,
+      "rating": "good",
+      "decision_ms": 843,
+      "plays": 1,
+      "arm": "raw",
+      "bout": 23659,
+      "recording": "627407867"
+    },
+    {
+      "trial_index": 116,
+      "clip_id": 115,
+      "rating": "good",
+      "decision_ms": 1314,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 24323,
+      "recording": "617170462"
+    },
+    {
+      "trial_index": 117,
+      "clip_id": 116,
+      "rating": "bad",
+      "decision_ms": 2064,
+      "plays": 2,
+      "arm": "k16",
+      "bout": 24822,
+      "recording": "610440369"
+    },
+    {
+      "trial_index": 118,
+      "clip_id": 117,
+      "rating": "good",
+      "decision_ms": 973,
+      "plays": 1,
+      "arm": "k16",
+      "bout": 23792,
+      "recording": "625157327"
+    },
+    {
+      "trial_index": 119,
+      "clip_id": 118,
+      "rating": "bad",
+      "decision_ms": 1188,
+      "plays": 1,
+      "arm": "k24",
+      "bout": 26508,
+      "recording": "250768161"
+    },
+    {
+      "trial_index": 120,
+      "clip_id": 119,
+      "rating": "bad",
+      "decision_ms": 1289,
+      "plays": 1,
+      "arm": "k32",
+      "bout": 27667,
+      "recording": "31254951"
+    }
+  ]
+}

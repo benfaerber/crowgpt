@@ -1,0 +1,164 @@
+{
+  "longctx-T1.0": {
+    "n": 150,
+    "mean_delta": -0.0098,
+    "mean_delta_per_sec": -0.0032,
+    "declining_share": 0.54,
+    "wilcoxon_p": 0.35546,
+    "mean_early": 0.4769,
+    "mean_late": 0.4671
+  },
+  "longctx-T1.1": {
+    "n": 150,
+    "mean_delta": 0.0027,
+    "mean_delta_per_sec": -0.0005,
+    "declining_share": 0.56,
+    "wilcoxon_p": 0.65588,
+    "mean_early": 0.505,
+    "mean_late": 0.5077
+  },
+  "units-3s": {
+    "n": 150,
+    "mean_delta": -0.0051,
+    "mean_delta_per_sec": -0.0048,
+    "declining_share": 0.547,
+    "wilcoxon_p": 0.32971,
+    "mean_early": 0.4846,
+    "mean_late": 0.4795
+  },
+  "real": {
+    "n": 200,
+    "mean_delta": 0.0184,
+    "mean_delta_per_sec": 0.0071,
+    "declining_share": 0.445,
+    "wilcoxon_p": 0.03908,
+    "mean_early": 0.5088,
+    "mean_late": 0.5272
+  },
+  "by_ordinal": {
+    "longctx-T1.0": {
+      "burst_1": {
+        "n": 150,
+        "mean": 0.4897
+      },
+      "burst_2": {
+        "n": 150,
+        "mean": 0.4727
+      },
+      "burst_3": {
+        "n": 135,
+        "mean": 0.4432
+      },
+      "burst_4": {
+        "n": 110,
+        "mean": 0.4598
+      },
+      "burst_5": {
+        "n": 83,
+        "mean": 0.4604
+      },
+      "burst_6": {
+        "n": 65,
+        "mean": 0.4642
+      },
+      "burst_7": {
+        "n": 46,
+        "mean": 0.4566
+      },
+      "burst_8": {
+        "n": 32,
+        "mean": 0.5244
+      }
+    },
+    "longctx-T1.1": {
+      "burst_1": {
+        "n": 150,
+        "mean": 0.5049
+      },
+      "burst_2": {
+        "n": 150,
+        "mean": 0.4987
+      },
+      "burst_3": {
+        "n": 129,
+        "mean": 0.4971
+      },
+      "burst_4": {
+        "n": 109,
+        "mean": 0.5026
+      },
+      "burst_5": {
+        "n": 79,
+        "mean": 0.4983
+      },
+      "burst_6": {
+        "n": 65,
+        "mean": 0.5304
+      },
+      "burst_7": {
+        "n": 48,
+        "mean": 0.5341
+      },
+      "burst_8": {
+        "n": 36,
+        "mean": 0.5696
+      }
+    },
+    "units-3s": {
+      "burst_1": {
+        "n": 150,
+        "mean": 0.4873
+      },
+      "burst_2": {
+        "n": 150,
+        "mean": 0.4827
+      },
+      "burst_3": {
+        "n": 122,
+        "mean": 0.4871
+      },
+      "burst_4": {
+        "n": 78,
+        "mean": 0.4588
+      },
+      "burst_5": {
+        "n": 46,
+        "mean": 0.4785
+      }
+    },
+    "real": {
+      "burst_1": {
+        "n": 200,
+        "mean": 0.5077
+      },
+      "burst_2": {
+        "n": 200,
+        "mean": 0.5103
+      },
+      "burst_3": {
+        "n": 185,
+        "mean": 0.5136
+      },
+      "burst_4": {
+        "n": 137,
+        "mean": 0.5516
+      },
+      "burst_5": {
+        "n": 101,
+        "mean": 0.5405
+      },
+      "burst_6": {
+        "n": 72,
+        "mean": 0.5455
+      },
+      "burst_7": {
+        "n": 55,
+        "mean": 0.5448
+      },
+      "burst_8": {
+        "n": 41,
+        "mean": 0.5705
+      }
+    }
+  }
+}

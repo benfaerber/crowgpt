@@ -1,0 +1,138 @@
+{
+  "pool": {
+    "n": 2338,
+    "crowCount_distribution": {
+      "0": 9,
+      "1": 1793,
+      "2": 301,
+      "4": 235
+    }
+  },
+  "note": "one model, recording-grouped out-of-fold predictions, scored within each stratum \u2014 the evaluation is split, not the training",
+  "core_multiclass": {
+    "one_crow": {
+      "n": 1673,
+      "macro_f1": 0.8519101640852247,
+      "accuracy": 0.8708906156604901,
+      "class_mix": {
+        "alarm call": 738,
+        "song": 399,
+        "call": 330,
+        "begging": 206
+      }
+    },
+    "two_or_more": {
+      "n": 428,
+      "macro_f1": 0.7743926635694929,
+      "accuracy": 0.9392523364485982,
+      "class_mix": {
+        "alarm call": 367,
+        "begging": 40,
+        "song": 20,
+        "call": 1
+      }
+    }
+  },
+  "flags": {
+    "alert": {
+      "n_positive_total": 512,
+      "one_crow": {
+        "n": 1793,
+        "n_positive": 407,
+        "prevalence": 0.22699386503067484,
+        "average_precision": 0.7094410157209875,
+        "pos_recall": 0.7174447174447175,
+        "balanced_accuracy": 0.7952302952302952
+      },
+      "two_or_more": {
+        "n": 536,
+        "n_positive": 104,
+        "prevalence": 0.19402985074626866,
+        "average_precision": 0.36526681972987557,
+        "pos_recall": 0.40384615384615385,
+        "balanced_accuracy": 0.6382656695156695
+      },
+      "ap_drop": 0.34417419599111193
+    },
+    "begging": {
+      "n_positive_total": 279,
+      "one_crow": {
+        "n": 1793,
+        "n_positive": 220,
+        "prevalence": 0.12269938650306748,
+        "average_precision": 0.7998839382911138,
+        "pos_recall": 0.7090909090909091,
+        "balanced_accuracy": 0.8376986649713922
+      },
+      "two_or_more": {
+        "n": 536,
+        "n_positive": 58,
+        "prevalence": 0.10820895522388059,
+        "average_precision": 0.73257098373888,
+        "pos_recall": 0.6724137931034483,
+        "balanced_accuracy": 0.8069181936228538
+      },
+      "ap_drop": 0.06731295455223385
+    },
+    "softSong": {
+      "n_positive_total": 579,
+      "one_crow": {
+        "n": 1793,
+        "n_positive": 504,
+        "prevalence": 0.2810931399888455,
+        "average_precision": 0.8295621815128009,
+        "pos_recall": 0.7202380952380952,
+        "balanced_accuracy": 0.8170624145701726
+      },
+      "two_or_more": {
+        "n": 536,
+        "n_positive": 74,
+        "prevalence": 0.13805970149253732,
+        "average_precision": 0.6923851700101543,
+        "pos_recall": 0.6351351351351351,
+        "balanced_accuracy": 0.7883467883467883
+      },
+      "ap_drop": 0.1371770115026466
+    },
+    "rattle": {
+      "n_positive_total": 511,
+      "one_crow": {
+        "n": 1793,
+        "n_positive": 443,
+        "prevalence": 0.24707194645844952,
+        "average_precision": 0.9234912740144795,
+        "pos_recall": 0.891647855530474,
+        "balanced_accuracy": 0.9184165203578296
+      },
+      "two_or_more": {
+        "n": 536,
+        "n_positive": 67,
+        "prevalence": 0.125,
+        "average_precision": 0.8332553758602377,
+        "pos_recall": 0.7164179104477612,
+        "balanced_accuracy": 0.8496801705756929
+      },
+      "ap_drop": 0.09023589815424182
+    },
+    "mob": {
+      "n_positive_total": 689,
+      "one_crow": {
+        "n": 1793,
+        "n_positive": 337,
+        "prevalence": 0.1879531511433352,
+        "average_precision": 0.5507498207763949,
+        "pos_recall": 0.6468842729970327,
+        "balanced_accuracy": 0.7434284002347801
+      },
+      "two_or_more": {
+        "n": 536,
+        "n_positive": 349,
+        "prevalence": 0.6511194029850746,
+        "average_precision": 0.8671804823033957,
+        "pos_recall": 0.7220630372492837,
+        "balanced_accuracy": 0.7006037111380108
+      },
+      "ap_drop": -0.31643066152700083
+    }
+  }
+}

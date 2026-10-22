@@ -1,0 +1,20 @@
+{
+  "name": "crowgpt2",
+  "title": "CrowGPT2 — long context through the finetuned decoder",
+  "model": "model-longctx",
+  "decoder_state": "finetuned",
+  "temperature": 1.1,
+  "top_k": 200,
+  "max_frames": 460,
+  "species": "american-crow",
+  "provenance": {
+    "trained": "experiments/0067-does-context-length-unlock-the-structure (6 s corpus, doubled window)",
+    "decoder": "results/decoder-finetune/adversarial/best.pt, gated by 0063 and re-acquitted by 0070",
+    "sampling": "T 1.1 / k 200 adopted on instrument grounds after the 0069 dust sitting, commit f4fdd9a",
+    "shortlisted": "experiments/0073-the-best-longctx-calls",
+    "promo_clip": "promo/src/assets/crowgpt2-preview.wav = 0073 seed30071 = gallery/longctx-t11 rank 3",
+    "gallery": "results/gallery/longctx-t11",
+    "published": "2026-08-13, commit caecb56",
+    "notes": "The release is the recipe: this checkpoint decoded through the frozen decoder is not CrowGPT2."
+  }
+}

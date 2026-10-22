@@ -1,0 +1,115 @@
+{
+  "target_stage0": 0.868,
+  "spread": 0.2151,
+  "ranked_by_distance_to_target": [
+    {
+      "bucket": "channel-205",
+      "stage0": 0.8592,
+      "gap": -0.0088,
+      "recordings": 22
+    },
+    {
+      "bucket": "channel-171",
+      "stage0": 0.8799,
+      "gap": 0.0119,
+      "recordings": 61
+    },
+    {
+      "bucket": "channel-113",
+      "stage0": 0.8864,
+      "gap": 0.0184,
+      "recordings": 81
+    },
+    {
+      "bucket": "channel-192",
+      "stage0": 0.8494,
+      "gap": -0.0186,
+      "recordings": 90
+    },
+    {
+      "bucket": "channel-018",
+      "stage0": 0.84,
+      "gap": -0.028,
+      "recordings": 37
+    },
+    {
+      "bucket": "channel-000",
+      "stage0": 0.9275,
+      "gap": 0.0595,
+      "recordings": 448
+    },
+    {
+      "bucket": "channel-155",
+      "stage0": 0.9373,
+      "gap": 0.0693,
+      "recordings": 23
+    },
+    {
+      "bucket": "channel-002",
+      "stage0": 0.7817,
+      "gap": -0.0863,
+      "recordings": 31
+    },
+    {
+      "bucket": "channel-186",
+      "stage0": 0.7497,
+      "gap": -0.1183,
+      "recordings": 17
+    },
+    {
+      "bucket": "channel-219",
+      "stage0": 0.7422,
+      "gap": -0.1258,
+      "recordings": 24
+    },
+    {
+      "bucket": "channel-148",
+      "stage0": 0.7294,
+      "gap": -0.1386,
+      "recordings": 34
+    },
+    {
+      "bucket": "channel-007",
+      "stage0": 0.7283,
+      "gap": -0.1397,
+      "recordings": 21
+    },
+    {
+      "bucket": "channel-081",
+      "stage0": 0.7222,
+      "gap": -0.1458,
+      "recordings": 52
+    }
+  ],
+  "spearman_vs_churn": {
+    "recordings": {
+      "rho": 0.3626,
+      "perm_p": 0.217
+    },
+    "bouts": {
+      "rho": -0.0385,
+      "perm_p": 0.9091
+    },
+    "human": {
+      "rho": -0.3132,
+      "perm_p": 0.3006
+    },
+    "flatness": {
+      "rho": -0.6593,
+      "perm_p": 0.0169
+    },
+    "birdnet": {
+      "rho": -0.5165,
+      "perm_p": 0.0723
+    }
+  },
+  "control": {
+    "(control) fair-k8, no channel token": {
+      "stage0": 0.8194,
+      "mean": 0.9538,
+      "gap": -0.0486,
+      "clips": 40,
+      "fragments": 9
+    }
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "pool": {
+    "n_segments": 2910,
+    "n_recordings": 1387,
+    "backbone": "birdnet_pooled_mean_std_max (3072-d)",
+    "head": "logistic regression, class_weight=balanced"
+  },
+  "their_setup": {
+    "backbone": "AVES aves-base-bio, 768-d mean-pooled, 8 kHz",
+    "head": "240K-param MLP, 8 heads on a shared 237-d trunk",
+    "split": "segment-level 88/12, seed 18202",
+    "n_labels": 3894,
+    "n_val": 468
+  },
+  "caveats": [
+    "Their RESULTS.txt was produced on 3,894 labels; the committed all-public dataset now holds 3,162 and only 2,910 of those are embedded here (2,338 call-bearing with audio + 572 garbage). The rows are therefore not identical and prevalences differ slightly.",
+    "Their numbers come from the same 12% used for checkpoint selection and for Optuna's objective across 60 trials, with the random seed itself a searched hyperparameter. Ours is a plain fit with no selection against the validation set at all, so the comparison is generous to them on top of the split.",
+    "Their head is multi-task and oversamples positives by duplication (rattle x4, alert x3, mob x1); ours is a single-task logreg with class_weight=balanced. Head and backbone are not separated here."
+  ],
+  "flags": {
+    "alert": {
+      "n_asked": 2910,
+      "n_positive": 512,
+      "prevalence": 0.1759450171821306,
+      "crowtools_reported": {
+        "accuracy": 0.9081,
+        "neg_recall": 0.9337,
+        "pos_recall": 0.7763,
+        "balanced": 0.855,
+        "n_pos": 76,
+        "n_val": 468
+      },
+      "ours_their_protocol": {
+        "accuracy": 0.8571428571428571,
+        "neg_recall": 0.9037800687285223,
+        "pos_recall": 0.6271186440677966,
+        "balanced": 0.7654493563981595,
+        "n_val": 350,
+        "n_pos_val": 59
+      },
+      "ours_grouped_protocol": {
+        "accuracy": 0.8405498281786942,
+        "neg_recall": 0.8882402001668057,
+        "pos_recall": 0.6171875,
+        "balanced": 0.7527138500834029,
+        "n_val": 2910,
+        "n_pos_val": 512
+      },
+      "backbone_delta_balanced": -0.08955064360184051,
+      "leakage_cost_balanced": 0.012735506314756617
+    },
+    "begging": {
+      "n_asked": 2910,
+      "n_positive": 279,
+      "prevalence": 0.09587628865979382,
+      "crowtools_reported": {
+        "accuracy": 0.9615,
+        "neg_recall": 0.9811,
+        "pos_recall": 0.7778,
+        "balanced": 0.8794,
+        "n_pos": 45,
+        "n_val": 468
+      },
+      "ours_their_protocol": {
+        "accuracy": 0.9485714285714286,
+        "neg_recall": 0.9713375796178344,
+        "pos_recall": 0.75,
+        "balanced": 0.8606687898089171,
+        "n_val": 350,
+        "n_pos_val": 36
+      },
+      "ours_grouped_protocol": {
+        "accuracy": 0.9402061855670103,
+        "neg_recall": 0.9673128088179399,
+        "pos_recall": 0.6845878136200717,
+        "balanced": 0.8259503112190059,
+        "n_val": 2910,
+        "n_pos_val": 279
+      },
+      "backbone_delta_balanced": -0.018731210191082814,
+      "leakage_cost_balanced": 0.034718478589911284
+    },
+    "softSong": {
+      "n_asked": 2910,
+      "n_positive": 579,
+      "prevalence": 0.19896907216494844,
+      "crowtools_reported": {
+        "accuracy": 0.9402,
+        "neg_recall": 0.9718,
+        "pos_recall": 0.7821,
+        "balanced": 0.8769,
+        "n_pos": 78,
+        "n_val": 468
+      },
+      "ours_their_protocol": {
+        "accuracy": 0.9171428571428571,
+        "neg_recall": 0.9321428571428572,
+        "pos_recall": 0.8571428571428571,
+        "balanced": 0.8946428571428571,
+        "n_val": 350,
+        "n_pos_val": 70
+      },
+      "ours_grouped_protocol": {
+        "accuracy": 0.881786941580756,
+        "neg_recall": 0.9296439296439296,
+        "pos_recall": 0.689119170984456,
+        "balanced": 0.8093815503141928,
+        "n_val": 2910,
+        "n_pos_val": 579
+      },
+      "backbone_delta_balanced": 0.01774285714285706,
+      "leakage_cost_balanced": 0.08526130682866429
+    },
+    "rattle": {
+      "n_asked": 2910,
+      "n_positive": 511,
+      "prevalence": 0.17560137457044672,
+      "crowtools_reported": {
+        "accuracy": 0.9551,
+        "neg_recall": 0.9694,
+        "pos_recall": 0.8816,
+        "balanced": 0.9255,
+        "n_pos": 76,
+        "n_val": 468
+      },
+      "ours_their_protocol": {
+        "accuracy": 0.9628571428571429,
+        "neg_recall": 0.9730639730639731,
+        "pos_recall": 0.9056603773584906,
+        "balanced": 0.9393621752112318,
+        "n_val": 350,
+        "n_pos_val": 53
+      },
+      "ours_grouped_protocol": {
+        "accuracy": 0.9443298969072165,
+        "neg_recall": 0.9658190912880367,
+        "pos_recall": 0.8434442270058709,
+        "balanced": 0.9046316591469538,
+        "n_val": 2910,
+        "n_pos_val": 511
+      },
+      "backbone_delta_balanced": 0.013862175211231786,
+      "leakage_cost_balanced": 0.034730516064278016
+    },
+    "mob": {
+      "n_asked": 2910,
+      "n_positive": 689,
+      "prevalence": 0.2367697594501718,
+      "crowtools_reported": {
+        "accuracy": 0.8868,
+        "neg_recall": 0.95,
+        "pos_recall": 0.6136,
+        "balanced": 0.7818,
+        "n_pos": 88,
+        "n_val": 468
+      },
+      "ours_their_protocol": {
+        "accuracy": 0.8342857142857143,
+        "neg_recall": 0.8631178707224335,
+        "pos_recall": 0.7471264367816092,
+        "balanced": 0.8051221537520213,
+        "n_val": 350,
+        "n_pos_val": 87
+      },
+      "ours_grouped_protocol": {
+        "accuracy": 0.8065292096219931,
+        "neg_recall": 0.8523187753264295,
+        "pos_recall": 0.6589259796806967,
+        "balanced": 0.7556223775035631,
+        "n_val": 2910,
+        "n_pos_val": 689
+      },
+      "backbone_delta_balanced": 0.02332215375202129,
+      "leakage_cost_balanced": 0.04949977624845825
+    }
+  },
+  "summary": {
+    "mean_balanced_crowtools": 0.86372,
+    "mean_balanced_ours_their_protocol": 0.8530490664626373,
+    "mean_balanced_ours_grouped": 0.8096599496534236,
+    "mean_leakage_cost": 0.04338911680921369
+  }
+}

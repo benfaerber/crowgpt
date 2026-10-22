@@ -1,0 +1,43 @@
+{
+  "answers": {
+    "churn-spread-0053": 120,
+    "scrape-v3-0064": 40,
+    "longctx-0067": 48,
+    "longctx-0067b": 48,
+    "dust-0069": 48
+  },
+  "held_out": {
+    "churn-spread-0053": {
+      "n": 120,
+      "spearman": 0.535,
+      "catch_direction_acc": 0.833
+    },
+    "scrape-v3-0064": {
+      "n": 40,
+      "spearman": 0.489,
+      "catch_direction_acc": 0.5
+    },
+    "longctx-0067": {
+      "n": 48,
+      "spearman": 0.474,
+      "catch_direction_acc": 0.75
+    },
+    "longctx-0067b": {
+      "n": 48,
+      "spearman": 0.329,
+      "catch_direction_acc": 0.857
+    },
+    "dust-0069": {
+      "n": 48,
+      "spearman": 0.572,
+      "catch_direction_acc": 0.625
+    }
+  },
+  "mean_spearman": 0.48,
+  "sealed_voice_0078_prediction": {
+    "mean_margin_toward_calltype": 0.087,
+    "share_favoring_calltype": 0.55,
+    "n_compare_trials": 40,
+    "reading": "positive favors model-calltype, negative favors b32"
+  }
+}

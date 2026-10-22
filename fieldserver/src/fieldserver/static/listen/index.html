@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listening dose</title>
+<!--
+  A dose of ten trials, then stop. The page deliberately shows no score at any
+  point: a page you return to invites reading the running total and stopping when
+  it looks resolved, which is optional stopping. The server refuses results until
+  the pre-committed count anyway, but the page should not even hint.
+
+  There is no left and no right. The response is a five-point grade toward the
+  clip you heard first, and "the same" is the middle button rather than an escape
+  hatch. Pooled over 317 saved pairwise trials P(chose left) was 0.628 (resolved)
+  while P(chose first-heard) was 0.495 — the bias was the button, so the buttons
+  are stacked vertically and describe a judgement, not a side.
+-->
+<style>
+  :root {
+    --bg: #fbfaf8; --fg: #1a1a19; --dim: #6b6b66; --line: #ddd9d2;
+    --card: #ffffff; --accent: #4a5d3a; --warn: #8a5a2b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141413; --fg: #eeece7; --dim: #9a9992; --line: #33322e;
+            --card: #1e1e1c; --accent: #a3bd85; --warn: #d0a06a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 1.5rem 1rem 4rem; background: var(--bg); color: var(--fg);
+         font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, sans-serif;
+         max-width: 42rem; margin-inline: auto; }
+  h1 { font-size: 1.15rem; margin: 0 0 .25rem; }
+  .dim { color: var(--dim); }
+  .small { font-size: .85rem; }
+  .question { background: var(--card); border: 1px solid var(--line);
+              border-left: 3px solid var(--accent); border-radius: 6px;
+              padding: .75rem .9rem; margin: 1rem 0 1.5rem; }
+  .bar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden;
+         margin: .6rem 0 0; }
+  .bar > i { display: block; height: 100%; background: var(--accent); width: 0; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+          padding: 1rem; margin-bottom: 1rem; }
+  .plays { display: flex; gap: .5rem; flex-wrap: wrap; margin: .75rem 0; }
+  button { font: inherit; padding: .55rem .9rem; border-radius: 6px;
+           border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+           cursor: pointer; }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: default; }
+  .play { min-width: 7.5rem; text-align: left; }
+  .play.done { border-color: var(--accent); }
+  .grades { display: grid; gap: .4rem; margin: .5rem 0 0; }
+  .grades button { text-align: left; }
+  .grades button.pick { background: var(--accent); color: var(--bg);
+                        border-color: var(--accent); }
+  .tagbox { margin: .75rem 0 0; }
+  .tagbox[hidden] { display: none; }
+  .tagbox.asked { border-left: 3px solid var(--warn); padding-left: .6rem; }
+  .tag-prompt { margin: 0 0 .3rem; color: var(--warn); font-size: .85rem; }
+  .tag-toggle { border: none; background: none; padding: 0; color: var(--dim);
+                font-size: .85rem; text-decoration: underline; }
+  .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .tags button { padding: .3rem .6rem; font-size: .85rem; border-radius: 999px; }
+  .tags button.on { background: var(--accent); color: var(--bg);
+                    border-color: var(--accent); }
+  .row { display: flex; gap: .5rem; align-items: center; margin-top: 1rem; }
+  .note { width: 100%; font: inherit; padding: .5rem; border-radius: 6px;
+          border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+  .done-panel { text-align: center; padding: 2.5rem 1rem; }
+  .warn { color: var(--warn); }
+  code { background: var(--line); padding: .1rem .3rem; border-radius: 3px;
+         font-size: .85em; }
+</style>
+</head>
+<body>
+<div id="root"><p class="dim">Loading…</p></div>
+
+<script>
+"use strict";
+
+const root = document.getElementById("root");
+const params = new URLSearchParams(location.search);
+
+// SAME KEY THE DASHBOARD USES, on purpose. Routes here are gated by
+// `current_actor`, so the credential is a *device* bearer token and not the
+// operator secret — the secret is only what you exchange for one. Sharing
+// localStorage with the dashboard means that if you are signed in there, this
+// page needs nothing; if you are not, it does the same exchange the dashboard
+// does rather than inventing a second way in.
+const TOKEN_KEY = "cawtalker_token";
+
+function storedToken() {
+  try { return localStorage.getItem(TOKEN_KEY) || ""; } catch (e) { return ""; }
+}
+
+function keepToken(value) {
+  try { localStorage.setItem(TOKEN_KEY, value); } catch (e) { /* private mode */ }
+}
+
+async function signIn() {
+  const secret = prompt("Operator token (same one the dashboard uses)");
+  if (!secret) throw new Error("Sign-in cancelled.");
+  const held = storedToken();
+  const response = await fetch("/api/operator/session", {
+    method: "POST",
+    headers: Object.assign({ "Content-Type": "application/json" },
+                           held ? { "Authorization": "Bearer " + held } : {}),
+    body: JSON.stringify({ operator_token: secret }),
+  });
+  if (!response.ok) throw new Error("Sign-in failed: " + await response.text());
+  const body = await response.json();
+  keepToken(body.device_token);
+  return body.device_token;
+}
+
+async function request(path, options, token) {
+  return fetch(path, Object.assign({}, options, {
+    headers: Object.assign({
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json",
+    }, (options || {}).headers || {}),
+  }));
+}
+
+// One retry, and only for auth: an expired dashboard session should cost a
+// prompt, not a lost answer half way through a dose.
+async function api(path, options) {
+  let token = storedToken() || await signIn();
+  let response = await request(path, options, token);
+  if (response.status === 401 || response.status === 403) {
+    token = await signIn();
+    response = await request(path, options, token);
+  }
+  if (response.status === 429) {
+    const body = await response.json();
+    const wait = new Error(body.why || "cooling down");
+    wait.lockedFor = body.locked_for;
+    wait.pool = body;
+    throw wait;
+  }
+  if (!response.ok) throw new Error(await response.text());
+  return response.json();
+}
+
+function clock(seconds) {
+  const s = Math.max(0, Math.round(seconds));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const rest = s % 60;
+  const pad = (n) => String(n).padStart(2, "0");
+  return h ? `${h}:${pad(m)}:${pad(rest)}` : `${m}:${pad(rest)}`;
+}
+
+// One countdown, shared by the done panel and the locked panel. Reads from a
+// deadline rather than decrementing a counter, so a backgrounded tab that stops
+// firing timers still shows the right number when it comes back.
+function countdown(node, seconds, onOpen) {
+  const deadline = Date.now() + seconds * 1000;
+  function tick() {
+    const left = (deadline - Date.now()) / 1000;
+    if (left <= 0) {
+      clearInterval(handle);
+      onOpen();
+      return;
+    }
+    node.textContent = clock(left);
+  }
+  const handle = setInterval(tick, 1000);
+  tick();
+  return handle;
+}
+
+const GRADE_LABELS = {
+  "2": "The FIRST clip is much closer",
+  "1": "The FIRST clip is slightly closer",
+  "0": "They are the same",
+  "-1": "The SECOND clip is slightly closer",
+  "-2": "The SECOND clip is much closer",
+};
+
+// Order matters: "the same" sits in the middle so it reads as the neutral
+// answer it is, not as the bottom of a preference list.
+const GRADE_ORDER = [2, 1, 0, -1, -2];
+
+class Trial {
+  constructor(data, poolId) {
+    this.data = data;
+    this.poolId = poolId;
+    this.plays = { anchor: 0, first: 0, second: 0 };
+    this.grade = null;
+    this.defects = new Set();
+    this.note = "";
+    this.startedAt = Date.now();
+    // ENGAGED TIME, WHICH decision_ms IS NOT. decision_ms runs from here to
+    // submit, so it counts the tab sitting open — the first dose of this pool
+    // reported a 121 s median and Ben's answer was "i musta just forgot. Its not
+    // real. I prolly spent like 5-10 per." This clock starts at the first play
+    // and stops whenever the tab is hidden, so walking away costs nothing.
+    this.engagedMs = 0;
+    this.engagedSince = null;
+  }
+
+  startEngaged() {
+    if (this.engagedSince === null && !document.hidden) {
+      this.engagedSince = Date.now();
+    }
+  }
+
+  pauseEngaged() {
+    if (this.engagedSince !== null) {
+      this.engagedMs += Date.now() - this.engagedSince;
+      this.engagedSince = null;
+    }
+  }
+
+  resumeEngaged() {
+    // Only resumes a clock that had already been started by a play. A tab
+    // becoming visible on a trial nobody has listened to yet is not engagement.
+    if (this.engagedMs > 0 && this.engagedSince === null && !document.hidden) {
+      this.engagedSince = Date.now();
+    }
+  }
+
+  get engaged() {
+    return Math.round(
+      this.engagedMs + (this.engagedSince === null ? 0 : Date.now() - this.engagedSince));
+  }
+
+  clipUrl(name) {
+    return `/api/listening/pools/${this.poolId}/clips/${encodeURIComponent(name)}`;
+  }
+
+  // Audio is fetched with the operator token, so it cannot be a bare <audio src>.
+  // One Blob per clip, cached for the life of the trial.
+  async load(which, name) {
+    if (!this._blobs) this._blobs = {};
+    if (!this._blobs[which]) {
+      const response = await fetch(this.clipUrl(name), {
+        headers: { "Authorization": "Bearer " + storedToken() },
+      });
+      if (!response.ok) throw new Error("clip " + name + " failed to load");
+      this._blobs[which] = URL.createObjectURL(await response.blob());
+    }
+    return this._blobs[which];
+  }
+
+  async play(which, name) {
+    const url = await this.load(which, name);
+    this.startEngaged();
+    if (this._audio) { this._audio.pause(); }
+    this._audio = new Audio(url);
+    this.plays[which] += 1;
+    await this._audio.play();
+  }
+
+  release() {
+    Object.values(this._blobs || {}).forEach(URL.revokeObjectURL);
+    this._blobs = null;
+  }
+
+  get ready() {
+    // Both clips must have been heard at least once. Two of the saved trials in
+    // the old rig were answered with zero plays; a graded scale with an unheard
+    // clip in it is a button press, not a judgement.
+    return this.plays.first > 0 && this.plays.second > 0 && this.grade !== null;
+  }
+
+  payload() {
+    return {
+      grade: this.grade,
+      defects: Array.from(this.defects),
+      note: this.note || null,
+      decision_ms: Date.now() - this.startedAt,
+      engaged_ms: this.engaged,
+      plays_anchor: this.plays.anchor,
+      plays_first: this.plays.first,
+      plays_second: this.plays.second,
+    };
+  }
+}
+
+// A single listener rather than one per trial: trials are created ten at a time
+// and only one is on screen, so per-trial listeners would all fire and the ones
+// for unrendered trials would be counting nothing.
+let liveTrial = null;
+
+document.addEventListener("visibilitychange", () => {
+  if (!liveTrial) return;
+  if (document.hidden) liveTrial.pauseEngaged();
+  else liveTrial.resumeEngaged();
+});
+
+class Dose {
+  constructor(payload) {
+    this.pool = payload.pool;
+    this.defects = payload.defects;
+    this.trials = payload.trials.map((t) => new Trial(t, this.pool.id));
+    this.index = 0;
+    this.completed = 0;
+  }
+
+  get current() { return this.trials[this.index]; }
+  get finished() { return this.index >= this.trials.length; }
+
+  async submit() {
+    const trial = this.current;
+    trial.pauseEngaged();
+    await api(`/api/listening/trials/${trial.data.id}/answer`, {
+      method: "POST",
+      body: JSON.stringify(trial.payload()),
+    });
+    trial.release();
+    this.completed += 1;
+    this.index += 1;
+  }
+}
+
+function el(html) {
+  const wrap = document.createElement("div");
+  wrap.innerHTML = html.trim();
+  return wrap.firstElementChild;
+}
+
+function renderLocked(seconds, pool) {
+  liveTrial = null;
+  const left = pool && pool.remaining != null ? pool.remaining : null;
+  const view = el(`
+    <div class="done-panel">
+      <h1>Cooling down</h1>
+      <p class="dim">Next dose unlocks in <strong id="tick">—</strong>.</p>
+      ${left != null ? `<p class="dim small">${left} trial${left === 1 ? "" : "s"} left.</p>` : ""}
+      <p class="dim small">A dose lands on fresh ears or it is not worth grading.
+        The wait is the point.</p>
+    </div>
+  `);
+  root.replaceChildren(view);
+  countdown(view.querySelector("#tick"), seconds, () => start());
+}
+
+function renderDone(dose) {
+  liveTrial = null;
+  const pool = dose.pool;
+  const left = Math.max(0, pool.remaining - dose.completed);
+  const minutes = pool.cooldown_minutes;
+  const view = el(`
+    <div class="done-panel">
+      <h1>Dose done — ${dose.completed} graded</h1>
+      <p class="dim">${left} trial${left === 1 ? "" : "s"} left in
+        <strong>${pool.name}</strong>.</p>
+      ${left > 0 && minutes
+        ? `<p class="dim">Next dose unlocks in <strong id="tick">—</strong>.</p>`
+        : ""}
+      <p class="dim small">Nothing is scored until the pool is finished, on
+        purpose.</p>
+      <div class="row" style="justify-content:center">
+        ${left > 0 && !minutes ? '<button id="again">Another dose</button>' : ""}
+      </div>
+    </div>
+  `);
+  root.replaceChildren(view);
+  const again = view.querySelector("#again");
+  if (again) again.addEventListener("click", () => start());
+  const tick = view.querySelector("#tick");
+  // The server is the authority on the clock — it measures from the last stored
+  // answer, so asking it beats counting from when this panel happened to render.
+  if (tick) {
+    api(`/api/listening/pools/${pool.id}`)
+      .then((fresh) => countdown(tick, fresh.locked_for || 0, () => start()))
+      .catch((error) => {
+        tick.textContent = clock(error.lockedFor || minutes * 60);
+        countdown(tick, error.lockedFor || minutes * 60, () => start());
+      });
+  }
+}
+
+function renderTrial(dose) {
+  const trial = dose.current;
+  liveTrial = trial;
+  const d = trial.data;
+  const n = dose.index + 1;
+  const view = el(`
+    <div>
+      <h1>${dose.pool.name}</h1>
+      <p class="dim small">Trial ${n} of ${dose.trials.length} in this dose</p>
+      <div class="bar"><i style="width:${(dose.index / dose.trials.length) * 100}%"></i></div>
+      <div class="question">${dose.pool.question}</div>
+      <div class="card">
+        <div class="plays">
+          ${d.anchor_clip ? '<button class="play" data-which="anchor">▶ Reference (real)</button>' : ""}
+          <button class="play" data-which="first">▶ First clip</button>
+          <button class="play" data-which="second">▶ Second clip</button>
+        </div>
+        <p class="dim small" id="hint">Play both clips to answer.</p>
+        <div class="grades"></div>
+        <div class="tagbox" hidden>
+          <p class="tag-prompt" hidden></p>
+          <button class="tag-toggle" hidden>add a defect tag</button>
+          <div class="tags" hidden></div>
+        </div>
+        <div class="row">
+          <input class="note" id="note" placeholder="Anything worth saying (optional)">
+        </div>
+        <div class="row">
+          <button id="submit" disabled>Save and next</button>
+          <span class="dim small" id="status"></span>
+        </div>
+      </div>
+    </div>
+  `);
+
+  const clipFor = { anchor: d.anchor_clip, first: d.first_clip, second: d.second_clip };
+  view.querySelectorAll(".play").forEach((b) => {
+    b.addEventListener("click", async () => {
+      try {
+        await trial.play(b.dataset.which, clipFor[b.dataset.which]);
+        b.classList.add("done");
+        refresh();
+      } catch (error) {
+        document.getElementById("status").textContent = error.message;
+      }
+    });
+  });
+
+  const grades = view.querySelector(".grades");
+  GRADE_ORDER.forEach((g) => {
+    const b = el(`<button data-grade="${g}">${GRADE_LABELS[String(g)]}</button>`);
+    b.addEventListener("click", () => {
+      trial.grade = g;
+      grades.querySelectorAll("button").forEach((x) => x.classList.remove("pick"));
+      b.classList.add("pick");
+      updateTags();
+      refresh();
+    });
+    grades.append(b);
+  });
+
+  // Tags ask only where they carry information. Two sittings went 88 trials
+  // with zero tags because a forced choice already encodes "less scratchy" —
+  // the click adds nothing to a ±1. Where a tag IS the missing why: a tie
+  // (what kept either clip from winning) and an extreme (what earned the ±2).
+  // So those grades prompt for one, and ±1 tucks the row behind a link.
+  const tagbox = view.querySelector(".tagbox");
+  const tagPrompt = view.querySelector(".tag-prompt");
+  const tagToggle = view.querySelector(".tag-toggle");
+  const tags = view.querySelector(".tags");
+  let tagsOpened = false;
+
+  dose.defects.forEach((name) => {
+    const b = el(`<button data-tag="${name}">${name}</button>`);
+    b.addEventListener("click", () => {
+      if (trial.defects.has(name)) trial.defects.delete(name);
+      else trial.defects.add(name);
+      b.classList.toggle("on");
+    });
+    tags.append(b);
+  });
+
+  tagToggle.addEventListener("click", () => {
+    tagsOpened = true;
+    updateTags();
+  });
+
+  function updateTags() {
+    if (trial.grade === null) {
+      tagbox.hidden = true;
+      return;
+    }
+    const asked = trial.grade === 0 || Math.abs(trial.grade) === 2;
+    const open = asked || tagsOpened || trial.defects.size > 0;
+    tagbox.hidden = false;
+    tagbox.classList.toggle("asked", asked);
+    tagPrompt.hidden = !asked;
+    tagPrompt.textContent = trial.grade === 0
+      ? "“The same” is worth a why — tag what kept either clip from winning."
+      : "A strong call is worth a word — tag what the worse clip did.";
+    tags.hidden = !open;
+    tagToggle.hidden = open;
+  }
+
+  view.querySelector("#note").addEventListener("input", (e) => {
+    trial.note = e.target.value;
+  });
+
+  const submit = view.querySelector("#submit");
+  submit.addEventListener("click", async () => {
+    submit.disabled = true;
+    document.getElementById("status").textContent = "saving…";
+    try {
+      await dose.submit();
+      if (dose.finished) renderDone(dose);
+      else renderTrial(dose);
+    } catch (error) {
+      document.getElementById("status").textContent = error.message;
+      submit.disabled = false;
+    }
+  });
+
+  function refresh() {
+    const heard = trial.plays.first > 0 && trial.plays.second > 0;
+    document.getElementById("hint").textContent = heard
+      ? (trial.grade === null ? "Now pick how they compare." : "")
+      : "Play both clips to answer.";
+    submit.disabled = !trial.ready;
+  }
+
+  root.replaceChildren(view);
+  refresh();
+}
+
+async function start() {
+  root.replaceChildren(el('<p class="dim">Loading the next dose…</p>'));
+  try {
+    let poolId = params.get("pool");
+    if (!poolId) {
+      const pools = await api("/api/listening/pools");
+      const open = pools.filter((p) => p.remaining > 0 && !p.closed_at);
+      if (!open.length) {
+        root.replaceChildren(el(`
+          <div class="done-panel">
+            <h1>Nothing to grade</h1>
+            <p class="dim">No open pool. Build one from an experiment's
+              <code>run.py</code> with <code>crowgpt.pool</code>.</p>
+          </div>`));
+        return;
+      }
+      poolId = open[0].id;
+    }
+    const payload = await api(`/api/listening/pools/${poolId}/dose`);
+    if (!payload.trials.length) {
+      root.replaceChildren(el(`
+        <div class="done-panel">
+          <h1>${payload.pool.name} is finished</h1>
+          <p class="dim">All ${payload.pool.trials} trials answered.</p>
+        </div>`));
+      return;
+    }
+    renderTrial(new Dose(payload));
+  } catch (error) {
+    if (error.lockedFor != null) {
+      renderLocked(error.lockedFor, error.pool);
+      return;
+    }
+    root.replaceChildren(el(
+      `<div class="card"><p class="warn">${error.message}</p></div>`));
+  }
+}
+
+start();
+</script>
+</body>
+</html>

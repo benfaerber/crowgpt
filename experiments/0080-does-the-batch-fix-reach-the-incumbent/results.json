@@ -1,0 +1,29 @@
+{
+  "model-longctx": {
+    "n": 100,
+    "mean_units": 4.24,
+    "single_share": 0.29,
+    "gaps_per_clip": 3.44,
+    "median_gap_s": 0.261,
+    "dust_rate": 0.325
+  },
+  "model-longctx-b32": {
+    "n": 100,
+    "mean_units": 4.15,
+    "single_share": 0.29,
+    "gaps_per_clip": 3.36,
+    "median_gap_s": 0.267,
+    "dust_rate": 0.418
+  },
+  "real-6s": {
+    "n": 200,
+    "mean_units": 5.1,
+    "single_share": 0.065,
+    "gaps_per_clip": 4.16,
+    "median_gap_s": 0.267
+  },
+  "vals": {
+    "model-longctx": 4.68603835105896,
+    "model-longctx-b32": 4.765584921836853
+  }
+}

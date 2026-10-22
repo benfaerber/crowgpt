@@ -1,0 +1,661 @@
+{
+  "session_id": "34qvyb5i",
+  "subject": "ben",
+  "kind": "rating",
+  "title": "Which of these sound good?",
+  "started_at": "2026-08-03T04:08:47.687Z",
+  "finished_at": "2026-08-03T04:11:46.114Z",
+  "rated": 72,
+  "of": 72,
+  "note": "dac44 the best, but it still needs work",
+  "trials": [
+    {
+      "trial_index": 1,
+      "clip_id": 0,
+      "rating": "good",
+      "decision_ms": 5484,
+      "plays": 3,
+      "arm": "dac44_gen",
+      "n": 11
+    },
+    {
+      "trial_index": 2,
+      "clip_id": 1,
+      "rating": "good",
+      "decision_ms": 1725,
+      "plays": 1,
+      "arm": "real",
+      "n": 20
+    },
+    {
+      "trial_index": 3,
+      "clip_id": 2,
+      "rating": "bad",
+      "decision_ms": 2882,
+      "plays": 2,
+      "arm": "real",
+      "n": 5
+    },
+    {
+      "trial_index": 4,
+      "clip_id": 3,
+      "rating": "bad",
+      "decision_ms": 1282,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 5
+    },
+    {
+      "trial_index": 5,
+      "clip_id": 4,
+      "rating": "good",
+      "decision_ms": 1769,
+      "plays": 1,
+      "arm": "real",
+      "n": 16
+    },
+    {
+      "trial_index": 6,
+      "clip_id": 5,
+      "rating": "bad",
+      "decision_ms": 1936,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 22
+    },
+    {
+      "trial_index": 7,
+      "clip_id": 6,
+      "rating": "bad",
+      "decision_ms": 962,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 9
+    },
+    {
+      "trial_index": 8,
+      "clip_id": 7,
+      "rating": "bad",
+      "decision_ms": 1198,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 6
+    },
+    {
+      "trial_index": 9,
+      "clip_id": 8,
+      "rating": "good",
+      "decision_ms": 2146,
+      "plays": 1,
+      "arm": "real",
+      "n": 8
+    },
+    {
+      "trial_index": 10,
+      "clip_id": 9,
+      "rating": "good",
+      "decision_ms": 1147,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 21
+    },
+    {
+      "trial_index": 11,
+      "clip_id": 10,
+      "rating": "bad",
+      "decision_ms": 802,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 19
+    },
+    {
+      "trial_index": 12,
+      "clip_id": 11,
+      "rating": "good",
+      "decision_ms": 1490,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 20
+    },
+    {
+      "trial_index": 13,
+      "clip_id": 12,
+      "rating": "good",
+      "decision_ms": 1097,
+      "plays": 1,
+      "arm": "real",
+      "n": 4
+    },
+    {
+      "trial_index": 14,
+      "clip_id": 13,
+      "rating": "bad",
+      "decision_ms": 1533,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 19
+    },
+    {
+      "trial_index": 15,
+      "clip_id": 14,
+      "rating": "bad",
+      "decision_ms": 1473,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 7
+    },
+    {
+      "trial_index": 16,
+      "clip_id": 15,
+      "rating": "bad",
+      "decision_ms": 901,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 10
+    },
+    {
+      "trial_index": 17,
+      "clip_id": 16,
+      "rating": "bad",
+      "decision_ms": 2521,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 3
+    },
+    {
+      "trial_index": 18,
+      "clip_id": 17,
+      "rating": "bad",
+      "decision_ms": 947,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 18
+    },
+    {
+      "trial_index": 19,
+      "clip_id": 18,
+      "rating": "good",
+      "decision_ms": 1115,
+      "plays": 1,
+      "arm": "real",
+      "n": 19
+    },
+    {
+      "trial_index": 20,
+      "clip_id": 19,
+      "rating": "good",
+      "decision_ms": 1179,
+      "plays": 1,
+      "arm": "real",
+      "n": 23
+    },
+    {
+      "trial_index": 21,
+      "clip_id": 20,
+      "rating": "good",
+      "decision_ms": 1048,
+      "plays": 1,
+      "arm": "real",
+      "n": 10
+    },
+    {
+      "trial_index": 22,
+      "clip_id": 21,
+      "rating": "bad",
+      "decision_ms": 1092,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 18
+    },
+    {
+      "trial_index": 23,
+      "clip_id": 22,
+      "rating": "good",
+      "decision_ms": 826,
+      "plays": 1,
+      "arm": "real",
+      "n": 2
+    },
+    {
+      "trial_index": 24,
+      "clip_id": 23,
+      "rating": "good",
+      "decision_ms": 2306,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 23
+    },
+    {
+      "trial_index": 25,
+      "clip_id": 24,
+      "rating": "bad",
+      "decision_ms": 3560,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 20
+    },
+    {
+      "trial_index": 26,
+      "clip_id": 25,
+      "rating": "bad",
+      "decision_ms": 781,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 14
+    },
+    {
+      "trial_index": 27,
+      "clip_id": 26,
+      "rating": "good",
+      "decision_ms": 1381,
+      "plays": 1,
+      "arm": "real",
+      "n": 11
+    },
+    {
+      "trial_index": 28,
+      "clip_id": 27,
+      "rating": "good",
+      "decision_ms": 1866,
+      "plays": 1,
+      "arm": "real",
+      "n": 17
+    },
+    {
+      "trial_index": 29,
+      "clip_id": 28,
+      "rating": "good",
+      "decision_ms": 738,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 23
+    },
+    {
+      "trial_index": 30,
+      "clip_id": 29,
+      "rating": "bad",
+      "decision_ms": 1753,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 4
+    },
+    {
+      "trial_index": 31,
+      "clip_id": 30,
+      "rating": "bad",
+      "decision_ms": 1183,
+      "plays": 2,
+      "arm": "fairk8_gen",
+      "n": 10
+    },
+    {
+      "trial_index": 32,
+      "clip_id": 31,
+      "rating": "good",
+      "decision_ms": 1122,
+      "plays": 1,
+      "arm": "real",
+      "n": 18
+    },
+    {
+      "trial_index": 33,
+      "clip_id": 32,
+      "rating": "good",
+      "decision_ms": 3350,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 15
+    },
+    {
+      "trial_index": 34,
+      "clip_id": 33,
+      "rating": "good",
+      "decision_ms": 1690,
+      "plays": 1,
+      "arm": "real",
+      "n": 3
+    },
+    {
+      "trial_index": 35,
+      "clip_id": 34,
+      "rating": "good",
+      "decision_ms": 3018,
+      "plays": 1,
+      "arm": "real",
+      "n": 1
+    },
+    {
+      "trial_index": 36,
+      "clip_id": 35,
+      "rating": "bad",
+      "decision_ms": 1144,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 12
+    },
+    {
+      "trial_index": 37,
+      "clip_id": 36,
+      "rating": "bad",
+      "decision_ms": 2201,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 0
+    },
+    {
+      "trial_index": 38,
+      "clip_id": 37,
+      "rating": "good",
+      "decision_ms": 803,
+      "plays": 1,
+      "arm": "real",
+      "n": 21
+    },
+    {
+      "trial_index": 39,
+      "clip_id": 38,
+      "rating": "good",
+      "decision_ms": 2735,
+      "plays": 1,
+      "arm": "real",
+      "n": 0
+    },
+    {
+      "trial_index": 40,
+      "clip_id": 39,
+      "rating": "good",
+      "decision_ms": 2112,
+      "plays": 1,
+      "arm": "real",
+      "n": 6
+    },
+    {
+      "trial_index": 41,
+      "clip_id": 40,
+      "rating": "good",
+      "decision_ms": 1506,
+      "plays": 1,
+      "arm": "real",
+      "n": 22
+    },
+    {
+      "trial_index": 42,
+      "clip_id": 41,
+      "rating": "bad",
+      "decision_ms": 1446,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 2
+    },
+    {
+      "trial_index": 43,
+      "clip_id": 42,
+      "rating": "bad",
+      "decision_ms": 941,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 13
+    },
+    {
+      "trial_index": 44,
+      "clip_id": 43,
+      "rating": "good",
+      "decision_ms": 1887,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 21
+    },
+    {
+      "trial_index": 45,
+      "clip_id": 44,
+      "rating": "bad",
+      "decision_ms": 1208,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 4
+    },
+    {
+      "trial_index": 46,
+      "clip_id": 45,
+      "rating": "bad",
+      "decision_ms": 1141,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 2
+    },
+    {
+      "trial_index": 47,
+      "clip_id": 46,
+      "rating": "bad",
+      "decision_ms": 1171,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 12
+    },
+    {
+      "trial_index": 48,
+      "clip_id": 47,
+      "rating": "bad",
+      "decision_ms": 1623,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 17
+    },
+    {
+      "trial_index": 49,
+      "clip_id": 48,
+      "rating": "good",
+      "decision_ms": 1264,
+      "plays": 1,
+      "arm": "real",
+      "n": 15
+    },
+    {
+      "trial_index": 50,
+      "clip_id": 49,
+      "rating": "good",
+      "decision_ms": 1328,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 1
+    },
+    {
+      "trial_index": 51,
+      "clip_id": 50,
+      "rating": "bad",
+      "decision_ms": 1888,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 8
+    },
+    {
+      "trial_index": 52,
+      "clip_id": 51,
+      "rating": "bad",
+      "decision_ms": 1131,
+      "plays": 2,
+      "arm": "dac44_gen",
+      "n": 1
+    },
+    {
+      "trial_index": 53,
+      "clip_id": 52,
+      "rating": "bad",
+      "decision_ms": 1531,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 22
+    },
+    {
+      "trial_index": 54,
+      "clip_id": 53,
+      "rating": "good",
+      "decision_ms": 1043,
+      "plays": 1,
+      "arm": "real",
+      "n": 14
+    },
+    {
+      "trial_index": 55,
+      "clip_id": 54,
+      "rating": "good",
+      "decision_ms": 2557,
+      "plays": 1,
+      "arm": "real",
+      "n": 9
+    },
+    {
+      "trial_index": 56,
+      "clip_id": 55,
+      "rating": "bad",
+      "decision_ms": 984,
+      "plays": 2,
+      "arm": "dac44_gen",
+      "n": 14
+    },
+    {
+      "trial_index": 57,
+      "clip_id": 56,
+      "rating": "bad",
+      "decision_ms": 1079,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 16
+    },
+    {
+      "trial_index": 58,
+      "clip_id": 57,
+      "rating": "bad",
+      "decision_ms": 2773,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 3
+    },
+    {
+      "trial_index": 59,
+      "clip_id": 58,
+      "rating": "bad",
+      "decision_ms": 1242,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 7
+    },
+    {
+      "trial_index": 60,
+      "clip_id": 59,
+      "rating": "good",
+      "decision_ms": 701,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 13
+    },
+    {
+      "trial_index": 61,
+      "clip_id": 60,
+      "rating": "good",
+      "decision_ms": 1251,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 16
+    },
+    {
+      "trial_index": 62,
+      "clip_id": 61,
+      "rating": "bad",
+      "decision_ms": 1091,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 0
+    },
+    {
+      "trial_index": 63,
+      "clip_id": 62,
+      "rating": "good",
+      "decision_ms": 2318,
+      "plays": 1,
+      "arm": "real",
+      "n": 13
+    },
+    {
+      "trial_index": 64,
+      "clip_id": 63,
+      "rating": "bad",
+      "decision_ms": 4066,
+      "plays": 2,
+      "arm": "real",
+      "n": 12
+    },
+    {
+      "trial_index": 65,
+      "clip_id": 64,
+      "rating": "good",
+      "decision_ms": 683,
+      "plays": 1,
+      "arm": "real",
+      "n": 7
+    },
+    {
+      "trial_index": 66,
+      "clip_id": 65,
+      "rating": "bad",
+      "decision_ms": 1266,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 15
+    },
+    {
+      "trial_index": 67,
+      "clip_id": 66,
+      "rating": "bad",
+      "decision_ms": 1855,
+      "plays": 1,
+      "arm": "fairk8_gen",
+      "n": 11
+    },
+    {
+      "trial_index": 68,
+      "clip_id": 67,
+      "rating": "good",
+      "decision_ms": 2529,
+      "plays": 2,
+      "arm": "fairk8_gen",
+      "n": 6
+    },
+    {
+      "trial_index": 69,
+      "clip_id": 68,
+      "rating": "bad",
+      "decision_ms": 901,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 5
+    },
+    {
+      "trial_index": 70,
+      "clip_id": 69,
+      "rating": "bad",
+      "decision_ms": 1739,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 17
+    },
+    {
+      "trial_index": 71,
+      "clip_id": 70,
+      "rating": "bad",
+      "decision_ms": 1085,
+      "plays": 2,
+      "arm": "fairk8_gen",
+      "n": 8
+    },
+    {
+      "trial_index": 72,
+      "clip_id": 71,
+      "rating": "bad",
+      "decision_ms": 1362,
+      "plays": 1,
+      "arm": "dac44_gen",
+      "n": 9
+    }
+  ]
+}

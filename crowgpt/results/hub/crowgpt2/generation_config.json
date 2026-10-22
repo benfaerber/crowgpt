@@ -1,0 +1,7 @@
+{
+  "species": "american-crow",
+  "temperature": 1.1,
+  "top_k": 200,
+  "max_frames": 460,
+  "decoder": "decoder.safetensors"
+}

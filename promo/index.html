@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrowGPT: decoding crow calls with AI</title>
+    <meta
+      name="description"
+      content="I feed a murder of crows and I'm building a translator. Call types work; meaning is the open problem. An in-progress open project."
+    />
+    <!-- Link previews. og:image has to be an absolute URL (a relative one shows as a
+         blank card everywhere), and it lives in public/ rather than src/assets so the
+         build does not hash its filename out from under these tags. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CrowGPT" />
+    <meta property="og:url" content="https://cawtalker.org/" />
+    <meta property="og:title" content="CrowGPT: an AI to talk to crows" />
+    <meta
+      property="og:description"
+      content="I feed a murder of crows and I'm building a translator. Call types work; meaning is the open problem."
+    />
+    <meta property="og:image" content="https://cawtalker.org/og-card.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="An American crow standing on grass" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CrowGPT: an AI to talk to crows" />
+    <meta
+      name="twitter:description"
+      content="I feed a murder of crows and I'm building a translator. Call types work; meaning is the open problem."
+    />
+    <meta name="twitter:image" content="https://cawtalker.org/og-card.jpg" />
+    <link rel="canonical" href="https://cawtalker.org/" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icon-16.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./src/assets/icon-512.png" />
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="sky" id="flock"></div>
+      <div class="hero-inner">
+        <nav class="nav">
+          <span class="wordmark">
+            <img
+              class="wordmark-icon"
+              src="./src/assets/icon-180.png"
+              alt=""
+              width="180"
+              height="180"
+            /><span><span class="caw">Caw</span>Talker</span>
+          </span>
+        <div class="nav-links">
+          <a href="#crowgpt">CrowGPT</a>
+          <a href="#app">The app</a>
+          <a href="#cawscout">CawScout</a>
+          <a href="#results">Results</a>
+          <a href="#goal">The goal</a>
+          <a href="#where-it-is-today">Where it is</a>
+          <a href="#poe">The murder</a>
+          <a href="#collab">Collaborate</a>
+        </div>
+      </nav>
+
+      <div class="hero-body">
+        <p class="eyebrow">
+          Since {{project.since}} · one backyard · Salt Lake City
+        </p>
+        <h1>An AI to talk to crows.</h1>
+        <p class="lede">
+          This started when I began feeding a murder of local crows. They were obviously
+          smart, obviously talking to each other, and I wanted to know what about.
+          CrowGPT is the set of tools that came out of it: <strong>CawDex</strong>
+          reads crow calls by type, the <strong>CrowGPT</strong> model says them back, and the
+          goal is a translator that runs in both directions.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#crowgpt">Hear CrowGPT</a>
+          <a class="button" href="#app">See the app</a>
+          <a class="button" href="#where-it-is-today">Where it is today</a>
+        </div>
+      </div>
+
+      <figure class="hero-photo" id="photo-thrasher">
+        <img
+          src="./src/assets/hero-crow.jpg"
+          alt="An American crow standing on grass, head turned toward the camera"
+          width="1600"
+          height="686"
+        />
+        <figcaption>Thrasher, one of the two parents, strutting the lawn.</figcaption>
+      </figure>
+
+      <dl class="stat-row" id="stat-row">
+        <div class="stat">
+          <dt>Corvid species with a call-type head</dt>
+          <dd class="stat-value">{{species.heads}}</dd>
+          <p class="stat-note">Each detection routed to its own species' model</p>
+        </div>
+        <div class="stat">
+          <dt>Alarm-call AUC on clean labels</dt>
+          <dd class="stat-value">{{auc.alarm.clean}}</dd>
+          <p class="stat-note">Recording-grouped CV, one-vs-rest</p>
+        </div>
+        <div class="stat">
+          <dt>Call types CrowGPT can generate</dt>
+          <dd class="stat-value">{{crowgpt.call_types}}</dd>
+          <p class="stat-note">{{crowgpt.call_type_list}}</p>
+        </div>
+        <div class="stat">
+          <dt>Human-labeled call audio</dt>
+          <dd class="stat-value">{{labels.minutes}}<span class="stat-unit">min</span></dd>
+          <p class="stat-note">The number that actually limits the project</p>
+        </div>
+        </dl>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="crowgpt">
+        <h2>CrowGPT: saying it back</h2>
+        <p class="section-lede">
+          The speaking half. A small transformer, 18M parameters, trained from scratch on
+          call bouts cut out of archive recordings, with
+          <strong>no human labeling anywhere in the loop</strong>. Ask it for an alarm
+          call, a generic call, a flight call or begging, and it produces one.
+        </p>
+        <div class="callout" id="crowgpt-preview">
+          <h3>Hear it</h3>
+          <p>
+            Two generations of the model. Everything under a CrowGPT caption is
+            generated, not a recording of a bird. Next to them, the real thing: a
+            field-recorded American Crow alarm call, labeled by ear, so you can judge
+            the gap, and the progress, yourself.
+          </p>
+          <div class="caw-compare">
+            <figure class="caw-player caw-player-bot">
+              <figcaption>CrowGPT1: generated, the early “crowbot” stage</figcaption>
+              <audio controls preload="metadata"
+                     src="./src/assets/crowgpt-alarm-preview.wav"></audio>
+            </figure>
+            <figure class="caw-player caw-player-bot">
+              <figcaption>CrowGPT2: generated, the current model with a 6-second context window</figcaption>
+              <audio controls preload="metadata"
+                     src="./src/assets/crowgpt2-preview.wav"></audio>
+            </figure>
+            <figure class="caw-player">
+              <figcaption>A real crow: field recording</figcaption>
+              <audio controls preload="metadata"
+                     src="./src/assets/real-alarm-call.wav"></audio>
+            </figure>
+          </div>
+        </div>
+        <p class="section-lede section-lede-after">
+          Two things about it matter more than the audio. It does <em>not</em> copy its
+          training set: what it produces is generated, not retrieved. And it beat a 433M
+          pretrained audio model fine-tuned on the same corpus, which says the corpus and
+          the training setup are doing real work.
+        </p>
+        <div class="callout">
+          <h3>Why there is no quality percentage here</h3>
+          <p>
+            The obvious way to score generated calls is to ask BirdNET whether it hears a
+            corvid. That number is <strong>circular</strong>: BirdNET also selected
+            CrowGPT's training corpus, so the model has been trained indirectly to please
+            the judge scoring it. It scores <em>above real audio</em>, which is not
+            plausible as realism and is how the problem was caught. Every
+            BirdNET-detection figure in this project inherits that bias, so the honest
+            tiebreaker is a listening test, and no number goes here until one is run.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="app">
+        <h2>The app: collecting the other half</h2>
+        <p class="section-lede">
+          Building a labeled set by hand does not scale, so the collection is its own
+          system: record corvid audio in the field with GPS, get it analyzed, and say what
+          was heard <em>and what was happening</em>. Heavy model work never sits in the
+          request path.
+        </p>
+
+        <div class="shots">
+          <figure class="shot">
+            <img
+              src="./src/assets/app-homepage.jpg"
+              alt="The CrowGPT app's capture list, showing starred recordings with dates, durations and a coarse location"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Record, then keep. The ★ is the recordist saying <em>this one is real</em>.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-flight-call.jpg"
+              alt="A capture's waveform with colored spans labeled flight call, begging and call"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Calls typed and placed on the waveform: flight call, begging, call.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-call-decision.jpg"
+              alt="One detected call under review: the analyzer's guess of begging shown above a grid of call types, with begging confirmed, and a row of caller roles below"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              The analyzer's guess is shown, then confirmed or overruled. Only the human
+              answer counts.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-context-chips.jpg"
+              alt="The context picker for a single call, with chips grouped under people, animals, food and what the crows did; two are selected"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              What was happening, from a closed vocabulary. Tapped per call, not per
+              recording.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-lawnmower.jpg"
+              alt="A capture named lawnmower plus four crows on ground, with a written description of the scene"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              The witnessed situation, written at the time. This is the scarce half.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-map.jpg"
+              alt="The app's map view with crow markers scattered across a Salt Lake City neighborhood"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Every capture carries where it was taken, so territory questions stay
+              answerable.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-crows-scatter.jpg"
+              alt="A capture describing crows scattering from a car, with a separate guess field about what it meant"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Guesses are kept apart from observations, so being wrong costs nothing.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="aside-photo">
+          <div>
+            <div class="pieces">
+              <article class="piece">
+                <h3>The app</h3>
+                <p>
+                  Android, local-first. Records unprocessed 48 kHz audio and video, shows
+                  the waveform, and uploads only when asked, so an interrupted upload is
+                  the normal case, and every step is resumable and safe to repeat.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The analysis</h3>
+                <p>
+                  Detection and call-typing run in the background, off the recording
+                  device. Findings come back attached to the waveform, and nothing waits
+                  on a model to finish.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The labeling desk</h3>
+                <p>
+                  Where the work happens. Calls get confirmed, corrected, or marked by
+                  ear, and each one <span class="chips">tagged with what was going on</span>
+                  at the time.
+                </p>
+              </article>
+            </div>
+          </div>
+          <figure class="photo">
+            <img
+              src="./src/assets/field-kit.jpg"
+              alt="A small black shoulder bag with an embroidered crow, a furry windshield poking out of the top"
+              width="1200"
+              height="1500"
+            />
+            <figcaption>
+              The whole field kit: a shotgun mic, a dead cat, and a bag that fits in one
+              hand. Crows notice equipment.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="callout">
+          <h3>Three kinds of ground truth, deliberately kept apart</h3>
+          <p>
+            <strong>Labels</strong> are what the bird said: a span plus a call type from
+            a closed vocabulary. They are the only thing that feeds training.
+            <strong class="chips">Context</strong> is what a human saw while that call was made, and it
+            attaches to the call rather than the recording: tag the whole capture and you
+            credit every situation to every call in it, so a clip where a dog walks
+            through and the crow later sings would report that crows sing at dogs.
+            <strong>Observations</strong> are free text written afterwards, to explain a
+            confusing prediction and to find which situations recur often enough to earn a
+            tag of their own.
+          </p>
+        </div>
+
+        <div class="callout">
+          <h3>A call can be marked by ear, with no detection behind it</h3>
+          <p>
+            That matters more than it sounds. BirdNET scores a begging fledgling at 0.06,
+            so a system that only lets you confirm detections can only ever collect what
+            the model already finds, and the classes it is worst at could never gain a
+            single training example.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="cawscout">
+        <h2>CawScout: where to point the microphone</h2>
+        <p class="section-lede">
+          One backyard produces one family's calls. Finding the next family used to be
+          a random dawn walk, and the random walks kept coming home empty. CawScout
+          replaces them with a prior: a 250&nbsp;m grid over the whole valley, scored on
+          where crows should be and ranked into a numbered target list on the app's
+          map.
+        </p>
+        <div class="aside-photo">
+          <div>
+            <div class="pieces">
+              <article class="piece">
+                <h3>The trees</h3>
+                <p>
+                  Crows nest and roost high, so canopy is the loudest signal in the
+                  score. A satellite canopy-height model reads every tree in the
+                  valley at 1&nbsp;m resolution; stands of 15&nbsp;m and up, about
+                  45,000 of them, go into the grid, joined by thousands of
+                  individually-mapped street trees, each assigned its height from the
+                  same model. The taller the stand, the harder it pulls on the cells
+                  around it.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The greenery</h3>
+                <p>
+                  Crows forage on open turf, so parks, cemeteries, golf courses and
+                  grass come in from OpenStreetMap, nearly eight thousand features,
+                  with water and human food (fast food, supermarkets, picnic sites)
+                  as their own smaller signals. Each one radiates a few hundred
+                  metres into the surrounding cells, because a crow near a park is a
+                  crow the park explains.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The score</h3>
+                <p>
+                  Every signal becomes a heat layer over the grid and they sum by
+                  weight, canopy first, community crow sightings second, on purpose:
+                  the satellite measures every block equally, while sightings pile up
+                  wherever birders happen to walk. Predators then subtract, corrected
+                  for how well-watched the ground is. Great Horned Owls, the top
+                  predator of crow nests, cost the most. That penalty alone knocked
+                  a raptor-patrolled university cluster out of the top five.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The map</h3>
+                <p>
+                  Numbered targets over satellite imagery, alongside every capture's
+                  pin and community sightings of crows and each predator species:
+                  dated, photographed, toggleable per species. A target explains its
+                  own score and offers street view and directions, and the header says
+                  whether right now is even a good time to be out.
+                </p>
+              </article>
+            </div>
+          </div>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-cawscout.jpg"
+              alt="The CawScout map over satellite imagery of Salt Lake City: numbered green and red target pins, owl and hawk icons, a popup scoring 6th East Park with street view and directions buttons, and a species filter listing crows, magpies, ravens, hawks, owls and falcons"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Target #1 open on the map: why it scored, how to get there, and the two
+              buttons a visit ends with. Owls and hawks drawn where others saw them.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="results">
+        <h2>The result that matters</h2>
+        <p class="section-lede">
+          Two call classes stayed stubbornly weak when trained on the archives' coarse
+          free-text tags. Trained instead on hand-reviewed labels ({{crowtools.segments}} segments
+          somebody sat and listened to, one second at a time), the same pipeline,
+          unchanged, lifts them decisively. The bottleneck was never the algorithm.
+        </p>
+
+        <figure class="figure" id="auc-figure">
+          <figcaption class="figure-head">
+            <span class="figure-title">One-vs-rest AUC by label quality</span>
+            <span class="figure-sub"
+              >American Crow · recording-grouped cross-validation, so nothing is graded
+              on data it trained on</span
+            >
+          </figcaption>
+          <div class="legend" id="auc-legend"></div>
+          <div class="chart" id="auc-chart"></div>
+          <div class="figure-foot">
+            <p class="figure-note">
+              Chance is 0.50. The two classes not shown, flight call and rattle, were
+              already strong on weak labels; these two were the failures.
+            </p>
+            <button class="table-toggle" type="button" aria-expanded="false" id="auc-table-toggle">
+              Show as table
+            </button>
+          </div>
+          <div class="table-wrap" id="auc-table" hidden></div>
+        </figure>
+
+        <p class="section-lede section-lede-after">
+          So alarm and song were <strong>label-limited, not unlearnable</strong>. The path
+          to strong heads is clean contextual labels, not a fancier model, which is
+          exactly why the rest of this project is a data-collection system rather than
+          more machine learning.
+        </p>
+      </section>
+
+      <section class="section" id="goal">
+        <h2>Crow → human → crow</h2>
+        <p class="section-lede">
+          The end state is a translator that runs in both directions. <strong>CawDex</strong>,
+          the call-type classifier, already works. The missing ingredient is
+          <em>semantics</em>, what was actually happening when a call was made, and I
+          collect that every day. Pair the two and you get a
+          <strong>Crow Translate</strong>. Simple calls first: <em>dog spotted</em>,
+          <em>human spotted</em>, <em>food</em>.
+        </p>
+        <p class="section-lede">
+          The other half is <strong>CrowGPT</strong>, which generates crow calls instead
+          of reading them. Put the two together and it runs both directions: crow → human
+          → crow. Cross-species conversation, and maybe friendship, with the help of AI.
+        </p>
+        <div class="cards">
+          <article class="card card-done">
+            <p class="card-tag">Crow Translate · listening</p>
+            <h3>What did that call mean?</h3>
+            <p>
+              A recording goes in; the corvids in it are found, named, and each call
+              labeled by type on a timeline. That part works. Turning a type into
+              <em>meaning</em> takes the second ingredient, what was happening at the
+              moment the bird called, which is what I am out collecting.
+            </p>
+          </article>
+          <article class="card card-open">
+            <p class="card-tag">CrowGPT · speaking</p>
+            <h3>Say it back</h3>
+            <p>
+              A model that generates crow calls rather than reading them, on demand and by
+              type. Early, and getting better. It is the half that makes this a
+              conversation instead of a very elaborate subtitle track.
+            </p>
+          </article>
+        </div>
+        <p class="section-lede section-lede-after">
+          Simple calls come first, because those are the ones a backyard produces often
+          enough to learn from: a dog walking past, a person arriving, food going down.
+          Nobody is decoding crow grammar here.
+        </p>
+      </section>
+
+      <section class="section" id="two-problems">
+        <h2>Two problems hide in one question</h2>
+        <p class="section-lede">
+          Inside the listening half there is a second split, and keeping it straight is
+          the main design decision in the project. These need different machinery, and
+          only one of them is solved.
+        </p>
+        <dl class="split">
+          <div class="split-item split-done">
+            <dt>
+              <span class="split-status">Solved</span>
+              What <em>are</em> the call types?
+            </dt>
+            <dd>
+              Are the categories acoustically separable at all? That is a plain
+              classification problem on audio, and the answer is yes, given labels good
+              enough to learn from. Everything below this line is engineering.
+            </dd>
+          </div>
+          <div class="split-item split-open">
+            <dt>
+              <span class="split-status">Open</span>
+              What does each type <em>mean</em>?
+            </dt>
+            <dd>
+              Mapping a call to <em>“I see a dog”</em> needs that call paired with
+              <span class="chips">witnessed context</span>, written down at the moment it
+              happened. No quantity of
+              audio alone gets there, which is why the rest of this project is a
+              data-collection system. This is the frontier, and it is where I am.
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="section" id="cawdex">
+        <h2>CawDex: reading the calls</h2>
+        <p class="section-lede">
+          The listening half. CawDex is the call-type classifier: audio goes in, and
+          every corvid call in it comes out found, named by species, and labeled by
+          type on a timeline. It is the index the translator will be built on, hence
+          the name.
+        </p>
+        <p class="section-lede">
+          Raw audio is too high-dimensional to classify directly, so every clip becomes a
+          fixed-length fingerprint first.
+        </p>
+        <ol class="steps">
+          <li>
+            <h3>Detect</h3>
+            <p>
+              BirdNET finds the corvids in any audio or video file and names the species,
+              with a waveform timeline of where the calls sit.
+            </p>
+          </li>
+          <li>
+            <h3>Embed</h3>
+            <p>
+              Each clip becomes a BirdNET embedding, a fingerprint where acoustically
+              similar calls land near each other. Classical MFCC features and a general
+              audio transformer both sat near chance; a bird-specific model was the
+              unlock.
+            </p>
+          </li>
+          <li>
+            <h3>Pool</h3>
+            <p>
+              Mean, standard deviation and max across the clip's three-second segments, so
+              the feature captures temporal spread, the signature of a repeated,
+              insistent alarm versus a single call.
+            </p>
+          </li>
+          <li>
+            <h3>Classify</h3>
+            <p>
+              A small logistic-regression head per species maps the fingerprint to a call
+              type. At a few hundred examples per species, a regularized linear model
+              beats a deep net.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section" id="where-it-is-today">
+        <h2>Where it is today</h2>
+        <p class="section-lede">
+          The state of play, plainly. Every limit below is a piece of work waiting, and
+          most of them are more interesting than the parts that already run.
+        </p>
+        <ul class="honest-list">
+          <li>
+            <strong>Human labeling is early.</strong> {{labels.count}} labels across
+            {{labels.captures}} captures, plus {{context.events}} context events. Measured
+            as call audio rather than label count, that is about {{labels.minutes}} minutes,
+            the number that actually limits this project.
+          </li>
+          <li>
+            <strong>Detected calls are guesses.</strong> Only human labels are ground
+            truth, and until recently there were none at all.
+          </li>
+          <li>
+            <strong>No call has been translated.</strong> The classifier says
+            <em>alarm call</em>; it does not say <em>dog</em>. Nothing here has yet mapped
+            a call to a meaning, because that needs enough calls paired with a witnessed
+            situation, and I am still collecting the first few dozen.
+          </li>
+          <li>
+            <strong>Public uploads aren't open yet.</strong> The app and the pipeline are
+            mine alone for now.
+          </li>
+          <li>
+            <strong>Scope is loud calls only.</strong> Crows also make quiet soft song
+            that likely carries more information, but it needs a close mic and drowns in
+            noise. Broadcast calls are stereotyped, repeated and high-SNR, which is what
+            weak supervision needs.
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" id="poe">
+        <h2>The murder in question</h2>
+        <p class="section-lede">
+          The crows I feed are five: Thrasher and Ripjaw the parents, Killer and Shredder
+          the fledglings, and Edgar, a yearling who stayed on to help guard the brood. The
+          notes I was already keeping on them turned out, by accident, to be proto-labels
+          of exactly these call types, which is the whole reason a recording and a
+          witnessed situation arrive together here instead of being reconciled weeks
+          later.
+        </p>
+
+        <div class="gallery">
+          <figure class="photo" id="photo-edgar">
+            <img
+              src="./src/assets/edgar-wire.jpg"
+              alt="A crow perched on a power line under a sycamore, parked cars below"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>Edgar on the line out front, watching the street.</figcaption>
+          </figure>
+          <figure class="photo" id="photo-killer">
+            <img
+              src="./src/assets/killer-roof.jpg"
+              alt="A fledgling crow walking across a flat white roof, seen through a window"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>Killer on the office roof, the friendly one of the two.</figcaption>
+          </figure>
+          <figure class="photo">
+            <img
+              src="./src/assets/killer-fledgling.jpg"
+              alt="A scruffy young crow on a concrete ledge beside a window, another crow's tail just visible below"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>Killer earlier in the summer, still half down.</figcaption>
+          </figure>
+          <figure class="photo">
+            <img
+              src="./src/assets/pair-roofline.jpg"
+              alt="Two crows perched on the ornamented roofline of a brick building"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>Two of the family on the roofline, keeping watch.</figcaption>
+          </figure>
+          <figure class="photo">
+            <img
+              src="./src/assets/pair-streetlight.jpg"
+              alt="Three crows crowded together on the arm of a streetlight"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>
+              Killer, Edgar and Shredder sharing a streetlight, which is most of what they
+              do.
+            </figcaption>
+          </figure>
+          <figure class="photo" id="photo-ripjaw">
+            <img
+              src="./src/assets/crow-street.jpg"
+              alt="A crow perched on a cable above a pavement, seen from behind"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>Ripjaw on the wire, waiting for the peanuts to appear.</figcaption>
+          </figure>
+          <figure class="photo">
+            <img
+              src="./src/assets/edgar-calling.jpg"
+              alt="A crow calling from the parapet of a brick building against a gray sky"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>Edgar, mid-call, from the top of the brick.</figcaption>
+          </figure>
+          <figure class="photo">
+            <img
+              src="./src/assets/edgar-looks.jpg"
+              alt="A crow on a power line turned to face the camera directly"
+              width="1200"
+              height="1594"
+              loading="lazy"
+            />
+            <figcaption>Edgar deciding what I am. He usually gets there first.</figcaption>
+          </figure>
+        </div>
+
+        <div class="videos">
+          <figure class="video" id="photo-shredder">
+            <video
+              controls
+              loop
+              muted
+              playsinline
+              preload="none"
+              poster="./src/assets/crows-peanuts-poster.jpg"
+              width="960"
+              height="1706"
+            >
+              <source src="./src/assets/crows-peanuts.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              Killer, Shredder and Edgar working through a handful of peanuts on the office
+              roof.
+            </figcaption>
+          </figure>
+
+          <figure class="video">
+            <video
+              controls
+              loop
+              muted
+              playsinline
+              preload="none"
+              poster="./src/assets/crows-lightpost-poster.jpg"
+              width="960"
+              height="1706"
+            >
+              <source src="./src/assets/crows-lightpost.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              The family fighting over peanuts on a light post. No sound, no point. Just
+              crows.
+            </figcaption>
+          </figure>
+
+          <figure class="video">
+            <video
+              controls
+              loop
+              muted
+              playsinline
+              preload="none"
+              poster="./src/assets/crows-digging-poster.jpg"
+              width="960"
+              height="1706"
+            >
+              <source src="./src/assets/crows-digging.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              Digging in the gravel out front. What they were after, I never worked out.
+            </figcaption>
+          </figure>
+        </div>
+
+        <p class="pull">
+          Killer calls back when I say <em>“bye buddies.”</em> That is not a result. It is
+          why I started.
+        </p>
+      </section>
+
+      <section class="section section-cta" id="collab">
+        <h2>Open to collaborators</h2>
+        <p class="section-lede">
+          This is a one-person project that does not need to stay one. There is more work
+          here than time, and several parts are self-contained enough to hand to someone
+          who finds them interesting.
+        </p>
+        <ul class="honest-list">
+          <li>
+            <strong>Birders and crow people.</strong> The scarce resource is not compute,
+            it is somebody who can say what a bird was doing when it called. If you watch
+            corvids closely, you already have the rare skill.
+          </li>
+          <li>
+            <strong>Audio ML.</strong> CrowGPT is small and there is obvious headroom in
+            the generation half, and a listening test to design that is not circular.
+          </li>
+          <li>
+            <strong>Android and dashboards.</strong> The capture app and the labeling
+            desk are where collection speed is won or lost.
+          </li>
+          <li>
+            <strong>Anyone with corvids nearby, any species, anywhere.</strong> This is
+            not an American crow project. Detection already routes to a per-species model,
+            and there are heads for hooded crow, carrion crow, rook and common raven as
+            well. So hooded crows in Germany or eastern Europe, carrion crows in Britain,
+            rooks in a field somewhere: all of it counts, and comparing what the same
+            call type means across populations is a better question than anything one
+            backyard can answer.
+          </li>
+        </ul>
+        <p class="section-lede section-lede-after">
+          This project will be open sourced soon. For now I am keeping it closed, because
+          prototyping is faster without an audience for every half-finished idea. Ask and
+          I will add you as a private contributor in the meantime.
+        </p>
+        <p class="section-lede section-lede-after">
+          Tell me what you'd want to work on:
+          <span class="mail" data-u="uryyb" data-d="pnjgnyxre.bet"
+            >hello located at cawtalker period org</span
+          >.
+        </p>
+      </section>
+
+      <section class="section section-cta" id="reading">
+        <h2>What gave me the idea</h2>
+        <p class="section-lede">
+          Two projects convinced me this was worth attempting at all. Neither is mine, and
+          both are further along than anything here.
+        </p>
+        <ul class="reading-list">
+          <li>
+            <a href="https://earthspecies.org/2025/12/15/unlocking-avian-secrets-how-tiny-biologgers-are-revealing-the-hidden-communication-of-carrion-crows/"
+              >Carrion crows, biologgers, and 150,000 calls</a
+            >
+            <p>
+              Vittorio Baglione and Daniela Canestrari at the University of León, with the
+              Earth Species Project, put tiny recorders on wild carrion crows in northern
+              Spain and mapped the repertoire of 24 family groups against what the birds
+              were actually doing. Those crows are cooperative breeders: the young stay
+              home for years and help raise their siblings, which is exactly what Edgar is
+              doing on the roof here. It is the same question as this project, asked with
+              instruments.
+              <a href="https://www.biorxiv.org/content/10.64898/2026.04.02.715916v2.full"
+                >The preprint</a
+              >.
+            </p>
+          </li>
+          <li>
+            <a href="https://www.projectceti.org/">Project CETI</a>
+            <p>
+              The Cetacean Translation Initiative is doing this for sperm whales: tags,
+              buoys and drones feeding machine learning, with the stated aim of a blueprint
+              for another species' language. They have proposed a phonetic alphabet for
+              whale codas. If it can be attempted at that scale in the open ocean, it can
+              be attempted in a backyard.
+            </p>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <p class="wordmark">
+            <img
+              class="wordmark-icon"
+              src="./src/assets/icon-180.png"
+              alt=""
+              width="180"
+              height="180"
+            /><span><span class="caw">Caw</span>Talker</span>
+          </p>
+          <p class="footer-note">
+            One person, a murder of backyard crows, and a translator under construction.
+          </p>
+          <p class="footer-note">
+            Built by Ben Faerber.
+            <a href="https://github.com/benfaerber">GitHub</a> ·
+            <a href="https://benfaerber.github.io">What the Functor?</a>
+          </p>
+        </div>
+        <div>
+          <h3>Owed</h3>
+          <p class="footer-note">
+            The single biggest result here is not ours. It came from
+            <a href="https://github.com/CrowCall/crow-tools">crow-tools</a> (MIT, ©
+            OpenShot Studios / owlmaddie) and the several thousand seconds of crow
+            somebody hand-reviewed, one second at a time.
+          </p>
+        </div>
+        <div>
+          <h3>Audio</h3>
+          <p class="footer-note">
+            Recordings from <a href="https://xeno-canto.org/">Xeno-canto</a>, shared by
+            its recordists under Creative Commons licences.
+            <a href="./credits.html">All {{credits.recordings}} of them are credited by name and ID</a>, and
+            CrowGPT learned from every one.
+          </p>
+        </div>
+      </div>
+      <p class="footer-legal">Photographs of the Poe family, Salt Lake City.</p>
+    </footer>
+  </body>
+</html>

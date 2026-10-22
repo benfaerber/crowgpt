@@ -1,0 +1,92 @@
+{
+  "second_sitting": {
+    "compares": {
+      "decided": 37,
+      "longctx": 21,
+      "units": 16,
+      "ties": 3
+    },
+    "p_longctx": [
+      0.568,
+      0.409,
+      0.713
+    ],
+    "graded_margin_toward_longctx": {
+      "mean": 0.2,
+      "distribution": {
+        "-2": 6,
+        "-1": 10,
+        "0": 3,
+        "1": 12,
+        "2": 9
+      }
+    },
+    "length_check_p_longer_preferred": [
+      0.405,
+      0.263,
+      0.565
+    ],
+    "catch": {
+      "real_preferred": 6,
+      "of": 8
+    },
+    "defect_tags": {
+      "hoarse": 4,
+      "scratchy": 1,
+      "blowing-dust": 2
+    }
+  },
+  "pooled_both_sittings": {
+    "compares": {
+      "decided": 71,
+      "longctx": 36,
+      "units": 35,
+      "ties": 9
+    },
+    "p_longctx": [
+      0.507,
+      0.393,
+      0.62
+    ],
+    "graded_margin_toward_longctx": {
+      "mean": 0.0,
+      "distribution": {
+        "-2": 12,
+        "-1": 23,
+        "0": 9,
+        "1": 25,
+        "2": 11
+      }
+    },
+    "catch": {
+      "real_preferred": 12,
+      "of": 16
+    }
+  },
+  "described_trials": 44,
+  "note_families_by_arm": {
+    "model-longctx": {
+      "hoarse": 12,
+      "clean": 11,
+      "machine": 9,
+      "blowing-dust": 6,
+      "scratchy-static": 8
+    },
+    "model-units": {
+      "hoarse": 8,
+      "clean": 8,
+      "scratchy-static": 10,
+      "blowing-dust": 7,
+      "machine": 9
+    },
+    "real": {
+      "clean": 7
+    }
+  },
+  "note_families_note": "keyword heuristics over Ben's own words; per-clip halves of his '1. ... 2. ...' notes; ambiguous lq-real/hq-fake halves dropped",
+  "dose_breaks_minutes": [
+    102.8,
+    6.5
+  ],
+  "cooldown_deviation": "final 8 trials taken immediately after dose 2 at Ben's request; cooldown_minutes set 30 -> 0 on 2026-08-11"
+}

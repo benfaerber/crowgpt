@@ -1,0 +1,297 @@
+[
+  {
+    "capture": 94,
+    "arm": "raw",
+    "band_snr_db": 19.1,
+    "n_regions": 3,
+    "max_crow_conf": 0.847,
+    "mean_crow_conf": 0.47,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call",
+      "call"
+    ],
+    "total_region_sec": 18.0
+  },
+  {
+    "capture": 94,
+    "arm": "hp300",
+    "band_snr_db": 19.12,
+    "n_regions": 1,
+    "max_crow_conf": 0.873,
+    "mean_crow_conf": 0.873,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "call"
+    ],
+    "total_region_sec": 18.0
+  },
+  {
+    "capture": 94,
+    "arm": "band16",
+    "band_snr_db": 19.1,
+    "n_regions": 5,
+    "max_crow_conf": 0.747,
+    "mean_crow_conf": 0.413,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call"
+    ],
+    "total_region_sec": 18.0
+  },
+  {
+    "capture": 94,
+    "arm": "denoise",
+    "band_snr_db": 44.19,
+    "n_regions": 0,
+    "max_crow_conf": null,
+    "mean_crow_conf": null,
+    "species": [],
+    "call_types": [],
+    "total_region_sec": 0
+  },
+  {
+    "capture": 94,
+    "arm": "hp300_denoise",
+    "band_snr_db": 44.36,
+    "n_regions": 1,
+    "max_crow_conf": 0.183,
+    "mean_crow_conf": 0.183,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call"
+    ],
+    "total_region_sec": 3.0
+  },
+  {
+    "capture": 95,
+    "arm": "raw",
+    "band_snr_db": 12.62,
+    "n_regions": 3,
+    "max_crow_conf": 0.855,
+    "mean_crow_conf": 0.398,
+    "species": [
+      "American Crow",
+      "Black-crowned Night-Heron"
+    ],
+    "call_types": [
+      "None",
+      "alarm call"
+    ],
+    "total_region_sec": 12.0
+  },
+  {
+    "capture": 95,
+    "arm": "hp300",
+    "band_snr_db": 12.61,
+    "n_regions": 2,
+    "max_crow_conf": 0.893,
+    "mean_crow_conf": 0.569,
+    "species": [
+      "American Crow",
+      "Black-crowned Night-Heron"
+    ],
+    "call_types": [
+      "None",
+      "alarm call"
+    ],
+    "total_region_sec": 12.0
+  },
+  {
+    "capture": 95,
+    "arm": "band16",
+    "band_snr_db": 12.61,
+    "n_regions": 3,
+    "max_crow_conf": 0.727,
+    "mean_crow_conf": 0.331,
+    "species": [
+      "American Crow",
+      "Black-crowned Night-Heron"
+    ],
+    "call_types": [
+      "None",
+      "alarm call",
+      "song"
+    ],
+    "total_region_sec": 12.0
+  },
+  {
+    "capture": 95,
+    "arm": "denoise",
+    "band_snr_db": 36.85,
+    "n_regions": 0,
+    "max_crow_conf": null,
+    "mean_crow_conf": null,
+    "species": [],
+    "call_types": [],
+    "total_region_sec": 0
+  },
+  {
+    "capture": 95,
+    "arm": "hp300_denoise",
+    "band_snr_db": 35.68,
+    "n_regions": 1,
+    "max_crow_conf": 0.106,
+    "mean_crow_conf": 0.106,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call"
+    ],
+    "total_region_sec": 3.0
+  },
+  {
+    "capture": 96,
+    "arm": "raw",
+    "band_snr_db": 13.12,
+    "n_regions": 2,
+    "max_crow_conf": 0.782,
+    "mean_crow_conf": 0.562,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call"
+    ],
+    "total_region_sec": 9.0
+  },
+  {
+    "capture": 96,
+    "arm": "hp300",
+    "band_snr_db": 13.11,
+    "n_regions": 2,
+    "max_crow_conf": 0.785,
+    "mean_crow_conf": 0.678,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call"
+    ],
+    "total_region_sec": 9.0
+  },
+  {
+    "capture": 96,
+    "arm": "band16",
+    "band_snr_db": 13.11,
+    "n_regions": 2,
+    "max_crow_conf": 0.698,
+    "mean_crow_conf": 0.498,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call"
+    ],
+    "total_region_sec": 9.0
+  },
+  {
+    "capture": 96,
+    "arm": "denoise",
+    "band_snr_db": 36.76,
+    "n_regions": 0,
+    "max_crow_conf": null,
+    "mean_crow_conf": null,
+    "species": [],
+    "call_types": [],
+    "total_region_sec": 0
+  },
+  {
+    "capture": 96,
+    "arm": "hp300_denoise",
+    "band_snr_db": 36.03,
+    "n_regions": 0,
+    "max_crow_conf": null,
+    "mean_crow_conf": null,
+    "species": [],
+    "call_types": [],
+    "total_region_sec": 0
+  },
+  {
+    "capture": 97,
+    "arm": "raw",
+    "band_snr_db": 21.43,
+    "n_regions": 2,
+    "max_crow_conf": 0.975,
+    "mean_crow_conf": 0.537,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call",
+      "call"
+    ],
+    "total_region_sec": 15.0
+  },
+  {
+    "capture": 97,
+    "arm": "hp300",
+    "band_snr_db": 21.43,
+    "n_regions": 2,
+    "max_crow_conf": 0.986,
+    "mean_crow_conf": 0.577,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call",
+      "call"
+    ],
+    "total_region_sec": 15.0
+  },
+  {
+    "capture": 97,
+    "arm": "band16",
+    "band_snr_db": 21.41,
+    "n_regions": 2,
+    "max_crow_conf": 0.92,
+    "mean_crow_conf": 0.516,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call",
+      "call"
+    ],
+    "total_region_sec": 15.0
+  },
+  {
+    "capture": 97,
+    "arm": "denoise",
+    "band_snr_db": 46.95,
+    "n_regions": 1,
+    "max_crow_conf": 0.964,
+    "mean_crow_conf": 0.964,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "flight call"
+    ],
+    "total_region_sec": 12.0
+  },
+  {
+    "capture": 97,
+    "arm": "hp300_denoise",
+    "band_snr_db": 46.79,
+    "n_regions": 1,
+    "max_crow_conf": 0.947,
+    "mean_crow_conf": 0.947,
+    "species": [
+      "American Crow"
+    ],
+    "call_types": [
+      "alarm call"
+    ],
+    "total_region_sec": 9.0
+  }
+]

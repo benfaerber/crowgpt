@@ -1,0 +1,33 @@
+{
+  "compares": {
+    "decided": 34,
+    "longctx": 15,
+    "units": 19,
+    "ties": 6
+  },
+  "p_longctx": [
+    0.441,
+    0.289,
+    0.605
+  ],
+  "graded_margin_toward_longctx": {
+    "mean": -0.2,
+    "distribution": {
+      "1": 13,
+      "-1": 13,
+      "0": 6,
+      "-2": 6,
+      "2": 2
+    }
+  },
+  "length_check_p_longer_preferred": [
+    0.353,
+    0.215,
+    0.521
+  ],
+  "catch": {
+    "real_preferred": 6,
+    "of": 8
+  },
+  "defect_tags": {}
+}

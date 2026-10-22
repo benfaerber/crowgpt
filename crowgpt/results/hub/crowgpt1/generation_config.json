@@ -1,0 +1,7 @@
+{
+  "species": "american-crow",
+  "temperature": 1.0,
+  "top_k": 200,
+  "max_frames": 225,
+  "decoder": null
+}

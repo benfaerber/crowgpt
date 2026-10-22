@@ -1,0 +1,21 @@
+{
+  "n_clips": 117,
+  "classes": {
+    "alarm call": 10,
+    "call": 71,
+    "flight call": 25,
+    "song": 11
+  },
+  "one_vs_rest_auc": {
+    "alarm call": 0.767,
+    "call": 0.616,
+    "flight call": 0.771,
+    "song": 0.492
+  },
+  "call_vs_flightcall": {
+    "n": 96,
+    "baseline_acc": 0.74,
+    "accuracy": 0.76,
+    "macro_f1": 0.707
+  }
+}

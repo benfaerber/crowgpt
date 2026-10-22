@@ -1,0 +1,318 @@
+{
+  "recordings_new": 24999,
+  "recordings_old": 11689,
+  "bouts": 127553,
+  "unresolved_bouts": 85,
+  "bouts_by_source": {
+    "archive-1": 56164,
+    "archive-2": 71304
+  },
+  "relabelled": {
+    "common-raven -> american-crow": 2,
+    "indian-jungle-crow -> large-billed-crow": 212
+  },
+  "relabelled_total": 214,
+  "grouping": {
+    "american-crow": {
+      "recordings": 10818,
+      "old_groups": 9409,
+      "new_groups": 9288,
+      "collapse_pct": 1.3
+    },
+    "hooded-crow": {
+      "recordings": 3243,
+      "old_groups": 1549,
+      "new_groups": 983,
+      "collapse_pct": 36.5
+    },
+    "common-raven": {
+      "recordings": 1819,
+      "old_groups": 1596,
+      "new_groups": 1424,
+      "collapse_pct": 10.8
+    },
+    "eurasian-jackdaw": {
+      "recordings": 891,
+      "old_groups": 834,
+      "new_groups": 710,
+      "collapse_pct": 14.9
+    },
+    "carrion-crow": {
+      "recordings": 865,
+      "old_groups": 777,
+      "new_groups": 703,
+      "collapse_pct": 9.5
+    },
+    "rook": {
+      "recordings": 462,
+      "old_groups": 462,
+      "new_groups": 354,
+      "collapse_pct": 23.4
+    },
+    "large-billed-crow": {
+      "recordings": 344,
+      "old_groups": 245,
+      "new_groups": 243,
+      "collapse_pct": 0.8
+    },
+    "house-crow": {
+      "recordings": 165,
+      "old_groups": 135,
+      "new_groups": 134,
+      "collapse_pct": 0.7
+    },
+    "pied-crow": {
+      "recordings": 133,
+      "old_groups": 112,
+      "new_groups": 109,
+      "collapse_pct": 2.7
+    },
+    "torresian-crow": {
+      "recordings": 120,
+      "old_groups": 89,
+      "new_groups": 87,
+      "collapse_pct": 2.2
+    },
+    "fish-crow": {
+      "recordings": 90,
+      "old_groups": 71,
+      "new_groups": 67,
+      "collapse_pct": 5.6
+    },
+    "slender-billed-crow": {
+      "recordings": 84,
+      "old_groups": 50,
+      "new_groups": 50,
+      "collapse_pct": 0.0
+    },
+    "brown-necked-raven": {
+      "recordings": 57,
+      "old_groups": 32,
+      "new_groups": 32,
+      "collapse_pct": 0.0
+    },
+    "chihuahuan-raven": {
+      "recordings": 51,
+      "old_groups": 35,
+      "new_groups": 34,
+      "collapse_pct": 2.9
+    },
+    "australian-raven": {
+      "recordings": 46,
+      "old_groups": 39,
+      "new_groups": 38,
+      "collapse_pct": 2.6
+    },
+    "fan-tailed-raven": {
+      "recordings": 44,
+      "old_groups": 36,
+      "new_groups": 35,
+      "collapse_pct": 2.8
+    },
+    "white-necked-raven": {
+      "recordings": 43,
+      "old_groups": 36,
+      "new_groups": 35,
+      "collapse_pct": 2.8
+    },
+    "forest-raven": {
+      "recordings": 39,
+      "old_groups": 26,
+      "new_groups": 25,
+      "collapse_pct": 3.8
+    },
+    "sinaloa-crow": {
+      "recordings": 37,
+      "old_groups": 25,
+      "new_groups": 24,
+      "collapse_pct": 4.0
+    },
+    "indian-jungle-crow": {
+      "recordings": 35,
+      "old_groups": 33,
+      "new_groups": 33,
+      "collapse_pct": 0.0
+    },
+    "cape-crow": {
+      "recordings": 33,
+      "old_groups": 23,
+      "new_groups": 23,
+      "collapse_pct": 0.0
+    },
+    "cuban-crow": {
+      "recordings": 30,
+      "old_groups": 21,
+      "new_groups": 20,
+      "collapse_pct": 4.8
+    },
+    "cuban-palm-crow": {
+      "recordings": 28,
+      "old_groups": 13,
+      "new_groups": 13,
+      "collapse_pct": 0.0
+    },
+    "little-raven": {
+      "recordings": 26,
+      "old_groups": 24,
+      "new_groups": 23,
+      "collapse_pct": 4.2
+    },
+    "small-crow": {
+      "recordings": 25,
+      "old_groups": 4,
+      "new_groups": 4,
+      "collapse_pct": 0.0
+    },
+    "grey-crow": {
+      "recordings": 25,
+      "old_groups": 21,
+      "new_groups": 21,
+      "collapse_pct": 0.0
+    },
+    "daurian-jackdaw": {
+      "recordings": 25,
+      "old_groups": 20,
+      "new_groups": 20,
+      "collapse_pct": 0.0
+    },
+    "palawan-crow": {
+      "recordings": 22,
+      "old_groups": 17,
+      "new_groups": 16,
+      "collapse_pct": 5.9
+    },
+    "hispaniolan-palm-crow": {
+      "recordings": 21,
+      "old_groups": 10,
+      "new_groups": 9,
+      "collapse_pct": 10.0
+    },
+    "white-necked-crow": {
+      "recordings": 21,
+      "old_groups": 10,
+      "new_groups": 10,
+      "collapse_pct": 0.0
+    },
+    "long-billed-crow": {
+      "recordings": 20,
+      "old_groups": 14,
+      "new_groups": 14,
+      "collapse_pct": 0.0
+    },
+    "eastern-jungle-crow": {
+      "recordings": 19,
+      "old_groups": 17,
+      "new_groups": 16,
+      "collapse_pct": 5.9
+    },
+    "piping-crow": {
+      "recordings": 18,
+      "old_groups": 12,
+      "new_groups": 12,
+      "collapse_pct": 0.0
+    },
+    "flores-crow": {
+      "recordings": 17,
+      "old_groups": 11,
+      "new_groups": 11,
+      "collapse_pct": 0.0
+    },
+    "collared-crow": {
+      "recordings": 11,
+      "old_groups": 9,
+      "new_groups": 9,
+      "collapse_pct": 0.0
+    },
+    "white-billed-crow": {
+      "recordings": 10,
+      "old_groups": 5,
+      "new_groups": 5,
+      "collapse_pct": 0.0
+    },
+    "bougainville-crow": {
+      "recordings": 8,
+      "old_groups": 6,
+      "new_groups": 6,
+      "collapse_pct": 0.0
+    },
+    "jamaican-crow": {
+      "recordings": 8,
+      "old_groups": 6,
+      "new_groups": 6,
+      "collapse_pct": 0.0
+    },
+    "little-crow": {
+      "recordings": 7,
+      "old_groups": 5,
+      "new_groups": 5,
+      "collapse_pct": 0.0
+    },
+    "tamaulipas-crow": {
+      "recordings": 6,
+      "old_groups": 5,
+      "new_groups": 5,
+      "collapse_pct": 0.0
+    },
+    "bismarck-crow": {
+      "recordings": 5,
+      "old_groups": 5,
+      "new_groups": 5,
+      "collapse_pct": 0.0
+    },
+    "new-caledonian-crow": {
+      "recordings": 3,
+      "old_groups": 3,
+      "new_groups": 3,
+      "collapse_pct": 0.0
+    },
+    "brown-headed-crow": {
+      "recordings": 3,
+      "old_groups": 3,
+      "new_groups": 3,
+      "collapse_pct": 0.0
+    },
+    "somali-crow": {
+      "recordings": 3,
+      "old_groups": 3,
+      "new_groups": 3,
+      "collapse_pct": 0.0
+    },
+    "mariana-crow": {
+      "recordings": 1,
+      "old_groups": 1,
+      "new_groups": 1,
+      "collapse_pct": 0.0
+    },
+    "thick-billed-raven": {
+      "recordings": 1,
+      "old_groups": 1,
+      "new_groups": 1,
+      "collapse_pct": 0.0
+    }
+  },
+  "leakage": {
+    "groups_spanning_splits": 272,
+    "groups_total": 14671,
+    "held_out_in_leaking_group": 3632,
+    "held_out_total": 20508,
+    "held_out_pct": 17.7,
+    "american_crow_hit": 227,
+    "american_crow_total": 9546,
+    "american_crow_pct": 2.4,
+    "by_species": {
+      "hooded-crow": 109,
+      "common-raven": 46,
+      "american-crow": 35,
+      "rook": 28,
+      "eurasian-jackdaw": 28,
+      "carrion-crow": 20,
+      "fish-crow": 1,
+      "sinaloa-crow": 1,
+      "forest-raven": 1,
+      "hispaniolan-palm-crow": 1,
+      "eastern-jungle-crow": 1,
+      "torresian-crow": 1,
+      "fan-tailed-raven": 1
+    }
+  }
+}

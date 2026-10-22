@@ -1,0 +1,715 @@
+{
+  "name": "voice-0078",
+  "question": "Which clip sounds more like a real crow \u2014 the voice itself, not the pattern. Different models, each serving what the chat buttons serve. \u201cThey are the same\u201d is a real answer. Per-clip notes (\u201c1. \u2026 2. \u2026\u201d) are the most valuable thing you produce \u2014 human-ish, froggy, metallic, alien, hoarse, where in the clip it happens.",
+  "clip_dir": "/home/ben/Code/cawtalker/crowgpt/results/listening-pools/voice-0078",
+  "trials": [
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-00.wav",
+      "first_clip": "calltype-song-06.wav",
+      "second_clip": "b32-song-06.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 3.0,
+        "b32_s": 3.24
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-01.wav",
+      "first_clip": "b32-song-01.wav",
+      "second_clip": "calltype-song-01.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 3.0,
+        "b32_s": 3.64
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-02.wav",
+      "first_clip": "calltype-begging-04.wav",
+      "second_clip": "b32-begging-04.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 4.12
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-03.wav",
+      "first_clip": "b32-call-02.wav",
+      "second_clip": "calltype-call-02.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 3.0,
+        "b32_s": 6.0
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-04.wav",
+      "first_clip": "calltype-begging-00.wav",
+      "second_clip": "b32-begging-00.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 5.84
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-05.wav",
+      "first_clip": "b32-begging-01.wav",
+      "second_clip": "calltype-begging-01.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 5.19
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-06.wav",
+      "first_clip": "calltype-song-02.wav",
+      "second_clip": "b32-song-02.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 2.97,
+        "b32_s": 3.0
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-07.wav",
+      "first_clip": "real-00.wav",
+      "second_clip": "catch-calltype-alarm-call-0.wav",
+      "first_arm": "real",
+      "second_arm": "calltype"
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-08.wav",
+      "first_clip": "catch-calltype-call-0.wav",
+      "second_clip": "real-01.wav",
+      "first_arm": "calltype",
+      "second_arm": "real"
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-09.wav",
+      "first_clip": "b32-begging-06.wav",
+      "second_clip": "calltype-begging-06.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 2.32
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-10.wav",
+      "first_clip": "calltype-alarm-call-07.wav",
+      "second_clip": "b32-alarm-call-07.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 2.84,
+        "b32_s": 2.36
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-11.wav",
+      "first_clip": "b32-begging-02.wav",
+      "second_clip": "calltype-begging-02.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 2.13,
+        "b32_s": 1.36
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-12.wav",
+      "first_clip": "calltype-call-05.wav",
+      "second_clip": "b32-call-05.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 3.0,
+        "b32_s": 1.31
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-13.wav",
+      "first_clip": "real-02.wav",
+      "second_clip": "catch-b32-begging-0.wav",
+      "first_arm": "real",
+      "second_arm": "b32"
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-14.wav",
+      "first_clip": "b32-call-04.wav",
+      "second_clip": "calltype-call-04.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 2.97,
+        "b32_s": 5.28
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-15.wav",
+      "first_clip": "calltype-call-00.wav",
+      "second_clip": "b32-call-00.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 1.91,
+        "b32_s": 1.68
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-16.wav",
+      "first_clip": "b32-begging-03.wav",
+      "second_clip": "calltype-begging-03.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 3.21
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-17.wav",
+      "first_clip": "calltype-song-08.wav",
+      "second_clip": "b32-song-08.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 3.0,
+        "b32_s": 1.64
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-18.wav",
+      "first_clip": "catch-b32-call-0.wav",
+      "second_clip": "real-03.wav",
+      "first_arm": "b32",
+      "second_arm": "real"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-19.wav",
+      "first_clip": "b32-song-05.wav",
+      "second_clip": "calltype-song-05.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 1.79,
+        "b32_s": 1.75
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-20.wav",
+      "first_clip": "calltype-song-04.wav",
+      "second_clip": "b32-song-04.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 1.96,
+        "b32_s": 2.01
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-21.wav",
+      "first_clip": "b32-alarm-call-02.wav",
+      "second_clip": "calltype-alarm-call-02.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 2.56,
+        "b32_s": 4.05
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-22.wav",
+      "first_clip": "calltype-song-07.wav",
+      "second_clip": "b32-song-07.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 3.0,
+        "b32_s": 6.0
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-23.wav",
+      "first_clip": "b32-call-07.wav",
+      "second_clip": "calltype-call-07.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 3.0,
+        "b32_s": 1.32
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-24.wav",
+      "first_clip": "calltype-alarm-call-09.wav",
+      "second_clip": "b32-alarm-call-09.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 3.0,
+        "b32_s": 4.08
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-25.wav",
+      "first_clip": "b32-alarm-call-03.wav",
+      "second_clip": "calltype-alarm-call-03.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 2.03,
+        "b32_s": 3.41
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-26.wav",
+      "first_clip": "calltype-call-06.wav",
+      "second_clip": "b32-call-06.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 2.16,
+        "b32_s": 4.41
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-27.wav",
+      "first_clip": "real-04.wav",
+      "second_clip": "catch-calltype-song-0.wav",
+      "first_arm": "real",
+      "second_arm": "calltype"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-28.wav",
+      "first_clip": "b32-song-00.wav",
+      "second_clip": "calltype-song-00.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 1.67,
+        "b32_s": 3.52
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-29.wav",
+      "first_clip": "catch-b32-song-0.wav",
+      "second_clip": "real-05.wav",
+      "first_arm": "b32",
+      "second_arm": "real"
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-30.wav",
+      "first_clip": "calltype-alarm-call-04.wav",
+      "second_clip": "b32-alarm-call-04.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 2.13,
+        "b32_s": 1.83
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-31.wav",
+      "first_clip": "b32-alarm-call-08.wav",
+      "second_clip": "calltype-alarm-call-08.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 1.73,
+        "b32_s": 1.81
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-32.wav",
+      "first_clip": "calltype-call-09.wav",
+      "second_clip": "b32-call-09.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 3.0,
+        "b32_s": 4.17
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-33.wav",
+      "first_clip": "b32-song-03.wav",
+      "second_clip": "calltype-song-03.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 1.85,
+        "b32_s": 4.48
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-34.wav",
+      "first_clip": "calltype-call-08.wav",
+      "second_clip": "b32-call-08.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 3.0,
+        "b32_s": 3.37
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-35.wav",
+      "first_clip": "b32-call-01.wav",
+      "second_clip": "calltype-call-01.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 1.8,
+        "b32_s": 4.92
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-36.wav",
+      "first_clip": "calltype-alarm-call-00.wav",
+      "second_clip": "b32-alarm-call-00.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 3.0,
+        "b32_s": 1.47
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-37.wav",
+      "first_clip": "b32-song-09.wav",
+      "second_clip": "calltype-song-09.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "song",
+        "calltype_s": 3.0,
+        "b32_s": 2.05
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-38.wav",
+      "first_clip": "calltype-begging-07.wav",
+      "second_clip": "b32-begging-07.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 1.23
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-39.wav",
+      "first_clip": "b32-begging-08.wav",
+      "second_clip": "calltype-begging-08.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 2.88,
+        "b32_s": 3.8
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-40.wav",
+      "first_clip": "calltype-begging-05.wav",
+      "second_clip": "b32-begging-05.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 4.0
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-41.wav",
+      "first_clip": "b32-alarm-call-01.wav",
+      "second_clip": "calltype-alarm-call-01.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 2.31,
+        "b32_s": 4.65
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-42.wav",
+      "first_clip": "calltype-call-03.wav",
+      "second_clip": "b32-call-03.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "call",
+        "calltype_s": 2.8,
+        "b32_s": 1.28
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-43.wav",
+      "first_clip": "b32-alarm-call-05.wav",
+      "second_clip": "calltype-alarm-call-05.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 3.0,
+        "b32_s": 5.08
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-44.wav",
+      "first_clip": "calltype-alarm-call-06.wav",
+      "second_clip": "b32-alarm-call-06.wav",
+      "first_arm": "calltype",
+      "second_arm": "b32",
+      "facts": {
+        "call_type": "alarm call",
+        "calltype_s": 3.0,
+        "b32_s": 4.07
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "anchor-45.wav",
+      "first_clip": "b32-begging-09.wav",
+      "second_clip": "calltype-begging-09.wav",
+      "first_arm": "b32",
+      "second_arm": "calltype",
+      "facts": {
+        "call_type": "begging",
+        "calltype_s": 3.0,
+        "b32_s": 2.92
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "anchor-46.wav",
+      "first_clip": "real-06.wav",
+      "second_clip": "catch-b32-alarm-call-0.wav",
+      "first_arm": "real",
+      "second_arm": "b32"
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "anchor-47.wav",
+      "first_clip": "catch-calltype-begging-0.wav",
+      "second_clip": "real-07.wav",
+      "first_arm": "calltype",
+      "second_arm": "real"
+    }
+  ],
+  "spec": {
+    "experiment": "0078 voice sitting",
+    "arms": {
+      "calltype": {
+        "ckpt": "/home/ben/Code/cawtalker/crowgpt/results/model-calltype/model.pt",
+        "temperature": 1.0,
+        "max_frames": 225
+      },
+      "b32": {
+        "ckpt": "/home/ben/Code/cawtalker/crowgpt/results/model-longctx-ct-b32/model.pt",
+        "temperature": 1.1,
+        "max_frames": 460
+      }
+    },
+    "decoder": "finetuned, both arms",
+    "seed_base": 43000,
+    "seed_stride": 200,
+    "anchor_bouts": [
+      16802,
+      16803,
+      16807,
+      16877,
+      16965,
+      16989,
+      16998,
+      17310,
+      17398,
+      17814,
+      18003,
+      18045,
+      18160,
+      18174,
+      18225,
+      18263,
+      18294,
+      18354,
+      18391,
+      18592,
+      18879,
+      18910,
+      19103,
+      19184,
+      19365,
+      19403,
+      19453,
+      19586,
+      19660,
+      19675,
+      19676,
+      19772,
+      19807,
+      19872,
+      20087,
+      20112,
+      20124,
+      20281,
+      20398,
+      20430,
+      20434,
+      20438,
+      20518,
+      20651,
+      20665,
+      20793,
+      20865,
+      20872,
+      20964,
+      20991,
+      21013,
+      21027,
+      21045,
+      21171,
+      21216,
+      21465
+    ]
+  }
+}

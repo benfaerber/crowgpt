@@ -1,0 +1,37 @@
+{
+  "target_churn": 0.868,
+  "arms": [
+    {
+      "fraction": "0.125",
+      "groups": 1205,
+      "tokens": 17951354,
+      "best_val": 4.9042,
+      "stage0_churn": 0.796,
+      "churn_gap": -0.072
+    },
+    {
+      "fraction": "0.25",
+      "groups": 2410,
+      "tokens": 36862874,
+      "best_val": 4.6814,
+      "stage0_churn": 0.8237,
+      "churn_gap": -0.0443
+    },
+    {
+      "fraction": "0.5",
+      "groups": 4820,
+      "tokens": 73156010,
+      "best_val": 4.6047,
+      "stage0_churn": 0.7913,
+      "churn_gap": -0.0767
+    },
+    {
+      "fraction": "1.0",
+      "groups": 9640,
+      "tokens": 148347214,
+      "best_val": 4.5874,
+      "stage0_churn": 0.8194,
+      "churn_gap": -0.0486
+    }
+  ]
+}

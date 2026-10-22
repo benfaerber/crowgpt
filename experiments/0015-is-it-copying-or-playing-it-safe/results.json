@@ -1,0 +1,97 @@
+{
+  "frames": 16,
+  "per_species": 4,
+  "held_out_real_base_rate": 0.0433,
+  "sweep": [
+    {
+      "temperature": 0.7,
+      "top_k": 200,
+      "ngram_overlap": 0.9583,
+      "overlap_over_baseline": 22.1,
+      "detected_rate": 0.25,
+      "mean_conf": 0.146,
+      "mean_dur_sec": 3.0
+    },
+    {
+      "temperature": 0.7,
+      "top_k": null,
+      "ngram_overlap": 0.9167,
+      "overlap_over_baseline": 21.2,
+      "detected_rate": 0.208,
+      "mean_conf": 0.139,
+      "mean_dur_sec": 2.94
+    },
+    {
+      "temperature": 0.85,
+      "top_k": 200,
+      "ngram_overlap": 0.6667,
+      "overlap_over_baseline": 15.4,
+      "detected_rate": 0.417,
+      "mean_conf": 0.307,
+      "mean_dur_sec": 2.83
+    },
+    {
+      "temperature": 0.85,
+      "top_k": null,
+      "ngram_overlap": 0.5417,
+      "overlap_over_baseline": 12.5,
+      "detected_rate": 0.292,
+      "mean_conf": 0.251,
+      "mean_dur_sec": 2.75
+    },
+    {
+      "temperature": 1.0,
+      "top_k": 200,
+      "ngram_overlap": 0.25,
+      "overlap_over_baseline": 5.8,
+      "detected_rate": 0.292,
+      "mean_conf": 0.231,
+      "mean_dur_sec": 2.26
+    },
+    {
+      "temperature": 1.0,
+      "top_k": null,
+      "ngram_overlap": 0.1667,
+      "overlap_over_baseline": 3.8,
+      "detected_rate": 0.375,
+      "mean_conf": 0.253,
+      "mean_dur_sec": 2.18
+    },
+    {
+      "temperature": 1.15,
+      "top_k": 200,
+      "ngram_overlap": 0.0435,
+      "overlap_over_baseline": 1.0,
+      "detected_rate": 0.375,
+      "mean_conf": 0.194,
+      "mean_dur_sec": 1.73
+    },
+    {
+      "temperature": 1.15,
+      "top_k": null,
+      "ngram_overlap": 0.0,
+      "overlap_over_baseline": 0.0,
+      "detected_rate": 0.25,
+      "mean_conf": 0.142,
+      "mean_dur_sec": 1.71
+    },
+    {
+      "temperature": 1.3,
+      "top_k": 200,
+      "ngram_overlap": 0.0,
+      "overlap_over_baseline": 0.0,
+      "detected_rate": 0.25,
+      "mean_conf": 0.166,
+      "mean_dur_sec": 1.46
+    },
+    {
+      "temperature": 1.3,
+      "top_k": null,
+      "ngram_overlap": 0.0,
+      "overlap_over_baseline": 0.0,
+      "detected_rate": 0.042,
+      "mean_conf": 0.05,
+      "mean_dur_sec": 1.62
+    }
+  ]
+}

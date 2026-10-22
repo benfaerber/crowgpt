@@ -1,0 +1,173 @@
+{
+  "selection": {
+    "validation_bouts": 5033,
+    "split": "val",
+    "metric": "American Crow canonical token-weighted cross entropy",
+    "checkpoints": [
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/model-longctx/model.pt",
+        "step": 30000,
+        "full_ac_val": 4.792704081625476,
+        "checkpoint_sha256": "e0858aae30d2e18cfb6a627c68ce24bd86ba0ab9b861c7cde46b530e2d58b4c5"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/model-crowgpt3-candidate-0085/model.pt",
+        "step": 14000,
+        "full_ac_val": 5.036698097921064,
+        "checkpoint_sha256": "65b573e59d52148938372a317a940f40e43fde6793b021945c6c75039fc7c266"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-05000.pt",
+        "step": 5000,
+        "full_ac_val": 5.553824681632653,
+        "checkpoint_sha256": "752ddfc4465e598292e0d3b6a2219c3f44fdf97bfc5570ad2c10dbab8340d8ed"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-10000.pt",
+        "step": 10000,
+        "full_ac_val": 5.239713834883617,
+        "checkpoint_sha256": "f250c304462e2b585797f8808dd9f2a8086e8eda0cffbbdd6c7f2de4ca714514"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-15000.pt",
+        "step": 15000,
+        "full_ac_val": 5.0834602927247285,
+        "checkpoint_sha256": "bb4fadcf68d1ade5cd392ad5f44c0377f1ce37aaaed80242a440c4ff9a9c2d91"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-20000.pt",
+        "step": 20000,
+        "full_ac_val": 5.004833781042395,
+        "checkpoint_sha256": "e8e96bcdbc46011f46b83f43f65b891d2e792d4da363ce00b60a8dcef22e7851"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-25000.pt",
+        "step": 25000,
+        "full_ac_val": 4.9632217797690155,
+        "checkpoint_sha256": "e139a5a2169602d4b3b2edca5ffcd6f87a6897d42e902cea6ae17d24beab341f"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-30000.pt",
+        "step": 30000,
+        "full_ac_val": 4.9452875055848775,
+        "checkpoint_sha256": "e764e6ea70dd81f879e2117d4f67daad010f9cc27b393c0d57363e815f063a99"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-05000.pt",
+        "step": 5000,
+        "full_ac_val": 5.515686397837129,
+        "checkpoint_sha256": "518f2f116ba48d9d112cc39df77af97dcd8c588b45c128017b257d393e3a4bd4"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-10000.pt",
+        "step": 10000,
+        "full_ac_val": 5.25128122982621,
+        "checkpoint_sha256": "0ee313d493d2138b4a244d6d2ddf86b97fbaaf7f876cf99665719baa4e849684"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-15000.pt",
+        "step": 15000,
+        "full_ac_val": 5.090122162876279,
+        "checkpoint_sha256": "8651ba1e1fc3ac40a5671891f0150143036daa865ee632e003b771df299ed122"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-20000.pt",
+        "step": 20000,
+        "full_ac_val": 5.003041769684746,
+        "checkpoint_sha256": "b018db7ce4de11e40686882fdb165c5d447cae53e353b7f685a1dd97127d6b59"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-25000.pt",
+        "step": 25000,
+        "full_ac_val": 4.958964025108217,
+        "checkpoint_sha256": "18c33873e611e09dba40cfc1c8e80b747b4279b7aad48376a0edca002d4e5ea1"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-30000.pt",
+        "step": 30000,
+        "full_ac_val": 4.9388479330114246,
+        "checkpoint_sha256": "e445d6d36622c91f3670826d089c82d6f06fecff9d53dd40e258c23eb254b025"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-05000.pt",
+        "step": 5000,
+        "full_ac_val": 5.5020685060711925,
+        "checkpoint_sha256": "980fd1373b65f2ef6eb16b5dd32031c18d0ad3ed5a6b395b377d585e54e3d8ca"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-10000.pt",
+        "step": 10000,
+        "full_ac_val": 5.150753749753261,
+        "checkpoint_sha256": "f68af6bc5071e1405ea458e2394203c5b5f03e38d14056b2e2c51d5c7c7d83de"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-15000.pt",
+        "step": 15000,
+        "full_ac_val": 5.016197778182594,
+        "checkpoint_sha256": "c5279dad2b0c415453367eea1c9b5f034d08961b49d66dd8406e4d2d4a1eac81"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-20000.pt",
+        "step": 20000,
+        "full_ac_val": 4.9373711128320625,
+        "checkpoint_sha256": "f923ddbad463fc095298858d13b44dba524afe75076cfb02a2eb9dcff72fae11"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-25000.pt",
+        "step": 25000,
+        "full_ac_val": 4.890909362689015,
+        "checkpoint_sha256": "bf11acef317bc2b930b74643dbea6d0d72adb490f37fac54e33c7fe7e5962635"
+      },
+      {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-30000.pt",
+        "step": 30000,
+        "full_ac_val": 4.86898069019548,
+        "checkpoint_sha256": "e581befbedfd91659aa33e1c2028f14333ab029a8b40c8eef12ab632f77b1e91"
+      }
+    ],
+    "winner": {
+      "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-30000.pt",
+      "step": 30000,
+      "full_ac_val": 4.86898069019548,
+      "checkpoint_sha256": "e581befbedfd91659aa33e1c2028f14333ab029a8b40c8eef12ab632f77b1e91"
+    }
+  },
+  "gate": {
+    "real": {
+      "n": 200,
+      "mean_units": 3.95,
+      "gaps_per_clip": 3.075,
+      "single_share": 0.195,
+      "median_gap_s": 0.30933333333333335,
+      "dust_rate": 0.17714285714285713,
+      "dust_scored_n": 175,
+      "mean_crescendo": 0.014734040613309539,
+      "crescendo_scored_n": 161
+    },
+    "crowgpt2": {
+      "n": 100,
+      "mean_units": 3.94,
+      "gaps_per_clip": 3.11,
+      "single_share": 0.22,
+      "median_gap_s": 0.2773333333333333,
+      "dust_rate": 0.3493975903614458,
+      "dust_scored_n": 83,
+      "mean_crescendo": 0.024905029773752443,
+      "crescendo_scored_n": 78
+    },
+    "candidate": {
+      "n": 100,
+      "mean_units": 4.06,
+      "gaps_per_clip": 3.17,
+      "single_share": 0.23,
+      "median_gap_s": 0.288,
+      "dust_rate": 0.23595505617977527,
+      "dust_scored_n": 89,
+      "mean_crescendo": -0.0006792174892492835,
+      "crescendo_scored_n": 77
+    }
+  },
+  "pool": "capacity-0086",
+  "trials": 48,
+  "release": "CrowGPT2 unchanged; listening pending"
+}

@@ -1,0 +1,48 @@
+{
+  "rate_vs_snr_r": -0.24085236339307162,
+  "n_recordings_for_r": 5,
+  "matched_pair": {
+    "stranger": {
+      "snr_db": 25.573299471248024,
+      "units": 49,
+      "unit_rate": 0.5632183908045977,
+      "duration": 0.22400000000000375,
+      "peak_hz": 1546.0526315789475,
+      "centroid_hz": 1651.6571221483252,
+      "flatness": 0.10073973029440693,
+      "high_fraction": 0.08026749568585889
+    },
+    "stranger degraded": {
+      "snr_db": 16.4326560348344,
+      "units": 25,
+      "unit_rate": 0.28735632183908044,
+      "duration": 0.16799999999999216,
+      "peak_hz": 1593.75,
+      "centroid_hz": 1697.0978655826718,
+      "flatness": 0.1268720520903804,
+      "high_fraction": 0.09985681581657094
+    },
+    "recordist alone": {
+      "snr_db": 16.482587837593755,
+      "units": 4,
+      "unit_rate": 0.2222222222222222,
+      "duration": 0.1280000000000001,
+      "peak_hz": 1618.4782608695652,
+      "centroid_hz": 1640.8242329293034,
+      "flatness": 0.11138846265731422,
+      "high_fraction": 0.0566244990183697
+    }
+  },
+  "gap_kept_after_degrading": {
+    "duration": 0.416666666666568,
+    "peak_hz": 0.34142969984202304,
+    "flatness": -1.454031231642194,
+    "high_fraction": 1.828546415084885
+  },
+  "units_lost_to_degrading": 0.4897959183673469,
+  "recordings_per_group": {
+    "known": 3,
+    "stranger": 1
+  },
+  "testable": false
+}

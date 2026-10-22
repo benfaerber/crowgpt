@@ -1,0 +1,22 @@
+{
+  "checkpoint_steps": {
+    "spectral": 110000,
+    "adversarial": 130000
+  },
+  "fad_floor_raw_vs_raw": 30.884,
+  "frozen": {
+    "ast_fad": 51.411,
+    "unit_delta": -0.188,
+    "stft_logged": 1.1477
+  },
+  "spectral": {
+    "ast_fad": 44.691,
+    "unit_delta": 0.078,
+    "stft_logged": 1.0091
+  },
+  "adversarial": {
+    "ast_fad": 34.213,
+    "unit_delta": 0.0,
+    "stft_logged": 1.1953
+  }
+}

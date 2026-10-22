@@ -1,0 +1,188 @@
+{
+  "n_windows": 300,
+  "per_species": {
+    "american-crow": 50,
+    "carrion-crow": 50,
+    "common-raven": 50,
+    "eurasian-jackdaw": 50,
+    "hooded-crow": 50,
+    "rook": 50
+  },
+  "criterion": {
+    "retain_min": 0.9,
+    "median_delta_conf_min": -0.05,
+    "stft_max_share_of_anchor": 0.5,
+    "anchor_arm": "lowpass_2k"
+  },
+  "arms": {
+    "native": {
+      "mean_conf": 0.7522,
+      "retain_rate": 1.0,
+      "median_delta_conf": 0.0,
+      "stft_distance": null
+    },
+    "resample_24k": {
+      "mean_conf": 0.774,
+      "retain_rate": 0.9867,
+      "median_delta_conf": 0.0073,
+      "stft_distance": 0.0
+    },
+    "lowpass_2k": {
+      "mean_conf": 0.5166,
+      "retain_rate": 0.7333,
+      "median_delta_conf": -0.1897,
+      "stft_distance": 4.7517
+    },
+    "encodec_1.5kbps": {
+      "mean_conf": 0.2549,
+      "retain_rate": 0.3733,
+      "median_delta_conf": -0.5122,
+      "stft_distance": 1.5813,
+      "codebook_entropy_bits": [
+        6.3,
+        7.06
+      ],
+      "n_codebooks": 2,
+      "passes": false,
+      "checks": {
+        "retain": false,
+        "delta_conf": false,
+        "spectral": true
+      }
+    },
+    "encodec_3kbps": {
+      "mean_conf": 0.5135,
+      "retain_rate": 0.69,
+      "median_delta_conf": -0.1916,
+      "stft_distance": 1.4629,
+      "codebook_entropy_bits": [
+        6.3,
+        7.06,
+        7.34,
+        7.5
+      ],
+      "n_codebooks": 4,
+      "passes": false,
+      "checks": {
+        "retain": false,
+        "delta_conf": false,
+        "spectral": true
+      }
+    },
+    "encodec_3kbps_x2": {
+      "mean_conf": 0.3794,
+      "retain_rate": 0.5267,
+      "median_delta_conf": -0.3682,
+      "stft_distance": 1.6188,
+      "passes": false,
+      "checks": {
+        "retain": false,
+        "delta_conf": false,
+        "spectral": true
+      }
+    },
+    "encodec_6kbps": {
+      "mean_conf": 0.6361,
+      "retain_rate": 0.81,
+      "median_delta_conf": -0.0299,
+      "stft_distance": 1.3547,
+      "codebook_entropy_bits": [
+        6.3,
+        7.06,
+        7.34,
+        7.5,
+        7.63,
+        7.73,
+        7.8,
+        7.84
+      ],
+      "n_codebooks": 8,
+      "passes": false,
+      "checks": {
+        "retain": false,
+        "delta_conf": true,
+        "spectral": true
+      }
+    },
+    "encodec_12kbps": {
+      "mean_conf": 0.687,
+      "retain_rate": 0.8767,
+      "median_delta_conf": -0.0053,
+      "stft_distance": 1.2473,
+      "codebook_entropy_bits": [
+        6.3,
+        7.06,
+        7.34,
+        7.5,
+        7.63,
+        7.73,
+        7.8,
+        7.84,
+        7.95,
+        7.95,
+        8.0,
+        8.07,
+        8.05,
+        8.1,
+        8.11,
+        8.18
+      ],
+      "n_codebooks": 16,
+      "passes": false,
+      "checks": {
+        "retain": false,
+        "delta_conf": true,
+        "spectral": true
+      }
+    },
+    "encodec_24kbps": {
+      "mean_conf": 0.7008,
+      "retain_rate": 0.8867,
+      "median_delta_conf": -0.0039,
+      "stft_distance": 1.1951,
+      "codebook_entropy_bits": [
+        6.3,
+        7.06,
+        7.34,
+        7.5,
+        7.63,
+        7.73,
+        7.8,
+        7.84,
+        7.95,
+        7.95,
+        8.0,
+        8.07,
+        8.05,
+        8.1,
+        8.11,
+        8.18,
+        8.17,
+        8.02,
+        8.56,
+        8.61,
+        8.64,
+        8.64,
+        8.67,
+        8.66,
+        8.64,
+        8.62,
+        8.63,
+        8.62,
+        8.59,
+        8.58,
+        8.56,
+        8.54
+      ],
+      "n_codebooks": 32,
+      "passes": false,
+      "checks": {
+        "retain": false,
+        "delta_conf": true,
+        "spectral": true
+      }
+    }
+  },
+  "passing_arms": [],
+  "recommended_bandwidth": null
+}

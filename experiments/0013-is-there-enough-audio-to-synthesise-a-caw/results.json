@@ -1,0 +1,694 @@
+{
+  "files_read": 2675,
+  "files_failed": 0,
+  "errors": [],
+  "total_hours": 40.8,
+  "lossless_hours": 14.33,
+  "lossy_hours": 26.47,
+  "codecs": {
+    "mp3": 1518,
+    "pcm_s16le": 982,
+    "pcm_s24le": 134,
+    "pcm_f32le": 33,
+    "pcm_s32le": 5,
+    "flac": 3
+  },
+  "sample_rates": {
+    "8000": 2,
+    "16000": 7,
+    "22050": 4,
+    "24000": 31,
+    "32000": 73,
+    "44100": 1541,
+    "48000": 990,
+    "48048": 4,
+    "96000": 20,
+    "192000": 3
+  },
+  "per_species": {
+    "american-crow": {
+      "files": 176,
+      "hours": 2.65,
+      "windows": 3098,
+      "crow_windows": 1666,
+      "candidate_windows": 219,
+      "crow_share": 0.538,
+      "crow_hours": 1.39,
+      "units": 4324,
+      "unit_seconds": 2353.6,
+      "median_unit_sec": 0.296,
+      "files_with_no_crow": 12
+    },
+    "carrion-crow": {
+      "files": 499,
+      "hours": 5.73,
+      "windows": 6631,
+      "crow_windows": 3224,
+      "candidate_windows": 386,
+      "crow_share": 0.486,
+      "crow_hours": 2.69,
+      "units": 6243,
+      "unit_seconds": 5030.0,
+      "median_unit_sec": 0.512,
+      "files_with_no_crow": 52
+    },
+    "common-raven": {
+      "files": 500,
+      "hours": 10.81,
+      "windows": 12728,
+      "crow_windows": 7092,
+      "candidate_windows": 842,
+      "crow_share": 0.557,
+      "crow_hours": 5.91,
+      "units": 15271,
+      "unit_seconds": 10453.8,
+      "median_unit_sec": 0.368,
+      "files_with_no_crow": 26
+    },
+    "eurasian-jackdaw": {
+      "files": 500,
+      "hours": 6.47,
+      "windows": 7518,
+      "crow_windows": 6068,
+      "candidate_windows": 253,
+      "crow_share": 0.807,
+      "crow_hours": 5.06,
+      "units": 17461,
+      "unit_seconds": 7993.7,
+      "median_unit_sec": 0.224,
+      "files_with_no_crow": 14
+    },
+    "hooded-crow": {
+      "files": 500,
+      "hours": 5.94,
+      "windows": 6932,
+      "crow_windows": 2634,
+      "candidate_windows": 453,
+      "crow_share": 0.38,
+      "crow_hours": 2.19,
+      "units": 5453,
+      "unit_seconds": 3653.9,
+      "median_unit_sec": 0.456,
+      "files_with_no_crow": 92
+    },
+    "rook": {
+      "files": 500,
+      "hours": 9.2,
+      "windows": 10806,
+      "crow_windows": 8694,
+      "candidate_windows": 594,
+      "crow_share": 0.805,
+      "crow_hours": 7.25,
+      "units": 19493,
+      "unit_seconds": 12880.6,
+      "median_unit_sec": 0.456,
+      "files_with_no_crow": 19
+    }
+  },
+  "crow": {
+    "windows": 29378,
+    "hours": 24.48,
+    "share_of_grid": 0.616,
+    "candidate_windows": 2747
+  },
+  "units": {
+    "n": 68245,
+    "seconds": 42365.4,
+    "hours": 11.77,
+    "per_crow_window": 2.32,
+    "p10": 0.104,
+    "median": 0.376,
+    "p90": 1.264,
+    "duty_cycle_in_crow_windows": 0.481
+  },
+  "control_empty_windows": {
+    "windows": 8567,
+    "units": 10661,
+    "per_window": 1.24,
+    "median": 0.184
+  },
+  "control_gradient": {
+    "bands": [
+      "0.00-0.10",
+      "0.10-0.25",
+      "0.25-0.50",
+      "0.50-0.75",
+      "0.75-1.00"
+    ],
+    "by_threshold": {
+      "6": {
+        "0.00-0.10": {
+          "windows": 15588,
+          "units": 28455,
+          "per_window": 1.83,
+          "duty_cycle": 0.268
+        },
+        "0.10-0.25": {
+          "windows": 2747,
+          "units": 6336,
+          "per_window": 2.31,
+          "duty_cycle": 0.416
+        },
+        "0.25-0.50": {
+          "windows": 4051,
+          "units": 9112,
+          "per_window": 2.25,
+          "duty_cycle": 0.466
+        },
+        "0.50-0.75": {
+          "windows": 5600,
+          "units": 12398,
+          "per_window": 2.21,
+          "duty_cycle": 0.506
+        },
+        "0.75-1.00": {
+          "windows": 19727,
+          "units": 45397,
+          "per_window": 2.3,
+          "duty_cycle": 0.593
+        }
+      },
+      "8": {
+        "0.00-0.10": {
+          "windows": 15588,
+          "units": 23236,
+          "per_window": 1.49,
+          "duty_cycle": 0.188
+        },
+        "0.10-0.25": {
+          "windows": 2747,
+          "units": 5984,
+          "per_window": 2.18,
+          "duty_cycle": 0.335
+        },
+        "0.25-0.50": {
+          "windows": 4051,
+          "units": 8956,
+          "per_window": 2.21,
+          "duty_cycle": 0.386
+        },
+        "0.50-0.75": {
+          "windows": 5600,
+          "units": 12452,
+          "per_window": 2.22,
+          "duty_cycle": 0.435
+        },
+        "0.75-1.00": {
+          "windows": 19727,
+          "units": 46837,
+          "per_window": 2.37,
+          "duty_cycle": 0.513
+        }
+      },
+      "12": {
+        "0.00-0.10": {
+          "windows": 15588,
+          "units": 15967,
+          "per_window": 1.02,
+          "duty_cycle": 0.109
+        },
+        "0.10-0.25": {
+          "windows": 2747,
+          "units": 5059,
+          "per_window": 1.84,
+          "duty_cycle": 0.238
+        },
+        "0.25-0.50": {
+          "windows": 4051,
+          "units": 8022,
+          "per_window": 1.98,
+          "duty_cycle": 0.278
+        },
+        "0.50-0.75": {
+          "windows": 5600,
+          "units": 11659,
+          "per_window": 2.08,
+          "duty_cycle": 0.328
+        },
+        "0.75-1.00": {
+          "windows": 19727,
+          "units": 45251,
+          "per_window": 2.29,
+          "duty_cycle": 0.387
+        }
+      }
+    }
+  },
+  "bandwidth": {
+    "n_units": 68245,
+    "rolloff_p50_hz": 2687.5,
+    "rolloff_p90_hz": 5812.5,
+    "rolloff_p99_hz": 11500.0,
+    "share_under_8k": 0.968
+  },
+  "contamination": {
+    "distinct_non_corvid_species": 1381,
+    "top": [
+      [
+        "Common Wood-Pigeon",
+        371
+      ],
+      [
+        "Egyptian Goose",
+        236
+      ],
+      [
+        "House Sparrow",
+        224
+      ],
+      [
+        "Eurasian Blackbird",
+        163
+      ],
+      [
+        "Great Spotted Woodpecker",
+        162
+      ],
+      [
+        "Eurasian Jay",
+        159
+      ],
+      [
+        "Common Swift",
+        155
+      ],
+      [
+        "European Robin",
+        154
+      ],
+      [
+        "Great Tit",
+        153
+      ],
+      [
+        "Common Crane",
+        150
+      ],
+      [
+        "Red-billed Chough",
+        130
+      ],
+      [
+        "Eurasian Blue Tit",
+        122
+      ],
+      [
+        "Engine",
+        119
+      ],
+      [
+        "Short-toed Treecreeper",
+        118
+      ],
+      [
+        "Coal Tit",
+        116
+      ]
+    ]
+  },
+  "field": {
+    "captures_with_audio": 94,
+    "kept": 14,
+    "kept_minutes": 8.6,
+    "unkept_minutes": 20.7
+  },
+  "label_grid": {
+    "labels": 35,
+    "labels_measured": 35,
+    "off_grid": [],
+    "all_on_3s_grid": true,
+    "label_span_seconds": 216.0,
+    "units_found": 220,
+    "units_per_label_median": 3.0,
+    "units_per_label_max": 41,
+    "single_unit_labels": 5,
+    "multi_unit_labels": 25,
+    "empty_labels": 5,
+    "call_seconds_inside_labels": 67.7,
+    "per_label": [
+      {
+        "capture": 69,
+        "start": 45.0,
+        "end": 54.0,
+        "call_type": "call",
+        "span_sec": 9.0,
+        "units": 6,
+        "unit_seconds": 4.02
+      },
+      {
+        "capture": 75,
+        "start": 21.0,
+        "end": 24.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 0,
+        "unit_seconds": 0
+      },
+      {
+        "capture": 75,
+        "start": 30.0,
+        "end": 60.0,
+        "call_type": "song",
+        "span_sec": 30.0,
+        "units": 25,
+        "unit_seconds": 12.86
+      },
+      {
+        "capture": 75,
+        "start": 63.0,
+        "end": 66.0,
+        "call_type": "call",
+        "span_sec": 3.0,
+        "units": 1,
+        "unit_seconds": 0.71
+      },
+      {
+        "capture": 75,
+        "start": 72.0,
+        "end": 75.0,
+        "call_type": "call",
+        "span_sec": 3.0,
+        "units": 2,
+        "unit_seconds": 1.02
+      },
+      {
+        "capture": 75,
+        "start": 72.0,
+        "end": 75.0,
+        "call_type": "call",
+        "span_sec": 3.0,
+        "units": 2,
+        "unit_seconds": 1.02
+      },
+      {
+        "capture": 75,
+        "start": 87.0,
+        "end": 96.0,
+        "call_type": "flight call",
+        "span_sec": 9.0,
+        "units": 6,
+        "unit_seconds": 2.58
+      },
+      {
+        "capture": 75,
+        "start": 93.0,
+        "end": 96.0,
+        "call_type": "call",
+        "span_sec": 3.0,
+        "units": 3,
+        "unit_seconds": 0.46
+      },
+      {
+        "capture": 75,
+        "start": 99.0,
+        "end": 108.0,
+        "call_type": "alarm call",
+        "span_sec": 9.0,
+        "units": 17,
+        "unit_seconds": 4.37
+      },
+      {
+        "capture": 75,
+        "start": 105.0,
+        "end": 108.0,
+        "call_type": "call",
+        "span_sec": 3.0,
+        "units": 8,
+        "unit_seconds": 1.76
+      },
+      {
+        "capture": 75,
+        "start": 108.0,
+        "end": 120.0,
+        "call_type": "call",
+        "span_sec": 12.0,
+        "units": 41,
+        "unit_seconds": 5.57
+      },
+      {
+        "capture": 88,
+        "start": 3.0,
+        "end": 6.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 4,
+        "unit_seconds": 0.86
+      },
+      {
+        "capture": 88,
+        "start": 9.0,
+        "end": 12.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 3,
+        "unit_seconds": 0.64
+      },
+      {
+        "capture": 88,
+        "start": 12.0,
+        "end": 15.0,
+        "call_type": "not_a_crow",
+        "span_sec": 3.0,
+        "units": 0,
+        "unit_seconds": 0
+      },
+      {
+        "capture": 88,
+        "start": 15.0,
+        "end": 18.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 1,
+        "unit_seconds": 0.2
+      },
+      {
+        "capture": 100,
+        "start": 0.0,
+        "end": 12.0,
+        "call_type": "call",
+        "span_sec": 12.0,
+        "units": 16,
+        "unit_seconds": 4.33
+      },
+      {
+        "capture": 100,
+        "start": 12.0,
+        "end": 15.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 1,
+        "unit_seconds": 0.12
+      },
+      {
+        "capture": 100,
+        "start": 15.0,
+        "end": 18.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 3,
+        "unit_seconds": 1.07
+      },
+      {
+        "capture": 100,
+        "start": 21.0,
+        "end": 24.0,
+        "call_type": "not_a_crow",
+        "span_sec": 3.0,
+        "units": 1,
+        "unit_seconds": 0.14
+      },
+      {
+        "capture": 100,
+        "start": 33.0,
+        "end": 42.0,
+        "call_type": "alarm call",
+        "span_sec": 9.0,
+        "units": 10,
+        "unit_seconds": 2.17
+      },
+      {
+        "capture": 100,
+        "start": 42.0,
+        "end": 45.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 1,
+        "unit_seconds": 0.13
+      },
+      {
+        "capture": 100,
+        "start": 48.0,
+        "end": 51.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 3,
+        "unit_seconds": 0.6
+      },
+      {
+        "capture": 100,
+        "start": 51.0,
+        "end": 60.0,
+        "call_type": "alarm call",
+        "span_sec": 9.0,
+        "units": 8,
+        "unit_seconds": 1.46
+      },
+      {
+        "capture": 100,
+        "start": 66.0,
+        "end": 78.0,
+        "call_type": "alarm call",
+        "span_sec": 12.0,
+        "units": 18,
+        "unit_seconds": 6.24
+      },
+      {
+        "capture": 100,
+        "start": 81.0,
+        "end": 84.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 2,
+        "unit_seconds": 0.82
+      },
+      {
+        "capture": 102,
+        "start": 0.0,
+        "end": 3.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 4,
+        "unit_seconds": 0.36
+      },
+      {
+        "capture": 103,
+        "start": 0.0,
+        "end": 9.0,
+        "call_type": "call",
+        "span_sec": 9.0,
+        "units": 5,
+        "unit_seconds": 4.25
+      },
+      {
+        "capture": 103,
+        "start": 15.0,
+        "end": 18.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 0,
+        "unit_seconds": 0
+      },
+      {
+        "capture": 103,
+        "start": 24.0,
+        "end": 27.0,
+        "call_type": "unsure",
+        "span_sec": 3.0,
+        "units": 2,
+        "unit_seconds": 0.16
+      },
+      {
+        "capture": 103,
+        "start": 27.0,
+        "end": 30.0,
+        "call_type": "alarm call",
+        "span_sec": 3.0,
+        "units": 2,
+        "unit_seconds": 0.21
+      },
+      {
+        "capture": 104,
+        "start": 6.0,
+        "end": 9.0,
+        "call_type": "begging",
+        "span_sec": 3.0,
+        "units": 3,
+        "unit_seconds": 0.76
+      },
+      {
+        "capture": 104,
+        "start": 9.0,
+        "end": 27.0,
+        "call_type": "begging",
+        "span_sec": 18.0,
+        "units": 20,
+        "unit_seconds": 7.66
+      },
+      {
+        "capture": 104,
+        "start": 27.0,
+        "end": 30.0,
+        "call_type": "begging",
+        "span_sec": 3.0,
+        "units": 2,
+        "unit_seconds": 1.14
+      },
+      {
+        "capture": 104,
+        "start": 39.0,
+        "end": 42.0,
+        "call_type": "begging",
+        "span_sec": 3.0,
+        "units": 0,
+        "unit_seconds": 0
+      },
+      {
+        "capture": 104,
+        "start": 42.0,
+        "end": 51.0,
+        "call_type": "call",
+        "span_sec": 9.0,
+        "units": 0,
+        "unit_seconds": 0
+      }
+    ]
+  },
+  "archive_also": {
+    "recordings": 173,
+    "with_other_species": 49,
+    "share": 0.283,
+    "distinct": 49,
+    "top": [
+      [
+        "Cardinalis cardinalis",
+        7
+      ],
+      [
+        "Melospiza melodia",
+        7
+      ],
+      [
+        "Poecile atricapillus",
+        6
+      ],
+      [
+        "Sitta carolinensis",
+        5
+      ],
+      [
+        "Turdus migratorius",
+        5
+      ],
+      [
+        "Baeolophus bicolor",
+        4
+      ],
+      [
+        "Poecile carolinensis",
+        3
+      ],
+      [
+        "Corvus ossifragus",
+        3
+      ],
+      [
+        "Zenaida macroura",
+        3
+      ],
+      [
+        "Agelaius phoeniceus",
+        2
+      ]
+    ]
+  }
+}

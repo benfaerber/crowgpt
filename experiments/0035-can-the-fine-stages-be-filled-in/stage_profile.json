@@ -1,0 +1,270 @@
+{
+  "stages": [
+    {
+      "stage": 0,
+      "n": 3017,
+      "cross_entropy_bits": 27.7294,
+      "predictive_entropy_bits": 0.0965,
+      "marginal_bits": 6.3,
+      "bits_recovered": -21.4294,
+      "overconfidence": 27.6329,
+      "calibration_t": 1.6
+    },
+    {
+      "stage": 1,
+      "n": 3017,
+      "cross_entropy_bits": 10.0321,
+      "predictive_entropy_bits": 9.9482,
+      "marginal_bits": 7.06,
+      "bits_recovered": -2.9721,
+      "overconfidence": 0.0839,
+      "calibration_t": 1.6
+    },
+    {
+      "stage": 2,
+      "n": 3017,
+      "cross_entropy_bits": 9.9502,
+      "predictive_entropy_bits": 9.9494,
+      "marginal_bits": 7.34,
+      "bits_recovered": -2.6102,
+      "overconfidence": 0.0008,
+      "calibration_t": 1.0
+    },
+    {
+      "stage": 3,
+      "n": 3017,
+      "cross_entropy_bits": 9.9236,
+      "predictive_entropy_bits": 9.9445,
+      "marginal_bits": 7.5,
+      "bits_recovered": -2.4236,
+      "overconfidence": -0.0209,
+      "calibration_t": 0.85
+    },
+    {
+      "stage": 4,
+      "n": 3017,
+      "cross_entropy_bits": 9.9843,
+      "predictive_entropy_bits": 9.9498,
+      "marginal_bits": 7.63,
+      "bits_recovered": -2.3543,
+      "overconfidence": 0.0345,
+      "calibration_t": 1.55
+    },
+    {
+      "stage": 5,
+      "n": 3017,
+      "cross_entropy_bits": 9.967,
+      "predictive_entropy_bits": 9.9396,
+      "marginal_bits": 7.73,
+      "bits_recovered": -2.237,
+      "overconfidence": 0.0274,
+      "calibration_t": 1.3
+    },
+    {
+      "stage": 6,
+      "n": 3017,
+      "cross_entropy_bits": 9.9534,
+      "predictive_entropy_bits": 9.9394,
+      "marginal_bits": 7.8,
+      "bits_recovered": -2.1534,
+      "overconfidence": 0.014,
+      "calibration_t": 1.15
+    },
+    {
+      "stage": 7,
+      "n": 3017,
+      "cross_entropy_bits": 9.9852,
+      "predictive_entropy_bits": 9.9268,
+      "marginal_bits": 7.84,
+      "bits_recovered": -2.1452,
+      "overconfidence": 0.0584,
+      "calibration_t": 1.6
+    },
+    {
+      "stage": 8,
+      "n": 3017,
+      "cross_entropy_bits": 9.7963,
+      "predictive_entropy_bits": 9.7974,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0011,
+      "calibration_t": 1.0
+    },
+    {
+      "stage": 9,
+      "n": 3017,
+      "cross_entropy_bits": 9.8462,
+      "predictive_entropy_bits": 9.8317,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": 0.0145,
+      "calibration_t": 1.05
+    },
+    {
+      "stage": 10,
+      "n": 3017,
+      "cross_entropy_bits": 9.8567,
+      "predictive_entropy_bits": 9.8609,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0042,
+      "calibration_t": 1.0
+    },
+    {
+      "stage": 11,
+      "n": 3017,
+      "cross_entropy_bits": 9.9009,
+      "predictive_entropy_bits": 9.9015,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0006,
+      "calibration_t": 1.0
+    },
+    {
+      "stage": 12,
+      "n": 3017,
+      "cross_entropy_bits": 9.891,
+      "predictive_entropy_bits": 9.8985,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0076,
+      "calibration_t": 0.95
+    },
+    {
+      "stage": 13,
+      "n": 3017,
+      "cross_entropy_bits": 9.9271,
+      "predictive_entropy_bits": 9.9292,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.002,
+      "calibration_t": 1.0
+    },
+    {
+      "stage": 14,
+      "n": 3017,
+      "cross_entropy_bits": 9.923,
+      "predictive_entropy_bits": 9.9382,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0151,
+      "calibration_t": 0.9
+    },
+    {
+      "stage": 15,
+      "n": 3017,
+      "cross_entropy_bits": 9.8996,
+      "predictive_entropy_bits": 9.9233,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0237,
+      "calibration_t": 0.85
+    },
+    {
+      "stage": 16,
+      "n": 3017,
+      "cross_entropy_bits": 9.9366,
+      "predictive_entropy_bits": 9.942,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0055,
+      "calibration_t": 0.95
+    },
+    {
+      "stage": 17,
+      "n": 3017,
+      "cross_entropy_bits": 9.9427,
+      "predictive_entropy_bits": 9.9381,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": 0.0046,
+      "calibration_t": 1.05
+    },
+    {
+      "stage": 18,
+      "n": 3017,
+      "cross_entropy_bits": 9.958,
+      "predictive_entropy_bits": 9.9602,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0021,
+      "calibration_t": 0.95
+    },
+    {
+      "stage": 19,
+      "n": 3017,
+      "cross_entropy_bits": 9.9351,
+      "predictive_entropy_bits": 9.9423,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0072,
+      "calibration_t": 0.95
+    },
+    {
+      "stage": 20,
+      "n": 3017,
+      "cross_entropy_bits": 9.955,
+      "predictive_entropy_bits": 9.9508,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": 0.0042,
+      "calibration_t": 1.05
+    },
+    {
+      "stage": 21,
+      "n": 3017,
+      "cross_entropy_bits": 9.9609,
+      "predictive_entropy_bits": 9.9618,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.001,
+      "calibration_t": 1.0
+    },
+    {
+      "stage": 22,
+      "n": 3017,
+      "cross_entropy_bits": 9.9762,
+      "predictive_entropy_bits": 9.9687,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": 0.0075,
+      "calibration_t": 1.15
+    },
+    {
+      "stage": 23,
+      "n": 3017,
+      "cross_entropy_bits": 9.9568,
+      "predictive_entropy_bits": 9.9691,
+      "marginal_bits": NaN,
+      "bits_recovered": NaN,
+      "overconfidence": -0.0123,
+      "calibration_t": 0.85
+    }
+  ],
+  "prefix": {
+    "n": 48,
+    "cross_entropy_bits": 1.3564,
+    "calibration_t": 1.0
+  },
+  "species": {
+    "american-crow": 10.681,
+    "carrion-crow": 10.6986,
+    "common-raven": 10.4203,
+    "eurasian-jackdaw": 10.6053,
+    "hooded-crow": 10.4927,
+    "rook": 10.7215
+  },
+  "eos": {
+    "ending": {
+      "n": 24,
+      "median_rank": 0.0,
+      "inside_top_200": 1.0
+    },
+    "mid": {
+      "n": 3017,
+      "median_rank": 0.0,
+      "inside_top_200": 0.9997
+    }
+  },
+  "verdict": "no clean reading; look at the table"
+}

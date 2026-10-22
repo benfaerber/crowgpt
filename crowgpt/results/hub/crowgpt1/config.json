@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "architecture": "crowgpt",
+  "config": {
+    "vocab_size": 8247,
+    "n_codebooks": 8,
+    "block_size": 1811,
+    "n_layer": 8,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.0,
+    "prefix_len": 2
+  },
+  "manifest": {
+    "bandwidth": 6.0,
+    "n_codebooks": 8,
+    "codec": "encodec-24khz",
+    "vocab_size": 8247,
+    "species": [
+      "american-crow",
+      "australian-raven",
+      "bismarck-crow",
+      "bougainville-crow",
+      "brown-headed-crow",
+      "brown-necked-raven",
+      "cape-crow",
+      "carrion-crow",
+      "chihuahuan-raven",
+      "collared-crow",
+      "common-raven",
+      "cuban-crow",
+      "cuban-palm-crow",
+      "daurian-jackdaw",
+      "eastern-jungle-crow",
+      "eurasian-jackdaw",
+      "fan-tailed-raven",
+      "fish-crow",
+      "flores-crow",
+      "forest-raven",
+      "grey-crow",
+      "hispaniolan-palm-crow",
+      "hooded-crow",
+      "house-crow",
+      "indian-jungle-crow",
+      "jamaican-crow",
+      "large-billed-crow",
+      "little-crow",
+      "little-raven",
+      "long-billed-crow",
+      "mariana-crow",
+      "new-caledonian-crow",
+      "palawan-crow",
+      "pied-crow",
+      "piping-crow",
+      "rook",
+      "sinaloa-crow",
+      "slender-billed-crow",
+      "small-crow",
+      "somali-crow",
+      "tamaulipas-crow",
+      "thick-billed-raven",
+      "torresian-crow",
+      "white-billed-crow",
+      "white-necked-crow",
+      "white-necked-raven"
+    ],
+    "call_types": [],
+    "eos": 8192,
+    "species_base": 8193,
+    "calltype_base": 8239,
+    "duration_base": 8239,
+    "n_buckets": 8,
+    "prefix_len": 2,
+    "splits": {
+      "train": {
+        "sequences": 214090,
+        "tokens": 233954510,
+        "canonical": 107045
+      },
+      "val": {
+        "sequences": 10417,
+        "tokens": 11415427,
+        "canonical": 10417
+      },
+      "test": {
+        "sequences": 10091,
+        "tokens": 11168465,
+        "canonical": 10091
+      }
+    }
+  },
+  "trained": {
+    "step": 27500,
+    "val_loss": 4.575035834312439
+  }
+}

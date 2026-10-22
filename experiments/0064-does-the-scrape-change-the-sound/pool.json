@@ -1,0 +1,535 @@
+{
+  "name": "scrape-v3-0064",
+  "question": "Which of the two sounds <strong>less</strong> synthetic \u2014 less robotic, garbled, xylophone-ish? Both may be good now; say which is closer to a real crow anyway. The reference clip is a real recording to recalibrate against, and \u201cthey are the same\u201d is a real answer.",
+  "clip_dir": "/home/ben/Code/cawtalker/crowgpt/results/listening-pools/scrape-v3-0064",
+  "trials": [
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-21.wav",
+      "first_clip": "trial-21-first.wav",
+      "second_clip": "trial-21-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "real",
+      "facts": {
+        "pairpage_trial": 21
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-22.wav",
+      "first_clip": "trial-22-first.wav",
+      "second_clip": "trial-22-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 22
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-23.wav",
+      "first_clip": "trial-23-first.wav",
+      "second_clip": "trial-23-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 23
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-24.wav",
+      "first_clip": "trial-24-first.wav",
+      "second_clip": "trial-24-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "real",
+      "facts": {
+        "pairpage_trial": 24
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-25.wav",
+      "first_clip": "trial-25-first.wav",
+      "second_clip": "trial-25-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 25
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-26.wav",
+      "first_clip": "trial-26-first.wav",
+      "second_clip": "trial-26-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 26
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-27.wav",
+      "first_clip": "trial-27-first.wav",
+      "second_clip": "trial-27-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 27
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-28.wav",
+      "first_clip": "trial-28-first.wav",
+      "second_clip": "trial-28-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 28
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-29.wav",
+      "first_clip": "trial-29-first.wav",
+      "second_clip": "trial-29-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 29
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-30.wav",
+      "first_clip": "trial-30-first.wav",
+      "second_clip": "trial-30-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 30
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-31.wav",
+      "first_clip": "trial-31-first.wav",
+      "second_clip": "trial-31-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 31
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-32.wav",
+      "first_clip": "trial-32-first.wav",
+      "second_clip": "trial-32-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 32
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-33.wav",
+      "first_clip": "trial-33-first.wav",
+      "second_clip": "trial-33-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 33
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-34.wav",
+      "first_clip": "trial-34-first.wav",
+      "second_clip": "trial-34-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 34
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-35.wav",
+      "first_clip": "trial-35-first.wav",
+      "second_clip": "trial-35-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 35
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-36.wav",
+      "first_clip": "trial-36-first.wav",
+      "second_clip": "trial-36-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 36
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-37.wav",
+      "first_clip": "trial-37-first.wav",
+      "second_clip": "trial-37-second.wav",
+      "first_arm": "real",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 37
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-38.wav",
+      "first_clip": "trial-38-first.wav",
+      "second_clip": "trial-38-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 38
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "anchor-39.wav",
+      "first_clip": "trial-39-first.wav",
+      "second_clip": "trial-39-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 39
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "anchor-40.wav",
+      "first_clip": "trial-40-first.wav",
+      "second_clip": "trial-40-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "real",
+      "facts": {
+        "pairpage_trial": 40
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-41.wav",
+      "first_clip": "trial-41-first.wav",
+      "second_clip": "trial-41-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 41
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-42.wav",
+      "first_clip": "trial-42-first.wav",
+      "second_clip": "trial-42-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 42
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-43.wav",
+      "first_clip": "trial-43-first.wav",
+      "second_clip": "trial-43-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 43
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-44.wav",
+      "first_clip": "trial-44-first.wav",
+      "second_clip": "trial-44-second.wav",
+      "first_arm": "real",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 44
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-45.wav",
+      "first_clip": "trial-45-first.wav",
+      "second_clip": "trial-45-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 45
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-46.wav",
+      "first_clip": "trial-46-first.wav",
+      "second_clip": "trial-46-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 46
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-47.wav",
+      "first_clip": "trial-47-first.wav",
+      "second_clip": "trial-47-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 47
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-48.wav",
+      "first_clip": "trial-48-first.wav",
+      "second_clip": "trial-48-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 48
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-49.wav",
+      "first_clip": "trial-49-first.wav",
+      "second_clip": "trial-49-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 49
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-50.wav",
+      "first_clip": "trial-50-first.wav",
+      "second_clip": "trial-50-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 50
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-51.wav",
+      "first_clip": "trial-51-first.wav",
+      "second_clip": "trial-51-second.wav",
+      "first_arm": "real",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 51
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-52.wav",
+      "first_clip": "trial-52-first.wav",
+      "second_clip": "trial-52-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 52
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-53.wav",
+      "first_clip": "trial-53-first.wav",
+      "second_clip": "trial-53-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 53
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-54.wav",
+      "first_clip": "trial-54-first.wav",
+      "second_clip": "trial-54-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 54
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-55.wav",
+      "first_clip": "trial-55-first.wav",
+      "second_clip": "trial-55-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 55
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-56.wav",
+      "first_clip": "trial-56-first.wav",
+      "second_clip": "trial-56-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 56
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "anchor-57.wav",
+      "first_clip": "trial-57-first.wav",
+      "second_clip": "trial-57-second.wav",
+      "first_arm": "real",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 57
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-58.wav",
+      "first_clip": "trial-58-first.wav",
+      "second_clip": "trial-58-second.wav",
+      "first_arm": "v2-fair-k8",
+      "second_arm": "v3-scrape",
+      "facts": {
+        "pairpage_trial": 58
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-59.wav",
+      "first_clip": "trial-59-first.wav",
+      "second_clip": "trial-59-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 59
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "anchor-60.wav",
+      "first_clip": "trial-60-first.wav",
+      "second_clip": "trial-60-second.wav",
+      "first_arm": "v3-scrape",
+      "second_arm": "v2-fair-k8",
+      "facts": {
+        "pairpage_trial": 60
+      }
+    }
+  ],
+  "spec": {
+    "experiment": "0064",
+    "continues": "pairwise-gbw81btt.json (block 1, 20 trials, PairPage)",
+    "decoder": "finetuned (0063 adversarial best.pt), both arms",
+    "anchor_bouts": [
+      192,
+      417,
+      876,
+      910,
+      932,
+      1158,
+      1746,
+      1901,
+      2293,
+      2310,
+      2612,
+      2666,
+      3097,
+      3331,
+      3717,
+      3981,
+      4370,
+      4811,
+      4891,
+      4983,
+      4991,
+      5027,
+      5141,
+      5187,
+      5289,
+      5302,
+      6149,
+      6155,
+      6166,
+      6391,
+      6431,
+      6544,
+      6583,
+      6786,
+      6885,
+      6947,
+      7424,
+      7767,
+      8052,
+      8056
+    ],
+    "format_note": "blocks 2-3 graded with anchors; block 1 ternary without \u2014 merge by grade sign"
+  }
+}

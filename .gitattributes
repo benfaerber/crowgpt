@@ -1,0 +1,5 @@
+# Experiment artifacts, not source: archived listening pages carry their audio
+# embedded as base64, and one such page is 11 MB of "HTML" that made GitHub
+# call this a 70%-HTML repo. linguist-generated keeps them out of the language
+# stats and collapses them in diffs.
+crowgpt/results/** linguist-generated

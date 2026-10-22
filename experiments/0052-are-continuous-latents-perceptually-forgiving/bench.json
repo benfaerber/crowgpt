@@ -1,0 +1,13 @@
+{
+  "lowpass_2k": 4.1432,
+  "encodec_6kbps": 0.7387,
+  "dac_quantized_24cb": 0.3686,
+  "dac_quantized_32cb": 0.3004,
+  "dac_raw_z_no_quantizer": 0.5492,
+  "cont32": 0.2588,
+  "cont32+noise0.05": 0.2771,
+  "cont32+noise0.10": 0.3168,
+  "cont32+noise0.20": 0.4235,
+  "cont32+noise0.40": 0.6951,
+  "cont32+noise0.80": 1.3306
+}

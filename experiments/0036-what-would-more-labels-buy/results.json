@@ -1,0 +1,857 @@
+{
+  "dataset": {
+    "n_rows_cached": 2338,
+    "n_single_label": 2110,
+    "n_recordings": 1097,
+    "n_recordings_single_label": 1063,
+    "class_counts": {
+      "alarm call": 1111,
+      "song": 420,
+      "call": 332,
+      "begging": 247
+    },
+    "feature": "birdnet_pooled_mean_std_max (3072-d, cached)"
+  },
+  "D_field_transfer": {
+    "n_labels_embedded": 60,
+    "n_trainable_class": 52,
+    "n_on_kept_captures": 42,
+    "note": "top-1 of a one-vs-rest head is what the app shows first, but its probabilities do not sum to one \u2014 this is the app's displayed answer, not a calibrated confidence",
+    "caveat": "n is tens of labels over 13 captures. This detects a catastrophic domain gap, as 0018 found on bouts; it cannot measure a subtle one.",
+    "X_span__all_trainable": {
+      "n": 52,
+      "top1_accuracy": 0.7692307692307693,
+      "constant_baseline": 0.5192307692307693,
+      "constant_class": "alarm call",
+      "beats_constant": true,
+      "predicted_distribution": {
+        "alarm call": 25,
+        "call": 12,
+        "begging": 9,
+        "flight call": 3,
+        "song": 3
+      },
+      "confusion_true_to_predicted": {
+        "alarm call": {
+          "alarm call": 23,
+          "call": 4
+        },
+        "begging": {
+          "begging": 9,
+          "flight call": 1,
+          "call": 1
+        },
+        "call": {
+          "call": 7,
+          "song": 3,
+          "alarm call": 2
+        },
+        "flight call": {
+          "flight call": 1
+        },
+        "song": {
+          "flight call": 1
+        }
+      }
+    },
+    "X_span__kept_only": {
+      "n": 42,
+      "top1_accuracy": 0.8571428571428571,
+      "constant_baseline": 0.5952380952380952,
+      "constant_class": "alarm call",
+      "beats_constant": true,
+      "predicted_distribution": {
+        "alarm call": 21,
+        "call": 11,
+        "begging": 9,
+        "flight call": 1
+      },
+      "confusion_true_to_predicted": {
+        "alarm call": {
+          "alarm call": 21,
+          "call": 4
+        },
+        "begging": {
+          "begging": 9,
+          "flight call": 1,
+          "call": 1
+        },
+        "call": {
+          "call": 6
+        }
+      }
+    },
+    "X_win__all_trainable": {
+      "n": 52,
+      "top1_accuracy": 0.6730769230769231,
+      "constant_baseline": 0.5192307692307693,
+      "constant_class": "alarm call",
+      "beats_constant": true,
+      "predicted_distribution": {
+        "alarm call": 41,
+        "begging": 8,
+        "song": 3
+      },
+      "confusion_true_to_predicted": {
+        "alarm call": {
+          "alarm call": 27
+        },
+        "begging": {
+          "begging": 8,
+          "alarm call": 3
+        },
+        "call": {
+          "alarm call": 9,
+          "song": 3
+        },
+        "flight call": {
+          "alarm call": 1
+        },
+        "song": {
+          "alarm call": 1
+        }
+      }
+    },
+    "X_win__kept_only": {
+      "n": 42,
+      "top1_accuracy": 0.7857142857142857,
+      "constant_baseline": 0.5952380952380952,
+      "constant_class": "alarm call",
+      "beats_constant": true,
+      "predicted_distribution": {
+        "alarm call": 34,
+        "begging": 8
+      },
+      "confusion_true_to_predicted": {
+        "alarm call": {
+          "alarm call": 25
+        },
+        "begging": {
+          "begging": 8,
+          "alarm call": 3
+        },
+        "call": {
+          "alarm call": 6
+        }
+      }
+    }
+  },
+  "A_learning_curve": {
+    "curve": [
+      {
+        "fraction": 0.08,
+        "n_segments": 176,
+        "n_recordings": 85,
+        "macro_f1_mean": 0.747756880770896,
+        "macro_f1_sd": 0.03343989744082861,
+        "accuracy_mean": 0.8680682386079687,
+        "per_class_ap_mean": {
+          "alarm call": 0.9654712675327121,
+          "begging": 0.9146684752600666,
+          "call": 0.897703925208105,
+          "song": 0.5292989931766042
+        },
+        "seeds": 3
+      },
+      {
+        "fraction": 0.15,
+        "n_segments": 347,
+        "n_recordings": 159,
+        "macro_f1_mean": 0.7811646775363146,
+        "macro_f1_sd": 0.09810557663961962,
+        "accuracy_mean": 0.8545777712608867,
+        "per_class_ap_mean": {
+          "alarm call": 0.9721376024530887,
+          "begging": 0.6774901346346262,
+          "call": 0.9159741555355421,
+          "song": 0.8219976801185526
+        },
+        "seeds": 3
+      },
+      {
+        "fraction": 0.25,
+        "n_segments": 585,
+        "n_recordings": 266,
+        "macro_f1_mean": 0.8173860763041811,
+        "macro_f1_sd": 0.016226987091098356,
+        "accuracy_mean": 0.8595436131301111,
+        "per_class_ap_mean": {
+          "alarm call": 0.9746798639200543,
+          "begging": 0.8833673669573145,
+          "call": 0.8736383927567125,
+          "song": 0.7640218193365014
+        },
+        "seeds": 3
+      },
+      {
+        "fraction": 0.4,
+        "n_segments": 822,
+        "n_recordings": 425,
+        "macro_f1_mean": 0.8336508869744087,
+        "macro_f1_sd": 0.02617407028859315,
+        "accuracy_mean": 0.8681236055886853,
+        "per_class_ap_mean": {
+          "alarm call": 0.9728573702035215,
+          "begging": 0.8222548082181215,
+          "call": 0.9196919040314714,
+          "song": 0.8666560217276418
+        },
+        "seeds": 3
+      },
+      {
+        "fraction": 0.55,
+        "n_segments": 1213,
+        "n_recordings": 585,
+        "macro_f1_mean": 0.8480170663530192,
+        "macro_f1_sd": 0.0028039257808434785,
+        "accuracy_mean": 0.8828019500451054,
+        "per_class_ap_mean": {
+          "alarm call": 0.9810810196462466,
+          "begging": 0.8557249081840549,
+          "call": 0.928701608504983,
+          "song": 0.8814783386182007
+        },
+        "seeds": 3
+      },
+      {
+        "fraction": 0.7,
+        "n_segments": 1470,
+        "n_recordings": 744,
+        "macro_f1_mean": 0.8430937569626047,
+        "macro_f1_sd": 0.004353498434568138,
+        "accuracy_mean": 0.8797838144895712,
+        "per_class_ap_mean": {
+          "alarm call": 0.9800435069015795,
+          "begging": 0.8374892082436008,
+          "call": 0.9393667665865116,
+          "song": 0.8728279724360135
+        },
+        "seeds": 3
+      },
+      {
+        "fraction": 0.85,
+        "n_segments": 1827,
+        "n_recordings": 904,
+        "macro_f1_mean": 0.8447182989963072,
+        "macro_f1_sd": 0.008843167059969145,
+        "accuracy_mean": 0.8773040254836428,
+        "per_class_ap_mean": {
+          "alarm call": 0.9744658826762705,
+          "begging": 0.8477166932130955,
+          "call": 0.9227134867322757,
+          "song": 0.8791131374538415
+        },
+        "seeds": 3
+      },
+      {
+        "fraction": 1.0,
+        "n_segments": 2110,
+        "n_recordings": 1063,
+        "macro_f1_mean": 0.8486793514758989,
+        "macro_f1_sd": 0.003804635111110713,
+        "accuracy_mean": 0.8812006319115323,
+        "per_class_ap_mean": {
+          "alarm call": 0.9784070878641717,
+          "begging": 0.8659100841478997,
+          "call": 0.9202443092611832,
+          "song": 0.8892508848700468
+        },
+        "seeds": 3
+      }
+    ],
+    "fit_macro_f1": {
+      "a": 3.0170916722681853,
+      "b": 0.5955363206911628,
+      "ceiling_c": 0.883546209190467,
+      "rmse": 0.005476592755655045,
+      "at_1x": 0.8519338022603861,
+      "at_2x": 0.8626251692920713,
+      "at_4x": 0.8697006987426759,
+      "gain_doubling": 0.010691367031685273,
+      "gain_4x": 0.017766896482289796,
+      "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+    },
+    "fit_per_class_ap": {
+      "alarm call": {
+        "a": 1.020905373830955,
+        "b": 0.8199189390161382,
+        "ceiling_c": 0.9802050732601315,
+        "rmse": 0.0023501612943199876,
+        "at_1x": 0.9782848870515531,
+        "at_2x": 0.9791173381388331,
+        "at_4x": 0.9795888998448552,
+        "gain_doubling": 0.0008324510872799173,
+        "gain_4x": 0.0013040127933020562,
+        "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+      },
+      "begging": {
+        "a": 0.2204557246525593,
+        "b": 0.046092640661667,
+        "ceiling_c": 0.9999999999999964,
+        "rmse": 0.06594660688066716,
+        "at_1x": 0.8450839467305299,
+        "at_2x": 0.8499551282327376,
+        "at_4x": 0.8546731402684717,
+        "gain_doubling": 0.0048711815022076665,
+        "gain_4x": 0.009589193537941854,
+        "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+      },
+      "call": {
+        "a": 0.22698948440596126,
+        "b": 0.14704998185817283,
+        "ceiling_c": 0.9999999999999999,
+        "rmse": 0.01574595433332718,
+        "at_1x": 0.9263504557661404,
+        "at_2x": 0.9334874484947037,
+        "at_4x": 0.9399328325278238,
+        "gain_doubling": 0.007136992728563274,
+        "gain_4x": 0.01358237676168339,
+        "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+      },
+      "song": {
+        "a": 49.99999999999999,
+        "b": 0.9494211860492658,
+        "ceiling_c": 0.9317333003703742,
+        "rmse": 0.0378202710559774,
+        "at_1x": 0.8968332693589226,
+        "at_2x": 0.9136606620497609,
+        "at_4x": 0.9223745620998974,
+        "gain_doubling": 0.016827392690838328,
+        "gain_4x": 0.02554129274097483,
+        "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+      }
+    }
+  },
+  "B_flag_curves": {
+    "mob": {
+      "curve": [
+        {
+          "fraction": 0.08,
+          "n_segments": 225,
+          "n_positives": 65,
+          "prevalence": 0.28888888888888886,
+          "ap_mean": 0.7687806469954186,
+          "ap_sd": 0.027244701184175088,
+          "auc_mean": 0.8750259636752712,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.15,
+          "n_segments": 327,
+          "n_positives": 91,
+          "prevalence": 0.2782874617737003,
+          "ap_mean": 0.7248117463132996,
+          "ap_sd": 0.0379412036670318,
+          "auc_mean": 0.8522861789945172,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.25,
+          "n_segments": 524,
+          "n_positives": 176,
+          "prevalence": 0.33587786259541985,
+          "ap_mean": 0.7106681604993049,
+          "ap_sd": 0.049421551542831454,
+          "auc_mean": 0.8350950830860352,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.4,
+          "n_segments": 905,
+          "n_positives": 268,
+          "prevalence": 0.29613259668508285,
+          "ap_mean": 0.6933268392821473,
+          "ap_sd": 0.02182588104341151,
+          "auc_mean": 0.8309000947408879,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.55,
+          "n_segments": 1154,
+          "n_positives": 371,
+          "prevalence": 0.3214904679376083,
+          "ap_mean": 0.7055604128265348,
+          "ap_sd": 0.021751976530829553,
+          "auc_mean": 0.8460923123813456,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.7,
+          "n_segments": 1645,
+          "n_positives": 481,
+          "prevalence": 0.2924012158054711,
+          "ap_mean": 0.7105030295016167,
+          "ap_sd": 0.036499797990525544,
+          "auc_mean": 0.8550384671618135,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.85,
+          "n_segments": 1977,
+          "n_positives": 601,
+          "prevalence": 0.3039959534648457,
+          "ap_mean": 0.7311515028880137,
+          "ap_sd": 0.023303366842059373,
+          "auc_mean": 0.8571370797172692,
+          "seeds": 3
+        },
+        {
+          "fraction": 1.0,
+          "n_segments": 2338,
+          "n_positives": 689,
+          "prevalence": 0.2946963216424294,
+          "ap_mean": 0.7056611050919975,
+          "ap_sd": 0.01268337238217223,
+          "auc_mean": 0.8504916996798869,
+          "seeds": 3
+        }
+      ],
+      "fit_ap": {
+        "a": 0.00020222858460788854,
+        "b": 2.819748790379656,
+        "ceiling_c": 0.7188079278712035,
+        "rmse": 0.02184757129251289,
+        "at_1x": 0.7188079278711395,
+        "at_2x": 0.7188079278711944,
+        "at_4x": 0.7188079278712022,
+        "gain_doubling": 5.495603971894525e-14,
+        "gain_4x": 6.272760089132134e-14,
+        "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+      },
+      "to_reach_0.80": null,
+      "to_reach_0.85": null
+    },
+    "rattle": {
+      "curve": [
+        {
+          "fraction": 0.08,
+          "n_segments": 225,
+          "n_positives": 60,
+          "prevalence": 0.26666666666666666,
+          "ap_mean": 0.8166049948579904,
+          "ap_sd": 0.17744316882205532,
+          "auc_mean": 0.9508988326655127,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.15,
+          "n_segments": 327,
+          "n_positives": 58,
+          "prevalence": 0.17737003058103976,
+          "ap_mean": 0.7881832528464559,
+          "ap_sd": 0.06256334660521791,
+          "auc_mean": 0.9536821830191903,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.25,
+          "n_segments": 524,
+          "n_positives": 100,
+          "prevalence": 0.19083969465648856,
+          "ap_mean": 0.9379842062100838,
+          "ap_sd": 0.008793341643926878,
+          "auc_mean": 0.9793360109311696,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.4,
+          "n_segments": 905,
+          "n_positives": 183,
+          "prevalence": 0.2022099447513812,
+          "ap_mean": 0.8507858152372331,
+          "ap_sd": 0.025675196350899196,
+          "auc_mean": 0.9555287615653602,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.55,
+          "n_segments": 1154,
+          "n_positives": 256,
+          "prevalence": 0.2218370883882149,
+          "ap_mean": 0.8928636857499438,
+          "ap_sd": 0.0236687872033868,
+          "auc_mean": 0.9639215438416696,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.7,
+          "n_segments": 1645,
+          "n_positives": 331,
+          "prevalence": 0.2012158054711246,
+          "ap_mean": 0.8795033320231792,
+          "ap_sd": 0.007140629855542832,
+          "auc_mean": 0.9606214620181941,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.85,
+          "n_segments": 1977,
+          "n_positives": 458,
+          "prevalence": 0.23166413758219526,
+          "ap_mean": 0.8832246396783215,
+          "ap_sd": 0.004004193481013377,
+          "auc_mean": 0.9621753535610535,
+          "seeds": 3
+        },
+        {
+          "fraction": 1.0,
+          "n_segments": 2338,
+          "n_positives": 511,
+          "prevalence": 0.218562874251497,
+          "ap_mean": 0.9008779489524144,
+          "ap_sd": 0.008248788607621222,
+          "auc_mean": 0.9669686170799606,
+          "seeds": 3
+        }
+      ],
+      "fit_ap": {
+        "a": 49.99999999999999,
+        "b": 1.15976225055455,
+        "ceiling_c": 0.8993726009313275,
+        "rmse": 0.03410325561929734,
+        "at_1x": 0.8931794549463248,
+        "at_2x": 0.8966006336993864,
+        "at_4x": 0.898131906403286,
+        "gain_doubling": 0.0034211787530615823,
+        "gain_4x": 0.0049524514569612155,
+        "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+      },
+      "to_reach_0.80": {
+        "target": 0.8,
+        "n_needed": 213.5659747974065,
+        "multiple_of_current": 0.09134558374568286
+      },
+      "to_reach_0.85": {
+        "target": 0.85,
+        "n_needed": 390.36027796094555,
+        "multiple_of_current": 0.1669633353126371
+      }
+    },
+    "alert": {
+      "curve": [
+        {
+          "fraction": 0.08,
+          "n_segments": 225,
+          "n_positives": 24,
+          "prevalence": 0.10666666666666667,
+          "ap_mean": 0.5067482925538703,
+          "ap_sd": 0.08890096229889301,
+          "auc_mean": 0.8265948428258026,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.15,
+          "n_segments": 327,
+          "n_positives": 74,
+          "prevalence": 0.22629969418960244,
+          "ap_mean": 0.6548397787127938,
+          "ap_sd": 0.058069011440554354,
+          "auc_mean": 0.8700515193240516,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.25,
+          "n_segments": 524,
+          "n_positives": 112,
+          "prevalence": 0.21374045801526717,
+          "ap_mean": 0.5884827271732863,
+          "ap_sd": 0.011239860285752006,
+          "auc_mean": 0.8365972048380007,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.4,
+          "n_segments": 905,
+          "n_positives": 199,
+          "prevalence": 0.21988950276243094,
+          "ap_mean": 0.6731482186104363,
+          "ap_sd": 0.030167290888152558,
+          "auc_mean": 0.8426485580465396,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.55,
+          "n_segments": 1154,
+          "n_positives": 266,
+          "prevalence": 0.23050259965337955,
+          "ap_mean": 0.6651387734297055,
+          "ap_sd": 0.03513056004814187,
+          "auc_mean": 0.861682617298389,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.7,
+          "n_segments": 1645,
+          "n_positives": 343,
+          "prevalence": 0.20851063829787234,
+          "ap_mean": 0.6114877690240498,
+          "ap_sd": 0.025251925964526252,
+          "auc_mean": 0.8424202836600986,
+          "seeds": 3
+        },
+        {
+          "fraction": 0.85,
+          "n_segments": 1977,
+          "n_positives": 419,
+          "prevalence": 0.21193727870510876,
+          "ap_mean": 0.63199611148985,
+          "ap_sd": 0.02496996792752369,
+          "auc_mean": 0.8519230430839397,
+          "seeds": 3
+        },
+        {
+          "fraction": 1.0,
+          "n_segments": 2338,
+          "n_positives": 512,
+          "prevalence": 0.21899059024807527,
+          "ap_mean": 0.6437975965035942,
+          "ap_sd": 0.01264692296561714,
+          "auc_mean": 0.8547241166370024,
+          "seeds": 3
+        }
+      ],
+      "fit_ap": {
+        "a": 49.99999999999999,
+        "b": 1.130519162209976,
+        "ceiling_c": 0.6584872226630704,
+        "rmse": 0.036682706203984915,
+        "at_1x": 0.6507171203958271,
+        "at_2x": 0.654938218111187,
+        "at_4x": 0.656866210110586,
+        "gain_doubling": 0.004221097715359945,
+        "gain_4x": 0.006149089714758915,
+        "caveat": "fitted over one decade of n; the 2x figure is the only extrapolation worth quoting and the 4x is indicative"
+      },
+      "to_reach_0.80": null,
+      "to_reach_0.85": null
+    }
+  },
+  "C_acquisition": {
+    "budgets": [
+      100,
+      200,
+      400,
+      600,
+      900,
+      1200,
+      1500
+    ],
+    "strategies": {
+      "random": [
+        {
+          "budget": 100,
+          "macro_f1_mean": 0.7716243019129077,
+          "macro_f1_sd": 0.024995514787151406,
+          "seeds": 3
+        },
+        {
+          "budget": 200,
+          "macro_f1_mean": 0.8132797982874497,
+          "macro_f1_sd": 0.04155913851711498,
+          "seeds": 3
+        },
+        {
+          "budget": 400,
+          "macro_f1_mean": 0.8245149277381475,
+          "macro_f1_sd": 0.0367319002023457,
+          "seeds": 3
+        },
+        {
+          "budget": 600,
+          "macro_f1_mean": 0.8361895416953073,
+          "macro_f1_sd": 0.040859661873609975,
+          "seeds": 3
+        },
+        {
+          "budget": 900,
+          "macro_f1_mean": 0.8274734861253371,
+          "macro_f1_sd": 0.04597179137025678,
+          "seeds": 3
+        },
+        {
+          "budget": 1200,
+          "macro_f1_mean": 0.8220923620482656,
+          "macro_f1_sd": 0.04902633825215676,
+          "seeds": 3
+        },
+        {
+          "budget": 1500,
+          "macro_f1_mean": 0.8231071857509823,
+          "macro_f1_sd": 0.05723169355111163,
+          "seeds": 3
+        }
+      ],
+      "cluster_stratified": [
+        {
+          "budget": 100,
+          "macro_f1_mean": 0.7671400389711307,
+          "macro_f1_sd": 0.024058030792443362,
+          "seeds": 3
+        },
+        {
+          "budget": 200,
+          "macro_f1_mean": 0.7985340802042972,
+          "macro_f1_sd": 0.025371972786557614,
+          "seeds": 3
+        },
+        {
+          "budget": 400,
+          "macro_f1_mean": 0.8043158603661631,
+          "macro_f1_sd": 0.03992295026035607,
+          "seeds": 3
+        },
+        {
+          "budget": 600,
+          "macro_f1_mean": 0.8133276420223229,
+          "macro_f1_sd": 0.028456040293967626,
+          "seeds": 3
+        },
+        {
+          "budget": 900,
+          "macro_f1_mean": 0.8074203983563383,
+          "macro_f1_sd": 0.04576002097115759,
+          "seeds": 3
+        },
+        {
+          "budget": 1200,
+          "macro_f1_mean": 0.8163316074488322,
+          "macro_f1_sd": 0.050266273467941824,
+          "seeds": 3
+        },
+        {
+          "budget": 1500,
+          "macro_f1_mean": 0.8184301769278254,
+          "macro_f1_sd": 0.05545959296349118,
+          "seeds": 3
+        }
+      ],
+      "uncertainty": [
+        {
+          "budget": 100,
+          "macro_f1_mean": 0.7716243019129077,
+          "macro_f1_sd": 0.024995514787151406,
+          "seeds": 3
+        },
+        {
+          "budget": 200,
+          "macro_f1_mean": 0.7916654499417053,
+          "macro_f1_sd": 0.038179673028883636,
+          "seeds": 3
+        },
+        {
+          "budget": 400,
+          "macro_f1_mean": 0.8256185092408814,
+          "macro_f1_sd": 0.03284274966813593,
+          "seeds": 3
+        },
+        {
+          "budget": 600,
+          "macro_f1_mean": 0.8326661371626173,
+          "macro_f1_sd": 0.0364290831372858,
+          "seeds": 3
+        },
+        {
+          "budget": 900,
+          "macro_f1_mean": 0.820772946841484,
+          "macro_f1_sd": 0.042827888046789775,
+          "seeds": 3
+        },
+        {
+          "budget": 1200,
+          "macro_f1_mean": 0.8234307609350623,
+          "macro_f1_sd": 0.05708136773240413,
+          "seeds": 3
+        },
+        {
+          "budget": 1500,
+          "macro_f1_mean": 0.8223150869794802,
+          "macro_f1_sd": 0.05737859790029577,
+          "seeds": 3
+        }
+      ]
+    },
+    "summary": {
+      "target_macro_f1": 0.8361895416953073,
+      "random_labels_to_target": 600,
+      "cluster_stratified_labels_to_target": null,
+      "uncertainty_labels_to_target": null
+    }
+  },
+  "E1_quality_filter": {
+    "n_total": 2110,
+    "n_quality_1_dropped": 69,
+    "quality_distribution": {
+      "1": 69,
+      "2": 1998,
+      "3": 43
+    },
+    "note": "the random-drop control is the point: dropping 682 rows changes n as well as purity, and without it a quality 'win' is indistinguishable from a size effect",
+    "all": {
+      "n": 2110,
+      "macro_f1": 0.8523681565168456,
+      "per_class_ap": {
+        "alarm call": 0.9796852035515069,
+        "begging": 0.8632768556318636,
+        "call": 0.9114647661281216,
+        "song": 0.8896564049113395
+      }
+    },
+    "quality_ge_2": {
+      "n": 2041,
+      "macro_f1": 0.8611436771454236,
+      "per_class_ap": {
+        "alarm call": 0.9781433403710077,
+        "begging": 0.8674184784605826,
+        "call": 0.944169259131904,
+        "song": 0.9004479934209193
+      }
+    },
+    "random_drop_control": {
+      "n": 2041,
+      "macro_f1": 0.8495246039877227,
+      "per_class_ap": {
+        "alarm call": 0.9789591193090343,
+        "begging": 0.8588652899710626,
+        "call": 0.9261778403427732,
+        "song": 0.889309654486638
+      }
+    }
+  },
+  "E2_garbage_class": {
+    "n_call_rows": 2110,
+    "n_garbage_rows": 572,
+    "note": "false-positive rate is the share of garbage segments the head assigns a call class with p>0.5 \u2014 the 4-class head has no way to abstain, which is the whole point",
+    "five_class": {
+      "macro_f1_all": 0.7805618084800721,
+      "macro_f1_core_only": 0.8310114569959595,
+      "garbage_correctly_rejected": 0.7062937062937062,
+      "garbage_called_a_call": 0.2937062937062937
+    },
+    "four_class": {
+      "macro_f1_core_only": 0.8523681565168456,
+      "garbage_assigned_a_call_p_gt_0.5": 0.9702797202797203,
+      "garbage_mean_top_probability": 0.8979534478892811,
+      "garbage_predicted_distribution": {
+        "alarm call": 388,
+        "song": 119,
+        "begging": 45,
+        "call": 20
+      },
+      "caveat": "fitted on all rows and scored on garbage it never saw; recordings may overlap, so this is an upper bound on how well the 4-class head copes with silence"
+    }
+  },
+  "E3_multitask": {
+    "note": "same trunk, same folds, same epochs \u2014 the only difference is whether the auxiliary losses are added, which is crow-tools' actual architectural claim",
+    "single_task": {
+      "macro_f1_mean": 0.8558603203630636,
+      "macro_f1_sd": 0.003821535559941502,
+      "seeds": 3
+    },
+    "multitask": {
+      "macro_f1_mean": 0.852279624342067,
+      "macro_f1_sd": 0.005566392850027125,
+      "seeds": 3
+    },
+    "delta_macro_f1": -0.003580696020996532
+  }
+}

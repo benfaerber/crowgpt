@@ -1,0 +1,100 @@
+{
+  "head": {
+    "trained_on": 651,
+    "classes": {
+      "alarm call": 495,
+      "begging": 86,
+      "call": 31,
+      "song": 39
+    }
+  },
+  "anchor": {
+    "n": 154,
+    "accuracy": 0.903,
+    "majority_class": "alarm call",
+    "majority_baseline": 0.825,
+    "mean_confidence": 0.962,
+    "truth_mix": {
+      "alarm call": 127,
+      "call": 3,
+      "begging": 19,
+      "song": 5
+    },
+    "matrix": {
+      "alarm call": {
+        "alarm call": 124,
+        "begging": 3,
+        "call": 0,
+        "song": 0
+      },
+      "begging": {
+        "alarm call": 6,
+        "begging": 10,
+        "call": 1,
+        "song": 2
+      },
+      "call": {
+        "alarm call": 0,
+        "begging": 0,
+        "call": 3,
+        "song": 0
+      },
+      "song": {
+        "alarm call": 1,
+        "begging": 1,
+        "call": 1,
+        "song": 2
+      }
+    }
+  },
+  "mean_seconds": {
+    "alarm call": 2.54,
+    "begging": 2.64,
+    "call": 2.42,
+    "song": 2.47
+  },
+  "generated": {
+    "requested": 60,
+    "embedded": 219,
+    "agreement": 0.416,
+    "mean_confidence": 0.907,
+    "detected_mix": {
+      "alarm call": 145,
+      "begging": 47,
+      "song": 25,
+      "call": 2
+    },
+    "kept_per_type": {
+      "alarm call": 56,
+      "begging": 56,
+      "call": 52,
+      "song": 55
+    },
+    "matrix": {
+      "alarm call": {
+        "alarm call": 52,
+        "begging": 1,
+        "call": 0,
+        "song": 3
+      },
+      "begging": {
+        "alarm call": 23,
+        "begging": 28,
+        "call": 0,
+        "song": 5
+      },
+      "call": {
+        "alarm call": 36,
+        "begging": 6,
+        "call": 2,
+        "song": 8
+      },
+      "song": {
+        "alarm call": 34,
+        "begging": 12,
+        "call": 0,
+        "song": 9
+      }
+    }
+  }
+}

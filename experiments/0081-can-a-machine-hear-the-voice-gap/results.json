@@ -1,0 +1,64 @@
+{
+  "clips": {
+    "real": 56,
+    "b32": 44,
+    "calltype": 44
+  },
+  "ast_fad": {
+    "floor_real_vs_real": 42.835,
+    "calltype_vs_real": 55.75,
+    "b32_vs_real": 41.185
+  },
+  "clap": {
+    "summary": {
+      "real": {
+        "n": 56,
+        "margin_mean": 0.3123,
+        "a crow cawing": 0.4452,
+        "a raven calling": 0.4282,
+        "a person screaming": 0.1877,
+        "a frog croaking": 0.1193,
+        "a metallic robotic sound": 0.0164,
+        "an alien sound effect": 0.1741
+      },
+      "b32": {
+        "n": 44,
+        "margin_mean": 0.3081,
+        "a crow cawing": 0.4344,
+        "a raven calling": 0.4204,
+        "a person screaming": 0.1959,
+        "a frog croaking": 0.0853,
+        "a metallic robotic sound": 0.029,
+        "an alien sound effect": 0.167
+      },
+      "calltype": {
+        "n": 44,
+        "margin_mean": 0.3057,
+        "a crow cawing": 0.4409,
+        "a raven calling": 0.4223,
+        "a person screaming": 0.202,
+        "a frog croaking": 0.1004,
+        "a metallic robotic sound": 0.0263,
+        "an alien sound effect": 0.1749
+      }
+    },
+    "margin_by_type": {
+      "alarm-call": {
+        "calltype": 0.3114,
+        "b32": 0.325
+      },
+      "begging": {
+        "calltype": 0.2732,
+        "b32": 0.2851
+      },
+      "call": {
+        "calltype": 0.3216,
+        "b32": 0.3056
+      },
+      "song": {
+        "calltype": 0.3167,
+        "b32": 0.3168
+      }
+    }
+  }
+}

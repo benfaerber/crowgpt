@@ -1,0 +1,1146 @@
+{
+  "call_type": "alarm call",
+  "calls_with_context": 22,
+  "captures": 5,
+  "readiness": [
+    {
+      "a": "crows_still",
+      "b": "human_approaching",
+      "a_calls": 12,
+      "a_captures": 3,
+      "b_calls": 2,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 2 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "human_known",
+      "a_calls": 12,
+      "a_captures": 3,
+      "b_calls": 2,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 2 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "human_passing",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 4,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 6 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "known_passing",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 8,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "human_gives_food",
+      "b": "human_passing",
+      "a_calls": 2,
+      "a_captures": 2,
+      "b_calls": 4,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 6 more call(s)"
+      ]
+    },
+    {
+      "a": "human_known",
+      "b": "known_passing",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 8,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "human_passing",
+      "b": "known_passing",
+      "a_calls": 4,
+      "a_captures": 2,
+      "b_calls": 8,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 6 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "crows_still",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 3,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 7 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "human_approaching",
+      "a_calls": 10,
+      "a_captures": 3,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "human_known",
+      "a_calls": 10,
+      "a_captures": 3,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "human_passing",
+      "a_calls": 17,
+      "a_captures": 4,
+      "b_calls": 3,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "B: 3 more capture(s)",
+        "B: 7 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "loud_worker",
+      "a_calls": 11,
+      "a_captures": 3,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "crows_agitated",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "crows_still",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 19,
+      "b_captures": 4,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "human_approaching",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 8,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "human_gives_food",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 2,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "human_known",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 8,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "human_passing",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 3,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 7 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "known_approaching",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 2,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "known_passing",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 8,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "loud_worker",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 8,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "stranger_approaching",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "crow_departs",
+      "b": "stranger_passing",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 5,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 5 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "human_approaching",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 9,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 1 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "human_gives_food",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 2,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "human_known",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 9,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 1 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "human_passing",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 4,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 6 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "known_approaching",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 2,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "loud_worker",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 8,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "human_passing",
+      "a_calls": 16,
+      "a_captures": 3,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "loud_worker",
+      "a_calls": 12,
+      "a_captures": 3,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "human_gives_food",
+      "a_calls": 8,
+      "a_captures": 2,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 2 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "human_known",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "known_approaching",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 2,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "stranger_approaching",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "stranger_passing",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 5,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 5 more call(s)"
+      ]
+    },
+    {
+      "a": "human_gives_food",
+      "b": "human_known",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 8,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "human_gives_food",
+      "b": "known_approaching",
+      "a_calls": 2,
+      "a_captures": 2,
+      "b_calls": 2,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "human_gives_food",
+      "b": "known_passing",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 7,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 3 more call(s)"
+      ]
+    },
+    {
+      "a": "human_gives_food",
+      "b": "loud_worker",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 7,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 3 more call(s)"
+      ]
+    },
+    {
+      "a": "human_gives_food",
+      "b": "stranger_approaching",
+      "a_calls": 2,
+      "a_captures": 2,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "human_gives_food",
+      "b": "stranger_passing",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 4,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 6 more call(s)"
+      ]
+    },
+    {
+      "a": "human_known",
+      "b": "human_passing",
+      "a_calls": 8,
+      "a_captures": 1,
+      "b_calls": 3,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 2 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 7 more call(s)"
+      ]
+    },
+    {
+      "a": "human_known",
+      "b": "known_approaching",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 2,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "human_known",
+      "b": "stranger_approaching",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "human_known",
+      "b": "stranger_passing",
+      "a_calls": 9,
+      "a_captures": 2,
+      "b_calls": 5,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 1 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 5 more call(s)"
+      ]
+    },
+    {
+      "a": "human_passing",
+      "b": "known_approaching",
+      "a_calls": 4,
+      "a_captures": 2,
+      "b_calls": 2,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 6 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 8 more call(s)"
+      ]
+    },
+    {
+      "a": "human_passing",
+      "b": "loud_worker",
+      "a_calls": 4,
+      "a_captures": 2,
+      "b_calls": 8,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 6 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "human_passing",
+      "b": "stranger_approaching",
+      "a_calls": 4,
+      "a_captures": 2,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 6 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "human_passing",
+      "b": "stranger_passing",
+      "a_calls": 4,
+      "a_captures": 2,
+      "b_calls": 5,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 6 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 5 more call(s)"
+      ]
+    },
+    {
+      "a": "known_approaching",
+      "b": "known_passing",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 7,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 3 more call(s)"
+      ]
+    },
+    {
+      "a": "known_approaching",
+      "b": "loud_worker",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 8,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "known_approaching",
+      "b": "stranger_approaching",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "known_approaching",
+      "b": "stranger_passing",
+      "a_calls": 2,
+      "a_captures": 1,
+      "b_calls": 5,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 8 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 5 more call(s)"
+      ]
+    },
+    {
+      "a": "known_passing",
+      "b": "loud_worker",
+      "a_calls": 8,
+      "a_captures": 2,
+      "b_calls": 8,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 2 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 2 more call(s)"
+      ]
+    },
+    {
+      "a": "loud_worker",
+      "b": "stranger_approaching",
+      "a_calls": 8,
+      "a_captures": 1,
+      "b_calls": 1,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 2 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 9 more call(s)"
+      ]
+    },
+    {
+      "a": "loud_worker",
+      "b": "stranger_passing",
+      "a_calls": 8,
+      "a_captures": 1,
+      "b_calls": 5,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 2 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 5 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "crow_departs",
+      "a_calls": 16,
+      "a_captures": 3,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "crows_agitated",
+      "a_calls": 17,
+      "a_captures": 4,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "human_gives_food",
+      "a_calls": 16,
+      "a_captures": 4,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "known_approaching",
+      "a_calls": 16,
+      "a_captures": 4,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "known_passing",
+      "a_calls": 10,
+      "a_captures": 3,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "stranger_approaching",
+      "a_calls": 17,
+      "a_captures": 4,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "caller_stays",
+      "b": "stranger_passing",
+      "a_calls": 13,
+      "a_captures": 3,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "crows_still",
+      "a_calls": 0,
+      "a_captures": 0,
+      "b_calls": 18,
+      "b_captures": 4,
+      "ready": false,
+      "needs": [
+        "A: 4 more capture(s)",
+        "A: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "known_passing",
+      "a_calls": 0,
+      "a_captures": 0,
+      "b_calls": 7,
+      "b_captures": 2,
+      "ready": false,
+      "needs": [
+        "A: 4 more capture(s)",
+        "A: 10 more call(s)",
+        "B: 2 more capture(s)",
+        "B: 3 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "stranger_approaching",
+      "a_calls": 0,
+      "a_captures": 0,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 4 more capture(s)",
+        "A: 10 more call(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_agitated",
+      "b": "stranger_passing",
+      "a_calls": 0,
+      "a_captures": 0,
+      "b_calls": 4,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 4 more capture(s)",
+        "A: 10 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 6 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "human_gives_food",
+      "a_calls": 17,
+      "a_captures": 4,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "known_approaching",
+      "a_calls": 17,
+      "a_captures": 4,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "known_passing",
+      "a_calls": 11,
+      "a_captures": 3,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "stranger_approaching",
+      "a_calls": 18,
+      "a_captures": 4,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "crows_still",
+      "b": "stranger_passing",
+      "a_calls": 14,
+      "a_captures": 3,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 1 more capture(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "human_approaching",
+      "b": "loud_worker",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "human_known",
+      "b": "loud_worker",
+      "a_calls": 1,
+      "a_captures": 1,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 9 more call(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "known_passing",
+      "b": "stranger_approaching",
+      "a_calls": 7,
+      "a_captures": 2,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 2 more capture(s)",
+        "A: 3 more call(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "known_passing",
+      "b": "stranger_passing",
+      "a_calls": 3,
+      "a_captures": 1,
+      "b_calls": 0,
+      "b_captures": 0,
+      "ready": false,
+      "needs": [
+        "A: 3 more capture(s)",
+        "A: 7 more call(s)",
+        "B: 4 more capture(s)",
+        "B: 10 more call(s)"
+      ]
+    },
+    {
+      "a": "stranger_approaching",
+      "b": "stranger_passing",
+      "a_calls": 0,
+      "a_captures": 0,
+      "b_calls": 4,
+      "b_captures": 1,
+      "ready": false,
+      "needs": [
+        "A: 4 more capture(s)",
+        "A: 10 more call(s)",
+        "B: 3 more capture(s)",
+        "B: 6 more call(s)"
+      ]
+    }
+  ],
+  "tests": {}
+}

@@ -1,0 +1,842 @@
+[
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 101,
+    "recording": "50118",
+    "seconds": 1.1
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 582,
+    "recording": "50111",
+    "seconds": 1.36
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 657,
+    "recording": "469906131",
+    "seconds": 1.79
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 907,
+    "recording": "75754801",
+    "seconds": 2.59
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 923,
+    "recording": "73344221",
+    "seconds": 1.65
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 1291,
+    "recording": "632110975",
+    "seconds": 1.02
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 1319,
+    "recording": "629096484",
+    "seconds": 2.88
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 1410,
+    "recording": "505007751",
+    "seconds": 2.82
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 1453,
+    "recording": "425841941",
+    "seconds": 2.03
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 1501,
+    "recording": "308262671",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 1744,
+    "recording": "345964441",
+    "seconds": 2.48
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 2424,
+    "recording": "629375337",
+    "seconds": 2.52
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 2560,
+    "recording": "584658651",
+    "seconds": 1.26
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 2617,
+    "recording": "541934521",
+    "seconds": 1.4
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 2710,
+    "recording": "351672111",
+    "seconds": 1.7
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 2952,
+    "recording": "107782541",
+    "seconds": 2.53
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 3371,
+    "recording": "140335",
+    "seconds": 2.66
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 3786,
+    "recording": "45291",
+    "seconds": 2.54
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4039,
+    "recording": "282010411",
+    "seconds": 2.62
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4174,
+    "recording": "633341040",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4177,
+    "recording": "633050065",
+    "seconds": 1.71
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4395,
+    "recording": "484989281",
+    "seconds": 1.23
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4422,
+    "recording": "387339891",
+    "seconds": 2.97
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4546,
+    "recording": "65695841",
+    "seconds": 1.9
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4735,
+    "recording": "636407237",
+    "seconds": 2.91
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4768,
+    "recording": "632455264",
+    "seconds": 1.5
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4776,
+    "recording": "631583672",
+    "seconds": 2.06
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 4921,
+    "recording": "538023131",
+    "seconds": 1.91
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 5120,
+    "recording": "85879411",
+    "seconds": 1.4
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 5217,
+    "recording": "429634201",
+    "seconds": 2.26
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 5431,
+    "recording": "658300562",
+    "seconds": 2.21
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 5521,
+    "recording": "650957336",
+    "seconds": 1.26
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 5563,
+    "recording": "649147515",
+    "seconds": 2.15
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 5671,
+    "recording": "647481468",
+    "seconds": 2.88
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 5704,
+    "recording": "646137304",
+    "seconds": 1.37
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 6390,
+    "recording": "635033413",
+    "seconds": 1.88
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 6535,
+    "recording": "624832844",
+    "seconds": 1.93
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 6641,
+    "recording": "623164747",
+    "seconds": 1.38
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 6728,
+    "recording": "620318324",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 6827,
+    "recording": "618483703",
+    "seconds": 2.8
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7344,
+    "recording": "538016031",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7379,
+    "recording": "513946201",
+    "seconds": 1.96
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7487,
+    "recording": "478639181",
+    "seconds": 2.66
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7557,
+    "recording": "458478971",
+    "seconds": 2.56
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7655,
+    "recording": "420660601",
+    "seconds": 2.84
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7809,
+    "recording": "413592631",
+    "seconds": 2.54
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7816,
+    "recording": "410196291",
+    "seconds": 2.97
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 7915,
+    "recording": "386121611",
+    "seconds": 1.18
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 8249,
+    "recording": "234149431",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 8324,
+    "recording": "221607901",
+    "seconds": 2.97
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 8479,
+    "recording": "189708721",
+    "seconds": 2.97
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 8608,
+    "recording": "107376911",
+    "seconds": 2.4
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 8629,
+    "recording": "467155281",
+    "seconds": 1.97
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 8983,
+    "recording": "510460731",
+    "seconds": 1.15
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 9268,
+    "recording": "400342331",
+    "seconds": 2.13
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 9455,
+    "recording": "626146380",
+    "seconds": 2.93
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 9703,
+    "recording": "411938221",
+    "seconds": 1.32
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 9715,
+    "recording": "354463981",
+    "seconds": 2.95
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 9779,
+    "recording": "285232411",
+    "seconds": 2.94
+  },
+  {
+    "sr": 24000,
+    "arm": "dac24_24",
+    "bout": 9916,
+    "recording": "121432161",
+    "seconds": 1.64
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10030,
+    "recording": "88757491",
+    "seconds": 2.83
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10068,
+    "recording": "72284141",
+    "seconds": 1.36
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10128,
+    "recording": "54930411",
+    "seconds": 2.58
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10138,
+    "recording": "41899771",
+    "seconds": 1.07
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10314,
+    "recording": "419661481",
+    "seconds": 1.62
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10329,
+    "recording": "660380218",
+    "seconds": 2.74
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10344,
+    "recording": "658646408",
+    "seconds": 1.36
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10538,
+    "recording": "651166090",
+    "seconds": 1.09
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10641,
+    "recording": "649003515",
+    "seconds": 2.44
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10929,
+    "recording": "647790488",
+    "seconds": 1.2
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10941,
+    "recording": "647578885",
+    "seconds": 2.8
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10950,
+    "recording": "647481469",
+    "seconds": 2.1
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 10957,
+    "recording": "647439513",
+    "seconds": 2.45
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11314,
+    "recording": "643967334",
+    "seconds": 2.28
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11431,
+    "recording": "642503904",
+    "seconds": 1.94
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11460,
+    "recording": "642207843",
+    "seconds": 1.22
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11501,
+    "recording": "641769241",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11562,
+    "recording": "640284235",
+    "seconds": 1.23
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11565,
+    "recording": "640284225",
+    "seconds": 1.53
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11590,
+    "recording": "640054023",
+    "seconds": 2.18
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11618,
+    "recording": "639986129",
+    "seconds": 1.87
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11622,
+    "recording": "639950761",
+    "seconds": 1.44
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11760,
+    "recording": "638640870",
+    "seconds": 2.44
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11761,
+    "recording": "638640865",
+    "seconds": 1.16
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11839,
+    "recording": "637733164",
+    "seconds": 1.08
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11845,
+    "recording": "637733163",
+    "seconds": 2.82
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 11952,
+    "recording": "633840482",
+    "seconds": 1.82
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12180,
+    "recording": "626913953",
+    "seconds": 2.19
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12181,
+    "recording": "626877479",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12187,
+    "recording": "626853499",
+    "seconds": 2.94
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12284,
+    "recording": "626188051",
+    "seconds": 2.85
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12300,
+    "recording": "626135318",
+    "seconds": 2.11
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12307,
+    "recording": "626042538",
+    "seconds": 1.78
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12314,
+    "recording": "625957768",
+    "seconds": 2.91
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12381,
+    "recording": "624248311",
+    "seconds": 1.76
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12418,
+    "recording": "623486516",
+    "seconds": 1.26
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12480,
+    "recording": "623089961",
+    "seconds": 1.03
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12604,
+    "recording": "620602858",
+    "seconds": 1.64
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12617,
+    "recording": "620083936",
+    "seconds": 1.27
+  },
+  {
+    "sr": 24000,
+    "arm": "encodec8",
+    "bout": 12708,
+    "recording": "618894645",
+    "seconds": 1.57
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 12721,
+    "recording": "618335456",
+    "seconds": 2.1
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 12767,
+    "recording": "616823406",
+    "seconds": 1.03
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 12891,
+    "recording": "614861984",
+    "seconds": 1.72
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 12968,
+    "recording": "614224072",
+    "seconds": 2.54
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13013,
+    "recording": "613562392",
+    "seconds": 1.17
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13059,
+    "recording": "612995940",
+    "seconds": 1.2
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13351,
+    "recording": "608579076",
+    "seconds": 2.02
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13405,
+    "recording": "604830451",
+    "seconds": 2.58
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13410,
+    "recording": "604829001",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13436,
+    "recording": "603641671",
+    "seconds": 2.28
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13471,
+    "recording": "595618491",
+    "seconds": 1.43
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13795,
+    "recording": "546395571",
+    "seconds": 1.07
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 13985,
+    "recording": "519078771",
+    "seconds": 2.46
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 14042,
+    "recording": "508305741",
+    "seconds": 2.96
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 14196,
+    "recording": "482819941",
+    "seconds": 2.7
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 14228,
+    "recording": "473356801",
+    "seconds": 2.83
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 14411,
+    "recording": "472340501",
+    "seconds": 2.22
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 14428,
+    "recording": "468951891",
+    "seconds": 2.73
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 14480,
+    "recording": "460319231",
+    "seconds": 2.8
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 14543,
+    "recording": "454478851",
+    "seconds": 1.62
+  }
+]

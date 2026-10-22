@@ -1,0 +1,38 @@
+{
+  "steps": 12000,
+  "per_arm": 36,
+  "arms": {
+    "+0.0": {
+      "mean": 0.0,
+      "detected": 0.1111,
+      "mean_conf": 0.0713,
+      "median_t": 0.5
+    },
+    "-0.5": {
+      "mean": -0.5,
+      "detected": 0.1111,
+      "mean_conf": 0.065,
+      "median_t": 0.378
+    },
+    "-1.0": {
+      "mean": -1.0,
+      "detected": 0.1389,
+      "mean_conf": 0.0977,
+      "median_t": 0.269
+    },
+    "-1.5": {
+      "mean": -1.5,
+      "detected": 0.2778,
+      "mean_conf": 0.1346,
+      "median_t": 0.182
+    },
+    "-2.0": {
+      "mean": -2.0,
+      "detected": 0.2222,
+      "mean_conf": 0.1528,
+      "median_t": 0.119
+    }
+  },
+  "best_mean": -1.5,
+  "note": "12k-step ranking; a full run settles it. BirdNET is circular (0022) and churn was blind to the change that doubled detection, so this is triage."
+}

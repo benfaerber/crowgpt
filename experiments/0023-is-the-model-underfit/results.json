@@ -1,0 +1,11 @@
+{
+  "batch-32-dropout-0": {
+    "best_val": 4.537773489952087,
+    "final_train": 4.4014,
+    "final_val": 4.6036,
+    "final_gap": 0.2022,
+    "steps_run": 38000,
+    "batch": 32,
+    "minutes": 143.5
+  }
+}

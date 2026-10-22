@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CrowGPT gallery</title>
+<!--
+  Browse generated clips, keep the ones worth keeping. The opposite of /listen/ in
+  every way that matters: nothing blinded, nothing recorded, and the scores are
+  shown because here they are useful rather than leading.
+
+  One <audio> element for the whole page rather than one per clip. 200 clips means
+  200 decoders and 200 network requests on load; this fetches on demand, keeps the
+  blob for the session, and stops whatever was playing when you start something
+  else.
+-->
+<style>
+  :root {
+    --bg: #fbfaf8; --fg: #1a1a19; --dim: #6b6b66; --line: #ddd9d2;
+    --card: #fff; --accent: #4a5d3a; --warn: #8a5a2b; --good: #3f7d3f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141413; --fg: #eeece7; --dim: #9a9992; --line: #33322e;
+            --card: #1e1e1c; --accent: #a3bd85; --warn: #d0a06a; --good: #8fbf8f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 1.5rem 1rem 5rem; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, sans-serif;
+         max-width: 68rem; margin-inline: auto; }
+  h1 { font-size: 1.2rem; margin: 0 0 .2rem; }
+  .dim { color: var(--dim); }
+  .small { font-size: .85rem; }
+  .bar { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap;
+         margin: 1rem 0 1.25rem; padding-bottom: 1rem;
+         border-bottom: 1px solid var(--line); }
+  select, button { font: inherit; padding: .45rem .8rem; border-radius: 6px;
+                   border: 1px solid var(--line); background: var(--bg);
+                   color: var(--fg); cursor: pointer; }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: default; }
+  .grid { display: grid; gap: .75rem;
+          grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+  .clip { background: var(--card); border: 1px solid var(--line);
+          border-radius: 8px; padding: .75rem .85rem; }
+  .clip.playing { border-color: var(--accent); }
+  .clip.kept { box-shadow: inset 3px 0 0 var(--good); }
+  .clip-head { display: flex; justify-content: space-between; align-items: baseline;
+               gap: .5rem; }
+  .clip-name { font-weight: 600; font-size: .9rem; }
+  .clip-rank { color: var(--dim); font-size: .78rem;
+               font-variant-numeric: tabular-nums; }
+  .meters { margin: .5rem 0 .6rem; font-size: .76rem; color: var(--dim);
+            display: grid; gap: .15rem; font-variant-numeric: tabular-nums; }
+  .wave { height: 2.2rem; margin: .4rem 0 .5rem; width: 100%; display: block; }
+  .wave rect { fill: var(--accent); opacity: .55; }
+  .actions { display: flex; gap: .4rem; }
+  .actions button { flex: 1; padding: .4rem .5rem; font-size: .85rem; }
+  .keep.on { background: var(--good); border-color: var(--good); color: var(--bg); }
+  .badge { font-size: .68rem; padding: .05rem .4rem; border-radius: 999px;
+           border: 1px solid var(--accent); color: var(--accent); }
+  .empty { text-align: center; padding: 3rem 1rem; }
+  code { background: var(--line); padding: .1rem .3rem; border-radius: 3px;
+         font-size: .85em; }
+  .warn { color: var(--warn); }
+</style>
+</head>
+<body>
+<div id="root"><p class="dim">Loading…</p></div>
+
+<script>
+"use strict";
+
+const root = document.getElementById("root");
+
+// Same key the dashboard uses: these routes are gated by `current_actor`, so the
+// credential is a device bearer token and the operator secret is only what you
+// exchange for one. Signed in there means nothing to do here.
+const TOKEN_KEY = "cawtalker_token";
+const KEEP_KEY = "crowgpt.gallery.kept";
+
+function storedToken() {
+  try { return localStorage.getItem(TOKEN_KEY) || ""; } catch (e) { return ""; }
+}
+
+async function signIn() {
+  const secret = prompt("Operator token (same one the dashboard uses)");
+  if (!secret) throw new Error("Sign-in cancelled.");
+  const response = await fetch("/api/operator/session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ operator_token: secret }),
+  });
+  if (!response.ok) throw new Error("Sign-in failed: " + await response.text());
+  const body = await response.json();
+  try { localStorage.setItem(TOKEN_KEY, body.device_token); } catch (e) {}
+  return body.device_token;
+}
+
+async function fetchAuthed(path, token) {
+  return fetch(path, { headers: { "Authorization": "Bearer " + token } });
+}
+
+async function api(path) {
+  let token = storedToken() || await signIn();
+  let response = await fetchAuthed(path, token);
+  if (response.status === 401 || response.status === 403) {
+    token = await signIn();
+    response = await fetchAuthed(path, token);
+  }
+  if (!response.ok) throw new Error(await response.text());
+  return response.json();
+}
+
+/** Which clips have been marked worth keeping. Local to the browser: a keep is a
+ *  shortlist Ben is building, not a measurement anybody else needs. */
+const kept = {
+  load() {
+    try { return new Set(JSON.parse(localStorage.getItem(KEEP_KEY) || "[]")); }
+    catch (e) { return new Set(); }
+  },
+  save(set) {
+    try { localStorage.setItem(KEEP_KEY, JSON.stringify([...set])); } catch (e) {}
+  },
+};
+
+class Player {
+  constructor() {
+    this.audio = new Audio();
+    this.blobs = new Map();
+    this.current = null;
+    this.audio.addEventListener("ended", () => this.mark(null));
+  }
+
+  async blob(gallery, file) {
+    const key = gallery + "/" + file;
+    if (!this.blobs.has(key)) {
+      const token = storedToken();
+      const response = await fetchAuthed(
+        `/api/gallery/${encodeURIComponent(gallery)}/clips/${encodeURIComponent(file)}`,
+        token);
+      if (!response.ok) throw new Error(file + " failed to load");
+      this.blobs.set(key, await response.blob());
+    }
+    return this.blobs.get(key);
+  }
+
+  async play(gallery, file, card) {
+    const blob = await this.blob(gallery, file);
+    if (this.url) URL.revokeObjectURL(this.url);
+    this.url = URL.createObjectURL(blob);
+    this.audio.src = this.url;
+    this.mark(card);
+    await this.audio.play();
+  }
+
+  mark(card) {
+    if (this.current) this.current.classList.remove("playing");
+    this.current = card;
+    if (card) card.classList.add("playing");
+  }
+
+  // Download goes through the same authorised blob rather than a bare link: the
+  // clip route needs a bearer token, so an <a download href="..."> would 401.
+  async download(gallery, file) {
+    const blob = await this.blob(gallery, file);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = file;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+  }
+}
+
+const player = new Player();
+
+function el(html) {
+  const wrap = document.createElement("div");
+  wrap.innerHTML = html.trim();
+  return wrap.firstElementChild;
+}
+
+function meters(clip) {
+  const rows = [];
+  if (clip.seconds != null) rows.push(`${clip.seconds.toFixed(1)} s`);
+  if (clip.birdnet != null) rows.push(`BirdNET ${clip.birdnet.toFixed(3)}`);
+  if (clip.churn != null) {
+    const gap = clip.churn_gap != null ? ` (${clip.churn_gap >= 0 ? "+" : ""}${clip.churn_gap.toFixed(3)})` : "";
+    rows.push(`churn ${clip.churn.toFixed(3)}${gap}`);
+  }
+  if (clip.call_type) rows.push(clip.call_type);
+  if (clip.span_snr_db != null) rows.push(`SNR ${clip.span_snr_db.toFixed(1)} dB`);
+  return rows.map((r) => `<span>${r}</span>`).join("");
+}
+
+function card(gallery, clip, marks) {
+  const node = el(`
+    <div class="clip${marks.has(clip.file) ? " kept" : ""}">
+      <div class="clip-head">
+        <span class="clip-name">${clip.file.replace(/\.wav$/, "")}</span>
+        <span class="clip-rank">#${clip.rank}${clip.clears_both ? ' <span class="badge">both</span>' : ""}</span>
+      </div>
+      <div class="meters">${meters(clip)}</div>
+      <div class="actions">
+        <button class="play">▶ Play</button>
+        <button class="keep${marks.has(clip.file) ? " on" : ""}">★</button>
+        <button class="get">Download</button>
+      </div>
+      <p class="small warn" hidden></p>
+    </div>
+  `);
+  const problem = node.querySelector(".warn");
+  const fail = (error) => { problem.hidden = false; problem.textContent = error.message; };
+
+  node.querySelector(".play").addEventListener("click",
+    () => player.play(gallery, clip.file, node).catch(fail));
+  node.querySelector(".get").addEventListener("click",
+    () => player.download(gallery, clip.file).catch(fail));
+
+  const keep = node.querySelector(".keep");
+  keep.addEventListener("click", () => {
+    if (marks.has(clip.file)) marks.delete(clip.file);
+    else marks.add(clip.file);
+    kept.save(marks);
+    keep.classList.toggle("on", marks.has(clip.file));
+    node.classList.toggle("kept", marks.has(clip.file));
+  });
+  return node;
+}
+
+const SORTS = [
+  ["rank", "as published"],
+  ["birdnet", "BirdNET confidence"],
+  ["churn_gap", "closest to real churn"],
+  ["seconds", "longest first"],
+];
+
+function render(meta, sets) {
+  const marks = kept.load();
+  let sort = "rank";
+  let onlyKept = false;
+
+  const view = el(`
+    <div>
+      <h1>CrowGPT gallery — ${meta.title}</h1>
+      <p class="dim small">${meta.clips.length} clips${meta.model ? ` from <code>${meta.model}</code>` : ""}
+        ${meta.note ? " · " + meta.note : ""}</p>
+      <div class="bar">
+        ${sets.length > 1 ? `<select id="which">${sets.map((s) =>
+            `<option value="${s.name}"${s.name === meta.name ? " selected" : ""}>${s.title} (${s.clip_count})</option>`
+          ).join("")}</select>` : ""}
+        <select id="sort">${SORTS.map(([k, label]) =>
+          `<option value="${k}">${label}</option>`).join("")}</select>
+        <button id="kept-only">★ only</button>
+        <span class="dim small" id="count"></span>
+      </div>
+      <div class="grid"></div>
+    </div>
+  `);
+
+  const grid = view.querySelector(".grid");
+  function draw() {
+    let clips = meta.clips.slice();
+    if (onlyKept) clips = clips.filter((c) => marks.has(c.file));
+    if (sort === "churn_gap") {
+      clips.sort((a, b) => (a.churn_gap ?? 9) - (b.churn_gap ?? 9));
+    } else if (sort !== "rank") {
+      clips.sort((a, b) => (b[sort] ?? -Infinity) - (a[sort] ?? -Infinity));
+    }
+    grid.replaceChildren(...clips.map((c) => card(meta.name, c, marks)));
+    view.querySelector("#count").textContent =
+      `${clips.length} shown · ${marks.size} kept`;
+  }
+
+  view.querySelector("#sort").addEventListener("change", (e) => {
+    sort = e.target.value; draw();
+  });
+  view.querySelector("#kept-only").addEventListener("click", (e) => {
+    onlyKept = !onlyKept;
+    e.target.classList.toggle("on", onlyKept);
+    e.target.textContent = onlyKept ? "★ showing kept" : "★ only";
+    draw();
+  });
+  const which = view.querySelector("#which");
+  if (which) which.addEventListener("change", (e) => start(e.target.value));
+
+  root.replaceChildren(view);
+  draw();
+}
+
+async function start(name) {
+  root.replaceChildren(el('<p class="dim">Loading…</p>'));
+  try {
+    const sets = await api("/api/gallery");
+    if (!sets.length) {
+      root.replaceChildren(el(`
+        <div class="empty">
+          <h1>No gallery published</h1>
+          <p class="dim">Publish one with<br>
+            <code>crowgpt/tools/publish_gallery.py --from &lt;candidates.json&gt; --name &lt;name&gt;</code></p>
+        </div>`));
+      return;
+    }
+    const chosen = name || new URLSearchParams(location.search).get("set") || sets[0].name;
+    render(await api(`/api/gallery/${encodeURIComponent(chosen)}`), sets);
+  } catch (error) {
+    root.replaceChildren(el(`<p class="warn">${error.message}</p>`));
+  }
+}
+
+start();
+</script>
+</body>
+</html>

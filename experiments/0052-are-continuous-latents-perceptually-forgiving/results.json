@@ -1,0 +1,64 @@
+{
+  "arms": {
+    "cont32": {
+      "n": 25,
+      "correct": 11,
+      "rate": 0.44,
+      "ci": [
+        0.2667,
+        0.6293
+      ],
+      "p_one_sided": 0.787821888923645,
+      "reading": "not resolved \u2014 at most 62.9%"
+    },
+    "cont32+noise0.20": {
+      "n": 25,
+      "correct": 10,
+      "rate": 0.4,
+      "ci": [
+        0.234,
+        0.5926
+      ],
+      "p_one_sided": 0.885238528251648,
+      "reading": "not resolved \u2014 at most 59.3%"
+    },
+    "cont32+noise0.40": {
+      "n": 25,
+      "correct": 14,
+      "rate": 0.56,
+      "ci": [
+        0.3707,
+        0.7333
+      ],
+      "p_one_sided": 0.34501898288726807,
+      "reading": "not resolved \u2014 at most 73.3%"
+    },
+    "cont32+noise0.80": {
+      "n": 25,
+      "correct": 21,
+      "rate": 0.84,
+      "ci": [
+        0.6535,
+        0.936
+      ],
+      "p_one_sided": 0.0004552602767944336,
+      "reading": "AUDIBLE"
+    },
+    "lowpass_2k": {
+      "n": 20,
+      "correct": 15,
+      "rate": 0.75,
+      "ci": [
+        0.5313,
+        0.8881
+      ],
+      "p_one_sided": 0.020694732666015625,
+      "reading": "AUDIBLE"
+    }
+  },
+  "verdict": "PASS",
+  "why": "the ceiling and +0.20 read chance while +0.80 resolves (21/25, p=0.0005). The listener demonstrably can hear latent error, and 20% of it is still inaudible. The budget is real and lies between. Build the model.",
+  "notes": [
+    "most of the cont sound pretty ok. Low pass really bad. 11 i clicked wrong button. 13 i hit wrong button 75 hit wrong button"
+  ]
+}

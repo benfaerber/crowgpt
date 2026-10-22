@@ -1,0 +1,211 @@
+{
+  "target_stage0": 0.868,
+  "n_per_arm": 40,
+  "spread_across_buckets": 0.2151,
+  "why": {
+    "channel-000": [
+      "incumbent: channels[0] and the fallback sink"
+    ],
+    "channel-007": [
+      "human quality top"
+    ],
+    "channel-186": [
+      "human quality top"
+    ],
+    "channel-219": [
+      "human quality top"
+    ],
+    "channel-205": [
+      "least hiss top"
+    ],
+    "channel-155": [
+      "least hiss top"
+    ],
+    "channel-113": [
+      "least hiss top"
+    ],
+    "channel-081": [
+      "most hiss bottom"
+    ],
+    "channel-148": [
+      "most hiss bottom"
+    ],
+    "channel-002": [
+      "most hiss bottom"
+    ],
+    "channel-171": [
+      "worst human quality bottom"
+    ],
+    "channel-192": [
+      "worst human quality bottom"
+    ],
+    "channel-018": [
+      "worst human quality bottom"
+    ]
+  },
+  "arms": {
+    "channel-000": {
+      "stage0": 0.9275,
+      "mean": 0.9749,
+      "gap": 0.0595,
+      "clips": 40,
+      "fragments": 12,
+      "bouts": 2642,
+      "recordings": 448,
+      "human": 0.8546977862112586,
+      "flatness": 0.12512307597402594,
+      "birdnet": 0.789570022710068
+    },
+    "channel-007": {
+      "stage0": 0.7283,
+      "mean": 0.9344,
+      "gap": -0.1397,
+      "clips": 40,
+      "fragments": 4,
+      "bouts": 573,
+      "recordings": 21,
+      "human": 0.958111692844677,
+      "flatness": 0.14051275442730193,
+      "birdnet": 0.9126439790575915
+    },
+    "channel-186": {
+      "stage0": 0.7497,
+      "mean": 0.9437,
+      "gap": -0.1183,
+      "clips": 40,
+      "fragments": 6,
+      "bouts": 227,
+      "recordings": 17,
+      "human": 0.8775525925925927,
+      "flatness": 0.29633271924645554,
+      "birdnet": 0.8781101321585904
+    },
+    "channel-219": {
+      "stage0": 0.7422,
+      "mean": 0.9243,
+      "gap": -0.1258,
+      "clips": 40,
+      "fragments": 7,
+      "bouts": 264,
+      "recordings": 24,
+      "human": 0.8751666666666668,
+      "flatness": 0.2001893428305446,
+      "birdnet": 0.905689393939394
+    },
+    "channel-205": {
+      "stage0": 0.8592,
+      "mean": 0.9599,
+      "gap": -0.0088,
+      "clips": 40,
+      "fragments": 6,
+      "bouts": 164,
+      "recordings": 22,
+      "human": 0.7731463414634147,
+      "flatness": 0.009691478808312608,
+      "birdnet": 0.6630548780487804
+    },
+    "channel-155": {
+      "stage0": 0.9373,
+      "mean": 0.9793,
+      "gap": 0.0693,
+      "clips": 40,
+      "fragments": 39,
+      "bouts": 304,
+      "recordings": 23,
+      "human": 0.6046270627062705,
+      "flatness": 0.014652020566584403,
+      "birdnet": 0.56575
+    },
+    "channel-113": {
+      "stage0": 0.8864,
+      "mean": 0.9645,
+      "gap": 0.0184,
+      "clips": 40,
+      "fragments": 9,
+      "bouts": 371,
+      "recordings": 81,
+      "human": 0.7333534246575342,
+      "flatness": 0.016326792589607782,
+      "birdnet": 0.7881913746630728
+    },
+    "channel-081": {
+      "stage0": 0.7222,
+      "mean": 0.9261,
+      "gap": -0.1458,
+      "clips": 40,
+      "fragments": 13,
+      "bouts": 331,
+      "recordings": 52,
+      "human": 0.7148650306748466,
+      "flatness": 0.5601392441337135,
+      "birdnet": 0.6570241691842901
+    },
+    "channel-148": {
+      "stage0": 0.7294,
+      "mean": 0.9384,
+      "gap": -0.1386,
+      "clips": 40,
+      "fragments": 7,
+      "bouts": 365,
+      "recordings": 34,
+      "human": 0.7275170454545455,
+      "flatness": 0.5509403849095084,
+      "birdnet": 0.7993424657534246
+    },
+    "channel-002": {
+      "stage0": 0.7817,
+      "mean": 0.9519,
+      "gap": -0.0863,
+      "clips": 40,
+      "fragments": 12,
+      "bouts": 153,
+      "recordings": 31,
+      "human": 0.7172587412587411,
+      "flatness": 0.5109318217672133,
+      "birdnet": 0.6963660130718955
+    },
+    "channel-171": {
+      "stage0": 0.8799,
+      "mean": 0.9677,
+      "gap": 0.0119,
+      "clips": 40,
+      "fragments": 33,
+      "bouts": 197,
+      "recordings": 61,
+      "human": 0.548173469387755,
+      "flatness": 0.2520349671673827,
+      "birdnet": 0.6245634517766497
+    },
+    "channel-192": {
+      "stage0": 0.8494,
+      "mean": 0.9612,
+      "gap": -0.0186,
+      "clips": 40,
+      "fragments": 11,
+      "bouts": 311,
+      "recordings": 90,
+      "human": 0.572925566343042,
+      "flatness": 0.3510917216165502,
+      "birdnet": 0.582138263665595
+    },
+    "channel-018": {
+      "stage0": 0.84,
+      "mean": 0.9555,
+      "gap": -0.028,
+      "clips": 40,
+      "fragments": 25,
+      "bouts": 150,
+      "recordings": 37,
+      "human": 0.5877794117647058,
+      "flatness": 0.3620860458102698,
+      "birdnet": 0.63376
+    },
+    "(control) fair-k8, no channel token": {
+      "stage0": 0.8194,
+      "mean": 0.9538,
+      "gap": -0.0486,
+      "clips": 40,
+      "fragments": 9
+    }
+  }
+}

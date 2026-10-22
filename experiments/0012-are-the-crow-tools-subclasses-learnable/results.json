@@ -1,0 +1,269 @@
+{
+  "n_segments": 2494,
+  "n_recordings": 1195,
+  "inventory": {
+    "mob": {
+      "core": "alarm call",
+      "asked": 2494,
+      "positives": 738,
+      "recordings": 570,
+      "largest_recording_share": 0.008
+    },
+    "alert": {
+      "core": "alarm call",
+      "asked": 2494,
+      "positives": 546,
+      "recordings": 331,
+      "largest_recording_share": 0.04
+    },
+    "scold": {
+      "core": "alarm call",
+      "asked": 1089,
+      "positives": 106,
+      "recordings": 90,
+      "largest_recording_share": 0.038
+    },
+    "softSong": {
+      "core": "song",
+      "asked": 2494,
+      "positives": 605,
+      "recordings": 180,
+      "largest_recording_share": 0.061
+    },
+    "rattle": {
+      "core": "call",
+      "asked": 2494,
+      "positives": 542,
+      "recordings": 175,
+      "largest_recording_share": 0.057
+    },
+    "begging": {
+      "core": "begging",
+      "asked": 2494,
+      "positives": 307,
+      "recordings": 129,
+      "largest_recording_share": 0.059
+    },
+    "grief": {
+      "core": null,
+      "asked": 1375,
+      "positives": 3,
+      "recordings": 1,
+      "largest_recording_share": 1.0
+    }
+  },
+  "cooccurrence": {
+    "mob+alert": {
+      "both": 20,
+      "share_of_smaller": 0.037
+    },
+    "mob+scold": {
+      "both": 80,
+      "share_of_smaller": 0.755
+    },
+    "mob+softSong": {
+      "both": 12,
+      "share_of_smaller": 0.02
+    },
+    "mob+rattle": {
+      "both": 32,
+      "share_of_smaller": 0.059
+    },
+    "mob+begging": {
+      "both": 3,
+      "share_of_smaller": 0.01
+    },
+    "mob+grief": {
+      "both": 3,
+      "share_of_smaller": 1.0
+    },
+    "alert+scold": {
+      "both": 9,
+      "share_of_smaller": 0.085
+    },
+    "alert+softSong": {
+      "both": 29,
+      "share_of_smaller": 0.053
+    },
+    "alert+rattle": {
+      "both": 14,
+      "share_of_smaller": 0.026
+    },
+    "alert+begging": {
+      "both": 2,
+      "share_of_smaller": 0.007
+    },
+    "scold+rattle": {
+      "both": 1,
+      "share_of_smaller": 0.009
+    },
+    "scold+begging": {
+      "both": 2,
+      "share_of_smaller": 0.019
+    },
+    "softSong+rattle": {
+      "both": 124,
+      "share_of_smaller": 0.229
+    },
+    "softSong+begging": {
+      "both": 4,
+      "share_of_smaller": 0.013
+    },
+    "rattle+begging": {
+      "both": 23,
+      "share_of_smaller": 0.075
+    }
+  },
+  "separability": {
+    "raw_flags": {
+      "mob": {
+        "auc_where_asked": 0.838,
+        "n_where_asked": 2494
+      },
+      "alert": {
+        "auc_where_asked": 0.845,
+        "n_where_asked": 2494
+      },
+      "scold": {
+        "auc_where_asked": 0.79,
+        "n_where_asked": 1089
+      },
+      "softSong": {
+        "auc_where_asked": 0.913,
+        "n_where_asked": 2494
+      },
+      "rattle": {
+        "auc_where_asked": 0.961,
+        "n_where_asked": 2494
+      },
+      "begging": {
+        "auc_where_asked": 0.916,
+        "n_where_asked": 2494
+      },
+      "grief": {
+        "auc_where_asked": null,
+        "n_where_asked": 1375
+      }
+    },
+    "core_classes": {
+      "alarm call": 0.942,
+      "begging": 0.916,
+      "call": 0.961,
+      "song": 0.913
+    }
+  },
+  "head_to_head": [
+    {
+      "pair": "mob vs alert",
+      "n_exclusive": 1244,
+      "auc": 0.813,
+      "recordings_with_both": 41,
+      "recordings_with_either": 860
+    },
+    {
+      "pair": "mob vs scold",
+      "n_exclusive": 684,
+      "auc": 0.581,
+      "recordings_with_both": 69,
+      "recordings_with_either": 591
+    },
+    {
+      "pair": "rattle vs softSong",
+      "n_exclusive": 899,
+      "auc": 0.947,
+      "recordings_with_both": 64,
+      "recordings_with_either": 291
+    }
+  ],
+  "within_recording": [
+    {
+      "pair": "mob vs alert, within recordings holding both",
+      "recordings": 41,
+      "n": 138,
+      "n_positive": 38,
+      "auc": 0.726,
+      "auc_over_5_seeds": [
+        0.667,
+        0.688,
+        0.698,
+        0.718,
+        0.726
+      ]
+    },
+    {
+      "pair": "rattle vs softSong, within recordings holding both",
+      "recordings": 64,
+      "n": 352,
+      "n_positive": 169,
+      "auc": 0.848,
+      "auc_over_5_seeds": [
+        0.848,
+        0.857,
+        0.866,
+        0.869,
+        0.879
+      ]
+    }
+  ],
+  "operating_points": {
+    "mob": {
+      "prevalence": 0.296,
+      "average_precision": 0.671,
+      "best_f1": 0.654,
+      "precision_at_recall_0.5": 0.71,
+      "precision_at_recall_0.7": 0.59,
+      "precision_at_recall_0.9": 0.461
+    },
+    "alert": {
+      "prevalence": 0.219,
+      "average_precision": 0.602,
+      "best_f1": 0.625,
+      "precision_at_recall_0.5": 0.657,
+      "precision_at_recall_0.7": 0.54,
+      "precision_at_recall_0.9": 0.352
+    },
+    "begging": {
+      "prevalence": 0.123,
+      "average_precision": 0.78,
+      "best_f1": 0.723,
+      "precision_at_recall_0.5": 0.931,
+      "precision_at_recall_0.7": 0.683,
+      "precision_at_recall_0.9": 0.273
+    },
+    "rattle": {
+      "prevalence": 0.217,
+      "average_precision": 0.871,
+      "best_f1": 0.845,
+      "precision_at_recall_0.5": 0.922,
+      "precision_at_recall_0.7": 0.907,
+      "precision_at_recall_0.9": 0.778
+    }
+  },
+  "expanded_vs_collapsed": {
+    "n": 2149,
+    "fine_classes": [
+      "alert",
+      "begging",
+      "mob",
+      "rattle",
+      "scold",
+      "softSong"
+    ],
+    "collapsed_macro_f1": 0.842,
+    "expanded_mapped_down_macro_f1": 0.843,
+    "expanded_macro_f1_at_its_own_classes": 0.644,
+    "mob_alert_confusions": {
+      "mob called alert": 124,
+      "alert called mob": 126,
+      "mob n": 595,
+      "alert n": 475
+    }
+  },
+  "begging_confound": {
+    "begging": 307,
+    "crow_age_juvenile": 313,
+    "both": 279,
+    "begging_that_is_juvenile": 0.909,
+    "juvenile_that_is_begging": 0.891
+  }
+}

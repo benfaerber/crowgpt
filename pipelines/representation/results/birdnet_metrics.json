@@ -1,0 +1,28 @@
+{
+  "embedder": "BirdNET",
+  "n_clips": 117,
+  "dim": 1024,
+  "classes": {
+    "alarm call": 10,
+    "call": 71,
+    "flight call": 25,
+    "song": 11
+  },
+  "knn": {
+    "accuracy": 0.59,
+    "macro_f1": 0.413
+  },
+  "logreg": {
+    "accuracy": 0.65,
+    "macro_f1": 0.477
+  },
+  "baseline_majority_acc": 0.607,
+  "silhouette_true_labels": -0.024,
+  "kmeans_ari": 0.017,
+  "one_vs_rest_auc": {
+    "alarm call": 0.67,
+    "call": 0.71,
+    "flight call": 0.89,
+    "song": 0.467
+  }
+}

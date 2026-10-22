@@ -1,0 +1,1453 @@
+CAWTALKER — TO DO
+=================
+
+The next few days. Anything further out than that lives in FUTURE.txt — this
+file is meant to be short enough to read in one go, and a list holding both
+horizons stops being read at all.
+
+Add to the bottom; strike through or delete when it ships. Plain text on
+purpose: a scratch list, not a tracker. Anything needing real discussion belongs
+in phases/, anything needing a measurement belongs in experiments/.
+
+[ ] The rolling buffer pins the microphone and Record cannot change it
+
+    Capture 107 on 2026-07-30 was recorded on the phone mic with the Rode
+    plugged in, the home screen saying so, and the capture claiming
+    `inputHonoured = true`. Every part of that is the same bug.
+
+    `WavRecorder.start` (kt:211-217) takes an `input` argument and throws it
+    away whenever a listening session is already open — `session.beginRecording()`
+    returns true, `beginCapture()` opens a WAV and drains the ring, and nothing
+    calls `AudioInputs.choose` or `setPreferredDevice` again. The device was
+    pinned once, when `startListening` ran. So:
+
+      - plug the Rode in AFTER the buffer starts and every capture until
+        listening restarts goes through the phone mic
+      - `onInputsChanged` refreshes the caption immediately, so the screen reads
+        "Mic open · VideoMic Me-C" while the open AudioRecord is on BUILTIN_MIC.
+        The caption is a hypothesis about the NEXT recording presented as a fact
+        about the current one (useRecorder.ts:209-225)
+      - `preferredHonoured` still holds the listening session's answer, which
+        was `true` — it really did get the built-in mic it asked for at the time.
+        Hence honoured=true against the wrong microphone, which is exactly the
+        failure the audit predicted and expected to find a different way.
+
+    Capture 106, fourteen hours earlier, is USB_HEADSET with the same 15 s
+    pre-roll — the Rode was already in when listening started. That is the whole
+    difference between the two.
+
+    THREE FIXES, and they are separable:
+
+      - [x] THE SCREEN NO LONGER LIES. `WavRecorder.activeInput()` publishes what
+        the open session is pinned to and what it actually routed to, and
+        `domain/micState` is now the single place that turns that into a label
+        and a warning. The capture screen and the settings picker both read it
+        instead of each deriving their own answer, so the case above shows a
+        yellow "Recording on Phone microphone. The list now says VideoMic Me-C —
+        a session cannot change microphone once it is open." Nine cases in
+        tests/unit/micState.test.ts, including capture 107's exact shape.
+
+        This is the part that mattered: all three derivations agreed the Rode
+        was in use, and the one that knew better could not be asked.
+
+      - [x] THE BUFFER NOW ADOPTS A MICROPHONE PLUGGED IN AFTER IT STARTED.
+        `onInputsChanged` reopens the listening session on whatever the priority
+        list now resolves to — `shouldReopenSession` in domain/micState decides,
+        six cases in the test. It costs the ring, which is the honest trade:
+        plugging a mic in is an explicit act nearly always followed by wanting
+        to record through it, and an empty ring is visible on the button while a
+        capture through the wrong mic is visible to nobody. Works in both
+        directions, so pulling the Rode out drops back to the phone mic rather
+        than leaving a session pinned to hardware that has gone.
+
+        NOT during a capture, deliberately: reopening would end the recording
+        and discard what is on disk. So a mic plugged in mid-capture still does
+        nothing but warn, and that is the remaining hole.
+
+        SHIPPED BROKEN AND FIXED THE SAME DAY, which is the part worth keeping.
+        The first version compared the session's route against the resolved
+        preference without noticing the phone's own microphone has two names —
+        `type:15` from enumeration, `builtin` from the preference list. So every
+        input event read as a device change and reopened the session: four
+        restarts in ninety seconds, each discarding the ring, and captures
+        reaching back three seconds instead of fifteen. Found in Ben's synced
+        log, not by testing. Confirmed working on the Pixel 10 on 2026-07-31.
+
+        The same loop also churned the foreground service, because `setBackground`
+        only started it when `isListening()` was already true and an effect
+        landing between a stop and a start was told no. That has since been
+        fixed and confirmed on a phone (5c51979, 2026-08-01): the wish now lives
+        in `BackgroundHold` apart from whether it is granted, and every session
+        (re)open reasserts it, so a request refused mid-swap is repaired rather
+        than archived. Wanted-but-not-listening deliberately stops nothing —
+        mid-swap the service outlives the session on purpose.
+
+      - Record must re-pin, for the capture case only now. A microphone that
+        arrives while a capture is running cannot be adopted without ending the
+        recording, so the choice is to keep going and say so (what happens
+        today) or to split the capture in two. Worth leaving alone until it
+        actually bites somebody — the buffer case was the common one.
+      - Never report `inputHonoured` without reconciling it against
+        `routedDevice`, which WavRecorder already reads at kt:359-366 and never
+        compares. A capture whose route is not what was asked for should say so
+        even when `setPreferredDevice` returned true — that call registers a
+        request, it does not promise a route. `activeInput()` now exposes both
+        halves live, so the comparison has somewhere obvious to go.
+
+    Watch for the second, independent path to the same place: `rememberMics`
+    pushes BUILTIN before appending newly-seen externals (micPriority.ts:93 vs
+    :105) and `resolveMic` short-circuits on it (:162), so a mic seen for the
+    first time ranks below the phone and can never be chosen until it is dragged
+    up by hand. Symptom that tells them apart: the caption says "Phone
+    microphone" rather than the Rode's name, and no warning appears because
+    `usingFirstChoice` is true.
+
+[ ] The earbud button's remaining three
+
+    Pulled out on 2026-07-31 of the entry about the button losing to anything
+    still playing, so they stop hiding under a checked box — that entry was
+    checked because the Spotify case is fixed and confirmed (a blip cannot beat
+    an app that is still playing, so we deliberately do not contest mid-
+    playback), not because these stopped mattering. Since deleted; the reasoning
+    is in the commits touching MediaButtonPriority. Ordered by what a failure
+    costs.
+
+      - THE PROCESS CAN STILL BE REAPED. There is no `MEDIA_BUTTON` receiver in
+        either manifest and `setMediaButtonReceiver` is never called, so once
+        the process dies there is no path back — nothing can deliver a press to
+        an app that is not running, and every re-claim needs a live process to
+        run in. Pocket listening's foreground service is the only thing holding
+        it open today. This is the difference between "usually works" and
+        "works". Read the FUTURE.txt entry "Waking a killed app with the earbud
+        button" before starting: it is researched, and the conclusion was to
+        keep the process alive rather than build the receiver, which makes this
+        a decision to re-open rather than a gap to fill.
+
+      - THE APP COUNTS ITS OWN CONFIRMATION TONE AS A COMPETITOR. The playback
+        callback counts every player and subtracts only our *blips*
+        (`blipsInFlight`, MediaButtonPriority.kt:39), so the cue that plays a
+        quarter second after every button press reads as "another app started",
+        triggers a contest, and then another when it ends. Bounded by the
+        cooldown and harmless as far as anyone can tell, but the app fights
+        itself twice per press and `othersPlaying` is not telling the truth
+        while a cue is sounding. Track the cue in the same counter as the blip.
+        The heartbeat makes this continuous rather than twice-per-press.
+
+      - EXPO-AUDIO HOSTS A SECOND MEDIA SESSION IN THIS SAME APK
+        (`AudioControlsService`, media3, app manifest line 28). Playing a
+        capture back creates a genuinely-playing session in our own uid that
+        outranks the trigger's. Reviewing a recording in the field may therefore
+        cost the button until the contest re-runs. Not reproduced, but it is the
+        one competitor that ships with us.
+
+    And one line of copy: Settings still promises the button unconditionally,
+    when the shipped behaviour deliberately yields to an app that is actively
+    playing. Say so there.
+
+[ ] Audit the recorder — the core has to be boring and reliable
+
+    Everything else in this app is optional. If a recording fails, the labels,
+    the contexts, the sightings and the analysis are all decoration on a thing
+    that did not happen — and unlike a lost label, a lost call does not come
+    back. The recorder has never had the scrutiny the schema has.
+
+    It has also quietly become the most stateful part of the codebase.
+    WavRecorder now juggles `active` / `recording` / `keepListening`, a ring
+    buffer behind a lock, a capture thread, and a WAV that may or may not be
+    open — and around it sit a foreground service, a microphone priority list
+    resolved at the moment of the press, a level-meter subscription that is
+    shared between listening and recording, and a listening session that now
+    survives leaving the screen. When this entry was written only PreRoll had
+    tests.
+
+    SEVEN OF THE NINE FAILURE MODES ARE NOW EXERCISED, and the audit's whole
+    premise held: every real bug it found was a *silent* one. Fixed, with tests,
+    and the detail is in git rather than here — read the commits touching
+    WavRecorder, SessionState and OrphanCaptures. In short: a sticky read error
+    spinning a core in a pocket; a full disk handing back a truncated file as
+    whole; an abandoned capture thread writing into the next session's WAV; a
+    synchronous listInputs freezing the UI at the moment Record was pressed; a
+    double tap surfacing as an error over a healthy recording; a killed app
+    losing its capture completely; and a revoked microphone saying nothing at
+    all. Six JVM test classes and 45 cases now cover the state machine, the
+    pre-roll ring, the headset button and the recovery.
+
+    One lesson worth not rediscovering, because the fix for the second-to-last
+    of those broke delete within the hour: "no database row points at this
+    file" and "a process died writing this file" are different facts, and only
+    the recorder knows the second one. It writes a `.writing` marker now.
+
+    WHAT IS ACTUALLY LEFT:
+
+      - PREFERRED MICROPHONE UNPLUGGED MID-RECORDING. Needs the Rode, never
+        run, and expected to fail: nothing watches routing changes, so the
+        worry that it records `inputHonoured = true` against a different mic is
+        live rather than theoretical.
+
+      - STORAGE FULL PARTWAY THROUGH A CAPTURE. Deliberately not run, and not
+        to be recorded as passing. The path is fixed and reasoned — a write
+        that throws sets `failure`, which stop() reports — but it has never
+        executed on hardware. Doing it honestly means filling /data to zero on
+        a live handset, which destabilises Android itself. Worth it before a
+        long unattended session; not worth a broken phone otherwise.
+
+      - RE-TEST THE KILL on a handset. Recovery is verified by JUnit and was
+        confirmed on a phone, but on the build *before* the marker existed, so
+        the mechanism that ships is not the one that was seen working.
+
+    The prepareAsync NullPointerException is solved and it was the handles:
+    expo-sqlite shares one native connection per path, and garbage collecting
+    any JS handle closes it for everyone. One handle now. Not yet confirmed on
+    the Pixel 10, which was out of range when the fix landed — if it crashes
+    again on swiping back from a capture, this was not the whole story.
+
+[ ] A call can be two things at once — labelling cannot say so
+
+    Capture 104: the third bout is begging and a call together. Today
+    `labels.call_type` is one string and the deck replaces rather than adds —
+    `decide()` removes any existing label before writing the new one — so
+    choosing the second type deletes the first. The recordist has to pick one
+    and the other observation is lost.
+
+    FIRST, SEPARATE TWO SITUATIONS, because they want different answers:
+
+      a) TWO BIRDS overlapping. A fledgling begging while an adult calls is two
+         vocalisations that happen to share a span, and the honest record is two
+         labels — different birds, possibly different ages, certainly different
+         sources. The schema already allows this: start_sec/end_sec are free and
+         nothing enforces one label per span. What blocks it is only the deck,
+         which is built as one card = one decision.
+
+      b) ONE vocalisation that genuinely belongs to two classes. Rarer and more
+         interesting, and the case where a single label with two types is right.
+
+    ANSWERED for 104: two birds. The recordist heard a fledgling begging, an
+    adult calling, the fledgling continuing, the adult calling again harder, and
+    then the begging stopping. So (a) is what to build — a deck that can hold two
+    labels on one span — and it needs no schema change at all.
+
+    That also means (b) can wait for a case that actually turns up. Nobody has
+    yet produced a single vocalisation belonging to two CORE classes, and
+    building for it first would be building for a guess.
+
+    THE PIPELINE IS ALREADY MULTI-LABEL, which is the part worth knowing:
+
+      - corpus.py yields a *set* of CORE classes per segment, not one
+      - recover_and_pool.py and build_dataset.py both emit Y as lists
+      - export_manifest.py already writes `",".join(sorted(cores))` per file
+      - train_american_crow.py computes one-vs-rest AUC per class over the
+        multi-label sets, and only narrows to `len(s) == 1` for the shipped
+        multiclass head
+
+    So the training side has always expected this and the label capture is the
+    narrow part. A head that can say "begging and call" needs the multiclass
+    classifier replaced by per-class binary heads, which the AUC numbers in
+    train_american_crow.py are already measuring.
+
+    Worth deciding while building: does a two-type label train as two examples
+    or one example with two positives? They are different claims, and the second
+    is the true one — which is another reason to keep (a) and (b) apart, because
+    two birds really is two examples.
+
+[ ] Nothing can record what a call achieved
+
+    Capture 104 is the case, and it is the most interesting recording in the
+    corpus for exactly the reason nothing can express: the adult called twice,
+    and after the second one the begging STOPPED and did not resume. The outcome
+    is the finding. The corpus can say what was said and what was happening
+    nearby; it cannot say what happened next.
+
+    Context tags are all simultaneous — dog visible, crows agitated, caller
+    stays. Every one answers "what was going on while this call was made". None
+    answers "what changed because of it", and that is a different question with a
+    different shape: it needs an *after*, and a claim that the two are connected.
+
+    Shapes worth weighing, none obviously right:
+
+      - outcome tags on a label: `other_bird_fell_silent`, `others_left`,
+        `bird_approached`. Cheap, composes with what exists, and dishonest in one
+        way — a tag on the call asserts the call caused it.
+      - a response link between two labels: "this label answers that one".
+        Truer to what was heard (adult answering fledgling, twice) and it makes
+        the sequence queryable, which single tags never will. More to build.
+      - nothing, and keep writing it in notes. Which is what 104 does now, and
+        is why the observation is not countable.
+
+    Related and not the same: caller_stays/caller_leaves say what the *caller*
+    did, which was the last gap of this kind. This is about what the *other* bird
+    did afterwards.
+
+    Worth waiting for a second example before designing. One recording is an
+    anecdote, and a schema built from one is usually built wrong.
+
+[ ] The two halves that survived the withdrawn mic-gain entry
+
+    Pulled out of the mic-gain entry, since deleted, so they stop hiding under
+    a checked box — that entry was withdrawn because the mic is not clipping,
+    not because these stopped mattering. Both blocked a diagnosis on 2026-07-29 within an hour
+    of each other.
+
+      - WARN AT RECORD TIME when samples hit full scale. The level meter
+        already has the samples; counting the ones at 1.0 costs nothing and
+        turns an irreversible loss into a visible one. A recordist who knows
+        within a second can move or re-aim; one who finds out from an
+        experiment three days later has lost the birds.
+      - SYNC WHAT THE PHONE KNOWS ABOUT THE INPUT — half of this has since
+        shipped, and the entry used to claim otherwise. `media.input_device` and
+        `media.input_honoured` reach the server, and 22 of the 24 kept captures
+        carry them (13 USB_HEADSET, 9 BUILTIN_MIC). What is still missing is
+        `unprocessed` (WavRecorder already measures it, never sent) and the
+        input's product NAME — AudioInputs already reads `device.productName`,
+        while the server sees only the Android device class, so the corpus can
+        say a USB microphone was used and not which one. New capture fields on
+        the wire, so this bumps WIRE_VERSION and REQUIRED_WIRE_VERSION together,
+        and it settles whether a USB device gets UNPROCESSED's 17 dB of headroom
+        at all.
+
+[ ] A chip for speaking to them — Ben's voice is the experiment, not noise in it
+
+    This is a human–animal communication project and he talks to the crows.
+    That is the phenomenon. The vocabulary cannot say it, so every instance is
+    currently lost, and the labelling skill was reduced to calling it
+    "contamination" in a description — which is both wrong about what it is
+    and unreachable by any query.
+
+    Found while labelling on 2026-07-31. "Crows scatter from car" has "hi crow"
+    at 46 s, inside a 33-second span labelled `call`, and again at 71 s, inside
+    a 3-second span labelled `alarm call` — the alarm is real and his greeting
+    is on top of it. Both go into the training manifest today with nothing
+    saying so.
+
+    Nearest existing key is `person_shouting` ("Someone shouting or agitated"),
+    which is wrong twice: it is not shouting, and it describes a bystander's
+    state rather than a known human addressing the birds on purpose.
+
+    Add a key under [people] in config_store.SEED_CONTEXTS with a translation.
+    That bumps the config version, and the phone needs a RELAUNCH rather than a
+    Sync to see it (refreshConfig runs once per launch, CawtalkerApp.tsx:64).
+
+    What it buys, in the order that matters:
+
+      - The project's own question becomes a query. "Do they answer when I
+        speak to them?" is currently unaskable in SQL. With the chip it is a
+        join against the next span's call type.
+      - Training gets a choice. A span carrying a human voice can be excluded
+        from crow-detector training deliberately, or kept on purpose — today
+        it is included by accident and nobody knows which spans they are.
+      - It separates speaking from standing nearby. `known_passing` already
+        says a known human is present; addressing them is a different act, and
+        the difference is the whole point.
+
+    Decide before writing it: whether the key means "I spoke" or "any human
+    spoke" (the corpus is one recordist today and will not stay that way), and
+    whether it carries what was said. Do NOT fold a reply into it — you can see
+    a bird react, you cannot see that it answered, which is the same line
+    `caller_stays` was named to respect and the same one that keeps detections
+    out of `labels`.
+
+[ ] Run the transcriber over the corpus, and see what it says about our own voices
+
+    Ben's, 2026-08-02, and it lands on top of an entry already written: the
+    investigation below asks whether anything can FIND human speech in the field
+    recordings, and Whisper turns out to be sitting right there having just
+    transcribed two field notes correctly. It is a detector we already have,
+    already installed, already on the GPU.
+
+    THE OBVIOUS VERSION IS THE WRONG ONE, and it is the same trap the entry
+    below names. Whisper is built to return words; handed 116 captures of crows
+    it will return words for crows, confidently, because that is the only thing
+    it can do. A transcript of a caw is not a null result, it is a false
+    positive that reads exactly like a true one. So the measurement has to be
+    adversarial from the start:
+
+      - the two known instances first — "hi crow" at 46 s and 71 s in "Crows
+        scatter from car". If it misses those, nothing else matters.
+      - how often does it emit text over a span already labelled as a crow
+        call? That is the number that decides the whole idea. `no_speech_prob`
+        per segment is the discriminator worth trusting more than the text.
+      - mean_logprob and compression_ratio per segment are already returned by
+        transcriber/whisper.py, and hallucinated speech over birdsong should
+        look different in both. Test that before believing any transcript.
+
+    WHAT IT WOULD BE WORTH, in the order that matters:
+
+      - Ben's own speech becomes findable in everything already collected. The
+        chip entry above only works going forward and only when he remembers he
+        spoke; 116 captures have no record at all.
+      - The training side gets a choice. A span carrying a human voice can be
+        excluded deliberately, or kept on purpose — today it is included by
+        accident and nobody knows which spans they are.
+      - The privacy answer. This corpus is recorded in public and a detector
+        that finds his voice finds a stranger's, which is the prerequisite for
+        ever muting one before a corpus is shared.
+
+    DO NOT WRITE THE OUTPUT ANYWHERE A LABELLER READS IT. A transcript of a crow
+    call filed as something the recordist said would be the laundering the
+    dictation design was built to prevent, arriving through the back door. This
+    is a measurement about a recording, like quality.py — not testimony, and not
+    an observation.
+
+    Numbered folder in experiments/. A null is a real result here and worth
+    writing down: "Whisper cannot tell a caw from a voice" saves the next person
+    the afternoon.
+
+[ ] INVESTIGATION: can anything find human speech in this audio automatically?
+
+    The chip above only works going forward, and only when Ben remembers he
+    spoke and at what second. Everything already collected — 116 captures —
+    has no record at all, and he cannot re-listen to two hours of audio to
+    find every "hi crow". A detector would sweep the lot.
+
+    MEASURE FIRST, and the measurement is adversarial rather than
+    confirmatory. A caw is loud, broadband and vocal-shaped; a voice-activity
+    detector trained on telephony has never been asked to tell one from a
+    person, and there is every chance it calls every crow a human. Run it and
+    count:
+
+      - does it find the two known instances, "hi crow" at 46 s and 71 s in
+        "Crows scatter from car"? Those are the ground truth we have.
+      - how often does it fire on a span already labelled as a crow call? That
+        is the number that decides whether this is worth building. A detector
+        that flags cawing as speech is worse than none, because it would mark
+        the corpus's best audio as contaminated.
+      - how many kept captures contain speech at all?
+
+    A null here is a real result and worth writing down — "off-the-shelf VAD
+    cannot tell a caw from a voice" saves the next person the same afternoon.
+    Numbered folder in experiments/, per the usual.
+
+    CANDIDATES, cheapest first. Silero VAD is the one to try first: small,
+    CPU, torch — which crowgpt's venv already carries — and built for noisy
+    audio rather than clean telephony. WebRTC VAD is cheaper still and almost
+    certainly too naive for outdoors. YAMNet has a "Speech" class among its
+    521 and would sit closest to how BirdNET already runs. Speaker ID
+    (pyannote) is a different and much larger question — knowing *who* spoke,
+    not *that* someone did. Do not start there.
+
+    WHERE IT WOULD LIVE if it works: `analyzer/`, alongside quality.py, which
+    is the precedent — a per-capture measurement that is deliberately not a
+    label, because "a human spoke here" is a property of the recording rather
+    than a claim about what a call is. Same rule: pure processing, no server,
+    no database, and the worker writes the result.
+
+    THE THIRD REASON TO WANT IT, and it may be the strongest. This corpus is
+    recorded in public. A detector that finds Ben's voice finds a passing
+    stranger's too, and right now nobody knows which recordings carry a
+    conversation that was never meant to be collected. The project already
+    censors coordinates and asks about location precision; speech in the audio
+    is the same class of question and currently has no answer at all. Knowing
+    where it is, is the prerequisite for ever muting it before a corpus is
+    shared. That argument stands even if the labelling case does not.
+
+
+
+================================================================================
+NEEDS A PHONE
+================================================================================
+
+Everything here is built and tested against fakes. What has met a handset and
+passed has been deleted, so anything still listed is either unverified or has a
+step left. Ordered by what a failure would cost.
+
+A sweep on the night of 2026-08-01 verified and deleted: the mic-disconnect
+spoken cue (second attempt), the heartbeat cue, the kill re-test, the earbud
+button from Settings, the sticky "They know me as"/distance, the capture
+lock's ignoring, and the video playback alignment (the picture following the
+audio across the pre-roll).
+
+--- 1. The video card's first open — pause once, and say when it cannot open --
+
+Two field reports from that same sweep, fixed in 7bdb684 and not yet re-seen:
+the follow rule paused a hand-played picture a beat after every play press
+(the audio player reports while paused, and every report re-issued the
+pause), and a player that failed to open — the camera can still be releasing
+the codec seconds after recording — sat as a silent black box, because the
+error branch had no listener and could never render.
+
+  - record a video capture and open it IMMEDIATELY from the list: expect
+    either the picture, a "Loading the video…" state, or a said failure with
+    a Try again that recovers — never a wordless black box.
+  - pause the audio, then play the video with its own controls: it must keep
+    playing rather than stopping a beat later. Scrubbing the paused audio
+    must not stop it either.
+
+--- 2. The upload loop, once, deliberately ---------------------------------
+
+The fix changed how every upload finishes.
+
+  - record something over ~2 MB and sync it: completes once, does not loop
+  - kill the app mid-upload and sync again: resumes rather than restarting
+
+--- 3. The recorder failure modes — what the sweeps have not reached ---------
+
+  - preferred microphone unplugged mid-recording: expect it to say so rather
+    than record inputHonoured = true against a different mic. Needs the Rode,
+    and expected to fail — nothing watches routing changes today.
+  - storage full partway through a long capture: still reasoned, not run, on
+    purpose. See above.
+
+--- 4. The video screen's clock -----------------------------------------------
+
+The wait labels and the list placeholder passed the 2026-08-01 sweep; what
+remains is the half that matters most and needs a slow fix to see:
+
+  - RECORDEDAT: record a short clip somewhere the GPS fix is slow, and the
+    capture's time must be when you pressed Stop, not fifteen seconds later.
+    Every capture in the corpus recorded indoors used to be dated by when its
+    metadata finished, and nothing on the row ever said so.
+
+
+[ ] Record the next stranger at a matched distance, and record one of yourself
+
+    Experiment 0016 could not answer whether the crows sounded different at the
+    woman on 2026-07-31, for two reasons that are both fixable in the field
+    rather than in analysis.
+
+    There is one stranger recording. A fold that holds it out holds out the
+    class, so nothing is testable until there are two — and 0006's feasibility
+    band wants ten sessions per class before a number means much. Every stranger
+    who walks the turf is worth recording, even a boring one.
+
+    And the comparison was 5-20 m against under 5 m, which is what sank it: 9 dB
+    of added noise destroyed half the call-rate advantage and most of the
+    duration gap. So the stranger recordings worth having are the ones at the
+    *same* distance band as an existing recording of yourself. Under 5 m is the
+    band with a control already in it (114, "5 crows in shaded flower bed").
+
+    Cheapest version: when you record a stranger, record yourself walking the
+    same stretch at the same distance within the hour, the way 113 and 114
+    happened to be 32 minutes apart. That pairing is the only reason 0016 could
+    run its control at all, and it was luck rather than design.
+
+
+[ ] The pooled feature cache is stale against the vendored corpus
+
+    Found while confining crow-tools to import_crowtools.py (af69ec0), and it
+    predates that change rather than being caused by it.
+
+    `pipelines/ingest/results/pooled_embeddings_crowtools_all-public.npz` holds
+    2,494 rows over 1,195 recordings. The corpus resolves 2,339 segments over
+    1,098 today. The cache was built when the fork's `.cache/libraries` was
+    supplying audio the local download does not have, so it carries ~97
+    recordings that are no longer on disk. `experiments/0012/run.py` notices —
+    `align()` prints "cached [...] against [...] — rebuild" and refuses the join.
+
+    The gap is almost exactly the 109 library-2 labelled recordings the corpus
+    tooling skips without its key. 1,438 of 1,549 labelled recordings are on
+    disk; the 2 missing library-1 ones are noise.
+
+    So the order is: have the corpus tooling fetch the labelled audio, then
+    `make corpus-build` (half an hour) and `make train-crow`. Worth knowing
+    before that last step: the shipped american-crow head was trained off the
+    current .npz, so a rebuild moves the model. Compare metrics.json before and
+    after rather than overwriting blind — the 0.97 alarm AUC is the number the
+    whole corpus argument rests on.
+
+    Until then 0012 cannot be re-run, and `make corpus-build` silently produces a
+    smaller cache than the one training last read.
+
+
+[ ] The analyzer has no loading state — results just appear
+
+    Open a capture, press Analyze, and the screen polls the job every two
+    seconds and says "Analyzing… (queued)" with a spinner. Leave the screen
+    before it finishes and all of that is gone: `canceled.current` stops the
+    poll on unmount (useAnalysis.ts:49-54, :130-148), the job id is a ref that
+    dies with the hook, and nothing anywhere is watching it any more. Come back
+    later and `loadCalls` fetches whatever is there now, so the detections
+    arrive with no history and no warning — hence "it randomly appears".
+
+    THE HOLE UNDER IT is that a running job is unrecoverable state. The phone
+    can only poll a job whose id it happens to be holding, so a capture being
+    analyzed right now looks exactly like one nobody has ever analyzed:
+    "Nothing detected yet." above an enabled Analyze button, which invites a
+    second job for audio already in the queue.
+
+    THE SERVER ALREADY KNOWS. `/api/captures/<id>/analyze` sets the capture's
+    status to "analyzing" (api/analysis.py:30), and there is a jobs table with
+    a capture_id on it. What is missing is any way to ask "what is happening to
+    THIS capture" — `/api/jobs/<id>` is by job id only, so the one question the
+    screen needs is the one question the API cannot answer. Cheapest fix is to
+    return the latest job's state alongside `/api/captures/<id>/calls`, which
+    the screen already calls on mount; then re-entering a capture resumes the
+    poll instead of starting from nothing.
+
+    WORTH DECIDING WHILE BUILDING: three states, not two. "Never analyzed",
+    "queued or running" and "analyzed and found nothing" all render as "Nothing
+    detected yet." today, and the third is a real result about the audio while
+    the first two are statements about the pipeline. Only the third should ever
+    look final.
+
+    AND ONE FOR THE LIST SCREEN, since it is the same fact: a capture that is
+    mid-analysis has no marker there at all, so the only way to find out is to
+    open it.
+
+[ ] The label queue's reminder — left out on purpose, and the week is up
+
+    The queue shipped 2026-08-01 without one, so it could be watched for a week
+    before anything started nagging about it. The honest trigger is "a kept
+    capture has been sitting unlabelled since this morning", never one alert per
+    recording — a walk that makes eleven captures must not make eleven
+    notifications, and an alert nobody acts on trains the habit of dismissing
+    them.
+
+    READ THE QUEUE BEFORE BUILDING THE REMINDER. It is only as good as its
+    ability to reach zero, so if kept recordings are piling up in it that nobody
+    intends to label, the scope is wrong rather than the person — and a reminder
+    would then be nagging about a bad filter rather than about unlabelled audio.
+    ★ Keep is doing that work today.
+
+[~] A region gets one call type — TWO OF THE THREE FIXES HAVE SHIPPED
+
+    Re-checked 2026-08-02 by experiments/0036 (capture_104.py). The head is now
+    MultiLabelHead (one-vs-rest) and detected_calls carries an `alternates`
+    column, so analysis 243 of capture 104 reads:
+
+        9-27s   begging 1.000   alternates: call 0.998
+        39-42s  begging 0.997   alternates: song 0.939
+
+    The caw is no longer invisible. Fixes 1 (top-k instead of argmax) and 2
+    (one-vs-rest on multi-label rows) are done.
+
+    FIX 3 IS THE WHOLE REMAINING GAP. group_regions still fuses windows within
+    REGION_GAP into one span, so the caw is known to be somewhere in an
+    eighteen-second region and nothing says where. Scoring the two reported
+    moments directly: at 27s the head gives `call` 0.994 in the NARROWEST window,
+    so this was never a sensitivity failure. The caw's energy sits in 24-27s, on
+    the far side of the region from the ~12s one, which is why the 27-30s region
+    carries no alternate — the caw is at ~26s, inside the previous region.
+
+    Also worth carrying forward: the confidence ladder rises with region width on
+    every span tested including the control (call 0.390 at 3 s -> 1.000 at 18 s).
+    A 3 s region is a single BirdNET window with std=0 and max=mean, which 0036
+    arm D found collapses predictions toward the dominant class. Short regions
+    are not merely less informed, they are differently shaped.
+
+    This is the same segmentation ceiling 0036 found behind mobbing, and the same
+    one Voxaboxen targets. See the overlapping-crows entry above.
+
+[ ] Pre-code the transcripts with an LLM, then measure yourself against it
+
+    Ben, 2026-08-01, and worth building early — before the facet definitions
+    calcify. Run each spoken note's transcript through an LLM that codes it
+    into the facets (call types, context chips, caller role — whatever the
+    vocabulary asks of a note), then hand-code a subset yourself, blind, and
+    measure agreement.
+
+    The number is the point, and both ends of it pay:
+
+      - Agreement around 90%: the coding is mechanical enough that the fleet
+        can be trained on it — a contributor, or the model itself.
+      - Agreement around 60%: the definitions are underspecified, and the
+        disagreements name exactly WHICH ones — found before that ambiguity
+        cost anything, at the price of an afternoon.
+
+    Same trust rule as the rest of the dictation design: the model's coding is
+    a suggestion tier, never written into labels or observations — agreement
+    is measured against it, not promoted from it. A transcript pre-coded and
+    filed as testimony would be the laundering the confirm step exists to
+    prevent.
+
+    Needs a body of real transcripts first, which is a reason to speak notes
+    in the field rather than a reason to wait. The measurement itself is an
+    experiments/ folder when it runs: the agreement number is the durable
+    part.
+
+[ ] The head cannot say "nothing here", and it is confident about it
+
+    Experiment 0036's biggest finding, and it is not about call types. Handed
+    572 segments a crow-tools labeller explicitly marked crowCount=0 — no crow
+    present — the shipped four-class American Crow head assigns a call type at
+    p > 0.5 to 97.0% of them, at a mean top probability of 0.898. It calls 388
+    of them `alarm call` and 119 `song`.
+
+    It has no abstain, so on silence it does not merely guess, it guesses
+    confidently. Nothing the project currently reports would show this: every
+    metric is computed over segments that contain a call by construction.
+
+    A five-class head with an explicit `none` rejects 70.6% of that garbage for
+    0.021 of CORE macro-F1. That trade is worth taking.
+
+    Two pieces, and the first is the cheap one:
+
+      - `not_a_crow` already exists in label_defs and is trains=0, so the one
+        thing a human can say fastest is the one thing the model never learns.
+        Decide whether it becomes a trainable class or whether a separate
+        `none` is introduced — they are not the same word and conflating them
+        would repeat the two-vocabularies mistake 0012 warned about.
+      - the 578 crow-tools garbage segments are already embedded at
+        experiments/0036-what-would-more-labels-buy/results/garbage.npz, so a
+        first five-class head can be trained today without collecting anything.
+
+    Field negatives are better still and cost almost nothing to collect: a
+    recordist tapping "nothing here" on a quiet span is the cheapest label in
+    the project and the only one aimed at the failure above.
+
+[ ] Audit every caller of pooling.pool for single-window pooling
+
+    0036 arm D reproduced 0018's "answers alarm call to everything" collapse
+    purely by changing how a span was pooled. On the same 52 field labels with
+    the same head: pooled over the whole labelled span, 0.769 top-1 and 25 of
+    52 answers `alarm call`; pooled as the single nearest 3 s window, 0.673 and
+    41 of 52 `alarm call`, with all 9 true `call` spans called alarm.
+
+    A single window has std = 0 and max = mean, so a third of the 3072-d vector
+    is empty and a third is redundant. predict.py already pools over the call
+    region; the point is to check that everything else does too, and that
+    nothing hands the head one window and reads the answer as a fact.
+
+[ ] build_dataset.py should write the segment key on every row
+
+    pooled_embeddings_crowtools_all-public.npz stores only (X, Y, groups), so
+    recovering a row's raw flags means matching cached rows to corpus segments
+    by position within a file. 0012 did that and it was sound then. 0036 found
+    it is not sound now: 2,494 cached rows against 2,339 segments that still
+    have audio, 98 files disagreeing on count, and file 212803571's cached
+    label order a permutation of the corpus order.
+
+    0012's align() catches it and stops, which is why nothing was silently
+    wrong. But every future experiment now pays to re-embed (0036 spent ~40
+    minutes doing exactly that) or risks trusting an ordering that has already
+    drifted once. A key on the row ends the whole class of bug.
+
+[ ] Overlapping crows, not labels and not the backbone, are why mobbing fails
+
+    0036 closed the loop on this. Arm B showed mob's AP is flat across a tenfold
+    range of labels. 0025 showed Perch does not fix it either — all its gain is
+    on single-crow segments and at crowCount>=2 it is slightly worse. 0036's
+    overlap arm says why, per class, reading AP against prevalence:
+
+      mob     2.93x chance on one crow  ->  1.33x on two or more
+      alert   3.13x                     ->  1.88x
+      rattle  3.74x                     ->  6.67x   (BETTER)
+      softSong 2.95x                    ->  5.02x   (BETTER)
+      begging 6.52x                     ->  6.77x   (flat)
+
+    The wall is specific to the alarm family, and mob's raw AP hides it — 0.551
+    rises to 0.867 only because prevalence rises 0.19 -> 0.65. On crowd audio the
+    head is barely beating "this is a crowd".
+
+    Mobbing is several crows calling over each other. The condition that defines
+    the class is the condition the features cannot handle, which is why no amount
+    of labelling or backbone-swapping has moved it.
+
+    So the mobbing roadmap is the DETECTOR roadmap, and it is already written:
+    FUTURE.txt's Voxaboxen entry, per-event onset and duration for overlapping
+    vocalizations. It now has a measured motivation rather than an argued one.
+
+    crow-tools built a DPRNNTasNet 2-source separator for exactly this and never
+    wired it into anything. Not extractable — the checkpoint is a 44 MB Git-LFS
+    stub, its mixtures need background audio that was never downloaded, and it
+    runs at 8 kHz which discards the above-4 kHz energy that distinguishes a
+    rattle. The recipe transfers, the model does not.
+
+[ ] Copy the 111 missing recordings out of the crow-tools fork before it rots
+
+    170 labelled crow-tools segments are stranded in cawtalker because their
+    audio was never fetched — 2,338 of 2,495 CORE-labelled segments have audio,
+    and the gap is 111 recordings. All 111 are sitting in
+    ~/Code/crow-tools/.cache/libraries/*/audio right now.
+
+    Small — 0036 arm A says 170 more segments buys nothing measurable — so this
+    is a completeness and durability job, not a performance one. The reason to
+    do it is that the fork is unmaintained and the archives are rate-limited: the
+    labels are committed and cannot be re-fetched, and one day the audio behind
+    them may not be either.
+
+    While in there, three columns of library.csv are worth lifting at the same
+    time and nothing has ever read them:
+      - Playback: 15 recordings were made WITH a playback stimulus. Contaminated,
+        should be excluded from training wherever they land.
+      - Behaviors: 3,690 human annotations (Call 2,999, Call; Flying 122,
+        Song 85) — free weak labels.
+      - Background Species: 1,449 rows naming the other birds audible, which is
+        directly useful for the `none` class work above.
+
+[ ] The heartbeat beeps into the buffer while a clip is playing back
+
+    Reported 2026-08-02. Playing a capture back with listening still running
+    lets the heartbeat fire into an open microphone, so the tone lands in the
+    rolling buffer — and the buffer is what the next capture's 15 s pre-roll
+    comes from. A cue that exists to prove the session is alive is writing
+    itself into the evidence.
+
+    WORTH SAYING OUT LOUD: THE HEARTBEAT IS THE SMALLER HALF. The playback
+    itself goes down the same path. If a clip is played near the phone with a
+    session open, the ring now holds a recording of a recording, and nothing
+    marks it. The heartbeat is the audible symptom of a wider hole, and a fix
+    that mutes only the beep leaves the bigger contamination in place. Decide
+    deliberately whether playback should also suspend the ring, or whether the
+    pre-roll should be marked as containing playback — do not fix the beep and
+    call it done.
+
+    WHERE IT GOES. `Heartbeat.kt` is the pure decision function and already the
+    tested seam (`HeartbeatTest.kt`), so add the state there rather than in the
+    Handler:
+
+        fun listeningTick(recording: Boolean, listening: Boolean, playingBack: Boolean)
+        fun recordingTick(recording: Boolean, playingBack: Boolean)
+
+    Both return null while playingBack, for the same reason a switched-off
+    state is a timer that never fires. `RawAudioModule.scheduleBeat` keeps its
+    generation idiom untouched; only the `cue()` lambdas learn the new flag.
+
+    The native side does not know playback is happening — `CapturePlayer` and
+    `LabelingScreen` drive expo-av from JS. So this needs a small bridge
+    (`setPlaybackActive(boolean)` next to `setHeartbeat`), set on play and
+    cleared on pause, stop AND unmount. The unmount case is the one that will
+    be missed and it fails silently in the worst direction: a flag left true
+    mutes the heartbeat for the rest of the session, which is exactly the
+    "silence means dead" failure the cue exists to prevent.
+
+    Prior art in the tree: `MediaButtonPriority.blipsInFlight` already counts
+    the app's own sounds so they are not mistaken for a competing app. Same
+    shape of problem, and worth reading before inventing a second mechanism.
+
+    THE ICON IS NOT DECORATION. The heartbeat's whole contract is that silence
+    means something is wrong. Muting it without saying so breaks that contract
+    at exactly the moment the user is distracted by playback, so the capture
+    screen needs to say "listening, heartbeat muted for playback" — a muted-bell
+    state next to the existing mic caption, not a separate warning. `micState`
+    is where the screen's single source of truth already lives, so the flag
+    belongs there rather than as another derivation.
+
+    Verify on a phone, not in a fixture: play a clip with listening on, then
+    record, then check the pre-roll for the tone. A JVM test can assert
+    listeningTick returns null and still miss a bridge that never fires.
+
+[ ] Settle the windshield on a windy day — no experiment has ever sampled wind
+
+    Ben, 2026-08-02: without the guard it is constant wind and road noise
+    together; with it, passing traffic reads as discrete swells rather than a
+    wall. He does not trust the early experiments on this, and he is right not
+    to.
+
+    NEITHER EXPERIMENT THAT TOUCHES WIND PROTECTION EVER RECORDED IN WIND.
+    0005 answered "traffic, not wind" from ONE wash in ONE capture and then
+    dropped a windshield from the shopping list, which is a leap from "that wash
+    was traffic" to "a windshield buys nothing here". 0010 tested the deadcat and
+    said outright that gustiness was unchanged, 1.07/0.78 without against
+    1.05/0.80 with — because there was no wind on those days either. So 0001's
+    "wind protection before either" has never been measured, only asserted, and
+    the field observation is currently the better evidence.
+
+    THE RIGHT MEASURE IS DYNAMIC RANGE, NOT BAND SNR, and this is why the old
+    experiments could never have seen it. Ben's description is precise: without
+    mic and guard the recording is FLAT — always high decibels; with them it is a
+    WAVE, up and down. That is crest factor and noise floor, and band SNR is a
+    percentile ratio INSIDE one recording, so when the floor is pinned high the
+    quiet percentile rises with the loud one and the ratio barely moves.
+
+    Checked against the 17 kept captures that carry quality rows:
+
+        corr(band_snr_db, noise_floor_band_dbfs) = +0.05
+        corr(band_snr_db, peak_dbfs - rms_dbfs)  = +0.38
+        crest factor spans 18.4 to 42.7 dB (median 25.6)
+
+    Band SNR is essentially uncorrelated with how loud the quiet is, and only
+    weakly related to flat-versus-wave — while the flat-versus-wave axis itself
+    varies by 24 dB across his own recordings. n=17 makes the correlations
+    indicative rather than settled, but the structural point does not need them:
+    a within-recording percentile ratio CANNOT see an absolute noise floor. 0001,
+    0004, 0008 and 0009 all leaned on band SNR, and 0010 already recorded that it
+    produced a confident wrong answer once.
+
+    THE TEST, and it is twenty minutes on the right morning: same spot, same
+    aim, deadcat on and off, sixty seconds each, alternating twice so a gust
+    front cannot land entirely in one arm. Measure absolute sub-200 Hz band
+    energy and its gustiness (rolling std over seconds), 1-4 kHz energy to check
+    the caw band is not being paid for, and crest factor plus noise floor as the
+    primary reading — those last two are what Ben is actually describing.
+
+    THE GROUPING EXISTS NOW; THE WIND STILL DOES NOT. An earlier version of this
+    entry said the corpus records no input device at all, so no existing
+    recording could be grouped by whether the Rode was on. That is out of date:
+    `media.input_device` has been populated since 2026-07-26, and 22 of the 24
+    kept captures carry it — 13 USB_HEADSET against 9 BUILTIN_MIC. A
+    with-and-without split is already on disk and costs nothing to run.
+
+    What that split cannot do is answer THIS question, because none of those
+    recordings sampled wind — which is the whole defect in 0005 and 0010, and no
+    amount of grouping fixes a variable that was never present. Use it for the
+    third prediction below, the acoustic price of the guard on a calm day, and
+    run the twenty minutes on the right morning for the rest.
+
+    Still missing, and still a wire-version bump: the routed device sits on the
+    MEDIA row rather than the capture, and `inputHonoured` is stored without ever
+    being reconciled against the route — see the entry above.
+
+    Predictions worth writing down first, because they are separable and the
+    interesting outcome is the third:
+      - guard removes low-frequency gustiness: the windshield working as intended
+      - guard also lowers 1–4 kHz: strong wind is reaching the caw band, which
+        would make it matter far more than 0005 implied
+      - guard costs 1–3 dB in the caw band with no wind benefit: the acoustic
+        price 0010 could not measure, and the case for taking it off on calm days
+
+    DO NOT use band SNR as the measure. 0010's own closing note: it is a
+    percentile ratio inside one recording, so it compares each recording against
+    its own quiet, and it produced "windshield costs 7 dB" — a confident wrong
+    answer — on exactly this comparison. Absolute band energy on matched-length
+    clips, or nothing.
+
+    Bears on the mounted-camera plan too: a phone propped at the perch sits in
+    whatever wind is there, where a handheld one is partly shielded by the body.
+
+--------------------------------------------------------------------------
+
+DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
+
+    experiments/0058 measured it on the 4070 Ti Super: the decoder is 7.4M of
+    EnCodec's 14.9M params, a full-corpus pass (64.3 h now, not 41.7) is 1.48
+    GPU-hours at the adversarial recipe's batch-16 ceiling, so 20-50 passes is
+    1.2-3.1 GPU-days plus about a day of code. Cheap enough that cost can no
+    longer refuse it.
+
+    TWO THINGS THE COSTING CHANGED. The pre-gate below is Goodharted by
+    construction — multi_res_stft_distance is the same loss family the finetune
+    trains on, and over-smoothing LOWERS it while making a worse crow. Gate on
+    AST-FAD + churn/density + a 0057-style labelled listen instead; log the
+    STFT number, don't let it vote.
+
+    0057 ANSWERED THE SAME DAY, by ear: "codec makes it scratchy, generated
+    makes it scream." Two defects, two owners. The finetune stays supported as
+    the scratch's owner — K=8 of REAL audio grades down to D+ with no model in
+    it, and the 8→32 residual spans D+ to A- on one recording — but it no
+    longer claims the whole audible defect. The scream is the model's, has a
+    regenerable exemplar (fair-k8 seed 4, tagged clear by ear against five
+    same-page draws that were not), and gets its own experiment. Both can
+    proceed; neither queues behind the other.
+
+    LAUNCHED 2026-08-07 ~12:30 (febc0cb, crowgpt/src/crowgpt/decoder_finetune.py,
+    `make -C crowgpt finetune-decoder`), and moved the same evening from a
+    nohup orphan to a SYSTEMD USER UNIT Ben can manage himself:
+
+        systemctl --user status crowgpt-finetune     alive, since when, pids
+        journalctl --user -u crowgpt-finetune -f     live stdout
+        systemctl --user stop crowgpt-finetune       stop; safe at any moment
+        systemd-run --user --unit=crowgpt-finetune -p Restart=on-failure \
+          -p RestartSec=30 crowgpt/tools/finetune_both_arms.sh    (re)start
+
+    The script chains spectral -> adversarial and is idempotent: each arm
+    resumes from results/decoder-finetune/<arm>/latest.pt and a finished arm
+    exits immediately, so Restart=on-failure loses at most one eval interval
+    (~30 min). Linger is on, so it survives logout; a reboot needs the
+    systemd-run line again.
+
+    SPECTRAL CONTROL DONE (20 passes, ~2.7 h): val AST-FAD 57.7 -> 50.6 best
+    at ~10 passes then plateau, unit Δ -0.156 -> -0.02. The Goodhart pattern
+    arrived on cue — STFT fell 1.172 -> 1.013 (its own loss family) while FAD
+    moved modestly — which is why STFT does not vote. ADVERSARIAL ARM RUNNING,
+    50 passes, ETA late Aug 9 / morning Aug 10; it has 50.6 to beat. Progress
+    in the dashboard Training panel; best.pt picked
+    by val AST-FAD. When it lands: gate on the untouched TEST split, then a
+    0057-style listen page — raw / frozen K=8 / spectral K=8 / adversarial
+    K=8.
+
+    Freeze EnCodec's encoder and quantizer, retrain ONLY the decoder on the
+    41.7 h corpus with the adversarial + multi-scale spectral losses it was
+    originally trained with. Tokens stay bit-identical, so model-fair-k8 keeps
+    working untouched and the ceiling moves at FIXED learnability — the only
+    lever found so far that does not pay for ceiling in modellability, which is
+    what killed 0030, 0035 and 0037.
+
+    The mismatch it attacks is measured, not assumed: 0036 has EnCodec cutting
+    the 800-4000 Hz corvid band by 0.67 dB inside call regions, because it was
+    trained on speech and music.
+
+    Pre-gate before any ears: arm B only, no generator. Real held-out bouts ->
+    encode -> finetuned decode -> 0028's STFT instrument. Baseline K=8 is 1.165,
+    EnCodec's own K=32 ceiling is 1.035, an unrelated recording is 3.090. If it
+    does not beat 1.165 and head toward 1.035, kill it before a sitting.
+
+    Honest risk: 0037 says a higher ceiling may again buy nothing at the output.
+    Difference is you are not paying in learnability, so a null costs GPU-days
+    rather than a tokenizer migration, and it stacks with model-side work later.
+
+[x] BirdNetEmbedder.embed discards the row indices and will mis-join labels
+
+    Done 2026-08-11: both embedders expose `embed_indexed(clips, sr) ->
+    (vectors, kept indices)` — AST's indices are trivially complete, which
+    is exactly why the interface has to exist on both. `embed` remains for
+    distribution work (evaluate.py's FAD is the one in-tree caller and is
+    row-order-safe) with a docstring saying joins must not use it.
+    tests/test_embedders.py. Original entry follows.
+
+    Found by 0040, 2026-08-03. `crowgpt.birdnet.BirdNet.embed_indexed` exists
+    precisely because BirdNET returns nothing for a clip it finds no segment in
+    — 262 rows for 300 clips in that run — and its own docstring says "anything
+    joining embeddings back to labels needs this rather than embed()".
+
+    `crowgpt.embed.BirdNetEmbedder.embed` calls the unsafe `embed()` and throws
+    the indices away. Every caller of the wrapper is therefore one short or quiet
+    clip away from attaching labels to the wrong rows, silently, with a plausible
+    accuracy coming out the other end. 0036 already recorded this class of bug
+    biting once: "the cache had already drifted out of positional alignment —
+    2,494 rows against 2,339 segments, 98 files disagreeing, one file permuted".
+
+    Fix: have the wrapper return indices too, or drop it and make callers use
+    `embed_indexed`. Check `evaluate.py` and anything else reaching for
+    `embedders()` while doing it — the AST embedder returns one row per clip, so
+    a caller written against AST looks correct until BirdNET is swapped in.
+
+[ ] CROWGPT: RE-READ EVERY REAL-VS-GENERATED GAP AS AN UPPER BOUND
+
+    0044's real finding, and it is bigger than the question it was built for.
+    In 0028, 0033, 0034, 0037, 0038 and 0041, MIN_SECONDS = 1.0 is applied to
+    store.index[i]["n_samples"] -- the REAL bout store -- and to nothing else.
+    Generated arms went in unfiltered at 18-20% under a second, shortest 0.08 s.
+
+    That is a one-sided bias, not noise. Ben mid-sitting: "too short clips
+    instantly loose. 0.1 second is always worse." So every real-vs-generated
+    number in the series is depressed on the generated side by up to the share
+    of ungradeable clips, which against a good-rate of 0.21-0.25 is large in
+    relative terms. Generated-vs-generated is untouched, both arms having
+    carried the same handicap -- that is most of 0030 through 0038.
+
+    demo.py now refuses a short clip (MIN_GRADEABLE_SECONDS, PairPage), so this
+    cannot recur. What is owed is a decision about the numbers already
+    published: either re-sit one arm filtered to size the effect, or annotate
+    the affected figures in the experiment READMEs as upper bounds. The cheap
+    version is
+    the annotation; the honest version is re-sitting model-fair-k8 against real
+    with both arms filtered, which is one sitting and settles how much of the
+    0.21-vs-0.92 gap was ever real.
+
+[ ] CROWGPT: THE DEFECT IS NOW CALLED "SCRATCHY", WHICH IS THE CODEC'S WORD
+
+    After the length filter Ben describes what is left as "it still sounds
+    scratchy not modem like... it sounds like a hoarse crow" -- and "scratchy"
+    is the exact word he used for the CODEC ROUND-TRIP with no model in it
+    (0024 Part 3: "through the codec it makes it scratchy and worse"), confirmed
+    blind at 40 points in 0028.
+
+    If the modem/beep component was substantially short clips, and what remains
+    is the codec's own signature, then the model's share of the defect is
+    smaller than thirty experiments have assumed -- and PLAN-TIMBRE's "stop
+    buying ceiling" was drawn from output numbers carrying this bias.
+
+    Do not act on this yet. It is one remark and it needs the measurement above
+    first. But it is the most interesting thing on this list.
+
+[x] `_prefix()` returns fewer tokens than `prefix_len` claims, and it has now
+    caused the same bug twice
+
+    Done 2026-08-11, the second option: `_prefix` returns a `Prefix` object
+    — `written` for the tensor, `stated_len` as the one stripping offset
+    (asserted equal to the vocabulary's `prefix_len` at construction), and
+    `state()` for callers like complete_fine that write a normally-sampled
+    slot themselves without changing the length. All four call sites moved
+    off `vocabulary.prefix_len`; tests/test_prefix_seam.py holds the
+    invariant across vocabulary shapes. The original entry follows.
+
+    `Sampler._prefix` returns ONE token (the species) while
+    `Vocabulary.prefix_len` says two, because the duration bucket is *sampled*
+    by the model rather than written. Every caller therefore has to know that
+    the first generated token is not a codec id, and slice from `prefix_len`
+    rather than from `len(prefix)`.
+
+    Two bugs so far, both silent, both caught only by a round-trip check:
+
+      - `complete_fine` (WP2 arm B) omitted the duration token when building its
+        prefix, which shifted every sampled token one stage low. All 40 of them.
+        The audio still decoded.
+      - 0047's sampling sweep kept the duration token IN its codec stream, which
+        shifted the grid the other way and made every arm's churn read 0.99.
+        Caught only because the sweep included a baseline arm whose answer was
+        already known from 0046.
+
+    The seam is the problem, not the callers. Options, cheapest first:
+
+      - have `_prefix` return the full prefix INCLUDING a duration slot, and let
+        the sampler overwrite it when the model picks one. Then
+        `len(prefix) == prefix_len` always and the trap closes.
+      - or return `(prefix, n_sampled)` so the caller cannot forget.
+      - failing either, a docstring on `_prefix` saying it is shorter than
+        `prefix_len` and why — it currently explains the opposite risk.
+
+    Worth doing before the next thing that generates tokens: this is the one
+    seam in the project that has produced a wrong-but-plausible result twice.
+
+[ ] Start the two things the work-roof station waits on — both have long leads
+
+    Design is in phases/roof-station.md, reasoning in FUTURE.txt. Nothing gets
+    built for weeks either way, and these two are what decide whether anything
+    gets built at all, so they are here rather than there.
+
+      - ASK FOR PERMISSION, in writing, from the building owner or facilities.
+        Not a colleague with a roof key. Say plainly that it involves bird food
+        and a camera: a permission granted on a partial description is worth
+        nothing on the day somebody objects. Ask about tethering to existing
+        rooftop steel while you are there, because nothing may penetrate the
+        membrane and the tether is what stops the station leaving in a gust.
+
+      - GATE 0 — ARE THERE CROWS ON THIS ROOF AT ALL? Five minutes a day for a
+        week at the hour you would feed, writing down what you see. The most
+        expensive failure available here is a built station on a roof no crow
+        visits, and a week of looking rules it out. Record 60 s of ambient at
+        two or three candidate spots while up there and it doubles as the noise
+        survey the mic siting needs — roofs are covered in machinery, and an
+        HVAC unit 5 m away is a wall of broadband noise no windshield fixes.
+
+    Fail on either and the whole thing stops, which is the point of doing them
+    first. Marginal on Gate 0 — crows in the neighbourhood, never on the
+    building — is still workable, at roughly double the acclimation time.
+
+    Worth knowing about timing: SLC crows form large communal winter roosts, so
+    a downtown roof gets substantially more corvid traffic from late autumn.
+    Habituating now means the station is familiar furniture before the numbers
+    arrive.
+
+[ ] Run the within-group thinning arm before downloading anything at scale
+
+    FUTURE.txt called this and it is right: nothing has yet MEASURED that more
+    audio per channel helps. 0048 varies the number of recording groups, so it
+    prices more CHANNELS and is silent on DEEPER ones. The arm that settles it
+    costs no bandwidth at all — hold the group count fixed and thin bouts WITHIN
+    groups, which 0048's own docstring explicitly rules out. The corpus already
+    supports it: 41 recordings hold 100+ bouts each and supply 10.1% of all
+    audio.
+
+    This is the difference between the archive plan being worth ~50 GB and being
+    worth nothing, and it is one training run. 0022, 0027 and five nulled
+    modelling routes are the reason to measure first: this project has a strong
+    track record of data interventions measuring zero.
+
+[ ] Capture 100 has three digital dropouts of exactly 3.00 seconds
+
+    Found 2026-08-06 by 0054 while ranking clips for the promo page. Runs of
+    exact-zero samples at 19.0 s, 45.5 s and 63.0 s, each 3.00-3.01 s long,
+    in an 84.5 s recording — 11.8% of the file is missing.
+
+    Three gaps of an identical round duration is not a microphone glitch. It is
+    something writing silence in fixed-size units: a buffer that returned empty
+    three times, or a writer that padded a gap it could not fill. `pre_roll_sec`
+    and `input_device` are both NULL on this capture's media row, where 113/115
+    have 4.0/7.5 s and USB_HEADSET — so it predates that bookkeeping and may
+    predate whatever fixed it.
+
+    THE SILENT TELL: `capture_quality.band_snr_db` for capture 100 is **0.0**.
+    The analyzer's own quality pass choked on it and nothing reads that column
+    looking for a zero, so a kept capture has been sitting a ninth empty since
+    2026-07-28 with a measurement that says so.
+
+    Worth doing: (1) check whether any other capture has a silent run over 50 ms
+    — 0054's `longest_dropout` does this in one pass; (2) decide whether
+    band_snr_db == 0.0 should be surfaced on the dashboard as a fault rather
+    than rendered as a bar of length zero.
+
+    It is a KEPT capture, so nothing destructive. Read-only inspection only.
+
+[ ] Hear repeat_penalty = 1.05 — 0053 says it sits right at the audible threshold
+
+    0053 (2026-08-06) turned churn into a calibrated instrument: a 0.137 churn
+    gap is plainly audible (0.82, p = 0.0043), a 0.068 gap is not (0.55, p =
+    0.71). 0047's shortlisted `repeat_penalty = 1.05` moves stage-0 churn from
+    the default's 0.8194 to 0.8655 — a gap of 0.046, just under the one that
+    tied. So this is now a sharp test of where the threshold actually is rather
+    than the coin flip it would have been a week ago.
+
+    Two things changed about how to run it. Use the dose page, not PairPage —
+    0053's rig resolved three contrasts where four of five old sittings came back
+    unresolved. And build for SPREAD: put repeat 1.05 (0.8655), the default
+    (0.8194) and repeat 1.30 (0.9640) in one pool so the sitting brackets the
+    threshold instead of testing one step against it.
+
+    Also revisit 0047's scoring. It ranked arms by |churn - 0.868| so overshoot
+    was penalised as hard as stickiness, and 0053 suggests overshoot is free:
+    channel-000 sits 0.059 ABOVE real and cost nothing detectable. `repeat 1.15`
+    at 0.930 may be better than its 7th place implies.
+
+[ ] Pin a channel bucket at or above real churn, and use flatness to pick it
+
+    0053 voided 0044's channel null: bucket choice moves stage-0 churn 0.215
+    within one checkpoint (0051) and that range is audible. channel-081 at 0.722
+    loses decisively; channel-000 (0.927) and channel-205 (0.859) are
+    indistinguishable from each other.
+
+    So the rule is "at or above 0.868", not "as close to 0.868 as possible", and
+    0051's quiet-frame spectral flatness (rho -0.659 against churn, no BirdNET, no
+    audio, computable from channels.json alone) is the pre-gate for choosing one.
+    Refit channels.json first — it is stale against the v2 corpus and 7,056
+    recordings currently fall into the channel-000 fallback.
+
+[x] Ship the 300 Hz high-pass — measured twice, never applied. Graduated from
+    FUTURE 2026-08-08, where it sat unowned because "do it alongside a
+    re-analysis" had no schedule.
+
+    Shipped 2026-08-11 exactly to the shape below: the filter lives inside
+    analyzer.birdnet.analyze() (every caller gets what model_version
+    claims), version() says "+hp300", quality keeps the unfiltered
+    rendering, and tools/reanalyze_captures.py swept the corpus behind it
+    with the worker running the new code. Original entry follows.
+
+    The evidence is finished: 0008 measured it raising BirdNET species
+    confidence on 4 of 4 mower captures (0.836→0.891, 0.865→0.905,
+    0.757→0.824, 0.975→0.990) with band SNR untouched, and merging the
+    fragmented regions that produced the spurious short "alarm call" segments.
+    0031 re-ran it as one arm of the denoising comparison and it won outright
+    — 0.884 mean max confidence against raw's 0.865, 4 of 4, regions 10 → 7 —
+    beating a 19M-parameter neural denoiser that erased the crow on three of
+    four. Its own closing line: nothing measured so far argues against this
+    filter.
+
+    THE SHAPE, from reading the seam on 2026-08-08:
+
+      - FILTER THE ANALYSIS INPUT ONLY. analyze_worker.process hands one
+        decoded wav to both birdnet.analyze() and quality.measure() — and
+        quality's `noise_floor_low_dbfs` is measured over 0–300 Hz, exactly
+        the band the filter removes. Quality keeps reading the unfiltered wav
+        or the windshield entry above loses its primary instrument. Two paths,
+        not one: a second ffmpeg pass (`-af "highpass=f=300,highpass=f=300"`,
+        two biquads ≈ the 4th-order Butterworth 0031 measured) or scipy in a
+        wrapper.
+      - RECORD IT IN model_version. HeadRegistry.version() is free text with
+        no schema — append the filter (e.g. `+hp300`) and old and new stored
+        analyses stay distinguishable. That answers the objection that parked
+        this in FUTURE ("changes what every stored analysis means"): every
+        analysis now says which preprocessing it saw.
+      - RE-ANALYZE THE CORPUS BEHIND IT. backfill_quality.py --all is the
+        precedent and the shape to copy — a tool that enqueues an analysis job
+        per capture, oldest first, progress through Run. Labels are human
+        testimony and untouched; detected_calls and candidates regenerate,
+        which is the point.
+      - SPOT-CHECK THE HEADS BEFORE TRUSTING NEW CALL TYPES. 0008/0031
+        measured detection confidence; the call-type heads were trained on
+        embeddings of unfiltered audio and will now read filtered ones.
+        Capture 104's ladder is the ground truth that exists — score it both
+        ways before believing a changed call type over an old one.
+
+[ ] The 0027 collection plan is steering nothing — pick the cell before the
+    next field morning
+
+    0027 ended with a plan, not a shrug: "four more mornings, on the right two
+    situations. Not more calls." Concretely — get `human_known`,
+    `known_passing` and `human_approaching` onto two more mornings each, and
+    `loud_worker` and `stranger_passing` onto three. Four to six sessions if
+    each targets a thin cell, weeks not months at 2–4 recordings a day,
+    against an unbounded number if they stay untargeted.
+
+    It never left the experiment folder, so no field session since has been
+    aimed at it. Before the next one, pick which thin cell it should fill and
+    say so in the session note.
+
+[ ] The 30-draw scream tag — 0059 nominated a signature and the test is cheap
+
+    BUILT 2026-08-11, awaiting the tags: experiments/0071 has predictions
+    committed and crowgpt/results/scream-tag-0071.html holds 30 fresh
+    fair-k8 draws behind scream/no-scream buttons, duty cycle hidden in
+    the experiment's manifest rather than the page. Five minutes, one
+    visit; feed the downloaded rating JSON to 0071/analyse.py. Original
+    entry follows.
+
+    0059 separated Ben's tagged scream (fair-k8 seed 4) from five same-page
+    draws on duty cycle alone — 0.142 against 0.292–0.603, no overlap — but
+    n=6 with one positive, picked after looking at the table, is a nomination
+    and not a finding. The test is written in the experiment: ~30 fresh
+    draws, Ben tags scream / no-scream blind (a page, not a sitting — tags,
+    not grades), and duty cycle either predicts the tags or dies.
+
+    If it holds, the 0055 shortlist gets a scream filter for free — it
+    already computes churn at pick time and duty sits beside it. If it dies,
+    the scream has no signature in the coarse statistics, which points at the
+    fine stages or the decode. A real result either way.
+
+    Worth carrying: churn0 is blind to the scream (0.859 against real audio's
+    0.868), so 0053's instrument waves it straight through — a different
+    defect from the modem at the token level, needing its own gate.
+
+[x] Key the spent-bout ledger on recording_id before re-extracting anything
+
+    Done 2026-08-11 (tools/migrate_spent_ledger.py, idempotent, run): the
+    822 session records joined to 616 recordings in
+    results/listening/spent-recordings.json while the mapping existed;
+    0053's bouts.json gained its recordings; and the three 6s pools —
+    which never wrote a ledger and were tracked by hand-counted
+    SKIP_REALS — got recording-keyed bouts.json entries from their spec
+    files. 853 recordings retired in total, store-independent.
+    `spent_recordings()` is the durable read, `held_out_reals` takes
+    `exclude_recordings`, and `claim_bouts` writes both keys. A re-extract
+    can no longer bring heard audio back into circulation. Original entry
+    follows.
+
+    0056 found the price of a re-extract and it is not GPU time. `pool.py`'s
+    ledger records BOUT INDICES -- both `claim_bouts`' bouts.json and the `bout`
+    field in every saved session JSON. 0050 already recorded what a rebuild does
+    to those: "every earlier sitting drew from v1 and those indices stopped
+    meaning the same thing after the rebuild."
+
+    So re-extracting today would silently invalidate 822 heard-bout records under
+    `crowgpt/results/listening/` and 0053's claim of 132 in
+    `results/listening-pools/churn-spread-0053/bouts.json`. That is the mechanism
+    stopping a sitting from replaying audio Ben has already heard, and 0053's
+    first build had to be thrown away for exactly that reason -- 121 of 132 bouts
+    already played.
+
+    THE FIX is to spend bouts by `recording_id` (the corvid source_ref), which
+    survives a rebuild, rather than by index into `bouts/index.jsonl`, which does
+    not. `held_out_reals` already retires by recording, so the ledger is the only
+    half still keyed on the fragile thing. Migrating the existing ledger is a
+    one-pass join of the current index: index -> recording_id, done before the
+    re-extract while the mapping still exists.
+
+    Do this BEFORE any re-extract, not after. Afterwards the mapping is gone.
+
+[ ] Look into ISPA — Earth Species' published answer to crowgpt's vocabulary
+    question
+
+    Found 2026-08-08 surveying github.com/earthspecies. ISPA (Inter-Species
+    Phonetic Alphabet, arXiv 2402.03269, github.com/earthspecies/ispa)
+    transcribes animal vocalizations into discrete symbolic sequences — an IPA
+    for animals. Two routes: ISP-A works from acoustics directly; ISP-F
+    extracts features (MFCC or AVES embeddings), k-means clusters them, and
+    maps clusters to phoneme-like symbols, with raw / segmented / phoneme-level
+    variants. Pretrained models ship with the repo.
+
+    This is the same problem crowgpt's tokenizer answers with EnCodec codes,
+    solved a different way by the group whose whole mission is this project's
+    thesis. Worth an afternoon of reading before any more tokenizer work:
+
+      - EnCodec's units were designed for reconstruction of speech and music;
+        ISPA's were designed to be short, interpretable and species-agnostic.
+        The learnability-vs-ceiling axis that killed 0030, 0035 and 0037 is
+        exactly where those designs should differ, and the paper presumably
+        reports something about downstream modellability.
+      - ISPA symbols are readable. A sitting where Ben looks at two
+        transcriptions of the same bout is possible in a way K=8 codec ids
+        never were — though ISPA cannot decode back to audio, so it competes
+        as an analysis/representation vocabulary, not as crowgpt's generative
+        one. Knowing which half it could replace is the point of the read.
+      - Their AVES encoder family (BirdAVES: bird-specific, self-supervised,
+        MIT, wrapped by github.com/earthspecies/avex alongside BirdNET v2.4
+        and Perch v2 behind one API) is the untested third point in the Phase 3
+        comparison — general (AST) and species-ID (BirdNET) were measured,
+        representation-learning-on-birds never was.
+
+    The outcome is a decision, written down: adopt something, run a comparison
+    as a numbered experiment, or decided-not-to with the reason. If it is
+    "compare", the cheap first arm is ISPA transcriptions of the bout corpus
+    scored with the churn/duty instruments 0053 and 0059 already calibrated.
+
+
+[x] Remove the finetune progress symlink once the adversarial arm finishes
+
+    Done 2026-08-09: the adversarial arm finished (20:05) and the symlink is
+    a regular per-run file now. The whole text-file half of the progress
+    system went with it — every run reports only through
+    data/progress/<slug>.json, and `make watch` renders those on demand.
+
+[x] Listening pool tags: prompt only where they carry information
+
+    Done 2026-08-11: the /listen page now surfaces the tag row with a
+    prompt on grade 0 ("what kept either clip from winning") and ±2 ("what
+    did the worse clip do"), and tucks it behind an "add a defect tag" link
+    on ±1. Vocabulary refreshed: "choppy" and "modem" retired (codec
+    artifacts the 0063 finetune removed, unused across 88 trials since),
+    "ghost" added from the 0067 tail listen. Stored answers keep retired
+    tags; only new answers are validated against the new list.
+
+[ ] The dust-controlled sitting: longctx at T1.1/k200 vs the default
+
+    0069's grid says more sampling freedom means LESS blowing-dust (0.49
+    at T0.85 falling to 0.35 at T1.1, probe-scored) and better structure
+    at the same time — no tradeoff. T1.1/k200 is the candidate default;
+    only a pool sitting can confirm the probe's opinion, since the probe
+    validated marginal (AUC 0.699, n=30). Build it like sitting2
+    (anchored, per-clip descriptions — those notes are also probe
+    training data now). Whenever Ben has ears free; no cooldown tricks
+    this time.
+
+[x] Is the finetuned decoder adding breath on generated tokens?
+
+    Decided not to pursue, same day (0070): the shift is uniform finetune
+    character — -0.033 on real round-trips, -0.028 on generated tokens,
+    inseparable (MW p=0.45) — and 0063's ears preferred the finetuned
+    decoder on those very round-trips, so it is not an audible dust
+    penalty. No finetune v2. The probe carries the caveat instead
+    (lib/dustprobe.py): never compare its score across decoder states,
+    never read absolute dust rates.
+
+[ ] Idle mode's first sessions — dry run on the 8, real hour on the 10
+
+    The feature shipped 2026-08-15 (Settings › Rolling buffer › "…and record
+    on its own (idle mode)" — turning it on brings pocket listening with it —
+    then Arm on the capture screen; captures land badged AUTO with
+    role/distance blank and BirdNET's verdict on the detail screen after
+    sync). Before trusting it with an evening:
+
+    - Pixel 8 dry run, test config (arm 5 min, hold 10 s, cap 3): clap with
+      the screen on, clap with the screen off, let it expire in silence, clap
+      past the cap, and pull the USB receiver while armed. Each has an
+      expected log line; the clap must sit inside the pre-roll head.
+    - First real session, Pixel 10, before 7pm: mic hidden at the planter rim
+      (capsule clear of the pot, tethered), phone on power inside. Link check
+      is part of arming: clap at the fire escape, watch the level move inside
+      through the closed window — the receiver has a known USB-bounce state.
+      Arm, walk away. Morning after: sync, review AUTO captures, delete the
+      "no crow found" ones after a listen, ★ Keep the real ones.
+
+- 9 s window rung (0067's named next step): bouts-9s extracted overnight
+  2026-08-16 and waiting. Needs a VRAM preflight at block ~5400 (--block-size
+  past the 4096 default, micro-batch will clip hard), then tokenize + train +
+  gate against a 9 s real reference. Do not gate against 6 s bouts — same
+  category error 0067 warns about.
+
+- The RØDE app can capture the mic out from under the CT app: if RØDE's own
+  app (Central/Connect) is open or grabs the USB device, the field app loses
+  the mic mid-session — reads as a disconnect. Related but distinct from the
+  ~2 s USB bounce already on record (receiver hardware suspected there; the
+  app was exonerated). Worth: detect the takeover and say so in the recording
+  screen ("another app took the mic") instead of failing quietly, and check
+  whether requesting the USB device exclusively is possible on Android.
+
+- CawScout predator icons, phase 2 — wire them into the app map: Ben delivered four
+  generic icons (crow, owl, hawk, kestrel), vectorized to color SVGs in
+  images/ 2026-08-20 (kestral→kestrel spelling fixed in the asset names).
+  Size-tested: legible at 26 px, better at 30-32; run predator pins at
+  30-32 px. Wiring: scout layer gains per-species predator points mapped to
+  these icons (owl for Strigiformes, hawk for Accipitriformes, kestrel for
+  falcons); map divIcons swap the purple dots. Species-level icons (GHO vs
+  screech etc.) can come later if Ben draws them — head-only crops read
+  best at pin size. When they land: extend 0084's scout_layer.json owls list to a
+  per-species predators list (iNat fetch per species is already written),
+  publish, and swap the map's purple dots for divIcons per species. Valley
+  counts recorded 2026-08-20 in the session log; GHO 237, Cooper's 1179,
+  kestrel 565, red-tail 731.
+
+[x] Per-target "best window today" -> shipped 2026-08-21 as the CawScout
+    header advice line (phone-side, Open-Meteo direct; see
+    mobile/src/domain/scoutingWindow.ts). Per-target variants deferred:
+    the valley is one weather.
+
+    The kept captures' weather rows (capture_weather, 21 rows) already say when
+    crows actually got recorded: 7-11 am local and ~6 pm, light wind. Cross that
+    profile with Open-Meteo's hourly forecast per target and publish a "best
+    window today: 18:30-20:18" line into scout.json targets (republish, no app
+    build). First asked for before the 2026-08-20 Gilgal visit, answered by hand
+    that day — worth automating before it gets answered by hand a third time.
+
+    Design notes from the 2026-08-20 discussion: anchor windows to sunrise and
+    sunset (crows keep photoperiod, not wall time — morning peak is the first
+    3–4 h after sunrise, evening peak ends at the pre-roost assembly), and
+    scale a midday exclusion with forecast max temp (corvids go quiet above
+    ~35 °C; a 38 °C day blanks 12–4 pm, a cool day doesn't). Caveat baked into
+    the data: Ben's capture times also track Ben's work schedule, so the 7–11
+    am cluster is part crow, part observer — the roof station's activity clock
+    (FUTURE.txt) is what separates them.
+
+    Best local calibration so far (2026-08-20): Ben observes the Poe family
+    returning to territory ~7 pm against an 8:18 sunset — call it 75-90 min
+    before sunset. The evening window should be anchored there, and his two
+    same-day nulls (targets #6, #13, walked 3:30-6:30) show why the window
+    matters: both fell before the return commute, so they barely test
+    occupancy at all.
+
+- Visit marks: split "crows here" into vocal vs silent. Ben, 2026-08-23
+  10:11, watching a tame park crow eat bread beside a pigeon in silence:
+  habituated crows trade vocalization for approachability, and the current
+  crows/nothing mark can't record the difference — so the CawScout
+  validation loop is blind to the one thing the corpus actually needs
+  (calls, not presence). Small change: third outcome "crows-quiet" (server
+  VISIT_OUTCOMES + app mark buttons; old marks stay valid as "crows").
+  Ship before the next few trips so the vocal-yield data starts
+  accumulating.

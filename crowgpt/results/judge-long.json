@@ -1,0 +1,68 @@
+{
+  "A_real": {
+    "n": 72,
+    "mean_conf": 0.7235,
+    "median_conf": 0.8491,
+    "detected_rate": 0.8889,
+    "species_correct_rate": 0.7361
+  },
+  "B_real_codec": {
+    "n": 72,
+    "mean_conf": 0.6277,
+    "median_conf": 0.7006,
+    "detected_rate": 0.8194,
+    "species_correct_rate": 0.7361
+  },
+  "C_generated": {
+    "n": 72,
+    "mean_conf": 0.4055,
+    "median_conf": 0.3402,
+    "detected_rate": 0.6111,
+    "species_correct_rate": 0.5139
+  },
+  "D_unigram": {
+    "n": 72,
+    "mean_conf": 0.0018,
+    "median_conf": 0.0,
+    "detected_rate": 0.0,
+    "species_correct_rate": 0.0
+  },
+  "memorisation": {
+    "canonical_train_sequences": 21500,
+    "generated_sequences": 72,
+    "all_codebooks": {
+      "index_ngrams": {
+        "8": 2790536,
+        "16": 2625212,
+        "32": 2311616
+      },
+      "held_out_real": {
+        "8_frames": 0.0,
+        "16_frames": 0.0,
+        "32_frames": 0.0
+      },
+      "generated": {
+        "8_frames": 0.0,
+        "16_frames": 0.0,
+        "32_frames": 0.0
+      }
+    },
+    "codebook_0": {
+      "index_ngrams": {
+        "8": 2652042,
+        "16": 2616358,
+        "32": 2310105
+      },
+      "held_out_real": {
+        "8_frames": 0.5211,
+        "16_frames": 0.0433,
+        "32_frames": 0.0006
+      },
+      "generated": {
+        "8_frames": 0.5972,
+        "16_frames": 0.029,
+        "32_frames": 0.0
+      }
+    }
+  }
+}

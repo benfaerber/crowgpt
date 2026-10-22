@@ -1,0 +1,2803 @@
+CAWTALKER — FURTHER OUT
+=======================
+
+Things worth thinking about before they are worth building, and consequences of
+choices already made. Nothing here is scheduled; several entries should end in
+"decided not to", which is a real outcome and worth writing down.
+
+The split from TODO.txt is a horizon, not an importance: that file is the next
+few days, this one is everything after. An item graduates from here to there
+when it has a shape and a reason to happen now.
+
+
+[ ] Auto-grading the CrowGPT listening test: what has been measured, and
+    the one pilot still worth running (investigated 2026-09-11, Jynx)
+
+    Ben asked whether an AI model could grade the sittings for him. The
+    honest state of the instruments, all already in experiments/:
+
+      - BirdNET is circular (0022): it chose the training corpus, so it scores
+        crowgpt above real audio. Fair as a ranking of draws (0055), never as
+        a verdict.
+      - General audio embeddings shrug or invert (0081): AST-FAD put the arm
+        Ben ranks worst BELOW the real-vs-real floor; CLAP margins were equal
+        to three decimals across arms and across his own defect words.
+        Sealed rule: a judge that disagrees with him is a null and never
+        pre-screens a pool.
+      - A judge distilled from his own 304 grades (0082) reaches pool-held-out
+        Spearman 0.48 (0.33-0.57 across five pools), catch-direction accuracy
+        0.50-0.86. Positive, modest, carried by the +/-2 trials. Its sealed
+        voice-0078 call (+0.087 toward calltype, 55%) is still unscored
+        because that sitting sits at 16 of 48.
+
+    Why none of these replaces him yet: the distinction he grades ("hoarse",
+    "blowing dust", "robotic", "crow shape but not real") is textural and
+    lives below what corpus-trained embeddings encode, and the labelled set
+    is 322 answers, 15 of which carry a defect tag. The catch trials are the
+    only ground truth with an external answer; everything else is his ear.
+
+    THE UNTRIED THING is an audio-language model as judge: Qwen2-Audio-7B (or
+    Qwen2.5-Omni) runs on the 16 GB card in bf16/4-bit; a hosted model with
+    audio input is the other route. Claude does not take audio, but a vision
+    model reading mel spectrograms is a legitimate variant: spectrograms are
+    how bioacousticians judge, and dust (0069: low periodicity under a normal
+    envelope) is visible on one. The pilot costs nothing new: score every
+    trial in the five completed pools with the same prompt Ben answers
+    (reference real + two clips, -2..+2 toward the first, name defects from
+    the fixed vocabulary), then run 0082's harness on the outputs: per-pool
+    Spearman against his margins, catch-direction accuracy, and the sealed
+    voice-0078 / capacity-0086 prediction BEFORE he finishes those. Promote
+    only on the 0081 rule. A judge that clears ~0.7 Spearman and 90% on
+    catches earns the pre-screen role: ranking checkpoints and killing the
+    arm nobody would ship, so his 48 trials go to the close pair that needs
+    them. Nothing at any score earns the verdict role; 0038's 8.3-point
+    overnight drift on identical weights says even his own ear is not a
+    stable yardstick, and the pool system's blinding, dosing and reveal_at
+    exist because of that, not around it.
+
+    Expected shape of the null: the model narrates plausible crow-talk with
+    grades uncorrelated to his. CLAP's flat shrug is the prior. Record it in
+    experiments/ either way.
+
+    THE HUMAN-CROWD VARIANT (Ben, 2026-09-12): a data-labelling firm through
+    its API. Same validation move, different judge. What the crowd can do is
+    the coarse question, "which is less robotic", at many raters per trial,
+    which averages out the drift and side bias a single ear carries (0038,
+    0053). What it cannot do is name a defect or hear a close pair: the
+    project's best findings came from Ben's descriptions, and 0067 shows even
+    his ear returning 0.44 then 0.57 on the same close comparison. Qualify
+    raters on the catch trials the pools already contain (real vs generated
+    is the one thing any ear should manage; Ben is 39/46) and drop anyone
+    below ~80%. Calibration first: send churn-spread-0053, already graded,
+    and see whether the pooled crowd reproduces its 0.92 / 0.82 / 0.55
+    dose-response. Reproduce it and the crowd earns the pre-screen role;
+    miss it and the crowd is a null like FAD and CLAP. Two practical gates:
+    the listen page cannot be exposed (no TLS, one shared secret, home
+    network), so trials go out and answers come back through the firm's API;
+    and listening_answers has one answer per trial (UNIQUE trial_id), so
+    multi-rater needs a rater column or one pool per rater. Rough cost is
+    tens of dollars per 48-trial pool at typical per-judgment rates; confirm
+    against the firm's price sheet before counting on it.
+
+[ ] The second cohesion pass: the seams mapped 2026-08-18 and deliberately
+    not cut
+
+    The first pass (Nutcracker, 2026-08-18) split demo.py into crowgpt.pages,
+    took annotations/identity/region-backfill out of AppServices, gave the
+    analyzer a thresholds.py the constants readers can import in 8 ms, and
+    moved config_store's seed vocabulary to config_seed.py. What it left is
+    written here so it does not have to be re-discovered:
+
+      - The blocked-on-live-work set, all mapped precisely in the exploration:
+        AppServices' trigger cluster (headset/volume-shutter/heartbeat — Rook's
+        Bluetooth shutter awaits Ben's field test), SettingsScreen's idle and
+        trigger panels (Rook + Chough), CaptureDetailScreen's Detected-calls
+        verdict block (Chough), and any restructure of useRecorder's idle or
+        dictation concerns. Cut them only after those features are field-tested
+        and their sessions have struck their roster lines.
+      - useRecorder's real split is a DESIGN task, not a cut: six concerns
+        share one closure of refs, and the extraction needs a named useSession
+        core (listening/bufferedMs/meterOn/meterOff/guard) that useDictation
+        and useIdle then take as a dependency.
+      - cli.py's stage/page split: the demo/evaluate/compare helper cluster
+        (lines ~400-870) moves together or not at all, and overnight.py:409
+        imports _balanced from cli — resolve that import first. Wait for the
+        0074 labelling work to settle.
+      - trainer.py is really the seventh listening page plus its exemplar
+        assembly; folding it into crowgpt/pages (eartrainer.py) would also fix
+        the train.py/trainer.py name hazard — but 0060 and 0062 import its
+        privates (CORVID_DB, _read_only, cut), so it needs a shim like
+        demo.py's. Decided not to do it in the first pass.
+      - analyzer/media.py: the ffmpeg/ffprobe wrapping (_guarded, to_wav,
+        highpassed, waveform_envelope) is a near-pure second seam in
+        birdnet.py, weaker than thresholds and skipped.
+      - dashboard api/session.ts (token/storage plumbing out of client.ts) and
+        mobile's CaptureListScreen selection hook + CaptureDetailScreen facts
+        card: small wins, listed for a bored afternoon.
+
+    Also worth knowing: no linter exists anywhere in the repo, but the Python
+    is written to ruff's rules from memory (real noqa codes, ~88 cols). If a
+    linter ever lands, ruff with line-length 88 matches what is already true.
+
+[ ] Deploy: cawtalker.org is the promo, field.cawtalker.org is the API —
+    and the hostname is the contract, so it goes in place before the backend
+    is worth exposing
+
+    Discussed 2026-08-06. The destination is crowdsourced: strangers' phones
+    pushing captures. That makes the domain layout the durable decision and
+    everything behind it swappable. cawtalker.org serves the static promo
+    bundle and doubles as the recruitment funnel. field.cawtalker.org is the
+    API name the apps bake in ONCE, so the backend can move without a client
+    change.
+
+    DONE on 2026-08-06, all of it free tier:
+      - Nameservers moved to Cloudflare (registrar stays Namecheap, WHOIS
+        privacy already on via Withheld for Privacy). DNSSEC off.
+      - Namecheap's five eforward MX records and its SPF deleted; Cloudflare
+        Email Routing serving route1/2/3.mx.cloudflare.net. ben@cawtalker.org
+        forwards to Gmail. Sending *as* that address still needs an SMTP
+        relay — Gmail will not send for a custom domain without one.
+      - `make -C promo build-public` builds the same page rooted at / into
+        promo/dist instead of /promo into the field server's static/. The
+        base path has to be decided at build time, which is why they are
+        separate output directories.
+
+    NOT DONE, on purpose: the upload. Deferred until the page is ready to be
+    seen — decided against staging it behind Cloudflare Access first, on the
+    grounds that the setup was more fuss than waiting. Use Pages Direct
+    Upload rather than the Git integration when the time comes.
+
+    Decided 2026-08-06: promo and field server do NOT share a box. The promo
+    is static and belongs on a CDN that absorbs a YouTube-video spike for
+    free; a VPS would be slower, cost money, need patching, and take the
+    public site down whenever the field server was being worked on. The VPS
+    is for the field server alone, and only once it publishes.
+
+    Also decided: no Cloudflare Tunnel to the laptop, ever. A tunnel opens no
+    port but it does route strangers' requests to the machine, which is not
+    the property wanted. When the field server publishes it goes on its own
+    VPS and the laptop only ever connects outward.
+
+    Before the gate opens to strangers, each of these graduates to a phase:
+    per-contributor auth replacing the enrollment secret, quotas + upload
+    abuse handling (throttle.py is a start, not an answer), a storage plan
+    that isn't a laptop disk, and the keep-flag problem at scale — today one
+    recordist's ★ separates real audio from seeded; a thousand contributors
+    need verification, not a flag. The worker/crowgpt colocation with the
+    SQLite file is the other thing the VPS move breaks; the worker would
+    need to poll over the API rather than the DB.
+
+    Two assets on the page are stock rather than Ben's — the SLC skyline and
+    the crow flight sprite. Licences unchecked; settle before it is public.
+
+    Before any git push to a new remote or CI: an archive API key is still
+    in history — purge first, or upload only built bundles.
+
+[ ] The hard promo push — measurement is in place; know its one gotcha
+    before spending a launch on it
+
+    Ben's stated plan (2026-08-15): get the infra right first, then promote
+    hard. So far the site has only been plugged on his Instagram, and the
+    2026-08-15 traffic pull put honest numbers on that: ~8–15 real visitors
+    in a week, everything else AI crawlers (OpenAI, Amazonbot, ClaudeBot,
+    Perplexity) and vulnerability scanners probing /wp-admin. That is the
+    pre-promo baseline, recorded here because the raw data expires (below).
+
+    What already exists, so nobody rebuilds it:
+      - Cloudflare Web Analytics beacon is live on the page (137 hits on
+        /cdn-cgi/rum that week). Human-only page views are in the dashboard
+        under Analytics & Logs -> Web Analytics. Bots don't run the beacon,
+        so this is the number that answers "did the promo work".
+      - For the bot/human split by user agent, IP and path: a Zone
+        Analytics Read token sits in fieldserver/instance/secrets.env as
+        CLOUDFLARE_API_TOKEN, and the GraphQL dataset
+        (httpRequestsAdaptiveGroups) answers it. Free plan constraints:
+        1-day query windows, and — the gotcha — **8 days of retention**.
+        Pull the numbers within a week of any promo event or they are gone;
+        the aggregate views in the dashboard survive longer but lose the
+        per-UA detail.
+
+    Still open before promoting hard, from the deploy entry above: the two
+    stock assets (SLC skyline, crow flight sprite) have unchecked licences.
+    A promo push is exactly when someone would notice.
+
+[x] Contact address on the promo page — decided against a contact form
+
+    Decided 2026-08-06. hello@cawtalker.org — a burnable alias, not Ben's own
+    address — is published with the username and
+    domain held apart and ROT13'd in data attributes, assembled into a real
+    mailto: in the DOM at runtime. The served HTML has no @ at all, no mailto:,
+    and nothing matching an email regex; without JavaScript it reads "ben
+    located at cawtalker period org".
+
+    Considered and DECIDED NOT TO BUILD: a Cloudflare Worker + Turnstile form
+    that would mean never publishing an address.
+
+    Be honest about what the obfuscation is worth: close to nothing against a
+    real harvester. Ben builds scraper networks for a living and says headless
+    browsers are the norm, not a minority — and a headless scraper reads the
+    rendered DOM, where the address sits in plain text so a visitor can click
+    it. This stops curl-and-regex and nothing beyond it. An earlier version of
+    this entry claimed headless scraping was rare enough to price in; that was
+    wrong.
+
+    Taken anyway, knowingly: the address is cheap to replace, and a form is
+    real machinery to maintain for a project with no traffic yet.
+
+    DONE the same day: the alias is the actual protection, so it went in
+    immediately rather than waiting for spam. hello@ routes to the same inbox
+    via Cloudflare Email Routing; ben@ appears nowhere on the site.
+
+    REVISIT WHEN hello@ is buried in spam. The fix is to delete that route and
+    publish a fresh alias — two minutes, no code, and nothing of Ben's own is
+    lost. That is the whole reason for the indirection.
+
+[x] The phone and the dashboard share ~130 lines by copying — decided not to
+    extract a library, for now
+
+    Audited 2026-07-31. About 130 lines of genuinely shareable TypeScript
+    across ~24,190 in the two trees: 0.5%. Formatting helpers (formatBytes,
+    formatDuration, describeOffset), the vocabulary lookups (colorForCall,
+    labelText, CATEGORY_COLORS, UNTYPED) and a handful of wire types that are
+    structurally identical (DetectedCall, ContributorRole, LogLevel, and
+    mobile's ServerContributor/ServerDevice/ServerMedia, each a strict subset
+    of the dashboard's).
+
+    DECIDED NOT TO, and the reason is the tooling rather than the taste. There
+    is no workspace — two independent npm projects, no root package.json. There
+    is no metro.config.js, so a package outside mobile/ is not watched and does
+    not resolve without one. TypeScript differs by a major version (mobile
+    ~6.0.3, dashboard ~5.7.2). And mobile's *test* build resolves as node16,
+    so a shared package would need explicit .js extensions and an exports map
+    or `make test` stops compiling. That is a lot of machinery for 130 lines.
+
+    WHAT WAS FIXED INSTEAD, because they were bugs rather than risk:
+      - observer_role rendered as a raw key on the dashboard. /api/config
+        serves observer_roles precisely so the two cannot disagree about what
+        "feeder" means, and the dashboard's type omitted the field. The keys
+        are not synonyms: known_passerby read as "known passerby" when it means
+        "They know me, no food".
+      - distance_band was rebuilt with string replaces, turning 5_20m into
+        "5 20 m".
+      - Confidence read 78% on the phone and 0.78 on the dashboard. Now 0.78
+        both sides: a percentage implies a calibrated probability, and a
+        BirdNET score is not one.
+      - describePlace existed in both with different signatures, on privacy
+        code. The dashboard's is now describePlaceForOperator.
+      - ServerBuild existed in both as disjoint shapes; the dashboard's lacked
+        `wire` entirely, so the operator's screen could not show the number a
+        sync's honesty turns on. Now a superset, and shown in the header.
+
+    THE PAIRS THAT MUST STILL BE CHANGED TOGETHER, since nothing enforces it:
+      - mobile/src/domain/location.ts describePlace
+        ↔ dashboard/src/format.ts describePlaceForOperator          [privacy]
+      - mobile/src/ui/components/ContextTagger.tsx CATEGORY_COLORS
+        ↔ dashboard/src/vocab.ts CATEGORY_COLORS
+      - mobile/src/domain/distance.ts DISTANCE_BANDS
+        ↔ dashboard/src/vocab.ts DISTANCE_LABELS
+      - mobile/src/domain/config.ts UNTYPED ↔ dashboard/src/vocab.ts UNTYPED
+
+    Revisit if a third client appears, or if the shared surface passes ~500
+    lines. The cheapest first slice would be vocab alone — UNTYPED,
+    CATEGORY_COLORS, colorForCall, labelText and the FleetConfig type, about 27
+    lines with no platform dependencies. Better still, serve the two mirrored
+    tables (category colours, distance bands) from /api/config the way
+    observer_roles already is, and the drift stops being possible rather than
+    being watched for.
+
+[ ] The raw-audio audit's lesser findings — fixed the top three, parked the rest
+
+    A full read of the Kotlin audio module (2026-07-30) found ten things. The
+    three that touched field recording shipped: stale failure crossing
+    sessions, a dead capture thread leaving the session claiming to be alive,
+    and OnDestroy leaking the recorder. The rest, in rough order of worth:
+
+      - Cross-thread races: ListeningService.onTaskRemoved calls
+        stopListening() on the main thread while everything else runs on the
+        module queue, and WavRecorder's plain fields have no protection;
+        MediaButtonPriority mixes module-thread claim/release with main-thread
+        heartbeat state the same way. SessionState is synchronized now; the
+        rest is not. Narrow windows, real races.
+        The microphone swap (2026-07-31, MicrophoneSwap.kt) adds one more
+        window of the same class: a swipe-away mid-swap runs stopListening()
+        on the main thread while the module queue is between close and reopen.
+        Noted, not fixed here — whatever fixes the race above covers it.
+      - awaitThread() nulls the thread reference even when join(3s) times out,
+        which quietly bypasses awaitPreviousThread's refuse-a-second-microphone
+        guard for a read stuck longer than that.
+      - probeAudioSources has no guard against a live session — diagnostics
+        mid-capture is the two-AudioRecords coin toss on purpose.
+      - recoverOrphans hardcodes 48000/frameBytes=2; the recovered file's own
+        header at offset 24 knows the real rate.
+      - start() while listening silently ignores its sampleRate/input args.
+      - WavFile.close() casts dataBytes to Int — a clean close corrupts the
+        header past 2 GB, ~6.2 hours at 48 kHz mono. OrphanCaptures.repair
+        has the same casts.
+      - minSdkVersion says 24 but ListeningService uses API-26 calls
+        unguarded. Moot on this fleet; the floor is a lie.
+      - Dead code: ListeningService.running is written and never read.
+        OrphanCaptures.scan deletes the marker even for a header-only file it
+        declines to recover, stranding a 44-byte WAV in cacheDir forever.
+
+    None of these blocks a field session. Revisit the concurrency one if the
+    recorder grows another caller thread, and the probe guard before handing
+    the diagnostics screen to anyone else.
+
+[ ] Decide what the log should be quiet about
+
+    Every capture written and every sync run is an info line, which is the
+    right density while the app changes weekly and makes the pipeline legible.
+    It will be noise by the autumn. The dashboard already defaults to warnings
+    and above; the phone screen does not.
+
+[ ] Tier audio off the VPS to a NAS once the corpus is big enough to care
+
+    Measured basis: a real field recording averages 34 s / 3.28 MB, so two a
+    day per contributor is 2.4 GB per person per year, permanently. Storage is
+    the only cost that grows — CPU is 10 seconds a day per user and bandwidth
+    is noise.
+
+    Worth doing past roughly 1 TB, and not before. A 4-bay NAS with disks is
+    ~$800 up front plus a couple of dollars of power a month; object storage
+    is ~$0.006/GB/month. Below a terabyte the NAS never pays back — 240 GB
+    (100 contributors, year one) is $3.60/month in the cloud, which is less
+    than the electricity.
+
+    The schema is already shaped for this and it was not planned: `media` has
+    `storage`, `storage_ref` and `sha256`, every one of the 86 rows is hashed,
+    and `storage` is 'local' everywhere. Tiering is a new storage value and a
+    mover, not a migration.
+
+    Design constraints, in the order they matter:
+
+      - The NAS *pulls*. Nothing at home listens on a public port; the VPS
+        never needs to know the house exists. Tailscale or a WireGuard tunnel,
+        outbound only.
+      - Delete from the VPS only after re-hashing the copy at the far end and
+        matching `sha256`. A mover that trusts its own success is how a corpus
+        loses a file quietly.
+      - RAID is not a backup. A corpus that exists only in one house is one
+        flood, theft or fire from gone, and the field recordings are the part
+        that cannot be re-collected. Keep an offsite copy of the kept captures
+        at minimum — that is a few gigabytes and costs pennies.
+      - The database, the envelopes, the detections and the labels stay on the
+        VPS whatever happens. They are small (20 KB a capture) and they are
+        what makes the dashboard work while the house is offline.
+      - Nothing upstream may depend on the archive being reachable. The same
+        rule as push-only sync, one level up: the phone does not depend on the
+        server, and the server must not depend on the NAS.
+
+    FLAC is measured and shipped — experiments/0007 — and it moves this a long
+    way out. Bit-exact on all 77 files; real field recordings come out at 22.4%
+    of WAV rather than the ~50% the brochures promise, because quiet audio
+    carries less entropy. 2.39 GB per contributor-year becomes 0.54, so the 1 TB
+    threshold above is about 1,850 contributor-years away: a thousand people
+    recording for eighteen months.
+
+    `media.pcm_sha256` exists for this: a hash of the samples rather than of the
+    file, so a mover can verify a copy at the far end before deleting an
+    original even though the container changed.
+
+[ ] "At least N" for group composition
+
+    The counters assume every bird was seen. Fine in a park; wrong at a roost,
+    where the honest answer is "at least forty". Revisit when roost audio
+    starts arriving — it changes what the number means, not just how it is
+    entered.
+
+[ ] `several_birds` and `juvenile_present` overlap the composition counters
+
+    The live remainder of the group-composition build (shipped, three counters:
+    adults, juveniles, unaged). A context tag describes a single call,
+    composition describes the capture — decide whether that distinction earns
+    keeping both, or retire `several_birds` on the grounds that a head count
+    supersedes it. The "at least N" gap has its own entry above.
+
+--------------------------------------------------------------------------
+
+Call-type confidence is not confidence — calibrate it or stop showing it
+
+    Measured in experiments/0008: across all 187 detections on the server, the
+    call-type probability correlates with species confidence at r = +0.03, and
+    32% of them sit at exactly 1.000. The saturated third skews to *lower*
+    species confidence (0.654 against 0.779) — the opposite of what a
+    calibrated head does.
+
+    The mechanism is ordinary: a logistic regression on standardised BirdNET
+    embeddings will return 1.000 for input that falls outside anything it was
+    trained on, and it was trained on archive recordings, not a phone in a
+    street next to a lawn mower. So p is closer to a distance-from-training-set
+    measure than a confidence.
+
+    It matters because the number is shown to the recordist and reads as
+    certainty. Capture 97 at 15-18s: species confidence 0.171, call type
+    "alarm call", p = 1.000.
+
+    Options, roughly in order of effort: Platt scaling or isotonic regression
+    on held-out field audio; abstaining below a species-confidence floor rather
+    than labelling anyway; or simply not displaying p until one of those
+    exists. The last is free and honest.
+
+    Revisit when there are enough human labels to calibrate against — today
+    there are 14, which is not enough to fit anything.
+
+    Since 2026-07-30 the stored SNR to calibrate against exists: every capture
+    carries a `capture_quality` row, written at analysis and backfilled over
+    the corpus.
+
+--------------------------------------------------------------------------
+
+A merged capture has no honest band SNR — filters have to remember
+
+    Found by the quality backfill on its first pass: a merge holds digital
+    zero in the gaps between its parts, so the quiet percentile the SNR ratio
+    divides by is exactly 0 and the number is infinity. `band_snr_db` is NULL
+    for those rows on purpose — floors and levels are stored, the ratio is
+    not, and NULL means "no quiet signal to measure against" rather than
+    "unmeasured" (captures 89, 99 and 100 today, and 100 is kept).
+
+    The consequence is for any future filter of the "kept captures above
+    15 dB" kind: a plain `WHERE band_snr_db >= 15` silently drops merged
+    captures, which are disproportionately the interesting ones — merging is
+    something a recordist only bothers doing to a good morning. Decide per
+    query whether NULL means excluded or needs its parts measured separately.
+
+--------------------------------------------------------------------------
+
+Neural denoising of field captures — decided not to
+
+    experiments/0031 measured biodenoising (Earth Species Project, ICASSP 2025)
+    on the four mower captures and it erased the crow: BirdNET went from a
+    confident American Crow detection to nothing at all on 3 of 4, and the one
+    survivor was the capture with the *highest* band SNR to begin with. A
+    denoiser whose failures concentrate on the noisy recordings is no use, since
+    the noisy ones are the whole reason to want one.
+
+    Two things worth keeping from it. The 8 kHz ceiling was not the cause —
+    0003 rejected the crow-tools denoiser on bandwidth, and that objection was
+    true but not operative; a resample-only control kept 4/4 detections, so the
+    damage is what the model removes inside the band it keeps. And band SNR
+    would have said the opposite: it more than doubled on every capture, 19 to
+    44 dB on 94, while the detections vanished. Anything that gates the quiet
+    passages inflates a 99th-over-10th-percentile ratio by construction.
+
+    Revisit if a >16 kHz checkpoint appears, or for the generative route rather
+    than field detection — the BirdDiff note further down is about learning from
+    the archive corpus, which 0031 does not test and does not close.
+
+--------------------------------------------------------------------------
+
+A way for the server to fill in blanks on the phone, without breaking push-only
+
+    The asymmetry, met repeatedly on 2026-07-28/29: Claude annotates captures
+    server-side — scene notes, counts, distance, observer role, family, the ★
+    Keep flag — and none of it can ever reach the handset. Sync is push-only and
+    Restore is additive-only, so there is no path at all. Captures 94-97, 100,
+    102 and 103 are all rich on the server and blank on the Pixel 10.
+
+    Worse than invisible, it is fragile: edit one of those captures on the phone
+    and push, and the blank fields overwrite the annotated ones. The metadata is
+    not merely unshown, it is one tap from being erased by a client that never
+    knew it existed.
+
+    Decided NOT to build a general pull. "Which side wins" needs a per-field
+    answer, and push-only exists precisely so nobody has to give one. A sync
+    that can overwrite in both directions can overwrite the wrong way round, and
+    the thing it would overwrite is a field recording.
+
+    The shape that looks safe is Restore's rule applied one level down. Restore
+    never touches a capture the phone already has, because a phone that lost one
+    has no truth to contradict. The same logic works per *field*: the server may
+    fill a field the phone has left null, and may never change one it has set.
+    Nothing is overwritten, so there is no conflict to resolve and no rule to
+    get backwards.
+
+    That gives the useful case for free — a capture the recordist never
+    described picks up the description — and refuses the dangerous one by
+    construction. It also stays honest about who said what, which matters here:
+    a count Claude inferred from a chat message is not the same evidence as one
+    the recordist tapped in at the time, and the corpus should not forget which
+    it has.
+
+    So it wants, roughly:
+      - GET /api/captures/since/<revision> or similar, returning field values
+      - the phone applying only where its own value is null and the capture has
+        no unsynced edits
+      - a provenance marker per field, or at least per capture, saying the value
+        came from the server rather than the field
+      - WIRE_VERSION bump, and REQUIRED only once the phone actually sends
+        something new
+
+    Revisit when annotating server-side stops being occasional. Today it is
+    cheap to accept the asymmetry, because the server is where analysis,
+    training and export_manifest read — the metadata is already where it does
+    its work, and the phone showing less than the server knows costs nothing but
+    surprise.
+
+--------------------------------------------------------------------------
+
+Starting a recording without taking the phone out
+
+    Wanted: a trigger reachable from a pocket, so a bird that calls while the
+    phone is away is not lost to fifteen seconds of fumbling. Two shapes were
+    proposed — a physical button, or a spoken "record" with a spoken
+    confirmation in headphones. Neither is being built yet; this is the
+    weighing.
+
+    THE WORKFLOW, which decides most of this. A crossbody bag holds the
+    sunglasses, the peanuts, the mic and the wind guard, and during a recording
+    the phone rests in the bag with the VideoMic Me-C exposed and aimed outward
+    from the chest. It works well. The mic is therefore *mounted*, not merely
+    carried — and that is the thing a remote protects.
+
+    Which means the cost of the on-screen button is not the seconds. It is that
+    reaching in, lifting the phone, unlocking it and pressing takes the mic off
+    aim, moves it while it is live, and puts it back somewhere slightly
+    different. Experiment 0010 measured one to two handling transients per
+    capture at full scale; a phone being lifted out of a bag and replaced is the
+    obvious candidate. So the trigger is not a convenience here, it is what lets
+    a deliberately aimed microphone stay aimed.
+
+    That also raises the cost of a spoken trigger again: a chest-mounted mic
+    pointing outward has the recordist's mouth close and near-on-axis, which is
+    the worst possible geometry for keeping a voice out of the audio.
+
+    NEXT, THE REFRAME. Pre-roll already solves part of the problem and it is
+    easy to forget. With listening on, the app holds a rolling buffer — up to
+    15 s today — so a capture started *after* a call still contains it. The
+    requirement is therefore not "trigger before the bird" but "trigger within
+    the buffer", which is a far weaker thing to build for. Before either option
+    below, ask whether a longer buffer plus the existing on-screen button is
+    enough. 30-45 s of ring costs memory and nothing else, and it needs no new
+    hardware, no new permission and no new failure mode.
+
+    That also changes how to judge the options: latency and reliability of the
+    trigger matter much less than whether it fires at all.
+
+    OPTION A — a physical button
+
+      Cheapest real version is a Bluetooth camera shutter remote, about £10,
+      which presents as an HID device sending a media or volume key. Android
+      delivers those to a MediaSession even with the screen off and the app
+      backgrounded, which is the same mechanism headset buttons use — so this
+      is a supported path rather than a hack.
+
+      For:
+        - deterministic. It fires when pressed and never otherwise, which
+          matters more than it sounds: a spurious capture is not free, it is a
+          row in a corpus whose whole discipline is knowing what is real.
+        - silent. No talking to a phone in public, and nothing added to the
+          audio.
+        - works with cold hands, gloves, through fabric.
+        - negligible battery, no continuous computation.
+        - already-solved failure modes: the foreground service and mic
+          priority work is done.
+
+      Against:
+        - another object to carry, charge and lose.
+        - pairing drops. A remote that silently disconnected is a trigger that
+          looks fine and does nothing — needs a connection indicator, or it
+          becomes the third silent failure in this app's history.
+        - intercepting *volume* keys specifically is fragile across Android
+          versions; media keys via MediaSession are the stable route.
+
+    OPTION B — a spoken trigger
+
+      Against, and one of these is close to disqualifying:
+
+        - THE VOICE LANDS IN THE CAPTURE. The mic is the field recorder. Saying
+          "record" puts the recordist's voice into the pre-roll buffer and
+          therefore into the audio, a few seconds before the call of interest.
+          Capture 102's notes already have to warn that "hi crows" is not a
+          crow call. A trigger that reliably contaminates every capture it
+          starts is working against the recording it makes.
+        - speaking also changes the birds. These are habituated crows a few
+          metres away that respond to the recordist; a spoken command is an
+          event in the scene, not a neutral control.
+        - false triggers. Keyword spotting on a street with machinery and crows
+          will fire on something eventually, and each one is a junk capture to
+          find and delete.
+        - no Android API for custom hotwords. Means Porcupine (commercial
+          licence), a TFLite keyword model to train and tune, or Vosk (heavy).
+          All are real work, and all run continuously.
+        - battery and thermal, for an hour, in a pocket. The recorder audit
+          lists exactly that as never having been tested even *without*
+          continuous inference.
+
+      For:
+        - nothing to carry.
+        - hands stay free, which matters when the other hand holds binoculars.
+
+    ON THE SPOKEN CONFIRMATION — prefer haptics
+
+      "Recording starting now" in the headphones has two problems. The port is
+      taken: the VideoMic Me-C occupies the phone's only USB-C socket, so app
+      audio must go over Bluetooth or through the mic's own monitor jack, and
+      the monitor jack carries the input rather than the phone's output. And
+      speech at the moment recording starts is speech in the first seconds of
+      the capture, whichever route it takes.
+
+      A vibration pattern does the same job with none of that: distinct pulses
+      for started and stopped, silent, no headphones needed, nothing added to
+      the audio, and it works in a pocket by design. If audio confirmation is
+      still wanted later, a short non-speech tone over Bluetooth is the version
+      that does not put words in the recording.
+
+    RECOMMENDED ORDER, when this comes up again
+
+      1. Media-key trigger via MediaSession, tested with a cheap BT remote
+         clipped to the bag strap, with a visible connection state so a dead
+         remote cannot fail silently. Promoted to first because of the bag: the
+         remote is what keeps an aimed microphone aimed, which no amount of
+         buffer does. The "another thing to carry" objection also mostly
+         evaporates — the bag is already being carried, and a shutter remote on
+         the strap is lighter than the peanuts.
+      2. Haptic confirmation on start and stop. Needed *more* with a remote than
+         without: a button with no feedback and the phone out of sight is a
+         trigger you cannot tell has worked.
+      3. Lengthen the pre-roll ring anyway. Still free, still reversible, and it
+         covers the gap between hearing a call and finding the button.
+      4. Spoken trigger only if 1-3 prove insufficient, and then knowing that a
+         chest-mounted mic puts the recordist's mouth close and on-axis.
+
+    Decided not to: voice as the *first* thing to build. It is the most
+    appealing and the most expensive, and it fights the recording.
+
+    THE CHOSEN KEYWORD, if it is built: "Ok Garmin, Video speichern", with a
+    spoken "Recording now" back. Ben's reason is that it is funny — it is the
+    German dashcam command, and shouting it is a meme. Fine as a reason; a
+    feature nobody enjoys using does not get used. Three notes on it:
+
+      - A GERMAN PHRASE IS HARDER, NOT EASIER. Off-the-shelf on-device keyword
+        spotting is trained on English. Porcupine can generate a custom wake
+        word including German, but that is the commercial tier; a TFLite model
+        needs recordings of the phrase to train on, and "speichern" has a final
+        consonant cluster that a street with a leaf blower will eat. Expect to
+        tune a threshold against real field audio rather than a quiet room.
+      - "OK GARMIN" IS SOMEBODY'S TRADEMARK. Irrelevant while this is one
+        person's app on two handsets — and the "goes viral" plan is the one
+        scenario where it stops being irrelevant, because it only goes viral if
+        it is published. Worth remembering at that point, not before.
+      - THE JOKE AND THE PROBLEM POINT THE SAME WAY. A long, loud, distinctive
+        phrase is exactly what keyword spotting wants: four syllables of
+        structure beats "record", which a crow's rattle can plausibly trip. So
+        the funny option is also the technically better one.
+
+    What it still costs, unchanged by the keyword: the phrase lands in the
+    pre-roll and therefore in the capture, seconds before the call of interest,
+    spoken into a chest-mounted mic at close range and near-on-axis. And
+    "Recording now" spoken back adds a second voice event at the moment
+    recording starts. If this is built, the confirmation should be haptic even
+    if the trigger is spoken — the trigger has a reason to be audible, the
+    acknowledgement does not.
+
+    Not started because it needs a decision that is not mine: Porcupine's
+    licence, or the work of training and tuning a custom model. Either is a real
+    commitment rather than an afternoon, and the pre-roll and remote options
+    above deliver most of the benefit for a fraction of it.
+
+    POSTSCRIPT 2026-08-15: the option this entry never listed — an acoustic
+    level trigger — got built, as idle mode, for a case this entry never
+    imagined: the phone indoors, the mic on the fire escape, nobody's hands
+    anywhere. It reuses this entry's central reframe (trigger within the
+    buffer, not before the bird) and answers the spurious-capture objection
+    with a synced `trigger = "auto"` column, blank role/distance, and BirdNET
+    validation after upload. The band gate is 0013's: 800–4000 Hz, 12 dB over
+    a measured floor. None of that changes this entry's question — a *walk*
+    still wants a deliberate trigger, because an armed threshold on a moving
+    street would fire all day, and the media-key remote remains the right
+    first build for the bag. Same wish, two different instruments.
+
+
+[ ] Split alarm into mobbing vs alerting — NOT waiting on labels any more.
+    Experiment 0036 (2026-08-02) re-answered the blocking question and the
+    answer inverts this entry's plan.
+
+    mob's average precision does not move with labels. Across a tenfold range
+    it sits flat — 0.769 at 225 segments, 0.706 at 2,338 — with prevalence
+    steady between 0.29 and 0.34, so this is not the prevalence artifact AP
+    curves are prone to. The fitted ceiling is 0.719 and AP 0.80 comes back
+    unreachable by adding labels of this kind at all.
+
+    So "label mobbing in the field first, then split" was right about the order
+    and wrong about the reason. Field mobbing labels are still worth collecting,
+    but as a TEST set — something that can falsify the 0.71 — not as training
+    volume, which is the thing 0036 shows is not missing.
+
+    The lever is the backbone. 0025 already measured it: Perch lifts mob-vs-alert
+    from 0.637 to 0.760 on the same corpus while birdnet-centred drops it to
+    0.540. Revisit this split after a backbone decision, not after a labelling
+    push.
+
+    Everything below still holds — the end state is still a replacement, and the
+    three provenance changes still went in ahead of it.
+
+    WHAT 0012 MEASURED, and why the split is worth making at all. It asked
+    whether the head should predict all seven crow-tools call-type flags instead
+    of the four CORE classes they collapse into. Mostly no, and the "mostly" is
+    one pair:
+
+      - scold: 0.581 grouped AUC against a 0.947 control on the same features,
+        76% of it also flagged mob, and only *asked* on 1,089 of 2,494 segments.
+        Decided not to — three reasons and no counterweight.
+      - grief: 3 segments in one recording. Decided not to.
+      - song and call: nothing to expand. softSong is the only flag mapping to
+        song and rattle the only one mapping to call, so those CORE classes are
+        renames, not collapses.
+      - mob vs alert: real. 0.813 grouped, and 0.726 inside the 41 recordings
+        that carry both — where the recording is held constant and cannot be the
+        answer — against 0.848 for a known-acoustic control pair on the same
+        test. A genuine acoustic difference, thin at 138 segments.
+
+    WHY IT IS CHEAP. Trained on the six flags and mapped back down to CORE, one
+    multiclass head scores 0.843 macro-F1 against 0.842 for the same head trained
+    on CORE directly, same rows and folds. The finer split costs nothing at the
+    level the app displays.
+
+    THE END STATE IS A REPLACEMENT, NOT AN ADDITION. Decided: when this happens,
+    `alarm call` stops being a CORE class and mob and alert take its place. No
+    second-stage head sitting over a coarse one, no phone showing the old word
+    while a finer answer waits in a side channel, no flag choosing between them.
+    Two vocabularies for the same distinction is the thing that rots — every
+    count has to say which one it used, and eventually one of them is wrong.
+
+    So the order is: fix the provenance, relabel, then replace the class. The
+    first is done (see below). The second is the actual work and it is manual —
+    16 existing `alarm call` labels get re-heard and re-answered as mob or alert.
+    The third is then a CORE_CLASSES change with a WIRE_VERSION bump, and the
+    seeded field labels `mobbing`/`scold` collapse into it rather than mapping
+    down to something that no longer exists.
+
+    WHAT WENT IN AHEAD OF IT, so the relabelling does not destroy what it
+    replaces:
+
+      - a re-answered label keeps its old answer in `label_revisions` instead of
+        overwriting it, and its config_version moves with the new answer. The id
+        does not move, so a label's witnessed context stays attached. This is what
+        makes "did the finer list change anybody's mind" answerable afterwards —
+        the comparison needs both answers and both vocabularies.
+      - the export carries the word the human chose (`labels`) next to the CORE
+        class it folds into (`type`). A finer head selects the rows that said the
+        finer word; the coarse rows are absent from it rather than sitting in it
+        as negatives. That last part is the whole lesson of 0012 — crow-tools
+        scored `scold` at 0.581 partly by reading 1,405 unanswered segments as no.
+      - `label_defs.version_introduced` is now recorded when a label is added to a
+        running fleet rather than defaulting to 1, which is what says whether a
+        word was on the menu when somebody chose a different one.
+
+    NOT DONE, deliberately: backfilling the 15 labels whose config_version is
+    NULL. Migration 0010 already decided against it and was right — the phone
+    labels offline against a cached vocabulary, so `created_at` arithmetic gives
+    the wrong answer and would write a guess in as a fact. It is also unnecessary:
+    created_at bounds the version from *above*, and any future split is introduced
+    at a higher version, so a 2026-07-26 label provably predates it either way.
+    NULL keeps meaning "unknown", and unknown is never read as a negative.
+
+    THE LABELS ARE A TEST SET, NOT THE BLOCKER. This paragraph used to say the
+    split was waiting on them; 0036 inverted that, and the preamble above is the
+    corrected version. Still worth collecting, and still absent: 0 of 67 human
+    labels use `mobbing` or `scold`, both on offer since version 1, while 34 of
+    those 67 are `alarm call` and would each want re-hearing. One in four alarm
+    calls lands on the wrong side of the line (mob called alert 124/595, alert
+    called mob 126/475), which is fine as a hint and not fine as a claim. What
+    field labels CAN do is falsify the 0.71 ceiling; what they cannot do is raise
+    it, because AP is flat across a tenfold range of training labels.
+
+    And the thing that turned up alongside it, which matters more: the corpus's
+    `call` class is a rattle detector. Contact calls are the most common crow
+    vocalisation and the corpus contains none, so the class the field will
+    exercise hardest is the one trained on something else. A collection problem,
+    not a taxonomy one.
+
+
+[ ] How much of pocket listening's 177 mAh/h is actually the microphone?
+
+    0011 measured an hour of armed pocket listening on the Pixel 10 at 172-192
+    mAh/h, 25-28 hours to flat, never throttling. That answered the question it
+    was asked — the mode is armable-and-forgettable and needs no UI warning —
+    and immediately raised a better one, because the total is low enough that
+    the microphone might be a minority of it.
+
+    The number is total device drain with listening on. It bounds pocket
+    listening from above and does not isolate it. It also contains the harness's
+    own cost: every 30 s it wakes the phone for six or seven dumpsys calls over
+    wireless adb, and an unpolled pocket hour is cheaper by an unknown amount.
+
+    The control is cheap and obvious: same run.py, same handset, same 30 s
+    polling, listening OFF. The polling cost then appears in both arms and
+    subtracts out, and the difference is the microphone's marginal cost. Worth
+    doing before anyone reasons about battery for a multi-hour session or a
+    second recordist's phone.
+
+    Do not compare against the pre-run percent steps to shortcut this. The
+    8m20s-per-percent step before 0011 was the phone in use, not idle, which is
+    why it looks twice as expensive.
+
+    0011 also predates the heartbeat cue, which shipped 2026-07-31 and plays a
+    tone every 60 s while listening and every 10 s while recording, each taking
+    audio focus. So the control arm has to say which heartbeat settings it ran
+    with, or the cue quietly becomes the answer to a question about the
+    microphone.
+
+
+[ ] Re-run the pocket thermal null inside an actual pocket
+
+    0011 found no thermal cost at all: status 0 for 112 samples, skin at
+    27.4-28.0 C against a first throttling threshold of 39.0 C, and a battery
+    that *fell* 1.7 C over the hour. That kills the suspicion that an hour of
+    capture would throttle.
+
+    But the phone was on a desk in open air, and insulation is the entire
+    mechanism the suspicion was about. A null measured without the insulation
+    does not test the claim. Cheap to redo — the same hour with the phone in a
+    trouser pocket — and worth doing before the null is quoted at anyone.
+
+    REVISIT WHEN a real field session is happening anyway, since it needs the
+    phone carried rather than watched.
+
+
+[ ] Is `crows_agitated` interpretive too?
+
+    `mobbing_together` was retired for naming a conclusion the vocabulary is
+    supposed to let co-occurrence draw — `raptor_overhead` + `group_gathers` +
+    `crows_agitated` record the event, and reading "mobbing" off them is the
+    corpus's job rather than the recordist's. Same rule the file already states
+    for itself, and the same shape as "human walks through" filed under `threat`.
+
+    `crows_agitated` is the next one along that line and it is genuinely closer to
+    the descriptive side: "agitated" is a thing you can watch a bird do, unlike
+    "mobbing", which is a thing you conclude about a situation. But it is still a
+    judgement about the bird's state rather than its behaviour, and the behaviours
+    that make it up have their own keys — `crow_arrives`, `crow_departs`,
+    `caller_stays`, `caller_leaves`, `crows_still`.
+
+    REVISIT WHEN it has been used enough to check. It has 0 events today, so
+    there is nothing to look at: the question is whether two recordings tagged
+    `crows_agitated` turn out to have the same describable thing happening in
+    them, and one recordist cannot disagree with themselves until there are
+    several. Deliberately NOT retired now on the argument that killed
+    mobbing_together — `crows_still` is its opposite and has 15 uses, so the axis
+    is evidently useful, and retiring half of a working pair on a rule rather
+    than on evidence is how a vocabulary loses the thing that made it work.
+
+    Noted while retiring mobbing_together: `several_birds` has version_retired
+    NULL, because it went before the reconcile stamped that column. Harmless —
+    two events, and nothing depends on it — but it means the relabel queue cannot
+    flag those two as recorded-before-their-tag-went. If a third pre-stamp
+    retirement ever happens, stamp them all in one revision rather than one at a
+    time.
+
+
+[~] CrowGPT — synthesising a caw, which the corpus can already almost pay for
+
+    PARTLY BUILT, 2026-07-30. The second REVISIT trigger below fired — the
+    unconditioned "does it sound like a crow at all" demo — and it is now
+    crowgpt/, with experiment 0014 as the codec gate in front of it. Everything
+    about call-type conditioning in this entry still stands untouched and is
+    still the reason this is not finished.
+
+    What the build changed about the numbers here: the ~65,000 units became
+    25,227 three-second BOUTS totalling 12.75 hours, because training on
+    isolated 0.4 s calls would mean inventing the gaps between them at
+    evaluation time, which is exactly where realism is being measured. A quarter
+    of the raw bouts were dropped for not landing in a corvid window.
+
+    0013 measured the thing this needs and the answer was better than expected:
+    61.6% of the 40.8-hour archive corpus is a corvid at the pipeline's own
+    threshold, which is 24.5 hours, and it cuts into roughly 65,000 discrete
+    call units at a median 0.376 s with no human labelling involved at all. That
+    is enough to fine-tune a pretrained audio generative model, and probably
+    enough to train a small unconditional one on 0.4 s units from scratch.
+    Encoding is a non-issue: 96.8% of units roll off under 8 kHz, so 16 kHz
+    loses nothing and the 26.5 lossy hours are as good as the 14.3 lossless.
+
+    So the audio is not the blocker, which is the opposite of how this looked.
+    Unconditional and species-conditioned synthesis are buildable now, and
+    species conditioning is free because BirdNET's species ID is what selected
+    the windows in the first place.
+
+    What is missing is the ability to *ask for a call type*, and that has a
+    structural shape rather than a size:
+
+      - Human ground truth totals 67.7 seconds of call audio across 35 labels,
+        of which exactly 5 isolate a single call. Every label is a 3-second
+        BirdNET window, median 3 call units wide, one of them 41. Fine for a
+        classifier, nearly useless for a synthesiser, which needs to point at
+        one call.
+      - The audio and the ability to label it are anti-correlated by species.
+        The only head good enough to pseudo-label with is American Crow (AUC
+        0.904-0.975) and it sits on 4,324 units, 6% of the pool. The three
+        deepest pools are Rook (19,493 units, AUC 0.478-0.757), Jackdaw (17,461
+        units, NO head at all) and Raven (15,271, AUC 0.579-0.809).
+
+    So the work is not collection. It is a call-type head for Jackdaw, and
+    better ones for Rook and Raven — at which point ~50,000 units become
+    conditionable and this stops being a question.
+
+    REVISIT WHEN there is a call-type head for the deep-pool species. The other
+    trigger — an unconditioned demo for its own sake — has been taken, and it
+    did need nothing that was not already on disk.
+
+    Note the trap if anyone reuses 0013's segmentation: the burst detector
+    passes its control at 12 dB (density and duty cycle both rise monotonically
+    with BirdNET confidence) and fails it at 6 dB, where density goes flat and
+    the units are mostly background. Start at 12. crowgpt/segment.py already
+    does, and adds the cap the original lacks — 3% of bouts are a single
+    unbroken burst running past 3 s, one of them 23 s, and left whole they fall
+    outside any fixed context window and vanish without a word.
+
+    A CEILING WORTH KNOWING BEFORE ANYONE JUDGES THE OUTPUT. 0014 measured what
+    the tokenizer costs: at 6 kbps, EnCodec round-tripping real audio keeps 81%
+    of BirdNET's corvid detections against a 98.7% ceiling for resampling alone.
+    So generated audio cannot score above ~0.81 retention no matter how good the
+    model gets, and anything comparing it against untouched recordings is
+    blaming the model for the codec. 12 kbps buys 0.877 for double the sequence
+    length, which is the upgrade to make first if the model ever saturates.
+
+
+[x] Waking a killed app with the earbud button — researched, and decided not to
+
+    Asked for directly on 2026-07-30, researched against AOSP rather than
+    recollection, and the answer is "possible, on an undocumented mechanism,
+    behind a refactor we should not do casually". Writing it down so nobody
+    re-derives it.
+
+    IT DOES WORK, AND NOT FOR THE REASON YOU WOULD EXPECT. The documented
+    foreground-service exemption list does not mention media buttons at all, and
+    the `microphone` service type is explicitly documented as impossible to
+    start from the background. Both are true. It works anyway because
+    `MediaButtonReceiverHolder.send()` in system_server attaches a
+    `setTemporaryAppAllowlist(..., REASON_MEDIA_BUTTON)` for ten seconds AND
+    `setBackgroundActivityStartsAllowed(true)` to the broadcast; the second of
+    those is what `ActiveServices.shouldAllowFgsWhileInUsePermissionLocked`
+    falls through to when the documented reasons all deny. So the mic service
+    starts because of a background-activity grant, which is nowhere near where
+    anyone would look.
+
+    The privilege is dropped the moment `onReceive` returns, so
+    `startForegroundService` must be called synchronously inside it — no
+    coroutine, no handler post.
+
+    USE `setMediaButtonBroadcastReceiver(ComponentName)`, NOT the PendingIntent
+    overload, which is deprecated and worse than deprecated here: API 31+ forces
+    FLAG_IMMUTABLE or FLAG_MUTABLE, and immutable means the system's
+    `EXTRA_KEY_EVENT` is discarded when it fills in the intent — the press
+    arrives with no way to tell which key it was.
+
+    TWO PRECONDITIONS THAT DECIDE WHETHER IT IS WORTH IT:
+
+      - You only become the remembered media button receiver if you have
+        actually PLAYED audio while the session was active. A recording app that
+        never makes a sound is never eligible. We happen to satisfy this already
+        — MediaButtonPriority's silent blip is doing double duty and nobody
+        designed it to.
+      - The remembered receiver is consulted ONLY when no live session exists
+        anywhere on the phone. Any other app holding an active session — Spotify
+        paused mid-album counts — takes the press instead. On a daily driver
+        that is the common case, not the edge case.
+
+    THE REAL BLOCKER IS OURS, NOT ANDROID'S. A cold-started service would have
+    to record, and `WavRecorder` is instantiated per module instance rather than
+    per process. A service that made its own would be a second recorder against
+    one microphone, and reconciling that means making the recorder a
+    process-wide singleton — the most safety-critical class in the app, the one
+    every entry in TODO's audit says to leave alone unless there is a reason.
+    Doing that to cover a case pocket listening already covers is the wrong
+    trade.
+
+    DECIDED NOT TO, for now. The robust answer is the opposite one: keep the
+    process alive so the press lands on the live-session path, which is
+    well-trodden and is what actually works today. Pocket listening already does
+    this whenever it is on.
+
+    REVISIT WHEN there is a reason to want the trigger armed with pocket
+    listening OFF — a walk where the battery matters more than the pre-roll. The
+    cheaper version of that is a foreground service that holds nothing but the
+    process, which needs no recorder refactor and no undocumented allowlist; it
+    costs one more permanent notification, which this project has already
+    decided is an acceptable price for an honest one.
+
+    THAT CHEAPER VERSION WAS COSTED WRONG, and the correction is the point of
+    this paragraph. It was argued for on the grounds that `specialUse` is the
+    honest service type and carries no review risk *because this app is
+    sideloaded and will never be listed*. Ben has since said the Play Store is
+    possible. That premise is gone, and with it the argument: `specialUse` is
+    the type Play reviews hardest, and "keeps my process alive so a button
+    works" is close to the definition of what foreground service types exist to
+    prevent. Assume it would be refused.
+
+    Which leaves a better answer anyway. The only truthful type for this app is
+    `microphone`, and it is truthful exactly when the microphone is open — which
+    is pocket listening, which already exists and already keeps the process
+    alive. So the trigger surviving a reap is not a missing service; it is a
+    consequence of pocket listening being on, and the Settings copy already says
+    so. Nothing to build.
+
+
+[ ] The Play Store is possible — what that changes, decided in advance
+
+    Said on 2026-07-30, and worth writing down immediately because it silently
+    invalidates reasoning elsewhere. Several decisions in this repo are argued
+    from "nothing is public" and "one user, one fleet", and those arguments stop
+    working the moment listing is on the table. The entry above is already one
+    casualty; assume there are others and check the premise before reusing any
+    argument that leans on being sideloaded.
+
+    Nothing here is urgent. The point is that some of it is cheap now and
+    expensive later, and knowing which is which is the whole value of writing it
+    down before anybody starts.
+
+    CHEAP NOW:
+
+      - `SYSTEM_ALERT_WINDOW` is in the merged manifest and nothing in `src/`
+        uses it — the only "overlay" matches are style names. It arrives from a
+        dependency. Draw-over-other-apps is among the most heavily scrutinised
+        permissions there is, and carrying one we never call is a review
+        conversation for nothing. Confirm the source and strip it.
+      - Every foreground service type now needs its own Play declaration. We
+        ship three: `microphone` (ours, defensible and genuinely needed),
+        `location`, and `mediaPlayback` — the last from expo-audio's
+        AudioControlsService, which we do not control and may not want.
+      - `usesCleartextTraffic="true"`. Fine for a home network, a flag in a
+        listing, and already on borrowed time.
+
+    EXPENSIVE LATER, AND THE REAL ONES:
+
+      - A background microphone is the single most scrutinised thing an Android
+        app can do. Pocket listening needs a prominent in-app disclosure before
+        the mic opens, not only the notification while it is open, and the
+        listing has to explain it. The current design is honest and is most of
+        the way there, which is worth knowing — the notification that "cannot be
+        hidden" was argued for on ethics and turns out to be the compliant
+        shape too.
+      - Enrollment is one shared secret and there is no TLS. That is a
+        reasonable prototype answer for one fleet on a home network and is not
+        one for strangers. It is already flagged elsewhere as a design question;
+        listing turns it into a blocker.
+      - The Data Safety form needs an answer for location and audio: what is
+        collected, whether it leaves the device, and whether it is linked to a
+        person. Captures carry coordinates and the contributor identity, so the
+        honest answers are "yes, yes and yes" — and `locationPrecision` and
+        `censorCoords` exist precisely so the recordist decides that. Those two
+        settings become a compliance story rather than only a courtesy.
+
+    DECIDE BEFORE BUILDING ANYTHING FOR IT: whether a listed Cawtalker is the
+    same app or a different one. A field tool for a handful of recordists who
+    know each other and a public app that strangers install have different
+    answers about identity, enrollment and what a capture may carry, and trying
+    to be both is how the honest version gets watered down.
+
+
+[ ] The two subject-split tags left unsplit on purpose
+
+    The live remainder of the human-context-tag split (built 2026-07-31; the
+    full reasoning lives at `config_store.py:107-156`, a better home than this
+    file):
+
+      - `human_gives_food` carries the same latent ambiguity and was not split.
+        Eight uses, every one of them the recordist, and a stranger offering
+        food is rare enough that inventing `stranger_gives_food` before it
+        happens is guessing at a shape. Revisit the first time somebody else
+        feeds them on tape.
+      - There is no "a human they know is nearby, not moving" tag. The pair
+        covers approaching and passing only, so a recordist who walks up and then
+        stands still has no honest chip for the standing part. One line if it
+        turns out to matter.
+
+
+[ ] Retiring a context key leaves its rows with nothing to surface them
+
+    `DashboardQueries.relabel_queue` flags labels whose vocabulary moved under
+    them — key gone, retired after the label was made, or reintroduced with a new
+    meaning. There is no equivalent for context events, although
+    `context_events.config_version` and `context_defs.version_retired` were added
+    by the same migration and both hold the data a query would need.
+
+    So the ~50 events still carrying `human_approaching`, `human_passing` and
+    `human_known` on captures 69, 88, 100, 103 and 105 sit against inactive defs
+    with nothing listing them. That is survivable: nothing in analysis joins
+    `context_defs`, so those rows keep counting under their old names, and
+    `human_approaching` keeps meaning exactly what it meant — "a human
+    approached, subject not recorded" — which is a true statement about July 2026
+    and the honest thing for the corpus to say.
+
+    Decided not to build it now. It would be a UI for a list one query already
+    prints, for one contributor, over eight captures. Its own data is also not
+    ready: `several_birds` and `perched_still` are `active=0` with
+    `version_retired IS NULL`, deactivated before that stamp existed, so a
+    version_retired-based query would silently miss two keys on day one.
+    Backfill those stamps first. Build it when there is a second contributor.
+
+    What must never happen instead: a bulk `UPDATE context_events SET key=...`
+    to rewrite the old rows into the new vocabulary. It would fabricate the
+    flagship variable from a guess, and the phone's copies would diverge from
+    the server permanently and invisibly — push-only sync means a replayed
+    client_uuid returns the existing row without updating it. Only the
+    recordist's memory can assign a subject, and only through the phone.
+
+
+[ ] Nothing rejects a genuinely contradictory pair of context tags
+
+    Narrowed from a bigger claim that turned out to be mostly wrong, which is
+    the useful part of this entry. `crows_agitated` + `crows_still` reads like a
+    contradiction and is not: the served text is "Crows still, not moving", so it
+    means *stayed put*, and a bird can be agitated and hold position — that
+    combination is worth being able to say. `human_approaching` +
+    `human_passing` on a 27-second span is also fine, because walking a sidewalk
+    genuinely shifts from one to the other inside it. Both were flagged as errors
+    before the recordist was asked, and both were correct as tagged.
+
+    What survives: on a *short* span — three seconds, one BirdNET frame — a
+    person cannot both approach and pass, and nothing stops that being recorded.
+    The same now applies within `stranger_*` and `known_*`. `caller_stays` +
+    `caller_leaves` is the one pair that is exclusive at any duration.
+
+    So the shape is not a global "pairs that cannot both be true" list, it is a
+    duration-aware one, and the serving format has no field for either — a
+    context def is {key, category, text} and nothing more. Worth writing down
+    that the cheap version (warn in the labelling UI rather than reject at the
+    API) keeps the recordist's judgement final, which matters when the rule has a
+    threshold in it that will sometimes be wrong.
+
+
+[ ] Every recording in the corpus was made by a bird's feeder
+
+    Noticed while planning to recruit neighbours as recordists. `observer_role`
+    across all field captures is `feeder` (6) and `feeding_now` (7) and nothing
+    else — not one `stranger`, not one `known_passerby`. The contributors table
+    is empty; there has only ever been one person holding the phone.
+
+    So "a known feeder is present" is perfectly confounded with "a recording
+    exists". The corpus has never heard these crows when Ben was not there being
+    the thing they know him as, which means every baseline in it is a baseline
+    *with him in it*. 0016 could not tell a stranger's effect from one walk's
+    acoustics; this is the same problem one level up, and it is much larger,
+    because it applies to all 13 field recordings rather than one.
+
+    Recruiting other recordists fixes this, and the reason to do it is not the
+    obvious one. Neighbours are not strangers — someone who walks the same block
+    daily is `known_passerby`, which the vocabulary already has and the corpus
+    has zero of. That is arguably the more interesting class than `stranger`,
+    because it splits familiarity from food history: `known_passerby` knows them
+    and never feeds them, `feeder` does both. Whether the crows respond to being
+    recognised or to being fed is the mechanism question, and only that pair can
+    separate it. Real strangers cannot be recruited by definition — they are
+    caught, the way the woman on 2026-07-31 was.
+
+    Ben's own worry, which is real but second: the crows may have learned the
+    equipment. A Rode on a phone held at head height is a distinctive silhouette,
+    and if it correlates with peanuts then a neighbour carrying it gets a
+    food-anticipation response rather than a stranger one — which would sound
+    calm and could be misread as "the birds are relaxed about this person".
+
+    That one has a free control, which is worth knowing before it is built: the
+    app runs on a bare phone and the Rode is optional. Same neighbour, same walk,
+    with and without the mic, separates the person from the equipment. Do it
+    before concluding anything from a recruited recordist.
+
+    Not started, and it collides with a decision already flagged elsewhere in
+    this file: enrollment is one shared secret over plain HTTP, which is a
+    reasonable answer for one fleet on a home network and not one for people who
+    live in the same building but do not share a threat model. Recruiting even
+    two neighbours makes the listing question — same app or a different one —
+    concrete rather than hypothetical.
+
+
+[ ] Playback is the way past the ceiling 0016 hit, and crowgpt is half of a rig
+
+    0016 could not answer whether the crows sounded different at the stranger,
+    and the reason was not sample size in the ordinary sense: "stranger" and
+    "that one walk on 2026-07-31" were literally the same variable. No amount of
+    observational recording fixes that, because the recordist does not control
+    when a stranger appears or how far away they are.
+
+    Suzuki's tit work is the model for the escape, and it is worth reading for
+    the method rather than the findings. The compositional-syntax result works by
+    recombining recorded call elements and playing them back in orders that never
+    occurred naturally — ABC-D produces scan-then-approach, the reversed D-ABC
+    does not, and the difference is only visible because the experimenter chose
+    the order. The referential-call work presents a model predator rather than
+    waiting for a real one. Both replace "record what happens" with "present a
+    stimulus, repeatedly, counterbalanced".
+
+    Applied here the cheapest version needs no new code: the same person walks
+    the same transect at the same distance, many times, on many days. Repetition
+    of a controlled walk is what turns n=1 into n=many, and it is the difference
+    between the two recordings 0016 compared and a design that could have
+    answered the question.
+
+    The more interesting version is where crowgpt stops being a demo. A call
+    generator's highest-value use is not showing that synthesis works — it is
+    manufacturing playback stimuli, including recombinations and interpolations
+    that no bird produced, which is precisely the manipulation the syntax result
+    turns on. Nothing else in this project produces a stimulus that can be varied
+    along one axis while everything else is held.
+
+    Not started, and there is an ethics gate before it is. Playback is an active
+    intervention on wild animals rather than passive recording: alarm playback
+    costs birds foraging time and can pull them toward a threat that is not
+    there. A neighbourhood family being studied for years is exactly the group
+    that should not be repeatedly alarmed for a null result. Decide the frequency
+    ceiling and the no-alarm-near-fledglings rule before the first playback, not
+    after — and write down that a habituated family is a ruined study as well as
+    a wronged one.
+
+
+[~] Voxaboxen and BirdAVES — the backbone half is ANSWERED, the detector half is not
+
+    Experiment 0025 ran the backbone half and it came out differently than this
+    entry expected, in two ways worth keeping.
+
+    **BirdAVES was the wrong candidate.** The 2026 comparative review (arXiv
+    2508.01277) puts AVES at 63.8 and BirdAVES at 65.6 BEANS linear-probe AUROC,
+    against Perch 2.0 and BEATs at 85.6. Self-supervised bird models have not
+    caught the supervised ones on linear probing, which is exactly how this
+    project uses an embedding. **Perch 2.0** (arXiv 2508.04665) is the candidate
+    — and its own paper validates on the Weldy *call-type* dataset, so call-type
+    recognition is something it was selected for rather than a side effect.
+
+    **It wins, and the win is on the fine distinctions.** On 2,339 crow-tools
+    segments, recording-grouped: macro-F1 0.849 -> 0.871, and `mob` vs `alert`
+    within recordings holding both 0.637 -> 0.741, spreads separate. Perch given
+    ONE second of audio beats BirdNET given three (0.856 / 0.759), which kills
+    the "it just had more context" objection — and Perch at 5 s is the *worst*
+    arm in the table, so 3 s is close to right for both models. Concatenating the
+    two is worse than Perch alone: replace, do not add.
+
+    **The detector half is now the better-supported half.** The entire Perch gain
+    is on single-crow segments (0.848 -> 0.875). At crowCount>=2 nothing helps
+    and Perch is slightly worse (0.775 -> 0.747). That is 0016's segmentation
+    ceiling seen from the other side: a better backbone does not separate two
+    crows calling over each other, and **Voxaboxen** — per-event onset and
+    duration, built for overlapping vocalizations — remains untried and is where
+    the next real gain is.
+
+    Not started: the migration itself. It is a genuine cost — five shipped heads
+    retrained, a second venv and a subprocess in the inference path (birdnetlib
+    sets CUDA_VISIBLE_DEVICES="" at import, so the two can never share a
+    process), and analyzer/birdnet.py restructured to embed regions after
+    grouping rather than before. analyzer/birdnet.py now refuses to load a head
+    whose feature width or backbone disagrees with the pooling definition, so
+    that work will fail loudly rather than at the 400th capture.
+
+    WHAT THE DETECTOR HALF IS, carried over from the original form of this entry
+    because 0025 left its case untouched and strengthened it. **Voxaboxen** is
+    sound event detection with per-event onset and duration, built for
+    OVERLAPPING vocalizations — the exact failure mode here. Earth Species
+    open-sourced it out of the same collaboration as the León carrion-crow work
+    (bioRxiv, April 2026, Cusimano/Hoffman/Guzón-García with Canestrari and
+    Baglione), where it also classified caller class (tagged adult / other adult
+    / chick / cuckoo nestling), a harder version of a question this corpus
+    cannot currently ask at all.
+
+    Why it is the ceiling: 0016 lost 49% of its detected call units to 9 dB of
+    added noise, and the segmenter it used cannot separate overlapping birds at
+    all — it finds bursts of band energy, so five crows calling over each other
+    is one unit or none. That bounds every rate and duration measure this
+    project makes.
+
+    BE CLEAR ABOUT WHAT IT WOULD NOT FIX. A better detector removes the
+    segmentation ceiling; it does not remove the range confound, because a
+    distant quiet caw is missing from the audio rather than missed by the
+    detector. 0016's degradation control stays necessary either way.
+
+    Evaluate before the next head is trained, not after.
+
+
+[ ] Our call types are all semantic; León's mostly are not, and that is the finding
+
+    The 2026 León/Earth Species repertoire paper is easy to dismiss on its
+    taxonomy — squawk and grunt do not describe what American crows do. But the
+    paper's own position is that its names are mostly *not* semantic, and that is
+    the part that transfers.
+
+    They split 40 call types into three super-categories. Only "exceptional" (22
+    types) got hand-made categories, and those were rare. Caws and grunts —
+    **72% of all vocalizations** — were treated as graded continua and cut by
+    duration and amplitude quantiles instead: caw0-caw5 (0 shortest, 5 longest),
+    grunt0-5 with Q and L for quiet and loud. No semantic names at all. And it
+    worked: shorter caws and shorter grunts both indicated the signaller was
+    flying.
+
+    Our vocabulary is semantic all the way down — alarm call, scold, rattle,
+    contact call, flight call. If the same gradedness holds for American crows,
+    then `alarm call` is a continuum being forced into one bin, and 0016 already
+    measured the axis without recognising it: median unit duration 0.224 s on one
+    recording against 0.128 s on another, which was read there as a confound to
+    be explained away.
+
+    Cheap first test, no new collection needed: split the 25 alarm-call spans by
+    duration quantile and ask whether the bins associate with different contexts.
+    Thin, and the range confound from 0016 applies to amplitude but much less to
+    duration. If a split shows anything at all it justifies a graded axis beside
+    the call type rather than more names.
+
+    Second finding, and it indicts the whole recording setup rather than the
+    labels: **59% of their vocalizations were quieter than chick sounds** picked
+    up on the same tag. Their words — "the crows' widely-known caws were some of
+    their loudest vocalizations, and so give a skewed view of their communication
+    system." A handheld mic at 5-20 m records the loud tail of the distribution.
+    That is why this corpus is 55% alarm call, and it means the close-range calls
+    that coordinate chick care are not merely under-sampled here, they are
+    inaudible. Nothing on a sidewalk fixes it; only a closer microphone does.
+
+    Third, smaller, but a schema gap: their main social variable is whether the
+    signaller was a breeding male, breeding female, or helper, and the only six
+    social-category-specific calls were exceptional ones. We record what the
+    *recordist* is to the crows and nothing about which bird called. The Poe
+    family has exactly that structure — Edgar is a yearling helper — so the
+    question is askable here and currently unrecordable.
+
+
+[ ] The caller field's unfinished half: `crow_id` is unused and unofferable
+
+    The live remainder of the caller-field build (shipped 2026-08-01,
+    WIRE_VERSION 19): the phone offers roles only, so naming a bird still goes
+    in a note, and `crow_id` is unused on all 67 labels — the roster still
+    holds only Edgar. The number to watch: labels carrying a `caller_role`,
+    8 of 67 at last count and rising, via `CrowStore.label_counts`. That usage
+    is what 0017 needed to turn an unfalsifiable question into a small
+    supervised one.
+
+[ ] Dictation transcribes server-side, against the shipped plan's own argument
+
+    The live remainder of the spoken-field-note build (shipped 2026-08-02):
+    the plan argued for transcribing ON-DEVICE before the push, because a
+    server-side transcript exists only on the server — exactly the stale-copy
+    asymmetry push-only sync was built to prevent. What shipped is server-side
+    (`transcriber/whisper.py`, `stores/dictations.py`), where the GPU already
+    is. Worth knowing whether that was chosen or drifted into, because the
+    objection is still true: the phone holds the memo audio and never the
+    words. The build's three deliberate omissions are the entry below.
+
+[ ] The three things dictation shipped without, on purpose
+
+    Left out of the 2026-08-02 build deliberately, not forgotten. In the order
+    they will start to matter:
+
+      - RETENTION, which is the one with a clock on it. `purge_before()` exists
+        and nothing calls it on a schedule. A memo is speech that may name
+        people — neighbours, strangers on a sidewalk — sitting on a server with
+        no TLS. This gets worse every session rather than staying still, and it
+        is the one item here that a second contributor turns from untidy into a
+        real problem.
+      - A CONFIRM BUTTON IN THE DASHBOARD. The transcript is its own trust tier
+        between what the recordist wrote and what a model wrote, and a human
+        confirming it is what promotes it to an observation. The CLI does that
+        job until it has been used a few times: a one-click promotion into the
+        top trust tier is not something to ship beside its own plumbing. The
+        evidence for why the tier exists arrived in the very first note — "and
+        they caught a lot" is what Whisper made of "cawed a lot", and names,
+        counts and species are exactly what it gets wrong and exactly what
+        label-set quizzes about.
+      - A DICTATION WITH NO CAPTURE, for a general field note. `capture_id` is
+        NOT NULL; relaxing it later is one migration.
+
+    Also worth carrying: local Whisper is good enough, measured rather than
+    assumed — both first notes came back complete to the last word, on the CPU,
+    at better than real time (43 s of speech in 18.6 s). Cloud ASR with keyword
+    boosting stays a thing to buy if names start mattering, not a thing to buy
+    now. The model unloads after 15 idle minutes because the same GPU trains
+    crowgpt and 3 GB is not spare on a 16 GB card; `DICTATION_IDLE_MINUTES`
+    moves it.
+
+CROWGPT: THE ROBOT IS THE THREE CODEBOOKS THAT LEARNED NOTHING
+
+    0019 measured the model's held-out predictive power stage by stage and found
+    it decays to nothing. Bits recovered over the codec's own marginal go 1.96,
+    1.32, 1.01, 0.54, 0.21, then negative. Stages 5, 6 and 7 predict no better
+    than drawing from the marginal, so three of eight codebooks are generated at
+    essentially chance — a decent coarse signal with structured-looking noise
+    laid over it. That is the most concrete mechanical account of "cyborg" the
+    project has, and it is not reachable by any sampling parameter, because the
+    model is correctly calibrated about its own uncertainty at every stage.
+
+    So the lever is capacity or the objective, exactly where 0017 said it would
+    end up ("the codec is not the lever"). Options, none costed yet:
+
+      - Per-stage output heads. Adds parameters where the loss actually is,
+        rather than taxing a shared trunk. The flat cross-entropy currently
+        weights all eight codebooks equally while only the first three carry
+        learned signal.
+      - Fix the underfitting first, because it may be the whole story. dropout
+        sits at 0.25 on a model that cannot fit its own training batches, the
+        cosine floors at 10% of peak and never anneals, and the batch is
+        silently clipped from 32 to 16 by a memory budget nobody chose. All
+        three are free to change. See the entry below.
+      - Accept eight codebooks are more than this data supports and ask whether
+        five carry the caw. 0014 says lower bitrate loses it, but 0014 tested
+        BITRATE, not truncation of a model trained at 6 kbps.
+
+    DO NOT chase per-stage temperature (0019 killed it, twice over), the codec
+    (0014 and 0017), or the codec frame grid (0020 measured the model adding
+    nothing to it beyond what the tokenizer already puts there).
+
+CROWGPT: --balance IS STILL OPEN, AND THE OBVIOUS ARGUMENT FOR CLOSING IT FAILED
+
+    The plan was to close it for free: if American Crow had the lowest held-out
+    loss, rebalancing could only move loss onto species nobody listens to. 0019
+    measured it and American Crow is fourth of six (6.782 bits/token) behind
+    common raven, hooded crow and carrion crow, despite being 70.6% of the
+    corpus.
+
+    So per-token difficulty does not track the detection ranking from 0018,
+    where American Crow sits at 99% of its codec ceiling and hooded crow at 48%.
+    Two different quantities. Whatever decides the balance question, it is not
+    this, and the prediction being wrong is the reason to write it down.
+
+CROWGPT: CALL-TYPE CONDITIONING IS DATA-BOUND NOW, AND THE FIX IS HUMAN LABELS
+
+    0021 answered the question the whole call-type line was built for: request a
+    call type and it arrives, with a recall that is exactly monotonic in how many
+    bouts of that type the model trained on.
+
+        alarm call  26,876 bouts  92.9%      song  1,113 bouts  16.4%
+        begging      2,349 bouts  50.0%      call    272 bouts   3.8%
+
+    Nothing about the method needs revisiting. `begging` at 2,349 bouts proves
+    the prefix token, the pseudo-labelling and the split discipline all work.
+    What is missing is labelled bouts of the two rare types, and no amount of
+    compute substitutes for them.
+
+    The same labelling fixes a second problem, which is why these are one entry
+    rather than two. The held-out anchor that validates the judge has 3 `call`
+    and 5 `song` examples in it, so the head's verdict on exactly the two classes
+    that failed is the least trustworthy thing in the experiment. Right now "the
+    generator cannot make a song" and "the judge cannot recognise a song" are not
+    separable. More labels of those two types moves both numbers at once.
+
+    NOT STARTED, and deliberately not this week: it is hours of listening, and
+    the label-set skill exists to make that session structured rather than a
+    slog. Worth deciding first whether generating song and `call` on demand is
+    something the project actually wants, because the honest answer might be that
+    alarm and begging are the two that matter for fieldwork and the other two are
+    completeness for its own sake. Revisit when there is a reason to want a
+    generated song, not before.
+
+    A ROUGH RULE FOR ANY FUTURE CONDITIONING AXIS, context chips being the
+    obvious next one: budget a couple of thousand examples per value before
+    expecting control, and do not ship a value with a few hundred behind it.
+
+
+CROWGPT: THE PRETRAINED ROUTE — ANSWERED, AND THE COSTING IS WHAT SURVIVES
+
+    It was tried and it lost; "THE PRETRAINED ROUTE WAS TRIED" below carries what
+    0022 measured. Kept here is only the costing, because a second attempt would
+    run on the same numbers and they were expensive to establish:
+
+      - THE RENTAL WAS ALWAYS THE WRONG PART OF THE PLAN. Stable Audio 3 shipped
+        open weights in May 2026 with an official train_lora.py. A LoRA on the
+        1.4B Medium needs ~5.5-6.5 GB and the 433M Small-SFX ~2-2.5 GB, so the
+        4070 Ti SUPER's 16 GB runs it for nothing. Stability Community Licence
+        permits fine-tunes and commercial use under $1M revenue.
+      - If cloud is ever wanted, verified July 2026: RunPod community 4090
+        $0.34/hr, A100 80GB $1.19-1.39/hr, H100 ~$2/hr. A 40-hour A100 run is
+        ~$50. Money is not the constraint.
+      - Data is not the constraint either: Stability's stated minimum is 20-50
+        clips against 57,000 bouts. What 24.5 hours cannot do is a FULL
+        fine-tune. LoRA or nothing.
+
+    THE THREE WAYS TO WASTE IT, none of them GPU hours. Captions — 57,000 bouts
+    captioned "a crow calling" collapse to one texture and throw away exactly the
+    controllability 0021 established, and species plus call type are already free
+    from the bout head. Length — bouts are 3 s and these models are built for
+    11 s and up, which is the likeliest silent failure. Dirt — BirdDiff (arXiv
+    2509.00318) needed a dedicated denoising front-end before diffusion could
+    learn from field bird recordings at all, taking classifier accuracy on
+    generated samples from 35.9% to 70.1%.
+
+    THERE IS NO PRETRAINED GENERATIVE BIOACOUSTIC MODEL to fine-tune — Perch 2.0,
+    BirdAVES, BEATs and NatureLM-audio are all encoders. And any second attempt
+    gets judged on the existing blinded sheet, not a new yardstick.
+
+[ ] Merging crowgpt with a future "crow translate" — the merge is free, and it is
+    not the part that makes it a translator
+
+    Asked 2026-07-31: can crowgpt (human -> crow) and a future semantics model
+    (crow -> human) be joined into a round-trip translator once there are enough
+    labels? Written down now because the answer changes what to collect, and the
+    interface it would run through is cheap to fix today and expensive later.
+
+    THE MERGE ITSELF IS ALREADY DONE, in a degenerate form. The analyzer maps
+    audio to a CORE class and crowgpt takes a CORE class as a prefix token, so
+    the loop closes today with nothing built. What comes out is a four-symbol
+    phrasebook run in both directions. Whatever "complete translator" means, the
+    plumbing is not the missing piece and no engineering effort should be spent
+    on it.
+
+    THE VOCABULARIES DO NOT MATCH, AND THAT IS THE ONE CHEAP FIX. crowgpt's
+    CORE is `("alarm call", "begging", "call", "song")` — four — because it is
+    derived from crow-tools' flags via FLAG_TO_CORE, which has no flight-call
+    flag. `config_store.CORE_CLASSES` is five. So **flight call, the class with
+    the best AUC in the whole project (0.91), is exactly the one that cannot be
+    requested from the generator.** Nobody chose that; it fell out of which
+    corpus each side was built from. And the mob/alert split filed above would
+    move the interface again. Reconcile the two lists before anything is built
+    across them, not after.
+
+    THE INTENDED DESIGN IS NOT A THREE-STAGE PIPE, and an earlier draft of this
+    entry got it wrong. Ben's target (2026-07-31) is to condition the generator
+    on **context directly** — say "food here" and get a call matching the
+    food-tagged calls in the field corpus — with the call-type token understood
+    as the prototype that proved the mechanism rather than the interface. That is
+    the better design and it dissolves the objection the earlier draft raised.
+    There is no lookup table in the middle and no need for one: the axis is a
+    prefix token like any other, and 0021 already showed prefix conditioning
+    works and scales monotonically with data behind each value.
+
+    It does mean the conditioning set can only ever come from the FIELD corpus.
+    The call-type axis was free because a head could pseudo-label 57,000 archive
+    bouts; an archive clip carries no witnessed context and never will. So
+    every context value is paid for one field session at a time. That is the
+    whole cost structure of this plan, and it is worth being precise about
+    because it is much better for the food case than for any other.
+
+    THE 6 FOOD SPANS DO NOT AGREE ON A CALL TYPE, which is the finding that
+    should change what gets collected. Every `human_gives_food` event is attached
+    to a label, across 5 captures on 5 separate days — good grouping — but the
+    call types are:
+
+        cap 69  call        cap 104 begging       cap 100 alarm call
+        cap 75  call        cap 104 begging       cap 113 alarm call
+
+    Three CORE classes over six spans, 81 seconds in total. So "my food-here
+    calls" is not currently a coherent acoustic class in the corpus, and the
+    reason is a vocabulary one: **`human_gives_food` records what the human did,
+    not what the crow said.** Food being present while a fledgling begs and food
+    being present while something else gets alarmed at are both in there.
+
+    Nothing in the vocabulary can currently say "the crow announced food". By
+    this file's own rule — context is what a human witnessed, a label is what the
+    bird said — a recruitment/food call is a LABEL, not a context tag, and
+    SEED_LABELS already takes new words that map down to a core. That addition is
+    the cheapest high-value change available here: server-side, no migration, no
+    wire bump, the vocabulary reaches the phone through GET /api/config. Do it
+    before the collection ramps, not after, or the sessions produce more of the
+    same ambiguity.
+
+    THE EXPORT THROWS CONTEXT AWAY TODAY. `pipelines/ingest/export_manifest.py`
+    emits `{"path": ..., "type": <core classes>}` and nothing else — no context
+    key, no span. The path from field labels to a trainable set drops the exact
+    variable this plan turns on. Also cheap, also worth doing before collecting
+    rather than after, because otherwise the sessions land in a pipe that
+    discards them.
+
+    ONLY PLAYBACK SEPARATES THOSE, which joins this entry to "Playback is the way
+    past the ceiling 0016 hit, and crowgpt is half of a rig" above. A playback rig
+    is the only test where the crows grade the output, and it validates BOTH legs
+    at once: whether a generated alarm functions as an alarm is also evidence
+    about what the label meant. The ethics gate in that entry applies unchanged
+    and comes first.
+
+    THE GAP IS 74x, NOT THE THREE ORDERS OF MAGNITUDE IT LOOKS LIKE. 0021's rule
+    is a couple of thousand bouts per conditioning value; at 3 s a bout that is
+    about 100 minutes of food-context call audio. The corpus holds 81 seconds. A
+    factor of ~74 is a lot and it is not hopeless in the way 1000x would be.
+
+    AND FOOD IS THE ONE CONTEXT BEN CONTROLS. This is the reason to be optimistic
+    about this axis specifically and pessimistic about the others. Every other
+    key in the 26-tag vocabulary waits on the world to supply it — a hawk, a dog,
+    a stranger — which is precisely why `dog_visible` has 1 event and
+    `stranger_approaching` has 1. Feeding is an intervention that can be
+    scheduled, repeated and counterbalanced. Of all 26 values, "food here" is the
+    most collectable rather than the least, and 20 scheduled feeding sessions is
+    a month of ordinary effort rather than a research programme.
+
+    That is the Suzuki method from the playback entry applied to COLLECTION
+    instead of playback, and it should be recognised as the same move: stop
+    recording what happens and start presenting a situation on purpose.
+
+    THE CONFOUND SURVIVES ANYWAY. Every food event is Ben with peanuts, so a
+    generator conditioned on it learns a scene that contains him, his mic, his
+    street and his time of day, and cannot separate "the food call" from "the
+    call made when Ben shows up". Five separate days is decent grouping and does
+    not fix it. There is also a domain gap nobody has measured: crowgpt was
+    trained on the archive corpus through EnCodec at 24 kHz, and this conditioning data
+    is a phone and a Rode on a sidewalk.
+
+    EVALUATION IS THE BINDING CONSTRAINT, EXACTLY AS IN 0021. That experiment's
+    discipline was that a judge which cannot classify real bouts says nothing
+    about generated ones — and a context judge trained on 6 examples is worth
+    nothing. But the blinded listening rig generalises for free and needs no
+    model: forced choice, a generated "food here" against a real food-tagged
+    span, the same 60-trial sheet and the same pooled report. Use it rather than
+    inventing a second yardstick.
+
+    WHAT IT WOULD ACTUALLY DO TODAY, stated plainly so nobody discovers it later:
+    alarm call round-trips (92.9% conditioning recall), begging half does (50%),
+    song and `call` do not (16.4%, 3.8%) — and blinded listening says the audio
+    is identifiable as generated three times in four. A demo of the round trip
+    would be a demo of the alarm call and nothing else.
+
+    THE DEEPER THREAT IS THE León RESULT one entry down: 72% of vocalizations are
+    graded continua cut by duration and amplitude, not semantic categories. If
+    that holds for American crows, a discrete class token is the wrong pipe for
+    both directions, and building a round trip on top of it hardens the wrong
+    interface. The cheap first test is already written there — split the alarm
+    spans by duration quantile and ask whether the bins associate with different
+    contexts. Do that before the round trip, not after.
+
+    THE FOOD CALL IS THE ONE PLAYBACK THAT COSTS THE BIRDS NOTHING. The playback
+    entry above gates alarm playback for good reasons — it costs foraging time
+    and pulls birds toward a threat that is not there. A synthetic food call
+    played *while food is actually put down* is not deception at all; it is the
+    same contingency these crows already have with Ben, and it makes the round
+    trip testable without the ethics problem. If any part of this gets built
+    first, it should be this one, because it is the only version where the crows
+    grade the output and nobody is worse off for it.
+
+    SO THE ORDER, and it is mostly not model work:
+      1. Add a food/recruitment LABEL so the corpus can say what the bird said
+         rather than only what the human did. Free, server-side.
+      2. Carry context through export_manifest. Cheap, and blocks everything
+         downstream until it exists.
+      3. Reconcile the two CORE lists (four vs five) while nothing depends on
+         them yet.
+      4. Schedule feeding sessions and label them. This is the actual work and
+         it is the only step that takes months.
+      5. Run the graded-axis test from the León entry before hardening a
+         discrete context token, in case the axis wants to be continuous.
+      6. Then condition, and judge it on the existing blinded sheet.
+      7. Then playback, with food, as the real validation.
+
+    The merge itself is still the last line of code and the least of it.
+
+
+CROWGPT: THE PRETRAINED ROUTE WAS TRIED, AND IT LOST TO THE 18M FROM SCRATCH
+
+    0022 ran it rather than costing it further. Stable Audio 3 small-sfx-base,
+    LoRA rank 16 on 2,961 balanced American Crow bouts, judged against the
+    from-scratch model on BirdNET corvid detection:
+
+        real 65.0%  |  crowgpt 71.7%  |  lora 35.0%  |  base 10.8%
+
+    The fine-tune worked — the no-adapter control sits at 10.8% and the corpus
+    tripled it — so the method is sound and the prompt was not doing the work.
+    It is simply behind. An 18M model trained from nothing beats a 433M
+    pretrained one adapted to the same audio.
+
+    NOTHING HERE ARGUES FOR RENTING COMPUTE. The entire experiment ran on the
+    card already in the machine, at zero cost, and the losing margin is not one
+    more GPU-hour wide. The cloud question is closed until something changes the
+    shape of the problem, not the size of it.
+
+    STILL UNTESTED AND CHEAP: the adapter was killed at step 2000 of 3000 by a
+    desktop session restart, and the 1.4B medium-base was never tried. Both were
+    queued the same night. If medium-base closes most of a 35-to-72 gap the
+    conclusion is worth revisiting; if it moves a few points, it is not.
+
+    THE REAL FINDING MAY BE THE CAVEAT. crowgpt scores ABOVE real audio (71.7%
+    against 65.0%), which is not plausible as realism and is explained by
+    circularity: BirdNET selected crowgpt's training corpus, so the model has
+    been trained indirectly to please the judge scoring it. Every BirdNET
+    detection number in this project inherits that, including the 39% and 81% in
+    the crowgpt README. It does not rescue the LoRA, whose 35.0% is far under
+    real audio either way, but it means the margin is overstated by an unknown
+    amount and the listening test is the only tiebreaker that does not share the
+    bias.
+
+    Call-type agreement was uninformative for the generated arms and should not
+    be quoted from 0022. The base model scores 45.8% while containing a corvid
+    in 10.8% of its clips — the head is forced-choosing among four crow call
+    types on audio with no crow in it. Only `real` at 77.8% means anything.
+
+
+A BUTTON IN THE APP THAT GENERATES A CROW CALL
+
+    Ben's, 2026-07-31. Press a button, pick a call type, hear a synthesised caw.
+    The shape is clear and the plumbing is mostly a copy of something that
+    already works — a generation worker alongside `fieldserver/worker/`'s
+    analyze_worker, polling a `generation_jobs` table, calling into crowgpt the
+    way analyze_worker calls into the analyzer. 156 lines is the whole precedent.
+
+    THE ARCHITECTURE HAS ONE REAL OBSTACLE AND IT IS NOT THE MODEL. Sync is
+    push-only: the app never pulls from the server, and that rule is what stops
+    a stale server copy overwriting a field recording. A generate button needs
+    audio to travel server -> phone, which is the direction that does not exist.
+    Restore is the single exception and it earned that by being unable to
+    contradict anything — it only fetches captures the phone does not have.
+
+    Generated audio has the same property, so the honest framing is that this is
+    a SECOND exception of the same kind rather than a hole in the rule: the
+    phone has no truth about a clip the server just invented. Worth writing the
+    justification down in the same terms Restore's was, and worth deciding
+    whether generated clips land somewhere separate from `captures` entirely —
+    they are not recordings, nothing was observed, and a synthesised caw sitting
+    in the capture list is a corpus contaminant waiting to be counted. The ★
+    Keep flag exists because that distinction was already hard once.
+
+    IT IS A JOB, NOT A REQUEST. crowgpt has no KV cache, so a bout costs roughly
+    five seconds on the 4070 and generation is quadratic in length. Queue it,
+    poll it, notify — exactly the analysis flow. Do not put it behind a
+    synchronous endpoint that holds a phone waiting.
+
+    ALSO NEEDS: a WIRE_VERSION bump in the commit that adds the fields, since
+    this is a genuine API change; a decision about WHICH checkpoint ships, which
+    0023 and the queued LoRA runs will inform; and a story for the field server
+    being on a laptop without the GPU, because crowgpt's venv carries torch and
+    the analyzer's deliberately does not.
+
+    THE PART THAT NEEDS A DECISION BEFORE ANY CODE. If this button gets pressed
+    outdoors, it stops being a demo and becomes a PLAYBACK EXPERIMENT. Broadcast
+    an alarm call near the Poe Family and the birds respond — that is the whole
+    reason alarm calls exist — so it changes their behaviour, it can distress
+    them, and any recording made afterwards is of birds reacting to us rather
+    than to their world. It would also quietly poison the corpus: a mobbing
+    response provoked by a phone is indistinguishable, in the capture list, from
+    one provoked by a hawk.
+
+    SETTLED, 2026-07-31: Ben's answer is that it is not for outdoor use. This is
+    a demo — something to play to a person to show the project is real — and not
+    a field instrument. That decides the design rather than merely constraining
+    it. The safeguard does not need to be elaborate: refuse or loudly warn when
+    a listening session is open, since the microphone being live is the case
+    where generated audio can reach both a bird and the corpus. No playback
+    protocol, no exclusion flag on nearby captures, none of the apparatus a real
+    playback study would need.
+
+    Which also means the bar is different. A demo is judged on whether the clip
+    sounds convincing to a HUMAN standing next to you, so it should ship the
+    checkpoint that wins the listening test rather than the one with the best
+    BirdNET rate — 0022 having just shown that those are not the same thing, and
+    that the BirdNET number is circular in crowgpt's favour. Generated clips
+    still do not belong in `captures` for the reason above.
+
+    Playback as a real method stays available and stays out of scope. It is
+    arguably the most interesting thing this project could eventually do, and a
+    controlled study is a different project with its own protocol. The point of
+    writing this down is so the demo button cannot quietly become one.
+
+
+EXPERIMENT: DO ALARM CALLS HAVE SEQUENTIAL STRUCTURE? DO UNITS CLUSTER AT ALL?
+
+    Ben's, 2026-08-01. Two questions stacked, and the second has to be answered
+    first: can individual call units be grouped into a repeatable alphabet, and
+    if so, does the ORDER of units within an alarm bout carry structure beyond
+    what their frequencies alone would produce.
+
+    MOST OF THE MACHINERY EXISTS. segment.py already finds units — energy bursts
+    in the corvid band, UNIT_MIN_SEC 0.06, UNIT_GAP_SEC 0.08, validated at 12 dB
+    by 0013 — and a bout holds a median of about 3.8 of them. BirdNET embeddings
+    give a vector per unit. 0021 makes alarm the only class with enough data to
+    try this on: 26,876 bouts, and the head's alarm recall is the one number in
+    that experiment that is properly validated (n=127). So the pipeline is
+    roughly segment -> embed -> cluster -> count transitions.
+
+    THE TRAP, AND THIS PROJECT HAS ALREADY WALKED INTO IT ONCE. 0017 clustered
+    crow audio and found that five crows cluster exactly as much as one crow
+    does — the structure it recovered was recording identity and position, not
+    bird identity. Every unit inside a bout shares one recording, one
+    microphone, one distance and one background. So a naive clustering will put
+    all the units of a bout in the same cluster for channel reasons, and the
+    transition table will look gloriously structured while measuring nothing but
+    "these came from the same file". Any version of this that does not control
+    for that is measuring the recorder.
+
+    Minimum defences: require clusters to be reproducible ACROSS recordings
+    before using them, hold recordings out grouped exactly as 0018 does, and
+    check whether cluster identity predicts recording identity — if it does, the
+    alphabet is a channel fingerprint and the experiment stops there.
+
+    THE BASELINE IS A SHUFFLE. Compare real bouts against their own units
+    reordered at random. That holds composition fixed and destroys only the
+    order, so any excess predictability is sequential structure rather than a
+    fact about which units are common. Compare alarm bouts against non-alarm
+    ones too — structure that appears everywhere is a fact about crows, not
+    about alarm.
+
+    THE BOUT CAP IS A PROBLEM HERE AND IS NOT ELSEWHERE. segment.py merges
+    bursts within 1.5 s and caps a bout at 3.0 seconds. That cap was chosen for
+    the generator, where it keeps sequences trainable, and it is exactly wrong
+    for this question: a long alarm sequence gets cut at three seconds, which
+    truncates the structure being looked for. Re-segment with a much larger cap
+    for this experiment rather than reusing data/crowgpt/bouts as it stands.
+
+    DO NOT CALL IT SYNTAX ON THIS EVIDENCE. Sequential dependency is what this
+    can measure. Syntax in the sense the literature means — order changing
+    MEANING, compositional structure — requires showing the birds respond
+    differently to reordered sequences, and that is a playback experiment, which
+    the entry above just put out of scope. Worth being precise about, because
+    "crows have syntax" is exactly the sentence that would get repeated without
+    its caveat. Compositional syntax has been demonstrated in other birds (the
+    Japanese tit work is the usual reference and is worth reading before
+    designing this), so the question is a real one and the bar is known.
+
+    WORTH DOING WHEN there is a reason to prefer it over the labelling work
+    0021 left behind. It needs no new recordings and no human labelling, which
+    makes it unusually cheap for a question this interesting, and a measured
+    null — units do not cluster, or order carries nothing — is a genuinely
+    useful answer that nobody has written down for this corpus.
+
+
+[ ] Should the sticky observer role follow *place*?
+
+    Left open when the sticky default shipped on 2026-08-01. "They know me as"
+    and the distance band now carry the last answer forward to the next capture,
+    which is one value everywhere — right most of the time on Ben's own block
+    and wrong the moment he records in a park across town.
+
+    THE ARGUMENT FOR WAITING, and it is why this is here rather than in TODO. A
+    default that is right 90% of the time is more dangerous than one that is
+    right 60%: nobody checks the former. A location-aware version would raise
+    the hit rate into exactly the band where the field stops being read — and
+    observer_role is the variable that flips the meaning of everything else on
+    the tape, so a wrong one that goes unnoticed is worse than no default at
+    all.
+
+    So the thing to watch is not "would this be more accurate". It is whether a
+    capture ever turns up carrying a remembered role that was wrong for where it
+    was recorded. One of those is the evidence that decides this, and until then
+    the simple version is the honest one.
+
+    Shape if it is ever wanted: the remembered value keyed by region (captures
+    already carry one) rather than a single string, falling back to the last
+    answer anywhere when the region is new. Cheap to build on what exists —
+    `stickyCaptureDefaults` in domain/settings.ts is the one place that would
+    change, and it is already pure and tested.
+
+    Deliberately NOT applied to the group counts, which are genuinely per
+    sighting: carrying "3 adults" forward would invent an observation.
+
+
+[ ] Learn what a flight call actually sounds like, so it can be hand-labelled
+
+    The one CORE class the corpus cannot check the model on, and the gap is
+    structural rather than a matter of volume.
+
+    **crow-tools has ZERO flight-call examples.** There is no flight-call flag
+    upstream, so all 40 positives in the American Crow head come from
+    the archive set — whole-clip recordings, other continents, pooled a different way
+    (std block non-zero, where crow-tools' is exactly zero). Experiment 0025's
+    preflight found the two corpora are trivially separable on that block alone,
+    with every flight-call positive on one side of it. So the head's entire
+    notion of "flight call" is learned from audio that looks nothing like a
+    phone in a Salt Lake City park, and its shipped 0.975 AUC is measured across
+    a boundary that predicts the label.
+
+    It shows up in the field, not just in a metric. On kept captures the head
+    guesses flight call exactly twice and both disagree with Ben's labels:
+    capture 100 @42s (he said alarm call, head said flight call 0.685) and
+    capture 116 @12s (he said begging, head said flight call 0.916).
+
+    **But 116 may not be an error, and that is the interesting part.** His
+    observation reads "Baby caws north of me. Family of 4 fly down south into a
+    tree. Baby cries and other crow caws." Five birds. The flight call and the
+    begging can be different individuals, and the head reported all three —
+    flight call 0.916, begging 0.821, call 0.732 — in one 15-second span. A
+    single `begging` label cannot cover a span with five birds in it, so "the
+    head is wrong" and "the head heard a bird the label could not hold" are both
+    consistent with what is stored. Nothing in the corpus distinguishes them,
+    because nothing records which bird called. See the caller-field entry.
+
+    There is also a real chance the category is graded rather than crisp. Work
+    on hand-raised corvids (Emu, Little Raven and White-winged Chough) found
+    begging calls are developmental precursors for learned vocalizations, with
+    pulse duration shifting toward the other call types the same juveniles give.
+    A fledgling cry partway to a flight call may be exactly that — partway —
+    which is the same gradedness the León paper found in adult caws and grunts,
+    and which our semantic vocabulary has no way to express.
+
+    WHAT TO DO, in order of cost:
+
+      - Listen to reference flight calls until they are recognisable by ear.
+        The corpus's American Crow `flight call` recordings are already in
+        data/species/american-crow/.
+      - Then hand-label them in the field corpus, including the negative case:
+        marking a suspected flight call as `begging` is worth as much, and is
+        the only thing that can tell the two apart in this acoustic setting.
+      - Until there are some, treat every flight-call prediction on field audio
+        as unverified. Worth badging in the app rather than leaving to memory —
+        it is the one class whose training data comes from somewhere else.
+
+    Ten or so labelled either way across four recordings would let 0025's probe
+    say whether flight call and begging are separable on a phone at all. If they
+    are not, the honest move is to merge them for juveniles rather than keep a
+    class the corpus cannot support.
+
+[ ] Wired and USB headphones get a vibration where AirPods get the words
+
+    `CuePlayer.bluetoothOutputConnected` decides between speaking and buzzing,
+    and only counts Bluetooth outputs — wired or USB headphones are treated as
+    nothing-connected. Correct for the Rode case (the USB port is taken by the
+    microphone) and wrong in general. Left alone twice now, 2026-08-01 both
+    times, because the heartbeat shares the method and each cue fix was
+    already touching enough. Revisit if anyone ever records with wired
+    earbuds; until then the asymmetry costs nothing.
+
+
+[x] WP2 (coarse generator + fine-stage extender) — superseded by the decoder
+    finetune, decided not to, 2026-08-10
+
+    The planned stage 2 after the corpus work. Its whole selling point was
+    raising the ceiling at fixed learnability; 0063 did that with zero model
+    change — same K=8 tokens, finetuned decoder, test FAD 34.2 against a
+    30.9 raw-vs-raw floor, Ben's ear at "no more than 10%". The texture
+    defect the extender's fine stages were meant to supply is functionally
+    closed, the ~3 FAD of remaining headroom does not buy a tokenizer
+    migration plus two models, and the one extender actually built scored
+    0/24 in a sitting (see 0050's README). The defects still standing after
+    0064 — pulse density, bout structure — are coarse-stage and model-side,
+    which an extender does not touch. Revisit only if a future defect is
+    shown to live in the fine stages of a codec the decoder finetune cannot
+    reach.
+
+[ ] If nothing is transparent, the tokenizer question reopens as a codec
+    question — and DAC should not have been dropped
+
+    0028 measured the EnCodec codebook ladder and it plateaus: spectral
+    distance to raw falls 1.165 -> 1.035 from K=8 to K=32 and flattens by
+    K=24, against 3.090 for two unrelated real bouts. At the maximum bandwidth
+    EnCodec offers, the round-trip still sits a third of the way to a
+    stranger's recording. More codebooks is not the lever.
+
+    0017 rejected DAC on retention AT MATCHED TOKEN COUNT — 0.483 at 1,813
+    tokens against EnCodec's 0.973 at 1,800. That constraint was load-bearing
+    in the rejection, and it is exactly what PLAN-TIMBRE's WP2 argues is no
+    longer binding: if fine stages can be filled in by a cheap second model,
+    the sequence-length budget is not what it was in July. DAC 44 kHz at 9
+    codebooks also won on spectral distance (1.013 vs 1.151) while losing
+    slightly on retention.
+
+    So the question to revisit is not "is DAC better" — 0017 answered that for
+    its own constraint — but "is DAC better once tokens are affordable". A DAC
+    rung belongs in the next version of 0028's ladder; dac_codec.py already
+    exists and the page builder takes arbitrary arms.
+
+    REVISIT WHEN: the blinded rate-codec-blind.html sitting comes back saying
+    K=16 is not distinguishable from K=8. That is the result that says the
+    residual tail is not where the scratch lives.
+
+[ ] A 10-point equivalence gate needs ~200 trials per arm and nobody has
+    budgeted for that
+
+    PLAN-TIMBRE's gates are written as "good-rate within 10 points of raw" at
+    15 trials per arm. At n=15 the standard error on a proportion is about 13
+    points, so the test cannot resolve its own margin — and because it is an
+    EQUIVALENCE gate, failing to resolve means declaring transparency that was
+    never demonstrated. The bias runs toward passing.
+
+    Sizing, at p≈0.5: +/-10 points at 95% needs ~96 per arm for a single
+    proportion and ~200 per arm for a difference between two. The project's
+    standing sitting is 60 trials total. So a real equivalence claim is four
+    sittings, and Ben's ears are the budget PLAN-TIMBRE says to spend at gates
+    and not on iteration.
+
+    The consequence worth watching: several results in this project are
+    phrased as "could not tell", which is an equivalence claim collected at
+    difference-test power. 0028's page says so on its own facts panel rather
+    than leaving it implied, and anything quoting a null by ear should do the
+    same.
+
+
+[~] Video or dictation? Mostly answered 2026-08-02 — film, but do not watch it
+
+    The question was which to prioritise going forward. Two of the three
+    premises turned out to be already settled in the tree, and the third is the
+    real one.
+
+    THE MICROPHONE WORRY IS UNFOUNDED. `VideoCaptureScreen` runs the camera
+    MUTED on purpose and records sound through the same `raw-audio` path an
+    audio-only capture uses — its docstring says the camera's own track "would
+    be compressed and speech-processed — fine to watch, useless to train on —
+    and it would also take the microphone, which raw-audio needs for the 48 kHz
+    signal the model actually learns from". Two files, not one muxed mp4, so a
+    sync over a bad link delivers the audio first. `preRollSec` is carried
+    through, so the sound still reaches back fifteen seconds before the picture
+    starts. Filming costs nothing in audio quality.
+
+    And the mic is cardioid and mounted on the phone, so framing a crow AIMS it
+    at the crow — the directionality 0001 and 0004 said matters most is enforced
+    by filming rather than lost to it. Worth remembering that 0009 never
+    established the Rode beats the built-in anyway: 2.5 dB worse in band SNR
+    against the better built-in capture, 6.8 dB better against the weaker, n=1
+    against n=2.
+
+    THE ARGUMENT FOR VIDEO IS CROW COUNT, AND IT IS SPECIFIC. 0025 found the
+    ceiling is overlapping callers: macro-F1 0.848 -> 0.875 at crowCount==1, and
+    at crowCount>=2 nothing helps (0.775 -> 0.750, Perch slightly worse). Crow
+    count gates every backbone improvement available — and it currently comes
+    from "how many crows the reviewer heard", which is audio review, which is
+    exactly what fails when birds call over each other. Video breaks that
+    circularity. Nothing else on offer does.
+
+    THE REAL OBJECTION IS ATTENTION, AND THE CODEBASE AGREES WITH IT.
+    `domain/context.ts`: "Tagged in the moment, because it is the one thing that
+    genuinely cannot be recovered later. You can re-listen to a recording a year
+    from now and still label the call; you cannot go back and see whether there
+    was a dog." Context is DEFINED as the irrecoverable half that depends on a
+    human witnessing it, so attention in the moment is the scarce resource the
+    whole matrix runs on.
+
+    The asymmetry that makes it worse: what a recordist misses while framing a
+    shot is disproportionately what is OUTSIDE the frame — the hawk behind them,
+    the second crow in another tree — which the video cannot recover either. A
+    pure loss, not a transfer. It also makes the two modes non-independent:
+    filming can thin the dictation channel by reducing what there is to dictate.
+
+    THE RESOLUTION: the cost belongs to WATCHING THE VIEWFINDER, not to
+    recording. Start it, prop or mount the phone at the usual perch, and watch
+    the birds directly. The Poe Family is habituated at a known location, which
+    is the case where a fixed frame works — no unpredictable subject to track.
+    That yields the Rode on the pristine audio path, video for the crow count,
+    and full attention for the tagging nothing else can produce. Residual cost is
+    real and bounded: a fixed frame misses birds that leave it.
+
+    Dictation keeps its own job — what was noticed but could not be filmed —
+    and keeps its own cost: `dictationSession.ts` shows one microphone session
+    means a dictation closes the rolling buffer and drops the ring, so narrating
+    costs the held past of the thing being narrated.
+
+    STILL OPEN, and both are cheap:
+
+      - How often are the birds actually in shot? Nobody has counted. A visual
+        channel that is empty most of the time recovers less than it promises.
+      - Is the attention cost real in Ben's own data? Compare context-chip counts
+        and dictation length on sessions where he filmed against ones where he
+        did not. If tagging is measurably thinner on video days, the effect is
+        showing up in records that already exist — no new study needed.
+
+    REVISIT WHEN: a few mounted-camera sessions have happened and there is
+    enough to count both of the above.
+
+--------------------------------------------------------------------------
+
+THE OTHER LISTENING PAGES SHARE ABX'S MEDIA-ELEMENT BUG, LATENTLY
+
+    ABXPage died at trial 72 of 120 because it built `new Audio()` per clip and
+    retained every one — 3 per trial, 360 elements, none reclaimable. Fixed
+    there with a single shared element.
+
+    DemoPage, RatingPage, ComparePage and CallTypePage still do it the old way.
+    RatingPage at 120 trials is 120 elements and demonstrably survives (0033,
+    0034 both completed), so this is not urgent and not currently broken —
+    the ceiling sits somewhere between 120 and 216.
+
+    It becomes real the first time a rating sitting goes much past 120 clips,
+    or a compare page gets a fourth arm. The fix is the same three lines ABX
+    now uses. Decided not to do it now: those pages are working instruments
+    with sittings already pooled against them, and changing playback under a
+    working instrument to fix a bug nobody has hit is the wrong trade.
+
+--------------------------------------------------------------------------
+
+THE LISTENING PAGES DO NOT PLAY IN FIREFOX
+
+    ABXPage plays in Chrome and is silent in Firefox as of 2026-08-03, after
+    two real bugs were found and fixed (a seek issued before the media loaded,
+    which threw and killed the click handler; then a play deferred to `canplay`,
+    which leaves the user-gesture window and is refused as autoplay). Buttons
+    respond and aria-pressed flips. No sound, nothing in the console.
+
+    Undiagnosed. The suspect is Firefox and `data:` URI media at scale — every
+    clip is an embedded base64 WAV and an ABX page carries 240 of them in 32 MB.
+    Whether RatingPage and DemoPage are also affected was never checked; earlier
+    sittings may simply have been done in Chrome.
+
+    The fix, if it is ever needed, is to stop embedding: write clips as files
+    beside the page and reference them relatively. That costs the single-file
+    property these pages were built around — they open from disk on a phone with
+    no server and no network — so it is a real trade and not obviously worth
+    making for a browser that has an available substitute.
+
+    Decided not to chase it: Chrome works, Ben grades in Chrome, and the
+    sittings are the scarce resource rather than the browser support.
+
+--------------------------------------------------------------------------
+
+HOW MANY CLIPS A SITTING CAN ACTUALLY HOLD — measured, 2026-08-03
+
+    Ben asked. The answer from this project's own thirteen saved sittings is
+    that quality falls off far earlier than the sitting sizes assume.
+
+    DECISION TIME COLLAPSES THROUGH A SITTING. First quarter against last
+    quarter, median across 13 sittings: -15%. On the two long ABX sittings it
+    was -35% and -48% — 5.5s a trial down to 3.6s, and 7.2s down to 3.8s.
+    Accuracy does not rise to match, so this is disengagement rather than
+    practice.
+
+    ABX ACCURACY DECLINES WITH POSITION. Pooled over every ABX trial:
+      Q1 0.679   Q2 0.558   Q3 0.442   Q4 0.500
+    Partly confounded — the arms are not balanced across quartiles — but the
+    cleanest within-arm comparison points the same way. On the 20-trial
+    instrument check, an easy task, the anchor went 10/10 in the first half and
+    7/10 in the second.
+
+    WORKING GUIDANCE: about 30-40 trials for a discrimination task, 60-80 for a
+    rating task, and if more power is needed run several short sittings rather
+    than one long one. Every sitting needs its own within-session anchor,
+    because pooling across sittings only works if each one can be shown to have
+    functioned (0033's raw anchor moved and its cross-sitting comparisons had
+    to be thrown out).
+
+    The 120-trial sittings this project has standardised on are roughly three
+    times too long, and the last quarter of each is probably noise.
+
+DO NOT INTERLEAVE SITTINGS FROM DIFFERENT AGENTS
+
+    On 2026-08-03 Ben was asked to grade by two agents at once and said "it is
+    hard grading". That is a confound, not just a workload complaint: listener
+    drift in this project has been measured at 8.3 points evening to morning on
+    identical weights, and fatigue carried over from another agent's sixty
+    clips lands inside the next agent's numbers with nothing recording that it
+    happened.
+
+    Anything comparing arms WITHIN one sitting is safe — that is the whole
+    reason interleaved and same-session controls exist here. What is not safe
+    is comparing across sittings, or reading a sitting that followed someone
+    else's without knowing it did.
+
+    If an agent needs ears, it should ask whether one has already been spent
+    that day, and record the answer in the session note. Cheap, and it is the
+    only way the confound is visible later.
+
+
+--------------------------------------------------------------------------
+
+[ ] A FEEDING STATION ON THE WORK ROOF — designed 2026-08-04, in
+    phases/roof-station.md
+
+    Ben's, and the design is written down rather than summarised here because it
+    needs real discussion: a second site, a second family, an unattended
+    recorder, a staged build with a gate on every stage, and a permission
+    conversation with a building owner.
+
+    THE REASON TO BUILD IT IS NOT THE OBVIOUS ONE, which is the part worth
+    carrying in this file. "More recordings" is the weakest argument for it.
+    The strong one is that it is the only way to record these birds with NO
+    HUMAN IN THE RECORDING, and that goes straight at the confound already
+    written down above — observer_role across every field capture is `feeder`
+    (6) and `feeding_now` (7), so "a known feeder is present" is perfectly
+    confounded with "a recording exists". Recruiting neighbours gets a
+    DIFFERENT human, which controls familiarity and does not control presence.
+    Only an unattended station does.
+
+    The protocol follows from it: put the food down and LEAVE, immediately, and
+    let the recorder run. Two minutes of `feeding_now` followed by twenty of
+    nobody-there is a matched pair over the same birds at the same site through
+    the same microphone, and it costs nothing but walking away.
+
+    THREE MORE THINGS IT BUYS, in order:
+
+      - Field negatives by the hour, from the exact mic and noise floor the
+        positives come from. 0036 found the shipped head assigns a call type at
+        p > 0.5 to 97.0% of segments with no crow in them, and TODO already
+        says field negatives are the cheapest fix. A station produces them as a
+        by-product of being left on.
+      - Contact calls, which the corpus has none of — `contact_call` is in the
+        vocabulary and empty, and the `call` class is a rattle detector. A
+        feeding station is where arrival and food-associated calling happens.
+      - A second family as a TEST set that can falsify a number, not as
+        training volume. Same reasoning 0036 forced onto the mobbing labels.
+      - THE ACTIVITY CLOCK (added 2026-08-20): calls-per-hour × temperature ×
+        sun angle from continuous listening, with no observer in the loop.
+        Ben's captures cluster 7–11 am and ~6 pm, but so does Ben — capture
+        times are perfectly confounded with his work schedule, so "crows go
+        quiet noon–4" is currently textbook knowledge plus one afternoon
+        counter-example (capture 116, 4 pm at 37 °C), not a measurement. The
+        station separates crow schedule from recordist schedule as a
+        by-product, and its histogram is what the scout layer's "best window
+        today" should eventually run on instead of assumptions.
+
+    AND WHAT IT IS BAD AT, which must not be forgotten when the capture count
+    starts climbing: a station has no witnessed context. It feeds the acoustic
+    problem and the abstain problem and barely touches semantics. It does not
+    replace handheld sessions.
+
+    DECIDE BEFORE THE FIRST UPLOAD, not after — this is the part that will hurt
+    if it is skipped, because a station makes more captures in a fortnight than
+    the corpus has in its whole life:
+
+      - a `source` on captures (handheld / station / seed / upload). ★ Keep
+        cannot carry it: keep means "this is real", and station audio is real
+        AND different. No wire bump — the phone never sends it, the server
+        defaults phone pushes to `handheld`.
+      - an `absent` observer role, "Nobody there". NULL already means "not
+        recorded", and writing NULL for "demonstrably nobody" conflates unknown
+        with none — the same mistake this repo has now written down for
+        config_version, band_snr_db and not_a_crow-versus-none. Server-side
+        seed plus a translation, no migration, no app build.
+      - a segmentation step, because a four-hour block is not a capture:
+        block -> analyzer/ -> corvid windows -> one capture per region.
+
+    IT ALSO FINALLY MAKES THE WIND EXPERIMENT RUNNABLE. TODO's windshield entry
+    has been stuck because no experiment ever sampled wind; a station can run
+    two matched mics side by side, jammed and bare, for a whole windy day. That
+    is the comparison handheld A/B could never make.
+
+    REVISIT WHEN the permission is granted and Gate 0 passes. Both are in TODO
+    because they have long lead times and everything else waits on them.
+
+
+[ ] Mine long recordings for NEGATIVES — the one data intervention already
+    measured to pay
+
+    0036 is unambiguous: handed 572 segments a human marked crowCount = 0, the
+    shipped four-class head assigns a call type at p > 0.5 to 97.0% of them, mean
+    top probability 0.898, calling 388 of 572 "alarm call". A five-class head
+    with `none` rejects 70.6% for a cost of 0.021 macro-F1. label_defs already
+    carries not_a_crow with trains = 0.
+
+    0036 framed this as a labelling job — "the cheapest possible thing for a
+    human to say". It is cheaper than that. A long outdoor recording is mostly
+    negatives already and no human has to say anything. Every hour pulled by any
+    plan in this file produces them as a by-product.
+
+    Measured yields, BirdNET min_conf 0.10, no location filter (n=3, and the
+    spread IS the result):
+
+      XC517764  foreground Carrion Crow, 16:57   18.0% corvid  -> 14 min neg
+      XC727489  crow in `also`, UK estuary 30:00  7.3% corvid  -> 28 min neg
+      XC736842  crow in `also`, DE garden  53:16  0.4% corvid  -> 53 min neg
+
+    Foreground beats background by ~an order of magnitude and background yield is
+    unstable, so `also:` is a bad basis for committing tens of GB — it means "this
+    species is audible somewhere in this file", possibly once in 53 minutes. But
+    for negatives the low-yield recordings are the GOOD ones, and they are the
+    best negatives obtainable: same microphone, same site, same session as the
+    crow, i.e. the exact acoustic background a crow calls against.
+
+    The pool, if wanted: also:"Corvus corone" len:">900" = 594 recordings, median
+    30 min, max 55 min, ~463 h, ~40-70 GB.
+    analyzer/ already does "a path in, findings out" with no server, so the
+    mining pipeline exists. Pilot ~20 recordings and measure the yield
+    distribution before committing — n=3 with a 45x spread is not a rate.
+
+[x] Playback of generated calls to the Poe family — DECIDED NOT TO
+
+    It came up on 2026-08-05 as the ultimate judge for crowgpt: BirdNET is
+    circular (it selected the training corpus, so every detection number in the
+    project carries that caveat), and Ben's ear costs an hour a sitting and is
+    the bottleneck on the whole programme. A real crow answering a generated
+    call would be the only instrument in the project that is not a proxy for the
+    thing actually wanted.
+
+    DECIDED NOT TO, by Ben, immediately and on two grounds:
+
+      - It is unethical. Playback to a territorial, habituated group is a
+        manipulation they did not consent to and cannot opt out of, and alarm
+        playback especially imposes real stress for the experimenter's benefit.
+      - It would burn the bridge. Habituation to these five birds is a one-way
+        asset built over months. A group that learns it is being deceived by a
+        speaker is a group whose responses to everything afterwards mean
+        something different — so the playback that validated the generator would
+        invalidate the field corpus it was validating it for.
+
+    The second reason is the one worth keeping, because it is not only an ethical
+    argument: trust is a measurement instrument here, and spending it on one
+    reading destroys every future reading. It generalises past crows to any
+    long-running observational relationship, and it is the reason not to reach
+    for this later when the generator is better and the temptation is stronger.
+
+    So the generator's ceiling instrument stays the blinded human sitting, and
+    the way to make that cheaper is a learned critic validated against the 1,605
+    recorded trials already on disk — not a louder speaker in the garden.
+
+
+[ ] "Pokemon Crow" — gamified crowdsourcing. The instinct is right, the axis
+    is wrong
+
+    Ben, 2026-08-06: gamifying contribution is the future of the crowdsourcing
+    half. Agreed on the premise and not on the mechanic, and the difference is
+    worth writing down before anything is built, because a scoring rule is the
+    hardest thing in a product to change later — people optimise for it
+    immediately and resent losing it.
+
+    WHAT A COLLECTION GAME WOULD REWARD, AND WHY EACH IS WRONG HERE:
+
+      - Points for new birds or new call types is a standing incentive to make
+        a bird do something. Approach it, call to it, play a recording, put
+        food down. That is habituation sold as engagement, and it is the one
+        instrument in this project that a single reading destroys — see the
+        playback entry, which gates a *controlled* intervention behind an
+        ethics decision. Crowdsourced uncontrolled intervention by strangers
+        is the same act with none of the design and no way to count how often
+        it happened.
+      - Points attached to a label's content corrupts the only ground truth
+        there is. `labels` is human testimony; a leaderboard for rare call
+        types pays people to guess rare. Score the act of labelling if
+        anything is scored, never the answer.
+      - Volume of contributor audio is the thing the corpus already drowns in.
+        Most of it is seeded and test material and the ★ Keep flag is the only
+        thing separating the real from the rest — a flag that means "the
+        recordist vouches for this", which does not survive being set by a
+        stranger with a streak to protect. More unlabelled volume makes every
+        aggregate less trustworthy, not more.
+      - "Gotta catch 'em all" is a translation claim in a mascot costume. The
+        outreach rule is that honest in-progress framing plays *better* with
+        crow people and researchers, who are the data source.
+
+    WHAT IS ACTUALLY WORTH GAMIFYING, on the evidence already in this file:
+
+    Return, not capture. The confounding entry above is the strongest argument
+    for recruiting anyone at all — every field recording was made by a feeder,
+    so "a known feeder is present" is perfectly confounded with "a recording
+    exists", and the valuable recruit is a `known_passerby`: someone who walks
+    the same block daily, knows the birds, never feeds them. You do not retain
+    that person with novelty. You retain them with *their* birds, over time.
+
+    So the dex is a roster of individuals a contributor can personally
+    identify, where an entry deepens by being recorded again across days and
+    the streak is continuity rather than count. Same bird again is worth more
+    than a new bird — which is the exact inverse of the Pokemon incentive, and
+    the reason the name is a trap even if the shape is right. It also happens
+    to be the shape the science needs: longitudinal, identified, one observer
+    whose role is stable and recorded.
+
+    The named characters are already the asset the outreach doc says they are —
+    Edgar, Killer, Shredder, Thrasher, Ripjaw. A family page is the thing that
+    travels, and it is a *product* of contributing rather than a score for it.
+
+    And the scarce resource is labelling, not recording. `labels` was empty
+    until recently, the label-set skill exists because getting testimony out of
+    a recordist is the expensive part, and it is the one contribution that
+    costs the birds nothing at all. If exactly one thing gets a progress bar,
+    it is this.
+
+    GATES, none of them new, all of them now load-bearing:
+
+      - TLS and something other than one shared secret. Already flagged twice;
+        a game makes it a blocker rather than a design question.
+      - The same-app-or-different decision, which this forces. A field tool for
+        recordists who know each other and a public game are not the same
+        answer about identity or what a capture may carry.
+      - Coordinates. A public dex of identified crows is a map of where named
+        wild animals reliably are, at a resolution good enough to find them.
+        `locationPrecision` and `censorCoords` stop being a courtesy.
+
+    Not scheduled, and it should not be until the upload path exists and there
+    is a second contributor at all. The part worth deciding early is only the
+    scoring rule, because that is the part that cannot be walked back.
+
+    ON A LEADERBOARD AS THE MINIMUM VERSION, added the same day. It is not the
+    minimum. A single publicly ranked scalar is the highest distortion per line
+    of code in the whole design space — a dex at least has many axes and no
+    loser, a board has one number and everyone below the top. "Slightly
+    gamified" describes the build cost, not the incentive.
+
+    It also cannot exist yet, which is the practical answer. `contributors` has
+    two rows: Ben (admin, all 61 labels) and the operator dashboard service
+    account. A board would render one line.
+
+    THE THING THAT DOES THE SAME JOB AT N=1 is a personal contribution view —
+    your own numbers over time, days recorded, captures labelled, birds seen
+    again this month, no comparison to anyone. It carries the whole retention
+    argument, it is honest at one contributor and at a thousand, and a ranking
+    is a later ORDER BY over the same query if it still seems wanted. Build
+    that first regardless of where this lands.
+
+    IF IT IS EVER RANKED, rank effort and not luck. Living next to a vocal
+    family is luck; recording on a Tuesday is effort. Ben is permanently first
+    on any capture- or bird-count board — his birds, his yard, daily — which
+    makes every recruited neighbour permanently last, and the marginal
+    contributor is exactly the person the confound entry says is worth having.
+    Personal bests beat a global board wherever the contributors are
+    structurally asymmetric, and here they always will be.
+
+    Safe axes: days recorded, labelling streak, captures taken to fully
+    labelled. Unsafe: birds identified, rare call types, and detection counts —
+    the last ranks BirdNET's guesses rather than anything a human vouched for,
+    which is the same "is this number about crows or about the pipeline"
+    mistake the corpus already has to be defended against.
+
+
+CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
+
+    Ben, 2026-08-06: "I think I am data constrained. I know there is an
+    experiment to the contrary but I don't trust it — we tested growing the
+    corpus by 1.6x, which at my scale is not valid."
+
+    Half of that is a misremembering and half of it is a real hole.
+
+    THE 1.6x TEST IS 0050, AND HE IS RIGHT NOT TO TRUST IT — for a stronger
+    reason than he gave. The corpus grew 57% but American Crow grew 4%
+    (57,479 bouts to 59,654), because the archive's corvids are overwhelmingly
+    European. 0050 is very nearly a null by construction and should not be
+    cited as data evidence in either direction. Its own write-up says so.
+
+    THE EVIDENCE IS 0048, AND IT IS AN 8x SWEEP, NOT 1.6x — 12.5/25/50/100% of
+    recording groups, shared validation split, each doubling buying about a
+    third of the previous one. That is a real scaling curve and the "small
+    scale" objection does not land on it as stated.
+
+    WHAT DOES LAND: every arm of 0048 ran at ONE model size, d384/L8/H6, 21.9M
+    params. A scaling curve at fixed capacity flattens when the model
+    saturates, which is not the same finding as the data being exhausted. 0048
+    concludes "no model of any size trained on any amount of this corpus will
+    do better" off four arms that varied one axis.
+
+    AND THE CAPACITY RULING IT LEANS ON IS WEAKER THAN ITS SUMMARY TABLE SAYS.
+    That table reads "capacity — ruled out twice, two sizes, two sequence
+    lengths (0023, 0038)". But 0023 varied dropout, batch size and LR schedule
+    and every arm was d384 — it never moved parameter count at all. 0038 did
+    (16.6M vs 41M) and they scored 4/24 and 4/24, at five codebooks, where the
+    incumbent scored 13/24. Two models tied at the floor cannot separate on
+    capacity. So the standing evidence is one experiment that did not test the
+    axis and one that tested it in a broken regime.
+
+    THE DIAGONAL HAS THEREFORE NEVER BEEN RUN. Data varied at fixed capacity,
+    capacity varied (badly) at fixed data, never both together — which is the
+    move Chinchilla is actually about, and 0048 withdrew the Chinchilla
+    argument without testing it.
+
+    WHAT SURVIVES INTACT is 0048's train/val gap column, and it is the strongest
+    thing in the file: +0.016 at 50% of the corpus. Checked — `eval_train_batcher`
+    passes `canonical_only=True` and honours `keep_groups`, so this is not the
+    augmentation mismatch that invalidated the older gap numbers. A data-starved
+    model memorises; this one does not. That is a mechanism, not an
+    extrapolation, and it is the reason to believe 0048 anyway.
+
+    AND HIS UNDERLYING INTUITION IS ABOUT ABSOLUTE SCALE, which no experiment
+    here has addressed. 41.7 hours, 74M unique tokens, against MusicGen's
+    20,000 hours — 0.2%. Diminishing returns measured entirely inside
+    18M-148M tokens is the local slope of a curve sampled three orders of
+    magnitude below every system that works. Local flatness is what a power law
+    looks like everywhere on it, including well below the point where the thing
+    starts working.
+
+    WHY IT CHANGES NOTHING PRACTICAL, WHICH IS THE HONEST BOTTOM LINE. If he is
+    right, the implied action is 10-100x more American Crow, and it does not
+    exist: 41.7 hours already IS the archive, a 10,637-recording sweep returned
+    446 American Crows, and the kept field corpus is 8.6 minutes. So "data is
+    the binding constraint" and "more data will not help" collapse to the same
+    instruction — do not spend on the generator — by different routes.
+
+    The difference is what gets written down. "More data will not help" invites
+    another architecture idea. "The generator is out of reach at any data scale
+    one person can reach" does not, and is better supported.
+
+    IF IT IS EVER WORTH SETTLING: one arm, ~60M params at 100% data, against
+    21.9M at 100% and 21.9M at 50%. Three points that turn two lines into a
+    surface. About three hours. Worth it only if something else makes the
+    generator matter again — 0048's real conclusion, that the honest pivot is
+    the context work, is not disturbed by any of this.
+
+
+
+
+[ ] A contact-call head, bootstrapped by context and an ear trainer
+
+    Ben, 2026-08-09, on the back of the scrape: he is willing to label call
+    types himself and proposed a trainer — a quiz that plays known alarms,
+    flight calls, rattles and scores his answers until he can be trusted on
+    the classes nobody has labels for.
+
+    THE CIRCLE IT BREAKS. Contact calls are the most common crow vocalisation
+    and the corpus has zero labeled; the only call-type head cannot see them
+    (not in its vocabulary) and 0036 showed it bins unfamiliar audio into
+    `alarm call` with confidence. So nobody can even COUNT contact calls in
+    the 2026-08 scrape — the new sources reading 60% alarm may partly BE the
+    contact calls, mislabeled. Need labels to build the head, need the head to
+    find them.
+
+    HOW MANY: ~100-300 segments makes a first binary head worth training —
+    mob-vs-alert was real-but-thin at 138 (0012), 0006 wants ~10 sessions per
+    class.
+
+    THE ANCHOR THAT NEEDS NO EAR: context. A calm crow at the window, feeding,
+    known human, no threat, calling anyway — that is a contact/comfort call
+    certified by witnessed circumstance. Field captures with context chips are
+    the only contact-call ground truth that exists anywhere in this project,
+    and the window sessions (crows now eat at the open window without flying)
+    are the collection instrument. Archive labelers have nothing like it.
+
+    THE TRAINER, sketched: a demo.py-family page. Quiz mode draws from
+    verifiable exemplars — Ben's context-anchored captures plus the ~2,300
+    crow-tools segments with human labels (alarm/begging/rattle/song) —
+    immediate feedback, spectrogram reveal after the answer, accuracy tracked
+    per class. His quiz accuracy IS the measured labeler reliability, citable
+    per label the way the corpus already refuses uncalibrated confidences.
+    When accuracy clears a bar on a class, the page flips from quiz to funnel:
+    unlabeled segments flow in, answers become labels. Same philosophy as the
+    "pre-code the transcripts and measure agreement" TODO entry — measure the
+    instrument (his ear) before trusting it.
+
+    QUIZ MODE SHIPPED 2026-08-09: `make -C crowgpt trainer` writes
+    results/trainer.html — five classes on the phone's menu (the corpus four
+    plus a contact class seeded from ~30 recordist-asserted European archive
+    recordings, tiered and said so on every reveal), per-class Wilson
+    intervals, misses re-queued, no repeats, sittings saved into
+    results/trainer/. It writes no labels. Still open here: the funnel (gated
+    on measured accuracy — pick the bar), the contact-call head itself, and
+    the active-learning assist below.
+
+    ACTIVE-LEARNING ASSIST for the scrape: cluster new-source bouts in
+    embedding space, surface clusters far from the alarm-heavy labeled
+    regions, and put cluster exemplars in front of him first — candidate
+    contact calls found without a head.
+
+    0060 (2026-08-09) SETTLED THE FINDER QUESTION: BirdNET detects contact
+    bouts at the alarm rate (84.6% vs 84.0%, species-matched, segmented
+    independently of BirdNET), so existing species detections can surface
+    candidate contact bouts today and the trained ear filters them. The
+    assist above is now about diversity of candidates, not existence — and
+    the corpus's BirdNET-selected audio almost certainly already contains
+    contact calls filed under wrong call-type guesses (the 0036 worry,
+    sharpened).
+
+    0061/0062 (2026-08-09) SETTLED THE RANKER: Ben's "lemon shaped" envelope
+    is half real (smooth, single-peaked, short units — n_peaks 0.70) but too
+    weak to gate on (combo 0.637). A logistic probe on BirdNET embeddings
+    over the same bouts reaches 0.97 on Hooded Crow (0.983 recordist-
+    controlled; ravens chance on four thin recordings). Surfacing page =
+    0060's finder + 0062's probe score + the trainer's reveal-and-verdict
+    mechanics; still gated on his measured contact accuracy before verdicts
+    mean anything.
+
+    DECIDED NOT TO BUILD THE SURFACING PAGE YET (Ben, 2026-08-09): the
+    corpus has zero American Crow contact assertions — 22,795 American
+    recordings and not one metadata contact label; American recordists
+    write "call" where Europeans write function — so the probe's positive
+    class is one European species, mostly one recordist. Ranking American
+    bare-"call" audio with it would spend the trained ear on unvalidated
+    candidates. Revisit when the window sessions produce calm-context
+    captures: score them with 0062's probe against field alarm recordings,
+    and if it ranks them high, the probe has its American field test and
+    the page earns building.
+
+    GRADUATES TO TODO WHEN: a window session has produced its first batch of
+    context-anchored calm-crow captures, which is what the quiz's contact
+    class needs to exist at all. Everything else can start from crow-tools
+    audio today.
+
+[ ] The novel-region lean: longctx sits closer to un-corpus-like crow audio
+
+    0068 (2026-08-11) found the long-context model's draws nearer than the
+    3s twin's to real bouts, by a hair (~0.004 cosine against radii of
+    0.10-0.26), with the lean growing in exactly the order 0065's novelty
+    ranked the corpus strata: 57% / 61% / 71% from most-familiar to
+    most-novel. Per-bout it is p=0.0007; at the honest unit, the
+    recording, it is 0.582 at p=0.098 resting on FIVE recordings from the
+    most-novel stratum — a rounding-error-sized effect pointed precisely
+    where the range hypothesis said, which is too consistent to forget and
+    too thin to act on.
+
+    REVISIT WHEN either (a) the corpus tooling lands more material like
+    that stratum — least-curated, non-bird-guide audio — so the recording-level
+    test has n to work with, or (b) a structure-aware embedding exists
+    (birdnet_worker means 3s segments, so all of 0068 was texture-only and
+    blind to arrangement, the dimension 0067's gate says actually moved).
+    Rerun novel_reach.py as-is in case (a); case (b) is a redo of 0068's
+    coverage in the new space and the more decisive of the two.
+
+[ ] CROWGPT: releases that a stranger can run — the Hugging Face shape
+
+    Raised 2026-08-14, prompted by the releases registry (crowgpt.releases,
+    commit e7b8623): CrowGPT1/2 now have names and recipes, but the artifacts
+    still live inside the experiments tree — results/model-*/model.pt plus
+    results/decoder-finetune/adversarial/best.pt — and running one means
+    having this whole repo and its venv. Ben wants the end state where
+    someone pulls crowgpt1 from Hugging Face and runs it.
+
+    A PRIVATE mirror exists meanwhile: hf.co/faerber/cawtalker-models holds
+    crowgpt/results/ plus the cawdex heads, with a model card (added
+    2026-08-15) naming the two releases. A backup with a map, not the
+    publishable shape.
+
+    STEP (b) SHIPPED 2026-08-15: crowgpt.hub exports a release as safetensors
+    + explicit JSON (commit 68477e3), and hf.co/faerber/crowgpt — private —
+    now holds both releases in that form with a card, verified bit-identical
+    to the internal checkpoints through a fresh download. That repo IS the
+    eventual release home; going public is a visibility flip. Still open:
+    the pip-installable crowgpt package (the loader lives in this repo), and
+    Ben's word on the flip — publishing is his call, on his timing.
+
+    The standard shape is a HF Hub model repo per release: weights as
+    safetensors, config.json carrying the architecture + tokenizer manifest,
+    generation_config.json carrying the release sampling (T/k/max_frames),
+    the decoder finetune weights alongside for crowgpt2, and a model card.
+    For a custom architecture the light path is PyTorchModelHubMixin on the
+    CrowGPT class — from_pretrained()/push_to_hub() with no transformers
+    integration — which presupposes the real work: crowgpt becoming a
+    pip-installable package rather than a repo-rooted venv. torch.load with
+    weights_only=False and the pickled manifest blob is the other thing that
+    has to go; safetensors + explicit json config is the portable form.
+
+    Steps that are cheap and local, publishable or not: (a) make
+    results/releases/<name>/ self-contained — copy weights, decoder and
+    manifest in, stop reaching into model-* and decoder-finetune; (b) the
+    safetensors + config export. Packaging and the model card only matter
+    when publishing is actually wanted.
+
+    The card names Xeno-canto and no other source, per the corpus-tooling
+    rule in CLAUDE.md (the naming exception covers promo/ and this card,
+    extended by Ben 2026-08-15).
+
+    REVISIT WHEN Ben says the repo goes public.
+
+[ ] CROWGPT in the browser: a client-side generate-a-crow demo on the promo
+    page
+
+    Asked 2026-08-18. Technically well within reach: the transformer is
+    ~6-7M params (~14 MB fp16), exportable as a single-step-with-KV-cache
+    ONNX graph run under onnxruntime-web (WASM-SIMD everywhere, WebGPU
+    where present), with the sampling loop — temperature/top-k, the
+    j mod K legality mask, the conditioning prefix, EOS — as thin JS
+    around it. The EnCodec decoder (~7.4M params; for crowgpt2, the
+    finetuned weights, same architecture) exports the same way, and
+    transformers.js already runs MusicGen through EnCodec in-browser, so
+    the codec half is proven. ~20-30 MB lazy-loaded behind a button, no
+    server, no token — the promo bundle's own rules, kept.
+
+    The open engineering question is wall-clock: a 6 s clip is ~3,600
+    sequential token steps, seconds on WebGPU but plausibly 15-60 s on
+    WASM CPU. Measure before promising; 3 s clips or a progress bar are
+    the fallbacks.
+
+    Shipping weights to every visitor's cache is publishing the model —
+    more public than flipping the HF repo — so it waits on the same word
+    from Ben as the entry above.
+
+    PROTOTYPE SHIPPED 2026-08-18: experiments/0080-crowgpt-in-the-browser —
+    crowgpt2 exported to ONNX with 4.7e-05 logit parity, full sampling loop
+    in JS, 105-288 tok/s on 4-thread WASM (seconds per bout), BirdNET
+    detects the browser's output as corvid. The engineering question is
+    answered; what remains before promo is quantisation, bundling, and
+    Ben's go-ahead (he leans toward shipping, 2026-08-18).
+
+    REVISIT WHEN the demo is wanted on the promo page for real.
+
+[ ] A BLE button as the pocket trigger — the only remote class that can
+    actually beat the AirPods
+
+    Asked 2026-08-16, alongside the volume-shutter feature. Android has
+    exactly three ways a wireless button can reach the app, and every
+    off-the-shelf remote lands in the first two: (1) HID key events
+    (camera shutters, page-turner pedals) reach only the foregrounded
+    Activity — deterministic, but dead with the screen off; (2) media keys
+    (AirPods, any AVRCP clicker) route through the MediaSession election —
+    background-capable, but only by winning the recency contest against
+    every app that plays audio, which is the whole MediaButtonPriority
+    arms race. A dedicated media-button clicker (Satechi Media Button
+    style) is only ergonomically different from the AirPods; same path,
+    same fragility.
+
+    (3) is the one nobody sells ready-made: a BLE GATT button the app
+    subscribes to directly — Flic 2 is the polished one (per-button
+    click/double/hold, so start/stop/marker could be three gestures), a
+    cheap iTag keyfinder exposes the same idea over FFE0. No volume keys
+    taken, no election to lose, works from a pocket under the existing
+    pocket-listening foreground service. The cost is a real BLE
+    integration in the app (native or react-native-ble-plx) plus pairing
+    UX, which is why it is here and not in TODO.
+
+    REVISIT WHEN a field session actually loses presses to the media
+    election (the diagnostics screen now names the losing condition), or
+    when a marker button — "flag that moment" without stopping the
+    recording — becomes worth wanting on its own.
+
+[ ] The research station is being built with a Song Meter Micro 2, not the
+    Zoom H1essential the phase docs specify — what that swaps, and the
+    software the purchase creates
+
+    Ben, 2026-08-17: building the station with a Song Meter Micro 2 acoustic
+    recorder and a hunter cam (cam not yet chosen). The design is already
+    written — phases/roof-station.md, and Mode 1 in data-collection.md — and
+    both picked the H1essential. The Micro 2 changes that decision, mostly
+    for the better:
+
+      - WINS, and they are exactly the unattended-station problems: it is a
+        purpose-built ARU — weatherproof housing (the dry-box line item
+        disappears), scheduled recording windows (roof-station.md's "just
+        before arrival to ~90 min after" becomes a config screen instead of
+        a daily chore), weeks-to-months on AA lithiums, and Bluetooth status
+        checks without touching the box — which matters during the
+        neophobia staging, where every handling visit is a cost.
+      - THE ONE REAL LOSS: 32-bit float was named as "the reason to buy the
+        recorder rather than leave a phone up there" — a caw at 1.2 m is
+        loud, nobody rides the gain, a clipped caw is gone. The Micro 2
+        records fixed-gain 16-bit WAV. Mitigation is a conservative gain
+        setting sized to a close loud caw; 16-bit gives ~96 dB and the roof
+        noise floor is high anyway, so headroom over floor is achievable —
+        but VERIFY with a test recording of a loud call at perch distance
+        before trusting a season to it, and check what wind protection
+        actually fits its internal mic (the fur-windjammer rule stands).
+        Record at 48 kHz to match the corpus.
+
+    THE SOFTWARE GAP IS THE INGEST PATH, and roof-station.md already
+    designed it: SD-card WAV blocks → analyzer/ (path in, findings out) →
+    corvid detection regions → one capture per region pushed with
+    source = station; the confirmed-empty stretches kept as blocks for the
+    0036 abstain/negatives work. None of it exists, and neither do the two
+    schema prerequisites the doc says must land BEFORE the first station
+    upload: a `source` column on captures (checked 2026-08-17 — captures
+    has `trigger`, which is adjacent and not the same) and an `absent`
+    entry in SEED_OBSERVER_ROLES (also absent). Without them, station
+    volume drowns the ★-kept handheld recordings and the calls × context
+    matrix fills with rows that have no witnessed context.
+
+    THE CAM: WDR is still the one spec that matters (a dark crow on a
+    bright roof is a blown-out exposure). Connectivity follows the site —
+    WiFi at home, cellular on the work roof, never a corporate network.
+    Frame the perch, the tray and a sliver of sky; nothing beyond the
+    parapet. And plan for CLOCK DRIFT: trail-cam clocks wander minutes a
+    month, and pairing footage to the audio timeline is the whole point of
+    the cam — the daily food drop is a free slate (you are in frame and
+    audible anyway; a clap reconciles both clocks at no cost to reason 1,
+    which only needs the birds unobserved AFTER you leave).
+
+    GRADUATES TO TODO when the hardware arrives: the schema pair first,
+    then the ingest script, then Gate 0 per roof-station.md's staging.
+
+[ ] A tree map for the territory — perches, roosts, the nest tree
+
+    Raised 2026-08-20. Ben asked whether a map of every Salt Lake tree with
+    age and height exists, to track the crows better. What exists: SLC Urban
+    Forestry's per-tree inventory (species + DBH as the age proxy; street and
+    park trees ONLY — backyard trees absent, likely including the nest tree),
+    and UGRC's Salt Lake valley LiDAR, from which a canopy height model gives
+    measured height for every tree including private ones. No dataset has
+    true age; DBH is the standard proxy.
+
+    The buildable version is not citywide: a tree layer on the app's map for
+    the few dozen trees the Poe family actually uses — named, marked
+    perch/roost/nest, heights from the LiDAR or an eyeball — joinable from
+    captures the way context chips are. That turns "alarm call from the
+    Nutcracker's-corner cottonwood" into a recordable fact, which is context
+    the semantics problem is starving for. Graduates to TODO when a field
+    session wants it.
+
+[ ] Weather → activity prediction ("they'll be out at 10 AM")
+
+    Raised 2026-08-20. Ben wants forecast-conditioned activity windows for
+    the crows. The blocker is not weather data (Open-Meteo: free hourly
+    history + forecast, no key) but ground truth: 21 kept captures with
+    time+GPS, and capture timestamps measure WHEN BEN RECORDS, not when
+    crows are active — selection bias a model trained on them inherits
+    silently. Three-step path, cheapest first:
+
+    1. Start the flywheel now: enrich every capture at ingest with the
+       hour's weather (temp, wind, precip, cloud, pressure) + backfill the
+       existing kept 21 from the historical API. Costs one worker touch;
+       accumulates free forever; makes every future analysis joinable.
+    2. The real unlock is the roof station (Jay's Song Meter assessment,
+       phases/roof-station.md): continuous BirdNET detections x hourly
+       weather = unbiased activity curves in weeks, thousands of hours.
+       Activity prediction should be DESIGNED against that stream; capture
+       timestamps can validate but never train.
+    3. Until fitted: a dashboard "crow weather" card scoring tomorrow's
+       forecast against literature priors (crepuscular peaks, midday lull
+       in heat, wind suppression), clearly labelled as priors — replaced by
+       the fitted model when station data exists. Makes the idea tangible
+       without pretending 21 points are a dataset.
+
+[ ] Road noise as a CawScout axis — recordability, not a crow penalty
+
+    Ben, 2026-08-21, standing at target #4 with three crows and a busy road:
+    factor road noise in, "but not yet — just think about it." The thinking:
+    crows LIKE busy roads (roadkill, garbage — the food signal already tracks
+    the same streets), so noise must not subtract from the find-crows score
+    or it would fight the food term and hide real crows. It is a second axis:
+    this target has crows AND you'll fight the noise floor. Cheap build when
+    wanted: OSM highway classes (motorway/trunk/primary/secondary, already
+    fetched from Overpass in 0084) -> a noise kernel -> a per-target "quiet"
+    0..1 shown in the popup beside the score, maybe coloring the pin's ring.
+    Ties to 0031 (denoiser: hp300 shipped) and the SNR work — a noisy-site
+    recording is degraded, not worthless. Revisit when a real capture at a
+    loud target frustrates him, which #4 may be about to provide.
+
+[x] Extend CawScout to Davis and Utah county -> shipped 2026-08-22
+
+    Reversed the same afternoon it was decided against ("actually let's
+    try it anyway"). Five CHM tiles in data/experiments/0083-chm/, 0083's
+    build_region.py (mosaic + 1,650 m Copernicus elevation mask), two new
+    Regions, and 45 targets published: 25 valley, 10 Davis, 10 Utah
+    Valley. Scores are normalised per region — a 0.9 in Provo and a 0.6
+    downtown are not comparable, ranks within a region are the ordering.
+    Open question left on purpose: the valley's own layer still uses the
+    tile-edge clip, not the elevation mask; re-running it would reshuffle
+    validated targets. Revisit if the canyon-cluster p99 wart bites again.
+
+[ ] Are quiet-area crows worth more per encounter? (vocal yield vs tameness)
+
+    Ben, 2026-08-23, mid-trip: park crows are tame, silent, eating bread
+    with the pigeons — maybe crows in less popular areas are more valuable
+    because they aren't acclimated. This is the cost side of the 0084
+    Library Square note (habituation shrinks flight distance, ~6 dB per
+    halved approach): tame sites yield close, clean, but SPARSE audio;
+    wary sites yield alarm/contact calls at distance. Two halves of the
+    repertoire, not a ranking. Measure before modeling: once visit marks
+    carry vocal/silent (TODO), a dozen trips give calls-per-encounter vs
+    the food/urban signal, and that decides whether CawScout earns a
+    wildness axis — sibling of the road-noise recordability axis above,
+    and like it, a second axis displayed beside the score, never a penalty
+    that hides real crows.

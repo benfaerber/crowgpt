@@ -1,0 +1,56 @@
+{
+  "coverage_curve": {
+    "p25": {
+      "radius": 0.1008,
+      "ceiling": 0.232,
+      "longctx": 0.218,
+      "twin": 0.208
+    },
+    "p50": {
+      "radius": 0.1288,
+      "ceiling": 0.483,
+      "longctx": 0.466,
+      "twin": 0.473
+    },
+    "p75": {
+      "radius": 0.1827,
+      "ceiling": 0.768,
+      "longctx": 0.762,
+      "twin": 0.732
+    },
+    "p95": {
+      "radius": 0.2613,
+      "ceiling": 0.954,
+      "longctx": 0.936,
+      "twin": 0.94
+    }
+  },
+  "paired_nn_distance": {
+    "n_real": 298,
+    "mean_longctx": 0.1489,
+    "mean_twin": 0.1506,
+    "mean_diff_longctx_minus_twin": -0.00171,
+    "longctx_closer_share": 0.527,
+    "wilcoxon_p": 0.09515
+  },
+  "hardest_real_points": {
+    "recordings": [
+      "124568031",
+      "134495",
+      "164831",
+      "246194301",
+      "258055841",
+      "25988861",
+      "281906111",
+      "457379491",
+      "484589881",
+      "608470580",
+      "614502294",
+      "620662095",
+      "621801905",
+      "646313044"
+    ],
+    "mean_dist_longctx": 0.3086,
+    "mean_dist_twin": 0.3177
+  }
+}

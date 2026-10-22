@@ -1,0 +1,27 @@
+# Rebuilds the denoiser environment for 0031. CPU-only on purpose: the GPU
+# belongs to training runs, and this is ~10 s of CPU for the whole corpus.
+#
+#   uv venv --python 3.11 .venv
+#   VIRTUAL_ENV=.venv uv pip install --index-url https://download.pytorch.org/whl/cpu \
+#       --extra-index-url https://pypi.org/simple -r requirements.txt
+#
+# biodenoising itself is NOT installed — it is vendored in vendor/ at commit
+# 47ca6e3, because upstream has had no commits since October 2024 and zero
+# forks. These are the dependencies it needs but never declares, plus the
+# measurement stack. See NOTES.md.
+
+# undeclared by biodenoising, required to import it at all
+librosa==0.11.0
+norbert==0.2.1
+einops==0.8.2
+julius==0.2.8
+hydra-core==1.3.4
+
+# CPU-only build: torch.version.cuda is None, so it cannot allocate on the GPU
+torch==2.13.0+cpu
+torchaudio==2.11.0+cpu
+
+# the experiment's own measurement stack
+numpy==2.4.6
+scipy==1.17.1
+soundfile==0.14.0

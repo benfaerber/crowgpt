@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "CawTalker",
+    "slug": "cawtalker-field",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.cawtalker.field",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Cawtalker records corvid calls in the field."
+      }
+    },
+    "android": {
+      "package": "com.cawtalker.field",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MICROPHONE",
+        "android.permission.POST_NOTIFICATIONS"
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#F4FAFA",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-dev-client",
+      "expo-sqlite",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Cawtalker records where each capture was made, so calls can be tied to a place."
+        }
+      ],
+      "expo-audio",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Cawtalker films corvids so a call can be tied to what the bird was doing.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      "expo-video",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ]
+  }
+}

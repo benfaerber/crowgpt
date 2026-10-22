@@ -1,0 +1,87 @@
+# The corpus — audio + its DB live here, kept out of git.
+/data/
+
+# Python
+.venv/
+.venv*/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Env / secrets
+.env
+
+# App-local instance dirs and SQLite sidecars
+instance/
+*.db-wal
+*.db-shm
+
+# Pipeline run artifacts (keep report.md, *.json, *.png; drop logs + feature cache)
+*.log
+*.npz
+
+# Third-party test clips (not redistributed)
+test_examples/
+
+# Built by `make -C dashboard build`; regenerated, never edited by hand.
+fieldserver/src/fieldserver/static/app/
+
+# Built by `make -C promo build`; same deal.
+fieldserver/src/fieldserver/static/promo/
+
+# Personal shortcuts — handset serials, and whatever else is true of one desk
+# and no other. `make` includes it when present and shrugs when it isn't.
+Makefile.local
+
+# crowgpt run artifacts — the model, the generated audio and the demo page are
+# all reproducible from the corpus, and the corpus itself is not redistributable
+# (some archive recordings are CC BY-NC-ND). The globs cover every run
+# directory, not just the original names: an earlier version listed the names
+# one by one, each new run invented a new one, and 900 MB of checkpoints walked
+# into history before anyone noticed. The numbers — history.json, evaluation,
+# listening sessions — stay tracked; they are the durable part.
+crowgpt/results/model/
+crowgpt/results/**/*.pt
+crowgpt/results/**/*.safetensors
+crowgpt/results/**/samples/
+crowgpt/results/*.html
+crowgpt/results/clips.json
+data/sa3-lora/
+
+# Experiment arm caches: embeddings are rebuildable from the scripts, the
+# numbers in results.json are the durable part.
+experiments/*/arms/
+
+# Candidate heads are rebuildable from train_head.py; comparison.json holds the
+# numbers, which is the part worth keeping.
+pipelines/training/models-candidate/*/
+
+# Audio, anywhere outside data/. The corpus is gitignored and a recording has
+# never belonged in this repo — but a tool writing a render into the working
+# directory is easy to `git add -A` by accident, and one arrived that way on
+# 2026-08-01 (a 102 KB TTS wav in the root). The file stays on disk; git simply
+# stops offering it.
+*.wav
+*.flac
+*.mp3
+*.m4a
+
+# The one recording that does belong: the bundled disconnect-cue voice, shipped
+# as an Android raw resource so it cannot be missing, cleared or rendered silent
+# the way the on-device TTS file could.
+!mobile/modules/raw-audio/android/src/main/res/raw/*.wav
+
+# The promo page's demo clips: two CrowGPT previews and the real call they are
+# judged against. Curated by hand and shipped with the site, not corpus audio.
+!promo/src/assets/*.wav
+
+# 0036 rebuilds this from the vendored crowtools labels.json, which IS committed
+experiments/0036-what-would-more-labels-buy/results/crowtools_flags.json
+
+# The public build of the promo site — an upload artefact, rebuilt by
+# `make -C promo build-public`. The field server's copy is generated too.
+promo/dist/

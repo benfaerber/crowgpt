@@ -1,0 +1,26 @@
+{
+  "n": 2654,
+  "trained_on": 2654,
+  "head": "one-vs-rest",
+  "backbone": "birdnet",
+  "feature": "birdnet_pooled_mean_std_max",
+  "source": "pooled",
+  "classes": {
+    "alarm call": 1311,
+    "begging": 311,
+    "call": 654,
+    "song": 623,
+    "flight call": 40
+  },
+  "per_class_auc": {
+    "alarm call": 0.939,
+    "begging": 0.914,
+    "call": 0.95,
+    "song": 0.904,
+    "flight call": 0.975
+  },
+  "caveats": {
+    "flight call": "Measured across a corpus boundary that predicts the label. crow-tools has no flight-call flag, so all 40 positives come from the archive set \u2014 and the two corpora are trivially separable in this feature, since crow-tools pools a single 3s window (std=0) and the archive set pools whole clips. See experiments/0025 --preflight.",
+    "co-occurrence": "A one-vs-rest head's probabilities are independent and do not sum to one. Do not argmax them and call the result a confidence."
+  }
+}

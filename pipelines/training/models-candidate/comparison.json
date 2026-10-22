@@ -1,0 +1,40 @@
+{
+  "birdnet/onevsrest": {
+    "scores": {
+      "alarm call": {
+        "auc": 0.939,
+        "ap": 0.94,
+        "positives": 1311
+      },
+      "begging": {
+        "auc": 0.914,
+        "ap": 0.779,
+        "positives": 311
+      },
+      "call": {
+        "auc": 0.95,
+        "ap": 0.868,
+        "positives": 654
+      },
+      "song": {
+        "auc": 0.904,
+        "ap": 0.805,
+        "positives": 623
+      },
+      "flight call": {
+        "auc": 0.975,
+        "ap": 0.61,
+        "positives": 40
+      }
+    },
+    "mean_auc": 0.936,
+    "scored_on_rows": 2654,
+    "co_occurrence": {
+      "both_above_0.5": 78,
+      "both_above_0.3": 92,
+      "total": 276
+    },
+    "trained_on": 2654,
+    "path": "pipelines/training/models/american-crow"
+  }
+}

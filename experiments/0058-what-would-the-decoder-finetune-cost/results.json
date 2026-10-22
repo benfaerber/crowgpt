@@ -1,0 +1,34 @@
+{
+  "gpu": "NVIDIA GeForce RTX 4070 Ti SUPER",
+  "params": {
+    "encoder": 7425792,
+    "quantizer": 0,
+    "decoder": 7426018,
+    "total": 14851810,
+    "discriminator": 471685
+  },
+  "corpus": {
+    "total_hours": 64.3,
+    "american_crow_hours": 30.8,
+    "bouts": 127553,
+    "species": 46
+  },
+  "steps": {
+    "16": {
+      "spectral_ms": 41.4,
+      "spectral_vram_gb": 1.3,
+      "adversarial_ms": 368.0,
+      "adversarial_vram_gb": 6.98,
+      "examples_per_hour_adversarial": 156511
+    },
+    "32": "OOM",
+    "64": "OOM"
+  },
+  "per_corpus_pass": {
+    "16": {
+      "steps_per_corpus_pass": 14467,
+      "hours_per_pass_spectral": 0.17,
+      "hours_per_pass_adversarial": 1.48
+    }
+  }
+}

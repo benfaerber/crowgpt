@@ -1,0 +1,25 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.rawaudio'
+version = '0.1.0'
+
+expoModule {
+  canBePublished false
+}
+
+dependencies {
+  // PreRoll is pure Kotlin, so its ring arithmetic is testable on the JVM
+  // without an emulator: ./gradlew :raw-audio:testDebugUnitTest
+  testImplementation 'junit:junit:4.13.2'
+}
+
+android {
+  namespace "expo.modules.rawaudio"
+  defaultConfig {
+    // MediaRecorder.AudioSource.UNPROCESSED requires API 24+
+    minSdkVersion 24
+  }
+}

@@ -1,0 +1,29 @@
+# Perch 2.0's interpreter, kept apart from .venv-birdnet on purpose.
+#
+# BirdNET's tflite_runtime 2.14 pins numpy<2 at the ABI level; TensorFlow 2.20
+# wants numpy>=2. They cannot share a venv. They must also never share a
+# *process*: birdnetlib sets CUDA_VISIBLE_DEVICES="" at import, so a Perch model
+# loaded afterwards is silently CPU-only forever — the same trap documented in
+# crowgpt/src/crowgpt/gpu.py, which cost a night of training at 1/240th speed.
+#
+# perch-hoplite is a git dependency and that is the reproducibility risk here,
+# which is exactly why this directory gets a lock file and .venv-birdnet
+# historically did not.
+[project]
+name = "cawtalker-perch"
+version = "0.1.0"
+description = "Perch 2.0 embeddings for the experiment 0024 backbone bake-off"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "tensorflow[and-cuda]~=2.20.0",
+    "perch-hoplite>=1.0",
+    "numpy>=2",
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+    # Floors, not preferences. perch-hoplite pulls librosa, librosa pulls numba,
+    # and left alone the resolver backtracks to numba 0.53 / llvmlite 0.36 —
+    # which only build on Python <3.10 and fail here with a compiler error that
+    # names llvmlite rather than the constraint that chose it.
+    "numba>=0.60",
+    "librosa>=0.11",
+]

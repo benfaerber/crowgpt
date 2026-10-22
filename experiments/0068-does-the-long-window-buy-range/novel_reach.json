@@ -1,0 +1,35 @@
+{
+  "soundscape_archive": {
+    "n": 72,
+    "n_recordings": 12,
+    "mean_dist_longctx": 0.2235,
+    "mean_dist_twin": 0.2275,
+    "longctx_closer_share": 0.611,
+    "wilcoxon_p": 0.02172
+  },
+  "archive_3": {
+    "n": 42,
+    "n_recordings": 5,
+    "mean_dist_longctx": 0.2725,
+    "mean_dist_twin": 0.2779,
+    "longctx_closer_share": 0.714,
+    "wilcoxon_p": 0.01892
+  },
+  "community_archive": {
+    "n": 105,
+    "n_recordings": 105,
+    "mean_dist_longctx": 0.1463,
+    "mean_dist_twin": 0.1487,
+    "longctx_closer_share": 0.571,
+    "wilcoxon_p": 0.13256
+  },
+  "pooled": {
+    "n": 219,
+    "mean_diff_longctx_minus_twin": -0.00354,
+    "longctx_closer_share": 0.612,
+    "wilcoxon_p": 0.00074,
+    "n_recordings": 122,
+    "recording_level_closer_share": 0.582,
+    "recording_level_wilcoxon_p": 0.09754
+  }
+}

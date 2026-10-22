@@ -1,0 +1,69 @@
+{
+  "n_answered": 110,
+  "catch": [
+    10,
+    11
+  ],
+  "alpha": 0.05,
+  "pairs": {
+    "channel-000|channel-081": {
+      "churn_gap": 0.205,
+      "nearer_real": "channel-000",
+      "n": 33,
+      "ties": 7,
+      "k": 24,
+      "m": 26,
+      "rate": 0.9231,
+      "ci": [
+        0.7586,
+        0.9786
+      ],
+      "p": 1e-05
+    },
+    "channel-205|channel-081": {
+      "churn_gap": 0.137,
+      "nearer_real": "channel-205",
+      "n": 33,
+      "ties": 11,
+      "k": 18,
+      "m": 22,
+      "rate": 0.8182,
+      "ci": [
+        0.6148,
+        0.9269
+      ],
+      "p": 0.004344
+    },
+    "channel-000|channel-205": {
+      "churn_gap": 0.068,
+      "nearer_real": "channel-205",
+      "n": 33,
+      "ties": 4,
+      "k": 16,
+      "m": 29,
+      "rate": 0.5517,
+      "ci": [
+        0.3755,
+        0.7159
+      ],
+      "p": 0.711071
+    }
+  },
+  "trend": {
+    "z": 3.2152,
+    "p": 0.001304
+  },
+  "descriptive": {
+    "tie_rate": 0.2222,
+    "defect_tags": {
+      "choppy": 3,
+      "modem": 1,
+      "hoarse": 1,
+      "scratchy": 1
+    },
+    "notes": [
+      "2nd is quite good"
+    ],
+    "engaged_median_ms": 9529
+  }
+}

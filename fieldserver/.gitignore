@@ -1,0 +1,8 @@
+# Live instance data — the fleet's DB and uploaded media, never committed.
+instance/
+*.db-wal
+*.db-shm
+
+.venv/
+__pycache__/
+*.pyc

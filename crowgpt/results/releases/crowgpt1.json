@@ -1,0 +1,18 @@
+{
+  "name": "crowgpt1",
+  "title": "CrowGPT1 — the crowbot stage",
+  "model": "model-mono-v2",
+  "decoder_state": null,
+  "temperature": 1.0,
+  "top_k": 200,
+  "max_frames": 225,
+  "species": "american-crow",
+  "provenance": {
+    "trained": "0049 mono-vs-multi pair, American-Crow-only arm of the v2 corpus",
+    "shortlisted": "experiments/0055-the-best-generated-calls",
+    "promo_clip": "promo/src/assets/crowgpt-alarm-preview.wav = 0055 candidates/seed197.wav (md5 423736a258b4a21cd4ab733810b5083a)",
+    "gallery": "results/gallery/mono-v2",
+    "published": "2026-08-07, commit 1912ef8",
+    "notes": "Frozen EnCodec decoder; predates the 0063 decoder finetune by two days. 3 s bout window."
+  }
+}

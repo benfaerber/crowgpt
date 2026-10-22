@@ -1,0 +1,407 @@
+[
+  {
+    "rank": 1,
+    "lat": 40.77026,
+    "lon": -111.89152,
+    "score": 0.665,
+    "near": "Temple Square",
+    "signals": {
+      "inat": 0.75,
+      "trees": 0.35,
+      "green": 0.93,
+      "water": 1.0,
+      "food": 1.0,
+      "owl": 0.13,
+      "hawk": 0.22
+    }
+  },
+  {
+    "rank": 2,
+    "lat": 40.76122,
+    "lon": -111.87375,
+    "score": 0.66,
+    "near": "6th East Park",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.57,
+      "green": 0.7,
+      "water": 0.01,
+      "food": 1.0,
+      "owl": 0.04,
+      "hawk": 0.25
+    }
+  },
+  {
+    "rank": 3,
+    "lat": 40.76122,
+    "lon": -111.88263,
+    "score": 0.596,
+    "near": "Library Square",
+    "signals": {
+      "inat": 0.77,
+      "trees": 0.43,
+      "green": 1.0,
+      "water": 0.11,
+      "food": 1.0,
+      "owl": 0.01,
+      "hawk": 0.68
+    }
+  },
+  {
+    "rank": 4,
+    "lat": 40.77026,
+    "lon": -111.90041,
+    "score": 0.551,
+    "near": "Olympic Legacy Plaza",
+    "signals": {
+      "inat": 0.39,
+      "trees": 0.33,
+      "green": 0.98,
+      "water": 0.65,
+      "food": 1.0,
+      "owl": 0.1,
+      "hawk": 0.12
+    }
+  },
+  {
+    "rank": 5,
+    "lat": 40.67075,
+    "lon": -111.94188,
+    "score": 0.537,
+    "near": "Taylorsville Memorial Park Cemetery",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.2,
+      "green": 1.0,
+      "water": 0.29,
+      "food": 0.34,
+      "owl": 0.0,
+      "hawk": 0.36
+    }
+  },
+  {
+    "rank": 6,
+    "lat": 40.62326,
+    "lon": -111.97743,
+    "score": 0.531,
+    "near": "Woodgate Paw Park",
+    "signals": {
+      "inat": 0.64,
+      "trees": 0.41,
+      "green": 1.0,
+      "water": 0.2,
+      "food": 0.43,
+      "owl": 0.0,
+      "hawk": 0.21
+    }
+  },
+  {
+    "rank": 7,
+    "lat": 40.63231,
+    "lon": -111.98335,
+    "score": 0.528,
+    "near": "Dixie Valley Park",
+    "signals": {
+      "inat": 0.06,
+      "trees": 0.96,
+      "green": 1.0,
+      "water": 0.28,
+      "food": 0.04,
+      "owl": 0.0,
+      "hawk": 0.02
+    }
+  },
+  {
+    "rank": 8,
+    "lat": 40.75443,
+    "lon": -111.87671,
+    "score": 0.526,
+    "near": "Gallacher Park",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.51,
+      "green": 0.8,
+      "water": 0.03,
+      "food": 0.86,
+      "owl": 0.37,
+      "hawk": 0.42
+    }
+  },
+  {
+    "rank": 9,
+    "lat": 40.75669,
+    "lon": -111.86782,
+    "score": 0.522,
+    "near": "Gilgal Sculpture Garden",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.39,
+      "green": 0.62,
+      "water": 0.01,
+      "food": 0.79,
+      "owl": 0.13,
+      "hawk": 0.41
+    }
+  },
+  {
+    "rank": 10,
+    "lat": 40.8743,
+    "lon": -111.8619,
+    "score": 0.511,
+    "near": "Mueller Park West",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.85,
+      "green": 0.04,
+      "water": 0.21,
+      "food": 0.0,
+      "owl": 0.1,
+      "hawk": 0.12
+    }
+  },
+  {
+    "rank": 11,
+    "lat": 40.76348,
+    "lon": -111.89152,
+    "score": 0.5,
+    "near": "Gallivan Center",
+    "signals": {
+      "inat": 0.5,
+      "trees": 0.18,
+      "green": 0.9,
+      "water": 0.54,
+      "food": 1.0,
+      "owl": 0.01,
+      "hawk": 0.46
+    }
+  },
+  {
+    "rank": 12,
+    "lat": 40.67754,
+    "lon": -111.94188,
+    "score": 0.488,
+    "near": "",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.26,
+      "green": 0.4,
+      "water": 0.24,
+      "food": 0.51,
+      "owl": 0.0,
+      "hawk": 0.15
+    }
+  },
+  {
+    "rank": 13,
+    "lat": 40.60969,
+    "lon": -111.98039,
+    "score": 0.487,
+    "near": "Noble Estates Park",
+    "signals": {
+      "inat": 0.96,
+      "trees": 0.21,
+      "green": 0.17,
+      "water": 0.19,
+      "food": 0.99,
+      "owl": 0.01,
+      "hawk": 0.13
+    }
+  },
+  {
+    "rank": 14,
+    "lat": 40.6504,
+    "lon": -111.94188,
+    "score": 0.48,
+    "near": "",
+    "signals": {
+      "inat": 0.35,
+      "trees": 0.17,
+      "green": 1.0,
+      "water": 0.34,
+      "food": 1.0,
+      "owl": 0.0,
+      "hawk": 0.13
+    }
+  },
+  {
+    "rank": 15,
+    "lat": 40.89239,
+    "lon": -111.87078,
+    "score": 0.48,
+    "near": "",
+    "signals": {
+      "inat": 0.33,
+      "trees": 1.0,
+      "green": 0.03,
+      "water": 0.71,
+      "food": 0.04,
+      "owl": 0.01,
+      "hawk": 0.2
+    }
+  },
+  {
+    "rank": 16,
+    "lat": 40.89013,
+    "lon": -111.8619,
+    "score": 0.469,
+    "near": "",
+    "signals": {
+      "inat": 0.15,
+      "trees": 1.0,
+      "green": 0.01,
+      "water": 1.0,
+      "food": 0.0,
+      "owl": 0.02,
+      "hawk": 0.06
+    }
+  },
+  {
+    "rank": 17,
+    "lat": 40.86978,
+    "lon": -111.88263,
+    "score": 0.46,
+    "near": "Chapel Park",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.67,
+      "green": 0.08,
+      "water": 0.03,
+      "food": 0.09,
+      "owl": 0.07,
+      "hawk": 0.17
+    }
+  },
+  {
+    "rank": 18,
+    "lat": 40.61421,
+    "lon": -111.91818,
+    "score": 0.456,
+    "near": "",
+    "signals": {
+      "inat": 0.42,
+      "trees": 0.14,
+      "green": 1.0,
+      "water": 0.88,
+      "food": 0.28,
+      "owl": 0.0,
+      "hawk": 0.1
+    }
+  },
+  {
+    "rank": 19,
+    "lat": 40.67528,
+    "lon": -111.95076,
+    "score": 0.451,
+    "near": "",
+    "signals": {
+      "inat": 1.0,
+      "trees": 0.28,
+      "green": 0.29,
+      "water": 0.45,
+      "food": 0.12,
+      "owl": 0.0,
+      "hawk": 0.09
+    }
+  },
+  {
+    "rank": 20,
+    "lat": 40.66397,
+    "lon": -111.94188,
+    "score": 0.45,
+    "near": "Taylorsville Park",
+    "signals": {
+      "inat": 0.92,
+      "trees": 0.25,
+      "green": 0.44,
+      "water": 0.14,
+      "food": 0.43,
+      "owl": 0.0,
+      "hawk": 0.13
+    }
+  },
+  {
+    "rank": 21,
+    "lat": 40.71599,
+    "lon": -111.85005,
+    "score": 0.371,
+    "near": "",
+    "district": "Sugar House",
+    "signals": {
+      "inat": 0.37,
+      "trees": 0.92,
+      "green": 0.06,
+      "water": 0.13,
+      "food": 0.19,
+      "owl": 0.09,
+      "hawk": 0.5
+    }
+  },
+  {
+    "rank": 22,
+    "lat": 40.69789,
+    "lon": -111.8619,
+    "score": 0.416,
+    "near": "Scott Avenue Park",
+    "district": "Millcreek",
+    "signals": {
+      "inat": 0.45,
+      "trees": 0.66,
+      "green": 0.06,
+      "water": 0.63,
+      "food": 0.28,
+      "owl": 0.0,
+      "hawk": 0.42
+    }
+  },
+  {
+    "rank": 23,
+    "lat": 40.70015,
+    "lon": -111.84116,
+    "score": 0.44,
+    "near": "Wasatch Lawn Memorial Park",
+    "district": "East Millcreek",
+    "signals": {
+      "inat": 0.66,
+      "trees": 0.97,
+      "green": 0.02,
+      "water": 0.16,
+      "food": 0.14,
+      "owl": 0.13,
+      "hawk": 0.46
+    }
+  },
+  {
+    "rank": 24,
+    "lat": 40.66397,
+    "lon": -111.84116,
+    "score": 0.343,
+    "near": "Creekside Park and Disc Golf Course",
+    "district": "Holladay",
+    "signals": {
+      "inat": 0.76,
+      "trees": 0.42,
+      "green": 0.01,
+      "water": 0.26,
+      "food": 0.41,
+      "owl": 0.15,
+      "hawk": 0.33
+    }
+  },
+  {
+    "rank": 25,
+    "lat": 40.63231,
+    "lon": -111.80561,
+    "score": 0.137,
+    "near": "Old Mill Park",
+    "district": "Cottonwood Heights",
+    "signals": {
+      "inat": 0.0,
+      "trees": 0.17,
+      "green": 0.34,
+      "water": 0.38,
+      "food": 0.28,
+      "owl": 0.13,
+      "hawk": 0.28
+    }
+  }
+]

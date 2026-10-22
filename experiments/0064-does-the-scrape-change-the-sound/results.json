@@ -1,0 +1,42 @@
+{
+  "compares": {
+    "decided": 46,
+    "v3": 21,
+    "v2": 25,
+    "ties": 4
+  },
+  "p_v3_preferred": {
+    "p": 0.457,
+    "ci": [
+      0.322,
+      0.598
+    ]
+  },
+  "graded_margin_toward_v3_pool_only": {
+    "mean": 0.03,
+    "n": 33,
+    "distribution": {
+      "1": 12,
+      "-1": 13,
+      "0": 3,
+      "-2": 2,
+      "2": 3
+    }
+  },
+  "catch": {
+    "real_preferred": 7,
+    "of": 10
+  },
+  "first_heard_bias": {
+    "p": 0.522,
+    "ci": [
+      0.381,
+      0.659
+    ],
+    "n": 46
+  },
+  "defect_tags": {
+    "v3-scrape": {},
+    "v2-fair-k8": {}
+  }
+}

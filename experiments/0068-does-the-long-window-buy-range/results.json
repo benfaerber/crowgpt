@@ -1,0 +1,43 @@
+{
+  "crow_space_radius_p95": 0.2613,
+  "real_n": 298,
+  "coverage_ceiling_real_vs_real": 0.954,
+  "model-longctx": {
+    "n": 253,
+    "dispersion": 0.2818,
+    "in_space": 0.858,
+    "coverage": 0.936
+  },
+  "model-units": {
+    "n": 253,
+    "dispersion": 0.286,
+    "in_space": 0.842,
+    "coverage": 0.94
+  },
+  "dispersion_real": 0.2625,
+  "coverage_exclusive": {
+    "longctx_only": 3,
+    "twin_only": 4,
+    "both": 276,
+    "neither": 15
+  },
+  "coverage_diff_longctx_minus_twin": {
+    "point": -0.003,
+    "ci95": [
+      -0.02,
+      0.013
+    ]
+  },
+  "coverage_by_source": {
+    "macaulay": {
+      "n": 263,
+      "longctx": 0.939,
+      "twin": 0.951
+    },
+    "xeno_canto": {
+      "n": 35,
+      "longctx": 0.914,
+      "twin": 0.857
+    }
+  }
+}

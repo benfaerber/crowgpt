@@ -1,0 +1,12 @@
+{
+  "mono": {
+    "best_val": 4.575,
+    "stage0_churn": 0.7932,
+    "churn_gap": -0.0748
+  },
+  "multi": {
+    "best_val": 4.5719,
+    "stage0_churn": 0.82,
+    "churn_gap": -0.048
+  }
+}

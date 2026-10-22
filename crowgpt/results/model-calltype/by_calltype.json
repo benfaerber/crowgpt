@@ -1,0 +1,10 @@
+{
+  "mean_seconds": {
+    "alarm call": 2.56,
+    "begging": 2.45,
+    "call": 2.52,
+    "song": 2.43,
+    "unknown": 1.46
+  },
+  "n_each": 4
+}

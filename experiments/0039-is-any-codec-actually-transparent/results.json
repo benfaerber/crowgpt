@@ -1,0 +1,18 @@
+{
+  "arms": {
+    "lowpass_2k": {
+      "n": 20,
+      "correct": 17,
+      "rate": 0.85,
+      "ci": [
+        0.6396,
+        0.9476
+      ],
+      "p_one_sided": 0.0012884140014648438,
+      "verdict": "AUDIBLE"
+    }
+  },
+  "notes": [
+    "This one was very obvious."
+  ]
+}

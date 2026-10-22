@@ -1,0 +1,80 @@
+{
+  "calltype/alarm-call": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.0,
+    "detected": {
+      "corvid": 19
+    }
+  },
+  "calltype/begging": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.0,
+    "detected": {
+      "corvid": 20
+    }
+  },
+  "calltype/call": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.05,
+    "detected": {
+      "corvid": 15,
+      "Barn Owl": 1
+    }
+  },
+  "calltype/song": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.0,
+    "detected": {
+      "corvid": 18
+    }
+  },
+  "ct-b32/alarm-call": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.0,
+    "detected": {
+      "corvid": 17
+    }
+  },
+  "ct-b32/begging": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.05,
+    "detected": {
+      "corvid": 15,
+      "Blue-winged Kookaburra": 1
+    }
+  },
+  "ct-b32/call": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.0,
+    "detected": {
+      "corvid": 9
+    }
+  },
+  "ct-b32/song": {
+    "clips": 20,
+    "non_corvid_clip_share": 0.05,
+    "detected": {
+      "corvid": 14,
+      "Slender-billed Gull": 1
+    }
+  },
+  "real-6s": {
+    "clips": 40,
+    "non_corvid_clip_share": 0.05,
+    "detected": {
+      "corvid": 23,
+      "Downy Woodpecker": 1,
+      "Red-tailed Hawk": 1
+    }
+  },
+  "real-v1": {
+    "clips": 40,
+    "non_corvid_clip_share": 0.075,
+    "detected": {
+      "corvid": 28,
+      "Eastern Towhee": 1,
+      "Tufted Titmouse": 1,
+      "Andean Guan": 1
+    }
+  }
+}

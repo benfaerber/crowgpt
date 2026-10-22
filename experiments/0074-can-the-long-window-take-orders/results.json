@@ -1,0 +1,114 @@
+{
+  "anchor": {
+    "n": 132,
+    "accuracy": 0.833,
+    "majority_baseline": 0.697,
+    "truth_mix": {
+      "call": 8,
+      "alarm call": 92,
+      "begging": 22,
+      "song": 10
+    },
+    "matrix": {
+      "alarm call": {
+        "alarm call": 88,
+        "begging": 2,
+        "call": 0,
+        "song": 2
+      },
+      "begging": {
+        "alarm call": 3,
+        "begging": 13,
+        "call": 0,
+        "song": 6
+      },
+      "call": {
+        "alarm call": 1,
+        "begging": 0,
+        "call": 6,
+        "song": 1
+      },
+      "song": {
+        "alarm call": 5,
+        "begging": 2,
+        "call": 0,
+        "song": 3
+      }
+    }
+  },
+  "conditioning": {
+    "embedded": 217,
+    "recall": {
+      "alarm call": 0.898,
+      "begging": 0.196,
+      "call": 0.0,
+      "song": 0.382
+    },
+    "matrix": {
+      "alarm call": {
+        "alarm call": 53,
+        "begging": 1,
+        "call": 0,
+        "song": 5
+      },
+      "begging": {
+        "alarm call": 32,
+        "begging": 11,
+        "call": 1,
+        "song": 12
+      },
+      "call": {
+        "alarm call": 34,
+        "begging": 2,
+        "call": 0,
+        "song": 11
+      },
+      "song": {
+        "alarm call": 29,
+        "begging": 5,
+        "call": 0,
+        "song": 21
+      }
+    }
+  },
+  "structure": {
+    "model-longctx": {
+      "n": 100,
+      "mean_units": 3.72,
+      "single_share": 0.17,
+      "gaps_per_clip": 2.83,
+      "median_gap_s": 0.288,
+      "dust_rate": 0.281
+    },
+    "model-longctx-ct": {
+      "n": 100,
+      "mean_units": 2.45,
+      "single_share": 0.28,
+      "gaps_per_clip": 1.64,
+      "median_gap_s": 0.299,
+      "dust_rate": 0.284
+    },
+    "real": {
+      "n": 200,
+      "mean_units": 5.1,
+      "single_share": 0.065,
+      "gaps_per_clip": 4.16,
+      "median_gap_s": 0.267
+    }
+  },
+  "gate": {
+    "checks": {
+      "alarm_recall_ge_80": true,
+      "begging_above_chance": false,
+      "structure_within_15pct": false,
+      "dust_no_worse": false
+    },
+    "structure_deltas": {
+      "mean_units": 0.341,
+      "single_share": 0.647,
+      "gaps_per_clip": 0.42,
+      "median_gap_s": 0.038
+    },
+    "adopt": false
+  }
+}

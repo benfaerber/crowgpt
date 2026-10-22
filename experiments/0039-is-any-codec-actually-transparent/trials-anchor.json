@@ -1,0 +1,142 @@
+[
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 101,
+    "recording": "50118",
+    "seconds": 1.1
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 582,
+    "recording": "50111",
+    "seconds": 1.36
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 657,
+    "recording": "469906131",
+    "seconds": 1.79
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 907,
+    "recording": "75754801",
+    "seconds": 2.59
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 923,
+    "recording": "73344221",
+    "seconds": 1.65
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 1291,
+    "recording": "632110975",
+    "seconds": 1.02
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 1319,
+    "recording": "629096484",
+    "seconds": 2.88
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 1410,
+    "recording": "505007751",
+    "seconds": 2.82
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 1453,
+    "recording": "425841941",
+    "seconds": 2.03
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 1501,
+    "recording": "308262671",
+    "seconds": 3.0
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 1744,
+    "recording": "345964441",
+    "seconds": 2.48
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 2424,
+    "recording": "629375337",
+    "seconds": 2.52
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 2560,
+    "recording": "584658651",
+    "seconds": 1.26
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 2617,
+    "recording": "541934521",
+    "seconds": 1.4
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 2710,
+    "recording": "351672111",
+    "seconds": 1.7
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 2952,
+    "recording": "107782541",
+    "seconds": 2.53
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 3371,
+    "recording": "140335",
+    "seconds": 2.66
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 3786,
+    "recording": "45291",
+    "seconds": 2.54
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 4039,
+    "recording": "282010411",
+    "seconds": 2.62
+  },
+  {
+    "sr": 24000,
+    "arm": "lowpass_2k",
+    "bout": 4174,
+    "recording": "633341040",
+    "seconds": 3.0
+  }
+]

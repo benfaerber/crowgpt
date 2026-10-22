@@ -1,0 +1,35 @@
+{
+  "//": "Host-side test build. The app itself is bundled by Metro; this exists only so the storage/sync/HTTP layers can be compiled and run under plain node, with no device and no Metro. The paths mapping points expo-sqlite at a type stub (tests/types/expo-sqlite.d.ts) so the Sqlite* layer typechecks here; its test-time runtime is tests/support/expoSqliteShim.ts via a vitest alias.",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "expo-sqlite": ["./tests/types/expo-sqlite.d.ts"]
+    },
+    "outDir": ".test-build"
+  },
+  "include": [
+    "src/domain/**/*.ts",
+    "src/data/**/*.ts",
+    "src/net/**/*.ts",
+    "src/sync/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "//exclude": "Only the expo-file-system importers remain excluded \u2014 that package still pulls expo's own TypeScript sources into the program. The whole Sqlite layer used to sit here too, until the expo-sqlite paths stub above brought it back under typecheck and the contract tests brought it under test.",
+  "exclude": [
+    "src/sync/FileMediaSource.ts",
+    "src/sync/FileDownloader.ts",
+  ]
+}
