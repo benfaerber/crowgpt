@@ -3,7 +3,7 @@
 ## The question
 
 `FLAG_TO_CORE` in `pipelines/ingest/corpus.py` throws information away on
-purpose. crow-tools labels seven call-type flags; Cawtalker trains four classes
+purpose. crow-tools labels seven call-type flags; CrowGPT trains four classes
 from them:
 
 ```

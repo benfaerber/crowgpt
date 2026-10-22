@@ -1,6 +1,6 @@
 """Lift the crow-tools labels into this repo, once, so the fork can go.
 
-crow-tools is abandonware, and everything Cawtalker took from it splits cleanly
+crow-tools is abandonware, and everything CrowGPT took from it splits cleanly
 in two.
 
 THE AUDIO IS REPLACEABLE. Every labelled recording sits in a public catalogue

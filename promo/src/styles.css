@@ -449,7 +449,7 @@ img {
   color: var(--accent);
 }
 
-/* The CrowGPT mark (images/cawtalker-logo.svg at the repo root) on its
+/* The CrowGPT mark (images/crowgpt-logo.svg at the repo root) on its
  * light ground, cut to a circle. The icons bake in enough margin that the
  * crop never clips the beak; the ring keeps the light disc from glaring
  * against the dark theme. */

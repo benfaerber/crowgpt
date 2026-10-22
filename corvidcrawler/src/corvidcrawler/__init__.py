@@ -1,4 +1,4 @@
-"""Xeno-canto and the Macaulay Library, into the CawTalker corpus.
+"""Xeno-canto and the Macaulay Library, into the CrowGPT corpus.
 
 Lazy on purpose: `corvidcrawler.database` is stdlib-only and other venvs may
 import it. Importing the CLI here eagerly would drag requests and dotenv into

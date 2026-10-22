@@ -503,7 +503,7 @@ def build_trainer(out, per_class=12, field_per_class=3, seed=0):
 
 
 _TRAINER_TEMPLATE = (
-    '<meta charset="utf-8">\n<title>Cawtalker — ear trainer</title>\n'
+    '<meta charset="utf-8">\n<title>CrowGPT — ear trainer</title>\n'
     + _CSS
     + r"""
 <style>
@@ -536,7 +536,7 @@ _TRAINER_TEMPLATE = (
 </style>
 
 <div class="wrap">
-  <p class="eyebrow">Cawtalker · ear trainer</p>
+  <p class="eyebrow">CrowGPT · ear trainer</p>
   <h1>What kind of call is this?</h1>
   <p class="lede">One clip at a time. Listen, commit to a call type — the same menu the
     field app shows — and the verdict comes back at once, with the waveform, the

@@ -1,4 +1,4 @@
-CAWTALKER — FURTHER OUT
+CROWGPT — FURTHER OUT
 =======================
 
 Things worth thinking about before they are worth building, and consequences of
@@ -1061,7 +1061,7 @@ Starting a recording without taking the phone out
         `censorCoords` exist precisely so the recordist decides that. Those two
         settings become a compliance story rather than only a courtesy.
 
-    DECIDE BEFORE BUILDING ANYTHING FOR IT: whether a listed Cawtalker is the
+    DECIDE BEFORE BUILDING ANYTHING FOR IT: whether a listed CrowGPT is the
     same app or a different one. A field tool for a handful of recordists who
     know each other and a public app that strangers install have different
     answers about identity, enrollment and what a capture may carry, and trying

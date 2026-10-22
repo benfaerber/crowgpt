@@ -210,7 +210,7 @@ function Shell({
   return (
     <>
       <header>
-        <h1>🐦‍⬛ Cawtalker Field Server</h1>
+        <h1>🐦‍⬛ CrowGPT Field Server</h1>
         <span className="tag sub">
           Fleet command &amp; control — captures, calls, and ground truth
         </span>

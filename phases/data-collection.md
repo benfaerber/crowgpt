@@ -23,7 +23,7 @@ scratch) consumes labeled call instances per category:
 |-----------|--------------------|-------|----------|
 | Phase 0 proof | ~30–50 of one type + similar "other" | ~100 | Show a call type forms a distinct acoustic cluster |
 | Usable per-category classifier | ~100–300 | — | Model reliably tags that one call |
-| Full 5-category model | ~200–500 each | ~1,500–2,500 labeled calls | The real Cawtalker |
+| Full 5-category model | ~200–500 each | ~1,500–2,500 labeled calls | The real CrowGPT |
 
 With archive pretraining underneath, the low end of each range is realistic.
 

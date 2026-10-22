@@ -1,4 +1,4 @@
-### Cawtalker field server — API smoke test
+### CrowGPT field server — API smoke test
 # Run these inline with the VS Code "REST Client" extension (or JetBrains HTTP Client).
 # Start the server first:   cd fieldserver && uv run fieldserver     (serves :5100)
 # Two secrets, and they are not interchangeable: the enroll token (default

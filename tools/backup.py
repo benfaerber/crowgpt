@@ -130,7 +130,7 @@ def write_manifest(into: Path, stamp: str, link: Path | None) -> None:
     """
     media = into / "media"
     corpus = into / "data"
-    (into / "MANIFEST.txt").write_text(f"""Cawtalker backup — {stamp}
+    (into / "MANIFEST.txt").write_text(f"""CrowGPT backup — {stamp}
 
 field.db      the field server's database: every capture, label, context tag,
               count, merge record and Keep flag. Snapshotted through SQLite so

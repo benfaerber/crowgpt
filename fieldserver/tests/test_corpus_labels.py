@@ -1,6 +1,6 @@
 """The vendored label corpus loads with no fork anywhere on the machine.
 
-crow-tools is abandonware. Everything Cawtalker took from it splits into audio,
+crow-tools is abandonware. Everything CrowGPT took from it splits into audio,
 which the corpus tooling (a private repo) can re-fetch by id, and 3,162
 hand-reviewed segments, which
 nobody can. import_crowtools.py moved the second half into a committed file, and

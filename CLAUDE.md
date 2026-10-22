@@ -1,6 +1,6 @@
-# Cawtalker
+# CrowGPT
 
-Monorepo for the Cawtalker project — decoding crow calls with AI. Start from
+Monorepo for the CrowGPT project — decoding crow calls with AI. Start from
 `README.md` and `phases/` for the plan.
 
 ## Status: prototype, not deployed

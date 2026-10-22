@@ -1,4 +1,4 @@
-"""The Cawtalker analyzer.
+"""The CrowGPT analyzer.
 
 Takes a recording, returns what is in it. Deliberately knows nothing about the
 field server: the worker owns jobs and storage and calls in here, which keeps

@@ -1,7 +1,7 @@
 [project]
 name = "fieldserver"
 version = "0.1.0"
-description = "Cawtalker field capture + command-and-control server for the recordist fleet"
+description = "CrowGPT field capture + command-and-control server for the recordist fleet"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

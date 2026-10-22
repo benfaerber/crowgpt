@@ -47,7 +47,7 @@ log.info("app", "launched");
  * react-navigation and its native dependencies. See RouteStack for why a
  * stack and not a parent table.
  */
-export function CawtalkerApp() {
+export function CrowGPTApp() {
   const [services, setServices] = useState<AppServices | null>(null);
   const [startupError, setStartupError] = useState<string | undefined>();
   const [stack, setStack] = useState<RouteStack>(RouteStack.root);

@@ -209,7 +209,7 @@ Simulate three acquisition strategies at matched budget, seeded identically:
 
 - **random** (the honest baseline)
 - **cluster-stratified** — round-robin over crow-tools' 86 `cluster` ids, which
-  are already in the vendored labels and currently unused by cawtalker
+  are already in the vendored labels and currently unused by CrowGPT
 - **uncertainty sampling** — train on a seed set, acquire the lowest-margin
   segments, retrain
 
@@ -292,7 +292,7 @@ each, so they are untested rather than passing; 27 of 52 are `alarm call`, so th
 constant baseline is high and the task is easy; and top-1 of a one-vs-rest head
 is what the app displays but not a calibrated confidence.
 
-### E. Three things crow-tools does that cawtalker does not
+### E. Three things crow-tools does that CrowGPT does not
 
 Each is testable on cached features, and each is a real methodological
 difference rather than a tuning knob. (The full comparison is in the section
@@ -376,7 +376,7 @@ rather than overwrite.
 
 ---
 
-# What crow-tools does that cawtalker does not
+# What crow-tools does that CrowGPT does not
 
 Read from the fork at `~/Code/crow-tools`. Two headline corrections first,
 because they cut in opposite directions.
@@ -387,7 +387,7 @@ Their numbers and ours normally cannot be set side by side: they report accuracy
 and balanced accuracy on a segment-level 88/12 split, we report AUC and AP on
 recording-grouped folds, and neither converts into the other.
 
-But **the labels are the same labels.** Cawtalker vendored their corpus, so the
+But **the labels are the same labels.** CrowGPT vendored their corpus, so the
 task, the classes and the ground truth are identical, and only the backbone, the
 head and the split differ. Running our features through *their* exact protocol —
 segment-level 88/12, seed 18202, balanced accuracy as the mean of the two class
@@ -450,7 +450,7 @@ accuracy, up to +0.085 on their most concentrated class** — and it means their
 protocol but above our 0.810 grouped. Nobody is clearly ahead; the protocols were
 doing most of the talking.
 
-## Their reported numbers are optimistic, and cawtalker's harness is stricter
+## Their reported numbers are optimistic, and CrowGPT's harness is stricter
 
 crow-tools splits **at the segment level**: `TRAIN_SPLIT_FRACTION = 0.88`,
 `random_split(..., manual_seed(18202))` in `classifier/dataset.py`. Recordings
@@ -462,8 +462,8 @@ There is also **no test set**: the same 12% validation split is used for
 checkpoint selection *and* Optuna's objective — 60 trials in which **the random
 seed itself is a searched hyperparameter** (`optuna_tuning.py`).
 
-So `RESULTS.txt`'s rattle 95.5% / mob 88.7% are not comparable to cawtalker's
-recording-grouped numbers, and cawtalker should not chase them. Cawtalker's
+So `RESULTS.txt`'s rattle 95.5% / mob 88.7% are not comparable to CrowGPT's
+recording-grouped numbers, and CrowGPT should not chase them. CrowGPT's
 grouped CV, AP-alongside-AUC reporting and `label_revisions` provenance are all
 ahead of the fork here. The honest read of their own results is the *recall*
 column: **rattle 88.2%, mob 61.4%** — and mob being their worst class, on their
@@ -472,12 +472,12 @@ that mob is the hard one.
 
 ## Nine things they do differently
 
-| | crow-tools | cawtalker | worth taking? |
+| | crow-tools | CrowGPT | worth taking? |
 |---|---|---|---|
 | Embedding | **AVES `aves-base-bio`**, 768-d, final layer | BirdNET 1024-d (Perch tested, 0025) | untested here — but see the bug below |
 | Denoising | biodenoising DNS48 **before** embedding | none | 0031 measured this; see below |
 | Window | fixed 1 s, hop 1 s, no overlap | 3 s BirdNET windows | their resolution is finer |
-| Pooling | mean over 25 frames → 1×768 | **mean+std+max → 3,072** | cawtalker's is better; 0.44→0.48 macro-F1 when it shipped |
+| Pooling | mean over 25 frames → 1×768 | **mean+std+max → 3,072** | CrowGPT's is better; 0.44→0.48 macro-F1 when it shipped |
 | Head | 240 K-param MLP, 8 heads, shared trunk | one logreg per task | **E3** |
 | Negatives | 596 explicit garbage segments | dropped at import | **E2** |
 | Quality | `quality ∈ {1,2,3}` per segment | ignored | **E1** |
@@ -496,7 +496,7 @@ nearest neighbours of each seed, max 4 per file, and queue those for review. Tha
 is how you build mass in a class the model rarely fires on — which is exactly
 Ben's mobbing problem. Arm C tests the cheap version of this idea.
 
-**2. Labelling throughput is a UI problem they solved and cawtalker has not.**
+**2. Labelling throughput is a UI problem they solved and CrowGPT has not.**
 One action labels one 1-second segment. Cards are sorted **by cluster** so
 acoustically similar items sit adjacent, 30 to a page, with a **"copy previous"**
 button that clones all 9 fields from the last card and starts playback — so a run
@@ -506,7 +506,7 @@ important than any modelling choice in this document.
 
 **3. An explicit garbage class.** Pressing `Z` in `review_detections.py` files a
 false detection as `crowCount=0, quality=1`. 19% of their labelled set is
-"nothing here". Cawtalker's head cannot express that, and in the field it is the
+"nothing here". CrowGPT's head cannot express that, and in the field it is the
 most common truth.
 
 ### Is BirdNET's 3 s window the problem? No — 0025 already asked
@@ -637,7 +637,7 @@ raw `embeddings/` at inference (`detect.py:133`) while gating on *denoised*
 volumes — and the uncached path denoises not at all. Undocumented and looks
 unintentional.
 
-On denoising generally: cawtalker already measured this in **0031** rather than
+On denoising generally: CrowGPT already measured this in **0031** rather than
 assuming it, which is the right posture. Their unconditional denoise-everything
 is not evidence for adopting it.
 
@@ -706,7 +706,7 @@ vendored. Ranked by what it would actually buy.
 
 | asset | size | what it is |
 |---|---|---|
-| **14 GB of audio** — 10,550 MP3s, ~123 h | 14 GB | real files, not LFS. Includes **all 111 recordings cawtalker is missing**, which strand **170 labelled segments**. Copying beats re-downloading from a rate-limited archive. |
+| **14 GB of audio** — 10,550 MP3s, ~123 h | 14 GB | real files, not LFS. Includes **all 111 recordings CrowGPT is missing**, which strand **170 labelled segments**. Copying beats re-downloading from a rate-limited archive. |
 | `library.csv` **Behaviors** | 3,690 rows, 54 values | human behavioural annotation — `Call` 2,999, `Call; Flying` 122, `Song` 85. Free weak labels nobody has read. |
 | `library.csv` **Playback** | 15 rows `Used` | **recordings made with playback stimulus.** These are contaminated and should be dropped from any training set. Cheapest quality win in the inventory. |
 | `library.csv` lat/long/date | 99.5% / 100% | 1,532 of 1,549 labelled recordings geolocated, dates 1957–2025 — the only route to a dialect or seasonal question. |
@@ -763,7 +763,7 @@ retrieves the model's *confident* neighbours. Nothing in that loop can discover 
 call type the current model is blind to, and there is no random-sample audit of
 undetected audio, so **their recall is unknown**.
 
-That matters for cawtalker directly: the vendored 3,162 labels are **not a random
+That matters for CrowGPT directly: the vendored 3,162 labels are **not a random
 sample of crow vocalisation**. They are a sample of what one model found and one
 person chose to review. A learning curve fitted to them (arm A) describes
 "more labels like these", which is a narrower claim than "more labels".

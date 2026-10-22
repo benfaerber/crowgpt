@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CawTalker",
+    "name": "CrowGPT",
     "slug": "cawtalker-field",
     "version": "0.1.0",
     "orientation": "portrait",
@@ -10,7 +10,7 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.cawtalker.field",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "Cawtalker records corvid calls in the field."
+        "NSMicrophoneUsageDescription": "CrowGPT records corvid calls in the field."
       }
     },
     "android": {
@@ -35,14 +35,14 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "Cawtalker records where each capture was made, so calls can be tied to a place."
+          "locationWhenInUsePermission": "CrowGPT records where each capture was made, so calls can be tied to a place."
         }
       ],
       "expo-audio",
       [
         "expo-camera",
         {
-          "cameraPermission": "Cawtalker films corvids so a call can be tied to what the bird was doing.",
+          "cameraPermission": "CrowGPT films corvids so a call can be tied to what the bird was doing.",
           "microphonePermission": false,
           "recordAudioAndroid": false
         }

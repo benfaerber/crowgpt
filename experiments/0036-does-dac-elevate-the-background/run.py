@@ -21,7 +21,7 @@ opposite findings:
 
 Raw is the referee and neither arm can be read without it.
 
-WHY IT IS NOT A SIDE QUESTION. Cawtalker is about what crows say AND what was
+WHY IT IS NOT A SIDE QUESTION. CrowGPT is about what crows say AND what was
 happening when they said it — the calls x context matrix is the whole point. A
 tokenizer that discards ambience is discarding the context half. And every bout
 deliberately carries real leading ambience (codec.py's LEAD_FRAMES) so the

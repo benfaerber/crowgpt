@@ -6,7 +6,7 @@ abandonware and is no longer required.**
 
 ## The migration off it
 
-What Cawtalker took from crow-tools splits in two, and the halves have opposite
+What CrowGPT took from crow-tools splits in two, and the halves have opposite
 properties:
 
 - **The audio is replaceable.** Every labelled recording sits in a public

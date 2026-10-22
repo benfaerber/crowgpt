@@ -64,7 +64,7 @@ _CALLTYPE_TEMPLATE = (
 </style>
 
 <div class="wrap">
-  <p class="eyebrow">Cawtalker · experiment 0021</p>
+  <p class="eyebrow">CrowGPT · experiment 0021</p>
   <h1>Ask it for a call type</h1>
   <p class="lede">The generator takes a call type as part of its prompt. Each section below
     asks for one, and puts what came back beside real held-out bouts a person labelled with

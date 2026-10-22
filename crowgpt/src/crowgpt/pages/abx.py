@@ -168,7 +168,7 @@ _ABX_TEMPLATE = (
 </style>
 
 <div class="wrap">
-  <p class="eyebrow">Cawtalker · ABX</p>
+  <p class="eyebrow">CrowGPT · ABX</p>
   <h1>Which one is X?</h1>
   <p class="lede">Three clips a trial, all of them the same bout. <b>A</b> and <b>B</b> are
     two different renderings of it. <b>X</b> is an exact copy of one of them. Say which.</p>

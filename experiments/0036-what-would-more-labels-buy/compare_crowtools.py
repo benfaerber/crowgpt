@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Cawtalker against crow-tools on the one axis where they can actually be compared.
+"""CrowGPT against crow-tools on the one axis where they can actually be compared.
 
 Their reported numbers and ours normally cannot be set side by side: they report
 accuracy and balanced accuracy on a segment-level 88/12 split, we report AUC and
 AP on recording-grouped 5-fold, and neither metric converts into the other.
 
-But the *labels are the same labels*. Cawtalker vendored crow-tools' corpus, so
+But the *labels are the same labels*. CrowGPT vendored crow-tools' corpus, so
 the task, the classes and the ground truth are identical and only three things
 differ — the backbone (BirdNET 3072-d pooled vs AVES 768-d mean-pooled), the head
 (logreg vs a 240K multi-task MLP), and the split. That makes two clean questions:

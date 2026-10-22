@@ -1,4 +1,4 @@
-"""Cawtalker field server — the fleet's command-and-control + ingest API.
+"""CrowGPT field server — the fleet's command-and-control + ingest API.
 
 One SQLite file, one store per table, assembled by an app factory. Stores are
 constructed in FK-dependency order — ContributorStore -> DeviceStore ->

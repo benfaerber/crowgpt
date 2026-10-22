@@ -9,4 +9,4 @@
  * unfamiliar handset gets checked, so it is reachable from Settings rather than
  * deleted.
  */
-export { CawtalkerApp as default } from "./src/app/CawtalkerApp";
+export { CrowGPTApp as default } from "./src/app/CrowGPTApp";

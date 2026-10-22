@@ -54,7 +54,7 @@ Every file opens as plain data — no pickle anywhere:
 
 ## Running
 
-The loader currently lives in the Cawtalker repo's `crowgpt` package (a
+The loader currently lives in the CrowGPT repo's `crowgpt` package (a
 pip-installable package is the planned next step):
 
 ```python

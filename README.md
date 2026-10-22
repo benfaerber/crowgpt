@@ -1,7 +1,7 @@
-# Cawtalker: an AI to talk to crows.
+# CrowGPT: an AI to talk to crows.
 The idea for caw talker started when I began feeding a murder of local crows. I was impressed by their intelligence and wondered if they had a language of their own.
 
-Cawtalker is a set of tools and applications made to analyze and potentially translate crow vocalizations into english. The current version is able to classifier call types and every day I gather more semantics data. The hope is if I pair my call analyzer with the context of what was happening during recordings of crows I will be able to create a “Crow Translate”. I am going for simple calls first, such as “dog spotted”, “human spotted”, “food”, etc.
+CrowGPT is a set of tools and applications made to analyze and potentially translate crow vocalizations into english. The current version is able to classifier call types and every day I gather more semantics data. The hope is if I pair my call analyzer with the context of what was happening during recordings of crows I will be able to create a “Crow Translate”. I am going for simple calls first, such as “dog spotted”, “human spotted”, “food”, etc.
 
 Crowgpt allows me to generate crow vocalizations synthetically. Currently crowGPT generates an alarm call reliably and begging about half the time; song and generic calls need more training data before they arrive on request. As Crow Translate improves I can make this more granular.
 

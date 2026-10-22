@@ -44,7 +44,7 @@ SOURCE_CLASSES = {
     MacaulaySource.id: MacaulaySource,
 }
 
-#: Presets for the query builder — the corvids worth pulling for CawTalker.
+#: Presets for the query builder — the corvids worth pulling for CrowGPT.
 CORVID_SPECIES = [
     {"label": "American Crow", "gen": "Corvus", "sp": "brachyrhynchos"},
     {"label": "Northwestern Crow", "gen": "Corvus", "sp": "caurinus"},

@@ -82,7 +82,7 @@ ready — heads: American Crow, Carrion Crow, Common Raven, Hooded Crow, Rook
 
 `[VISUAL]` Title card.
 
-`[ON-SCREEN]` *Cawtalker — an open-source attempt to understand crows*
+`[ON-SCREEN]` *CrowGPT — an open-source attempt to understand crows*
 
 ---
 
@@ -819,7 +819,7 @@ Keep the pace brutal.
 > Thanks for watching. Go say hi to your crows — they remember faces, and
 > apparently they hold grudges for years, so it's worth staying on the list.
 
-`[ON-SCREEN]` github.com/…/cawtalker · *the honest version is in the READMEs*
+`[ON-SCREEN]` github.com/benfaerber/crowgpt · *the honest version is in the READMEs*
 
 ---
 

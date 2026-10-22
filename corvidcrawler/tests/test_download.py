@@ -53,7 +53,7 @@ def test_it_identifies_itself(tmp_path, quick):
 
     downloader(session).fetch("http://x/1", tmp_path / "1.mp3")
 
-    assert "CawTalker" in session.calls[0][1]["headers"]["User-Agent"]
+    assert "CrowGPT" in session.calls[0][1]["headers"]["User-Agent"]
 
 
 def test_a_rate_limit_is_waited_out(tmp_path, monkeypatch):

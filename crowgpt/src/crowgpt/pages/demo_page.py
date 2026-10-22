@@ -88,7 +88,7 @@ _TEMPLATE = (
     + r"""
 
 <div class="wrap">
-  <p class="eyebrow">Cawtalker · listening test</p>
+  <p class="eyebrow">CrowGPT · listening test</p>
   <h1>Which of these is a real crow?</h1>
   <p class="lede">Half of the clips below are field recordings from a public sound archive that the model
     has never heard. The other half it invented. Guess before you reveal — the score only

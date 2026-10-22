@@ -131,7 +131,7 @@ class RawAudioModule : Module() {
         // the lock screen if it ever decides to show us.
         session.setMetadata(
             MediaMetadata.Builder()
-                .putString(MediaMetadata.METADATA_KEY_TITLE, "Cawtalker")
+                .putString(MediaMetadata.METADATA_KEY_TITLE, "CrowGPT")
                 .putString(MediaMetadata.METADATA_KEY_ARTIST, "Recording trigger")
                 .build(),
         )

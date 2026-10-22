@@ -12,7 +12,7 @@ export PATH := $(if $(NODE_BIN),$(NODE_BIN):)$(PATH)
 BUNDLE = ../fieldserver/src/fieldserver/static/app/index.html
 
 help:
-	@echo "Cawtalker operator dashboard"
+	@echo "CrowGPT operator dashboard"
 	@echo "  make dev        Vite dev server on :5173, proxying /api to the field server"
 	@echo "  make build      Build into the field server's static/, served at :5100/"
 	@echo "  make typecheck  tsc --noEmit"

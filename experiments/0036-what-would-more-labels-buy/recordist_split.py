@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Is recording-grouped CV strict enough, or is the recordist the real group?
 
-Cawtalker groups CV by recording, which is already stricter than crow-tools'
+CrowGPT groups CV by recording, which is already stricter than crow-tools'
 segment-level split (worth +0.043 balanced accuracy, see compare_crowtools.py).
 But a recordist contributes many recordings with the same microphone, the same
 back garden and often the same individual birds, and the archive's library.csv

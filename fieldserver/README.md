@@ -1,6 +1,6 @@
 # fieldserver
 
-The Cawtalker **field server** — the command-and-control + ingest API for the
+The CrowGPT **field server** — the command-and-control + ingest API for the
 crowdsourced recordist fleet. Field devices pull their config (labels,
 instructions, taxonomy, translations) from here and push captures, media, and
 human labels back. Pairs with a separate inference worker (runs in the BirdNET

@@ -1,7 +1,7 @@
 [project]
 name = "corvidcrawler"
 version = "0.2.0"
-description = "Fetch corvid recordings from Xeno-canto and the Macaulay Library into the CawTalker corpus"
+description = "Fetch corvid recordings from Xeno-canto and the Macaulay Library into the CrowGPT corpus"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

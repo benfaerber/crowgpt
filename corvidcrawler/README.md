@@ -1,7 +1,7 @@
 # corvidcrawler
 
 Fetches corvid recordings from **Xeno-canto** and the **Macaulay Library** into
-`data/`, the corpus the rest of CawTalker reads. These are the two archives
+`data/`, the corpus the rest of CrowGPT reads. These are the two archives
 this repository may name and fetch from; anything else in a corpus arrived
 through other tooling that is not part of this tree.
 

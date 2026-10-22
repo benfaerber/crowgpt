@@ -21,7 +21,7 @@ ADB ?= adb
 -include Makefile.local
 
 help:
-	@echo "Cawtalker"
+	@echo "CrowGPT"
 	@echo "  make field        Run the field server AND the inference worker together"
 	@echo "  make field-stop   Stop them"
 	@echo "  make fieldserver  Run the field API + operator dashboard -> http://127.0.0.1:5100"

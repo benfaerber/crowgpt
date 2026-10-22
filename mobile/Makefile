@@ -18,7 +18,7 @@ export ANDROID_HOME
 export PATH := $(if $(NODE_BIN),$(NODE_BIN):)$(JAVA_HOME)/bin:$(ANDROID_HOME)/platform-tools:$(PATH)
 
 help:
-	@echo "Cawtalker field app"
+	@echo "CrowGPT field app"
 	@echo "  make install    Build + install the STANDALONE app for field use (no laptop needed)"
 	@echo "  make devices    List attached phones"
 	@echo "  make wireless   Put a phone on wireless adb (one cable, then none)"
@@ -31,7 +31,7 @@ help:
 	@echo
 	@echo "  node: $(if $(NODE_BIN),$(NODE_BIN),NOT FOUND under $(NVM_DIR))"
 
-# The app icon is the Cawtalker mark — images/cawtalker-logo.svg at the repo
+# The app icon is the CrowGPT mark — images/crowgpt-logo.svg at the repo
 # root, the crow head with the sound wave. Every icon asset is derived from it,
 # and both build targets depend on them, so updating the mark updates the icon
 # on the next install with no extra step. The monochrome icon is derived too,
@@ -39,7 +39,7 @@ help:
 # alpha channel. The foreground and monochrome sizes keep the mark inside the
 # adaptive icon's central safe zone (a circle of 66/108 of the canvas), which
 # is why they are smaller than the canvas looks like it allows.
-ICON_SRC = ../images/cawtalker-logo.svg
+ICON_SRC = ../images/crowgpt-logo.svg
 ICON_BG = \#F4FAFA
 ICON_ASSETS = assets/icon.png assets/android-icon-foreground.png \
               assets/android-icon-background.png assets/android-icon-monochrome.png \

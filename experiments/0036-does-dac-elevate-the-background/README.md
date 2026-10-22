@@ -71,7 +71,7 @@ place for either to save bits.
   clip this project has ever produced.** Small, systematic, and never measured.
   It never showed up because nothing compared a round-trip against raw *by
   band* — 0014 through 0032 all measured whole-clip distance or detection.
-- **It matters more here than the size suggests.** Cawtalker is about what crows
+- **It matters more here than the size suggests.** CrowGPT is about what crows
   say *and what was happening when they said it*; the calls × context matrix is
   the point. A tokenizer that spends ambience away is spending the context half.
   DAC is the better choice on this axis too, for a reason unrelated to why it was

@@ -15,7 +15,7 @@ The labels are not our work — MIT, © 2025 OpenShot Studios LLC, owlmaddie LLC
 `crowtools/README.md` says where they came from and what they cost; their licence
 sits beside them in `crowtools/LICENSE.md`.
 
-This module maps their multi-label flags onto Cawtalker's CORE call types;
+This module maps their multi-label flags onto CrowGPT's CORE call types;
 build_dataset.py turns them into pooled BirdNET features for Phase 4. Pure
 stdlib, so it runs in any interpreter — the fieldserver tests import it to check
 the two label spaces still agree.

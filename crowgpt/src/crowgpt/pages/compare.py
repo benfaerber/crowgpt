@@ -47,7 +47,7 @@ _COMPARE_TEMPLATE = (
     + _CSS
     + r"""
 <div class="wrap">
-  <p class="eyebrow">Cawtalker · diagnostic</p>
+  <p class="eyebrow">CrowGPT · diagnostic</p>
   <h1>Is it the codec or the model?</h1>
   <p class="lede">The same three-second window in three states. <b>Real</b> is the recording.
     <b>Through the codec</b> is that same recording encoded to tokens and decoded straight

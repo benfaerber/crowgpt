@@ -27,7 +27,7 @@ extra_gated_fields:
 Two small autoregressive transformers that generate American Crow
 (*Corvus brachyrhynchos*) call bouts as raw audio, trained from scratch on
 archive recordings with **no human labelling anywhere in the loop**. They are
-the generative half of [Cawtalker](https://cawtalker.org), a project decoding
+the generative half of [CrowGPT](https://cawtalker.org), a project decoding
 crow vocalizations from field recordings.
 
 A release here is a **recipe, not a checkpoint**: model weights, a decoder
@@ -75,7 +75,7 @@ crowgpt2/decoder.pt      # finetuned EnCodec decoder — part of the release
 
 ## Usage
 
-The models currently run through the Cawtalker repository's `crowgpt` package
+The models currently run through the CrowGPT repository's `crowgpt` package
 (PyTorch + EnCodec via `encodec`/`audiocraft` dependencies pinned in its
 lockfile):
 

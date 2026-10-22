@@ -1,6 +1,6 @@
 # mobile
 
-The Cawtalker field app (React Native + Expo SDK 57, dev client). **Work in
+The CrowGPT field app (React Native + Expo SDK 57, dev client). **Work in
 progress.**
 
 Phase 0 — *will React Native give us real control of the mic?* — is answered and
@@ -17,12 +17,12 @@ built underneath it.
 | UI (`src/ui/`, `src/app/`) | **Built.** Capture list + record button, explicit Sync, detail with detected calls, settings. Typechecks; not yet seen on a device. |
 | Native adapters (SQLite, file reads, GPS) | Not started. Each is a thin class behind an existing interface. |
 
-The app root is `src/app/CawtalkerApp.tsx`. It is **not yet wired into
+The app root is `src/app/CrowGPTApp.tsx`. It is **not yet wired into
 `App.tsx`**, which still renders the Phase 0 rig — switching over is a one-line
 change once the mic investigation is finished with that file:
 
 ```tsx
-export { CawtalkerApp as default } from "./src/app/CawtalkerApp";
+export { CrowGPTApp as default } from "./src/app/CrowGPTApp";
 ```
 
 Until the `expo-sqlite` adapter lands, `AppServices` builds an in-memory store,

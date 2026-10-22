@@ -234,13 +234,13 @@ export function CaptureListScreen({
           <Pressable
             onPress={() => setFlight((n) => n + 1)}
             accessibilityRole="image"
-            accessibilityLabel="CawTalker"
+            accessibilityLabel="CrowGPT"
             hitSlop={10}
             style={({ pressed }) => [pressed && styles.pressed]}
           >
             <Image source={require("../../assets/brand-mark.png")} style={styles.brandMark} />
           </Pressable>
-          <Text style={[styles.title, brandFont]}>CawTalker</Text>
+          <Text style={[styles.title, brandFont]}>CrowGPT</Text>
         </View>
         <View style={styles.headerActions}>
         <Pressable

@@ -127,7 +127,7 @@ class ListeningService : Service() {
                 // visible without buzzing every time the mic opens.
                 NotificationManager.IMPORTANCE_DEFAULT,
             ).apply {
-                description = "Shown whenever Cawtalker is holding the microphone open."
+                description = "Shown whenever CrowGPT is holding the microphone open."
                 setShowBadge(false)
                 setSound(null, null)
                 enableVibration(false)

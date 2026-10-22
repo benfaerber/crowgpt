@@ -1,4 +1,4 @@
-"""The Cawtalker transcriber.
+"""The CrowGPT transcriber.
 
 Takes a recording of somebody talking, returns what they said. A path in, text
 out — the same shape as `analyzer/`, and deliberately knowing nothing about the

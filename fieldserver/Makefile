@@ -12,7 +12,7 @@ WHISPER ?= ../crowgpt/.venv/bin/python
 GENERATOR ?= ../crowgpt/.venv/bin/python
 
 help:
-	@echo "Cawtalker field server"
+	@echo "CrowGPT field server"
 	@echo "  make dev      Serve the API and run the inference worker together (Ctrl-C stops both)"
 	@echo "  make serve    Serve the field API + operator dashboard on http://127.0.0.1:5100"
 	@echo "  make worker   Run the BirdNET inference worker against the shared DB"

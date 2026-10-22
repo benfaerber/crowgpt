@@ -44,5 +44,5 @@ This is a measurement of codec behaviour over corpus bouts — a pipeline findin
 ### What this changed
 
 - EnCodec was attenuating the corvid band by about half a decibel in every clip this project has ever produced — small, systematic, and never measured, because experiments 0014 through 0032 all measured whole-clip distance or detection, never a round-trip against raw by band.
-- It matters more than the size suggests: Cawtalker is about what crows say and what was happening when they said it, so a tokenizer that spends ambience away is spending the context half. DAC is the better choice on this axis too, for a reason unrelated to why it was chosen.
+- It matters more than the size suggests: CrowGPT is about what crows say and what was happening when they said it, so a tokenizer that spends ambience away is spending the context half. DAC is the better choice on this axis too, for a reason unrelated to why it was chosen.
 - The listening-test cue is now sized rather than assumed. A cheap protocol fix exists if it ever matters — band-limit or level-match arms below 500 Hz before a sitting — but it was not applied retroactively: the existing results stand as collected, since re-normalising after the fact would be choosing a transform because of the answer it gives.

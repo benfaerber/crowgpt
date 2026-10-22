@@ -2,7 +2,7 @@
 
 **Product name: CawScout** (chosen 2026-08-20) — the scouting stack as a
 whole: the score, the targets, the predator and community layers, and the
-visit marks. Sibling of CawTalker and CawDex.
+visit marks. Sibling of CrowGPT and CawDex.
 
 **Graduated 2026-08-22.** This experiment was the proof of concept; the
 maintained implementation is `fieldserver/src/fieldserver/scout/` and one

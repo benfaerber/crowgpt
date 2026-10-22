@@ -1,4 +1,4 @@
-CAWTALKER — TO DO
+CROWGPT — TO DO
 =================
 
 The next few days. Anything further out than that lives in FUTURE.txt — this
@@ -324,7 +324,7 @@ in phases/, anything needing a measurement belongs in experiments/.
 
     Add a key under [people] in config_store.SEED_CONTEXTS with a translation.
     That bumps the config version, and the phone needs a RELAUNCH rather than a
-    Sync to see it (refreshConfig runs once per launch, CawtalkerApp.tsx:64).
+    Sync to see it (refreshConfig runs once per launch, CrowGPTApp.tsx:64).
 
     What it buys, in the order that matters:
 

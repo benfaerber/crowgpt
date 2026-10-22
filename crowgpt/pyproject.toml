@@ -1,7 +1,7 @@
 [project]
 name = "crowgpt"
 version = "0.1.0"
-description = "Generating crow calls from the Cawtalker corpus"
+description = "Generating crow calls from the CrowGPT corpus"
 requires-python = ">=3.10,<3.11"
 
 # numpy is pinned below 2 because birdnetlib/tflite_runtime need it, and torch

@@ -100,7 +100,7 @@ _RATING_TEMPLATE = (
 </style>
 
 <div class="wrap">
-  <p class="eyebrow">Cawtalker · rating</p>
+  <p class="eyebrow">CrowGPT · rating</p>
 __INSTRUCTIONS__
   <p class="keyhint" id="keyhint"></p>
 

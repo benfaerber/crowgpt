@@ -170,7 +170,7 @@ _PAIR_TEMPLATE = (
 </style>
 
 <div class="wrap">
-  <p class="eyebrow">Cawtalker · pairwise</p>
+  <p class="eyebrow">CrowGPT · pairwise</p>
   <h1>Which of these two is less robotic?</h1>
   <p class="lede">Two clips a trial, played in a random order. Pick the one that sounds <b>less</b> synthetic —
     less robotic, garbled, xylophone-ish, modem-ish. Both may be bad; say which is
