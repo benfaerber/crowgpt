@@ -1451,3 +1451,17 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
   VISIT_OUTCOMES + app mark buttons; old marks stay valid as "crows").
   Ship before the next few trips so the vocal-yield data starts
   accumulating.
+
+[ ] Finish the open-source move (public repo github.com/benfaerber/crowgpt holds
+    one commit, 2c7fc75, pushed 2026-10-21). Three things are still Ben's to do:
+    pick a LICENSE and commit it (experiments/0031/vendor is CC BY-NC 4.0, which
+    bounds the choice); delete the old private github.com/benfaerber/cawtalker,
+    whose history still holds the Xeno-canto key and the home coordinates; and
+    purge that history from this working repo, where it survives on the local
+    branch `private-history` plus `ingest-crowtools-corpus` and the
+    refs/codex/* checkpoints. The full history is mirrored at
+    ~/Code/cawtalker-private-archive.git, so the purge is:
+      git branch -D private-history ingest-crowtools-corpus
+      git for-each-ref --format='%(refname)' refs/codex | xargs -n1 git update-ref -d
+      git reflog expire --expire=now --all && git gc --prune=now
+    Until then, never `git push --all` or `--mirror` from here.

@@ -40,7 +40,9 @@ before wondering and written before working.
 
 ## Active
 
-- **Jackdaw** — since 2026-10-21 17:55 — pre-open-source audit delivered to Ben (read-only): key + home coords + 7 GPS-tagged photos/videos + scrubbed source names all still in git history; no LICENSE; 0065/0068 name non-cleared sources at HEAD. Nothing changed in the tree; server and GPU untouched. Updated 2026-10-21 18:20.
+- **Daurian** — since 2026-10-21 21:11 — moving the public promo domain to crowgpt.org and redirecting cawtalker.org through Namecheap/Cloudflare; promo hosting only. Updated 2026-10-21 21:11.
+
+- **Jackdaw** — since 2026-10-21 17:55 — open-source move done: GPS stripped from 7 media files, 0065/0068 reworded, promo renamed CrowGPT, history squashed to one commit and pushed to github.com/benfaerber/crowgpt (public). Old history mirrored at ~/Code/cawtalker-private-archive.git and still on local branch `private-history` (purge needs Ben's OK, see TODO.txt). Server and GPU untouched. Updated 2026-10-21 19:05.
 
 - **Jynx** — since 2026-09-11 — promo reorder + em-dash scrub shipped (d5bb83c, be46cce, a67298e; cawtalker.org not deployed, on Ben's word). Auto-grading investigation delivered: findings in FUTURE.txt (top entry). Read-only on the DB; not touching the server or the GPU. Updated 2026-09-11 18:05.
 
