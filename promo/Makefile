@@ -15,8 +15,8 @@ help:
 	@echo "CrowGPT promo site"
 	@echo "  make dev        Vite dev server on :5174"
 	@echo "  make build        Build into the field server's static/, served at :5100/promo"
-	@echo "  make build-public Build for cawtalker.org (rooted at /) into promo/dist"
-	@echo "  make deploy       Typecheck, build, and publish to cawtalker.org"
+	@echo "  make build-public Build for crowgpt.org (rooted at /) into promo/dist"
+	@echo "  make deploy       Typecheck, build, and publish to crowgpt.org"
 	@echo "  make deploy-dry   Everything deploy does, except the upload"
 	@echo "  make login        One-time Cloudflare browser login for wrangler"
 	@echo "  make typecheck    tsc --noEmit"
@@ -42,7 +42,7 @@ build: node_modules
 build-public: node_modules
 	PROMO_PUBLIC=1 npm run build
 	@echo
-	@echo "Built promo/dist for cawtalker.org. Upload that folder."
+	@echo "Built promo/dist for crowgpt.org. Upload that folder."
 
 # Build only if the bundle is missing — `make field` calls this on every start
 # and a full rebuild each time would add seconds to something run constantly.
@@ -91,7 +91,7 @@ login:
 deploy: node_modules typecheck build-public
 	npx wrangler deploy
 	@echo
-	@echo "Live at https://cawtalker.org — hard-reload to see it past the CDN cache."
+	@echo "Live at https://crowgpt.org — hard-reload to see it past the CDN cache."
 
 # Same path, stopping short of the upload. Use it to check the config and see
 # the file list wrangler would send.

@@ -1,4 +1,4 @@
-# Deploy config for the public site at cawtalker.org.
+# Deploy config for the public site at crowgpt.org.
 #
 # The name has to match the Worker the dashboard created when the site was first
 # uploaded — cawtalker-promo-site — or a deploy makes a second, separate Worker
@@ -7,9 +7,10 @@
 # There is no `main`: this is an assets-only Worker, so Cloudflare serves the
 # built files directly and no script runs on the request path.
 #
-# The custom domain (cawtalker.org) is bound to the Worker rather than to any
-# one deployment, so it survives every deploy. Nothing here needs to know about
-# it, and nothing here can break it.
+# Custom domains are bound to this Worker in Cloudflare, independently of
+# deployments. Keep the existing Worker name when changing the public domain.
+# Cloudflare Redirect Rules manage the old cawtalker.org address and the www
+# and HTTP variants of crowgpt.org; they are not configured in this file.
 
 name = "cawtalker-promo-site"
 compatibility_date = "2026-08-06"
