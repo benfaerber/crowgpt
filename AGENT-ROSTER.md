@@ -40,8 +40,6 @@ before wondering and written before working.
 
 ## Active
 
-- **Daurian** — since 2026-10-21 21:11 — crowgpt.org attached to Cloudflare, Namecheap nameservers saved; waiting for DNS/HTTPS before enabling the prepared cawtalker.org redirect. Automatic checks every 15 minutes; metadata source committed as 65f5760, not deployed. Updated 2026-10-21 21:32.
-
 - **Jackdaw** — since 2026-10-21 17:55 — open-source move done (public github.com/benfaerber/crowgpt, one-commit squash; old history on local branch `private-history`, purge needs Ben's OK, see TODO.txt). Then the project renamed CrowGPT across titles/app/dashboard/docs (dbe27b7) and the promo's call-type cards shipped (18fd253), both deployed to cawtalker.org. Five local commits unpushed. Server and GPU untouched. Updated 2026-10-21 22:05.
 
 - **Jynx** — since 2026-09-11 — promo reorder + em-dash scrub shipped (d5bb83c, be46cce, a67298e; cawtalker.org not deployed, on Ben's word). Auto-grading investigation delivered: findings in FUTURE.txt (top entry). Read-only on the DB; not touching the server or the GPU. Updated 2026-09-11 18:05.
@@ -142,6 +140,8 @@ before wondering and written before working.
   wired it into `CLAUDE.md`. Updated 20:15.
 
 ## Done
+
+- ~~**Daurian** — since 2026-10-21 21:11 — crowgpt.org is the primary domain with valid HTTPS and live canonical metadata; cawtalker.org and www variants now redirect with paths and query strings preserved. Public DNS and redirect chains verified; some local DNS caches still hold the previous address. Automatic checks stopped. Completed 2026-10-21 22:07.~~
 
 - ~~**Chough** — 2026-09-09/10 — CrowGPT3 candidate 0085 trained and evaluated successfully by 00:15; failed validation/structure screen, 24 diagnostic clips saved, GPU released. Morning results recorded 2026-09-10.~~
 
