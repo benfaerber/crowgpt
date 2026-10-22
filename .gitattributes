@@ -3,3 +3,9 @@
 # call this a 70%-HTML repo. linguist-generated keeps them out of the language
 # stats and collapses them in diffs.
 crowgpt/results/** linguist-generated
+# Generated pages, not hand-written HTML: an archived listening block with its
+# clips embedded, and the maps the scouting experiments render from their data.
+# Without this GitHub counts the repo as mostly HTML.
+crowgpt/results/listening/**/*.html linguist-generated
+experiments/**/*-map.html linguist-generated
+experiments/**/map_template.html linguist-generated
