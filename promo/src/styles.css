@@ -1365,6 +1365,89 @@ main {
 
 /* ---- honest list --------------------------------------------------------- */
 
+/* ---- call types ----------------------------------------------------------- */
+
+.subhead {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 2.75rem 0 0.4rem;
+}
+
+.calls {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: 1rem;
+}
+
+.call {
+  --call: var(--text-muted);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--call);
+  border-radius: var(--radius-sm);
+  padding: 1.2rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.call p {
+  margin: 0;
+}
+
+.call-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text-primary);
+}
+
+.call-name::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--call);
+  flex: none;
+}
+
+.call-sound {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.call-meaning {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.call-folds {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.call-folds span {
+  color: var(--text-secondary);
+}
+
+.call-read {
+  margin-top: auto !important;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.subhead + .honest-list {
+  margin-top: 1.25rem;
+}
+
 .honest-list {
   list-style: none;
   padding: 0;
