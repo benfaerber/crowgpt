@@ -1,0 +1,38 @@
+{
+  "recipe": {
+    "steps": 30000,
+    "batch_size": 4,
+    "accumulate": 2,
+    "n_embd": 512,
+    "n_layer": 12,
+    "n_head": 4,
+    "dropout": 0.0,
+    "seed": 0,
+    "learning_rate": 0.0003,
+    "warmup": 200,
+    "eval_every": 1000,
+    "eval_batches": 20,
+    "patience_steps": 8000
+  },
+  "config": {
+    "vocab_size": 8274,
+    "n_codebooks": 8,
+    "block_size": 3612,
+    "n_layer": 12,
+    "n_head": 4,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "prefix_len": 3
+  },
+  "parameters": 43859968,
+  "peak_preflight_gib": 5.1885600090026855,
+  "token_manifest_sha256": "6d4e0d64ae464cae149328e4b9119f160886efa8ca1e645c86fe67c56e5ebe53",
+  "parent_release": "crowgpt2",
+  "decoder_state": "finetuned",
+  "sampling": {
+    "temperature": 1.1,
+    "top_k": 200,
+    "max_frames": 460
+  },
+  "git_commit": "bd455130c90e3d62cb7ea7e36725dbac21119243"
+}

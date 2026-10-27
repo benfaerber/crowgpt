@@ -1,0 +1,2886 @@
+{
+  "name": "capacity-0086",
+  "question": "Which clip sounds more like a real crow? Judge the voice and the sequence of calls. They are the same is a valid answer. Notes about each clip are useful, especially hoarseness, overlapping voices, metallic sounds, or unnatural rhythm.",
+  "clip_dir": "/home/ben/Code/cawtalker/crowgpt/results/listening-pools/capacity-0086",
+  "dose_size": 16,
+  "reveal_at": 48,
+  "trials": [
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-00.wav",
+      "first_clip": "candidate-18.wav",
+      "second_clip": "crowgpt2-18.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88023,
+          "seconds": 3.7466666666666666
+        },
+        "crowgpt2": {
+          "seed": 88024,
+          "seconds": 2.48
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-01.wav",
+      "first_clip": "candidate-28.wav",
+      "second_clip": "crowgpt2-28.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88037,
+          "seconds": 1.9066666666666667
+        },
+        "crowgpt2": {
+          "seed": 88038,
+          "seconds": 2.3066666666666666
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-02.wav",
+      "first_clip": "crowgpt2-17.wav",
+      "second_clip": "candidate-17.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88023,
+          "seconds": 4.906666666666666
+        },
+        "candidate": {
+          "seed": 88022,
+          "seconds": 3.2533333333333334
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-03.wav",
+      "first_clip": "candidate-09.wav",
+      "second_clip": "crowgpt2-09.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88011,
+          "seconds": 2.1866666666666665
+        },
+        "crowgpt2": {
+          "seed": 88013,
+          "seconds": 5.133333333333334
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-04.wav",
+      "first_clip": "candidate-25.wav",
+      "second_clip": "crowgpt2-25.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88032,
+          "seconds": 6.0
+        },
+        "crowgpt2": {
+          "seed": 88033,
+          "seconds": 1.2266666666666666
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-05.wav",
+      "first_clip": "crowgpt2-22.wav",
+      "second_clip": "candidate-22.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88030,
+          "seconds": 6.0
+        },
+        "candidate": {
+          "seed": 88029,
+          "seconds": 4.48
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-06.wav",
+      "first_clip": "crowgpt2-31.wav",
+      "second_clip": "candidate-31.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88042,
+          "seconds": 1.1866666666666668
+        },
+        "candidate": {
+          "seed": 88041,
+          "seconds": 5.6
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-07.wav",
+      "first_clip": "crowgpt2-29.wav",
+      "second_clip": "candidate-29.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88039,
+          "seconds": 2.04
+        },
+        "candidate": {
+          "seed": 88038,
+          "seconds": 2.12
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-08.wav",
+      "first_clip": "crowgpt2-10.wav",
+      "second_clip": "candidate-10.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88014,
+          "seconds": 3.466666666666667
+        },
+        "candidate": {
+          "seed": 88013,
+          "seconds": 4.68
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "real-09.wav",
+      "first_clip": "candidate-43.wav",
+      "second_clip": "real-48.wav",
+      "first_arm": "candidate",
+      "second_arm": "real",
+      "facts": {
+        "generated_seed": 88060
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-10.wav",
+      "first_clip": "crowgpt2-19.wav",
+      "second_clip": "candidate-19.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88025,
+          "seconds": 1.16
+        },
+        "candidate": {
+          "seed": 88024,
+          "seconds": 2.24
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-11.wav",
+      "first_clip": "candidate-04.wav",
+      "second_clip": "crowgpt2-04.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88006,
+          "seconds": 4.906666666666666
+        },
+        "crowgpt2": {
+          "seed": 88007,
+          "seconds": 1.8666666666666667
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-12.wav",
+      "first_clip": "candidate-21.wav",
+      "second_clip": "crowgpt2-21.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88026,
+          "seconds": 1.6933333333333334
+        },
+        "crowgpt2": {
+          "seed": 88028,
+          "seconds": 3.2666666666666666
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-13.wav",
+      "first_clip": "crowgpt2-30.wav",
+      "second_clip": "candidate-30.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88041,
+          "seconds": 6.0
+        },
+        "candidate": {
+          "seed": 88039,
+          "seconds": 2.56
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "compare",
+      "anchor_clip": "real-14.wav",
+      "first_clip": "candidate-12.wav",
+      "second_clip": "crowgpt2-12.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88017,
+          "seconds": 2.92
+        },
+        "crowgpt2": {
+          "seed": 88018,
+          "seconds": 2.08
+        }
+      }
+    },
+    {
+      "block": 0,
+      "kind": "catch",
+      "anchor_clip": "real-15.wav",
+      "first_clip": "real-49.wav",
+      "second_clip": "candidate-41.wav",
+      "first_arm": "real",
+      "second_arm": "candidate",
+      "facts": {
+        "generated_seed": 88058
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-16.wav",
+      "first_clip": "crowgpt2-01.wav",
+      "second_clip": "candidate-01.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88001,
+          "seconds": 3.7333333333333334
+        },
+        "candidate": {
+          "seed": 88001,
+          "seconds": 3.76
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-17.wav",
+      "first_clip": "crowgpt2-39.wav",
+      "second_clip": "candidate-39.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88051,
+          "seconds": 1.0933333333333333
+        },
+        "candidate": {
+          "seed": 88054,
+          "seconds": 5.946666666666666
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-18.wav",
+      "first_clip": "candidate-02.wav",
+      "second_clip": "crowgpt2-02.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88003,
+          "seconds": 1.5466666666666666
+        },
+        "crowgpt2": {
+          "seed": 88003,
+          "seconds": 1.3866666666666667
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-19.wav",
+      "first_clip": "crowgpt2-27.wav",
+      "second_clip": "candidate-27.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88037,
+          "seconds": 1.6666666666666667
+        },
+        "candidate": {
+          "seed": 88035,
+          "seconds": 2.52
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-20.wav",
+      "first_clip": "crowgpt2-32.wav",
+      "second_clip": "candidate-32.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88044,
+          "seconds": 4.013333333333334
+        },
+        "candidate": {
+          "seed": 88042,
+          "seconds": 1.2533333333333334
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-21.wav",
+      "first_clip": "candidate-36.wav",
+      "second_clip": "crowgpt2-36.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88047,
+          "seconds": 1.1333333333333333
+        },
+        "crowgpt2": {
+          "seed": 88048,
+          "seconds": 1.0666666666666667
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-22.wav",
+      "first_clip": "candidate-37.wav",
+      "second_clip": "crowgpt2-37.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88049,
+          "seconds": 1.96
+        },
+        "crowgpt2": {
+          "seed": 88049,
+          "seconds": 1.92
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-23.wav",
+      "first_clip": "candidate-33.wav",
+      "second_clip": "crowgpt2-33.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88044,
+          "seconds": 6.0
+        },
+        "crowgpt2": {
+          "seed": 88045,
+          "seconds": 3.8266666666666667
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "real-24.wav",
+      "first_clip": "real-50.wav",
+      "second_clip": "crowgpt2-43.wav",
+      "first_arm": "real",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "generated_seed": 88058
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-25.wav",
+      "first_clip": "crowgpt2-14.wav",
+      "second_clip": "candidate-14.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88020,
+          "seconds": 5.92
+        },
+        "candidate": {
+          "seed": 88019,
+          "seconds": 1.5066666666666666
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-26.wav",
+      "first_clip": "candidate-34.wav",
+      "second_clip": "crowgpt2-34.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88045,
+          "seconds": 4.093333333333334
+        },
+        "crowgpt2": {
+          "seed": 88046,
+          "seconds": 1.1066666666666667
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-27.wav",
+      "first_clip": "candidate-03.wav",
+      "second_clip": "crowgpt2-03.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88005,
+          "seconds": 1.1466666666666667
+        },
+        "crowgpt2": {
+          "seed": 88005,
+          "seconds": 1.16
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-28.wav",
+      "first_clip": "crowgpt2-26.wav",
+      "second_clip": "candidate-26.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88035,
+          "seconds": 5.1866666666666665
+        },
+        "candidate": {
+          "seed": 88033,
+          "seconds": 1.2133333333333334
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-29.wav",
+      "first_clip": "candidate-08.wav",
+      "second_clip": "crowgpt2-08.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88010,
+          "seconds": 1.1733333333333333
+        },
+        "crowgpt2": {
+          "seed": 88011,
+          "seconds": 2.026666666666667
+        }
+      }
+    },
+    {
+      "block": 1,
+      "kind": "catch",
+      "anchor_clip": "real-30.wav",
+      "first_clip": "crowgpt2-42.wav",
+      "second_clip": "real-51.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "real",
+      "facts": {
+        "generated_seed": 88056
+      }
+    },
+    {
+      "block": 1,
+      "kind": "compare",
+      "anchor_clip": "real-31.wav",
+      "first_clip": "crowgpt2-11.wav",
+      "second_clip": "candidate-11.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88017,
+          "seconds": 2.92
+        },
+        "candidate": {
+          "seed": 88014,
+          "seconds": 2.066666666666667
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-32.wav",
+      "first_clip": "crowgpt2-15.wav",
+      "second_clip": "candidate-15.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88021,
+          "seconds": 4.64
+        },
+        "candidate": {
+          "seed": 88020,
+          "seconds": 2.546666666666667
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-33.wav",
+      "first_clip": "crowgpt2-38.wav",
+      "second_clip": "candidate-38.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88050,
+          "seconds": 6.0
+        },
+        "candidate": {
+          "seed": 88050,
+          "seconds": 6.0
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-34.wav",
+      "first_clip": "candidate-06.wav",
+      "second_clip": "crowgpt2-06.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88008,
+          "seconds": 4.8
+        },
+        "crowgpt2": {
+          "seed": 88009,
+          "seconds": 1.04
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "real-35.wav",
+      "first_clip": "crowgpt2-40.wav",
+      "second_clip": "real-52.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "real",
+      "facts": {
+        "generated_seed": 88054
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-36.wav",
+      "first_clip": "candidate-20.wav",
+      "second_clip": "crowgpt2-20.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88025,
+          "seconds": 1.1733333333333333
+        },
+        "crowgpt2": {
+          "seed": 88026,
+          "seconds": 1.8933333333333333
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-37.wav",
+      "first_clip": "crowgpt2-13.wav",
+      "second_clip": "candidate-13.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88019,
+          "seconds": 1.2133333333333334
+        },
+        "candidate": {
+          "seed": 88018,
+          "seconds": 2.2266666666666666
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-38.wav",
+      "first_clip": "candidate-24.wav",
+      "second_clip": "crowgpt2-24.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88031,
+          "seconds": 2.533333333333333
+        },
+        "crowgpt2": {
+          "seed": 88032,
+          "seconds": 2.9066666666666667
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "real-39.wav",
+      "first_clip": "real-53.wav",
+      "second_clip": "crowgpt2-41.wav",
+      "first_arm": "real",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "generated_seed": 88055
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-40.wav",
+      "first_clip": "crowgpt2-07.wav",
+      "second_clip": "candidate-07.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88010,
+          "seconds": 1.16
+        },
+        "candidate": {
+          "seed": 88009,
+          "seconds": 1.4533333333333334
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-41.wav",
+      "first_clip": "crowgpt2-23.wav",
+      "second_clip": "candidate-23.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88031,
+          "seconds": 5.253333333333333
+        },
+        "candidate": {
+          "seed": 88030,
+          "seconds": 4.653333333333333
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-42.wav",
+      "first_clip": "crowgpt2-05.wav",
+      "second_clip": "candidate-05.wav",
+      "first_arm": "crowgpt2",
+      "second_arm": "candidate",
+      "facts": {
+        "crowgpt2": {
+          "seed": 88008,
+          "seconds": 4.493333333333333
+        },
+        "candidate": {
+          "seed": 88007,
+          "seconds": 1.8666666666666667
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-43.wav",
+      "first_clip": "candidate-16.wav",
+      "second_clip": "crowgpt2-16.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88021,
+          "seconds": 4.64
+        },
+        "crowgpt2": {
+          "seed": 88022,
+          "seconds": 5.1066666666666665
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-44.wav",
+      "first_clip": "candidate-00.wav",
+      "second_clip": "crowgpt2-00.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88000,
+          "seconds": 4.426666666666667
+        },
+        "crowgpt2": {
+          "seed": 88000,
+          "seconds": 5.786666666666667
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "real-45.wav",
+      "first_clip": "candidate-42.wav",
+      "second_clip": "real-54.wav",
+      "first_arm": "candidate",
+      "second_arm": "real",
+      "facts": {
+        "generated_seed": 88059
+      }
+    },
+    {
+      "block": 2,
+      "kind": "compare",
+      "anchor_clip": "real-46.wav",
+      "first_clip": "candidate-35.wav",
+      "second_clip": "crowgpt2-35.wav",
+      "first_arm": "candidate",
+      "second_arm": "crowgpt2",
+      "facts": {
+        "candidate": {
+          "seed": 88046,
+          "seconds": 1.2933333333333332
+        },
+        "crowgpt2": {
+          "seed": 88047,
+          "seconds": 1.3466666666666667
+        }
+      }
+    },
+    {
+      "block": 2,
+      "kind": "catch",
+      "anchor_clip": "real-47.wav",
+      "first_clip": "real-55.wav",
+      "second_clip": "candidate-40.wav",
+      "first_arm": "real",
+      "second_arm": "candidate",
+      "facts": {
+        "generated_seed": 88056
+      }
+    }
+  ],
+  "spec": {
+    "experiment": "0086",
+    "sampling": {
+      "temperature": 1.1,
+      "top_k": 200,
+      "max_frames": 460
+    },
+    "decoder": "finetuned",
+    "selection": {
+      "validation_bouts": 5033,
+      "split": "val",
+      "metric": "American Crow canonical token-weighted cross entropy",
+      "checkpoints": [
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/model-longctx/model.pt",
+          "step": 30000,
+          "full_ac_val": 4.792704081625476,
+          "checkpoint_sha256": "e0858aae30d2e18cfb6a627c68ce24bd86ba0ab9b861c7cde46b530e2d58b4c5"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/model-crowgpt3-candidate-0085/model.pt",
+          "step": 14000,
+          "full_ac_val": 5.036698097921064,
+          "checkpoint_sha256": "65b573e59d52148938372a317a940f40e43fde6793b021945c6c75039fc7c266"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-05000.pt",
+          "step": 5000,
+          "full_ac_val": 5.553824681632653,
+          "checkpoint_sha256": "752ddfc4465e598292e0d3b6a2219c3f44fdf97bfc5570ad2c10dbab8340d8ed"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-10000.pt",
+          "step": 10000,
+          "full_ac_val": 5.239713834883617,
+          "checkpoint_sha256": "f250c304462e2b585797f8808dd9f2a8086e8eda0cffbbdd6c7f2de4ca714514"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-15000.pt",
+          "step": 15000,
+          "full_ac_val": 5.0834602927247285,
+          "checkpoint_sha256": "bb4fadcf68d1ade5cd392ad5f44c0377f1ce37aaaed80242a440c4ff9a9c2d91"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-20000.pt",
+          "step": 20000,
+          "full_ac_val": 5.004833781042395,
+          "checkpoint_sha256": "e8e96bcdbc46011f46b83f43f65b891d2e792d4da363ce00b60a8dcef22e7851"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-25000.pt",
+          "step": 25000,
+          "full_ac_val": 4.9632217797690155,
+          "checkpoint_sha256": "e139a5a2169602d4b3b2edca5ffcd6f87a6897d42e902cea6ae17d24beab341f"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-1e-4/step-30000.pt",
+          "step": 30000,
+          "full_ac_val": 4.9452875055848775,
+          "checkpoint_sha256": "e764e6ea70dd81f879e2117d4f67daad010f9cc27b393c0d57363e815f063a99"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-05000.pt",
+          "step": 5000,
+          "full_ac_val": 5.515686397837129,
+          "checkpoint_sha256": "518f2f116ba48d9d112cc39df77af97dcd8c588b45c128017b257d393e3a4bd4"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-10000.pt",
+          "step": 10000,
+          "full_ac_val": 5.25128122982621,
+          "checkpoint_sha256": "0ee313d493d2138b4a244d6d2ddf86b97fbaaf7f876cf99665719baa4e849684"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-15000.pt",
+          "step": 15000,
+          "full_ac_val": 5.090122162876279,
+          "checkpoint_sha256": "8651ba1e1fc3ac40a5671891f0150143036daa865ee632e003b771df299ed122"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-20000.pt",
+          "step": 20000,
+          "full_ac_val": 5.003041769684746,
+          "checkpoint_sha256": "b018db7ce4de11e40686882fdb165c5d447cae53e353b7f685a1dd97127d6b59"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-25000.pt",
+          "step": 25000,
+          "full_ac_val": 4.958964025108217,
+          "checkpoint_sha256": "18c33873e611e09dba40cfc1c8e80b747b4279b7aad48376a0edca002d4e5ea1"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-2e-4/step-30000.pt",
+          "step": 30000,
+          "full_ac_val": 4.9388479330114246,
+          "checkpoint_sha256": "e445d6d36622c91f3670826d089c82d6f06fecff9d53dd40e258c23eb254b025"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-05000.pt",
+          "step": 5000,
+          "full_ac_val": 5.5020685060711925,
+          "checkpoint_sha256": "980fd1373b65f2ef6eb16b5dd32031c18d0ad3ed5a6b395b377d585e54e3d8ca"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-10000.pt",
+          "step": 10000,
+          "full_ac_val": 5.150753749753261,
+          "checkpoint_sha256": "f68af6bc5071e1405ea458e2394203c5b5f03e38d14056b2e2c51d5c7c7d83de"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-15000.pt",
+          "step": 15000,
+          "full_ac_val": 5.016197778182594,
+          "checkpoint_sha256": "c5279dad2b0c415453367eea1c9b5f034d08961b49d66dd8406e4d2d4a1eac81"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-20000.pt",
+          "step": 20000,
+          "full_ac_val": 4.9373711128320625,
+          "checkpoint_sha256": "f923ddbad463fc095298858d13b44dba524afe75076cfb02a2eb9dcff72fae11"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-25000.pt",
+          "step": 25000,
+          "full_ac_val": 4.890909362689015,
+          "checkpoint_sha256": "bf11acef317bc2b930b74643dbea6d0d72adb490f37fac54e33c7fe7e5962635"
+        },
+        {
+          "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-30000.pt",
+          "step": 30000,
+          "full_ac_val": 4.86898069019548,
+          "checkpoint_sha256": "e581befbedfd91659aa33e1c2028f14333ab029a8b40c8eef12ab632f77b1e91"
+        }
+      ],
+      "winner": {
+        "path": "/home/ben/Code/cawtalker/crowgpt/results/tuning-0086/lr-3e-4/step-30000.pt",
+        "step": 30000,
+        "full_ac_val": 4.86898069019548,
+        "checkpoint_sha256": "e581befbedfd91659aa33e1c2028f14333ab029a8b40c8eef12ab632f77b1e91"
+      }
+    },
+    "draws": {
+      "crowgpt2": {
+        "rows": [
+          {
+            "seconds": 5.786666666666667,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88000,
+            "file": "crowgpt2-00.wav"
+          },
+          {
+            "seconds": 3.7333333333333334,
+            "units": 5,
+            "gaps": [
+              0.5333333333333333,
+              1.1306666666666667,
+              0.736,
+              0.3413333333333333
+            ],
+            "pitch_strength": 0.41906470002583474,
+            "crescendo": 0.10232877968109605,
+            "seed": 88001,
+            "file": "crowgpt2-01.wav"
+          },
+          {
+            "seconds": 1.3866666666666667,
+            "units": 3,
+            "gaps": [
+              0.224,
+              0.14933333333333335
+            ],
+            "pitch_strength": 0.376474755214097,
+            "crescendo": 0.022401270294670317,
+            "seed": 88003,
+            "file": "crowgpt2-02.wav"
+          },
+          {
+            "seconds": 1.16,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.8471136232993253,
+            "crescendo": null,
+            "seed": 88005,
+            "file": "crowgpt2-03.wav"
+          },
+          {
+            "seconds": 1.8666666666666667,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.7512398794624336,
+            "crescendo": null,
+            "seed": 88007,
+            "file": "crowgpt2-04.wav"
+          },
+          {
+            "seconds": 4.493333333333333,
+            "units": 5,
+            "gaps": [
+              0.10666666666666667,
+              0.2773333333333333,
+              0.37333333333333335,
+              0.8746666666666667
+            ],
+            "pitch_strength": 0.4915529530274865,
+            "crescendo": -0.04374973131061327,
+            "seed": 88008,
+            "file": "crowgpt2-05.wav"
+          },
+          {
+            "seconds": 1.04,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.419771361727451,
+            "crescendo": null,
+            "seed": 88009,
+            "file": "crowgpt2-06.wav"
+          },
+          {
+            "seconds": 1.16,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88010,
+            "file": "crowgpt2-07.wav"
+          },
+          {
+            "seconds": 2.026666666666667,
+            "units": 4,
+            "gaps": [
+              0.4053333333333333,
+              0.288,
+              0.37333333333333335
+            ],
+            "pitch_strength": 0.346804744803086,
+            "crescendo": -0.019609420376722864,
+            "seed": 88011,
+            "file": "crowgpt2-08.wav"
+          },
+          {
+            "seconds": 5.133333333333334,
+            "units": 6,
+            "gaps": [
+              0.30933333333333335,
+              0.2773333333333333,
+              0.3626666666666667,
+              2.3253333333333335,
+              0.45866666666666667
+            ],
+            "pitch_strength": 0.3185759699652766,
+            "crescendo": 0.07298429421029179,
+            "seed": 88013,
+            "file": "crowgpt2-09.wav"
+          },
+          {
+            "seconds": 3.466666666666667,
+            "units": 8,
+            "gaps": [
+              0.224,
+              0.6293333333333333,
+              0.16,
+              0.45866666666666667,
+              0.23466666666666666,
+              0.128,
+              0.2773333333333333
+            ],
+            "pitch_strength": 0.29082864364509764,
+            "crescendo": -0.021768836843738537,
+            "seed": 88014,
+            "file": "crowgpt2-10.wav"
+          },
+          {
+            "seconds": 2.92,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88017,
+            "file": "crowgpt2-11.wav"
+          },
+          {
+            "seconds": 2.08,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88018,
+            "file": "crowgpt2-12.wav"
+          },
+          {
+            "seconds": 1.2133333333333334,
+            "units": 3,
+            "gaps": [
+              0.32,
+              0.2773333333333333
+            ],
+            "pitch_strength": 0.6660449361941249,
+            "crescendo": -0.14457458052477956,
+            "seed": 88019,
+            "file": "crowgpt2-13.wav"
+          },
+          {
+            "seconds": 5.92,
+            "units": 5,
+            "gaps": [
+              0.33066666666666666,
+              0.096,
+              0.576,
+              0.96
+            ],
+            "pitch_strength": 0.6065772811248507,
+            "crescendo": 0.150034938259079,
+            "seed": 88020,
+            "file": "crowgpt2-14.wav"
+          },
+          {
+            "seconds": 4.64,
+            "units": 4,
+            "gaps": [
+              0.20266666666666666,
+              2.2293333333333334,
+              0.768
+            ],
+            "pitch_strength": 0.9362201052106981,
+            "crescendo": -0.03548143551866034,
+            "seed": 88021,
+            "file": "crowgpt2-15.wav"
+          },
+          {
+            "seconds": 5.1066666666666665,
+            "units": 6,
+            "gaps": [
+              0.3626666666666667,
+              0.43733333333333335,
+              0.384,
+              1.856,
+              0.544
+            ],
+            "pitch_strength": 0.49354810226555573,
+            "crescendo": 0.051733248111331676,
+            "seed": 88022,
+            "file": "crowgpt2-16.wav"
+          },
+          {
+            "seconds": 4.906666666666666,
+            "units": 13,
+            "gaps": [
+              0.24533333333333332,
+              0.4053333333333333,
+              0.2986666666666667,
+              0.192,
+              0.14933333333333335,
+              0.2773333333333333,
+              0.224,
+              0.224,
+              0.224,
+              0.23466666666666666,
+              0.288,
+              0.26666666666666666
+            ],
+            "pitch_strength": 0.34034707977886214,
+            "crescendo": -0.0970708563311008,
+            "seed": 88023,
+            "file": "crowgpt2-17.wav"
+          },
+          {
+            "seconds": 2.48,
+            "units": 4,
+            "gaps": [
+              0.26666666666666666,
+              0.30933333333333335,
+              0.30933333333333335
+            ],
+            "pitch_strength": 0.49765051057905263,
+            "crescendo": 0.010531512898261375,
+            "seed": 88024,
+            "file": "crowgpt2-18.wav"
+          },
+          {
+            "seconds": 1.16,
+            "units": 3,
+            "gaps": [
+              0.23466666666666666,
+              0.14933333333333335
+            ],
+            "pitch_strength": 0.5717499071176767,
+            "crescendo": -0.08616377749403681,
+            "seed": 88025,
+            "file": "crowgpt2-19.wav"
+          },
+          {
+            "seconds": 1.8933333333333333,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88026,
+            "file": "crowgpt2-20.wav"
+          },
+          {
+            "seconds": 3.2666666666666666,
+            "units": 7,
+            "gaps": [
+              0.224,
+              0.2986666666666667,
+              0.37333333333333335,
+              0.21333333333333335,
+              0.13866666666666666,
+              0.24533333333333332
+            ],
+            "pitch_strength": 0.5949043510336016,
+            "crescendo": -0.027810066824510593,
+            "seed": 88028,
+            "file": "crowgpt2-21.wav"
+          },
+          {
+            "seconds": 6.0,
+            "units": 7,
+            "gaps": [
+              0.30933333333333335,
+              0.18133333333333335,
+              0.16,
+              0.20266666666666666,
+              0.256,
+              0.352
+            ],
+            "pitch_strength": 0.4978544879434311,
+            "crescendo": 0.19731385083290814,
+            "seed": 88030,
+            "file": "crowgpt2-22.wav"
+          },
+          {
+            "seconds": 5.253333333333333,
+            "units": 10,
+            "gaps": [
+              0.224,
+              0.14933333333333335,
+              0.14933333333333335,
+              0.4053333333333333,
+              0.21333333333333335,
+              0.11733333333333333,
+              0.096,
+              0.33066666666666666,
+              0.5013333333333333
+            ],
+            "pitch_strength": 0.432366275209289,
+            "crescendo": -0.020136009366713725,
+            "seed": 88031,
+            "file": "crowgpt2-23.wav"
+          },
+          {
+            "seconds": 2.9066666666666667,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.8751974080418534,
+            "crescendo": null,
+            "seed": 88032,
+            "file": "crowgpt2-24.wav"
+          },
+          {
+            "seconds": 1.2266666666666666,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88033,
+            "file": "crowgpt2-25.wav"
+          },
+          {
+            "seconds": 5.1866666666666665,
+            "units": 11,
+            "gaps": [
+              0.2986666666666667,
+              0.23466666666666666,
+              0.2773333333333333,
+              0.8533333333333334,
+              0.20266666666666666,
+              0.18133333333333335,
+              0.128,
+              0.17066666666666666,
+              0.224,
+              0.9066666666666666
+            ],
+            "pitch_strength": 0.5439621416697512,
+            "crescendo": -0.020651403033275395,
+            "seed": 88035,
+            "file": "crowgpt2-26.wav"
+          },
+          {
+            "seconds": 1.6666666666666667,
+            "units": 4,
+            "gaps": [
+              0.33066666666666666,
+              0.30933333333333335,
+              0.20266666666666666
+            ],
+            "pitch_strength": 0.6321449041046396,
+            "crescendo": -0.01847656408260867,
+            "seed": 88037,
+            "file": "crowgpt2-27.wav"
+          },
+          {
+            "seconds": 2.3066666666666666,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.17568289301216938,
+            "crescendo": null,
+            "seed": 88038,
+            "file": "crowgpt2-28.wav"
+          },
+          {
+            "seconds": 2.04,
+            "units": 3,
+            "gaps": [
+              0.672,
+              0.21333333333333335
+            ],
+            "pitch_strength": 0.34971890904703856,
+            "crescendo": 0.01956301769829688,
+            "seed": 88039,
+            "file": "crowgpt2-29.wav"
+          },
+          {
+            "seconds": 6.0,
+            "units": 13,
+            "gaps": [
+              0.08533333333333333,
+              0.096,
+              0.11733333333333333,
+              0.14933333333333335,
+              0.17066666666666666,
+              0.21333333333333335,
+              0.39466666666666667,
+              0.4053333333333333,
+              0.2773333333333333,
+              0.256,
+              0.16,
+              0.11733333333333333
+            ],
+            "pitch_strength": 0.3979362705746018,
+            "crescendo": 0.014219649643776255,
+            "seed": 88041,
+            "file": "crowgpt2-30.wav"
+          },
+          {
+            "seconds": 1.1866666666666668,
+            "units": 3,
+            "gaps": [
+              0.4053333333333333,
+              0.32
+            ],
+            "pitch_strength": 0.7240089576084268,
+            "crescendo": -0.0735743988874542,
+            "seed": 88042,
+            "file": "crowgpt2-31.wav"
+          },
+          {
+            "seconds": 4.013333333333334,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.7057707582973619,
+            "crescendo": null,
+            "seed": 88044,
+            "file": "crowgpt2-32.wav"
+          },
+          {
+            "seconds": 3.8266666666666667,
+            "units": 9,
+            "gaps": [
+              0.26666666666666666,
+              0.32,
+              0.128,
+              0.11733333333333333,
+              0.3626666666666667,
+              0.192,
+              0.4053333333333333,
+              0.16
+            ],
+            "pitch_strength": 0.6038483016768629,
+            "crescendo": 0.0007861338606036661,
+            "seed": 88045,
+            "file": "crowgpt2-33.wav"
+          },
+          {
+            "seconds": 1.1066666666666667,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.37575123420119433,
+            "crescendo": null,
+            "seed": 88046,
+            "file": "crowgpt2-34.wav"
+          },
+          {
+            "seconds": 1.3466666666666667,
+            "units": 5,
+            "gaps": [
+              0.224,
+              0.23466666666666666,
+              0.16,
+              0.17066666666666666
+            ],
+            "pitch_strength": 0.5607109275135027,
+            "crescendo": 0.07256002883632062,
+            "seed": 88047,
+            "file": "crowgpt2-35.wav"
+          },
+          {
+            "seconds": 1.0666666666666667,
+            "units": 3,
+            "gaps": [
+              0.2773333333333333,
+              0.32
+            ],
+            "pitch_strength": 0.7314108660361954,
+            "crescendo": -0.16545152506208316,
+            "seed": 88048,
+            "file": "crowgpt2-36.wav"
+          },
+          {
+            "seconds": 1.92,
+            "units": 7,
+            "gaps": [
+              0.18133333333333335,
+              0.17066666666666666,
+              0.13866666666666666,
+              0.10666666666666667,
+              0.17066666666666666,
+              0.16
+            ],
+            "pitch_strength": 0.7250389322519214,
+            "crescendo": 0.03369923822045684,
+            "seed": 88049,
+            "file": "crowgpt2-37.wav"
+          },
+          {
+            "seconds": 6.0,
+            "units": 3,
+            "gaps": [
+              3.04,
+              0.224
+            ],
+            "pitch_strength": 0.49152189804238927,
+            "crescendo": 0.5139162299754606,
+            "seed": 88050,
+            "file": "crowgpt2-38.wav"
+          },
+          {
+            "seconds": 1.0933333333333333,
+            "units": 2,
+            "gaps": [
+              0.4693333333333333
+            ],
+            "pitch_strength": 0.4724955758906073,
+            "crescendo": -0.17252822444464422,
+            "seed": 88051,
+            "file": "crowgpt2-39.wav"
+          },
+          {
+            "seconds": 5.946666666666666,
+            "units": 10,
+            "gaps": [
+              0.30933333333333335,
+              0.18133333333333335,
+              0.33066666666666666,
+              0.11733333333333333,
+              0.18133333333333335,
+              0.24533333333333332,
+              0.14933333333333335,
+              0.224,
+              0.224
+            ],
+            "pitch_strength": 0.37058931369851505,
+            "crescendo": -0.01605692167369349,
+            "seed": 88054,
+            "file": "crowgpt2-40.wav"
+          },
+          {
+            "seconds": 1.32,
+            "units": 3,
+            "gaps": [
+              0.224,
+              0.192
+            ],
+            "pitch_strength": 0.4571738366514679,
+            "crescendo": 0.02977995699294167,
+            "seed": 88055,
+            "file": "crowgpt2-41.wav"
+          },
+          {
+            "seconds": 3.3866666666666667,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88056,
+            "file": "crowgpt2-42.wav"
+          },
+          {
+            "seconds": 3.2666666666666666,
+            "units": 7,
+            "gaps": [
+              0.23466666666666666,
+              0.192,
+              0.18133333333333335,
+              0.20266666666666666,
+              0.224,
+              0.26666666666666666
+            ],
+            "pitch_strength": 0.27955598464107234,
+            "crescendo": -0.1247340002867082,
+            "seed": 88058,
+            "file": "crowgpt2-43.wav"
+          }
+        ],
+        "attempts": [
+          {
+            "seed": 88000,
+            "seconds": 5.786666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88001,
+            "seconds": 3.7333333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88002,
+            "seconds": 0.08,
+            "gradeable": false
+          },
+          {
+            "seed": 88003,
+            "seconds": 1.3866666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88004,
+            "seconds": 0.08,
+            "gradeable": false
+          },
+          {
+            "seed": 88005,
+            "seconds": 1.16,
+            "gradeable": true
+          },
+          {
+            "seed": 88006,
+            "seconds": 0.4,
+            "gradeable": false
+          },
+          {
+            "seed": 88007,
+            "seconds": 1.8666666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88008,
+            "seconds": 4.493333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88009,
+            "seconds": 1.04,
+            "gradeable": true
+          },
+          {
+            "seed": 88010,
+            "seconds": 1.16,
+            "gradeable": true
+          },
+          {
+            "seed": 88011,
+            "seconds": 2.026666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88012,
+            "seconds": 0.4666666666666667,
+            "gradeable": false
+          },
+          {
+            "seed": 88013,
+            "seconds": 5.133333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88014,
+            "seconds": 3.466666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88015,
+            "seconds": 0.52,
+            "gradeable": false
+          },
+          {
+            "seed": 88016,
+            "seconds": 0.12,
+            "gradeable": false
+          },
+          {
+            "seed": 88017,
+            "seconds": 2.92,
+            "gradeable": true
+          },
+          {
+            "seed": 88018,
+            "seconds": 2.08,
+            "gradeable": true
+          },
+          {
+            "seed": 88019,
+            "seconds": 1.2133333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88020,
+            "seconds": 5.92,
+            "gradeable": true
+          },
+          {
+            "seed": 88021,
+            "seconds": 4.64,
+            "gradeable": true
+          },
+          {
+            "seed": 88022,
+            "seconds": 5.1066666666666665,
+            "gradeable": true
+          },
+          {
+            "seed": 88023,
+            "seconds": 4.906666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88024,
+            "seconds": 2.48,
+            "gradeable": true
+          },
+          {
+            "seed": 88025,
+            "seconds": 1.16,
+            "gradeable": true
+          },
+          {
+            "seed": 88026,
+            "seconds": 1.8933333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88027,
+            "seconds": 0.64,
+            "gradeable": false
+          },
+          {
+            "seed": 88028,
+            "seconds": 3.2666666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88029,
+            "seconds": 0.08,
+            "gradeable": false
+          },
+          {
+            "seed": 88030,
+            "seconds": 6.0,
+            "gradeable": true
+          },
+          {
+            "seed": 88031,
+            "seconds": 5.253333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88032,
+            "seconds": 2.9066666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88033,
+            "seconds": 1.2266666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88034,
+            "seconds": 0.08,
+            "gradeable": false
+          },
+          {
+            "seed": 88035,
+            "seconds": 5.1866666666666665,
+            "gradeable": true
+          },
+          {
+            "seed": 88036,
+            "seconds": 0.12,
+            "gradeable": false
+          },
+          {
+            "seed": 88037,
+            "seconds": 1.6666666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88038,
+            "seconds": 2.3066666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88039,
+            "seconds": 2.04,
+            "gradeable": true
+          },
+          {
+            "seed": 88040,
+            "seconds": 0.5866666666666667,
+            "gradeable": false
+          },
+          {
+            "seed": 88041,
+            "seconds": 6.0,
+            "gradeable": true
+          },
+          {
+            "seed": 88042,
+            "seconds": 1.1866666666666668,
+            "gradeable": true
+          },
+          {
+            "seed": 88043,
+            "seconds": 0.36,
+            "gradeable": false
+          },
+          {
+            "seed": 88044,
+            "seconds": 4.013333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88045,
+            "seconds": 3.8266666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88046,
+            "seconds": 1.1066666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88047,
+            "seconds": 1.3466666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88048,
+            "seconds": 1.0666666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88049,
+            "seconds": 1.92,
+            "gradeable": true
+          },
+          {
+            "seed": 88050,
+            "seconds": 6.0,
+            "gradeable": true
+          },
+          {
+            "seed": 88051,
+            "seconds": 1.0933333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88052,
+            "seconds": 0.08,
+            "gradeable": false
+          },
+          {
+            "seed": 88053,
+            "seconds": 0.08,
+            "gradeable": false
+          },
+          {
+            "seed": 88054,
+            "seconds": 5.946666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88055,
+            "seconds": 1.32,
+            "gradeable": true
+          },
+          {
+            "seed": 88056,
+            "seconds": 3.3866666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88057,
+            "seconds": 0.05333333333333334,
+            "gradeable": false
+          },
+          {
+            "seed": 88058,
+            "seconds": 3.2666666666666666,
+            "gradeable": true
+          }
+        ],
+        "summary": {
+          "n": 44,
+          "mean_units": 4.159090909090909,
+          "gaps_per_clip": 3.3181818181818183,
+          "single_share": 0.3181818181818182,
+          "median_gap_s": 0.24,
+          "dust_rate": 0.2972972972972973,
+          "dust_scored_n": 37,
+          "mean_crescendo": 0.006800479915138368,
+          "crescendo_scored_n": 30
+        }
+      },
+      "candidate": {
+        "rows": [
+          {
+            "seconds": 4.426666666666667,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88000,
+            "file": "candidate-00.wav"
+          },
+          {
+            "seconds": 3.76,
+            "units": 6,
+            "gaps": [
+              0.24533333333333332,
+              0.4266666666666667,
+              0.17066666666666666,
+              0.8533333333333334,
+              0.7146666666666667
+            ],
+            "pitch_strength": 0.8171476982436131,
+            "crescendo": 0.0501843333007812,
+            "seed": 88001,
+            "file": "candidate-01.wav"
+          },
+          {
+            "seconds": 1.5466666666666666,
+            "units": 4,
+            "gaps": [
+              0.3413333333333333,
+              0.26666666666666666,
+              0.08533333333333333
+            ],
+            "pitch_strength": 0.7661087720571846,
+            "crescendo": 0.03501587767223624,
+            "seed": 88003,
+            "file": "candidate-02.wav"
+          },
+          {
+            "seconds": 1.1466666666666667,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.564073738020889,
+            "crescendo": null,
+            "seed": 88005,
+            "file": "candidate-03.wav"
+          },
+          {
+            "seconds": 4.906666666666666,
+            "units": 10,
+            "gaps": [
+              0.416,
+              0.256,
+              0.10666666666666667,
+              0.26666666666666666,
+              0.224,
+              0.26666666666666666,
+              0.49066666666666664,
+              0.48,
+              0.256
+            ],
+            "pitch_strength": 0.5049343044673898,
+            "crescendo": -0.09043446798842913,
+            "seed": 88006,
+            "file": "candidate-04.wav"
+          },
+          {
+            "seconds": 1.8666666666666667,
+            "units": 2,
+            "gaps": [
+              0.5653333333333334
+            ],
+            "pitch_strength": 0.35975662658423546,
+            "crescendo": -0.34818310738623315,
+            "seed": 88007,
+            "file": "candidate-05.wav"
+          },
+          {
+            "seconds": 4.8,
+            "units": 6,
+            "gaps": [
+              0.11733333333333333,
+              0.20266666666666666,
+              0.49066666666666664,
+              0.3626666666666667,
+              1.2266666666666666
+            ],
+            "pitch_strength": 0.47044834218245973,
+            "crescendo": -0.18865924276824325,
+            "seed": 88008,
+            "file": "candidate-06.wav"
+          },
+          {
+            "seconds": 1.4533333333333334,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88009,
+            "file": "candidate-07.wav"
+          },
+          {
+            "seconds": 1.1733333333333333,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88010,
+            "file": "candidate-08.wav"
+          },
+          {
+            "seconds": 2.1866666666666665,
+            "units": 4,
+            "gaps": [
+              0.352,
+              0.45866666666666667,
+              0.5013333333333333
+            ],
+            "pitch_strength": 0.5846843668959664,
+            "crescendo": -0.0783375970575928,
+            "seed": 88011,
+            "file": "candidate-09.wav"
+          },
+          {
+            "seconds": 4.68,
+            "units": 3,
+            "gaps": [
+              0.832,
+              0.6933333333333334
+            ],
+            "pitch_strength": 0.30693218818238965,
+            "crescendo": 0.0831385494675595,
+            "seed": 88013,
+            "file": "candidate-10.wav"
+          },
+          {
+            "seconds": 2.066666666666667,
+            "units": 5,
+            "gaps": [
+              0.128,
+              0.13866666666666666,
+              0.39466666666666667,
+              0.5653333333333334
+            ],
+            "pitch_strength": 0.3878811340865347,
+            "crescendo": -0.21868412704190038,
+            "seed": 88014,
+            "file": "candidate-11.wav"
+          },
+          {
+            "seconds": 2.92,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88017,
+            "file": "candidate-12.wav"
+          },
+          {
+            "seconds": 2.2266666666666666,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88018,
+            "file": "candidate-13.wav"
+          },
+          {
+            "seconds": 1.5066666666666666,
+            "units": 2,
+            "gaps": [
+              0.7573333333333333
+            ],
+            "pitch_strength": 0.48672350522358276,
+            "crescendo": 0.3536411278865224,
+            "seed": 88019,
+            "file": "candidate-14.wav"
+          },
+          {
+            "seconds": 2.546666666666667,
+            "units": 3,
+            "gaps": [
+              0.9493333333333334,
+              0.45866666666666667
+            ],
+            "pitch_strength": 0.7171710666857596,
+            "crescendo": 0.09687437734074456,
+            "seed": 88020,
+            "file": "candidate-15.wav"
+          },
+          {
+            "seconds": 4.64,
+            "units": 11,
+            "gaps": [
+              0.13866666666666666,
+              0.288,
+              0.256,
+              0.08533333333333333,
+              0.4693333333333333,
+              0.26666666666666666,
+              0.2986666666666667,
+              1.0133333333333334,
+              0.18133333333333335,
+              0.39466666666666667
+            ],
+            "pitch_strength": 0.8661203883866648,
+            "crescendo": -0.11936006349951944,
+            "seed": 88021,
+            "file": "candidate-16.wav"
+          },
+          {
+            "seconds": 3.2533333333333334,
+            "units": 6,
+            "gaps": [
+              0.17066666666666666,
+              0.18133333333333335,
+              0.18133333333333335,
+              0.192,
+              0.26666666666666666
+            ],
+            "pitch_strength": 0.4203799618937765,
+            "crescendo": -0.05643912894334341,
+            "seed": 88022,
+            "file": "candidate-17.wav"
+          },
+          {
+            "seconds": 3.7466666666666666,
+            "units": 5,
+            "gaps": [
+              0.24533333333333332,
+              0.5653333333333334,
+              0.448,
+              1.2266666666666666
+            ],
+            "pitch_strength": 0.3563796724156751,
+            "crescendo": 0.16620856929586347,
+            "seed": 88023,
+            "file": "candidate-18.wav"
+          },
+          {
+            "seconds": 2.24,
+            "units": 2,
+            "gaps": [
+              0.736
+            ],
+            "pitch_strength": 0.726561840483448,
+            "crescendo": -0.016618090729990542,
+            "seed": 88024,
+            "file": "candidate-19.wav"
+          },
+          {
+            "seconds": 1.1733333333333333,
+            "units": 3,
+            "gaps": [
+              0.30933333333333335,
+              0.288
+            ],
+            "pitch_strength": 0.4884804800944316,
+            "crescendo": -0.06690804657891303,
+            "seed": 88025,
+            "file": "candidate-20.wav"
+          },
+          {
+            "seconds": 1.6933333333333334,
+            "units": 1,
+            "gaps": [],
+            "pitch_strength": 0.7153036007689622,
+            "crescendo": null,
+            "seed": 88026,
+            "file": "candidate-21.wav"
+          },
+          {
+            "seconds": 4.48,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88029,
+            "file": "candidate-22.wav"
+          },
+          {
+            "seconds": 4.653333333333333,
+            "units": 5,
+            "gaps": [
+              0.128,
+              1.1626666666666667,
+              0.128,
+              1.3653333333333333
+            ],
+            "pitch_strength": 0.5301677942601163,
+            "crescendo": -0.23301517048011278,
+            "seed": 88030,
+            "file": "candidate-23.wav"
+          },
+          {
+            "seconds": 2.533333333333333,
+            "units": 4,
+            "gaps": [
+              0.192,
+              0.45866666666666667,
+              0.4053333333333333
+            ],
+            "pitch_strength": 0.6745392660257884,
+            "crescendo": 0.019067319538067284,
+            "seed": 88031,
+            "file": "candidate-24.wav"
+          },
+          {
+            "seconds": 6.0,
+            "units": 15,
+            "gaps": [
+              0.20266666666666666,
+              0.3626666666666667,
+              0.17066666666666666,
+              0.39466666666666667,
+              0.576,
+              0.17066666666666666,
+              0.224,
+              0.17066666666666666,
+              0.128,
+              0.11733333333333333,
+              0.128,
+              0.11733333333333333,
+              0.20266666666666666,
+              0.17066666666666666
+            ],
+            "pitch_strength": 0.48809934827963397,
+            "crescendo": -0.042499762607121405,
+            "seed": 88032,
+            "file": "candidate-25.wav"
+          },
+          {
+            "seconds": 1.2133333333333334,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88033,
+            "file": "candidate-26.wav"
+          },
+          {
+            "seconds": 2.52,
+            "units": 4,
+            "gaps": [
+              0.2773333333333333,
+              0.30933333333333335,
+              0.704
+            ],
+            "pitch_strength": 0.5164011162929051,
+            "crescendo": -0.19855797208315562,
+            "seed": 88035,
+            "file": "candidate-27.wav"
+          },
+          {
+            "seconds": 1.9066666666666667,
+            "units": 3,
+            "gaps": [
+              0.32,
+              0.4693333333333333
+            ],
+            "pitch_strength": 0.40907571242640034,
+            "crescendo": -0.15469450965370113,
+            "seed": 88037,
+            "file": "candidate-28.wav"
+          },
+          {
+            "seconds": 2.12,
+            "units": 4,
+            "gaps": [
+              0.26666666666666666,
+              0.18133333333333335,
+              1.0453333333333332
+            ],
+            "pitch_strength": 0.45007044969650273,
+            "crescendo": -0.08645541626063413,
+            "seed": 88038,
+            "file": "candidate-29.wav"
+          },
+          {
+            "seconds": 2.56,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88039,
+            "file": "candidate-30.wav"
+          },
+          {
+            "seconds": 5.6,
+            "units": 7,
+            "gaps": [
+              0.24533333333333332,
+              0.24533333333333332,
+              0.224,
+              0.256,
+              0.256,
+              0.9173333333333333
+            ],
+            "pitch_strength": 0.3560894047838807,
+            "crescendo": 0.10769594076633693,
+            "seed": 88041,
+            "file": "candidate-31.wav"
+          },
+          {
+            "seconds": 1.2533333333333334,
+            "units": 3,
+            "gaps": [
+              0.288,
+              0.37333333333333335
+            ],
+            "pitch_strength": 0.7412797650050121,
+            "crescendo": -0.03301222694105266,
+            "seed": 88042,
+            "file": "candidate-32.wav"
+          },
+          {
+            "seconds": 6.0,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88044,
+            "file": "candidate-33.wav"
+          },
+          {
+            "seconds": 4.093333333333334,
+            "units": 8,
+            "gaps": [
+              0.33066666666666666,
+              0.33066666666666666,
+              0.256,
+              0.33066666666666666,
+              0.288,
+              0.5333333333333333,
+              0.512
+            ],
+            "pitch_strength": 0.573138596979554,
+            "crescendo": -0.09886483878577135,
+            "seed": 88045,
+            "file": "candidate-34.wav"
+          },
+          {
+            "seconds": 1.2933333333333332,
+            "units": 3,
+            "gaps": [
+              0.32,
+              0.448
+            ],
+            "pitch_strength": 0.32671379813131285,
+            "crescendo": 0.11078921498648037,
+            "seed": 88046,
+            "file": "candidate-35.wav"
+          },
+          {
+            "seconds": 1.1333333333333333,
+            "units": 2,
+            "gaps": [
+              0.672
+            ],
+            "pitch_strength": 0.6535149868977025,
+            "crescendo": -0.11517950003945976,
+            "seed": 88047,
+            "file": "candidate-36.wav"
+          },
+          {
+            "seconds": 1.96,
+            "units": 5,
+            "gaps": [
+              0.24533333333333332,
+              0.17066666666666666,
+              0.288,
+              0.26666666666666666
+            ],
+            "pitch_strength": 0.7321179964140674,
+            "crescendo": 0.0036610861783836768,
+            "seed": 88049,
+            "file": "candidate-37.wav"
+          },
+          {
+            "seconds": 6.0,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88050,
+            "file": "candidate-38.wav"
+          },
+          {
+            "seconds": 5.946666666666666,
+            "units": 11,
+            "gaps": [
+              0.20266666666666666,
+              0.256,
+              0.192,
+              0.224,
+              0.13866666666666666,
+              0.5013333333333333,
+              0.5653333333333334,
+              0.13866666666666666,
+              0.352,
+              0.13866666666666666
+            ],
+            "pitch_strength": 0.3223230586555441,
+            "crescendo": 0.09905450099394825,
+            "seed": 88054,
+            "file": "candidate-39.wav"
+          },
+          {
+            "seconds": 4.36,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88056,
+            "file": "candidate-40.wav"
+          },
+          {
+            "seconds": 5.72,
+            "units": 11,
+            "gaps": [
+              0.768,
+              0.43733333333333335,
+              0.26666666666666666,
+              0.13866666666666666,
+              1.088,
+              0.192,
+              0.24533333333333332,
+              0.352,
+              0.192,
+              0.23466666666666666
+            ],
+            "pitch_strength": 0.48693473239305224,
+            "crescendo": -0.0038345539725546662,
+            "seed": 88058,
+            "file": "candidate-41.wav"
+          },
+          {
+            "seconds": 1.3866666666666667,
+            "units": 2,
+            "gaps": [
+              0.768
+            ],
+            "pitch_strength": 0.5907016570300725,
+            "crescendo": -0.23387669852520976,
+            "seed": 88059,
+            "file": "candidate-42.wav"
+          },
+          {
+            "seconds": 1.8933333333333333,
+            "units": 0,
+            "gaps": [],
+            "pitch_strength": null,
+            "crescendo": null,
+            "seed": 88060,
+            "file": "candidate-43.wav"
+          }
+        ],
+        "attempts": [
+          {
+            "seed": 88000,
+            "seconds": 4.426666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88001,
+            "seconds": 3.76,
+            "gradeable": true
+          },
+          {
+            "seed": 88002,
+            "seconds": 0.08,
+            "gradeable": false
+          },
+          {
+            "seed": 88003,
+            "seconds": 1.5466666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88004,
+            "seconds": 0.13333333333333333,
+            "gradeable": false
+          },
+          {
+            "seed": 88005,
+            "seconds": 1.1466666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88006,
+            "seconds": 4.906666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88007,
+            "seconds": 1.8666666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88008,
+            "seconds": 4.8,
+            "gradeable": true
+          },
+          {
+            "seed": 88009,
+            "seconds": 1.4533333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88010,
+            "seconds": 1.1733333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88011,
+            "seconds": 2.1866666666666665,
+            "gradeable": true
+          },
+          {
+            "seed": 88012,
+            "seconds": 0.4266666666666667,
+            "gradeable": false
+          },
+          {
+            "seed": 88013,
+            "seconds": 4.68,
+            "gradeable": true
+          },
+          {
+            "seed": 88014,
+            "seconds": 2.066666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88015,
+            "seconds": 0.6266666666666667,
+            "gradeable": false
+          },
+          {
+            "seed": 88016,
+            "seconds": 0.10666666666666667,
+            "gradeable": false
+          },
+          {
+            "seed": 88017,
+            "seconds": 2.92,
+            "gradeable": true
+          },
+          {
+            "seed": 88018,
+            "seconds": 2.2266666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88019,
+            "seconds": 1.5066666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88020,
+            "seconds": 2.546666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88021,
+            "seconds": 4.64,
+            "gradeable": true
+          },
+          {
+            "seed": 88022,
+            "seconds": 3.2533333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88023,
+            "seconds": 3.7466666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88024,
+            "seconds": 2.24,
+            "gradeable": true
+          },
+          {
+            "seed": 88025,
+            "seconds": 1.1733333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88026,
+            "seconds": 1.6933333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88027,
+            "seconds": 0.64,
+            "gradeable": false
+          },
+          {
+            "seed": 88028,
+            "seconds": 0.9333333333333333,
+            "gradeable": false
+          },
+          {
+            "seed": 88029,
+            "seconds": 4.48,
+            "gradeable": true
+          },
+          {
+            "seed": 88030,
+            "seconds": 4.653333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88031,
+            "seconds": 2.533333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88032,
+            "seconds": 6.0,
+            "gradeable": true
+          },
+          {
+            "seed": 88033,
+            "seconds": 1.2133333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88034,
+            "seconds": 0.09333333333333334,
+            "gradeable": false
+          },
+          {
+            "seed": 88035,
+            "seconds": 2.52,
+            "gradeable": true
+          },
+          {
+            "seed": 88036,
+            "seconds": 0.14666666666666667,
+            "gradeable": false
+          },
+          {
+            "seed": 88037,
+            "seconds": 1.9066666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88038,
+            "seconds": 2.12,
+            "gradeable": true
+          },
+          {
+            "seed": 88039,
+            "seconds": 2.56,
+            "gradeable": true
+          },
+          {
+            "seed": 88040,
+            "seconds": 0.6133333333333333,
+            "gradeable": false
+          },
+          {
+            "seed": 88041,
+            "seconds": 5.6,
+            "gradeable": true
+          },
+          {
+            "seed": 88042,
+            "seconds": 1.2533333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88043,
+            "seconds": 0.36,
+            "gradeable": false
+          },
+          {
+            "seed": 88044,
+            "seconds": 6.0,
+            "gradeable": true
+          },
+          {
+            "seed": 88045,
+            "seconds": 4.093333333333334,
+            "gradeable": true
+          },
+          {
+            "seed": 88046,
+            "seconds": 1.2933333333333332,
+            "gradeable": true
+          },
+          {
+            "seed": 88047,
+            "seconds": 1.1333333333333333,
+            "gradeable": true
+          },
+          {
+            "seed": 88048,
+            "seconds": 0.8533333333333334,
+            "gradeable": false
+          },
+          {
+            "seed": 88049,
+            "seconds": 1.96,
+            "gradeable": true
+          },
+          {
+            "seed": 88050,
+            "seconds": 6.0,
+            "gradeable": true
+          },
+          {
+            "seed": 88051,
+            "seconds": 0.9333333333333333,
+            "gradeable": false
+          },
+          {
+            "seed": 88052,
+            "seconds": 0.10666666666666667,
+            "gradeable": false
+          },
+          {
+            "seed": 88053,
+            "seconds": 0.12,
+            "gradeable": false
+          },
+          {
+            "seed": 88054,
+            "seconds": 5.946666666666666,
+            "gradeable": true
+          },
+          {
+            "seed": 88055,
+            "seconds": 0.9733333333333334,
+            "gradeable": false
+          },
+          {
+            "seed": 88056,
+            "seconds": 4.36,
+            "gradeable": true
+          },
+          {
+            "seed": 88057,
+            "seconds": 0.12,
+            "gradeable": false
+          },
+          {
+            "seed": 88058,
+            "seconds": 5.72,
+            "gradeable": true
+          },
+          {
+            "seed": 88059,
+            "seconds": 1.3866666666666667,
+            "gradeable": true
+          },
+          {
+            "seed": 88060,
+            "seconds": 1.8933333333333333,
+            "gradeable": true
+          }
+        ],
+        "summary": {
+          "n": 44,
+          "mean_units": 3.659090909090909,
+          "gaps_per_clip": 2.9318181818181817,
+          "single_share": 0.3181818181818182,
+          "median_gap_s": 0.288,
+          "dust_rate": 0.25,
+          "dust_scored_n": 32,
+          "mean_crescendo": -0.04194278746386715,
+          "crescendo_scored_n": 30
+        }
+      }
+    },
+    "anchor_bouts": [
+      59457,
+      31115,
+      46908,
+      21724,
+      49594,
+      21666,
+      58393,
+      28056,
+      65541,
+      50421,
+      38906,
+      47527,
+      45185,
+      31954,
+      39737,
+      49237,
+      63848,
+      33932,
+      48157,
+      35768,
+      43990,
+      43282,
+      29936,
+      24406,
+      38440,
+      37276,
+      29970,
+      35381,
+      56086,
+      34448,
+      23129,
+      65181,
+      31404,
+      41619,
+      38765,
+      24125,
+      43776,
+      40580,
+      23791,
+      30197,
+      43579,
+      54477,
+      55771,
+      58022,
+      24989,
+      60466,
+      21616,
+      50237,
+      61144,
+      32207,
+      62021,
+      42489,
+      52836,
+      23188,
+      23462,
+      41137
+    ],
+    "anchor_groups": [
+      "american-crow|rec-day|partindanny|2023-05-13",
+      "american-crow|rec-day|USER335210|2020-08-09",
+      "american-crow|rec-day|klankbeeld|2026-06-10",
+      "american-crow|rec-day|USER295637|2020-05-05",
+      "american-crow|rec-day|klankbeeld|2025-04-08",
+      "american-crow|rec-day|USER50014|2016-07-28",
+      "american-crow|rec-day|billpranty|2022-11-11",
+      "american-crow|rec-day|USER330808|2022-11-21",
+      "american-crow|rec-day|soilsprite93|2026-03-19",
+      "american-crow|rec-day|conleec|2013-01-11",
+      "american-crow|rec-day|USER8474728|2025-12-18",
+      "american-crow|rec-day|bruno.auzet|2025-09-18",
+      "american-crow|rec-day|klankbeeld|2026-01-23",
+      "american-crow|rec-day|USER844472|2024-02-28",
+      "american-crow|rec-day|USER60214|2019-02-26",
+      "american-crow|rec-day|klankbeeld|2025-11-13",
+      "american-crow|rec-day|sc_beetles|2025-07-02",
+      "american-crow|rec-day|USER1030707|2022-08-13",
+      "american-crow|rec-day|klankbeeld|2025-12-08",
+      "american-crow|rec-day|USER94220|2011-01-01",
+      "american-crow|rec-day|RandomRecord19|2022-10-14",
+      "american-crow|rec-day|RandomRecord19|2024-06-17",
+      "american-crow|rec-day|USER353125|2025-03-15",
+      "american-crow|rec-day|USER2554961|2021-12-04",
+      "american-crow|rec-day|USER904219|2024-01-11",
+      "american-crow|rec-day|USER286620|2019-07-17",
+      "american-crow|rec-day|USER226941|2024-12-21",
+      "american-crow|rec-day|USER353417|2022-07-17",
+      "american-crow|rec-day|rwp84|2021-03-22",
+      "american-crow|rec-day|USER1120181|2021-12-25",
+      "american-crow|rec-day|USER226941|2024-07-06",
+      "american-crow|rec-day|grivesolitaire|2025-09-03",
+      "american-crow|rec-day|USER539487|2019-09-06",
+      "american-crow|rec-day|USER283907|2026-07-25",
+      "american-crow|rec-day|USER1013462|2026-04-24",
+      "american-crow|rec-day|USER353417|2022-10-16",
+      "american-crow|rec-day|Toybox|2020-04-28",
+      "american-crow|rec-day|USER100116|2005-06-26",
+      "american-crow|rec-day|USER283907|2023-07-15",
+      "american-crow|rec-day|USER4232688|2024-04-30",
+      "american-crow|rec-day|YleArkisto|2015-02-16",
+      "american-crow|rec-day|mjoyce|2022-06-02",
+      "american-crow|rec-day|zhelicarol|2020-11-14",
+      "american-crow|rec-day|ldski|2022-08-07",
+      "american-crow|rec-day|USER829264|2021-02-26",
+      "american-crow|rec-day|soraria|2023-11-24",
+      "american-crow|rec-day|USER346264|2018-08-01",
+      "american-crow|rec-day|kyles|2017-10-31",
+      "american-crow|rec-day|dhasdf|2024-03-07",
+      "american-crow|rec-day|USER4336842|2024-08-14",
+      "american-crow|rec-day|mwest|2024-08-31",
+      "american-crow|rec-day|USER2568026|2026-04-06",
+      "american-crow|rec-day|klankbeeld|2018-06-17",
+      "american-crow|rec-day|USER22183|2024-05-31",
+      "american-crow|rec-day|USER267565|2024-01-20",
+      "american-crow|rec-day|USER1912212|2022-10-31"
+    ]
+  }
+}
