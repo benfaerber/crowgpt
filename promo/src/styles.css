@@ -477,6 +477,59 @@ img {
   color: var(--text-primary);
 }
 
+/* The two off-site links are marks rather than words: the GitHub octocat in
+ * the text colour, the Hugging Face face in its own yellow. Sized to the cap
+ * height of the links beside them so the row reads as one line. */
+.nav-links {
+  align-items: center;
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.icon-github {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.icon-hf {
+  width: 1.3rem;
+  height: auto;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.weights-link {
+  margin-top: 1.1rem;
+  font-size: 0.9rem;
+}
+
+.weights-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.weights-link a:hover span {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.weights-link .icon-hf {
+  flex: none;
+  width: 1.7rem;
+}
+
 .hero-body {
   max-width: var(--measure);
 }
