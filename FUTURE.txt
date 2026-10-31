@@ -2624,6 +2624,14 @@ CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
     the pip-installable crowgpt package (the loader lives in this repo), and
     Ben's word on the flip — publishing is his call, on his timing.
 
+    2026-10-30: Ben gave the word. The card was rewritten for the public
+    (crowgpt.org, the GitHub repo, the gated-access terms and the licensing
+    and intended-use sections that used to sit in a second, obsolete local
+    card) and pushed; crowgpt/results/hub/README.md is now the one local
+    copy. The visibility flip and gating are Ben's own hands on the Hub, an
+    agent's session was refused that action. faerber/cawtalker-models stays
+    private as the backup mirror.
+
     The standard shape is a HF Hub model repo per release: weights as
     safetensors, config.json carrying the architecture + tokenizer manifest,
     generation_config.json carrying the release sampling (T/k/max_frames),

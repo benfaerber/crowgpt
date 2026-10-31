@@ -40,7 +40,7 @@ before wondering and written before working.
 
 ## Active
 
-- **Hooded Crow** — since 2026-10-30 — hosting questions: 0087 (CPU generation) and 0088 (BirdNET per-clip timing, contributor walkthrough) committed; FUTURE.txt records the 0080 verdict. Inspected faerber/* on Hugging Face read-only, changed nothing there. Server and GPU untouched. Updated 2026-10-30 18:40.
+- **Hooded Crow** — since 2026-10-30 — hosting answers (0087, 0088), CawTalker→CrowGPT rename pass (5e6d9bd), merged Hub model card pushed to faerber/crowgpt (still private; flip is Ben's). Stale-content survey running via a subagent. Server and GPU untouched. Updated 2026-10-30 19:10.
 
 - **Jackdaw** — since 2026-10-21 17:55 — open-source move done (public github.com/benfaerber/crowgpt, one-commit squash; old history on local branch `private-history`, purge needs Ben's OK, see TODO.txt). Then the project renamed CrowGPT across titles/app/dashboard/docs (dbe27b7) and the promo's call-type cards shipped (18fd253), both deployed to cawtalker.org. Five local commits unpushed. Server and GPU untouched. Updated 2026-10-21 22:05.
 
