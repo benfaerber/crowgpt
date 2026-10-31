@@ -30,6 +30,14 @@ They grant different things, so they are deliberately not the same string:
 | `FIELD_ENROLL_TOKEN` | `dev-enroll` | join the fleet; push and read **your own** captures |
 | `FIELD_OPERATOR_TOKEN` | `dev-operator` | additionally `/api/fleet/*` — **every** device's captures |
 
+Two more are optional and hosted-only. `FIELD_TRUST_PROXY=1` makes the server
+read the client address from `X-Forwarded-For`, for a reverse proxy on the
+same box; without it the throttle keys every caller to 127.0.0.1.
+`RESEND_API_KEY` (and `FIELD_MAIL_FROM`, default `hello@crowgpt.org`) lets an
+approved access request be emailed its invite; unset, the dashboard hands you
+the link to send yourself. Strangers ask at `/preview`; operators decide on the
+dashboard's Access page.
+
 The defaults are for loopback, where you already have to be on this machine.
 **The server refuses to bind anything else while either is still at its
 default** — off loopback they are published constants, and anyone who can read

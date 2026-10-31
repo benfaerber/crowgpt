@@ -639,3 +639,27 @@ export interface GenerationFeed {
   models: ChatModel[];
   generations: Generation[];
 }
+
+/** One "may I try the app?" and what became of it. See api/access.py. */
+export interface AccessRequest {
+  id: number;
+  email: string;
+  name: string | null;
+  note: string | null;
+  requester_ip: string | null;
+  requested_at: string;
+  status: "pending" | "approved" | "declined";
+  decided_at: string | null;
+  invite_token: string | null;
+  invite_url: string | null;
+  emailed_at: string | null;
+  email_error: string | null;
+  downloads: number;
+  last_download_at: string | null;
+}
+
+export interface AccessQueue {
+  requests: AccessRequest[];
+  mail_configured: boolean;
+  build: string;
+}

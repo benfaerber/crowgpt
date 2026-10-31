@@ -51,6 +51,9 @@ class Deps:
     #: Where somebody actually scouted, and what they found — the labels
     #: that grade the 0084 prior. See stores/scout_visits.py.
     scout_visits: Any
+    #: Who asked to try the app, and the invites that answered. See
+    #: stores/access_requests.py and api/access.py.
+    access: Any
 
     #: The calling device and the person it belongs to, or 401.
     current_actor: Callable[[], tuple]

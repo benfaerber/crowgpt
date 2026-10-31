@@ -28,6 +28,7 @@ from .stores.labels import LabelStore
 from .stores.merges import MergeStore
 from .stores.generations import GenerationStore
 from .stores.scout_visits import ScoutVisitStore
+from .stores.access_requests import AccessRequestStore
 from .stores.listening import ListeningStore
 from .stores.logs import LogStore
 from .stores.dictations import DictationStore
@@ -131,6 +132,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
     # Synthetic clips beside media/, never inside it, same as dictations.
     generations = GenerationStore(resolved_db, resolved_db.parent / "generated")
     scout_visits = ScoutVisitStore(resolved_db)
+    access = AccessRequestStore(resolved_db)  # owns no foreign keys: an email is not a contributor
     board = DashboardQueries(resolved_db)   # read-only joins across all of the above
 
     def current_device() -> dict:
@@ -187,7 +189,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
         dictations=dictations,
         sightings=sightings, ai_descriptions=ai_descriptions,
         merges=merges, logs=logs, listening=listening, generations=generations,
-        instance_dir=resolved_db.parent, scout_visits=scout_visits,
+        instance_dir=resolved_db.parent, scout_visits=scout_visits, access=access,
         board=board,
         current_actor=current_actor,
         owned_capture=owned_capture, counts=counts,

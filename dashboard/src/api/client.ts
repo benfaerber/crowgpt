@@ -11,6 +11,7 @@ import type {
   FleetSummary,
   LabelTotal,
 } from "./types";
+import type { AccessQueue, AccessRequest } from "./types";
 import type { CallContextMatrix, DeviceLog, LogLevel, RelabelRow } from "./types";
 import type { Generation, GenerationFeed, ListeningPool, TrainingStatus } from "./types";
 import type {
@@ -308,6 +309,27 @@ export function useFleetLogSummary() {
  * that moves is a cooldown counting down, and a stale one reads as "still
  * locked" when the dose is actually ready.
  */
+/**
+ * The access queue: who asked for the app, and the invites that answered.
+ * Polled, because a request arriving while the page is open should show up
+ * without a reload — it is the one page on this dashboard strangers feed.
+ */
+export function useAccessRequests(signedIn: boolean) {
+  return useQuery({
+    queryKey: ["access"],
+    queryFn: () => request<AccessQueue>("/api/fleet/access-requests"),
+    enabled: signedIn,
+    refetchInterval: 30_000,
+  });
+}
+
+export function decideAccess(id: number, decision: "approve" | "decline") {
+  return post<{ request: AccessRequest; emailed?: boolean }>(
+    `/api/fleet/access-requests/${id}/${decision}`,
+    {},
+  );
+}
+
 export function useListening(signedIn: boolean) {
   return useQuery({
     queryKey: ["listening"],

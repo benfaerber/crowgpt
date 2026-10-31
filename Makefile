@@ -27,7 +27,7 @@ help:
 	@echo "  make field-deploy Ship the committed tree + bundles to field.crowgpt.org and restart its services"
 	@echo "  make field-status Are the hosted server, its workers and Caddy up"
 	@echo "  make field-logs   The hosted services' last hundred log lines"
-	@echo "  make apk-publish  Build the app and put the APK behind https://field.crowgpt.org/preview"
+	@echo "  make apk-publish  Build the app and publish the APK to the hosted invite pages"
 	@echo "  make fieldserver  Run the field API + operator dashboard -> http://127.0.0.1:5100"
 	@echo "  make dashboard    Dashboard with hot reload -> http://127.0.0.1:5173 (needs the server up)"
 	@echo "  make promo        Promo site with hot reload -> http://127.0.0.1:5174 (served at :5100/promo)"
@@ -89,7 +89,7 @@ apk-publish:
 	ssh $(DEPLOY_HOST) 'mkdir -p ~/$(DEPLOY_DIR)/fieldserver/instance/apk'
 	scp -q mobile/android/app/build/outputs/apk/release/app-release.apk \
 	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/instance/apk/crowgpt-field-$$(date +%Y%m%d)-$$(git rev-parse --short HEAD).apk
-	@echo "published -> https://field.crowgpt.org/preview"
+	@echo "published: every approved invite at https://field.crowgpt.org/preview/<token> now serves it"
 
 field-status:
 	@ssh $(DEPLOY_HOST) 'systemctl --no-pager status crowgpt-field crowgpt-analyze crowgpt-generate crowgpt-scout caddy 2>/dev/null | grep -E "^.? ?[a-z-]+\.service|Active:"'

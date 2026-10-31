@@ -22,6 +22,7 @@ import { FamilyDetail } from "./components/FamilyDetail";
 import { LabelTotals } from "./components/LabelTotals";
 import { ListeningPanel } from "./components/ListeningPanel";
 import { LogsPanel } from "./components/LogsPanel";
+import { AccessPage } from "./components/AccessPage";
 import { RelabelPanel } from "./components/RelabelPanel";
 import { TrainingPanel } from "./components/TrainingPanel";
 import { CorpusPanel } from "./components/CorpusPanel";
@@ -144,6 +145,8 @@ export function App() {
         <CrowChatPage signedIn={signedIn} />
       ) : page === "logs" ? (
         <LogsPanel />
+      ) : page === "access" ? (
+        <AccessPage signedIn={signedIn} />
       ) : (
         <>
           <div className="card">
@@ -234,12 +237,6 @@ function Shell({
             </a>
             <a className="ghost" href="/gallery/">
               Gallery
-            </a>
-            {/* The preview build of the app, behind its own password: the
-                page to send a tester to, and the quickest way to check what
-                build is published. */}
-            <a className="ghost" href="/preview">
-              App APK
             </a>
           </nav>
         ) : null}

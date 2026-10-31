@@ -26,10 +26,6 @@ LOOPBACK_HOSTS = ("127.0.0.1", "localhost", "::1")
 # of silently authenticating a request that omits the field entirely.
 ENROLL_SECRET = os.environ.get("FIELD_ENROLL_TOKEN") or DEFAULT_ENROLL_TOKEN
 OPERATOR_SECRET = os.environ.get("FIELD_OPERATOR_TOKEN") or DEFAULT_OPERATOR_TOKEN
-# A third, optional, and deliberately weaker: the word a tester types into
-# /preview to download the app. It guards an APK, not the corpus, so it has no
-# default and no off-loopback refusal — unset, the page says previews are off.
-PREVIEW_SECRET = os.environ.get("FIELD_PREVIEW_PASSWORD") or ""
 
 
 def presented(body: dict, field: str, secret: str) -> bool:

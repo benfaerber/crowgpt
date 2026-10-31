@@ -1506,3 +1506,14 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     Either the route stopped passing conditional=True to send_file, or
     werkzeug changed when it adds the header; find out which before the
     dashboard's scrubber is blamed.
+
+[ ] Let the field server send invite emails (Ben: Resend + DNS)
+
+    /preview takes access requests and the dashboard's Access page approves
+    them. Approval mints the invite link either way; emailing it needs
+    RESEND_API_KEY in the box's instance/service.env and the crowgpt.org
+    zone carrying Resend's DKIM/SPF records so hello@crowgpt.org is a
+    verified sender (FIELD_MAIL_FROM overrides the sender). Until then the
+    page says "copy the link and send it yourself", which works. Free tier
+    is 3,000 a month; the code is core/mail.py, one POST, no library.
+
