@@ -2634,7 +2634,16 @@ CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
     answered; what remains before promo is quantisation, bundling, and
     Ben's go-ahead (he leans toward shipping, 2026-08-18).
 
-    REVISIT WHEN the demo is wanted on the promo page for real.
+    BEN'S VERDICT (2026-10-30): the prototype's audio was noticeably worse
+    than the backend's, and something kept it from matching the backend
+    path exactly (details not recorded at the time), so it was NOT added to
+    the promo. The parity figures above are logit-level and did not predict
+    the ear. Do not treat 0080 as shippable; it is inferior. A hosted CPU
+    worker running the real sampler is the route for generation instead
+    (experiments/0087).
+
+    REVISIT WHEN the demo is wanted on the promo page for real, and only
+    after the quality gap is explained.
 
 [ ] A BLE button as the pocket trigger — the only remote class that can
     actually beat the AirPods
