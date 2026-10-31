@@ -40,7 +40,7 @@ before wondering and written before working.
 
 ## Active
 
-- **Hooded Crow** — since 2026-10-30 — hosting answers (0087, 0088); CawTalker→CrowGPT rename pass (5e6d9bd); Hub model card pushed to faerber/crowgpt (still private, flip is Ben's); stale-docs pass from a subagent survey (CLAUDE.md status, READMEs, Makefile help, TODO/FUTURE strikes, 18 stale roster lines struck). Server and GPU untouched. Updated 2026-10-30 19:40.
+- **Hooded Crow** — since 2026-10-30 — hosting answers (0087, 0088); CawTalker→CrowGPT rename pass (5e6d9bd); Hub model card pushed to faerber/crowgpt (still private, flip is Ben's); stale-docs pass from a subagent survey (CLAUDE.md status, READMEs, Makefile help, TODO/FUTURE strikes, 18 stale roster lines struck). Server and GPU untouched. Then: HF links on README+promo, Apache 2.0 LICENSE+NOTICE, contact address to hello@crowgpt.org, dashboard keys renamed (62e87d1). Promo rebuilt locally, NOT deployed. Updated 2026-10-30 19:15.
 
 
 ## Done
