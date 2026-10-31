@@ -235,6 +235,12 @@ function Shell({
             <a className="ghost" href="/gallery/">
               Gallery
             </a>
+            {/* The preview build of the app, behind its own password: the
+                page to send a tester to, and the quickest way to check what
+                build is published. */}
+            <a className="ghost" href="/preview">
+              App APK
+            </a>
           </nav>
         ) : null}
         <span className="spacer" />
