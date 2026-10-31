@@ -6,7 +6,7 @@ whole conditioning route dies here for twenty minutes instead of hours.
 import importlib.util, json, sys
 from collections import Counter, defaultdict
 from pathlib import Path
-REPO = Path("/home/ben/Code/cawtalker"); HERE = REPO/"crowgpt"
+REPO = Path(__file__).resolve().parents[2]; HERE = REPO/"crowgpt"
 sys.path.insert(0, str(HERE/"src"))
 from crowgpt.gpu import claim
 claim()

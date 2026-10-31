@@ -8,7 +8,7 @@ import json
 import sys
 from pathlib import Path
 
-REPO = Path("/home/ben/Code/cawtalker")
+REPO = Path(__file__).resolve().parents[2]
 MANIFEST = REPO / "data" / "crowgpt" / "tokens-6s-ct" / "manifest.json"
 
 EXPECTED_CALL_TYPES = ["alarm call", "begging", "call", "song", "unknown"]

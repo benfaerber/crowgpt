@@ -10,7 +10,7 @@ import json
 import sys
 from pathlib import Path
 
-REPO = Path("/home/ben/Code/cawtalker")
+REPO = Path(__file__).resolve().parents[2]
 LABELS = REPO / "data" / "crowgpt" / "bouts-6s" / "call_types.json"
 
 # Per-class floors, not a blanket minimum: `call` was 272 bouts in the corpus

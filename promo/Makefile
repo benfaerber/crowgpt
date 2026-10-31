@@ -23,7 +23,7 @@ help:
 	@echo "  make stats        Refresh stats.json from the field server and corpus"
 	@echo "  make stats-check  Report stale figures without writing (exit 1 if any)"
 	@echo "  make credits      Rebuild public/credits.json from the corpus"
-	@echo "  make traffic      Last week of cawtalker.org traffic from Cloudflare, humans split from bots"
+	@echo "  make traffic      Last week of crowgpt.org traffic from Cloudflare, humans split from bots"
 
 node_modules:
 	npm install

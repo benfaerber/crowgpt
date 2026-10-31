@@ -3,7 +3,7 @@
 # long-context build. Any failed step emails Ben (his ask: "ping me if you
 # get blocked") with the tail of the step's own log; a hang shows up as a
 # stale card on the dashboard instead, which every stage already feeds.
-REPO=/home/ben/Code/cawtalker
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 DATA=${DATA_DIR:-$REPO/data}
 LOG=/tmp/crowgpt-night-0067.log
 EMAIL="$REPO/.claude/local/email_ben.py"

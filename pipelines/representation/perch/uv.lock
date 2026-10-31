@@ -248,7 +248,7 @@ css = [
 ]
 
 [[package]]
-name = "cawtalker-perch"
+name = "crowgpt-perch"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

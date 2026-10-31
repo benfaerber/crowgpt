@@ -1,7 +1,7 @@
 """0014's gate, run against DAC — same windows, same metrics, matched bitrate."""
 import json, sys
 from pathlib import Path
-HERE = Path("/home/ben/Code/cawtalker/crowgpt"); sys.path.insert(0, str(HERE/"src"))
+HERE = Path(__file__).resolve().parents[2] / "crowgpt"; sys.path.insert(0, str(HERE/"src"))
 from crowgpt.gpu import claim
 claim()
 import librosa, numpy as np

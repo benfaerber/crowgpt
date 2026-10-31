@@ -2,7 +2,7 @@
 # The 2026-08-17 chain, run while Ben is at work: the conditioned 6 s model
 # with model-calltype's optimisation (n_head 6, 40k steps, true batch 32),
 # then the paired validation. Any failed step emails Ben.
-REPO=/home/ben/Code/cawtalker
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 LOG=/tmp/crowgpt-night-0077.log
 EMAIL="$REPO/.claude/local/email_ben.py"
 

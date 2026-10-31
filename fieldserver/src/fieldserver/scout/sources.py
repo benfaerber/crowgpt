@@ -145,7 +145,7 @@ class OverpassClient:
     def __init__(self, timeout=180):
         self.timeout = timeout
 
-    def _query(self, query, agent="cawtalker-scout"):
+    def _query(self, query, agent="crowgpt-scout"):
         request = urllib.request.Request(
             self.URL, data=urllib.parse.urlencode({"data": query}).encode(),
             headers={"User-Agent": agent})

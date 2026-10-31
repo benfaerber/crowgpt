@@ -33,7 +33,7 @@ def main():
             continue
         try:
             request = urllib.request.Request(
-                url, headers={"User-Agent": "cawtalker-archive"})
+                url, headers={"User-Agent": "crowgpt-archive"})
             with urllib.request.urlopen(request, timeout=30) as response:
                 target.write_bytes(response.read())
             fetched += 1

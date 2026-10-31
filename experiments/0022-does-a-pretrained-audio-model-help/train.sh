@@ -12,8 +12,9 @@
 set -euo pipefail
 
 SA3="${SA3:-/home/ben/Code/stable-audio-3}"
-DATA="${DATA:-/home/ben/Code/cawtalker/data/sa3-lora/american-crow}"
-OUT="${OUT:-/home/ben/Code/cawtalker/data/sa3-lora/checkpoints}"
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
+DATA="${DATA:-$REPO/data/sa3-lora/american-crow}"
+OUT="${OUT:-$REPO/data/sa3-lora/checkpoints}"
 MODEL="${MODEL:-small-sfx-base}"
 
 STEPS="${STEPS:-4000}"

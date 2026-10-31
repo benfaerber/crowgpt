@@ -14,7 +14,7 @@ import json
 import sys
 from pathlib import Path
 
-REPO = Path("/home/ben/Code/cawtalker")
+REPO = Path(__file__).resolve().parents[2]
 HERE = REPO / "crowgpt"
 sys.path.insert(0, str(HERE / "src"))
 

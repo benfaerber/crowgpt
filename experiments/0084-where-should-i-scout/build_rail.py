@@ -20,7 +20,7 @@ def overpass(query):
     request = urllib.request.Request(
         "https://overpass-api.de/api/interpreter",
         data=urllib.parse.urlencode({"data": query}).encode(),
-        headers={"User-Agent": "cawtalker-0084/rail"})
+        headers={"User-Agent": "crowgpt-0084/rail"})
     with urllib.request.urlopen(request, timeout=180) as response:
         return json.load(response)
 

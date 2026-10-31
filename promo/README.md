@@ -28,7 +28,7 @@ halves of the page read it:
   as well as a caption.
 
 A token with no matching figure **fails the build**. The thing that guards
-against is a literal `{{labels.count}}` reaching cawtalker.org, which nothing
+against is a literal `{{labels.count}}` reaching crowgpt.org, which nothing
 else here would catch.
 
 ```bash

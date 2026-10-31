@@ -149,7 +149,7 @@ def fetch_osm_trees(region):
     request = urllib.request.Request(
         "https://overpass-api.de/api/interpreter",
         data=urllib.parse.urlencode({"data": query}).encode(),
-        headers={"User-Agent": "cawtalker-0083/region"})
+        headers={"User-Agent": "crowgpt-0083/region"})
     with urllib.request.urlopen(request, timeout=300) as response:
         payload = json.load(response)
     return [(e["lat"], e["lon"]) for e in payload["elements"] if "lat" in e]

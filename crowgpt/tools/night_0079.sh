@@ -3,7 +3,7 @@
 # 50-step VRAM preflight at the novel block size -> full train at true batch
 # 32 -> structure validation against a 9 s real reference. Emails Ben on any
 # failed step; every long stage feeds the dashboard.
-REPO=/home/ben/Code/cawtalker
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 DATA=${DATA_DIR:-$REPO/data}
 LOG=/tmp/crowgpt-night-0079.log
 EMAIL="$REPO/.claude/local/email_ben.py"

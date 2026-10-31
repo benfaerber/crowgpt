@@ -1,7 +1,7 @@
 /* Playpen Sans, self-hosted rather than pulled from Google — one less
  * third-party request, and the page keeps working if fonts.gstatic.com is
  * blocked. Referenced relatively so Vite hashes it and the URL stays correct
- * under both base paths (/ for cawtalker.org, /promo for the field server).
+ * under both base paths (/ for crowgpt.org, /promo for the field server).
  * Variable weight axis, so one file covers the whole range. OFL 1.1. */
 @font-face {
   font-family: "Playpen Sans";

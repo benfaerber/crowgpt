@@ -119,14 +119,18 @@ when it has a shape and a reason to happen now.
     is written to ruff's rules from memory (real noqa codes, ~88 cols). If a
     linter ever lands, ruff with line-length 88 matches what is already true.
 
-[ ] Deploy: cawtalker.org is the promo, field.cawtalker.org is the API —
+[ ] Deploy: crowgpt.org is the promo, field.crowgpt.org is the API —
     and the hostname is the contract, so it goes in place before the backend
     is worth exposing
 
+    (Written as cawtalker.org; the domain moved to crowgpt.org in October
+    2026 and the old name redirects. Read field.crowgpt.org below. The
+    cawtalker.org mail addresses are still the routed ones.)
+
     Discussed 2026-08-06. The destination is crowdsourced: strangers' phones
     pushing captures. That makes the domain layout the durable decision and
-    everything behind it swappable. cawtalker.org serves the static promo
-    bundle and doubles as the recruitment funnel. field.cawtalker.org is the
+    everything behind it swappable. crowgpt.org serves the static promo
+    bundle and doubles as the recruitment funnel. field.crowgpt.org is the
     API name the apps bake in ONCE, so the backend can move without a client
     change.
 

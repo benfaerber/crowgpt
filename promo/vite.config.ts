@@ -10,7 +10,7 @@ import { defineConfig, type Plugin } from "vite";
  * /promo — one process on one port for a running fleet.
  *
  * `PROMO_PUBLIC=1` builds the same page for the public host instead: rooted at
- * `/` and written to dist/, which is what gets uploaded to cawtalker.org. The
+ * `/` and written to dist/, which is what gets uploaded to crowgpt.org. The
  * base path is the whole difference, and it has to be decided at build time
  * because Vite bakes asset URLs into the HTML.
  */
@@ -28,7 +28,7 @@ const STATS = resolve(__dirname, "stats.json");
  * token. `promo/tools/build_stats.py` is what puts current numbers in the file.
  *
  * An unknown key is a build error rather than a fallback. The failure this
- * prevents is a literal `{{labels.count}}` on cawtalker.org, which nothing else
+ * prevents is a literal `{{labels.count}}` on crowgpt.org, which nothing else
  * here would catch.
  */
 function statsTokens(): Plugin {

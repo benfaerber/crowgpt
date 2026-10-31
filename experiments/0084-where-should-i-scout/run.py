@@ -134,7 +134,7 @@ out center;"""
     request = urllib.request.Request(
         "https://overpass-api.de/api/interpreter",
         data=urllib.parse.urlencode({"data": query}).encode(),
-        headers={"User-Agent": "cawtalker-scouting/0084"})
+        headers={"User-Agent": "crowgpt-scouting/0084"})
     with urllib.request.urlopen(request, timeout=180) as response:
         payload = json.load(response)
     green, water, food = [], [], []

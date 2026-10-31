@@ -7,7 +7,7 @@
 #
 # Extraction is deliberately absent: bouts-6s survives from night_0067, and
 # re-extracting would orphan the call_types.json this chain begins by writing.
-REPO=/home/ben/Code/cawtalker
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 DATA=${DATA_DIR:-$REPO/data}
 LOG=/tmp/crowgpt-night-0074.log
 EMAIL="$REPO/.claude/local/email_ben.py"

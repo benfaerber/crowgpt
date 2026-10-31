@@ -8,7 +8,7 @@ acoustic-separability bet looks good.
 
 ## What it does
 
-1. Reads the shared corpus at `cawtalker/data/corvid.db` for downloaded clips
+1. Reads the shared corpus at `data/corvid.db` for downloaded clips
    with clean single-label call types (`call`, `flight call`, `alarm call`,
    `song`; drops multi-label / `uncertain`).
 2. Decodes each MP3 with **ffmpeg** and extracts classical features with

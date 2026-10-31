@@ -2,7 +2,7 @@
 # The 2026-08-16 night chain, run while Ben sleeps at his ask: the batch-32
 # retrain of the conditioned long-context model, then the paired validation.
 # Any failed step emails Ben; progress cards feed the dashboard throughout.
-REPO=/home/ben/Code/cawtalker
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 DATA=${DATA_DIR:-$REPO/data}
 LOG=/tmp/crowgpt-night-0075.log
 EMAIL="$REPO/.claude/local/email_ben.py"

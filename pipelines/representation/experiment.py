@@ -12,7 +12,7 @@ which conflicts with NumPy 2.x here). A pretrained embedder (BirdNET / PANNs) is
 the documented upgrade path.
 
 Run:  python3 experiment.py
-Reads the shared corpus at cawtalker/data/corvid.db; writes results/ here.
+Reads the shared corpus at data/corvid.db; writes results/ here.
 """
 
 import json

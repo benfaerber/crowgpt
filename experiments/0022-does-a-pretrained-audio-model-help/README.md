@@ -96,7 +96,7 @@ which is the head working as 0021 measured.
 ```bash
 # arms
 cd /home/ben/Code/stable-audio-3 && uv run python \
-  ../cawtalker/experiments/0022-does-a-pretrained-audio-model-help/generate.py \
+  ../crowgpt/experiments/0022-does-a-pretrained-audio-model-help/generate.py \
   --model small-sfx-base --out .../generated-base --per_type 30
 # ... and again with --lora <ckpt> --out .../generated-lora
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 # The 2026-08-19 chain: the incumbent's recipe at the batch it always claimed,
 # then the structure gate. Emails Ben on any failed step.
-REPO=/home/ben/Code/cawtalker
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 DATA=${DATA_DIR:-$REPO/data}
 LOG=/tmp/crowgpt-night-0080.log
 EMAIL="$REPO/.claude/local/email_ben.py"

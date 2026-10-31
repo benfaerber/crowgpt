@@ -8,7 +8,7 @@ fresh classifier on bouts separates those two.
 import importlib.util, json, sys
 from collections import Counter, defaultdict
 from pathlib import Path
-REPO = Path("/home/ben/Code/cawtalker"); HERE = REPO/"crowgpt"
+REPO = Path(__file__).resolve().parents[2]; HERE = REPO/"crowgpt"
 sys.path.insert(0, str(HERE/"src"))
 from crowgpt.gpu import claim
 claim()
@@ -44,7 +44,8 @@ for row in store.index:
         rows.append(row); truth.append(next(iter(got))); groups.append(row["group_key"])
 print(f"{len(rows)} single-label bouts, {len(set(groups))} recording groups", flush=True)
 
-cache = Path("/tmp/claude-1000/-home-ben-Code-cawtalker/606cbb31-476b-4ed9-88b8-d5b1e2a456f1/scratchpad/bout_emb.npz")
+cache = REPO / "data" / "experiments" / "0018-bout_emb.npz"
+cache.parent.mkdir(parents=True, exist_ok=True)
 if cache.exists():
     z = np.load(cache, allow_pickle=True); X, y, g = z["X"], z["y"], z["g"]
 else:
