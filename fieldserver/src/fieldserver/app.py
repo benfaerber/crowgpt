@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 
 from flask import Flask, abort, request
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .core import schema
 from .stores.analysis import AnalysisStore
@@ -73,6 +74,14 @@ def create_app(db_path: Path | str | None = None) -> Flask:
     # unaffected, and a network bind with dev secrets is refused however it starts.
     refuse_default_secrets_off_loopback(os.environ.get("FIELD_HOST", "127.0.0.1"))
     app = Flask(__name__)
+    if os.environ.get("FIELD_TRUST_PROXY") == "1":
+        # Hosted, the server sits behind a reverse proxy on the same box and
+        # every request arrives from 127.0.0.1. Without this the identity
+        # throttle keys the whole internet into one bucket, so a stranger's
+        # wrong guesses would lock the operator out too. Opt-in, because
+        # trusting the header on a box with no proxy lets any client choose
+        # its own address.
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
     app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_BYTES
     resolved_db = Path(db_path or os.environ.get("FIELD_DB") or DEFAULT_DB)
     media_dir = resolved_db.parent / "media"
