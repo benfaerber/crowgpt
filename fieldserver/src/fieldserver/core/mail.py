@@ -15,6 +15,10 @@ import urllib.request
 
 RESEND_URL = "https://api.resend.com/emails"
 DEFAULT_FROM = "CrowGPT <hello@crowgpt.org>"
+# Resend's API sits behind Cloudflare, which answers urllib's default
+# "Python-urllib/3.x" agent with a 403 and error code 1010 before the request
+# reaches Resend at all. Naming the client is what gets through.
+USER_AGENT = "crowgpt-fieldserver/1 (+https://crowgpt.org)"
 
 
 class Mailer:
@@ -37,7 +41,8 @@ class Mailer:
         request = urllib.request.Request(
             RESEND_URL, data=body, method="POST",
             headers={"Authorization": f"Bearer {self.api_key}",
-                     "Content-Type": "application/json"})
+                     "Content-Type": "application/json",
+                     "User-Agent": USER_AGENT})
         try:
             with urllib.request.urlopen(request, timeout=self.timeout) as response:
                 if response.status >= 300:
