@@ -36,7 +36,7 @@ card.
 |---|---|---|
 | adb serial | `5B280DLCH000C7` | `43180DLJH002B4` |
 | adb product | `blazer` | `shiba` |
-| server device row | **10** | **9** |
+| server device row | **25** (10 until the 2026-10-31 reinstall) | **9** |
 | role | Ben's daily phone, real field recordings | throwaway, agents may use it freely |
 
 **Never do anything destructive to the Pixel 10.** No purges, no uninstalls, no
@@ -49,9 +49,11 @@ Makefile picks it automatically, which is how the wrong one gets flashed; with
 two it refuses and makes you name one. `make wireless` puts a phone on wireless
 adb so it stays listed, which keeps the count above one on purpose.
 
-Device rows 1, 3, 4 and 8 are dead enrollments from before the contributor
-layer — the same phones, re-enrolled after reinstalls. They still own captures,
-so they are kept rather than deleted. Only 9 and 10 are live.
+Device rows 1, 3, 4, 8 and 10 are dead enrollments — the same phones,
+re-enrolled after reinstalls (10 died with the 2026-10-31 reinstall on the
+hosted server). They still own captures, so they are kept rather than deleted.
+Only 9 and 25 are live, both under contributor 4 (Ben); 25 enrolled without a
+claim code and was merged onto 4 with `ContributorStore.merge`.
 
 **Sync is push-only.** The app never pulls from the server, so anything changed
 server-side is invisible to the phone. That rule is what stops a stale server
