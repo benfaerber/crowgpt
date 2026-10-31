@@ -4,9 +4,9 @@
  * plays at once; when the shelf for an item is bare the press becomes a live
  * job and this polls until the bout is done. No token rides along — the API
  * bounds presses per address and the menu is fixed server-side (the page only
- * names a key). Everything here is hidden until the API has answered health
- * and the menu, so a page whose server is down reads whole with the buttons
- * gone rather than spinning.
+ * names a key). Everything here is hidden until the API has answered the
+ * menu, so a page whose server is down reads whole with the buttons gone
+ * rather than spinning.
  */
 
 import { Player } from "./caw-player";
@@ -52,9 +52,11 @@ export class LiveCaw {
   async mount(): Promise<void> {
     if (!this.root || !this.menu || !this.result) return;
     let items: MenuItem[];
+    // The menu is the health check: it answers only from a server that is up,
+    // and it is the one route that carries the CORS header — /api/health does
+    // not, so a separate probe of it is blocked by the browser on crowgpt.org
+    // and read as "down". That is how the block shipped hidden on 2026-10-31.
     try {
-      const health = await fetch(`${this.api}/api/health`);
-      if (!health.ok) return;
       const menu = await fetch(`${this.api}/api/demo/menu`);
       if (!menu.ok) return;
       items = ((await menu.json()) as { items: MenuItem[] }).items;
