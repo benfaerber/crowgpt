@@ -19,6 +19,8 @@ import { MapScreen } from "../ui/MapScreen";
 import { ScoutScheduleScreen } from "../ui/ScoutScheduleScreen";
 import { VideoCaptureScreen } from "../ui/VideoCaptureScreen";
 import { PermissionsScreen } from "../ui/PermissionsScreen";
+import { EnrollScreen } from "../ui/EnrollScreen";
+import { asksForEnrollment } from "../domain/firstRun";
 import { SettingsScreen } from "../ui/SettingsScreen";
 import { DEFAULT_VIEW, type CaptureView } from "../domain/captureFilters";
 import { ErrorBoundary } from "../ui/components/ErrorBoundary";
@@ -197,6 +199,10 @@ export function CrowGPTApp() {
   // a switch moved. Re-rendering is all that is needed — the children read the
   // mutated object and see the new value.
   const [, setSettingsRevision] = useState(0);
+  // The enrollment gate. Read from services at render time, so enrolling (or a
+  // server change forgetting the enrollment) moves it without a subscription;
+  // the revision bump below is what triggers that render.
+  const [skippedEnrollment, setSkippedEnrollment] = useState(false);
   const handleSettings = useCallback(
     (settings: Settings) => {
       services?.applySettings(settings);
@@ -256,6 +262,8 @@ export function CrowGPTApp() {
     );
   }
 
+  const askEnrollment = asksForEnrollment(services.isEnrolled, skippedEnrollment);
+
   return (
     // Around the screens, inside the app: a render failure below this loses the
     // screen and keeps the app, rather than dropping the recordist onto a black
@@ -267,7 +275,15 @@ export function CrowGPTApp() {
       <RecorderProvider services={services} onRecorded={handleRecorded}>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <StatusBar style="light" />
-        {route.name === "list" && (
+        {askEnrollment && (
+          <EnrollScreen
+            services={services}
+            onChange={handleSettings}
+            onEnrolled={() => setSettingsRevision((n) => n + 1)}
+            onSkip={() => setSkippedEnrollment(true)}
+          />
+        )}
+        {!askEnrollment && route.name === "list" && (
           <CaptureListScreen
             services={services}
             onSettingsChange={handleSettings}
@@ -281,7 +297,7 @@ export function CrowGPTApp() {
             onRecordVideo={() => push({ name: "video" })}
           />
         )}
-        {route.name === "detail" && (
+        {!askEnrollment && route.name === "detail" && (
           <CaptureDetailScreen
             services={services}
             capture={route.capture}
@@ -294,14 +310,14 @@ export function CrowGPTApp() {
             onLabel={() => push({ name: "labeling", capture: route.capture })}
           />
         )}
-        {route.name === "labeling" && (
+        {!askEnrollment && route.name === "labeling" && (
           <LabelingScreen
             services={services}
             capture={route.capture}
             onBack={back}
           />
         )}
-        {route.name === "settings" && (
+        {!askEnrollment && route.name === "settings" && (
           <SettingsScreen
             services={services}
             onBack={back}
@@ -312,13 +328,13 @@ export function CrowGPTApp() {
             onOpenFamilies={() => push({ name: "families" })}
           />
         )}
-        {route.name === "families" && (
+        {!askEnrollment && route.name === "families" && (
           <FamilyScreen services={services} onBack={back} onCreated={back} />
         )}
-        {route.name === "video" && (
+        {!askEnrollment && route.name === "video" && (
           <VideoCaptureScreen services={services} onBack={back} onCaptured={back} />
         )}
-        {route.name === "map" && (
+        {!askEnrollment && route.name === "map" && (
           <MapScreen
             services={services}
             view={captureView}
@@ -330,13 +346,13 @@ export function CrowGPTApp() {
               push({ name: "scout-schedule", forecast })}
           />
         )}
-        {route.name === "scout-schedule" && (
+        {!askEnrollment && route.name === "scout-schedule" && (
           <ScoutScheduleScreen forecast={route.forecast} onBack={back} />
         )}
-        {route.name === "permissions" && (
+        {!askEnrollment && route.name === "permissions" && (
           <PermissionsScreen permissions={services.permissions} onBack={back} />
         )}
-        {route.name === "diagnostics" && (
+        {!askEnrollment && route.name === "diagnostics" && (
           <DiagnosticsHubScreen
             onBack={back}
             onOpenMicSources={() => push({ name: "mic-sources" })}
@@ -345,13 +361,13 @@ export function CrowGPTApp() {
             onOpenLogs={() => push({ name: "logs" })}
           />
         )}
-        {route.name === "mic-sources" && <DiagnosticsScreen onBack={back} />}
-        {route.name === "cues" && <CueDiagnosticsScreen onBack={back} />}
-        {route.name === "headset" && (
+        {!askEnrollment && route.name === "mic-sources" && <DiagnosticsScreen onBack={back} />}
+        {!askEnrollment && route.name === "cues" && <CueDiagnosticsScreen onBack={back} />}
+        {!askEnrollment && route.name === "headset" && (
           <HeadsetDiagnosticsScreen services={services} onBack={back} />
         )}
-        {route.name === "guide" && <GuideScreen services={services} onBack={back} />}
-        {route.name === "logs" && <LogScreen services={services} onBack={back} />}
+        {!askEnrollment && route.name === "guide" && <GuideScreen services={services} onBack={back} />}
+        {!askEnrollment && route.name === "logs" && <LogScreen services={services} onBack={back} />}
       </View>
       </RecorderProvider>
     </ErrorBoundary>

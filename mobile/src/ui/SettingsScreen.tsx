@@ -227,9 +227,10 @@ export function SettingsScreen({
             placeholderTextColor={colors.textFaint}
           />
           <Text style={styles.hint}>
-            The address `make field` prints. Saved when you tap away from the field;
-            changing it forgets this device&apos;s enrollment and marks captures for
-            re-upload, so it is only applied once you finish typing.
+            The hosted server unless you run your own (the address `make field`
+            prints). Saved when you tap away from the field; changing it forgets
+            this device&apos;s enrollment and marks captures for re-upload, so it
+            is only applied once you finish typing.
           </Text>
         </View>
 

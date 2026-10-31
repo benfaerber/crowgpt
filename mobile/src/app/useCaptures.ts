@@ -148,6 +148,10 @@ export function useCaptures(services: AppServices): CapturesView {
         return;
       }
       if (!services.isEnrolled) {
+        if (!services.settings.enrollToken.trim()) {
+          setLastMessage("Not enrolled — enter the enrollment token in Settings.");
+          return;
+        }
         await services.enroll();
       }
       // Before the push, not after: the point is to say the sync may not have

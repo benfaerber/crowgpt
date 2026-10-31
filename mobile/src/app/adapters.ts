@@ -40,7 +40,10 @@ export const defaultSettings: Settings = {
   // EXPO_PUBLIC_* vars reach the bundle, and mobile/.env is gitignored, so
   // nothing environment-specific enters the repo.
   fieldServerUrl: process.env.EXPO_PUBLIC_FIELD_SERVER_URL ?? "https://field.crowgpt.org",
-  enrollToken: process.env.EXPO_PUBLIC_FIELD_ENROLL_TOKEN ?? "dev-enroll",
+  // No default. "dev-enroll" only ever matched a server on loopback, and on a
+  // hosted server it was a 403 at the first sync. A fresh install asks for the
+  // token up front instead (EnrollScreen); a dev build can still bake one in.
+  enrollToken: process.env.EXPO_PUBLIC_FIELD_ENROLL_TOKEN ?? "",
   contributorName: "",
   // Whatever the phone calls itself — "Pixel 8" on a Pixel 8. A default that is
   // already right is the difference between a fleet of named handsets and one

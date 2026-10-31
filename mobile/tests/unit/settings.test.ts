@@ -8,7 +8,7 @@ import { resolveSettings, stickyCaptureDefaults } from "../../src/domain/setting
 // there without one here stops compiling.
 const defaultSettings: Settings = {
   fieldServerUrl: "http://127.0.0.1:5100",
-  enrollToken: "dev-enroll",
+  enrollToken: "",
   contributorName: "",
   deviceLabel: "Pixel 8",
   claimCode: "",
