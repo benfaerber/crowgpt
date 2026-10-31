@@ -173,6 +173,45 @@ when it has a shape and a reason to happen now.
     Before any git push to a new remote or CI: an archive API key is still
     in history — purge first, or upload only built bundles.
 
+[ ] Live CrowGPT on the promo page, served by the hosted API, nothing in the
+    app calling it
+
+    Discussed 2026-10-30. Ben's shape: generation runs on the field server
+    (CPU is fine, 0087: 10-20 s a bout), the phone never gets a surface for
+    it (no field playback), and the promo's generate button calls the API.
+    The question raised was auth: a static page can hold no secret, so any
+    token in the promo is public the moment it ships.
+
+    Answer sketched, for when this is built. Do not authenticate the page;
+    bound the damage per visitor and per box:
+      - Cloudflare in front of field.crowgpt.org (proxied record). A rate
+        limiting rule per IP on the generate path (one rule is free), and a
+        Turnstile widget on the button, verified server-side with the
+        siteverify secret the server holds. Turnstile is what replaces the
+        missing token: proof is per visit, issued by Cloudflare, not a key.
+      - A separate tokenless route in api/public.py, never in generate.py's
+        operator surface, so the app's wire contract is untouched. Fixed menu
+        (model, call type), seed drawn server-side, no free parameters.
+      - A success limiter per IP (core/throttle.py counts failures only, so
+        this is new) and a global cap on pending jobs: the worker is
+        sequential at ~4 bouts a minute, so 20 queued is already five
+        minutes.
+      - A pre-generated pool refilled by the worker (output is deterministic
+        on model/call type/seed), so the button answers instantly from the
+        pool and live generation only tops it up. This is what survives a
+        traffic spike on a four-core box, and it keeps the page honest when
+        the API is down: hide the button on a failed /api/health rather than
+        spin. Show the seed so a clip is reproducible.
+    IP-only limiting is a floor, not the answer: CGNAT and campuses share
+    one address, IPv6 rotates, and bots have many. Turnstile covers that.
+
+    This breaks half of the promo rule "reads no store and takes no token"
+    on purpose: it still takes no token, and the page must render in full
+    with the button gone when the API is unreachable.
+
+    REVISIT WHEN the field server is hosted (the deploy entry above) and the
+    crowgpt weights' visibility is settled.
+
 [ ] The hard promo push — measurement is in place; know its one gotcha
     before spending a launch on it
 
