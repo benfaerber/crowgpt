@@ -222,6 +222,26 @@ when it has a shape and a reason to happen now.
     Before any git push to a new remote or CI: an archive API key is still
     in history — purge first, or upload only built bundles.
 
+[ ] The app should notice when the server moved rather than treat it as new
+
+    2026-10-31, the day the field server went to the VPS with the same
+    database. Changing the server URL in Settings runs applySettings's
+    serverChanged branch: it drops the device token, forgets the identity and
+    forgets every capture's sync state, then re-enrolls with whatever
+    enrollment token Settings holds. That is right when the URL is a
+    different fleet. It is wrong when the same database moved house, which
+    is what happened: the old bearer token was still valid on the new host,
+    and the phone threw it away, got 403 on an enrollment token it had never
+    needed since the contributor backfill, and now rejoins as a new device
+    row of the same contributor via a claim code minted server-side, then
+    re-pushes 190 captures that the (contributor, client_uuid) index dedups.
+
+    The fix is one probe before forgetting: GET /api/me on the new URL with
+    the old token. If it answers with the same device uuid, keep the token,
+    the identity and the sync state and just repoint the client — the server
+    moved. If it 401s, forget as now — it is a different server. Small,
+    testable, and it turns a migration from a support call into nothing.
+
 [ ] Live CrowGPT on the promo page, served by the hosted API, nothing in the
     app calling it
 
