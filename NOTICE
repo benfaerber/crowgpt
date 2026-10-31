@@ -1,0 +1,23 @@
+CrowGPT
+Copyright 2026 Ben Faerber
+
+This product includes software developed by Ben Faerber
+(https://crowgpt.org, https://github.com/benfaerber/crowgpt).
+
+Under the Apache License 2.0 this NOTICE file, and the copyright notice above,
+travel with every copy and derivative of the code.
+
+Third-party components in this repository keep their own licences:
+
+  pipelines/ingest/crowtools/
+    crow-tools labels. MIT, Copyright (c) 2025 OpenShot Studios LLC,
+    owlmaddie LLC. See LICENSE.md in that directory.
+
+  experiments/0031-would-a-denoiser-help/vendor/
+    biodenoising. Code MIT, Copyright (c) 2024 Earth Species Project; its
+    model weights are CC BY-NC 4.0, as its README states. See LICENSE and
+    README.md in that directory.
+
+The CrowGPT model weights are distributed separately at
+https://huggingface.co/faerber/crowgpt under their own terms. The audio
+corpus and field recordings under data/ are not part of this repository.

@@ -22,6 +22,7 @@ A classifier that reads crow calls by type, a model that says them back, and a f
   <img alt="Node 22" src="https://img.shields.io/badge/node-22-339933">
   <img alt="94 experiments" src="https://img.shields.io/badge/experiments-94-cf7327">
   <img alt="Status: prototype" src="https://img.shields.io/badge/status-prototype-97897a">
+  <img alt="License: Apache 2.0" src="https://img.shields.io/badge/license-Apache%202.0-5b7f3a">
 </p>
 
 ---
@@ -214,8 +215,8 @@ The recordings are fetched by [`corvidcrawler/`](corvidcrawler/) from Xeno-canto
 
 If you have crows, a phone and a few minutes a day, you can collect the half this project is short of. Recordings with a witnessed situation attached are worth more than anything else here. A species with no head yet needs a few hundred typed examples, and the crawler plus `make train` does the rest.
 
-Write to **hello@cawtalker.org**, or open an issue.
+Write to **hello@crowgpt.org**, or open an issue.
 
 ## License
 
-A licence has not been chosen yet. Until it is, the code is all rights reserved, with the exceptions noted above.
+The code is under the **[Apache License 2.0](LICENSE)**. Use it, change it, ship it, commercially or not; the one thing the licence asks is that the copyright notice and the **[NOTICE](NOTICE)** file stay with every copy and derivative, and that changed files say they were changed. The third-party components listed in NOTICE keep their own licences. The CrowGPT weights on Hugging Face carry their own terms, and the corpus under `data/` is not part of this repository.

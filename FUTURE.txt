@@ -251,6 +251,8 @@ when it has a shape and a reason to happen now.
 
 [x] Contact address on the promo page — decided against a contact form
 
+    (2026-10-30: mail routing moved to crowgpt.org; the published address is
+    now hello@crowgpt.org, same scheme. cawtalker.org keeps forwarding.)
     Decided 2026-08-06. hello@cawtalker.org — a burnable alias, not Ben's own
     address — is published with the username and
     domain held apart and ROT13'd in data attributes, assembled into a real
