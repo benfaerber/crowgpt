@@ -1,5 +1,5 @@
 .PHONY: help crowgpt field field-stop fieldserver worker transcriber generator analyzer dashboard promo install-app devices android metro reverse test seed \
-        corpus corpus-build train train-crow export-labels backup watch
+        corpus corpus-build train train-crow export-labels backup watch field-deploy field-status field-logs
 
 ADB ?= adb
 
@@ -24,6 +24,9 @@ help:
 	@echo "CrowGPT"
 	@echo "  make field        Run the field server and its workers (analysis, dictation, generation, scout) together"
 	@echo "  make field-stop   Stop them"
+	@echo "  make field-deploy Ship the committed tree + bundles to field.crowgpt.org and restart its services"
+	@echo "  make field-status Are the hosted server, its workers and Caddy up"
+	@echo "  make field-logs   The hosted services' last hundred log lines"
 	@echo "  make fieldserver  Run the field API + operator dashboard -> http://127.0.0.1:5100"
 	@echo "  make dashboard    Dashboard with hot reload -> http://127.0.0.1:5173 (needs the server up)"
 	@echo "  make promo        Promo site with hot reload -> http://127.0.0.1:5174 (served at :5100/promo)"
@@ -49,6 +52,39 @@ help:
 	@echo "  make test         Run the checks across field server, mobile, crowgpt, dashboard and promo (no device needed)"
 	@echo "  make seed         Seed the phone with captures made from real crow audio"
 	@echo "  make watch        Follow the active runs reporting into data/progress"
+
+# ---- Hosted field server ----------------------------------------------------
+#
+# field.crowgpt.org is an OVH VPS, reached as `crowfield` in ~/.ssh/config. It
+# runs this same tree out of ~/crowgpt under systemd — crowgpt-field,
+# crowgpt-analyze, crowgpt-generate, crowgpt-scout — with Caddy terminating
+# TLS in front and the server bound to loopback behind it. A deploy ships the
+# *committed* tree (git archive: nothing untracked or ignored leaves this
+# machine), the two built bundles the server serves, re-syncs the fieldserver
+# venv, and restarts the services. The release checkpoints and the instance
+# directory were copied once by hand and are not part of a deploy; the crowgpt
+# venv on the box carries CPU torch (`uv sync --index
+# pytorch-cu128=https://download.pytorch.org/whl/cpu`) and is re-synced by
+# hand when crowgpt/pyproject.toml changes.
+DEPLOY_HOST ?= crowfield
+DEPLOY_DIR ?= crowgpt
+
+field-deploy:
+	$(MAKE) -C dashboard ensure-bundle
+	$(MAKE) -C promo ensure-bundle
+	git archive --format=tar HEAD | ssh $(DEPLOY_HOST) 'tar -x -C ~/$(DEPLOY_DIR)'
+	rsync -a fieldserver/src/fieldserver/static/app fieldserver/src/fieldserver/static/promo \
+	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/src/fieldserver/static/
+	ssh $(DEPLOY_HOST) 'export PATH=$$HOME/.local/bin:$$PATH; cd ~/$(DEPLOY_DIR)/fieldserver \
+	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q \
+	  && sudo systemctl restart crowgpt-field crowgpt-analyze crowgpt-generate crowgpt-scout'
+	@sleep 3; ssh $(DEPLOY_HOST) 'curl -fsS http://127.0.0.1:5100/api/health'; echo
+
+field-status:
+	@ssh $(DEPLOY_HOST) 'systemctl --no-pager status crowgpt-field crowgpt-analyze crowgpt-generate crowgpt-scout caddy 2>/dev/null | grep -E "^.? ?[a-z-]+\.service|Active:"'
+
+field-logs:
+	@ssh $(DEPLOY_HOST) 'sudo journalctl -u crowgpt-field -u crowgpt-analyze -u crowgpt-generate -u crowgpt-scout -n 100 --no-pager -o short'
 
 # The dashboard and the promo site are built bundles the server serves, so they
 # have to exist before it starts. Both only build when missing — this runs
