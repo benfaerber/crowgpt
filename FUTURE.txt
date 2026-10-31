@@ -124,8 +124,8 @@ when it has a shape and a reason to happen now.
     is worth exposing
 
     (Written as cawtalker.org; the domain moved to crowgpt.org in October
-    2026 and the old name redirects. Read field.crowgpt.org below. The
-    cawtalker.org mail addresses are still the routed ones.)
+    2026 and the old name redirects. Read field.crowgpt.org below. Mail
+    routing moved with it: hello@crowgpt.org is the published address.)
 
     Discussed 2026-08-06. The destination is crowdsourced: strangers' phones
     pushing captures. That makes the domain layout the durable decision and
@@ -164,6 +164,21 @@ when it has a shape and a reason to happen now.
     port but it does route strangers' requests to the machine, which is not
     the property wanted. When the field server publishes it goes on its own
     VPS and the laptop only ever connects outward.
+
+    The box, ordered 2026-10-31: OVHcloud US VPS-1, Vint Hill (Virginia),
+    2 vCores, 4 GB, 40 GB NVMe. The account is OVH US LLC, so the control
+    panel is us.ovhcloud.com/manager; the ovh.com sign-in is a different
+    company and rejects the password. VPS-2 (4 vCores, 8 GB, 75 GB) was the
+    size wanted and was sold out in every US region; it restocks every few
+    days and OVH staff say the step up is one click in the client area with
+    the disk kept, so upgrade in place rather than migrate. What the small
+    box asks of the install: the CPU-only torch wheel (the CUDA one is
+    gigabytes the card would never use), a 2 GB swapfile so a generate
+    worker burst does not get killed at 4 GB, and the knowledge that
+    generation on 2 shared vCores is 30-60 s a bout (0087 measured 10-20 s
+    on 4 laptop threads), which only the promo pool below ever waits on.
+    40 GB after the OS and venvs is roughly 8,000 kept clips at the current
+    3.5 MB average, so disk is not what forces the upgrade.
 
     Before the gate opens to strangers, each of these graduates to a phase:
     per-contributor auth replacing the enrollment secret, quotas + upload
