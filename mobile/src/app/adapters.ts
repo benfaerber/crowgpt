@@ -34,11 +34,12 @@ import type { MergeSpec } from "../sync/MergedWav";
 export const BUILTIN_MIC = "builtin";
 
 export const defaultSettings: Settings = {
-  // Set EXPO_PUBLIC_FIELD_SERVER_URL in mobile/.env to bake in your own server —
-  // the LAN address `make field` prints. Falls back to loopback, which works
-  // over USB with `make reverse`. Only EXPO_PUBLIC_* vars reach the bundle, and
-  // mobile/.env is gitignored, so nothing environment-specific enters the repo.
-  fieldServerUrl: process.env.EXPO_PUBLIC_FIELD_SERVER_URL ?? "http://127.0.0.1:5100",
+  // The hosted server, since 2026-10-31. Set EXPO_PUBLIC_FIELD_SERVER_URL in
+  // mobile/.env to bake in a development server instead — the LAN address
+  // `make field` prints, or loopback over USB with `make reverse`. Only
+  // EXPO_PUBLIC_* vars reach the bundle, and mobile/.env is gitignored, so
+  // nothing environment-specific enters the repo.
+  fieldServerUrl: process.env.EXPO_PUBLIC_FIELD_SERVER_URL ?? "https://field.crowgpt.org",
   enrollToken: process.env.EXPO_PUBLIC_FIELD_ENROLL_TOKEN ?? "dev-enroll",
   contributorName: "",
   // Whatever the phone calls itself — "Pixel 8" on a Pixel 8. A default that is
