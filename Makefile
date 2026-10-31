@@ -1,5 +1,5 @@
 .PHONY: help crowgpt field field-stop fieldserver worker transcriber generator analyzer dashboard promo install-app devices android metro reverse test seed \
-        corpus corpus-build train train-crow export-labels backup watch field-deploy field-status field-logs
+        corpus corpus-build train train-crow export-labels backup watch field-deploy field-status field-logs apk-publish
 
 ADB ?= adb
 
@@ -27,6 +27,7 @@ help:
 	@echo "  make field-deploy Ship the committed tree + bundles to field.crowgpt.org and restart its services"
 	@echo "  make field-status Are the hosted server, its workers and Caddy up"
 	@echo "  make field-logs   The hosted services' last hundred log lines"
+	@echo "  make apk-publish  Build the app and put the APK behind https://field.crowgpt.org/preview"
 	@echo "  make fieldserver  Run the field API + operator dashboard -> http://127.0.0.1:5100"
 	@echo "  make dashboard    Dashboard with hot reload -> http://127.0.0.1:5173 (needs the server up)"
 	@echo "  make promo        Promo site with hot reload -> http://127.0.0.1:5174 (served at :5100/promo)"
@@ -79,6 +80,16 @@ field-deploy:
 	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q \
 	  && sudo systemctl restart crowgpt-field crowgpt-analyze crowgpt-generate crowgpt-scout'
 	@sleep 3; ssh $(DEPLOY_HOST) 'curl -fsS http://127.0.0.1:5100/api/health'; echo
+
+# The preview page serves the newest .apk in the box's instance/apk/, so
+# publishing a build is a copy. The name carries the date and the commit so a
+# tester's download folder says which build it is; the server does not care.
+apk-publish:
+	$(MAKE) -C mobile apk
+	ssh $(DEPLOY_HOST) 'mkdir -p ~/$(DEPLOY_DIR)/fieldserver/instance/apk'
+	scp -q mobile/android/app/build/outputs/apk/release/app-release.apk \
+	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/instance/apk/crowgpt-field-$$(date +%Y%m%d)-$$(git rev-parse --short HEAD).apk
+	@echo "published -> https://field.crowgpt.org/preview"
 
 field-status:
 	@ssh $(DEPLOY_HOST) 'systemctl --no-pager status crowgpt-field crowgpt-analyze crowgpt-generate crowgpt-scout caddy 2>/dev/null | grep -E "^.? ?[a-z-]+\.service|Active:"'

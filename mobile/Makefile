@@ -75,6 +75,14 @@ icon: $(ICON_ASSETS)
 install: check-node icon
 	bash tools/install_field_app.sh
 
+# The same release build the install makes, without a phone: the APK is left
+# at android/app/build/outputs/apk/release/app-release.apk for `make
+# apk-publish` at the root to ship to the preview page.
+apk: check-node icon
+	npx expo prebuild --platform android >/dev/null
+	./android/gradlew -p android --quiet assembleRelease
+	@ls -la android/app/build/outputs/apk/release/app-release.apk
+
 devices:
 	@$(ANDROID_HOME)/platform-tools/adb devices -l
 

@@ -11,12 +11,13 @@ once, so a route module never reaches for a global.
 """
 
 from . import (analysis, captures, corpus, dictations, fleet, gallery, generate,
-               identity, labels, listening, logs, promo, public, scout, training,
-               trees)
+               identity, labels, listening, logs, preview, promo, public, scout,
+               training, trees)
 
 #: In the order a request is most likely to arrive.
 SECTIONS = (public, identity, captures, analysis, dictations, labels, logs, fleet,
-            training, listening, gallery, generate, promo, corpus, trees, scout)
+            training, listening, gallery, generate, promo, preview, corpus, trees,
+            scout)
 
 
 def register_all(app, deps) -> None:
