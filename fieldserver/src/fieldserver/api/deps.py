@@ -7,6 +7,7 @@ cannot quietly acquire a dependency nobody agreed to.
 """
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Callable
 
 
