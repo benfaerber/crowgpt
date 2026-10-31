@@ -1573,6 +1573,70 @@ main {
   border-bottom: none;
 }
 
+/* ---- request access ------------------------------------------------------ */
+/* Posts straight to the field server, which renders the thank-you page in
+ * the same palette, so this page stays a static bundle with no script and
+ * no token behind the form. */
+.request-form {
+  margin-top: 1.5rem;
+  max-width: var(--measure);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.request-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.request-form-wide,
+.request-form-actions {
+  grid-column: 1 / -1;
+}
+
+.request-form input,
+.request-form textarea {
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: var(--surface-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+}
+
+.request-form input:focus,
+.request-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.request-form textarea {
+  resize: vertical;
+}
+
+.request-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.request-form button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.request-form-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 28rem;
+}
+
 
 
 /* ---- reading list -------------------------------------------------------- */

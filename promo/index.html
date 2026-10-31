@@ -54,6 +54,7 @@
         <div class="nav-links">
           <a href="#crowgpt">CrowGPT</a>
           <a href="#app">The app</a>
+          <a href="#request">Get the app</a>
           <a href="#cawscout">CawScout</a>
           <a href="#results">Results</a>
           <a href="#goal">The goal</a>
@@ -347,6 +348,38 @@
             single training example.
           </p>
         </div>
+      </section>
+
+      <section class="section" id="request">
+        <h2>Try the app</h2>
+        <p class="section-lede">
+          The field app is Android, free, and in a closed preview: it records, labels
+          and syncs to the project server, so a recordist anywhere can add their crows to
+          the corpus. Ask below and Ben sends an invite with the app and the token it
+          needs to join. Say where you would record and which corvids are there; a
+          population the corpus does not have yet is the best reason to say yes.
+        </p>
+        <form class="request-form" method="post" action="https://field.crowgpt.org/preview/request">
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required autocomplete="email" placeholder="you@example.org">
+          </label>
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" placeholder="What to call you">
+          </label>
+          <label class="request-form-wide">
+            <span>Where would you record, and what crows are there?</span>
+            <textarea name="note" rows="3" placeholder="Hooded crows on a Berlin allotment; a raven pair on the cliffs; ..."></textarea>
+          </label>
+          <div class="request-form-actions">
+            <button type="submit" class="button button-primary">Request access</button>
+            <span class="request-form-note">
+              One email, no account. The invite is a link; the app asks for the token on
+              first launch.
+            </span>
+          </div>
+        </form>
       </section>
 
       <section class="section" id="cawscout">
