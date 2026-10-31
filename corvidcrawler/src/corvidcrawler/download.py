@@ -14,7 +14,7 @@ import requests
 
 from .politeness import Bucket
 
-DEFAULT_USER_AGENT = "CrowGPT corpus crawler/0.2 (+https://cawtalker.org)"
+DEFAULT_USER_AGENT = "CrowGPT corpus crawler/0.2 (+https://crowgpt.org)"
 
 
 def default_user_agent() -> str:

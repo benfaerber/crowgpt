@@ -3,12 +3,14 @@
 Monorepo for the CrowGPT project — decoding crow calls with AI. Start from
 `README.md` and `phases/` for the plan.
 
-## Status: prototype, not deployed
+## Status: prototype; the field server is not deployed
 
-One user, one fleet, running on a laptop on a home network. Nothing is public.
-No TLS; enrollment is a single shared secret. Treat "how would this behave with
-a thousand contributors" as a design question worth answering, not a problem to
-solve today.
+One user, one fleet, the field server running on a laptop on a home network.
+Two things are public: the promo page at crowgpt.org (a Cloudflare Worker,
+`make -C promo deploy`) and the code, on GitHub since 2026-10-21. Nothing a
+phone talks to is reachable from outside. No TLS; enrollment is a single shared
+secret. Treat "how would this behave with a thousand contributors" as a design
+question worth answering, not a problem to solve today.
 
 ## Every session takes a name
 
@@ -177,11 +179,11 @@ scream page — never for a sitting that produces a statistic.
   unless explicitly told otherwise.
 - The corpus (audio + its DB) lives in `data/` and is **gitignored** —
   never commit it.
-- **This repo is headed for open source, and `corvidcrawler/` is the only
-  corpus fetching it may carry.** It speaks to **Xeno-canto and the Macaulay
-  Library**, the two sources Ben cleared for distribution on 2026-09-10, and
-  those two are the only sources this tree may name — in code, comments,
-  docs, tests, commit messages. Everything else in `data/` arrived through
+- **This repo is open source (github.com/benfaerber/crowgpt), and
+  `corvidcrawler/` is the only corpus fetching it may carry.** It speaks to
+  **Xeno-canto and the Macaulay Library**, the two sources Ben cleared for
+  distribution on 2026-09-10, and those two are the only sources this tree may
+  name — in code, comments, docs, tests, commit messages. Everything else in `data/` arrived through
   private tooling in another repo: never name that tooling, its repo, or any
   other source anywhere here. Say "the corpus tooling". The tree was scrubbed
   to this standard on 2026-08-07; do not reintroduce anything. Nothing from
@@ -240,8 +242,11 @@ scream page — never for a sitting that produces a statistic.
 - `analyzer/` — BirdNET inference: a path in, findings out. No server, no DB.
 - `fieldserver/worker/` — polls for analysis jobs and calls the analyzer
 - `dashboard/` — the operator dashboard (Vite + React), served by fieldserver
-- `promo/` — the public promo page, a compiled bundle fieldserver serves at `/promo`;
+- `promo/` — the public promo page, a compiled bundle fieldserver serves at `/promo`
+  and `make -C promo deploy` publishes to crowgpt.org as a Cloudflare Worker;
   every number on it is hardcoded at build time, so it reads no store and takes no token
+- `transcriber/` — the speech-to-text module the field server's dictation worker runs
+- `tools/` — repo-wide scripts, currently the corpus and database backup behind `make backup`
 - `crowgpt/` — generating crow calls; own venv carrying torch *and* birdnetlib
 - `corvidcrawler/` — the corpus crawler: Xeno-canto and the Macaulay Library into `data/`; own venv
 - `pipelines/` — batch experiments, no UI (e.g. Phase 3 representation)

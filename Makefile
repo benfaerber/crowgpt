@@ -22,13 +22,14 @@ ADB ?= adb
 
 help:
 	@echo "CrowGPT"
-	@echo "  make field        Run the field server AND the inference worker together"
+	@echo "  make field        Run the field server and its workers (analysis, dictation, generation, scout) together"
 	@echo "  make field-stop   Stop them"
 	@echo "  make fieldserver  Run the field API + operator dashboard -> http://127.0.0.1:5100"
 	@echo "  make dashboard    Dashboard with hot reload -> http://127.0.0.1:5173 (needs the server up)"
 	@echo "  make promo        Promo site with hot reload -> http://127.0.0.1:5174 (served at :5100/promo)"
 	@echo "  make worker       Run the BirdNET inference worker for the field server"
 	@echo "  make transcriber  Run the speech-to-text worker for spoken field notes"
+	@echo "  make generator    Run the Crow Chat generation worker"
 	@echo "  make analyzer     Load the analyzer and list the call-type heads it found"
 	@echo "  make corpus       Say what the vendored label corpus holds and how much audio is on disk"
 	@echo "  make backup       Copy the recordings and database to BACKUP_DIR"
@@ -45,7 +46,7 @@ help:
 	@echo "  make android      Dev client for development — needs Metro running here"
 	@echo "  make metro        Start Metro only (the app is already installed)"
 	@echo "  make reverse      Point the attached device's :5100 at this machine"
-	@echo "  make test         Run the field server and mobile checks (no device needed)"
+	@echo "  make test         Run the checks across field server, mobile, crowgpt, dashboard and promo (no device needed)"
 	@echo "  make seed         Seed the phone with captures made from real crow audio"
 	@echo "  make watch        Follow the active runs reporting into data/progress"
 

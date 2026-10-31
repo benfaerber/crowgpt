@@ -5,8 +5,9 @@ Fetches corvid recordings from **Xeno-canto** and the **Macaulay Library** into
 this repository may name and fetch from; anything else in a corpus arrived
 through other tooling that is not part of this tree.
 
-Headless and CLI-only. No server, no browser automation: both archives have
-JSON APIs.
+Headless and CLI-only. No server, no browser automation. Xeno-canto has a
+JSON API; the Macaulay Library's search answers scripts with a bot check, so
+it goes through the CSV export described below.
 
 ## Setup
 

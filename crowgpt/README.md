@@ -128,6 +128,13 @@ tokens drawn from the right marginal distribution and decoded the same way score
 **zero**, so 38.9% is structure the model learned rather than an artefact of the
 ambience, the decoder or the 3-second framing.
 
+**Read these percentages with experiment 0022's caveat.** BirdNET selected
+the training windows and then scored the output, and later work found it
+scoring generated audio *above* real field recordings, so detection rates
+inherit that circularity and are not evidence of realism. Blinded listening
+is the instrument the project reports first; the promo page carries no
+BirdNET figure for this reason.
+
 Arm B independently reproduces experiment 0014's measured codec ceiling (80.6%
 here, 81.0% there) on entirely different audio, which is a reassuring sign that
 neither number is a fluke.
@@ -152,8 +159,10 @@ of detection. Memorised content does not evaporate when you raise the
 temperature. The 37.5% was a property of the shipped sampling defaults
 (T=0.95, top-k 200), which had never been measured, and not of the model.
 
-The default is now **T=1.15 / top-k 200**, where generated audio matches the
-training set no more often than recordings the model has never heard.
+The default became **T=1.15 / top-k 200**, where generated audio matches the
+training set no more often than recordings the model has never heard. The
+shipped releases later pinned their own sampling, T 1.0 for CrowGPT1 and
+T 1.1 for CrowGPT2 (see the releases above).
 
 The table above is kept because it is how the question got asked, and because
 the measurement is only interpretable next to the held-out base rate. Neither
@@ -235,7 +244,8 @@ is not crow, and the model inherits that. The BirdNET corvid filter removes the
 worst of it — a measured 24.5% of bouts — but not all.
 
 Species conditioning works. **Call-type conditioning does not and is not
-attempted here**, for the reason 0013 gives: the audio and the ability to label
+attempted here** as of July 2026 (it has since worked; see the note at the
+top and experiments 0074 onwards), for the reason 0013 gives: the audio and the ability to label
 it are anti-correlated across species. The only head good enough to pseudo-label
 with is American Crow, and it sits on 6% of the pool.
 

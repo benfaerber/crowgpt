@@ -19,7 +19,7 @@ A classifier that reads crow calls by type, a model that says them back, and a f
 <p align="center">
   <img alt="Python 3.10" src="https://img.shields.io/badge/python-3.10-3776ab">
   <img alt="Node 22" src="https://img.shields.io/badge/node-22-339933">
-  <img alt="92 experiments" src="https://img.shields.io/badge/experiments-92-cf7327">
+  <img alt="94 experiments" src="https://img.shields.io/badge/experiments-94-cf7327">
   <img alt="Status: prototype" src="https://img.shields.io/badge/status-prototype-97897a">
 </p>
 
@@ -28,7 +28,7 @@ A classifier that reads crow calls by type, a model that says them back, and a f
 This started when I began feeding a murder of local crows. They were obviously smart, obviously talking to each other, and I wanted to know what about. CrowGPT is the set of tools that came out of it:
 
 - **CawDex** reads crow calls. Audio goes in, every corvid call comes out found, named by species, and labeled by type on a timeline.
-- **CrowGPT**, the model, says them back. An 18M-parameter transformer trained from scratch on crow call bouts, with no human labeling in the loop. Ask it for an alarm call and it produces one.
+- **CrowGPT**, the model, says them back. A 22M-parameter transformer trained from scratch on crow call bouts, with no human labeling in the loop. Ask it for an alarm call and it produces one.
 - **The field app and CawScout** collect the missing half: what was actually happening when a crow called, written down at the moment it happened. That is the ingredient that turns a call type into a meaning.
 
 The end state is a translator that runs in both directions. Simple calls first: dog spotted, person arriving, food going down. Nobody is decoding crow grammar here.
@@ -175,7 +175,7 @@ Known gaps, in rough order of how much they would hurt: full-precision GPS on ev
 
 ## Everything is measured
 
-`experiments/` holds 92 numbered folders, each a `run.py` and a `README.md` that ends with what the answer changed: a threshold, a purchase, a decision not to build something. The nulls are recorded alongside the wins, because "would a denoiser help" answered properly and then forgotten is the kind of question that gets asked three times. The corpus is gitignored, so the numbers are the durable part.
+`experiments/` holds 94 numbered folders, each a `run.py` and a `README.md` that ends with what the answer changed: a threshold, a purchase, a decision not to build something. The nulls are recorded alongside the wins, because "would a denoiser help" answered properly and then forgotten is the kind of question that gets asked three times. The corpus is gitignored, so the numbers are the durable part.
 
 ## Repository layout
 
@@ -190,8 +190,10 @@ Known gaps, in rough order of how much they would hurt: full-precision GPS on ev
 | [`fieldserver/`](fieldserver/) | Fleet ingest and command-and-control API, plus the inference worker |
 | [`dashboard/`](dashboard/) | Operator dashboard (Vite + React), served by the field server |
 | [`mobile/`](mobile/) | The field capture app (React Native + Expo, Android first) |
-| [`promo/`](promo/) | The public site, a compiled static bundle |
-| [`experiments/`](experiments/) | 92 numbered measurements, each with what the answer changed |
+| [`promo/`](promo/) | The public site, a compiled static bundle, deployed to crowgpt.org |
+| [`transcriber/`](transcriber/) | Speech-to-text for spoken field notes, run by the field server's dictation worker |
+| [`tools/`](tools/) | Repo-wide scripts: the corpus and database backup |
+| [`experiments/`](experiments/) | 94 numbered measurements, each with what the answer changed |
 | [`phases/`](phases/) | The phased plan and dated results |
 | `data/` | The corpus. Gitignored, never committed. |
 

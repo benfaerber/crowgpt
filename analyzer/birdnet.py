@@ -14,8 +14,7 @@ server. The dashboard replaced the page; the engine inside it was always the
 real thing, and it belongs on its own.
 
 Call-type heads live under pipelines/training/models/:
-  - calltype_clf.joblib          the American Crow head (Phase 4)
-  - <species-slug>/calltype_clf.joblib   one head per additional species
+  - <species-slug>/calltype_clf.joblib   one head per species, American Crow included
 A detected corvid with no head is still shown (species-only), never mislabeled
 with another species' model.
 

@@ -13,7 +13,7 @@ GENERATOR ?= ../crowgpt/.venv/bin/python
 
 help:
 	@echo "CrowGPT field server"
-	@echo "  make dev      Serve the API and run the inference worker together (Ctrl-C stops both)"
+	@echo "  make dev      Serve the API and run the workers together (Ctrl-C stops them all)"
 	@echo "  make serve    Serve the field API + operator dashboard on http://127.0.0.1:5100"
 	@echo "  make worker   Run the BirdNET inference worker against the shared DB"
 	@echo "  make transcriber  Run the speech-to-text worker for spoken field notes"
@@ -73,7 +73,7 @@ dev:
 	  echo "Stop it first:  make -C fieldserver stop"; \
 	  exit 1; \
 	fi
-	@echo "Field server -> http://$$(hostname -I | awk '{print $$1}'):5100   (+ inference worker)"
+	@echo "Field server -> http://$$(hostname -I | awk '{print $$1}'):5100   (+ workers)"
 	@echo "                 set that as the server URL in the app's Settings"
 	@echo "                 (loopback also works: http://127.0.0.1:5100)"
 	@bash tools/secrets.sh --show

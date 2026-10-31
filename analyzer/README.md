@@ -35,8 +35,8 @@ make analyzer     # from the repo root — loads it and lists the heads it found
 
 Heads are read from `pipelines/training/models/` at import:
 
-- `calltype_clf.joblib` — the American Crow head
-- `<species-slug>/calltype_clf.joblib` — one per additional species
+- `<species-slug>/calltype_clf.joblib` — one per species, American Crow included
+  (`american-crow/calltype_clf.joblib`), each beside its `metrics.json`
 
 Train another with `make train SLUG=<species-slug>`; this picks it up on the
 next start, with no code change.

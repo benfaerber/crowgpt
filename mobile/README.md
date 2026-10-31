@@ -1,33 +1,22 @@
 # mobile
 
-The CrowGPT field app (React Native + Expo SDK 57, dev client). **Work in
-progress.**
-
-Phase 0 — *will React Native give us real control of the mic?* — is answered and
-recorded under [Verified on device](#verified-on-device-pixel-10-pro--android-16-and-pixel-8--android-16).
-The screen you get on launch is still the Phase 0 rig; the real app is being
-built underneath it.
+The CrowGPT field app (React Native + Expo SDK 57). `App.tsx` exports
+`CrowGPTApp`; the Phase 0 rig that answered *will React Native give us real
+control of the mic?* is recorded under
+[Verified on device](#verified-on-device-pixel-10-pro--android-16-and-pixel-8--android-16).
 
 ## Where the app is
 
 | Layer | State |
 |-------|-------|
 | Capture (`modules/raw-audio`) | Working. 48 kHz mono 16-bit WAV, correct headers, BirdNET detects crows from it. |
-| Local store + sync (`src/`) | **Built and tested** — `make test`, no device needed. |
-| UI (`src/ui/`, `src/app/`) | **Built.** Capture list + record button, explicit Sync, detail with detected calls, settings. Typechecks; not yet seen on a device. |
-| Native adapters (SQLite, file reads, GPS) | Not started. Each is a thin class behind an existing interface. |
+| Local store + sync (`src/`) | Built: SQLite through `expo-sqlite` (`src/data/Sqlite*Repository.ts`, migrations alongside), on-demand sync, restore from the server. `make test`, no device needed. |
+| UI (`src/ui/`, `src/app/`) | In daily field use on the Pixel 10 Pro: capture list and record, explicit Sync, detail with detected calls and labels, the CawScout map, settings. |
+| Native adapters (SQLite, file reads, GPS) | In place, each a thin class behind the interface the tests fake. |
 
-The app root is `src/app/CrowGPTApp.tsx`. It is **not yet wired into
-`App.tsx`**, which still renders the Phase 0 rig — switching over is a one-line
-change once the mic investigation is finished with that file:
-
-```tsx
-export { CrowGPTApp as default } from "./src/app/CrowGPTApp";
-```
-
-Until the `expo-sqlite` adapter lands, `AppServices` builds an in-memory store,
-so **captures do not survive an app restart**. The composition root is the only
-place that knows this; nothing above it changes when the real adapters arrive.
+The app root is `src/app/CrowGPTApp.tsx`. `AppServices` is the composition
+root: it builds the SQLite stores, the HTTP client and the sync engine, and is
+the only place that knows which adapter backs which interface.
 
 ### Local-first, sync on demand
 
@@ -66,8 +55,9 @@ Storage, HTTP and file reads sit behind interfaces so the whole path runs under
 plain node with no device attached:
 
 ```sh
-make test     # 27 checks: resume-from-offset, no-duplicate-on-retry,
-              # stale-local-offset correction, permanent vs transient failures
+make test     # the unit suite under plain node: resume-from-offset,
+              # no-duplicate-on-retry, stale-local-offset correction,
+              # permanent vs transient failures, and the rest
 ```
 
 Those tests fake the *server* at the HTTP boundary rather than mocking the
