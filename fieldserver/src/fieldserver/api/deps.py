@@ -54,6 +54,7 @@ class Deps:
     #: Who asked to try the app, and the invites that answered. See
     #: stores/access_requests.py and api/access.py.
     access: Any
+    demo: Any
 
     #: The calling device and the person it belongs to, or 401.
     current_actor: Callable[[], tuple]

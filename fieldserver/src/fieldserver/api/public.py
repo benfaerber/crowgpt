@@ -1,4 +1,4 @@
-"""Health and the served vocabulary. The only two routes anybody may call without a token — a phone needs the label set before it has enrolled, and every client polls health."""
+"""Health and the served vocabulary. The two routes anybody may call without a token — a phone needs the label set before it has enrolled, and every client polls health. (demo.py is the other tokenless section, for the promo page, bounded its own way.)"""
 
 from flask import jsonify, request
 

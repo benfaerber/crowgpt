@@ -53,3 +53,22 @@ class Throttle:
         else:
             self._failures.pop(key, None)
         return kept
+
+
+class Allowance:
+    """How many times a key may succeed inside a rolling window.
+
+    The other half of the same idea, for a route where the successes are the
+    cost: the promo's generate button spends real CPU on every press, and the
+    caller has no secret to get wrong. `spend` counts the press and says
+    whether it was within the allowance, so a refused press costs nothing.
+    """
+
+    def __init__(self, allowed: int, per_seconds: float):
+        self._throttle = Throttle(allowed, per_seconds)
+
+    def spend(self, key: str) -> bool:
+        if self._throttle.blocked(key):
+            return False
+        self._throttle.record_failure(key)
+        return True

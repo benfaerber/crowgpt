@@ -64,9 +64,20 @@ function statsTokens(): Plugin {
   };
 }
 
+/**
+ * Where the live CrowGPT buttons send a visitor's press. The field server
+ * serves the /promo build itself, so that one calls its own origin; the
+ * public build names the hosted API. This is the only thing on the page that
+ * talks to a server, and it still takes no token — see src/live-caw.ts.
+ */
+const FIELD_API = isPublic ? "https://field.crowgpt.org" : "";
+
 export default defineConfig({
   base: isPublic ? "/" : "/promo/",
   plugins: [statsTokens()],
+  define: {
+    __FIELD_API__: JSON.stringify(FIELD_API),
+  },
   build: {
     outDir: isPublic ? "dist" : "../fieldserver/src/fieldserver/static/promo",
     emptyOutDir: true,
@@ -81,5 +92,10 @@ export default defineConfig({
   },
   server: {
     port: 5174,
+    // The dev page calls its own origin like the /promo build does, and the
+    // local field server answers.
+    proxy: {
+      "/api": "http://127.0.0.1:5100",
+    },
   },
 });

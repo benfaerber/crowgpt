@@ -161,6 +161,19 @@
             models are on Hugging Face, with a card that says how to load and sample
             them.</span></a>
           </p>
+          <!-- Shown by live-caw.ts once the field server has answered; a page
+               whose API is down keeps everything above and loses only this. -->
+          <div class="live-caw" id="live-caw" hidden>
+            <h4>Ask it yourself</h4>
+            <p>
+              Pick a call and the model generates one on the project's server, a fresh
+              seed every press. Usually it is ready at once; sometimes you wait a bout.
+              Every clip is new, with its seed shown, so no two visitors hear the same
+              crow.
+            </p>
+            <div class="live-caw-menu" role="group" aria-label="Ask CrowGPT for a call"></div>
+            <div class="live-caw-result" aria-live="polite"></div>
+          </div>
         </div>
         <p class="section-lede section-lede-after">
           Two things about it matter more than the audio. It does <em>not</em> copy its

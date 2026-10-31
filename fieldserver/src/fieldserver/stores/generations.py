@@ -53,7 +53,13 @@ class GenerationStore(Database):
         self.clip_dir = Path(clip_dir)
         self.clip_dir.mkdir(parents=True, exist_ok=True)
 
-    def request(self, call_type, model=DEFAULT_MODEL, contributor_id=None):
+    def request(self, call_type, model=DEFAULT_MODEL, contributor_id=None,
+                source="chat", priority=1):
+        """Queue one exchange. Chat rows wait on somebody, so priority 1.
+
+        `stores/demo.py` queues its own rows with source 'demo' through this,
+        at priority 0 when nobody is waiting and 1 when a visitor is.
+        """
         if model not in MODELS:
             raise ValueError(f"model must be one of {', '.join(MODELS)}")
         allowed = MODELS[model]
@@ -65,9 +71,10 @@ class GenerationStore(Database):
         with self._connect() as conn:
             cur = conn.execute(
                 "INSERT INTO generations (call_type, model, seed, requested_by, "
-                "state, created_at) VALUES (?, ?, ?, ?, 'queued', ?)",
+                "state, created_at, source, priority) "
+                "VALUES (?, ?, ?, ?, 'queued', ?, ?, ?)",
                 (call_type, model, secrets.randbelow(SEED_SPAN), contributor_id,
-                 utc_now()))
+                 utc_now(), source, int(priority)))
             return self._row(conn, cur.lastrowid)
 
     def get(self, generation_id):
@@ -77,10 +84,15 @@ class GenerationStore(Database):
             return dict(r) if r else None
 
     def recent(self, limit=50) -> list[dict]:
-        """The newest exchanges in chat order — oldest of the window first."""
+        """The newest chat exchanges in chat order — oldest of the window first.
+
+        The promo's demo rows share the table and are not conversation: a
+        refill nobody asked for would read as a message from nobody.
+        """
         with self._connect() as conn:
             rows = [dict(r) for r in conn.execute(
-                "SELECT * FROM generations ORDER BY id DESC LIMIT ?", (limit,))]
+                "SELECT * FROM generations WHERE source = 'chat' "
+                "ORDER BY id DESC LIMIT ?", (limit,))]
         return list(reversed(rows))
 
     def path(self, row) -> Path:
@@ -108,17 +120,19 @@ class GenerationStore(Database):
     # --- the worker half --------------------------------------------------
 
     def claim_next(self):
-        """Atomically claim the oldest queued request — one statement, no window.
+        """Atomically claim the most urgent queued request — one statement, no window.
 
-        `AnalysisStore.claim_next` records why the SELECT-then-UPDATE version
-        was wrong.
+        Somebody waiting (priority 1) goes before a pool refill (priority 0),
+        oldest first within a priority, so a visitor whose clip is not on the
+        shelf is not queued behind ten refills. `AnalysisStore.claim_next`
+        records why the SELECT-then-UPDATE version was wrong.
         """
         with self._connect() as conn:
             row = conn.execute(
                 "UPDATE generations SET state='running', claimed_at=?, "
                 "attempts = attempts + 1 "
                 "WHERE id = (SELECT id FROM generations WHERE state='queued' "
-                "            ORDER BY id LIMIT 1) "
+                "            ORDER BY priority DESC, id LIMIT 1) "
                 "RETURNING id", (utc_now(),)).fetchone()
             return self._row(conn, row["id"]) if row else None
 

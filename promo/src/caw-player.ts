@@ -30,7 +30,7 @@ export class CawPlayers {
   }
 }
 
-class Player {
+export class Player {
   private readonly button = el("button", {
     className: "caw-play",
     attrs: { type: "button", "aria-label": "Play" },

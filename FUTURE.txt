@@ -278,8 +278,16 @@ when it has a shape and a reason to happen now.
     on purpose: it still takes no token, and the page must render in full
     with the button gone when the API is unreachable.
 
-    REVISIT WHEN the field server is hosted (the deploy entry above) and the
-    crowgpt weights' visibility is settled.
+    BUILT 2026-10-31, most of it: api/demo.py + stores/demo.py on the field
+    server (fixed menu, shelf of two per item refilled at priority 0, per-IP
+    allowance of 30 presses/hour, cap of 8 live jobs, CORS naming
+    crowgpt.org), promo/src/live-caw.ts for the buttons, hidden until the
+    API answers. Measured on the VPS: see the numbers in the commit that
+    shipped it. STILL OPEN from the sketch: Cloudflare proxying the record
+    with a rate-limit rule on /api/demo/, and Turnstile on the button. Both
+    need Ben in the Cloudflare dashboard (site key + secret), so they wait
+    for the first sign of abuse or a promo push, whichever is first — the
+    allowance is a floor until then.
 
 [ ] The hard promo push — measurement is in place; know its one gotcha
     before spending a launch on it

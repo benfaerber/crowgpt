@@ -1,9 +1,17 @@
 # promo/
 
 The public-facing page for the project. A compiled static bundle — no framework,
-no API calls — built into `fieldserver/src/fieldserver/static/promo/` and served
+one API call — built into `fieldserver/src/fieldserver/static/promo/` and served
 by the field server at `/promo`, the same arrangement the dashboard uses. A
 running fleet stays one process on one port.
+
+The one call is the "Ask it yourself" buttons under the CrowGPT players
+(`src/live-caw.ts`): a press posts to the field server's tokenless
+`/api/demo/*` routes and plays the clip that comes back. The public build names
+`https://field.crowgpt.org` (`__FIELD_API__` in `vite.config.ts`); the `/promo`
+build and the dev server call their own origin. The block is hidden until the
+API has answered, so a page whose server is down renders whole with the buttons
+gone. `fieldserver/src/fieldserver/api/demo.py` says how presses are bounded.
 
 ```bash
 make -C promo dev     # hot reload on :5174, needs nothing else running
@@ -14,7 +22,8 @@ make field            # builds it if missing, then serves it at :5100/promo
 ## Every number on it comes from `stats.json`
 
 The page reads no store and takes no token, so a visitor never touches the
-corpus. A promo page wired to the live database would silently restate itself as
+corpus (the generate buttons reach a shelf of synthetic clips, never a
+recording). A promo page wired to the live database would silently restate itself as
 the corpus changed, which is a worse promise than a number with a date attached.
 
 So the numbers are still baked in at build time — but there is exactly one place

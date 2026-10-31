@@ -1416,6 +1416,59 @@ main {
   font-weight: 600;
 }
 
+/* ---- ask it yourself ----------------------------------------------------- */
+
+.live-caw {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.live-caw h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.live-caw-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.live-caw-button {
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.92rem;
+}
+
+.live-caw-button:disabled {
+  cursor: progress;
+  opacity: 0.55;
+  transform: none;
+}
+
+.live-caw-button.is-asking {
+  opacity: 1;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.live-caw-result {
+  margin-top: 1rem;
+  min-height: 1.5rem;
+}
+
+.live-caw-result .caw-player {
+  max-width: 28rem;
+}
+
+.live-caw-status {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
 /* ---- honest list --------------------------------------------------------- */
 
 /* ---- call types ----------------------------------------------------------- */

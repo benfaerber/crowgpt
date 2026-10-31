@@ -38,6 +38,15 @@ approved access request be emailed its invite; unset, the dashboard hands you
 the link to send yourself. Strangers ask at `/preview`; operators decide on the
 dashboard's Access page.
 
+The promo page's "Ask it yourself" buttons call `/api/demo/*` with no token at
+all. What bounds that is in `api/demo.py` and `stores/demo.py`: a fixed menu,
+a shelf of clips the generate worker fills ahead of time (two per item, refilled
+on every press at low priority), thirty presses an hour per address, and at most
+eight live jobs open at once. `FIELD_DEMO_ORIGINS` (comma-separated) overrides
+the CORS list, which is crowgpt.org and the Vite dev server by default. Demo
+rows share the `generations` table with Crow Chat but neither surface shows the
+other's; served clips are kept a day, then pruned.
+
 The defaults are for loopback, where you already have to be on this machine.
 **The server refuses to bind anything else while either is still at its
 default** — off loopback they are published constants, and anyone who can read

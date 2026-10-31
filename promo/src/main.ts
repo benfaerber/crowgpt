@@ -5,6 +5,7 @@ import { CawPlayers } from "./caw-player";
 import { ChipTips } from "./chip-tip";
 import { Flock } from "./flock";
 import { Lightbox } from "./lightbox";
+import { LiveCaw } from "./live-caw";
 import { MailLink } from "./mail-link";
 
 new AucFigure({
@@ -24,5 +25,8 @@ new MailLink(".mail").mount();
 new Flock("#flock", lightbox).mount();
 
 new CawPlayers(".caw-player").mount();
+
+// Hidden until the hosted API answers; see live-caw.ts.
+void new LiveCaw("#live-caw", __FIELD_API__).mount();
 
 new ChipTips(".chips").mount();

@@ -256,7 +256,9 @@ scream page — never for a sitting that produces a statistic.
 - `dashboard/` — the operator dashboard (Vite + React), served by fieldserver
 - `promo/` — the public promo page, a compiled bundle fieldserver serves at `/promo`
   and `make -C promo deploy` publishes to crowgpt.org as a Cloudflare Worker;
-  every number on it is hardcoded at build time, so it reads no store and takes no token
+  every number on it is hardcoded at build time, so it reads no store and takes no token;
+  its one live call is the "Ask it yourself" buttons, which post to the hosted
+  server's tokenless `/api/demo/*` and hide themselves when it does not answer
 - `transcriber/` — the speech-to-text module the field server's dictation worker runs
 - `tools/` — repo-wide scripts, currently the corpus and database backup behind `make backup`
 - `crowgpt/` — generating crow calls; own venv carrying torch *and* birdnetlib
