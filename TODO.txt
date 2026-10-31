@@ -1098,7 +1098,9 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     Habituating now means the station is familiar furniture before the numbers
     arrive.
 
-[ ] Run the within-group thinning arm before downloading anything at scale
+[x] Run the within-group thinning arm before downloading anything at scale
+    (struck 2026-10-30: overtaken, the 2026-08 download already happened; see
+    crowgpt/src/crowgpt/extract.py and crowgpt/tools/v3_overnight.sh)
 
     FUTURE.txt called this and it is right: nothing has yet MEASURED that more
     audio per channel helps. 0048 varies the number of recording groups, so it
@@ -1346,7 +1348,8 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     "ghost" added from the 0067 tail listen. Stored answers keep retired
     tags; only new answers are validated against the new list.
 
-[ ] The dust-controlled sitting: longctx at T1.1/k200 vs the default
+[x] The dust-controlled sitting: longctx at T1.1/k200 vs the default
+    (struck 2026-10-30: overtaken, CrowGPT2 shipped as longctx at T1.1/k200)
 
     0069's grid says more sampling freedom means LESS blowing-dust (0.49
     at T0.85 falling to 0.35 at T1.1, probe-scored) and better structure
@@ -1386,7 +1389,7 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
       Arm, walk away. Morning after: sync, review AUTO captures, delete the
       "no crow found" ones after a listen, ★ Keep the real ones.
 
-- 9 s window rung (0067's named next step): bouts-9s extracted overnight
+- ~~9 s window rung (0067's named next step)~~ done as experiments/0079 (2026-10-30): bouts-9s extracted overnight
   2026-08-16 and waiting. Needs a VRAM preflight at block ~5400 (--block-size
   past the 4096 default, micro-batch will clip hard), then tokenize + train +
   gate against a 9 s real reference. Do not gate against 6 s bouts — same
@@ -1400,7 +1403,7 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
   screen ("another app took the mic") instead of failing quietly, and check
   whether requesting the USB device exclusively is possible on Android.
 
-- CawScout predator icons, phase 2 — wire them into the app map: Ben delivered four
+- ~~CawScout predator icons, phase 2 — wire them into the app map~~ shipped, mobile/src/ui/map/mapHtml.ts predatorIcons layer (2026-10-30): Ben delivered four
   generic icons (crow, owl, hawk, kestrel), vectorized to color SVGs in
   images/ 2026-08-20 (kestral→kestrel spelling fixed in the asset names).
   Size-tested: legible at 26 px, better at 30-32; run predator pins at

@@ -146,6 +146,9 @@ when it has a shape and a reason to happen now.
         base path has to be decided at build time, which is why they are
         separate output directories.
 
+    (DONE since: the page is deployed as a Cloudflare Worker, `make -C promo
+    deploy`, promo/wrangler.toml; a Worker, not Pages. Noted 2026-10-30.)
+
     NOT DONE, on purpose: the upload. Deferred until the page is ready to be
     seen — decided against staging it behind Cloudflare Access first, on the
     grounds that the setup was more fuss than waiting. Use Pages Direct
@@ -174,6 +177,8 @@ when it has a shape and a reason to happen now.
     Two assets on the page are stock rather than Ben's — the SLC skyline and
     the crow flight sprite. Licences unchecked; settle before it is public.
 
+    (Overtaken 2026-10-30: the public repo is a one-commit squash of 2026-10-21; the
+    purge of the local history is TODO.txt's open-source entry.)
     Before any git push to a new remote or CI: an archive API key is still
     in history — purge first, or upload only built bundles.
 
@@ -912,6 +917,8 @@ Starting a recording without taking the phone out
 
 
 [~] CrowGPT — synthesising a caw, which the corpus can already almost pay for
+    (2026-10-30: call-type conditioning has since worked, experiments 0074 onwards;
+    model-calltype answers the Crow Chat buttons. The body below is history.)
 
     PARTLY BUILT, 2026-07-30. The second REVISIT trigger below fired — the
     unconditioned "does it sound like a crow at all" demo — and it is now
@@ -1726,6 +1733,9 @@ CROWGPT: THE PRETRAINED ROUTE WAS TRIED, AND IT LOST TO THE 18M FROM SCRATCH
 
 
 A BUTTON IN THE APP THAT GENERATES A CROW CALL
+    (2026-10-30: decided against. The phone gets no generation surface, by
+    Ben's call, so nobody plays it at a crow; see the Live CrowGPT entry near
+    the top. Also stale below: the sampler has had a KV cache since 0080.)
 
     Ben's, 2026-07-31. Press a button, pick a call type, hear a synthesised caw.
     The shape is clear and the plumbing is mostly a copy of something that
@@ -2655,7 +2665,7 @@ CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
 
     REVISIT WHEN Ben says the repo goes public.
 
-[ ] CROWGPT in the browser: a client-side generate-a-crow demo on the promo
+[x] CROWGPT in the browser: a client-side generate-a-crow demo on the promo
     page
 
     Asked 2026-08-18. Technically well within reach: the transformer is
@@ -2797,6 +2807,9 @@ CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
     session wants it.
 
 [ ] Weather → activity prediction ("they'll be out at 10 AM")
+    (2026-10-30: step 1, weather on every capture and visit, shipped in alembic
+    revisions 0031 and the visit_weather revision. The prediction itself is
+    still open.)
 
     Raised 2026-08-20. Ben wants forecast-conditioned activity windows for
     the crows. The blocker is not weather data (Open-Meteo: free hourly
