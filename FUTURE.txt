@@ -180,6 +180,31 @@ when it has a shape and a reason to happen now.
     40 GB after the OS and venvs is roughly 8,000 kept clips at the current
     3.5 MB average, so disk is not what forces the upgrade.
 
+    DONE 2026-10-31, the field server is hosted. The layout on the box, so
+    the next person can find it: Ubuntu 26.04, user ubuntu, the tree at
+    ~/crowgpt shipped by `git archive` (committed files only, so no instance,
+    no weights, no bundles arrive that way). Two venvs under uv-managed
+    Python 3.10: fieldserver/.venv (`uv sync --frozen`) and crowgpt/.venv
+    with CPU torch (`uv sync --index
+    pytorch-cu128=https://download.pytorch.org/whl/cpu`), which also serves
+    the BirdNET worker — on CPU there is no CUDA for birdnetlib to take away,
+    so the laptop's two-venv separation is unnecessary there. systemd:
+    crowgpt-field (the Flask server on 127.0.0.1:5100, FIELD_TRUST_PROXY=1),
+    crowgpt-analyze, crowgpt-generate, crowgpt-scout, all reading
+    fieldserver/instance/service.env (secrets.env without the `export`s,
+    plus FIELD_HOST/PORT and the fleet coordinates). Caddy terminates TLS
+    for field.crowgpt.org with a Let's Encrypt certificate and refuses the
+    bare IP; ufw allows 22, 80, 443. The laptop's instance (database, media,
+    originals, dictations, scout data, 782 MB) and the two release
+    checkpoints plus the finetuned decoder were copied once by rsync. The
+    Cloudflare record is DNS-only (grey): proxying waits for the promo
+    generate entry below, which is what wants the rate-limit rule.
+
+    Not done, carried into TODO.txt: backups of the hosted instance (the
+    `make backup` tool reads the local one), a production WSGI server in
+    place of werkzeug's, and the transcriber, which stays on the laptop by
+    design (Whisper wants the GPU).
+
     Before the gate opens to strangers, each of these graduates to a phase:
     per-contributor auth replacing the enrollment secret, quotas + upload
     abuse handling (throttle.py is a start, not an answer), a storage plan

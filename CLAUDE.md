@@ -3,14 +3,17 @@
 Monorepo for the CrowGPT project — decoding crow calls with AI. Start from
 `README.md` and `phases/` for the plan.
 
-## Status: prototype; the field server is not deployed
+## Status: prototype; the field server is hosted, the fleet is still one person
 
-One user, one fleet, the field server running on a laptop on a home network.
-Two things are public: the promo page at crowgpt.org (a Cloudflare Worker,
-`make -C promo deploy`) and the code, on GitHub since 2026-10-21. Nothing a
-phone talks to is reachable from outside. No TLS; enrollment is a single shared
-secret. Treat "how would this behave with a thousand contributors" as a design
-question worth answering, not a problem to solve today.
+One user, one fleet. Since 2026-10-31 the field server runs on an OVH VPS at
+https://field.crowgpt.org (Caddy for TLS, four systemd units, `ssh crowfield`;
+the deploy entry in FUTURE.txt has the layout) and `make field-deploy` from
+this laptop updates it. The promo page at crowgpt.org is a Cloudflare Worker
+(`make -C promo deploy`) and the code has been on GitHub since 2026-10-21.
+Enrollment is still a single shared secret and nothing invites strangers yet.
+Treat "how would this behave with a thousand contributors" as a design
+question worth answering, not a problem to solve today. `make field` still
+runs a local server for development; the phones point at the hosted one.
 
 ## Every session takes a name
 
@@ -87,6 +90,13 @@ newer phone pushed fields an older server accepted and discarded.
 
 `make field-stop`, then `make field`. Verify with `/api/health` before calling
 the work done. Restarting touches no data.
+
+The hosted server is the same obligation: after committing server-side code,
+`make field-deploy` ships the committed tree and restarts the units on the
+box, then checks `/api/health`. `make field-status` and `make field-logs` say
+how it is doing. The box runs only what is committed (git archive, not the
+working tree), so an uncommitted fix is not deployed however many times the
+target runs.
 
 **Schema is Alembic's, on the server.** No store creates a table or adds a
 column any more; `create_app` runs `upgrade head` and then refuses to start if

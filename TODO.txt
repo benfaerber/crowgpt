@@ -1479,3 +1479,30 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     docstring updated. Eight days of retention on the free plan, so until this
     is done any promo push's numbers are being lost.
 
+[ ] Back up the hosted field server's instance
+
+    tools/backup.py copies the laptop's fieldserver/instance; the live one is
+    now on the VPS (ssh crowfield, ~/crowgpt/fieldserver/instance), where a
+    disk failure loses every capture pushed since 2026-10-31. Pull-only, as
+    the FUTURE NAS entry says: `rsync -a crowfield:crowgpt/fieldserver/instance/`
+    from the laptop on a timer, with the database taken through sqlite's
+    backup API rather than copied live. Nothing on the box should reach
+    back here.
+
+[ ] A real WSGI server on the hosted box
+
+    crowgpt-field runs `fieldserver`, which is werkzeug's development server
+    behind Caddy. It works for one fleet and SQLite serialises writers
+    anyway, but it is single-process and prints the "do not use in
+    production" banner on every start. gunicorn or waitress, two workers,
+    bound to loopback; the ProxyFix opt-in already handles the headers.
+
+[ ] test_corpus: the stored-bytes route no longer sends Accept-Ranges
+
+    tests/test_corpus.py::TestAudio::test_the_stored_bytes_stream_with_range_support
+    fails on the laptop (werkzeug 3.1.3): the response carries ETag and
+    Content-Length but no Accept-Ranges header. Found 2026-10-31 while
+    deploying, not caused by it (the ProxyFix change is inert in tests).
+    Either the route stopped passing conditional=True to send_file, or
+    werkzeug changed when it adds the header; find out which before the
+    dashboard's scrubber is blamed.
