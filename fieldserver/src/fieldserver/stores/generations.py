@@ -164,8 +164,12 @@ class GenerationStore(Database):
         return f"{secrets.token_hex(16)}.wav"
 
     def complete(self, generation_id, storage_ref, duration_sec, model,
-                 temperature, top_k):
+                 temperature, top_k, seed=None):
         """The reply half and the job state in one transaction.
+
+        `seed` is the one that produced the clip, when the worker had to draw
+        past the row's own (a bout under its length floor); the row's seed must
+        name the audio it holds, or showing it means nothing.
 
         A row forgotten mid-generation returns None and takes its wav with it,
         so the race with `forget` leaves nothing behind.
@@ -173,10 +177,10 @@ class GenerationStore(Database):
         with self._connect() as conn:
             conn.execute(
                 "UPDATE generations SET state='done', storage_ref=?, "
-                "duration_sec=?, model=?, temperature=?, top_k=?, finished_at=? "
-                "WHERE id = ?",
+                "duration_sec=?, model=?, temperature=?, top_k=?, finished_at=?, "
+                "seed = COALESCE(?, seed) WHERE id = ?",
                 (storage_ref, float(duration_sec), model, float(temperature),
-                 int(top_k), utc_now(), generation_id))
+                 int(top_k), utc_now(), seed, generation_id))
             row = self._row(conn, generation_id)
         if row is None:
             self.path({"storage_ref": storage_ref}).unlink(missing_ok=True)

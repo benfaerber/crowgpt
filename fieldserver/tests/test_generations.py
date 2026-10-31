@@ -58,6 +58,16 @@ class TestStore:
         done = store.complete(row["id"], ref, 3.0, "model-calltype", 1.0, 200)
         assert done["state"] == "done"
         assert done["storage_ref"] == ref
+        assert done["seed"] == row["seed"]
+
+    def test_complete_records_the_seed_that_was_actually_used(self, store):
+        row = store.request("song")
+        store.claim_next()
+        ref = store.allocate_ref()
+        store.path({"storage_ref": ref}).write_bytes(b"RIFF")
+        done = store.complete(row["id"], ref, 3.0, "model-calltype", 1.0, 200,
+                              seed=row["seed"] + 1)
+        assert done["seed"] == row["seed"] + 1
         assert done["duration_sec"] == 3.0
 
     def test_fail_is_terminal(self, store):

@@ -29,6 +29,7 @@ prefix simply never writes one.
 
 import gc
 import os
+import secrets
 import sqlite3
 import sys
 import time
@@ -42,11 +43,19 @@ sys.path.insert(0, str(REPO / "crowgpt" / "src"))
 
 from crowgpt import releases  # noqa: E402 — stdlib-only until .sampler()
 from fieldserver.stores.generations import (  # noqa: E402
-    CALL_TYPES, MODELS, GenerationStore)
+    CALL_TYPES, MODELS, SEED_SPAN, GenerationStore)
 
 DEFAULT_DB = FIELDSERVER / "instance" / "field.db"
 
 SAMPLE_RATE = 24_000
+
+#: A bout shorter than this is a model that stopped before it said anything —
+#: the sampler emits end-of-bout early now and then, and what comes out sounds
+#: like nothing. Ben asked for a floor on 2026-10-31. Rather than hand such a
+#: clip over, the worker draws a fresh seed and tries again, and writes the
+#: seed that produced the kept clip back to the row so it stays reproducible.
+MIN_SECONDS = 1.0
+MAX_DRAWS = 4
 
 
 class Recipe:
@@ -176,16 +185,28 @@ def process(job, store, sampler) -> float:
     import soundfile as sf  # noqa: PLC0415
 
     recipe = RECIPES[job["model"]]
-    audio = sampler.audio(recipe, job["call_type"], seed=job["seed"])
+    seed = job["seed"]
+    for draw in range(1, MAX_DRAWS + 1):
+        audio = sampler.audio(recipe, job["call_type"], seed=seed)
+        duration = len(audio) / SAMPLE_RATE
+        if duration >= MIN_SECONDS:
+            break
+        print(f"request {job['id']}: seed {seed} gave {duration:.2f}s, under "
+              f"the {MIN_SECONDS:.0f}s floor — drawing again ({draw}/{MAX_DRAWS})",
+              flush=True)
+        seed = secrets.randbelow(SEED_SPAN)
+    else:
+        raise RuntimeError(
+            f"{MAX_DRAWS} draws all under {MIN_SECONDS:.0f}s; last {duration:.2f}s")
     peak = float(np.max(np.abs(audio))) or 1.0
     ref = store.allocate_ref()
     # Peak-normalised PCM_16, the house rule for anything a human listens to —
     # pool._write is the precedent.
     sf.write(store.path({"storage_ref": ref}), audio / peak * 0.95, SAMPLE_RATE,
              format="WAV", subtype="PCM_16")
-    duration = len(audio) / SAMPLE_RATE
     store.complete(job["id"], ref, duration, recipe.name,
-                   recipe.sampling["temperature"], recipe.sampling["top_k"])
+                   recipe.sampling["temperature"], recipe.sampling["top_k"],
+                   seed=seed)
     return duration
 
 
