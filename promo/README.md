@@ -147,10 +147,7 @@ demos forward is not a reason to bury the numbers.
 Two series, blue and orange, from the data-viz reference palette — validated
 against both the light and dark chart surfaces (lightness band, chroma floor,
 CVD separation, normal-vision floor, contrast). Dark is the default theme and
-light is a selected set of steps rather than an inversion. Re-validate before
-changing either:
-
-```bash
-node scripts/validate_palette.js "#3987e5,#d95926" --mode dark --surface "#16181d"
-node scripts/validate_palette.js "#2a78d6,#eb6834" --mode light --surface "#fbfaf8"
-```
+light is a selected set of steps rather than an inversion. Dark pair
+`#3987e5` / `#d95926` on `#16181d`, light pair `#2a78d6` / `#eb6834` on
+`#fbfaf8`; re-check contrast and colour-vision separation before changing
+either.

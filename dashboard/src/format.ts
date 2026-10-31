@@ -99,7 +99,7 @@ export function describeOffset(offsetSec: number): string {
  * because the moment it does not is the moment a screenshot goes out with
  * somebody's street on it.
  */
-const PRESENTATION_KEY = "cawtalker.presentation";
+const PRESENTATION_KEY = "crowgpt.presentation";
 
 export function presentationMode(): boolean {
   try {

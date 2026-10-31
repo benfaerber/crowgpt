@@ -1468,3 +1468,14 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
       git for-each-ref --format='%(refname)' refs/codex | xargs -n1 git update-ref -d
       git reflog expire --expire=now --all && git gc --prune=now
     Until then, never `git push --all` or `--mirror` from here.
+
+[ ] Point `make -C promo traffic` at the crowgpt.org zone (Ben)
+
+    promo/tools/traffic.py still queries ZONE = "cawtalker.org" with a Zone
+    Analytics Read token scoped to that zone (fieldserver/instance/secrets.env,
+    CLOUDFLARE_API_TOKEN). Since the domain move that zone only serves
+    redirects, so the tool is counting redirects, not visitors. Needs a token
+    that covers the crowgpt.org zone (or both), then ZONE flipped and the
+    docstring updated. Eight days of retention on the free plan, so until this
+    is done any promo push's numbers are being lost.
+

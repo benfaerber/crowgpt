@@ -20,8 +20,8 @@ import type {
 } from "./types";
 import type { ServerBuild } from "../buildInfo";
 
-const TOKEN_KEY = "cawtalker_token";
-const SECRET_KEY = "cawtalker_operator_secret";
+const TOKEN_KEY = "crowgpt_token";
+const SECRET_KEY = "crowgpt_operator_secret";
 
 /**
  * The dashboard authenticates with a device bearer token like everything else,

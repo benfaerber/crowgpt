@@ -10,6 +10,7 @@ A classifier that reads crow calls by type, a model that says them back, and a f
 <p align="center">
   <a href="https://crowgpt.org">Website</a> ·
   <a href="https://crowgpt.org#crowgpt">Hear it</a> ·
+  <a href="https://huggingface.co/faerber/crowgpt">Weights</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#how-cawdex-works">How it works</a> ·
   <a href="#where-it-is-today">Where it is today</a> ·
@@ -40,7 +41,7 @@ The end state is a translator that runs in both directions. Simple calls first: 
 
 ## Hear it
 
-Two generations of the model next to a real field-recorded alarm call, so you can judge the gap yourself: **[crowgpt.org#crowgpt](https://crowgpt.org#crowgpt)**. Everything under a CrowGPT caption is generated, not a recording of a bird.
+Two generations of the model next to a real field-recorded alarm call, so you can judge the gap yourself: **[crowgpt.org#crowgpt](https://crowgpt.org#crowgpt)**. Everything under a CrowGPT caption is generated, not a recording of a bird. The released weights, CrowGPT1 and CrowGPT2 as safetensors with their decoder and sampling settings, are on Hugging Face at **[faerber/crowgpt](https://huggingface.co/faerber/crowgpt)**, gated behind a no-playback agreement.
 
 Two things about it matter more than the audio. It does not copy its training set: what it produces is generated, not retrieved ([experiment 0015](experiments/0015-is-it-copying-or-playing-it-safe/)). And it beat a 433M pretrained audio model fine-tuned on the same corpus ([experiment 0022](experiments/0022-does-a-pretrained-audio-model-help/)), which says the corpus and the training setup are doing real work.
 

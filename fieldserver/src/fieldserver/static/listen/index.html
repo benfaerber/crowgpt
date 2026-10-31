@@ -86,7 +86,7 @@ const params = new URLSearchParams(location.search);
 // localStorage with the dashboard means that if you are signed in there, this
 // page needs nothing; if you are not, it does the same exchange the dashboard
 // does rather than inventing a second way in.
-const TOKEN_KEY = "cawtalker_token";
+const TOKEN_KEY = "crowgpt_token";
 
 function storedToken() {
   try { return localStorage.getItem(TOKEN_KEY) || ""; } catch (e) { return ""; }
