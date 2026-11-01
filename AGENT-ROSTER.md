@@ -45,6 +45,8 @@ before wondering and written before working.
 
 ## Done
 
+- ~~**Chough** — since 2026-11-01 — promo: `#` anchor links on every heading, committed and built, NOT deployed. Updated 2026-11-01.~~
+
 - ~~**Jackdaw** — since 2026-10-21 17:55 — open-source move done (public github.com/benfaerber/crowgpt, one-commit squash; old history on local branch `private-history`, purge needs Ben's OK, see TODO.txt). Then the project renamed CrowGPT across titles/app/dashboard/docs (dbe27b7) and the promo's call-type cards shipped (18fd253), both deployed to cawtalker.org. Five local commits unpushed. Server and GPU untouched. Updated 2026-10-21 22:05.~~ (struck as stale 2026-10-30)
 
 - ~~**Jynx** — since 2026-09-11 — promo reorder + em-dash scrub shipped (d5bb83c, be46cce, a67298e; cawtalker.org not deployed, on Ben's word). Auto-grading investigation delivered: findings in FUTURE.txt (top entry). Read-only on the DB; not touching the server or the GPU. Updated 2026-09-11 18:05.~~ (struck as stale 2026-10-30)

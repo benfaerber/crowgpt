@@ -961,6 +961,35 @@ main {
   z-index: 1;
 }
 
+/* Hover a title for its link; on touch the mark stays faintly visible. */
+.anchored {
+  scroll-margin-top: 1.5rem;
+}
+
+.heading-anchor {
+  margin-left: 0.35em;
+  color: var(--text-muted);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.anchored:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.heading-anchor:hover {
+  color: var(--accent);
+}
+
+@media (hover: none) {
+  .heading-anchor {
+    opacity: 0.45;
+  }
+}
+
 .section h2 {
   font-size: clamp(1.8rem, 3.2vw, 2.5rem);
   margin-bottom: 1.25rem;

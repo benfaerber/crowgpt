@@ -4,6 +4,7 @@ import { AucFigure } from "./auc-figure";
 import { CawPlayers } from "./caw-player";
 import { ChipTips } from "./chip-tip";
 import { Flock } from "./flock";
+import { HeadingAnchors } from "./heading-anchors";
 import { Lightbox } from "./lightbox";
 import { LiveCaw } from "./live-caw";
 import { MailLink } from "./mail-link";
@@ -30,3 +31,5 @@ new CawPlayers(".caw-player").mount();
 void new LiveCaw("#live-caw", __FIELD_API__).mount();
 
 new ChipTips(".chips").mount();
+
+new HeadingAnchors("main h2, main h3, main h4").mount();
