@@ -1,73 +1,147 @@
-# Outreach — PoC → video → data + money
+# Outreach
 
-> **Status: pending.** The technical PoC exists (now
-> [`dashboard/`](../dashboard/) + [`analyzer/`](../analyzer/)); the video →
-> community → data/funding flywheel below hasn't started.
->
-> **Two scripts are drafted**, 2026-08-01, both written against the repo as it
-> stands rather than the READMEs, which lag:
->
-> - [`outreach-video-script.md`](outreach-video-script.md) — **the general cut**,
->   ~13 min, five figures, for r/crows and everyone else. Publish this first.
-> - [`outreach-video-script-technical.md`](outreach-video-script-technical.md) —
->   ~22 min, every measurement kept, for HN and bioacoustics. The follow-up for
->   people who ask how it works, who arrive *after* the first one lands.
->
-> Splitting them beats one script pitched between the two audiences, which is
-> the version that bores everybody. Both end with the prerequisites below still
-> unticked: the upload path is the one genuinely blocking, since there is no TLS
-> and enrollment is a single shared secret, so the "send me your recordings" ask
-> cannot honestly be made yet in either.
+The plan for getting CrowGPT in front of people, rewritten 2026-11-06 around what
+the first attempts showed. It assumes about 3 to 5 hours a week, because this is
+one person's evenings. Anything that needs more than that gets cut, not squeezed.
 
-The growth strategy. A compelling proof of concept isn't just a technical gate —
-it's the **launch artifact** that unlocks the two scarcest resources: data and
-funding.
+## What it is for
 
-## The flywheel
+**More recordists, then more attention.** The number that limits the project is
+human-labeled call audio with a witnessed situation, so the measure of outreach is
+people outside the backyard sending recordings. Stars and visits only matter if
+they lead there.
 
-```
-compelling PoC  →  YouTube video  →  post to r/crows + HN/etc
-      ↑                                        │
-      │                                        ▼
-  better model  ←  more data + money  ←  attention
-```
+The first-pass goals below are guesses rather than forecasts, set so a review has
+something to compare against.
 
-Each turn: the demo earns attention → attention brings crowdsourced recordings
-(solves the rare-context + single-family bottleneck) and small funding (extends
-the $5k) → more data makes a better model → a better demo. The PoC seeds the loop.
+| By | Goal |
+|---|---|
+| 2026-12-15 | One launch done, 50 people following, 2 expert conversations |
+| 2027-01-31 | 3 to 5 outside recordists with kept captures, one video out |
 
-## What makes a PoC *interesting* (not just valid)
+Baseline, 2026-10-30 to 11-05: 41 visitors, 152 page views, 6 GitHub stars, one
+active recordist.
 
-Phase 0 has two audiences, and the same experiment serves both if you present it
-right:
+## The story
 
-- **Technical:** does a distinct acoustic cluster line up with dog events? (a
-  scatter plot — convincing, but nerdy and won't travel).
-- **Public:** the shareable version is **"listen to these two caws — you can hear
-  they're different — and here's the AI telling them apart,"** ideally building
-  toward *"I point my phone at my crow and it captions what it's saying."*
-  Design the PoC demo for this from the start.
+**One person, one home GPU, one crow family, and a real attempt at the hardest
+version of the question.** Confident on purpose. Solo work with almost no money is
+the appeal, and the ambition is stated as an ambition.
 
-## Assets you already have
+The evidence, all checkable: 94 written-up experiments including the nulls, an
+18.7M-parameter model trained at home, a demo anyone can press, and open code.
 
-- **Named characters.** Killer, Edgar, Shredder, Thrasher, Ripjaw — a fledgling
-  who *calls back when you say "bye buddies."* Crow content spreads on *story*,
-  and you already have one. Lean into it; it's a marketing asset, not a footnote.
-- **A relatable premise** — one person, their backyard crows, and AI. That's the
-  whole appeal.
+Two limits keep it credible:
 
-## One rule: don't overclaim
+- **Ambition is fine, false results are not.** "I'm trying to talk to crows" is
+  bold. "I decoded crow language" is untrue, and no call has been translated yet.
+- **Do not lead with the 433M comparison.** It rests on the circular BirdNET score
+  and an earlier model. It is a footnote, always with its caveat.
 
-The science is genuinely uncertain (see [risks.md](risks.md)). Frame honestly —
-*"I'm trying to decode my crows' calls, here's my first real result"* — never
-*"I decoded crow language."* Overclaiming invites backlash from ornithologists,
-burns credibility with the exact community you're asking for data, and ages
-badly. Honest, in-progress framing plays *better* with crow people and
-researchers, and they're your data source.
+## Who, in order
 
-## Prerequisites before the video drops
+1. **Technical and curious readers.** They enjoy the solo story and do not need the
+   app to be ready. This buys credibility and collaborators.
+2. **A short, hand-picked list of experts and serious recordists,** written to one
+   at a time. Few people, high value, and their critique is useful in itself. The
+   list stays out of this repo.
+3. **Birders and crow people,** once there is a finding about crows to lead with.
+   Lead with the crows and disclose the AI plainly. Never hide it.
 
-- The **upload path** (audio + video + "what happened") live and dead-simple.
-- A **funding path** — Ko-fi / Patreon / small crowdfund; $5k-scale needs are
-  modest, but the durable "payment" is the contributed data.
-- Honest project write-up + the code, so it reads as a real open effort.
+General crow forums are not a channel for now: an AI-led post met flat refusals in
+2026-11, and the project does not need to win that argument to reach its goal.
+
+## The funnel, and the gap in it
+
+Attention, then a way to stay in touch, then an invite. The middle step does not
+exist yet: a visitor who likes the page can request the app or leave. A launch
+without somewhere to follow is mostly wasted, so **one email list comes first**,
+sending one short field note a month.
+
+## Schedule
+
+### Before anything public, by 2026-11-20
+
+Launch blockers:
+
+- [ ] Check the licences on the two stock assets (skyline, crow flight sprite), or
+      replace them. See the promo push entry in `FUTURE.txt`.
+- [ ] Put Cloudflare in front of `field.crowgpt.org` with a rate limit on
+      `/api/demo/` and Turnstile on the buttons. The demo shares a box with real
+      field uploads, so a spike must not be able to touch them.
+- [ ] Add the email list to the page.
+- [ ] Make the invite say plainly that captures carry precise GPS, until they are
+      coarsened. Recordists may be standing at home.
+- [ ] Retake the "Cawtalker" screenshot.
+- [ ] Settle the open copy questions: which model takes call types, the audio line
+      in the footer, whether the fledglings are still fledglings, and how
+      "conversation" fits with no playback.
+- [ ] Push the repo and the corrected Hugging Face card.
+- [ ] Add GitHub topics and a description a stranger can read.
+
+Cheap wins:
+
+- [ ] Ask the person who coined "the DeepSeek of animal communication" whether it
+      can be quoted, with their name.
+- [ ] Ask the people who emailed about Gemini what they typed.
+
+### Quiet review, 2026-11-14 to 11-30
+
+Write to 5 to 10 people on the private list, one at a time, asking what is wrong
+with the work. Fix what they find before the launch.
+
+### Show HN, Tuesday 2026-12-01 or Wednesday 12-02
+
+Avoid Thanksgiving week. Post in the US morning and clear the day to answer
+comments in the first person. One post, no asking anyone for votes. Follow-up
+posts to ML and bioacoustics communities only after checking each one's rules.
+
+### Review, 2026-12-15
+
+Run `make -C promo traffic` within a week of the launch, since the detail expires.
+Compare against the goals above, and decide:
+
+- **Requests came in:** send invites and support those recordists first. Their
+  captures are the point.
+- **Attention but no recordists:** move the time to individual outreach.
+- **Nothing happened:** the story or the title missed. Rework it and try one
+  different channel before making anything expensive.
+
+### One video, January 2027
+
+Rework [`outreach-video-script.md`](outreach-video-script.md), which predates
+CrowGPT2 and the hosted server. Long deep-dives on one obsessive project suit this
+audience, and it is the largest piece of work here, so it comes after the launch
+has shown which parts of the story land. The
+[technical script](outreach-video-script-technical.md) is held for whoever asks.
+
+### Throughout
+
+- One field note a month to the list.
+- One short clip a week on the existing Instagram, real recordings of the family.
+  Thirty minutes, and it can skip a week without harm.
+
+## The next big moment
+
+The best story still to come is the first call mapped to a witnessed meaning. That
+is when to approach science writers, local news, the local Audubon chapter and
+birders, because it is a finding about crows rather than a tool. Save those for it.
+
+## Not doing
+
+- **Ads, or buying any attention.** Nothing yet to convert it into.
+- **Alt accounts or seeded comments.** One discovery ends the project's credibility.
+- **A Discord or forum.** An empty room looks worse than none. Revisit at 20 active
+  people.
+- **LLM citation monitoring.** See `FUTURE.txt`.
+- **A funding page before the launch.** Asking for money with six stars reads badly.
+  Revisit once people ask how to support it.
+- **Posting everywhere.** One channel done well, in the order above.
+
+## Scoreboard
+
+Fill in one row after each push.
+
+| Date | Push | Views | Visitors | App requests | List | Active recordists |
+|---|---|---|---|---|---|---|
+| 2026-11-05 | Baseline | 152 | 41 | | 0 | 1 |
