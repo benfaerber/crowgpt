@@ -15,6 +15,15 @@ from pathlib import Path
 from ..core import transcode
 from .db_base import Database, utc_now
 
+
+def file_sha256(path: Path) -> str:
+    """A ten-minute video may be gigabytes; hashing needs only one MiB of RAM."""
+    digest = hashlib.sha256()
+    with path.open("rb") as source:
+        for block in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
 log = logging.getLogger(__name__)
 
 #: What a media row is allowed to call its format.
@@ -139,8 +148,8 @@ class MediaStore(Database):
 
         Refuses to leave a hole. Seeking past the end of what has arrived makes
         a sparse file whose recorded length is whatever the client asked for,
-        and `finalize` reads the whole of it back to hash it — so one byte
-        written at 8 GiB cost 8 GiB of memory the moment the upload completed.
+        and `finalize` must hash all of it — so one byte written at 8 GiB
+        would still force 8 GiB of disk I/O, even with a streaming hash.
 
         A resumable upload never needs it: the client resumes from the `bytes`
         this hands back, so it writes at the end of what it has or re-sends
@@ -174,7 +183,7 @@ class MediaStore(Database):
     def finalize(self, media_id) -> dict:
         """Hash the assembled file, store it as FLAC, and mark it complete."""
         media = self.get(media_id)
-        digest = hashlib.sha256(self.path(media).read_bytes()).hexdigest()
+        digest = file_sha256(self.path(media))
         with self._connect() as conn:
             conn.execute(
                 "UPDATE media SET sha256 = ?, upload_state = 'complete', uploaded_at = ? "
@@ -223,7 +232,7 @@ class MediaStore(Database):
                 # to change with them or every later integrity check is a lie.
                 "sha256 = ?, pcm_sha256 = ? WHERE id = ?",
                 (target.name, size,
-                 hashlib.sha256(target.read_bytes()).hexdigest(), samples, media_id))
+                 file_sha256(target), samples, media_id))
             return self._row(conn, media_id)
 
     def as_wav(self, media_row) -> Path:
