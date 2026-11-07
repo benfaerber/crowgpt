@@ -85,3 +85,5 @@ experiments/0036-what-would-more-labels-buy/results/crowtools_flags.json
 # The public build of the promo site — an upload artefact, rebuilt by
 # `make -C promo build-public`. The field server's copy is generated too.
 promo/dist/
+promo/test-results/
+promo/playwright-report/

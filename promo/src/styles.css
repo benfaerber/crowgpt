@@ -1472,6 +1472,11 @@ main {
   margin-top: 1rem;
 }
 
+.live-caw[hidden],
+.live-caw-menu[hidden] {
+  display: none;
+}
+
 .live-caw-button {
   cursor: pointer;
   font: inherit;

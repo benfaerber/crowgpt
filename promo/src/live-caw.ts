@@ -2,15 +2,14 @@
  *
  * The field server keeps a shelf of clips generated ahead, so a press usually
  * plays at once; when the shelf for an item is bare the press becomes a live
- * job and this polls until the bout is done. No token rides along — the API
- * bounds presses per address and the menu is fixed server-side (the page only
- * names a key). Everything here is hidden until the API has answered the
- * menu, so a page whose server is down reads whole with the buttons gone
- * rather than spinning.
+ * job and this polls until the bout is done. Each press sends a single-use
+ * Turnstile token for server verification; no secret lives on the page. Buttons
+ * stay hidden until the API and widget are ready. The static page always works.
  */
 
 import { Player } from "./caw-player";
 import { el } from "./dom";
+import { DemoChallenge } from "./demo-challenge";
 
 interface MenuItem {
   key: string;
@@ -39,6 +38,14 @@ export class LiveCaw {
   private readonly result: HTMLElement | null;
   private readonly buttons: HTMLButtonElement[] = [];
   private polling = 0;
+  private token = "";
+  private busy = false;
+  private unavailable = false;
+  private readonly challenge = new DemoChallenge();
+
+  private fetch(path: string, options?: RequestInit): Promise<Response> {
+    return fetch(`${this.api}${path}`, { ...options, signal: AbortSignal.timeout(10000) });
+  }
 
   constructor(
     selector: string,
@@ -52,17 +59,22 @@ export class LiveCaw {
   async mount(): Promise<void> {
     if (!this.root || !this.menu || !this.result) return;
     let items: MenuItem[];
+    let siteKey: string;
     // The menu is the health check: it answers only from a server that is up,
     // and it is the one route that carries the CORS header — /api/health does
     // not, so a separate probe of it is blocked by the browser on crowgpt.org
     // and read as "down". That is how the block shipped hidden on 2026-10-31.
     try {
-      const menu = await fetch(`${this.api}/api/demo/menu`);
+      const menu = await this.fetch("/api/demo/menu");
       if (!menu.ok) return;
-      items = ((await menu.json()) as { items: MenuItem[] }).items;
+      const body = (await menu.json()) as { items: MenuItem[]; turnstile_site_key?: string };
+      if (!body.turnstile_site_key) return;
+      items = body.items;
+      siteKey = body.turnstile_site_key;
     } catch {
       return;
     }
+    this.menu.hidden = true;
     for (const item of items) {
       const button = el("button", {
         className: "button live-caw-button",
@@ -74,34 +86,49 @@ export class LiveCaw {
       this.menu.append(button);
     }
     this.root.hidden = false;
+    const widget = el("div", { className: "live-caw-verification" });
+    this.root.insertBefore(widget, this.menu);
+    try {
+      await this.challenge.mount(widget, siteKey, token => {
+        this.token = token;
+        if (this.menu) this.menu.hidden = !token || this.unavailable;
+        if (!this.busy) this.setBusy(null);
+      }, () => this.hide());
+    } catch {
+      this.hide();
+    }
   }
 
   private async press(item: MenuItem, button: HTMLButtonElement): Promise<void> {
+    if (!this.token || this.busy || this.unavailable) return;
+    const token = this.token;
+    this.token = ""; // A Siteverify token is single-use, including failed requests.
     this.stopPolling();
     this.setBusy(button);
     this.say("Asking…");
     let generation: Generation;
     try {
-      const response = await fetch(`${this.api}/api/demo/generate/${item.key}`, {
+      const response = await this.fetch(`/api/demo/generate/${item.key}`, {
         method: "POST",
+        body: new URLSearchParams({ "cf-turnstile-response": token }),
       });
       if (response.status === 429) {
-        this.say("That is plenty of caws for one hour from one address. Come back later.");
+        this.say("Too many requests just now. Please try again later.");
         this.setBusy(null);
+        this.challenge.reset();
         return;
       }
       if (response.status === 503) {
-        this.say("CrowGPT is busy answering other people. Try again in a minute.");
-        this.setBusy(null);
+        this.hide();
         return;
       }
       if (!response.ok) throw new Error(`${response.status}`);
       generation = (await response.json()) as Generation;
     } catch {
-      this.say("Could not reach CrowGPT just now.");
-      this.setBusy(null);
+      this.hide();
       return;
     }
+    this.challenge.reset();
     this.follow(item, generation);
   }
 
@@ -127,12 +154,11 @@ export class LiveCaw {
 
   private async poll(item: MenuItem, id: number): Promise<void> {
     try {
-      const response = await fetch(`${this.api}/api/demo/generations/${id}`);
+      const response = await this.fetch(`/api/demo/generations/${id}`);
       if (!response.ok) throw new Error(`${response.status}`);
       this.follow(item, (await response.json()) as Generation);
     } catch {
-      this.say("Lost touch with CrowGPT while it was generating. Try another press.");
-      this.setBusy(null);
+      this.hide();
     }
   }
 
@@ -157,10 +183,20 @@ export class LiveCaw {
   }
 
   private setBusy(active: HTMLButtonElement | null): void {
+    this.busy = active !== null;
     for (const button of this.buttons) {
-      button.disabled = active !== null;
+      button.disabled = this.busy || !this.token || this.unavailable;
       button.classList.toggle("is-asking", button === active);
     }
+  }
+
+  private hide(): void {
+    this.unavailable = true;
+    this.stopPolling();
+    this.token = "";
+    if (this.root) this.root.hidden = true;
+    // An error callback may run inside render(), before the widget id returns.
+    queueMicrotask(() => this.challenge.remove());
   }
 
   private stopPolling(): void {

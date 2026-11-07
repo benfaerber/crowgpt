@@ -68,7 +68,7 @@ function statsTokens(): Plugin {
  * Where the live CrowGPT buttons send a visitor's press. The field server
  * serves the /promo build itself, so that one calls its own origin; the
  * public build names the hosted API. This is the only thing on the page that
- * talks to a server, and it still takes no token — see src/live-caw.ts.
+ * talks to a server; its Turnstile token is verified there — see src/live-caw.ts.
  */
 const FIELD_API = isPublic ? "https://field.crowgpt.org" : "";
 
