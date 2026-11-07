@@ -79,7 +79,9 @@ field-deploy:
 	ssh $(DEPLOY_HOST) 'export PATH=$$HOME/.local/bin:$$PATH; cd ~/$(DEPLOY_DIR)/fieldserver \
 	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q \
 	  && sudo systemctl restart crowgpt-field crowgpt-analyze crowgpt-generate crowgpt-scout'
-	@sleep 3; ssh $(DEPLOY_HOST) 'curl -fsS http://127.0.0.1:5100/api/health'; echo
+	@ssh $(DEPLOY_HOST) 'for attempt in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do \
+	  if curl -fsS http://127.0.0.1:5100/api/health; then echo; exit 0; fi; \
+	  sleep 2; done; echo "Field API did not become healthy" >&2; exit 1'
 
 # The preview page serves the newest .apk in the box's instance/apk/, so
 # publishing a build is a copy. The name carries the date and the commit so a
