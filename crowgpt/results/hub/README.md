@@ -47,7 +47,7 @@ directory.
 | | CrowGPT1 | CrowGPT2 |
 |---|---|---|
 | directory | `crowgpt1/` | `crowgpt2/` |
-| params | 21.2 M (d384, 8 layers, 6 heads) | 21.9 M (d384, 8 layers, 4 heads) |
+| params | 18.0 M (d384, 8 layers, 6 heads) | 18.7 M (d384, 8 layers, 4 heads) |
 | window | 3 s (225 codec frames, ctx 1811) | 6 s (460 codec frames, ctx 3612) |
 | decoder | stock EnCodec | `crowgpt2/decoder.safetensors`, an adversarially finetuned EnCodec decoder |
 | sampling | T 1.0, top-k 200 | T 1.1, top-k 200 |

@@ -432,10 +432,10 @@
       <section class="section" id="crowgpt">
         <h2>CrowGPT: saying it back</h2>
         <p class="section-lede">
-          The speaking half. A small transformer, 18M parameters, trained from scratch on
+          The speaking half. A small transformer, 18.7M parameters, trained from scratch on
           call bouts cut out of archive recordings, with
           <strong>no human labeling anywhere in the loop</strong>. Ask it for an alarm
-          call, a generic call, a flight call or begging, and it produces one.
+          call, a generic call, begging or song, and it produces one.
         </p>
         <div class="callout" id="crowgpt-preview">
           <h3>Hear it</h3>
@@ -480,12 +480,19 @@
             <div class="live-caw-menu" role="group" aria-label="Ask CrowGPT for a call"></div>
             <div class="live-caw-result" aria-live="polite"></div>
           </div>
+          <p class="playback-note">
+            <strong>Please don't play these outdoors.</strong> A fake alarm call could
+            stress real crows, so I don't play them to birds either, and the model's access
+            terms carry the same rule.
+          </p>
         </div>
         <p class="section-lede section-lede-after">
           Two things about it matter more than the audio. It does <em>not</em> copy its
-          training set: what it produces is generated, not retrieved. And it beat a 433M
-          pretrained audio model fine-tuned on the same corpus, which says the corpus and
-          the training setup are doing real work.
+          training set: what it produces is generated, not retrieved. And on a crow
+          detector, an earlier 18M version scored well ahead of a 433M pretrained audio
+          model fine-tuned on the same corpus. That detector also chose the training data,
+          which flatters the lead by an unknown amount, so a listening test gets the final
+          word.
         </p>
       </section>
 
@@ -867,8 +874,9 @@
             situation, and I am still collecting the first few dozen.
           </li>
           <li>
-            <strong>Public uploads aren't open yet.</strong> The code is open, but the
-            fleet is one phone on a home network for now.
+            <strong>Recording is invite-only for now.</strong> The code is open and the
+            server is hosted, but the field app is a closed preview, sent out one invite at
+            a time.
           </li>
           <li>
             <strong>Scope is loud calls only.</strong> Crows also make quiet soft song

@@ -530,6 +530,12 @@ img {
   width: 1.7rem;
 }
 
+.playback-note {
+  margin-top: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
 .hero-body {
   max-width: var(--measure);
 }

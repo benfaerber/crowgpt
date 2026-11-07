@@ -1,6 +1,6 @@
 {
   "_readme": "Every number the promo page prints. `make -C promo stats` refreshes the entries marked auto from where they are measured; the rest are typed by hand and the script only tells you when it cannot check them. The page prints `text`, never `value` — so what a visitor reads is in this file verbatim. See promo/README.md.",
-  "refreshed_at": "2026-08-09",
+  "refreshed_at": "2026-11-06",
   "figures": {
     "project.since": {
       "value": "18 July 2026",
@@ -9,36 +9,36 @@
       "source": "the repo's first commit"
     },
     "labels.count": {
-      "value": 66,
-      "text": "66",
+      "value": 77,
+      "text": "77",
       "auto": true,
       "about": "Human labels on the field server",
       "source": "field.db · labels where label_source = 'human'"
     },
     "labels.captures": {
-      "value": 16,
-      "text": "16",
+      "value": 21,
+      "text": "21",
       "auto": true,
       "about": "Captures carrying at least one human label",
       "source": "field.db · distinct capture_id in labels"
     },
     "labels.seconds": {
-      "value": 441.0,
-      "text": "441",
+      "value": 486.8,
+      "text": "487",
       "auto": true,
       "about": "Total human-labelled call audio, in seconds",
       "source": "field.db · sum of end_sec - start_sec over human labels"
     },
     "labels.minutes": {
-      "value": 7.3,
-      "text": "7.3",
+      "value": 8.1,
+      "text": "8.1",
       "auto": true,
       "about": "The same span in minutes — the number that limits the project",
       "source": "field.db · labels.seconds / 60"
     },
     "context.events": {
-      "value": 158,
-      "text": "158",
+      "value": 168,
+      "text": "168",
       "auto": true,
       "about": "Context events attached to labelled calls",
       "source": "field.db · context_events"
@@ -58,15 +58,15 @@
       "source": "field.db · distinct category over active context_defs"
     },
     "context.tags_used": {
-      "value": 18,
-      "text": "18",
+      "value": 20,
+      "text": "20",
       "auto": true,
       "about": "Chips witnessed at least once. Counts retired keys too, so it is not a subset of context.tags — the vocabulary changed and the old events kept their key.",
       "source": "field.db · distinct key in context_events"
     },
     "context.tags_witnessed": {
-      "value": 14,
-      "text": "14",
+      "value": 16,
+      "text": "16",
       "auto": true,
       "about": "Active chips that have actually come up at least once. The gap to context.tags is the point: the rest are options on the phone that no situation has called for yet, so the vocabulary describes what can be recorded, not what has been.",
       "source": "field.db · active context_defs having a context_event"
@@ -101,19 +101,19 @@
           "key": "crow_arrives",
           "category": "crows",
           "label": "Another crow arrives",
-          "used": 0
+          "used": 2
         },
         {
           "key": "crow_departs",
           "category": "crows",
           "label": "Crow flies off",
-          "used": 5
+          "used": 6
         },
         {
           "key": "group_gathers",
           "category": "crows",
           "label": "Group gathers",
-          "used": 1
+          "used": 2
         },
         {
           "key": "juvenile_present",
@@ -143,7 +143,7 @@
           "key": "caller_leaves",
           "category": "crows",
           "label": "Caller flew off",
-          "used": 0
+          "used": 1
         },
         {
           "key": "human_gives_food",
@@ -167,7 +167,7 @@
           "key": "stranger_approaching",
           "category": "people",
           "label": "Stranger approaches them",
-          "used": 7
+          "used": 8
         },
         {
           "key": "known_approaching",
@@ -179,7 +179,7 @@
           "key": "stranger_passing",
           "category": "people",
           "label": "Stranger walks past them",
-          "used": 6
+          "used": 10
         },
         {
           "key": "known_passing",
@@ -218,15 +218,15 @@
       "source": "field.db · context_defs joined to translations (namespace 'context', locale 'en') and counted over context_events"
     },
     "captures.kept": {
-      "value": 24,
-      "text": "24",
+      "value": 29,
+      "text": "29",
       "auto": true,
       "about": "Genuine field recordings — the ★ Keep flag, set by hand",
       "source": "field.db · captures where keep = 1"
     },
     "captures.total": {
-      "value": 152,
-      "text": "152",
+      "value": 192,
+      "text": "192",
       "auto": true,
       "about": "Every capture row, mostly seeded archive clips and test uploads. A pipeline number, not a finding about crows — do not put it on the page as one.",
       "source": "field.db · captures"
@@ -273,8 +273,8 @@
       "source": "experiments/0021-does-the-call-type-token-do-anything/ — no manifest on disk carries the conditioned vocabulary, so this is read off the experiment"
     },
     "crowgpt.call_type_list": {
-      "value": "Alarm, generic call, flight call, begging",
-      "text": "Alarm, generic call, flight call, begging",
+      "value": "Alarm, generic call, begging, song",
+      "text": "Alarm, generic call, begging, song",
       "about": "Those four, spelled out under the stat",
       "source": "experiments/0021-does-the-call-type-token-do-anything/"
     },

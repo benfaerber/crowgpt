@@ -106,10 +106,10 @@ that came out on 2026-11-06 as more than a visitor needs, and the root `README.m
 still carries the reasoning. Leaving the explanation out does not loosen the rule:
 if a listening test ever runs, that is the figure to put here.
 
-**No ask for contributed recordings.** There is no TLS, enrollment is one shared
-secret, and captures carry full-precision GPS — a shared dataset would export
-contributors' home addresses to seven decimal places. That ask goes in when the
-upload path can honestly carry it.
+**No open call for recordings.** The page offers a closed preview by invite, and
+goes no further: captures still carry full-precision GPS, so a shared dataset would
+export contributors' home addresses to seven decimal places. An open ask goes in
+when the upload path can honestly carry it.
 
 ## Framing
 

@@ -30,21 +30,21 @@ A classifier that reads crow calls by type, a model that says them back, and a f
 This started when I began feeding a murder of local crows. They were obviously smart, obviously talking to each other, and I wanted to know what about. CrowGPT is the set of tools that came out of it:
 
 - **CawDex** reads crow calls. Audio goes in, every corvid call comes out found, named by species, and labeled by type on a timeline.
-- **CrowGPT**, the model, says them back. A 22M-parameter transformer trained from scratch on crow call bouts, with no human labeling in the loop. Ask it for an alarm call and it produces one.
+- **CrowGPT**, the model, says them back. An 18.7M-parameter transformer trained from scratch on crow call bouts, with no human labeling in the loop. Ask it for an alarm call and it produces one.
 - **The field app and CawScout** collect the missing half: what was actually happening when a crow called, written down at the moment it happened. That is the ingredient that turns a call type into a meaning.
 
 The end state is a translator that runs in both directions. Simple calls first: dog spotted, person arriving, food going down. Nobody is decoding crow grammar here.
 
 | | | | |
 |:---:|:---:|:---:|:---:|
-| **5** | **0.97** | **4** | **7.3 min** |
+| **5** | **0.97** | **4** | **8.1 min** |
 | corvid species with their own call-type head | alarm-call AUC on clean labels, recording-grouped | call types CrowGPT can be asked for | human-labeled call audio, the number that limits the project |
 
 ## Hear it
 
 Two generations of the model next to a real field-recorded alarm call, so you can judge the gap yourself: **[crowgpt.org#crowgpt](https://crowgpt.org#crowgpt)**. Everything under a CrowGPT caption is generated, not a recording of a bird. The released weights, CrowGPT1 and CrowGPT2 as safetensors with their decoder and sampling settings, are on Hugging Face at **[faerber/crowgpt](https://huggingface.co/faerber/crowgpt)**, gated behind a no-playback agreement.
 
-Two things about it matter more than the audio. It does not copy its training set: what it produces is generated, not retrieved ([experiment 0015](experiments/0015-is-it-copying-or-playing-it-safe/)). And it beat a 433M pretrained audio model fine-tuned on the same corpus ([experiment 0022](experiments/0022-does-a-pretrained-audio-model-help/)), which says the corpus and the training setup are doing real work.
+Two things about it matter more than the audio. It does not copy its training set: what it produces is generated, not retrieved ([experiment 0015](experiments/0015-is-it-copying-or-playing-it-safe/)). And on BirdNET detection, an earlier 18M version scored well ahead of a 433M pretrained audio model fine-tuned on the same corpus ([experiment 0022](experiments/0022-does-a-pretrained-audio-model-help/)), a lead the circularity below flatters by an unknown amount.
 
 There is no quality percentage here on purpose. The obvious score, asking BirdNET whether it hears a corvid, is circular: BirdNET also selected the training corpus, so the model has been trained indirectly to please the judge. It scores above real audio, which is not plausible as realism and is how the problem was caught. The honest tiebreaker is a listening test, and no number goes here until one is run.
 
@@ -92,7 +92,7 @@ make -C corvidcrawler crawl SP=monedula GEN=Coloeus SLUG=eurasian-jackdaw
 make train SLUG=eurasian-jackdaw
 ```
 
-**Put the app on a phone.** Android, built with Expo. Needs the Android SDK and a JDK 17+ on your path, as [mobile/README.md](mobile/README.md) describes.
+**Put the app on a phone.** Android, built with Expo. Needs the Android SDK and a JDK 17+ on your path, as [mobile/README.md](mobile/README.md) describes. The build talks to the hosted server unless `EXPO_PUBLIC_FIELD_SERVER_URL` names your own.
 
 ```bash
 make install-app   # standalone build, keeps captures already on the phone
@@ -167,10 +167,10 @@ The seed of the semantics set is one family, the Poe family: two parents, two fl
 
 The state of play, plainly. Every limit here is a piece of work waiting.
 
-- **Human labeling is early.** At last count, 66 labels across 16 captures, plus 158 context events. Measured as call audio rather than label count, that is about 7.3 minutes, the number that actually limits this project.
+- **Human labeling is early.** At last count, 77 labels across 21 captures, plus 168 context events. Measured as call audio rather than label count, that is about 8.1 minutes, the number that actually limits this project.
 - **Detected calls are guesses.** Only human labels are ground truth, and until recently there were none at all.
 - **No call has been translated.** The classifier says *alarm call*; it does not say *dog*. Nothing here has yet mapped a call to a meaning, because that needs enough calls paired with a witnessed situation, and I am still collecting the first few dozen.
-- **Public uploads are not open yet.** The app and the pipeline are mine alone for now. There is no TLS and one shared enrollment secret, fine on a home network and blocking for anything public.
+- **Recording is invite-only.** The server is hosted at field.crowgpt.org over TLS, but the app is a closed preview, sent out one invite at a time: [request access](https://crowgpt.org#request).
 - **Most of the corpus is not crows I met.** It is seeded archive clips and test uploads, with the genuine field recordings marked by a ★ Keep flag. Any count that does not filter on that describes the pipeline, not crows, and the dashboard says which it is showing.
 
 Known gaps, in rough order of how much they would hurt: full-precision GPS on every capture (a public dataset would need coarsening first); retracting a synced label while offline leaves it on the server; re-cropping a capture after upload does not re-send the audio.
@@ -215,7 +215,7 @@ The recordings are fetched by [`corvidcrawler/`](corvidcrawler/) from Xeno-canto
 
 If you have crows, a phone and a few minutes a day, you can collect the half this project is short of. Recordings with a witnessed situation attached are worth more than anything else here. A species with no head yet needs a few hundred typed examples, and the crawler plus `make train` does the rest.
 
-Write to **hello@crowgpt.org**, or open an issue.
+[Request the field app](https://crowgpt.org#request), write to **hello@crowgpt.org**, or open an issue.
 
 ## License
 
