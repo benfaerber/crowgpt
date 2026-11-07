@@ -141,8 +141,15 @@ class TestAudio:
                               headers=operator.headers)
 
         assert response.status_code == 200
-        assert response.headers.get("Accept-Ranges") == "bytes"
         assert response.data.startswith(b"RIFF")
+        # Werkzeug need not advertise Accept-Ranges on a full 200 response.
+        # Exercise seeking itself, including with private/no-store responses.
+        partial = client.get("/api/corpus/recordings/1/audio",
+                             headers={**operator.headers, "Range": "bytes=0-3"})
+        assert partial.status_code == 206
+        assert partial.headers["Accept-Ranges"] == "bytes"
+        assert partial.headers["Content-Range"].startswith("bytes 0-3/")
+        assert partial.data == b"RIFF"
 
     def test_a_gone_file_is_a_404(self, client, operator, corpus):
         assert client.get("/api/corpus/recordings/3/audio",
