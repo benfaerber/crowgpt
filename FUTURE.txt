@@ -299,6 +299,13 @@ when it has a shape and a reason to happen now.
     Perplexity) and vulnerability scanners probing /wp-admin. That is the
     pre-promo baseline, recorded here because the raw data expires (below).
 
+    Second baseline, 2026-10-30 to 11-05, the first week of the crowgpt.org
+    zone and before the crows-first reorder deployed on 11-06: 152 beacon page
+    views from 41 IPs, 3 of them making 67 of the views and probably including
+    Ben. The peak was 56 views on 11-03, alongside 38 of the week's 70 Facebook
+    link previews. 18,258 raw requests, nearly all scanners. The August figures
+    came from the older user-agent split, so compare beacon to beacon (137 then).
+
     What already exists, so nobody rebuilds it:
       - Cloudflare Web Analytics beacon is live on the page (137 hits on
         /cdn-cgi/rum that week). Human-only page views are in the dashboard
@@ -316,6 +323,26 @@ when it has a shape and a reason to happen now.
     Still open before promoting hard, from the deploy entry above: the two
     stock assets (SLC skyline, crow flight sprite) have unchecked licences.
     A promo push is exactly when someone would notice.
+
+[ ] Monitoring whether LLMs quote the site — not now, revisit with evidence
+
+    Came up 2026-11-06: people emailed Ben saying they found the site through
+    Gemini, and his employer runs this kind of monitoring. Not worth building at
+    41 visitors a week: nothing would change based on the answer, there is no
+    budget decision hanging off it, and a model's answers vary by run, so a
+    tracker needs many prompts repeated over time to mean anything.
+
+    Cheap signals that already exist: `make -C promo traffic` counts assistants
+    that fetch a page and name themselves (ChatGPT 9 and Claude 1 on / in the
+    baseline week; names are unverified, scanners fake them). Gemini shows none,
+    which proves nothing, since an answer from Google's index makes no request
+    here. Referrers are dashboard-only on the free plan. Asking emailers what they
+    typed is the best signal available, and a handful of prompts tried by hand
+    once a month covers the rest.
+
+    Revisit when assistants are a measurable share of arrivals in Web Analytics,
+    or when someone would act differently on the result, for instance correcting
+    a model that consistently misdescribes the project.
 
 [x] Contact address on the promo page — decided against a contact form
 

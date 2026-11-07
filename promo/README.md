@@ -137,9 +137,16 @@ make -C promo traffic DAYS=3
 `tools/traffic.py` reads `CLOUDFLARE_API_TOKEN` from
 `fieldserver/instance/secrets.env` and queries Cloudflare's GraphQL analytics a
 day at a time. Retention is eight days on the free plan, so pull within a week
-of any promo push or the numbers are gone. The token carries a client-IP
-filter; when the home IP changes Cloudflare refuses it by location, and the
-fix is in the dashboard under the token's settings.
+of any promo push or the numbers are gone. The token needs Analytics Read and
+Zone Read on crowgpt.org. If it carries a client-IP filter, Cloudflare refuses it
+by location when the IP changes, and the fix is in the dashboard under the token's
+settings.
+
+Views and visitors count only the analytics beacon, because scanners send browser
+user agents and a user-agent split calls most of them human. AI assistants are
+counted when they name themselves, which scanners also fake, and referrers such as
+gemini.google.com are not available to this API on the free plan: those are in the
+dashboard's Web Analytics, and only when the browser sent one.
 
 ## Order
 

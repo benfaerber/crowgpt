@@ -9,14 +9,23 @@ analytics read token scoped to crowgpt.org) and queries the GraphQL dataset
 `httpRequestsAdaptiveGroups` one day at a time, which is the free plan's window.
 Retention is eight days, so a promo event not pulled within a week is gone.
 
-Two things the raw numbers hide, both learned on 2026-08-15: the request total
-is overwhelmingly AI crawlers and vulnerability scanners, and the largest human
-slice is Ben's own browsers. So every table here is split into likely-human and
-bot by user agent, and the human rows are the ones worth reading.
+The raw numbers hide who it was. Scanners send browser user agents, so a user-agent
+split alone called 11,244 requests human in a week when the analytics beacon ran
+152 times. So page views and visitors here count only `/cdn-cgi/rum`, the beacon a
+browser fires by running the page's JavaScript, and any other browser-looking
+request that failed or asked for `/.env` and the like is filed as a probe. That
+count still includes Ben's own visits.
 
-The token carries a client-IP filter. When the home IP changes the API answers
-"Cannot use the access token from location <ip>", and the fix is in the
-Cloudflare dashboard (profile, API Tokens, edit, client IP filtering), not here.
+AI use shows up only partly. Assistants that fetch a page for a person name
+themselves in the user agent and are counted, but a model answering from its index
+or from search makes no request here. On the free plan this dataset refuses
+`clientRefererHost` and `clientRequestQuery`, so visits arriving from an assistant
+can only be seen in the dashboard, under Web Analytics, and only when the browser
+sent a referrer.
+
+The token may carry a client-IP filter. If the IP changes the API answers
+"Cannot use the access token from location <ip>", and the fix is in the Cloudflare
+dashboard (profile, API Tokens, edit, client IP filtering), not here.
 """
 
 from __future__ import annotations
@@ -27,9 +36,10 @@ import re
 import sys
 import urllib.error
 import urllib.request
-from collections import Counter, defaultdict
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date, timedelta
+from enum import Enum
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
@@ -37,16 +47,77 @@ SECRETS = REPO / "fieldserver" / "instance" / "secrets.env"
 API = "https://api.cloudflare.com/client/v4"
 ZONE = "crowgpt.org"
 
+BEACON = "/cdn-cgi/rum"
+ASSET_PATHS = re.compile(r"\.(js|css|png|jpg|svg|woff2?|wav|mp3|mp4|ico|json)$")
+PROBE_PATHS = re.compile(r"(^|/)\.[a-z]|wp-|\.php$|/(admin|login|xmlrpc)", re.I)
 BOT_MARKERS = re.compile(
     r"bot|crawl|spider|scan|fetch|python|curl|wget|go-http|java/|okhttp|libwww|"
-    r"headless|phantom|slurp|facebookexternalhit|gptbot|claudebot|anthropic|"
-    r"bytespider|petalbot|censys|zgrab|nuclei|masscan|nmap|^$|^-$",
+    r"headless|phantom|slurp|research|censys|zgrab|nuclei|masscan|nmap|^$|^-$",
     re.I,
 )
 
 
-def is_bot(user_agent: str) -> bool:
-    return bool(BOT_MARKERS.search(user_agent))
+class Kind(Enum):
+    BROWSER = "browser"
+    ASSISTANT = "assistant"
+    AI_CRAWLER = "ai crawler"
+    SEARCH = "search"
+    PREVIEW = "preview"
+    BOT = "other bot"
+    PROBE = "probe"
+
+
+class Classifier:
+    """Sorts a request by what sent it.
+
+    The path is checked first because scanners borrow names: in the first week of
+    this report most "ChatGPT" and "Claude" requests were asking for `/.env`. A name
+    in a user agent is still only a claim, since nothing here verifies the source IP.
+    """
+
+    AGENTS = (
+        ("ChatGPT-User", "ChatGPT", Kind.ASSISTANT),
+        ("Claude-User", "Claude", Kind.ASSISTANT),
+        ("Perplexity-User", "Perplexity", Kind.ASSISTANT),
+        ("Gemini-Deep-Research", "Gemini", Kind.ASSISTANT),
+        ("Google-NotebookLM", "NotebookLM", Kind.ASSISTANT),
+        ("MistralAI-User", "Mistral", Kind.ASSISTANT),
+        ("DuckAssistBot", "DuckAssist", Kind.ASSISTANT),
+        ("GPTBot", "GPTBot", Kind.AI_CRAWLER),
+        ("OAI-SearchBot", "OAI-SearchBot", Kind.AI_CRAWLER),
+        ("ClaudeBot", "ClaudeBot", Kind.AI_CRAWLER),
+        ("Claude-SearchBot", "Claude-SearchBot", Kind.AI_CRAWLER),
+        ("PerplexityBot", "PerplexityBot", Kind.AI_CRAWLER),
+        ("Amazonbot", "Amazonbot", Kind.AI_CRAWLER),
+        ("Bytespider", "Bytespider", Kind.AI_CRAWLER),
+        ("CCBot", "CCBot", Kind.AI_CRAWLER),
+        ("meta-externalagent", "Meta AI", Kind.AI_CRAWLER),
+        ("Googlebot", "Googlebot", Kind.SEARCH),
+        ("bingbot", "Bingbot", Kind.SEARCH),
+        ("Applebot", "Applebot", Kind.SEARCH),
+        ("DuckDuckBot", "DuckDuckBot", Kind.SEARCH),
+        ("facebookexternalhit", "Facebook/Instagram", Kind.PREVIEW),
+        ("Twitterbot", "X", Kind.PREVIEW),
+        ("LinkedInBot", "LinkedIn", Kind.PREVIEW),
+        ("Slackbot", "Slack", Kind.PREVIEW),
+        ("Discordbot", "Discord", Kind.PREVIEW),
+        ("TelegramBot", "Telegram", Kind.PREVIEW),
+        ("WhatsApp", "WhatsApp", Kind.PREVIEW),
+        ("redditbot", "Reddit", Kind.PREVIEW),
+    )
+
+    def classify(self, user_agent: str, path: str, status: int) -> tuple[Kind, str]:
+        if PROBE_PATHS.search(path):
+            return Kind.PROBE, user_agent
+        lowered = user_agent.lower()
+        for marker, name, kind in self.AGENTS:
+            if marker.lower() in lowered:
+                return kind, name
+        if BOT_MARKERS.search(user_agent):
+            return Kind.BOT, user_agent
+        if status >= 400:
+            return Kind.PROBE, user_agent
+        return Kind.BROWSER, user_agent
 
 
 class Token:
@@ -110,9 +181,11 @@ class Day:
     def requests(self) -> int:
         return sum(r["count"] for r in self.rows)
 
-    def split(self) -> tuple[int, int]:
-        human = sum(r["count"] for r in self.rows if not is_bot(r["ua"]))
-        return human, self.requests - human
+    def of(self, kind: Kind) -> list[dict]:
+        return [r for r in self.rows if r["kind"] is kind]
+
+    def beacons(self) -> list[dict]:
+        return [r for r in self.of(Kind.BROWSER) if r["path"] == BEACON]
 
 
 GROUPS = """
@@ -144,6 +217,7 @@ class Report:
         self.cf = cf
         self.zone = zone
         self.days = [date.today() - timedelta(days=i) for i in range(days, 0, -1)]
+        self.classifier = Classifier()
 
     def pull(self) -> list[Day]:
         out = []
@@ -153,63 +227,88 @@ class Report:
             )
             groups = data["viewer"]["zones"][0]["groups"]
             rows = [
-                {
-                    "count": g["count"],
-                    "bytes": g["sum"]["edgeResponseBytes"],
-                    "ua": g["dimensions"]["userAgent"] or "",
-                    "path": g["dimensions"]["clientRequestPath"],
-                    "country": g["dimensions"]["clientCountryName"],
-                    "status": g["dimensions"]["edgeResponseStatus"],
-                    "ip": g["dimensions"]["clientIP"],
-                }
+                self._row(g)
                 for g in groups
             ]
             out.append(Day(d, rows))
         return out
 
+    def _row(self, group: dict) -> dict:
+        dims = group["dimensions"]
+        user_agent = dims["userAgent"] or ""
+        path = dims["clientRequestPath"]
+        status = dims["edgeResponseStatus"]
+        kind, agent = self.classifier.classify(user_agent, path, status)
+        return {
+            "count": group["count"],
+            "bytes": group["sum"]["edgeResponseBytes"],
+            "ua": user_agent,
+            "path": path,
+            "country": dims["clientCountryName"],
+            "status": status,
+            "ip": dims["clientIP"],
+            "kind": kind,
+            "agent": agent,
+        }
+
+    @staticmethod
+    def tally(rows: list[dict], key: str) -> Counter:
+        counts: Counter = Counter()
+        for row in rows:
+            counts[row[key]] += row["count"]
+        return counts
+
+    @staticmethod
+    def total(rows: list[dict]) -> int:
+        return sum(row["count"] for row in rows)
+
     @staticmethod
     def table(title: str, counter: Counter, n: int = 12) -> None:
         print(f"\n{title}")
-        width = max((len(str(k)) for k, _ in counter.most_common(n)), default=10)
+        if not counter:
+            print("  none")
         for key, count in counter.most_common(n):
-            print(f"  {count:>7}  {str(key)[:110]:<{min(width, 110)}}")
+            print(f"  {count:>7}  {str(key)[:110]}")
 
     def render(self, days: list[Day]) -> None:
         print(f"{ZONE}, {days[0].day} to {days[-1].day}")
-        print("\n  day         requests   human     bot")
+        print("\n  day         views  visitors  assistant  ai crawl  search  preview  other bot   probe  all reqs")
         for d in days:
-            human, bot = d.split()
-            print(f"  {d.day}  {d.requests:>8}  {human:>6}  {bot:>6}")
-        total = sum(d.requests for d in days)
-        human_total = sum(d.split()[0] for d in days)
-        print(f"  {'total':<10}  {total:>8}  {human_total:>6}  {total - human_total:>6}")
+            beacons = d.beacons()
+            print(
+                f"  {d.day}  {self.total(beacons):>5}  {len({r['ip'] for r in beacons}):>8}"
+                f"  {self.total(d.of(Kind.ASSISTANT)):>9}  {self.total(d.of(Kind.AI_CRAWLER)):>8}"
+                f"  {self.total(d.of(Kind.SEARCH)):>6}  {self.total(d.of(Kind.PREVIEW)):>7}"
+                f"  {self.total(d.of(Kind.BOT)):>9}  {self.total(d.of(Kind.PROBE)):>6}  {d.requests:>8}"
+            )
 
-        human_rows = [r for d in days for r in d.rows if not is_bot(r["ua"])]
-        bot_rows = [r for d in days for r in d.rows if is_bot(r["ua"])]
+        rows = [row for d in days for row in d.rows]
+        by_kind = {kind: [row for row in rows if row["kind"] is kind] for kind in Kind}
+        beacons = [row for d in days for row in d.beacons()]
+        print(
+            f"\nvisitors: {len({r['ip'] for r in beacons})} distinct IPs ran the beacon, "
+            f"{self.total(beacons)} page views. Includes your own visits."
+        )
 
-        def tally(rows: list[dict], key: str) -> Counter:
-            c: Counter = Counter()
-            for r in rows:
-                c[r[key]] += r["count"]
-            return c
-
-        human_ips = defaultdict(int)
-        for r in human_rows:
-            human_ips[r["ip"]] += r["count"]
-        print(f"\nlikely-human requests came from {len(human_ips)} distinct IPs")
-
-        self.table("likely-human: pages (HTML and top-level only)", Counter(
-            {k: v for k, v in tally(human_rows, "path").items() if not re.search(r"\.(js|css|png|jpg|woff2?|wav|mp4|ico|json)$", k)}
-        ))
-        self.table("likely-human: countries", tally(human_rows, "country"))
-        self.table("likely-human: user agents", tally(human_rows, "ua"))
-        self.table("likely-human: status codes", tally(human_rows, "status"), 6)
-        self.table("bots: user agents", tally(bot_rows, "ua"))
-        self.table("bots: paths", tally(bot_rows, "path"))
+        self.table("visitors: countries", self.tally(beacons, "country"))
+        self.table("browsers: pages that loaded", Counter({
+            path: count
+            for path, count in self.tally(
+                [row for row in by_kind[Kind.BROWSER] if row["status"] in (200, 304)], "path"
+            ).items()
+            if path != BEACON and not ASSET_PATHS.search(path)
+        }))
+        self.table("AI assistants fetching a page for someone", self.tally(by_kind[Kind.ASSISTANT], "agent"))
+        self.table("AI assistants: which pages", self.tally(by_kind[Kind.ASSISTANT], "path"), 6)
+        self.table("AI crawlers", self.tally(by_kind[Kind.AI_CRAWLER], "agent"))
+        self.table("search crawlers", self.tally(by_kind[Kind.SEARCH], "agent"))
+        self.table("link previews, usually a link being shared", self.tally(by_kind[Kind.PREVIEW], "agent"))
+        self.table("other bots", self.tally(by_kind[Kind.BOT], "agent"), 6)
+        self.table("probes: browser-looking requests that failed or hunted for secrets", self.tally(by_kind[Kind.PROBE], "path"), 6)
 
         print(
-            "\nHuman-only page views with the beacon's own bot filtering are in the dashboard:"
-            "\nAnalytics & Logs, Web Analytics. The API token cannot read that dataset."
+            "\nWhere visitors came from, Gemini and other assistants included, is only in the"
+            "\ndashboard (Analytics & Logs, Web Analytics), and only when a referrer was sent."
         )
 
 
@@ -223,7 +322,7 @@ def main() -> None:
     report = Report(cf, cf.zone_id(), min(args.days, 8))
     days = report.pull()
     if args.json:
-        json.dump([{"day": d.day.isoformat(), "rows": d.rows} for d in days], sys.stdout, indent=1)
+        json.dump([{"day": d.day.isoformat(), "rows": d.rows} for d in days], sys.stdout, indent=1, default=lambda kind: kind.value)
         return
     report.render(days)
 
