@@ -487,18 +487,6 @@
           pretrained audio model fine-tuned on the same corpus, which says the corpus and
           the training setup are doing real work.
         </p>
-        <div class="callout">
-          <h3>Why there is no quality percentage here</h3>
-          <p>
-            The obvious way to score generated calls is to ask BirdNET whether it hears a
-            corvid. That number is <strong>circular</strong>: BirdNET also selected
-            CrowGPT's training corpus, so the model has been trained indirectly to please
-            the judge scoring it. It scores <em>above real audio</em>, which is not
-            plausible as realism and is how the problem was caught. Every
-            BirdNET-detection figure in this project inherits that bias, so the honest
-            tiebreaker is a listening test, and no number goes here until one is run.
-          </p>
-        </div>
       </section>
 
       <section class="section" id="app">
@@ -655,16 +643,6 @@
             <strong>Observations</strong> are free text written afterwards, to explain a
             confusing prediction and to find which situations recur often enough to earn a
             tag of their own.
-          </p>
-        </div>
-
-        <div class="callout">
-          <h3>A call can be marked by ear, with no detection behind it</h3>
-          <p>
-            That matters more than it sounds. BirdNET scores a begging fledgling at 0.06,
-            so a system that only lets you confirm detections can only ever collect what
-            the model already finds, and the classes it is worst at could never gain a
-            single training example.
           </p>
         </div>
       </section>

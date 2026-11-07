@@ -101,9 +101,10 @@ a fact about the pipeline, not about crows — see the root `CLAUDE.md`. Only
 `crowgpt/README.md` still carries. 0022 found those circular: BirdNET selected
 CrowGPT's training corpus and then scored its output, and the model lands *above
 real audio*, which is not plausible as realism. Every BirdNET-detection figure in
-the project inherits that bias. The page says so in as many words rather than
-quietly omitting it, because "here is why there is no number" is a stronger claim
-than a number. If a listening test ever runs, that is the figure to put here.
+the project inherits that bias. The page used to explain this in its own callout;
+that came out on 2026-11-06 as more than a visitor needs, and the root `README.md`
+still carries the reasoning. Leaving the explanation out does not loosen the rule:
+if a listening test ever runs, that is the figure to put here.
 
 **No ask for contributed recordings.** There is no TLS, enrollment is one shared
 secret, and captures carry full-precision GPS — a shared dataset would export
