@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Pull a week of cawtalker.org traffic from Cloudflare and say who it was.
+"""Pull a week of crowgpt.org traffic from Cloudflare and say who it was.
 
     make -C promo traffic            # last 7 days
     make -C promo traffic DAYS=3     # fewer
 
 Reads `CLOUDFLARE_API_TOKEN` from `fieldserver/instance/secrets.env` (a zone
-analytics read token scoped to cawtalker.org) and queries the GraphQL dataset
+analytics read token scoped to crowgpt.org) and queries the GraphQL dataset
 `httpRequestsAdaptiveGroups` one day at a time, which is the free plan's window.
 Retention is eight days, so a promo event not pulled within a week is gone.
 
@@ -35,7 +35,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 SECRETS = REPO / "fieldserver" / "instance" / "secrets.env"
 API = "https://api.cloudflare.com/client/v4"
-ZONE = "cawtalker.org"
+ZONE = "crowgpt.org"
 
 BOT_MARKERS = re.compile(
     r"bot|crawl|spider|scan|fetch|python|curl|wget|go-http|java/|okhttp|libwww|"
@@ -175,7 +175,7 @@ class Report:
             print(f"  {count:>7}  {str(key)[:110]:<{min(width, 110)}}")
 
     def render(self, days: list[Day]) -> None:
-        print(f"cawtalker.org, {days[0].day} to {days[-1].day}")
+        print(f"{ZONE}, {days[0].day} to {days[-1].day}")
         print("\n  day         requests   human     bot")
         for d in days:
             human, bot = d.split()
