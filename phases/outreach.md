@@ -69,7 +69,10 @@ Launch blockers:
 - [ ] Put Cloudflare in front of `field.crowgpt.org` with a rate limit on
       `/api/demo/` and Turnstile on the buttons. The demo shares a box with real
       field uploads, so a spike must not be able to touch them.
-- [ ] Add the email list to the page.
+- [ ] Add the email list to the page, on the Resend setup that already sends invites
+      (`core/mail.py`). Bulk mail needs an unsubscribe link and a postal address,
+      which one-to-one invites do not. People who only requested the app did not
+      sign up for news, so they are not added without asking.
 - [ ] Make the invite say plainly that captures carry precise GPS, until they are
       coarsened. Recordists may be standing at home.
 - [ ] Retake the "Cawtalker" screenshot.
@@ -137,6 +140,8 @@ birders, because it is a finding about crows rather than a tool. Save those for 
 - **A funding page before the launch.** Asking for money with six stars reads badly.
   Revisit once people ask how to support it.
 - **Posting everywhere.** One channel done well, in the order above.
+- **A Google Play listing.** Invites suit a handful of recordists, and a listing
+  would cost more than it brings at this stage. See the Play entry in `FUTURE.txt`.
 
 ## Scoreboard
 

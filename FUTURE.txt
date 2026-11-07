@@ -1214,6 +1214,24 @@ Starting a recording without taking the phone out
     answers about identity, enrollment and what a capture may carry, and trying
     to be both is how the honest version gets watered down.
 
+    UPDATE 2026-11-06: not listing for now. Invites fit a handful of recordists,
+    and a new personal Play account needs 12 testers opted in for 14 days before
+    it can even ask for production. TLS has since shipped; the rest above stands.
+    If listed one day, the likely shape is a separate build without idle mode.
+    Revisit when invites become the bottleneck, meaning more wanting in than Ben
+    can approve by hand.
+
+    Watch regardless of listing: Android developer verification. As announced,
+    certified devices begin requiring apps from verified developers worldwide in
+    2027, with unregistered APKs pushed to adb or a slower advanced flow. Invite
+    APKs depend on this, so check Google's current rules and register the app
+    before enforcement reaches the US. That does not require a Play listing.
+
+    Before sending invites beyond people Ben knows: a clear disclosure before
+    pocket listening or idle mode first turns on, since those can record bystanders
+    and consent law differs by place. `SYSTEM_ALERT_WINDOW` and
+    `usesCleartextTraffic` are also still in the build, and both are cheap to remove.
+
 
 [ ] The two subject-split tags left unsplit on purpose
 
