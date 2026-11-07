@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 
 from flask import Flask, abort, request
-from werkzeug.middleware.proxy_fix import ProxyFix
+from .core.proxy import CaddyCloudflareProxy
 
 from .core import schema
 from .stores.analysis import AnalysisStore
@@ -83,8 +83,18 @@ def create_app(db_path: Path | str | None = None) -> Flask:
         # wrong guesses would lock the operator out too. Opt-in, because
         # trusting the header on a box with no proxy lets any client choose
         # its own address.
-        app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+        app.wsgi_app = CaddyCloudflareProxy(app.wsgi_app)
     app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_BYTES
+
+    @app.after_request
+    def private_responses(response):
+        # Includes errors, media and invite pages containing enrollment secrets.
+        # The edge also bypasses this hostname's cache; no Cache Everything rule.
+        if request.path.startswith("/api/") or request.path == "/preview" or request.path.startswith("/preview/"):
+            response.headers["Cache-Control"] = "private, no-store"
+            response.headers["CDN-Cache-Control"] = "no-store"
+        return response
+
     resolved_db = Path(db_path or os.environ.get("FIELD_DB") or DEFAULT_DB)
     media_dir = resolved_db.parent / "media"
 

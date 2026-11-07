@@ -40,6 +40,7 @@ before wondering and written before working.
 
 ## Active
 
+- **Daurian** — since 2026-11-06 19:39 — auditing upload compatibility, proxy IP trust and demo protection before any Cloudflare changes; dashboard changes are Ben’s, no firewall edits or promo deployment. Updated 2026-11-06 19:39.
 - **Pica** — since 2026-11-06 — marketing plan written to phases/outreach.md; promo reordered, audited and deployed by Ben; traffic report fixed; Hub card fixed locally, NOT pushed; repo NOT pushed; promo dev server running on :5174 for Ben to review. Field server and GPU untouched. Updated 2026-11-06.
 - **Hooded Crow** — since 2026-10-30 — hosting answers (0087, 0088); CawTalker→CrowGPT rename pass (5e6d9bd); Hub model card pushed to faerber/crowgpt (still private, flip is Ben's); stale-docs pass from a subagent survey (CLAUDE.md status, READMEs, Makefile help, TODO/FUTURE strikes, 18 stale roster lines struck). Server and GPU untouched. Then: HF links on README+promo, Apache 2.0 LICENSE+NOTICE, contact address to hello@crowgpt.org, dashboard keys renamed (62e87d1). Promo rebuilt locally, NOT deployed. Then: promo nav/footer link GitHub and HF by logo, HF link under the Hear-it players (built locally, NOT deployed). Then 2026-10-31: deploying the field server to the OVH VPS (ssh crowfield): venvs, systemd units, Caddy for field.crowgpt.org, instance copied; fixed deps.py Path import; FIELD_TRUST_PROXY ProxyFix.  DONE: field.crowgpt.org live over TLS, all units up; docs + TODOs written.  Then: app default URL = hosted; /preview APK page (877d807) deployed and a build published.  Then: enrollment gate in the app (4d6be97); /preview is request-access + dashboard Access page + invite links (6b3508c), deployed; promo got a request-access section (e818b6c, 6104fc2; built, NOT deployed). DONE: live CrowGPT on the promo (78c021b) — /api/demo shelf deployed to field.crowgpt.org (model-calltype checkpoint copied to the box; ~31 s a bout on CPU), promo built locally with the Ask-it-yourself buttons, NOT deployed (Ben runs `make -C promo deploy`). Updated 2026-10-31 21:12.
 
@@ -145,7 +146,6 @@ before wondering and written before working.
 
 - ~~**Jackdaw** — since 2026-08-15 (Sat) 20:15 — built this roster system and
   wired it into `CLAUDE.md`. Updated 20:15.~~ (struck as stale 2026-10-30)
-- ~~**Daurian** — since 2026-10-21 21:11 — crowgpt.org migration complete after router DNS refreshed. Normal DNS, HTTPS home/assets and browser navigation pass; cawtalker.org and www redirects enabled, paths/query strings preserved and no loops. Automatic checks stopped. Completed 2026-10-21 22:36.~~
 
 - ~~**Chough** — 2026-09-09/10 — CrowGPT3 candidate 0085 trained and evaluated successfully by 00:15; failed validation/structure screen, 24 diagnostic clips saved, GPU released. Morning results recorded 2026-09-10.~~
 

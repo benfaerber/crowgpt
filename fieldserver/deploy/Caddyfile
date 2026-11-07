@@ -1,0 +1,13 @@
+# Compatible with the installed Caddy 2.6.2. No trusted_proxies: Flask uses
+# this overwritten XFF as Caddy's SOCKET PEER, never an incoming client header.
+field.crowgpt.org {
+	encode gzip
+	tls {
+		issuer acme {
+			disable_tlsalpn_challenge
+		}
+	}
+	reverse_proxy 127.0.0.1:5100 {
+		header_up X-Forwarded-For {remote_host}
+	}
+}
