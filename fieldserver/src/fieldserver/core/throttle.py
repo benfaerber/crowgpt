@@ -66,9 +66,12 @@ class Allowance:
 
     def __init__(self, allowed: int, per_seconds: float):
         self._throttle = Throttle(allowed, per_seconds)
+        self._lock = threading.Lock()
 
     def spend(self, key: str) -> bool:
-        if self._throttle.blocked(key):
-            return False
-        self._throttle.record_failure(key)
-        return True
+        # Check-and-record is one operation even when Flask handles a burst.
+        with self._lock:
+            if self._throttle.blocked(key):
+                return False
+            self._throttle.record_failure(key)
+            return True

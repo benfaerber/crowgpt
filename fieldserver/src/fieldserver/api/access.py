@@ -24,7 +24,7 @@ from flask import abort, jsonify, request, send_file
 
 from ..core.mail import Mailer
 from ..core.secrets import ENROLL_SECRET
-from ..core.throttle import Throttle
+from ..core.throttle import Allowance
 from ..stores.contributors import FLEET_ROLES
 
 #: Submissions, not failures: five requests an hour from one address is a
@@ -144,7 +144,7 @@ def register(app, d) -> None:
     access = d.access
     current_actor = d.current_actor
     apk_dir = d.instance_dir / "apk"
-    submissions = Throttle(allowed=SUBMISSIONS_PER_HOUR, per_seconds=3600)
+    submissions = Allowance(allowed=SUBMISSIONS_PER_HOUR, per_seconds=3600)
     mailer = Mailer.from_env()
 
     def current_operator() -> dict:
@@ -173,14 +173,14 @@ def register(app, d) -> None:
 
     @app.post("/preview/request")
     def preview_request():
+        request.max_content_length = 8192
         caller = request.remote_addr or "unknown"
         values = {k: (request.form.get(k) or "").strip() for k in ("email", "name", "note")}
-        if submissions.blocked(caller):
-            return page(form(values, "Too many requests from here; try again in an hour."), 429)
         email = values["email"].lower()
         if not EMAIL.match(email):
             return page(form(values, "That does not look like an email address."), 400)
-        submissions.record_failure(caller)
+        if not submissions.spend(caller):
+            return page(form(values, "Too many requests from here; try again in an hour."), 429)
         access.request(email, name=values["name"][:120] or None,
                        note=values["note"][:2000] or None, requester_ip=caller)
         return page(THANKS % {"email": html.escape(email)})
