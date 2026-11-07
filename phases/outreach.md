@@ -68,7 +68,12 @@ Launch blockers:
       replace them. See the promo push entry in `FUTURE.txt`.
 - [ ] Put Cloudflare in front of `field.crowgpt.org` with a rate limit on
       `/api/demo/` and Turnstile on the buttons. The demo shares a box with real
-      field uploads, so a spike must not be able to touch them.
+      field uploads, so a spike must not be able to touch them. Daurian's
+      2026-11-06 code/audit is in `fieldserver/deploy/cloudflare.md`; rollback is
+      written, but widget setup, promo deploy, enforcement, dashboard rules,
+      proxy flip and full Pixel 8 verification are still pending. Direct origin
+      access and shared CPU/memory remain unresolved isolation risks; keep this
+      blocker open, and never change the firewall without Ben's explicit OK.
 - [ ] Add the email list to the page, on the Resend setup that already sends invites
       (`core/mail.py`). Bulk mail needs an unsubscribe link and a postal address,
       which one-to-one invites do not. People who only requested the app did not

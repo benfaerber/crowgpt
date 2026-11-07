@@ -1523,6 +1523,9 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     The plan is phases/outreach.md, with Show HN on 2026-12-01 or 12-02. This
     week: check or replace the two stock assets, put Cloudflare in front of
     field.crowgpt.org (rate limit and Turnstile on /api/demo/, needs Ben in the
-    dashboard), add one email list to the promo page, retake the "Cawtalker"
+    dashboard; code/audit and rollback are in fieldserver/deploy/cloudflare.md,
+    still awaiting widget setup, promo deploy, enforcement, edge rules and
+    Pixel 8 sync verification; origin bypass/resource isolation remain open),
+    add one email list to the promo page, retake the "Cawtalker"
     screenshot, say in the invite that captures carry precise GPS, and push the
     repo and the corrected Hugging Face card.

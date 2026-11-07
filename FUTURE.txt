@@ -197,8 +197,12 @@ when it has a shape and a reason to happen now.
     bare IP; ufw allows 22, 80, 443. The laptop's instance (database, media,
     originals, dictations, scout data, 782 MB) and the two release
     checkpoints plus the finetuned decoder were copied once by rsync. The
-    Cloudflare record is DNS-only (grey): proxying waits for the promo
-    generate entry below, which is what wants the rate-limit rule.
+    Cloudflare record is still DNS-only (grey). The 2026-11-06 preflight and
+    rollback are in fieldserver/deploy/cloudflare.md: trusted visitor IPs,
+    private/no-store API and preview responses, and Caddy HTTP-01 renewal
+    configuration are deployed. Turnstile is staged, not yet required. Proxy
+    flip waits for Ben's dashboard settings and Pixel 8 upload checks; see
+    the live promo entry below. No firewall change is authorized.
 
     Not done, carried into TODO.txt: backups of the hosted instance (the
     `make backup` tool reads the local one), a production WSGI server in
@@ -283,11 +287,29 @@ when it has a shape and a reason to happen now.
     allowance of 30 presses/hour, cap of 8 live jobs, CORS naming
     crowgpt.org), promo/src/live-caw.ts for the buttons, hidden until the
     API answers. Measured on the VPS: see the numbers in the commit that
-    shipped it. STILL OPEN from the sketch: Cloudflare proxying the record
-    with a rate-limit rule on /api/demo/, and Turnstile on the button. Both
-    need Ben in the Cloudflare dashboard (site key + secret), so they wait
-    for the first sign of abuse or a promo push, whichever is first — the
-    allowance is a floor until then.
+    shipped it.
+
+    PRE-LAUNCH HARDENING 2026-11-06 (Daurian): proxy identity/no-store support
+    deployed; Caddy HTTP-01 renewal configuration validated and reloaded.
+    Server-side Turnstile, bounded verification concurrency, atomic per-IP
+    allowances and serialized shelf admission are deployed in staging mode. Promo verifies
+    each press and hides the optional controls on API/widget failure; built
+    locally, NOT published. Six Chrome tests pass. Phone uploads are resumable
+    256 KiB chunks (dashboard 4 MiB), below Free's 100 MB request limit. A
+    ten-minute 57.6 MB audio finalization took 10.522 s on the VPS, below the
+    phone's 30 s timeout. Video file hashes now stream in 1 MiB blocks, with
+    46 upload/storage checks passing after that change. The prior full server
+    suite passed all 895 tests. No WIRE_VERSION bump. The full audit, deployment
+    order, exact dashboard steps and rollback are fieldserver/deploy/cloudflare.md.
+
+    STILL OPEN: Ben's widget/secret setup, promo deployment, required-token
+    enforcement, dashboard cache/bot/Full(strict) review and the single Free
+    demo burst rule; proxy flip LAST. Pixel 8 still points at the old LAN
+    server: migrate it only with Ben's confirmation, then verify a ten-minute
+    capture/full sync through the edge. Also verify real visitor logs, demo
+    refusal, access form, invite and APK. Direct-origin bypass and shared VPS
+    CPU/memory remain launch risks: no firewall change is authorized, and
+    proxying alone does not isolate field uploads. Do not mark this done yet.
 
 [ ] The hard promo push — measurement is in place; know its one gotcha
     before spending a launch on it
