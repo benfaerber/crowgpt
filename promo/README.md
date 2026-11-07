@@ -142,14 +142,15 @@ fix is in the dashboard under the token's settings.
 
 ## Order
 
-Demos before explanation. The hero is one paragraph and three buttons, the
-stat row sits directly under the photo, and the first two sections a visitor
-scrolls into are the CrowGPT players and the app screenshots — then CawScout,
-then the AUC figure. The goal, the two-problems split and the CawDex pipeline
-come after, once there is something concrete to explain. Before 2026-09-11 the
-page opened with three paragraphs and four sections of prose ahead of the first
-thing that could be heard or seen. The stats stay up top on purpose: moving the
-demos forward is not a reason to bury the numbers.
+The crows before the machinery. The hero is one paragraph and three buttons, the
+stat row sits directly under the photo, and the page then runs as one story: the
+Poe family, the goal, what is solved and what is open, the five call types, the
+CrowGPT players, the app and how to get it, then CawScout, the CawDex pipeline,
+the AUC figure and where it all stands. Reordered 2026-11-06 for a curious general
+reader, after an r/crows post met flat "AI, no thanks" replies: the family was
+near the bottom of the page and the first thing a visitor scrolled into was a
+generative model. The hero's first button still jumps straight to the players, so
+nobody has to scroll to hear one. The stats stay up top on purpose.
 
 ## Colours
 
