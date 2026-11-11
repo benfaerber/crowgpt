@@ -42,3 +42,24 @@ def fuzz_coords(latitude, longitude, miles=DEFAULT_FUZZ_MILES):
     if lon < -180:
         lon += 360
     return max(-90.0, min(90.0, lat)), lon
+
+
+
+def occurrence_coords(capture, fleet_lat=None, fleet_lon=None, fleet_region=None):
+    """Where BirdNET's species-occurrence filter should assume a capture was.
+
+    Its own fix when it has one. Otherwise the fleet's home ground, but only
+    for a capture that says nothing about place (a clip dropped on the
+    dashboard) or names the home region itself. A capture that names another
+    region was recorded *there*: filling in the home ground filtered ten London
+    Carrion Crow clips as if they were in Utah, and BirdNET heard a crow in one
+    of them. No filter beats the wrong one; the global model still names
+    corvids, and each call records that it was not location-filtered.
+    """
+    if capture.get("latitude") is not None and capture.get("longitude") is not None:
+        return capture["latitude"], capture["longitude"]
+    region = (capture.get("region") or "").strip().lower()
+    home = (fleet_region or "").strip().lower()
+    if not region or (home and home in region):
+        return fleet_lat, fleet_lon
+    return None, None

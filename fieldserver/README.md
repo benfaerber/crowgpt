@@ -117,6 +117,7 @@ which — both copies kept so a merge stays reversible).
 | `FIELD_ENROLL_TOKEN` / `FIELD_OPERATOR_TOKEN` | dev defaults | the two secrets above |
 | `FIELD_MAX_UPLOAD_MB` |  `16` | per-request upload ceiling |
 | `FIELD_LAT` / `FIELD_LON` | unset | fleet home ground, for analyzing captures with no GPS of their own (browser uploads); unset means no occurrence filter rather than a guess |
+| `FIELD_REGION` | unset | the region name that home ground stands for (e.g. `Utah`); a region-only capture naming it is filtered at the home ground, one naming anywhere else is not filtered at all |
 | `WORKER_POLL` | `2` | worker poll interval, seconds |
 
 Data (the fleet DB and uploaded media) lives under `instance/` and is gitignored.

@@ -27,6 +27,7 @@ sys.path.insert(0, str(FIELDSERVER / "src"))
 sys.path.insert(0, str(REPO))
 
 from fieldserver.stores.analysis import AnalysisStore  # noqa: E402
+from fieldserver.core.coords import occurrence_coords  # noqa: E402
 from fieldserver.stores.captures import CaptureStore  # noqa: E402
 from fieldserver.stores.media import MediaStore  # noqa: E402
 from fieldserver.stores.quality import QualityStore  # noqa: E402
@@ -41,6 +42,9 @@ DEFAULT_DB = FIELDSERVER / "instance" / "field.db"
 # belongs in the repo. Unset means no filter rather than a guessed one.
 FLEET_LAT = float(os.environ["FIELD_LAT"]) if os.environ.get("FIELD_LAT") else None
 FLEET_LON = float(os.environ["FIELD_LON"]) if os.environ.get("FIELD_LON") else None
+# The region name those coordinates stand for ("Utah"). A region-only capture
+# naming it gets them; one naming anywhere else gets no filter.
+FLEET_REGION = os.environ.get("FIELD_REGION")
 
 
 def model_version() -> str:
@@ -67,11 +71,9 @@ def process(job, jobs, media_store, captures, qualities) -> int:
     # Where and when it was recorded turns on BirdNET's occurrence filter. The
     # model is global, so without it a Utah recording comes back as Rook and
     # Torresian Crow — and since both have call-type heads, the wrong species
-    # gets a confident call type hung off it. Captures uploaded from the browser
-    # have no GPS; FIELD_LAT/FIELD_LON stand in for the fleet's home ground when
-    # they are set, and nothing is guessed when they are not.
-    lat = capture.get("latitude") if capture.get("latitude") is not None else FLEET_LAT
-    lon = capture.get("longitude") if capture.get("longitude") is not None else FLEET_LON
+    # gets a confident call type hung off it. See occurrence_coords for when
+    # FIELD_LAT/FIELD_LON stand in for a capture with no GPS.
+    lat, lon = occurrence_coords(capture, FLEET_LAT, FLEET_LON, FLEET_REGION)
 
     wav = None
     try:
