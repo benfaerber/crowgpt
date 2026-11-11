@@ -267,15 +267,23 @@ class TestFieldExemplars:
             db.execute("create table media (id integer primary key, "
                        "storage_ref text)")
             db.execute("insert into media values (1, 'a.wav')")
+            db.execute("create table captures (id integer primary key, "
+                       "provenance text)")
+            db.executemany("insert into captures values (?,?)",
+                           [(1, "app"), (2, "shared")])
             db.execute("create table labels (id integer primary key, "
-                       "media_id int, call_type text, label_source text, "
+                       "capture_id int, media_id int, species text, "
+                       "call_type text, label_source text, "
                        "start_sec real, end_sec real)")
+            crow = "American Crow"
             db.executemany(
-                "insert into labels values (?,?,?,?,?,?)",
-                [(1, 1, "alarm call", "human", 0.0, 3.0),
-                 (2, 1, "alarm call", "birdnet", 3.0, 6.0),   # model guess
-                 (3, 1, "not_a_crow", "human", 6.0, 9.0),      # trains = 0
-                 (4, 1, "alarm call", "human", 9.0, 9.5)])     # too short
+                "insert into labels values (?,?,?,?,?,?,?,?)",
+                [(1, 1, 1, crow, "alarm call", "human", 0.0, 3.0),
+                 (2, 1, 1, crow, "alarm call", "birdnet", 3.0, 6.0),   # model guess
+                 (3, 1, 1, crow, "not_a_crow", "human", 6.0, 9.0),      # trains = 0
+                 (4, 1, 1, crow, "alarm call", "human", 9.0, 9.5),      # too short
+                 (5, 2, 1, crow, "alarm call", "human", 12.0, 15.0),    # shared clip
+                 (6, 1, 1, "Carrion Crow", "alarm call", "human", 18.0, 21.0)])
         return db_path, media
 
     def test_only_human_trainable_spans_survive(self, field_db):

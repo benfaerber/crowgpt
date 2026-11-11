@@ -48,7 +48,8 @@ class CaptureStore(Database):
             app_version=None, app_commit=None, trigger=None, observer_role=None,
             behavior_guess=None, crop_start_sec=None, crop_end_sec=None,
             distance_band=None, adult_count=None, juvenile_count=None,
-            unaged_count=None, region=None):
+            unaged_count=None, region=None, provenance="app",
+            generator_excluded=False):
         """Create a capture, or return the existing one for this `client_uuid`.
 
         The field app records offline and syncs on demand, so a retry after a
@@ -75,9 +76,9 @@ class CaptureStore(Database):
                     "trigger, "
                     "observer_role, behavior_guess, crop_start_sec, crop_end_sec, "
                     "distance_band, adult_count, juvenile_count, unaged_count, "
-                    "region, status, created_at) "
+                    "region, provenance, generator_excluded, status, created_at) "
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
-                    "?, ?, ?, ?, ?, ?, 'recording', ?)",
+                    "?, ?, ?, ?, ?, ?, ?, ?, 'recording', ?)",
                     (contributor_id, device_id, client_uuid, name, int(bool(keep)),
                      latitude, longitude, coord_fuzz_miles,
                      location_name, recorded_at, duration_sec,
@@ -90,6 +91,7 @@ class CaptureStore(Database):
                      distance_band,
                      _count(adult_count), _count(juvenile_count), _count(unaged_count),
                      (region or "").strip() or None,
+                     provenance, int(bool(generator_excluded)),
                      utc_now()),
                 )
             except sqlite3.IntegrityError:

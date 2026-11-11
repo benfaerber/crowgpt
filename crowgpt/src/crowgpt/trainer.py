@@ -349,7 +349,9 @@ def field_exemplars(rng, per_class, db_path=FIELD_DB, media_dir=FIELD_MEDIA,
             "from labels l "
             "join media m on m.id = l.media_id "
             "join label_defs d on d.key = l.call_type "
+            "join captures c on c.id = l.capture_id "
             "where l.label_source = 'human' and d.trains = 1 "
+            "  and l.species = 'American Crow' and c.provenance = 'app' "
             "  and l.start_sec is not null and l.end_sec is not null"
         ).fetchall()
     rng.shuffle(rows)
