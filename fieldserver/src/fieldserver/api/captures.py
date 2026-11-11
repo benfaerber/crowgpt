@@ -150,6 +150,10 @@ def register(app, d) -> None:
             crop_start_sec=crop_start,
             crop_end_sec=crop_end,
             distance_band=distance,
+            # Copied at upload, so changing the answer later governs only what
+            # is sent from then on. Only an explicit no excludes: NULL is an
+            # account from before anyone was asked.
+            generator_excluded=contributor.get("allow_generator") == 0,
             **counts(b),
         )
         return jsonify(cap), 201

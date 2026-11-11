@@ -86,7 +86,13 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 #      unattended recording then masquerades forever as a deliberate one — in a
 #      corpus whose discipline is knowing what is real, that mislabelling is
 #      unrecoverable.
-WIRE_VERSION = 23
+#  24  /api/policy and PATCH /api/me/consent — the upload policy a recordist
+#      accepts during onboarding, with their generator and publishing answers
+#      (contributors.policy_version, allow_generator, allow_publish), and
+#      captures.generator_excluded stamped from them at upload. REQUIRED of a
+#      client: a v23 server 404s the consent, and a phone that cannot record
+#      consent must not sync, so onboarding would never finish.
+WIRE_VERSION = 24
 
 
 def _git(args: str, fallback: str = "") -> str:

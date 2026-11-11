@@ -157,6 +157,26 @@ class ContributorStore(Database):
                  (region or "").strip() or None, contributor_id))
             return self._public(conn, contributor_id)
 
+    def record_consent(self, contributor_id, policy_version, allow_generator,
+                       allow_publish):
+        """Store the answers given while accepting an upload policy.
+
+        Both answers are required as real booleans: a missing one would have
+        to be guessed, and publishing is opt-in, so a guess there could only
+        ever be "no" dressed up as an answer.
+        """
+        for name, value in (("allow_generator", allow_generator),
+                            ("allow_publish", allow_publish)):
+            if not isinstance(value, bool):
+                raise ValueError(f"{name} must be true or false")
+        with self._connect() as conn:
+            conn.execute(
+                "UPDATE contributors SET policy_version = ?, policy_accepted_at = ?, "
+                "allow_generator = ?, allow_publish = ? WHERE id = ?",
+                (int(policy_version), utc_now(), int(allow_generator),
+                 int(allow_publish), contributor_id))
+            return self._public(conn, contributor_id)
+
     def set_status(self, contributor_id, status):
         if status not in ("active", "suspended"):
             raise ValueError(f"unknown status '{status}'")
@@ -213,6 +233,7 @@ class ContributorStore(Database):
         """Never includes claim_code_hash — nothing outside this module needs it."""
         row = conn.execute(
             "SELECT id, public_uuid, display_name, role, status, created_at, "
-            "location_precision, censor_coords, fuzz_miles, region "
+            "location_precision, censor_coords, fuzz_miles, region, "
+            "policy_version, policy_accepted_at, allow_generator, allow_publish "
             "FROM contributors WHERE id = ?", (contributor_id,)).fetchone()
         return dict(row) if row else None

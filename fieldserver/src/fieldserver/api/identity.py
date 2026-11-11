@@ -8,6 +8,7 @@ from ..core.secrets import (
     OPERATOR_SECRET,
     presented,
 )
+from ..core.policy import UploadPolicy
 from ..core.throttle import Throttle
 from ..stores.contributors import FLEET_ROLES
 
@@ -135,6 +136,30 @@ def register(app, d) -> None:
                 contributor["id"], b.get("location_precision"), b.get("region"),
                 censor_coords=b.get("censor_coords"),
                 fuzz_miles=b.get("fuzz_miles")))
+        except ValueError as error:
+            abort(400, str(error))
+
+    @app.get("/api/policy")
+    def upload_policy():
+        """The current upload policy. Unauthenticated: it is read before enrolling."""
+        return jsonify(UploadPolicy.load().as_json())
+
+    @app.patch("/api/me/consent")
+    def give_consent():
+        """Accept the upload policy, with the two answers it asks for.
+
+        Refuses a version other than the current one. A phone holding an old
+        copy must show the new text before its owner can agree to it.
+        """
+        _, contributor = current_actor()
+        b = request.get_json(silent=True) or {}
+        policy = UploadPolicy.load()
+        if b.get("policy_version") != policy.version:
+            abort(409, f"the current upload policy is version {policy.version}")
+        try:
+            return jsonify(contributors.record_consent(
+                contributor["id"], policy.version,
+                b.get("allow_generator"), b.get("allow_publish")))
         except ValueError as error:
             abort(400, str(error))
 

@@ -1,8 +1,12 @@
 # Upload policy (draft, 2026-11-10)
 
-Status: **draft for Ben**. Nothing here is promised to anyone until he signs it
-off and the app shows it before the first upload. Sections marked *Decide* are
-open choices, not settled text.
+Status: **decided in part (2026-11-10), shipped as v1 for testing.** Consent is
+per account, and publishing is opt-in, chosen during onboarding after enrolling.
+The text recordists actually see is
+`fieldserver/src/fieldserver/policy/upload-policy-v1.md`, served at
+`/api/policy`; this file is the reasoning and the open questions. Still open:
+the dataset licence (told to recordists before release) and whether deletion
+gets an in-app button (email for now).
 
 Written after the first recordings arrived from outside the app: ten clips
 from a London recordist who agreed to CawDex and Crow Translate but not the
