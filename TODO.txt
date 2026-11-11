@@ -1530,25 +1530,14 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     screenshot, say in the invite that captures carry precise GPS, and push the
     repo and the corrected Hugging Face card.
 
-[ ] Ship the consent work and the region fix to field.crowgpt.org (2026-11-10)
+[ ] Publish an APK with onboarding once the policy text is signed off
 
-    Committed, NOT deployed: f69f6e8 (analyze worker: a region-only capture
-    gets the FIELD_LAT/LON home ground only if its region names FIELD_REGION),
-    66c6a46 (revision 0036, /api/policy, PATCH /api/me/consent, wire 24) and
-    13bb9a1 (the app's onboarding flow, which needs wire 24).
-
-    Order matters:
-      1. On the box, add FIELD_REGION=Utah to
-         ~/crowgpt/fieldserver/instance/service.env. Without it the 31 region-only
-         "Utah" captures of Ben's would run unfiltered if ever re-analysed.
-         (An agent was refused permission to edit that file; it is Ben's to do.)
-      2. make field-deploy.
-      3. Re-queue analysis for the Instagram batch, captures 199-208, so the
-         dashboard shows what experiment 0089 found unfiltered instead of the
-         Utah-filtered 1/10.
-      4. make apk-publish when the onboarding text is signed off. Old builds keep
-         syncing against wire 24 (they need 23); only the new one asks for
-         consent.
+    Deployed 2026-11-10: f69f6e8 (region fix, FIELD_REGION=Utah set on the box),
+    66c6a46 (revision 0036, consent routes, wire 24); the Instagram batch was
+    re-analysed (BirdNET now hears crows in 8/10). Left: read
+    fieldserver/src/fieldserver/policy/upload-policy-v1.md, then
+    make apk-publish so new installs get 13bb9a1's onboarding. Old builds keep
+    syncing against wire 24 (they need 23); only the new one asks for consent.
 
 [ ] Reply to the London recordist (Instagram batch, 2026-11-10)
 
