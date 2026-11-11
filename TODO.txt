@@ -1529,3 +1529,31 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     add one email list to the promo page, retake the "Cawtalker"
     screenshot, say in the invite that captures carry precise GPS, and push the
     repo and the corrected Hugging Face card.
+
+[ ] Ship the consent work and the region fix to field.crowgpt.org (2026-11-10)
+
+    Committed, NOT deployed: f69f6e8 (analyze worker: a region-only capture
+    gets the FIELD_LAT/LON home ground only if its region names FIELD_REGION),
+    66c6a46 (revision 0036, /api/policy, PATCH /api/me/consent, wire 24) and
+    13bb9a1 (the app's onboarding flow, which needs wire 24).
+
+    Order matters:
+      1. On the box, add FIELD_REGION=Utah to
+         ~/crowgpt/fieldserver/instance/service.env. Without it the 31 region-only
+         "Utah" captures of Ben's would run unfiltered if ever re-analysed.
+         (An agent was refused permission to edit that file; it is Ben's to do.)
+      2. make field-deploy.
+      3. Re-queue analysis for the Instagram batch, captures 199-208, so the
+         dashboard shows what experiment 0089 found unfiltered instead of the
+         Utah-filtered 1/10.
+      4. make apk-publish when the onboarding text is signed off. Old builds keep
+         syncing against wire 24 (they need 23); only the new one asks for
+         consent.
+
+[ ] Reply to the London recordist (Instagram batch, 2026-11-10)
+
+    Their format is ideal; send the vocabulary (call types + context tags) and
+    the specific asks from experiment 0089's README: same named bird on
+    different days, visible triggers, rattles/begging/juvenile calls. Ask about
+    clip 10: they guessed "close-range or begging", the spectrogram is tonal,
+    evenly spaced caws, nothing like the begging in clip 9.

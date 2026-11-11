@@ -3011,3 +3011,26 @@ CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
     wildness axis — sibling of the road-noise recordability axis above,
     and like it, a second axis displayed beside the score, never a penalty
     that hides real crows.
+
+--------------------------------------------------------------------------
+Consent, after onboarding shipped (2026-11-10)
+
+    Consent is per account, served policy v1, publishing opt-in (Ben). What it
+    does not do yet, each with a reason to wait:
+
+    - The server still accepts uploads from accounts that never consented,
+      because every phone in the fleet today predates onboarding. Once the old
+      builds are gone, create_capture should refuse a contributor with
+      policy_version NULL. Revisit when the first stranger enrolls.
+    - A publish exporter does not exist. When it does it must take only
+      provenance = 'app' captures whose contributor has allow_publish = 1, and
+      drop dictations. Shared batches (provenance 'shared') are never eligible:
+      that was the condition the first ones were sent on.
+    - Generator training reads no field audio today, so generator_excluded is
+      enforced by absence. The first script that feeds field captures to the
+      generator must filter on it.
+    - Deletion is "email hello@crowgpt.org". An in-app button is worth it the
+      first time someone actually asks.
+    - The invite page shows the enrollment token to type in. A link that opens
+      the app with the token filled in would remove the one step people get
+      wrong. Needs an app link on the release build.
