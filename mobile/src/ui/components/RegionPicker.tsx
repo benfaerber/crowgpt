@@ -62,7 +62,7 @@ export function RegionPicker({
             autoFocus
           />
 
-          <ScrollView contentContainerStyle={styles.list}>
+          <ScrollView contentContainerStyle={styles.list} keyboardShouldPersistTaps="handled">
             {/* Cleared explicitly rather than by deleting text, since there is
                 no text to delete. Someone who would rather say nothing about
                 where they are should not have to fight the picker. */}

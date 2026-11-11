@@ -7,9 +7,11 @@
  * without a network round-trip — the app is offline-first everywhere else and
  * identity shouldn't be the exception.
  */
+import type { ConsentState } from "./consent";
+
 export type ContributorRole = "contributor" | "operator" | "admin";
 
-export interface Identity {
+export interface Identity extends ConsentState {
   contributorName: string;
   role: ContributorRole;
   /** This handset's row on the server, so it can be renamed. */

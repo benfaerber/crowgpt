@@ -73,6 +73,10 @@ describe("server compatibility", () => {
     // siren — reads as a deliberate field recording forever. Same
     // accept-and-mislabel shape as 18 and 22.
     expect(compatibility(at(22)).serverBehind).toBe(true);
-    expect(compatibility(at(23)).serverBehind).toBe(false);
+  });
+
+  it("refuses a server that cannot record consent, since nothing syncs without it", () => {
+    expect(compatibility(at(23)).serverBehind).toBe(true);
+    expect(compatibility(at(24)).serverBehind).toBe(false);
   });
 });

@@ -1,7 +1,8 @@
 import type { SettingsStore } from "../data/SettingsStore";
 import type { Identity } from "../domain/identity";
 import type { Settings } from "../domain/settings";
-import type { FieldServerClient } from "../net/FieldServerClient";
+import type { ConsentAnswers } from "../domain/consent";
+import { consentOf, type FieldServerClient } from "../net/FieldServerClient";
 
 /**
  * Who this phone is, to the fleet: enrollment, renames, the claim code.
@@ -72,7 +73,14 @@ export class IdentityManager {
       // The server never returns a claim code on read — it is shown once at
       // enrollment and otherwise only by rotating. Keep the one we hold.
       claimCode: this.current?.claimCode,
+      ...consentOf(me.contributor),
     });
+  }
+
+  /** Accept the upload policy and keep the answers the server stored. */
+  async giveConsent(policyVersion: number, answers: ConsentAnswers): Promise<void> {
+    const consent = await this.deps.client().giveConsent(policyVersion, answers);
+    if (this.current) await this.setIdentity({ ...this.current, ...consent });
   }
 
   /** Push this handset's name, so the fleet list says "Pixel 10" not "—". */

@@ -1,3 +1,4 @@
+import { describeConsent } from "../domain/consent";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from "react-native";
 
@@ -23,6 +24,7 @@ export function SettingsScreen({
   onOpenLogs,
   onOpenPermissions,
   onOpenFamilies,
+  onOpenConsent,
 }: {
   services: AppServices;
   onBack: () => void;
@@ -31,6 +33,7 @@ export function SettingsScreen({
   onOpenLogs: () => void;
   onOpenPermissions: () => void;
   onOpenFamilies: () => void;
+  onOpenConsent: () => void;
 }) {
   const scroll = useRememberedScroll("settings");
   const [draft, setDraft] = useState<Settings>(services.settings);
@@ -702,6 +705,18 @@ export function SettingsScreen({
         <Text style={styles.note}>
           Captures are kept on this phone and are only uploaded when you tap Sync.
         </Text>
+
+        {services.isEnrolled ? (
+          <>
+            <Pressable
+              onPress={onOpenConsent}
+              style={({ pressed }) => [styles.action, pressed && styles.pressed]}
+            >
+              <Text style={styles.actionText}>Upload policy and permissions</Text>
+            </Pressable>
+            <Text style={styles.hint}>{describeConsent(services.identity)}</Text>
+          </>
+        ) : null}
 
         <Pressable
           onPress={onOpenFamilies}

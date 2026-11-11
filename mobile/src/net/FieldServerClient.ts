@@ -1,4 +1,5 @@
 import type { FleetConfig } from "../domain/config";
+import type { ConsentAnswers, ConsentState, UploadPolicy } from "../domain/consent";
 import type { Identity } from "../domain/identity";
 import type {
   AnalysisJob,
@@ -83,8 +84,24 @@ export class FieldServerClient {
         deviceId: body.device.id,
         deviceLabel: body.device.label ?? undefined,
         claimCode: body.claim_code,
+        ...consentOf(body.contributor),
       },
     };
+  }
+
+  /** The current upload policy. Unauthenticated, like the config. */
+  policy(): Promise<UploadPolicy> {
+    return this.json("GET", "/api/policy");
+  }
+
+  /** Accept `policyVersion` with both answers; the server refuses a stale version. */
+  async giveConsent(policyVersion: number, answers: ConsentAnswers): Promise<ConsentState> {
+    const contributor = await this.json<ServerContributor>("PATCH", "/api/me/consent", {
+      policy_version: policyVersion,
+      allow_generator: answers.allowGenerator,
+      allow_publish: answers.allowPublish,
+    });
+    return consentOf(contributor);
   }
 
   /**
@@ -831,4 +848,15 @@ export class FieldServerClient {
   private url(path: string): string {
     return `${this.baseUrl.replace(/\/+$/, "")}${path}`;
   }
+}
+
+/** The consent half of a contributor row, in the phone's terms. */
+export function consentOf(contributor: ServerContributor): ConsentState {
+  const flag = (value: number | null | undefined) =>
+    value === null || value === undefined ? undefined : value === 1;
+  return {
+    policyVersion: contributor.policy_version ?? undefined,
+    allowGenerator: flag(contributor.allow_generator),
+    allowPublish: flag(contributor.allow_publish),
+  };
 }

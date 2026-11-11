@@ -21,6 +21,10 @@ export interface ServerContributor {
   display_name: string;
   role: ContributorRole;
   status: "active" | "suspended";
+  /** Absent on a server too old to have the upload policy. */
+  policy_version?: number | null;
+  allow_generator?: number | null;
+  allow_publish?: number | null;
 }
 
 export interface ServerDevice {

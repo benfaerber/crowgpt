@@ -154,6 +154,11 @@ export function useCaptures(services: AppServices): CapturesView {
         }
         await services.enroll();
       }
+      const unconsented = await services.consentProblem();
+      if (unconsented) {
+        setLastMessage(unconsented);
+        return;
+      }
       // Before the push, not after: the point is to say the sync may not have
       // landed what it claims, and after the fact it reads as an excuse.
       const compatible = await services.checkCompatibility();

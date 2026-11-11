@@ -20,7 +20,9 @@ import { ScoutScheduleScreen } from "../ui/ScoutScheduleScreen";
 import { VideoCaptureScreen } from "../ui/VideoCaptureScreen";
 import { PermissionsScreen } from "../ui/PermissionsScreen";
 import { EnrollScreen } from "../ui/EnrollScreen";
+import { OnboardingScreen } from "../ui/OnboardingScreen";
 import { asksForEnrollment } from "../domain/firstRun";
+import { needsConsent } from "../domain/consent";
 import { SettingsScreen } from "../ui/SettingsScreen";
 import { DEFAULT_VIEW, type CaptureView } from "../domain/captureFilters";
 import { ErrorBoundary } from "../ui/components/ErrorBoundary";
@@ -203,6 +205,18 @@ export function CrowGPTApp() {
   // server change forgetting the enrollment) moves it without a subscription;
   // the revision bump below is what triggers that render.
   const [skippedEnrollment, setSkippedEnrollment] = useState(false);
+  // The onboarding gate, after enrolling. The current policy version is asked
+  // for once per launch; without it, an account that accepted any version is
+  // let through (see needsConsent).
+  const [skippedOnboarding, setSkippedOnboarding] = useState(false);
+  const [policyVersion, setPolicyVersion] = useState<number | undefined>();
+  useEffect(() => {
+    if (!services) return;
+    void services.uploadPolicy().then((policy) => setPolicyVersion(policy?.version));
+    void services.refreshIdentity()
+      .then(() => setSettingsRevision((n) => n + 1))
+      .catch((failure) => log.warn("identity", "launch refresh failed", failure));
+  }, [services]);
   const handleSettings = useCallback(
     (settings: Settings) => {
       services?.applySettings(settings);
@@ -262,7 +276,11 @@ export function CrowGPTApp() {
     );
   }
 
-  const askEnrollment = asksForEnrollment(services.isEnrolled, skippedEnrollment);
+  const askEnrollment =
+    asksForEnrollment(services.isEnrolled, skippedEnrollment)
+    || (services.isEnrolled && !skippedOnboarding
+        && needsConsent(services.identity, policyVersion));
+  const enrolling = askEnrollment && !services.isEnrolled;
 
   return (
     // Around the screens, inside the app: a render failure below this loses the
@@ -275,13 +293,24 @@ export function CrowGPTApp() {
       <RecorderProvider services={services} onRecorded={handleRecorded}>
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <StatusBar style="light" />
-        {askEnrollment && (
+        {enrolling && (
           <EnrollScreen
             services={services}
             onChange={handleSettings}
             onEnrolled={() => setSettingsRevision((n) => n + 1)}
             onSkip={() => setSkippedEnrollment(true)}
           />
+        )}
+        {askEnrollment && !enrolling && (
+          <OnboardingScreen
+            services={services}
+            onChange={handleSettings}
+            onDone={() => setSettingsRevision((n) => n + 1)}
+            onSkip={() => setSkippedOnboarding(true)}
+          />
+        )}
+        {!askEnrollment && route.name === "consent" && (
+          <OnboardingScreen services={services} onChange={handleSettings} onDone={back} />
         )}
         {!askEnrollment && route.name === "list" && (
           <CaptureListScreen
@@ -326,6 +355,7 @@ export function CrowGPTApp() {
             onOpenLogs={() => push({ name: "logs" })}
             onOpenPermissions={() => push({ name: "permissions" })}
             onOpenFamilies={() => push({ name: "families" })}
+            onOpenConsent={() => push({ name: "consent" })}
           />
         )}
         {!askEnrollment && route.name === "families" && (

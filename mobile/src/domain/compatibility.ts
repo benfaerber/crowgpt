@@ -92,7 +92,13 @@
 // purpose, trigger possibly a siren — masquerades forever as a deliberate
 // field recording. The whole point of the flag is that this must not happen
 // silently.
-export const REQUIRED_WIRE_VERSION = 23;
+//
+// 24 moves it, though not for the accept-and-drop reason. A v23 server has no
+// consent route and 404s it, so nothing is lost; but this app will not sync
+// until the upload policy is accepted, and against a v23 server it never can
+// be. Saying "server too old" is the honest version of a sync that would
+// otherwise stop at onboarding with no explanation.
+export const REQUIRED_WIRE_VERSION = 24;
 
 /**
  * The two fields of `/api/health`'s build object this app needs.

@@ -1,4 +1,4 @@
-.PHONY: help install wireless devices android start typecheck test test-native seed seed-clear icon
+.PHONY: help install wireless devices android start typecheck test test-native seed seed-clear icon emulator emulator-headless emulator-install
 
 # The system java is 11, which AGP 8 rejects; Android Studio's bundled JDK 21 is
 # what actually builds. `?=` so an env that already sets these wins.
@@ -28,6 +28,8 @@ help:
 	@echo "  make test       Run the store/sync/HTTP checks on this machine (no device)"
 	@echo "  make seed       Put captures made from real crow audio on the attached phone"
 	@echo "  make seed-clear Remove seeded captures from the phone"
+	@echo "  make emulator   Boot the crowgpt-test emulator in a window (emulator-headless: no window)"
+	@echo "  make emulator-install  Build a debug x86_64 APK and install it on the emulator"
 	@echo
 	@echo "  node: $(if $(NODE_BIN),$(NODE_BIN),NOT FOUND under $(NVM_DIR))"
 
@@ -121,6 +123,29 @@ test: check-node typecheck
 # Gradle daemon, which the TS suite has no business waiting on.
 test-native:
 	cd android && ./gradlew :raw-audio:testDebugUnitTest
+
+# The emulator, for flows that start from a fresh install: enrollment,
+# onboarding, consent. Agents use it instead of a phone: it can be wiped at
+# will, and with a phone also attached `make install` refuses to guess, which
+# is the point. The AVD is Android 36, google_apis, x86_64, created with
+# `avdmanager create avd -n crowgpt-test -k "system-images;android-36;google_apis;x86_64" -d pixel_8`.
+# The current cmdline-tools write AVDs under ~/.config/.android/avd, which the
+# emulator does not look in by default, hence ANDROID_AVD_HOME. Inside it, the
+# laptop's own field server is http://10.0.2.2:5100.
+AVD ?= crowgpt-test
+EMULATOR_SERIAL ?= emulator-5554
+EMULATOR = ANDROID_AVD_HOME=$(HOME)/.config/.android/avd $(ANDROID_HOME)/emulator/emulator -avd $(AVD) -no-audio -no-boot-anim
+
+emulator:
+	$(EMULATOR)
+
+emulator-headless:
+	$(EMULATOR) -no-window -gpu swiftshader_indirect
+
+emulator-install: check-node icon
+	npx expo prebuild --platform android >/dev/null
+	./android/gradlew -p android --quiet assembleDebug -PreactNativeArchitectures=x86_64
+	$(ANDROID_HOME)/platform-tools/adb -s $(EMULATOR_SERIAL) install -r android/app/build/outputs/apk/debug/app-debug.apk
 
 # SEED_ARGS passes through, e.g. make seed SEED_ARGS='--count 30 --radius 800'
 seed:

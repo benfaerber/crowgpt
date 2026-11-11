@@ -16,6 +16,7 @@ export type Route =
   | { name: "scout-schedule"; forecast: DayForecast }
   | { name: "video" }
   | { name: "families" }
+  | { name: "consent" }
   | { name: "labeling"; capture: CaptureRecord };
 
 /**

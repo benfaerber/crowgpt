@@ -44,6 +44,13 @@ seeding, no clearing app data. Read-only inspection is fine. Install updates
 only when asked, and only with `make install-app` (which uses `adb install -r`
 and preserves the local store).
 
+**The emulator** (`emulator-5554`, AVD `crowgpt-test`) is for anything that
+starts from a fresh install: enrollment, onboarding, consent. Wipe it freely.
+`make -C mobile emulator-headless`, then `make -C mobile emulator-install`
+(debug build; run `npx expo start` in `mobile/` for the JS, and
+`adb -s emulator-5554 reverse tcp:8081 tcp:8081` plus `tcp:5100` so it reaches
+Metro and a local `make field` at `http://127.0.0.1:5100`).
+
 Target a specific handset with `DEVICE=<serial>`. With **one** phone attached the
 Makefile picks it automatically, which is how the wrong one gets flashed; with
 two it refuses and makes you name one. `make wireless` puts a phone on wireless

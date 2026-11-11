@@ -1,3 +1,4 @@
+import { consentBlocksSync, type ConsentAnswers, type UploadPolicy } from "../domain/consent";
 import { AppState } from "react-native";
 
 import type { CaptureRepository } from "../data/CaptureRepository";
@@ -1077,5 +1078,35 @@ export class AppServices {
 
   rotateClaimCode(): Promise<string> {
     return this.ids.rotateClaimCode();
+  }
+
+  /** The current upload policy, or undefined when the server cannot be reached. */
+  async uploadPolicy(): Promise<UploadPolicy | undefined> {
+    try {
+      return await this.client.policy();
+    } catch (failure) {
+      log.warn("consent", "could not fetch the upload policy", failure);
+      return undefined;
+    }
+  }
+
+  giveConsent(policyVersion: number, answers: ConsentAnswers): Promise<void> {
+    return this.ids.giveConsent(policyVersion, answers);
+  }
+
+  /**
+   * Why syncing must wait for the policy, or nothing.
+   *
+   * Re-reads the identity once before refusing: consent given on another
+   * phone of the same person lives on the server, not in this one's cache.
+   */
+  async consentProblem(): Promise<string | undefined> {
+    if (!consentBlocksSync(this.identity)) return undefined;
+    try {
+      await this.refreshIdentity();
+    } catch (failure) {
+      log.warn("consent", "could not re-read the identity", failure);
+    }
+    return consentBlocksSync(this.identity);
   }
 }
