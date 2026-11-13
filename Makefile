@@ -1,5 +1,5 @@
 .PHONY: help crowgpt field field-stop fieldserver worker transcriber generator analyzer dashboard promo install-app devices android metro reverse test seed \
-        corpus corpus-build train train-crow export-labels backup watch field-deploy field-status field-logs apk-publish
+        corpus corpus-build train train-crow export-labels backup photos watch field-deploy field-status field-logs apk-publish
 
 ADB ?= adb
 
@@ -37,6 +37,7 @@ help:
 	@echo "  make analyzer     Load the analyzer and list the call-type heads it found"
 	@echo "  make corpus       Say what the vendored label corpus holds and how much audio is on disk"
 	@echo "  make backup       Copy the recordings and database to BACKUP_DIR"
+	@echo "  make photos       Fetch corvid photos for every Macaulay CSV in data/photos/macaulay-exports  PHOTOS_LIMIT=400"
 	@echo "  make crowgpt      Generating crow calls — lists its own stages"
 	@echo "  make train        Train a species' call-type head    SLUG=carrion-crow"
 	@echo "                    train takes ARGS=\"--flag …\" for the rest"
@@ -187,6 +188,13 @@ train:
 # minute overwrites its own snapshot instead of leaving two.
 backup:
 	@BACKUP_STAMP=$$(date +%Y%m%d-%H%M) python3 tools/backup.py
+
+# Every CSV exported from the Macaulay media search and dropped in
+# data/photos/macaulay-exports is the whole recipe: the sample is seeded, so a
+# re-run here or on another machine fetches the same photos.
+PHOTOS_LIMIT ?= 400
+photos:
+	python3 tools/import_ml_photos.py $(or $(DATA_DIR),data)/photos/macaulay-exports/*.csv --limit $(PHOTOS_LIMIT)
 
 # Reads the field DB directly, so the server can be up or down.
 export-labels:

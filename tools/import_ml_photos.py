@@ -1,20 +1,15 @@
 """Import corvid photos from the Macaulay Library into data/photos.
 
-Two inputs, both produced by a signed-in human in the web UI, because the
-search endpoint answers scripts with a bot check:
+The input is a CSV export of a Macaulay media search, made by a signed-in
+human in the web UI because the search endpoint answers scripts with a bot
+check. Rows carry the ML Catalog Number, so each photo is fetched from the
+media host by id at 480px, with the recordist, date and coordinates kept for
+attribution and range priors. A seeded random sample of `--limit` photo rows
+is taken, so a re-run fetches the same photos and a higher limit extends the
+same sample.
 
-- a **CSV export** of a media search (preferred). Rows carry the ML Catalog
-  Number, so each photo is fetched from the media host by id at 480px, and
-  the recordist, date and coordinates are kept for attribution and range
-  priors. A random sample of `--limit` photo rows is taken, seeded, so a
-  later run with a higher limit extends the same sample.
-- a **saved search page**: Ctrl+S leaves a `<page>_files/` folder holding the
-  grid thumbnails as `480_<n>_<suffix>.jpeg` beside CSS, logos and the
-  spectrogram strips of audio results. Asset ids do not survive the rename;
-  the species comes from the page title the folder is named after.
-
-    python tools/import_ml_photos.py ~/Downloads/ML__2026-11-13T01-59_carcro1.csv --limit 400
-    python tools/import_ml_photos.py "~/Downloads/American Crow - ... _files"
+    make photos     # every CSV in data/photos/macaulay-exports
+    python tools/import_ml_photos.py path/to/ML__..._carcro1.csv --limit 400
 
 Writes `data/photos/macaulay/<slug>/<sha1>.jpg` and `data/photos/manifest.csv`.
 Photos are named by content hash, so overlapping imports add only what is new.
@@ -54,18 +49,6 @@ class Candidate:
         self.original_name = original_name
         self.read_bytes = read_bytes
         self.metadata = metadata
-
-
-class SavedSearchFolder:
-    THUMBNAIL = re.compile(r"^480_.*\.(jpe?g|png)$", re.IGNORECASE)
-
-    def __init__(self, path: Path):
-        self.path = path
-        self.slug = slugify(path.name.split(" - ")[0])
-
-    def candidates(self, known_assets):
-        return [Candidate(self.slug, p.name, p.read_bytes)
-                for p in sorted(self.path.iterdir()) if self.THUMBNAIL.match(p.name)]
 
 
 class CatalogueExport:
@@ -167,11 +150,9 @@ class PhotoLibrary:
 
 
 def open_source(path: Path, limit: int):
-    if path.suffix.lower() == ".csv":
-        return CatalogueExport(path, limit)
-    if path.is_dir():
-        return SavedSearchFolder(path)
-    sys.exit(f"Neither a CSV export nor a saved-page folder: {path}")
+    if path.suffix.lower() != ".csv":
+        sys.exit(f"Not a CSV export: {path}")
+    return CatalogueExport(path, limit)
 
 
 def main():
