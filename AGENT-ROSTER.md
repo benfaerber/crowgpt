@@ -41,7 +41,7 @@ before wondering and written before working.
 ## Active
 
 
-- **Jay** — since 2026-11-12 — photo ID: 0090 and 0091 written up; running 0092 (crop to the bird before embedding; ~40 min on CPU, 4 detector processes x 8 threads plus a BioCLIP pass; on the Training panel). Local `make field` up on :5100. Hosted server, phones and GPU untouched. Updated 2026-11-12 21:55.
+- **Jay** — since 2026-11-12 — photo ID: 0090, 0091, 0092 written up (BioCLIP head; location; whole frame + bird crop adds ~2.5 points). No job running. Next step is Ben's call. Local `make field` up on :5100. Hosted server, phones and GPU untouched. Updated 2026-11-12 22:45.
 - **Nutcracker** — since 2026-11-10 20:00 — Instagram batch imported and re-analysed on field.crowgpt.org (captures 199-208); experiment 0089; region fix + per-account consent deployed (wire 24, revision 0036), FIELD_REGION=Utah live on the analyze worker. App onboarding committed (13bb9a1), APK NOT published. Emulator crowgpt-test headless with Metro and a local `make field` (:5100). Phones untouched. Updated 2026-11-10 21:10.
 - **Daurian** — since 2026-11-06 19:39 — proxy/no-store, staged Turnstile and streaming upload hash deployed; all units healthy. Promo built and Chrome-tested, NOT published. Waiting for Ben’s widget/secret setup and Pixel 8 migration confirmation; DNS/firewall untouched, no push. Updated 2026-11-06 20:02.
 - **Pica** — since 2026-11-06 — marketing plan written to phases/outreach.md; promo reordered, audited and deployed by Ben; traffic report fixed; Hub card fixed locally, NOT pushed; repo NOT pushed; promo dev server running on :5174 for Ben to review. Field server and GPU untouched. Updated 2026-11-06.
