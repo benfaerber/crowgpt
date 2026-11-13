@@ -137,7 +137,7 @@ EMULATOR_SERIAL ?= emulator-5554
 EMULATOR = ANDROID_AVD_HOME=$(HOME)/.config/.android/avd $(ANDROID_HOME)/emulator/emulator -avd $(AVD) -no-audio -no-boot-anim
 
 emulator:
-	$(EMULATOR)
+	$(EMULATOR) -gpu host
 
 emulator-headless:
 	$(EMULATOR) -no-window -gpu swiftshader_indirect
