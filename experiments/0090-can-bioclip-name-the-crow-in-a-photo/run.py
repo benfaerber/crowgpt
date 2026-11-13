@@ -132,6 +132,24 @@ class Scorer:
         return self._report(f"## trained head (5-fold CV), {name}: {len(present)} classes with photos",
                             present, guesses)
 
+    def learning_curve(self, name, candidates, sizes=(50, 100, 200, 320)):
+        present = [c for c in candidates if any(p.slug == c for p in self.photos)]
+        rows = np.array([i for i, p in enumerate(self.photos) if p.slug in present])
+        labels = np.array([present.index(self.photos[i].slug) for i in rows])
+        folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
+        rng = np.random.default_rng(0)
+        lines = [f"## learning curve, {name}: balanced accuracy by training photos per species"]
+        for size in sizes:
+            scores = []
+            for train, test in folds.split(rows, labels):
+                picked = np.concatenate([rng.permutation(train[labels[train] == k])[:size] for k in range(len(present))])
+                head = LogisticRegression(max_iter=2000, class_weight="balanced")
+                head.fit(self.images[rows[picked]], labels[picked])
+                guessed = head.predict(self.images[rows[test]])
+                scores.append(np.mean([np.mean(guessed[labels[test] == k] == k) for k in range(len(present))]))
+            lines.append(f"  {size:4d} per species  {np.mean(scores):6.1%}")
+        return "\n".join(lines)
+
     def _report(self, title, candidates, guesses):
         lines = [title]
         for slug in sorted({p.slug for p in self.photos}):
@@ -171,6 +189,7 @@ def main():
         report = "\n\n".join(
             [scorer.zero_shot(n, c) for n, c in CANDIDATE_SETS.items()]
             + [scorer.trained(n, c) for n, c in CANDIDATE_SETS.items()]
+            + [scorer.learning_curve(n, c) for n, c in CANDIDATE_SETS.items()]
         )
         print(report)
         run.note(report)
