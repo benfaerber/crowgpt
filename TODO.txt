@@ -1530,7 +1530,7 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     screenshot, say in the invite that captures carry precise GPS, and push the
     repo and the corrected Hugging Face card.
 
-[ ] Publish an APK with onboarding once the policy text is signed off
+[x] Publish an APK with onboarding once the policy text is signed off (published 2026-11-12, crowgpt-field-20261112-2946e4c)
 
     Deployed 2026-11-10: f69f6e8 (region fix, FIELD_REGION=Utah set on the box),
     66c6a46 (revision 0036, consent routes, wire 24); the Instagram batch was
