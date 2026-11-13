@@ -176,6 +176,11 @@ export function useRecorder(services: AppServices, onRecorded: () => void): Reco
    * pocket with nothing on screen to say so. That is not a state to be quiet
    * about, whatever the setting says.
    */
+  const [permissionsSeen, setPermissionsSeen] = useState(0);
+  useEffect(
+    () => services.permissions.onChange(() => setPermissionsSeen((n) => n + 1)),
+    [services],
+  );
   useEffect(() => {
     let live = true;
     void services.permissions
@@ -221,7 +226,7 @@ export function useRecorder(services: AppServices, onRecorded: () => void): Reco
     };
     // `recording` so the check runs again after a capture: a permission revoked
     // mid-session is exactly the case this is for.
-  }, [inBackground, recording, services]);
+  }, [inBackground, recording, permissionsSeen, services]);
   useEffect(() => {
     let live = true;
     const check = (change?: InputsChange) => {

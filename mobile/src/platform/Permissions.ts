@@ -1,4 +1,4 @@
-import { Linking, PermissionsAndroid, Platform } from "react-native";
+import { AppState, Linking, PermissionsAndroid, Platform } from "react-native";
 import * as Camera from "expo-camera";
 import * as Location from "expo-location";
 
@@ -32,6 +32,12 @@ export interface PermissionsManager {
   request(key: PermissionKey): Promise<PermissionInfo>;
   /** Deep-link to the OS settings page — the only route back from `blocked`. */
   openSystemSettings(): Promise<void>;
+  /**
+   * Called when a permission may have changed: after a request here, or on
+   * returning to the app, which is how a grant made in the system settings
+   * arrives. Returns the unsubscribe.
+   */
+  onChange(listener: () => void): () => void;
 }
 
 const DESCRIPTIONS: Record<PermissionKey, Omit<PermissionInfo, "state">> = {
@@ -72,6 +78,18 @@ export class DevicePermissions implements PermissionsManager {
    * had never been shown.
    */
   private asked = new Map<PermissionKey, PermissionState>();
+  private listeners = new Set<() => void>();
+
+  onChange(listener: () => void): () => void {
+    this.listeners.add(listener);
+    const returning = AppState.addEventListener("change", (next) => {
+      if (next === "active") listener();
+    });
+    return () => {
+      this.listeners.delete(listener);
+      returning.remove();
+    };
+  }
 
   async list(): Promise<PermissionInfo[]> {
     return Promise.all(
@@ -92,6 +110,7 @@ export class DevicePermissions implements PermissionsManager {
             ? await this.requestNotifications()
             : await this.requestLocation();
     this.asked.set(key, state);
+    this.listeners.forEach((listener) => listener());
     return { ...DESCRIPTIONS[key], state };
   }
 
