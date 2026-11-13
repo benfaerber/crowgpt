@@ -12,11 +12,10 @@ Macaulay Library photos, 480px, imported with `make photos` from the CSV exports
 in `data/photos/macaulay-exports/`. The sample is a seeded random 400 photo rows
 per export, so it can be reproduced.
 
-| species | n | source |
-|---|---|---|
-| American Crow | 1649 | saved search page, not CSV (see caveats) |
-| Common Raven, Fish Crow, Black-billed Magpie, Carrion Crow, Hooded Crow, Rook, Eurasian Jackdaw | 400 each | CSV |
-| Chihuahuan Raven | 399 | CSV |
+| species | n |
+|---|---|
+| American Crow, Common Raven, Fish Crow, Black-billed Magpie, Carrion Crow, Hooded Crow, Rook, Eurasian Jackdaw | 400 each |
+| Chihuahuan Raven | 399 |
 
 The labels are the uploader's identification on Macaulay, which is not
 independently verified.
@@ -45,49 +44,49 @@ Top-1 accuracy per species:
 
 | species | zero-shot utah | head utah | zero-shot N.Am. | head N.Am. | zero-shot all | head all |
 |---|---|---|---|---|---|---|
-| American Crow | 81.0% | **94.8%** | 43.5% | **79.9%** | 36.9% | **68.4%** |
-| Common Raven | **95.0%** | 88.8% | **76.8%** | 71.2% | **72.2%** | 68.5% |
+| American Crow | 81.8% | **92.8%** | 46.8% | **78.2%** | 39.8% | **63.0%** |
+| Common Raven | **95.0%** | 88.8% | **76.8%** | 70.8% | **72.2%** | 68.0% |
 | Black-billed Magpie | 99.8% | 99.0% | 99.8% | 99.2% | 99.5% | 99.0% |
-| Fish Crow | | | **85.0%** | 72.2% | **78.0%** | 70.0% |
-| Chihuahuan Raven | | | **70.4%** | 66.4% | **68.4%** | 65.9% |
-| Carrion Crow | | | | | 57.8% | **72.8%** |
-| Hooded Crow | | | | | 93.2% | 92.5% |
-| Rook | | | | | 81.5% | 82.5% |
-| Eurasian Jackdaw | | | | | **95.0%** | 92.8% |
+| Fish Crow | | | **85.0%** | 72.0% | **78.0%** | 67.8% |
+| Chihuahuan Raven | | | **70.4%** | 65.4% | **68.4%** | 64.9% |
+| Carrion Crow | | | | | 57.8% | **71.8%** |
+| Hooded Crow | | | | | 93.2% | 92.2% |
+| Rook | | | | | 81.5% | 82.2% |
+| Eurasian Jackdaw | | | | | **95.0%** | 93.2% |
 
 Learning curve for the head (balanced accuracy):
 
 | photos per species | utah | north-america | all |
 |---|---|---|---|
-| 50 | 93.7% | 73.5% | 76.3% |
-| 100 | 93.6% | 75.7% | 77.9% |
-| 200 | 94.0% | 76.9% | 78.3% |
-| 320 | 94.1% | 77.2% | 78.8% |
+| 50 | 93.1% | 72.9% | 76.3% |
+| 100 | 93.3% | 74.9% | 76.7% |
+| 200 | 93.7% | 76.6% | 77.5% |
+| 320 | 93.5% | 77.1% | 78.0% |
 
 ## What it says
 
 - **Zero-shot is lopsided rather than blind.** In the Utah set it calls 18% of
   American Crows "Common Raven" while getting 95% of the ravens. With Fish Crow
-  as a candidate, it sends 43% of American Crows there. Its text side has a
+  as a candidate, it sends 38% of American Crows there. Its text side has a
   prior toward some species names, and the head mostly removes that.
-- **For the Utah question, the head reaches about 94% balanced accuracy.**
+- **For the Utah question, the head reaches about 93.5% balanced accuracy.**
   Magpies are solved by either method. Crow vs. raven is where the remaining
   errors are.
-- **The look-alike pairs stay at 66–80% either way.** American vs. Fish Crow and
+- **The look-alike pairs stay at 65–85% either way.** American vs. Fish Crow and
   Common vs. Chihuahuan Raven are what field guides say: by eye, the two are
   told apart by voice and range, not plumage.
-- **More photos won't move a frozen-embedding head.** The curve gains about one
-  point from 50 to 320 photos per species. iNaturalist's extra volume would buy
+- **More photos won't move a frozen-embedding head.** The curve gains half a point to four
+  points from 50 to 320 photos per species, and is flattening. iNaturalist's extra volume would buy
   roughly nothing for this approach. What could help is a different approach:
   fine-tuning the backbone, cropping the bird out of a larger original so small
   birds keep their bill shape, or a range prior from where the photo was taken.
 
 ## Caveats
 
-- **American Crow came from a saved search page, not a CSV.** It is whatever the
-  default search order put first, likely the higher-rated photos, while every
-  other species is a random sample. Its numbers may be flattering. Swap in a CSV
-  export and rerun before quoting them.
+- An earlier run used 1,649 American Crow photos from a saved search page
+  (the search's first results, not a random sample). The head scored 94.8% on
+  those against 92.8% on the random CSV sample here, so the saved-page set
+  was slightly flattering, as suspected.
 - These are curated archive photos. A field photo of a distant bird on a wire is
   harder, and no number here measures that.
 - The labels are the uploaders' calls, so some disagreements may be the label's
@@ -97,7 +96,7 @@ Learning curve for the head (balanced accuracy):
 
 - **Decided not to add iNaturalist for now.** The learning curve is flat, so
   more photos of the same kind would not justify a third source.
-- An in-house crow / raven / magpie classifier is viable at about 94% on
+- An in-house crow / raven / magpie classifier is viable at about 93.5% on
   archive photos: BioCLIP 2 embeddings plus a logistic head, CPU only, no
   outside API.
 - Photo ID is not the answer to the look-alike pairs. That confirms audio, plus
