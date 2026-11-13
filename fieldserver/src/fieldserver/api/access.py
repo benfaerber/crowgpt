@@ -136,6 +136,8 @@ def invite_text(invite_url: str) -> str:
         f"Open this link on your Android phone: {invite_url}\n\n"
         "It has the app and the enrollment token the app asks for on first "
         "launch. The link is yours; please do not pass it on.\n\n"
+        "Questions, suggestions, bugs, or just want to talk about the project? "
+        "Write to me at hello@crowgpt.org, or reply to this email.\n\n"
         "Ben\nhttps://crowgpt.org\n"
     )
 

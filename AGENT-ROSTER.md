@@ -173,3 +173,4 @@ before wondering and written before working.
   lines out, all suites green, field server restarted and healthy on the new
   code. Left alone: Chough's idle-mode files, Raven's finetune/night scripts,
   Corbie's hub.~~
+- ~~**Jackdaw** — 2026-11-12 (Thu) — crowgpt.org traffic read (token IP filter fixed by Ben); invite email now names hello@crowgpt.org for questions, deployed.~~
