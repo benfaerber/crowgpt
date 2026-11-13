@@ -3,9 +3,10 @@
 Reads the thumbnails `tools/import_ml_photos.py` put in data/photos, embeds
 each once with BioCLIP 2 (cached by sha1, so adding a species embeds only the
 new photos), and scores top-1 against three candidate lists of increasing
-difficulty. CPU only.
+difficulty, then trains a logistic-regression head on the same embeddings
+and scores it by 5-fold cross-validation for comparison. CPU only.
 
-    uv run --with open_clip_torch --with torch --with numpy \\
+    uv run --with open_clip_torch --with torch --with numpy --with scikit-learn \\
         python experiments/0090-can-bioclip-name-the-crow-in-a-photo/run.py
 """
 
@@ -19,6 +20,8 @@ import numpy as np
 import open_clip
 import torch
 from PIL import Image
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedKFold, cross_val_predict
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "crowgpt" / "src"))
@@ -112,10 +115,25 @@ class Scorer:
         self.images = image_vectors
         self.text = text_vectors
 
-    def report(self, name, candidates):
+    def zero_shot(self, name, candidates):
         text = np.stack([self.text[c] for c in candidates])
         guesses = (self.images @ text.T).argmax(axis=1)
-        lines = [f"## {name}: {len(candidates)} candidates"]
+        return self._report(f"## zero-shot, {name}: {len(candidates)} candidates", candidates, guesses)
+
+    def trained(self, name, candidates):
+        present = [c for c in candidates if any(p.slug == c for p in self.photos)]
+        rows = [i for i, p in enumerate(self.photos) if p.slug in present]
+        labels = np.array([present.index(self.photos[i].slug) for i in rows])
+        head = LogisticRegression(max_iter=2000, C=1.0, class_weight="balanced")
+        folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
+        predicted = cross_val_predict(head, self.images[rows], labels, cv=folds)
+        guesses = np.full(len(self.photos), -1)
+        guesses[rows] = predicted
+        return self._report(f"## trained head (5-fold CV), {name}: {len(present)} classes with photos",
+                            present, guesses)
+
+    def _report(self, title, candidates, guesses):
+        lines = [title]
         for slug in sorted({p.slug for p in self.photos}):
             rows = [i for i, p in enumerate(self.photos) if p.slug == slug]
             if slug not in candidates:
@@ -150,7 +168,10 @@ def main():
         stage.update(len(todo), len(todo))
     with run.stage("score") as stage:
         scorer = Scorer(photos, cache.matrix(photos), {s: embedder.species(s) for s in SPECIES})
-        report = "\n\n".join(scorer.report(n, c) for n, c in CANDIDATE_SETS.items())
+        report = "\n\n".join(
+            [scorer.zero_shot(n, c) for n, c in CANDIDATE_SETS.items()]
+            + [scorer.trained(n, c) for n, c in CANDIDATE_SETS.items()]
+        )
         print(report)
         run.note(report)
         stage.update(1, 1)

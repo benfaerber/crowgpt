@@ -40,7 +40,8 @@ before wondering and written before working.
 
 ## Active
 
-- **Jay** — since 2026-11-12 — experiment 0090, BioCLIP zero-shot crow species from photos (CPU). Importing Macaulay photos into data/photos (~35 min, on the Training panel); local `make field` up on :5100 for that panel. Hosted server, phones and GPU untouched. Updated 2026-11-12 20:08.
+
+- **Jay** — since 2026-11-12 — experiment 0090, BioCLIP crow species from photos (CPU, ~15 min embed run on the Training panel). 3,640 Macaulay photos in data/photos across 10 species; American Crow still from a saved page, waiting on Ben for its CSV. Local `make field` up on :5100. Hosted server, phones and GPU untouched. Updated 2026-11-12 20:50.
 - **Nutcracker** — since 2026-11-10 20:00 — Instagram batch imported and re-analysed on field.crowgpt.org (captures 199-208); experiment 0089; region fix + per-account consent deployed (wire 24, revision 0036), FIELD_REGION=Utah live on the analyze worker. App onboarding committed (13bb9a1), APK NOT published. Emulator crowgpt-test headless with Metro and a local `make field` (:5100). Phones untouched. Updated 2026-11-10 21:10.
 - **Daurian** — since 2026-11-06 19:39 — proxy/no-store, staged Turnstile and streaming upload hash deployed; all units healthy. Promo built and Chrome-tested, NOT published. Waiting for Ben’s widget/secret setup and Pixel 8 migration confirmation; DNS/firewall untouched, no push. Updated 2026-11-06 20:02.
 - **Pica** — since 2026-11-06 — marketing plan written to phases/outreach.md; promo reordered, audited and deployed by Ben; traffic report fixed; Hub card fixed locally, NOT pushed; repo NOT pushed; promo dev server running on :5174 for Ben to review. Field server and GPU untouched. Updated 2026-11-06.
@@ -48,6 +49,8 @@ before wondering and written before working.
 
 
 ## Done
+
+- ~~**Treepie** — 2026-11-12 — measured call yield of newly collected short video clips (experiment kept with the corpus tooling); GPU released, server untouched.~~
 
 - ~~**Chough** — since 2026-11-01 — promo: `#` anchor links on every heading, committed and built, NOT deployed. Updated 2026-11-01.~~
 
