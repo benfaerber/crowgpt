@@ -144,12 +144,12 @@ class Swooper {
     const height = window.innerHeight;
     const from = this.target;
     const exitX = this.heading > 0 ? window.innerWidth + this.width * 1.2 : -this.width * 1.2;
-    const exitY = Math.max(height * 0.08, from.y - height * (0.35 + Math.random() * 0.15));
+    const exitY = Math.max(height * 0.08, from.y - height * (0.12 + Math.random() * 0.08));
     const run = exitX - from.x;
     const path = new Path(
       from,
       new Point(from.x + run * 0.3, from.y - 12),
-      new Point(from.x + run * 0.65, from.y - (from.y - exitY) * 0.35),
+      new Point(from.x + run * 0.65, from.y - (from.y - exitY) * 0.5),
       new Point(exitX, exitY),
     );
     const duration = Math.min(5000, Math.max(2200, path.length / CARRY_SPEED * 1000));
