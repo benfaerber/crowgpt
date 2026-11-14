@@ -1546,3 +1546,30 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     different days, visible triggers, rattles/begging/juvenile calls. Ask about
     clip 10: they guessed "close-range or begging", the spectrogram is tonal,
     evenly spaced caws, nothing like the begging in clip 9.
+
+[ ] Photo ID runs on the laptop only; the hosted server has the page and no worker
+
+    2026-11-13. The dashboard's Photo ID page (upload a photo, analyzer/photo
+    names the corvid) works against a local `make field`. On
+    field.crowgpt.org the page and the `photo_identifications` table exist
+    once deployed, but nothing answers: an upload sits at "waiting", and the
+    page says the worker does not seem to be running.
+
+    What the box needs, none of it done:
+
+      - the venv: `cd analyzer/photo && uv sync` (CPU torch, torchvision,
+        open_clip; about 1 GB), plus the first-run downloads of BioCLIP 2 and
+        the Faster R-CNN weights
+      - the model: `data/photos/models/photo-id/` (head.joblib, atlas.npz,
+        metrics.json) copied by hand like the release checkpoints, or
+        PHOTO_ID_MODEL pointing wherever it lands. It is not in git
+      - a fifth systemd unit running
+        `analyzer/photo/.venv/bin/python fieldserver/worker/photo_worker.py`
+        beside crowgpt-generate, and `make field-deploy` restarting it
+      - memory: the two models hold a couple of gigabytes while loaded and
+        are dropped after 10 idle minutes (PHOTO_ID_IDLE_MINUTES). Check the
+        box has that beside the generate worker before enabling it
+
+    Decide after Ben has tried the page locally. If it goes on the promo
+    site it also needs a tokenless, throttled route like /api/demo, and a
+    plan for strangers' uploaded photos (today they are kept until Forget).

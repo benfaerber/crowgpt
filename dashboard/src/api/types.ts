@@ -640,6 +640,43 @@ export interface GenerationFeed {
   generations: Generation[];
 }
 
+/** One species in a photo identification's ranking. */
+export interface SpeciesScore {
+  slug: string;
+  common_name: string;
+  scientific_name: string;
+  probability: number;
+}
+
+/** What the photo worker wrote back: the ranking, where the bird is, and
+ *  which coordinates it considered (given, or read from the photo's EXIF). */
+export interface PhotoIdResult {
+  ranking: SpeciesScore[];
+  bird_box: { left: number; top: number; right: number; bottom: number; score: number; birds: number } | null;
+  used_location: boolean;
+  latitude: number | null;
+  longitude: number | null;
+  width: number;
+  height: number;
+}
+
+/** One uploaded photo on the Photo ID page — the request and, once the worker
+ *  finishes, the answer. */
+export interface PhotoIdentification {
+  id: number;
+  original_name: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  state: "queued" | "running" | "done" | "failed";
+  error: string | null;
+  created_at: string;
+  result: PhotoIdResult | null;
+}
+
+export interface PhotoIdFeed {
+  identifications: PhotoIdentification[];
+}
+
 /** One "may I try the app?" and what became of it. See api/access.py. */
 export interface AccessRequest {
   id: number;

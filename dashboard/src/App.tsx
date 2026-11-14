@@ -17,6 +17,7 @@ import { PAGES, usePage, type Page } from "./page";
 import { CapturesPage } from "./components/CapturesPage";
 import { ContributorsPanel } from "./components/ContributorsPanel";
 import { CrowChatPage } from "./components/CrowChatPage";
+import { PhotoIdPage } from "./components/PhotoIdPage";
 import { DevicesPanel } from "./components/DevicesPanel";
 import { FamiliesPanel } from "./components/FamiliesPanel";
 import { FamilyDetail } from "./components/FamilyDetail";
@@ -147,6 +148,8 @@ export function App() {
         <CorpusPanel signedIn={signedIn} />
       ) : page === "chat" ? (
         <CrowChatPage signedIn={signedIn} />
+      ) : page === "photo" ? (
+        <PhotoIdPage signedIn={signedIn} />
       ) : page === "logs" ? (
         <LogsPanel />
       ) : page === "access" ? (

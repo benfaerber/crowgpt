@@ -14,6 +14,7 @@ import type {
 import type { AccessQueue, AccessRequest } from "./types";
 import type { CallContextMatrix, DeviceLog, LogLevel, RelabelRow } from "./types";
 import type { Generation, GenerationFeed, ListeningPool, TrainingStatus } from "./types";
+import type { PhotoIdFeed, PhotoIdentification } from "./types";
 import type {
   CorpusPage,
   CorpusRecordingDetail,
@@ -562,6 +563,63 @@ export async function forgetGenerations(): Promise<void> {
 /** Same blob-URL dance as fetchMediaUrl, for the same header-less <audio>. */
 export async function fetchGenerationAudioUrl(id: number): Promise<string> {
   const response = await fetch(`/api/generations/${id}/audio`, {
+    headers: { Authorization: `Bearer ${storedToken()}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await reason(response));
+  return URL.createObjectURL(await response.blob());
+}
+
+/**
+ * The Photo ID page's uploads, newest first. Polls quickly while a photo is
+ * with the worker — one takes a few seconds, more when the models are cold.
+ */
+export function usePhotoIds(signedIn: boolean) {
+  return useQuery({
+    queryKey: ["photo-ids"],
+    queryFn: () => request<PhotoIdFeed>("/api/photo-ids"),
+    enabled: signedIn,
+    refetchInterval: (query) => {
+      const live = query.state.data?.identifications.some(
+        (p) => p.state === "queued" || p.state === "running",
+      );
+      return live ? 1_500 : 30_000;
+    },
+  });
+}
+
+/** Multipart, not JSON: the photo goes up as the file it is, EXIF and all,
+ *  because its GPS tags are how the classifier learns where it was taken. */
+export async function uploadPhotoForId(
+  photo: File,
+  latitude?: string,
+  longitude?: string,
+): Promise<PhotoIdentification> {
+  const form = new FormData();
+  form.append("photo", photo);
+  if (latitude && longitude) {
+    form.append("latitude", latitude);
+    form.append("longitude", longitude);
+  }
+  const response = await fetch("/api/photo-ids", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${storedToken()}` },
+    body: form,
+  });
+  if (!response.ok) throw new ApiError(response.status, await reason(response));
+  return (await response.json()) as PhotoIdentification;
+}
+
+export async function forgetPhotoIds(): Promise<void> {
+  const response = await fetch("/api/photo-ids", {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${storedToken()}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await reason(response));
+}
+
+/** The blob-URL dance again: <img src> cannot carry the bearer header. */
+export async function fetchPhotoIdPhotoUrl(id: number): Promise<string> {
+  const response = await fetch(`/api/photo-ids/${id}/photo`, {
     headers: { Authorization: `Bearer ${storedToken()}` },
   });
   if (!response.ok) throw new ApiError(response.status, await reason(response));

@@ -42,6 +42,9 @@ class Deps:
     #: Crow Chat exchanges: a request for a call type and the generated clip
     #: that answers it. Worked off by the generation worker, never this process.
     generations: Any
+    #: Photos uploaded to test the species classifier, and what it called
+    #: them. Worked off by the photo worker, never this process.
+    photo_ids: Any
     #: Read-only joins across all of the above, for the dashboard.
     board: Any
     #: The instance directory, for published reference artifacts the app

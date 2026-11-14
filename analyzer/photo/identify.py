@@ -55,6 +55,12 @@ class Identification:
     ranking: list
     bird_box: BirdBox | None
     used_location: bool
+    #: The coordinates considered, given or read from EXIF; None when neither.
+    latitude: float | None
+    longitude: float | None
+    #: The upright frame the box is measured in.
+    width: int
+    height: int
 
     @property
     def best(self) -> SpeciesScore:
@@ -65,6 +71,10 @@ class Identification:
             "ranking": [vars(score) for score in self.ranking],
             "bird_box": self.bird_box.to_dict() if self.bird_box else None,
             "used_location": self.used_location,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "width": self.width,
+            "height": self.height,
         }
 
 
@@ -122,12 +132,14 @@ class PhotoIdentifier:
     def identify(self, path, latitude=None, longitude=None) -> Identification:
         if latitude is None or longitude is None:
             latitude, longitude = exif_coordinates(path) or (None, None)
-        vector, box = self.features.extract(open_photo(path))
+        image = open_photo(path)
+        vector, box = self.features.extract(image)
         scores = self.head.log_probabilities(vector)[0]
         used_location = latitude is not None and self.atlas.knows(self.head.classes, latitude, longitude)
         if used_location:
             scores = scores + self.atlas.log_likelihoods(self.head.classes, latitude, longitude)
-        return Identification(self._ranking(scores), box, used_location)
+        return Identification(self._ranking(scores), box, used_location,
+                              latitude, longitude, image.width, image.height)
 
     def _ranking(self, scores):
         probabilities = np.exp(scores - scores.max())

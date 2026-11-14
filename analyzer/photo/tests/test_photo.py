@@ -162,9 +162,13 @@ def test_a_place_with_no_records_is_ignored(tmp_path):
     assert result.best.slug == "fish-crow"
 
 
-def test_the_bird_box_is_reported(tmp_path):
+def test_the_bird_box_and_its_frame_are_reported(tmp_path):
     box = BirdBox(10, 10, 30, 30, 0.9, 1)
-    assert identifier(box).identify(photo(tmp_path, "red")).bird_box == box
+    result = identifier(box).identify(photo(tmp_path, "red"), *SALT_LAKE)
+    assert result.bird_box == box
+    assert (result.width, result.height) == (64, 48)
+    assert result.to_dict()["bird_box"]["left"] == 10
+    assert (result.latitude, result.longitude) == SALT_LAKE
 
 
 def test_coordinates_come_from_exif_when_not_given(tmp_path):

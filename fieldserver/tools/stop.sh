@@ -11,7 +11,7 @@ set -u
 killed=0
 for pattern in "bin/fieldserver" "uv run fieldserver" "worker/analyze_worker.py" \
                "worker/transcribe_worker.py" "worker/generate_worker.py" \
-               "worker/scout_scheduler.py"; do
+               "worker/scout_scheduler.py" "worker/photo_worker.py"; do
   for pid in $(pgrep -f "$pattern" 2>/dev/null); do
     # Never signal this script, its shell, or the make that invoked it.
     case " $$ $PPID " in *" $pid "*) continue ;; esac

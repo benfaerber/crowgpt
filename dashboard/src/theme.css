@@ -373,3 +373,24 @@
 .chat-model.on { opacity:1; border-color:var(--accent); color:var(--accent); }
 .chat-buttons { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.55rem; }
 .chat-buttons button { text-transform:capitalize; }
+
+/* Photo ID: one card per uploaded photo, picture beside its ranking. */
+.photo-id-coords { display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;
+  margin-top:.8rem; font-size:.85rem; color:var(--muted); }
+.photo-id-coords input { width:9rem; }
+.photo-id-list { list-style:none; margin:1rem 0 0; padding:0; display:grid; gap:1rem; }
+.photo-id-item { display:grid; grid-template-columns:minmax(0,18rem) minmax(0,1fr);
+  gap:1rem; padding-top:1rem; border-top:1px solid var(--border); }
+.photo-id-frame { position:relative; align-self:start; line-height:0; }
+.photo-id-frame img { width:100%; border-radius:6px; }
+.photo-id-box { position:absolute; border:2px solid var(--accent); border-radius:3px;
+  pointer-events:none; }
+.photo-id-answer h3 { margin:0 0 .1rem; font-size:1.15rem; }
+.photo-id-answer .sci { color:var(--muted); font-style:italic; font-size:.85rem; }
+.photo-id-answer .bars { margin-top:.7rem; }
+.photo-id-answer .bar { grid-template-columns:minmax(0,11rem) 1fr 3.2rem; }
+.photo-id-answer .bar .v { text-align:right; }
+.photo-id-notes { margin:.7rem 0 0; padding:0; list-style:none; font-size:.8rem;
+  color:var(--muted); display:grid; gap:.15rem; }
+.photo-id-notes .warn { color:var(--warn); }
+@media (max-width:640px) { .photo-id-item { grid-template-columns:1fr; } }

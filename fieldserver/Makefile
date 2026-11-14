@@ -1,4 +1,4 @@
-.PHONY: help serve worker transcriber generator dev stop test secrets scout
+.PHONY: help serve worker transcriber generator photo-worker dev stop test secrets scout
 
 BIRDNET = ../pipelines/representation/.venv-birdnet/bin/python
 # A torch venv, and it must not be the BirdNET one: birdnetlib takes CUDA away
@@ -10,6 +10,9 @@ WHISPER ?= ../crowgpt/.venv/bin/python
 # Crow Chat's generation worker: crowgpt's venv for the same torch/birdnetlib
 # separation the transcriber documents.
 GENERATOR ?= ../crowgpt/.venv/bin/python
+# The Photo ID worker: analyzer/photo's own venv, the only one with torchvision
+# and open_clip. Built by `make photo-venv` at the repo root.
+PHOTO ?= ../analyzer/photo/.venv/bin/python
 
 help:
 	@echo "CrowGPT field server"
@@ -17,6 +20,7 @@ help:
 	@echo "  make serve    Serve the field API + operator dashboard on http://127.0.0.1:5100"
 	@echo "  make worker   Run the BirdNET inference worker against the shared DB"
 	@echo "  make transcriber  Run the speech-to-text worker for spoken field notes"
+	@echo "  make photo-worker Run the photo classifier worker for the Photo ID page"
 	@echo "  make stop     Stop a running server and worker"
 	@echo "  make test     Run the API checks (temp DBs, no server needed)"
 	@echo "  make scout    Rebuild + publish the CawScout layer (network fetches)"
@@ -94,6 +98,8 @@ dev:
 	  $(LOADENV); $(BIRDNET) worker/analyze_worker.py & \
 	  $(LOADENV); $(WHISPER) worker/transcribe_worker.py & \
 	  $(LOADENV); $(GENERATOR) worker/generate_worker.py & \
+	  if [ -x $(PHOTO) ]; then $(LOADENV); $(PHOTO) worker/photo_worker.py & \
+	  else echo "Photo ID worker skipped: no venv (make photo-venv at the repo root)"; fi; \
 	  $(LOADENV); uv run python worker/scout_scheduler.py & \
 	  wait
 
@@ -102,6 +108,9 @@ transcriber:
 
 generator:
 	@$(LOADENV); $(GENERATOR) worker/generate_worker.py
+
+photo-worker:
+	@$(LOADENV); $(PHOTO) worker/photo_worker.py
 
 stop:
 	bash tools/stop.sh

@@ -27,6 +27,7 @@ from .stores.families import FamilyStore
 from .stores.labels import LabelStore
 from .stores.merges import MergeStore
 from .stores.generations import GenerationStore
+from .stores.photo_ids import PhotoIdStore
 from .stores.demo import DemoPool
 from .stores.scout_visits import ScoutVisitStore
 from .stores.access_requests import AccessRequestStore
@@ -143,6 +144,8 @@ def create_app(db_path: Path | str | None = None) -> Flask:
     # Synthetic clips beside media/, never inside it, same as dictations.
     generations = GenerationStore(resolved_db, resolved_db.parent / "generated")
     demo = DemoPool(generations)  # the promo's shelf, same table, its own view
+    # Classifier test uploads, beside media/ and never inside it.
+    photo_ids = PhotoIdStore(resolved_db, resolved_db.parent / "photo-id")
     scout_visits = ScoutVisitStore(resolved_db)
     access = AccessRequestStore(resolved_db)  # owns no foreign keys: an email is not a contributor
     board = DashboardQueries(resolved_db)   # read-only joins across all of the above
@@ -201,6 +204,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
         dictations=dictations,
         sightings=sightings, ai_descriptions=ai_descriptions,
         merges=merges, logs=logs, listening=listening, generations=generations,
+        photo_ids=photo_ids,
         instance_dir=resolved_db.parent, scout_visits=scout_visits, access=access,
         demo=demo,
         board=board,
