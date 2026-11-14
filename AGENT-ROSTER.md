@@ -41,6 +41,7 @@ before wondering and written before working.
 ## Active
 
 
+- **Jackdaw** — since 2026-11-13 — GitHub sign-in for the operator dashboard (fieldserver identity routes + dashboard SignIn). Emulator crowgpt-test windowed, Ben testing the APK on it. Will deploy the hosted server when done. Updated 2026-11-13.
 - **Jay** — since 2026-11-12 — photo ID: 0090, 0091, 0092 written up (BioCLIP head; location; whole frame + bird crop adds ~2.5 points). No job running. Next step is Ben's call. Local `make field` up on :5100. Hosted server, phones and GPU untouched. Updated 2026-11-12 22:45.
 - **Nutcracker** — since 2026-11-10 20:00 — Instagram batch imported and re-analysed on field.crowgpt.org (captures 199-208); experiment 0089; region fix + per-account consent deployed (wire 24, revision 0036), FIELD_REGION=Utah live on the analyze worker. App onboarding committed (13bb9a1), APK NOT published. Emulator crowgpt-test headless with Metro and a local `make field` (:5100). Phones untouched. Updated 2026-11-10 21:10.
 - **Daurian** — since 2026-11-06 19:39 — proxy/no-store, staged Turnstile and streaming upload hash deployed; all units healthy. Promo built and Chrome-tested, NOT published. Waiting for Ben’s widget/secret setup and Pixel 8 migration confirmation; DNS/firewall untouched, no push. Updated 2026-11-06 20:02.

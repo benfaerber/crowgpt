@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { hasRememberedSecret, signIn } from "../api/client";
+import { hasRememberedSecret, signIn, signInMethods } from "../api/client";
 
 /**
  * Exchange the operator secret for a session.
@@ -21,6 +21,11 @@ export function SignIn({
   const [remember, setRemember] = useState(true);
   const [error, setError] = useState<string | undefined>(reason);
   const [busy, setBusy] = useState(false);
+  const [github, setGithub] = useState(false);
+
+  useEffect(() => {
+    void signInMethods().then((methods) => setGithub(methods.github));
+  }, []);
 
   const connect = async () => {
     setBusy(true);
@@ -86,6 +91,13 @@ export function SignIn({
         />
         Stay signed in on this browser
       </label>
+      {github ? (
+        <p style={{ marginTop: ".9rem", marginBottom: 0 }}>
+          <button type="button" onClick={() => window.location.assign("/api/operator/github")}>
+            Sign in with GitHub
+          </button>
+        </p>
+      ) : null}
       {error ? <div className="note">{error}</div> : null}
     </div>
   );

@@ -83,6 +83,24 @@ export function storeToken(token: string): void {
   writeKey(TOKEN_KEY, token);
 }
 
+const GITHUB_HANDOFF = "#github-token=";
+
+/**
+ * Take the session GitHub sign-in hands back in the fragment, and wipe it from
+ * the address bar before anything can bookmark or share it.
+ */
+export function adoptGithubSignIn(): void {
+  if (!window.location.hash.startsWith(GITHUB_HANDOFF)) return;
+  storeToken(window.location.hash.slice(GITHUB_HANDOFF.length));
+  window.history.replaceState(null, "", window.location.pathname + window.location.search);
+}
+
+export async function signInMethods(): Promise<{ github: boolean }> {
+  const response = await fetch("/api/operator/methods");
+  if (!response.ok) return { github: false };
+  return (await response.json()) as { github: boolean };
+}
+
 export function clearToken(): void {
   writeKey(TOKEN_KEY, null);
   writeKey(SECRET_KEY, null);

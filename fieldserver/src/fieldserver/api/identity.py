@@ -1,6 +1,8 @@
 """Who is holding the phone, and which phone it is. Enrolment, the claim code that joins a second handset to the same person, renaming, and the operator's own session."""
 
-from flask import abort, jsonify, request
+import secrets
+
+from flask import abort, jsonify, make_response, redirect, request
 
 from ..core.secrets import (
     DASHBOARD_CONTRIBUTOR,
@@ -8,6 +10,7 @@ from ..core.secrets import (
     OPERATOR_SECRET,
     presented,
 )
+from ..core.github import GitHubRefused, GitHubSignIn
 from ..core.policy import UploadPolicy
 from ..core.throttle import Throttle
 from ..stores.contributors import FLEET_ROLES
@@ -19,6 +22,9 @@ from ..stores.contributors import FLEET_ROLES
 #: keyspace, which is the whole distinction worth drawing.
 WRONG_GUESSES = 10
 GUESS_WINDOW_SEC = 60
+
+GITHUB_STATE_COOKIE = "github_oauth_state"
+GITHUB_PATH = "/api/operator/github"
 
 
 def register(app, d) -> None:
@@ -37,6 +43,7 @@ def register(app, d) -> None:
     # Per app rather than per module: two servers in one process (the tests run
     # dozens) must not share a counter, or one of them locks the others out.
     guesses = Throttle(allowed=WRONG_GUESSES, per_seconds=GUESS_WINDOW_SEC)
+    github = GitHubSignIn.from_env()
 
     def guessing_caller() -> str:
         """The caller, refused outright if they have been guessing.
@@ -208,20 +215,72 @@ def register(app, d) -> None:
         if not presented(body, "operator_token", OPERATOR_SECRET):
             guesses.record_failure(caller)
             abort(403, "invalid operator token")
-        # One browser row, reused. Minting a device per sign-in filled the fleet
-        # list with dashboards that had never recorded anything, and every one of
-        # them held a live token forever.
+        operator, device, token = dashboard_session("web", "Operator dashboard")
+        return jsonify({"device": device, "device_token": token,
+                        "contributor": operator}), 201
+
+    def dashboard_session(platform: str, label: str):
+        """A fresh token on the dashboard's one row for this way of signing in.
+
+        One browser row, reused. Minting a device per sign-in filled the fleet
+        list with dashboards that had never recorded anything, and every one of
+        them held a live token forever. GitHub gets its own row so signing in on
+        the phone with it does not evict a laptop signed in with the token.
+        """
         operator = next((c for c in contributors.list_all()
                          if c["display_name"] == DASHBOARD_CONTRIBUTOR), None)
         if not operator:
             operator, _ = contributors.create(DASHBOARD_CONTRIBUTOR, role="operator")
-        existing = devices.find(operator["id"], "web")
+        existing = devices.find(operator["id"], platform)
         if existing:
             device, token = devices.rotate_token(existing["id"])
         else:
             device, token = devices.register(
-                contributor_id=operator["id"], label="Operator dashboard",
-                platform="web", locale="en")
-        return jsonify({"device": device, "device_token": token,
-                        "contributor": operator}), 201
+                contributor_id=operator["id"], label=label,
+                platform=platform, locale="en")
+        return operator, device, token
+
+    @app.get("/api/operator/methods")
+    def operator_methods():
+        return jsonify({"github": github is not None})
+
+    def github_callback_url() -> str:
+        return request.url_root.rstrip("/") + GITHUB_PATH + "/callback"
+
+    @app.get(GITHUB_PATH)
+    def github_start():
+        if github is None:
+            abort(404, "GitHub sign-in is not configured")
+        state = secrets.token_urlsafe(24)
+        response = redirect(github.authorize_url(state, github_callback_url()))
+        response.set_cookie(GITHUB_STATE_COOKIE, state, max_age=600, path=GITHUB_PATH,
+                            httponly=True, secure=request.is_secure, samesite="Lax")
+        return response
+
+    @app.get(GITHUB_PATH + "/callback")
+    def github_finish():
+        """Back from GitHub: check it was our round trip, then who it is.
+
+        The token rides in the fragment, which the browser never sends to any
+        server, and the dashboard strips it from the address bar on arrival.
+        """
+        if github is None:
+            abort(404, "GitHub sign-in is not configured")
+        expected = request.cookies.get(GITHUB_STATE_COOKIE) or ""
+        returned = request.args.get("state") or ""
+        if not expected or not secrets.compare_digest(expected, returned):
+            abort(400, "sign-in expired or was not started here — try again")
+        code = request.args.get("code")
+        if not code:
+            abort(400, request.args.get("error_description") or "GitHub sent no code")
+        try:
+            user = github.identify(code, github_callback_url())
+        except GitHubRefused as error:
+            abort(502, str(error))
+        if not github.admits(user):
+            abort(403, f"GitHub account {user.get('login')} is not an operator")
+        _, _, token = dashboard_session("web-github", "Operator dashboard (GitHub)")
+        response = make_response(redirect("/#github-token=" + token))
+        response.delete_cookie(GITHUB_STATE_COOKIE, path=GITHUB_PATH)
+        return response
 

@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 import {
+  adoptGithubSignIn,
   ApiError,
   clearToken,
   hasRememberedSecret,
@@ -36,7 +37,10 @@ export function App() {
   // be holding an error. Deriving it meant a successful sign-in left the gate
   // up — the old errors were still on the queries, so the only way through was
   // a manual reload.
-  const [signedIn, setSignedIn] = useState(() => storedToken() !== "");
+  const [signedIn, setSignedIn] = useState(() => {
+    adoptGithubSignIn();
+    return storedToken() !== "";
+  });
   const [reason, setReason] = useState<string>();
   const [recovering, setRecovering] = useState(false);
   // Captures moved to their own page and open in place, so the only thing left
