@@ -8,6 +8,7 @@ import { Flock } from "./flock";
 import { HeadingAnchors } from "./heading-anchors";
 import { Lightbox } from "./lightbox";
 import { MailLink } from "./mail-link";
+import { PeanutDrop } from "./peanut-drop";
 import { SpeciesTip } from "./species-tip";
 
 new AucFigure({
@@ -29,6 +30,8 @@ new Flock("#flock", lightbox).mount();
 new CawPlayers(".caw-player").mount();
 
 new CallSamples(".call").mount();
+
+new PeanutDrop().mount();
 
 new ChipTips(".chips").mount();
 

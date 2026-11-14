@@ -173,16 +173,16 @@ img {
   pointer-events: auto;
   cursor: pointer;
   width: var(--w, 64px);
-  aspect-ratio: 190 / 263;
+  aspect-ratio: 130 / 180;
   /* The artwork itself, not a flat silhouette — every frame is registered on
    * the beak so the bird holds still and only the wings move. */
-  background: url("./assets/crow-flight.png") 0 0 / 1000% 100% no-repeat;
-  /* jump-none, not the default: the strip is ten frames wide, so mask-position
-   * has to stop on 0%, 1/9, … 9/9. Plain steps(10) samples 0–90% instead, which
+  background: url("./assets/crow-fly.png") 0 0 / 600% 100% no-repeat;
+  /* jump-none, not the default: the strip is six frames wide, so the position
+   * has to stop on 0%, 1/5, … 5/5. Plain steps(6) samples 0–83% instead, which
    * lands between frames and splices one bird's tail onto the next one's head. */
   /* Only the wingbeat is CSS. The crossing is scripted, because each bird has to
    * come back somewhere new rather than repeat one path. */
-  animation: flap var(--flap, 0.75s) steps(10, jump-none) infinite;
+  animation: flap calc(var(--flap, 0.75s) * 0.75) steps(6, jump-none) infinite;
   will-change: transform;
 }
 
@@ -200,7 +200,7 @@ img {
 .crow.is-inviting {
   opacity: 1;
   animation:
-    flap var(--flap, 0.75s) steps(10, jump-none) infinite,
+    flap calc(var(--flap, 0.75s) * 0.75) steps(6, jump-none) infinite,
     beckon 1.9s ease-in-out infinite;
 }
 
@@ -219,7 +219,7 @@ img {
  * explaining, and the glow has served its purpose. */
 .crow.is-inviting:hover,
 .crow.is-inviting.is-held {
-  animation: flap var(--flap, 0.75s) steps(10, jump-none) infinite;
+  animation: flap calc(var(--flap, 0.75s) * 0.75) steps(6, jump-none) infinite;
 }
 
 .crow-tip {
@@ -340,6 +340,42 @@ img {
   }
 }
 
+
+/* ---- peanuts ------------------------------------------------------------- */
+
+.peanut,
+.peanut-crow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.peanut {
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.3));
+}
+
+/* Both sheets are cut from the same frame, so they share a left edge and a
+ * height; the carrying one is wider by the peanut in its beak. The origin is
+ * the beak, in the plain bird's units, so turning and mirroring pivot on the
+ * peanut. */
+.peanut-crow {
+  width: var(--w);
+  aspect-ratio: 130 / 180;
+  transform-origin: calc(var(--w) * 0.975) 50.8%;
+  background: url("./assets/crow-fly.png") 0 0 / 600% 100% no-repeat;
+  animation: flap 0.42s steps(6, jump-none) infinite;
+  will-change: transform;
+}
+
+.peanut-crow.is-carrying {
+  width: calc(var(--w) * 138 / 130);
+  aspect-ratio: 138 / 180;
+  background-image: url("./assets/crow-fly-peanut.png");
+}
 
 /* ---- flock debug panel --------------------------------------------------- */
 
@@ -3352,9 +3388,9 @@ audio.scan-media {
   bottom: 0;
   left: calc(var(--progress, 0) * (100% - var(--bird)));
   width: var(--bird);
-  aspect-ratio: 190 / 263;
-  background: url("./assets/crow-flight.png") 0 0 / 1000% 100% no-repeat;
-  animation: flap 0.75s steps(10, jump-none) infinite, bob 1.5s ease-in-out infinite;
+  aspect-ratio: 130 / 180;
+  background: url("./assets/crow-fly.png") 0 0 / 600% 100% no-repeat;
+  animation: flap 0.54s steps(6, jump-none) infinite, bob 1.5s ease-in-out infinite;
   animation-play-state: paused;
   transition: left 0.25s linear;
   filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.3));
@@ -3402,10 +3438,6 @@ audio.scan-media {
   box-sizing: content-box;
   border-radius: 10px;
   background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 60%, var(--sky-low));
-}
-
-.chat-bubble .crow-loader-bird {
-  background-image: url("./assets/crow-flight.png");
 }
 
 /* On the Scan page it flies across the busy sky. */
