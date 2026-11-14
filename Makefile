@@ -107,7 +107,7 @@ photo-deploy:
 	git archive --format=tar HEAD analyzer/photo fieldserver/deploy fieldserver/worker/photo_worker.py \
 	  | ssh $(DEPLOY_HOST) 'tar -x -C ~/$(DEPLOY_DIR)'
 	ssh $(DEPLOY_HOST) 'export PATH=$$HOME/.local/bin:$$PATH; cd ~/$(DEPLOY_DIR)/analyzer/photo \
-	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q && mkdir -p ~/$(DEPLOY_DIR)/data/photos/models/photo-id'
+	  && UV_PYTHON=3.11 uv sync --frozen --no-dev -q && mkdir -p ~/$(DEPLOY_DIR)/data/photos/models/photo-id'
 	rsync -a $(PHOTO_MODEL)/ $(DEPLOY_HOST):~/$(DEPLOY_DIR)/data/photos/models/photo-id/
 	ssh $(DEPLOY_HOST) 'cd ~/$(DEPLOY_DIR) && MALLOC_ARENA_MAX=2 PHOTO_ID_MODEL=data/photos/models/photo-id \
 	  analyzer/photo/.venv/bin/python -c "from analyzer.photo import PhotoIdentifier; PhotoIdentifier.load()"'

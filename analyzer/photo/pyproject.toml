@@ -2,7 +2,7 @@
 name = "crowgpt-photo-id"
 version = "0.1.0"
 description = "Names the corvid in a photo: BioCLIP 2 embeddings, a bird crop, and where the photo was taken."
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "numpy",
     "pillow",
