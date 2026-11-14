@@ -1581,12 +1581,11 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     the row an hour later. Works end to end against a local `make field` at
     http://127.0.0.1:5100/promo/scan.html. Not deployed anywhere.
 
-      - Turnstile on the box. The page refuses to run on crowgpt.org without
-        a site key from the server, and on 2026-11-13 the hosted
-        /api/demo/menu reported none (which is also why the "Ask it
-        yourself" buttons vanished). Restore FIELD_TURNSTILE_SITE_KEY and
-        FIELD_TURNSTILE_SECRET in service.env first. The scan uses action
-        `demo-scan`; the widget needs no change for that.
+      - Turnstile on the box: done 2026-11-13. The box had never had keys.
+        The gated page from 2026-11-06 (d8ded66) first reached crowgpt.org
+        in a promo deploy on the evening of 2026-11-13, and the "Ask it
+        yourself" buttons hid until Ben made a widget and synced the keys.
+        The scan uses action `demo-scan`; the widget needs no change for it.
       - `make field-deploy` for the server side, then `make -C promo deploy`
         for the page (Ben runs the second). Sound scanning works on the box
         as soon as the first is done, since crowgpt-analyze already runs
