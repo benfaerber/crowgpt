@@ -86,16 +86,24 @@ def square_crop(image: Image.Image, box: BirdBox | None) -> Image.Image:
 
 
 class BirdDetector:
-    """torchvision's COCO Faster R-CNN, asked only about birds. It is fastest
-    on CPU at about eight threads; more is slower."""
+    """torchvision's COCO Faster R-CNN on a MobileNetV3 backbone, asked only
+    about birds. Experiment 0093 measured it against the ResNet-50 one this
+    started with: fifteen times faster on two cores (0.2 s against 3.0 s), the
+    same bird in nine photos of ten, and a whole+crop head no worse for it.
+    It is fastest on CPU at about eight threads; more is slower."""
+
+    NAME = "fasterrcnn-mobilenet-v3-large-fpn"
 
     def __init__(self):
         import torch
-        from torchvision.models.detection import FasterRCNN_ResNet50_FPN_V2_Weights, fasterrcnn_resnet50_fpn_v2
+        from torchvision.models.detection import (
+            FasterRCNN_MobileNet_V3_Large_FPN_Weights,
+            fasterrcnn_mobilenet_v3_large_fpn,
+        )
 
         torch.set_num_threads(min(THREADS, len(os.sched_getaffinity(0))))
-        weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
-        self.model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=FAINT).eval()
+        weights = FasterRCNN_MobileNet_V3_Large_FPN_Weights.DEFAULT
+        self.model = fasterrcnn_mobilenet_v3_large_fpn(weights=weights, box_score_thresh=FAINT).eval()
         self.bird = weights.meta["categories"].index("bird")
 
     def box(self, image: Image.Image) -> BirdBox | None:

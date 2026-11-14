@@ -78,7 +78,8 @@ Crow vs. raven by how much of the frame the bird fills:
 ## What it changed
 
 - A photo classifier for this project should embed both the whole frame and a
-  crop of the bird. It costs one detector pass (about 1.3 s on CPU) and one
+  crop of the bird. It costs one detector pass (about 1.3 s on CPU; 0093 later
+  swapped in a detector fifteen times cheaper) and one
   extra embedding per photo.
 - Decided not to pursue crop-only, or higher-resolution inputs by themselves,
   as a fix for the look-alike pairs.

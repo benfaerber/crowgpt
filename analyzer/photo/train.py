@@ -31,8 +31,8 @@ from crowgpt.progress import Run  # noqa: E402
 
 DATA = Path(os.environ.get("DATA_DIR", REPO / "data"))
 PHOTOS = DATA / "photos"
-BOXES = PHOTOS / "boxes" / "fasterrcnn-resnet50-fpn-v2.json"
-FEATURES = PHOTOS / "embeddings" / "photo-id-whole-crop.npz"
+BOXES = PHOTOS / "boxes" / f"{BirdDetector.NAME}.json"
+FEATURES = PHOTOS / "embeddings" / f"photo-id-whole-crop-{BirdDetector.NAME}.npz"
 DETECT_WORKERS = 4
 EMBED_THREADS = 16
 BATCH = 16
@@ -185,6 +185,7 @@ class Trainer:
                 trained_at=datetime.now().astimezone().isoformat(timespec="seconds"),
                 embedder=BIOCLIP,
                 features="whole frame + bird crop",
+                detector=BirdDetector.NAME,
                 location_radius_km=RADIUS_KM,
                 validation=f"{FOLDS}-fold cross-validation",
                 no_bird_found=sum(1 for p in self.photos if boxes.box(p) is None),
