@@ -259,6 +259,7 @@ scream page — never for a sitting that produces a statistic.
 - `mobile/` — the field app (Expo/React Native); records, labels, syncs on demand
 - `fieldserver/` — CRUD + ingest API for the app, plus the operator dashboard
 - `analyzer/` — BirdNET inference: a path in, findings out. No server, no DB.
+  `analyzer/photo/` names the corvid in a photo (own CPU venv, `make photo-id`); nothing calls it yet
 - `fieldserver/worker/` — polls for analysis jobs and calls the analyzer
 - `dashboard/` — the operator dashboard (Vite + React), served by fieldserver
 - `promo/` — the public promo page, a compiled bundle fieldserver serves at `/promo`

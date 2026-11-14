@@ -41,6 +41,53 @@ Heads are read from `pipelines/training/models/` at import:
 Train another with `make train SLUG=<species-slug>`; this picks it up on the
 next start, with no code change.
 
+## Photos
+
+`analyzer/photo/` names the corvid in a photo. Same contract as the audio
+side: a path in, findings out, no server and no database.
+
+```python
+from analyzer.photo import PhotoIdentifier
+
+identifier = PhotoIdentifier.load()
+result = identifier.identify("crow.jpg", latitude=40.76, longitude=-111.89)
+result.best.common_name, result.best.probability
+```
+
+```bash
+make photo-id PHOTO=crow.jpg LAT=40.76 LON=-111.89
+```
+
+Three things go into an answer, each measured in `experiments/`:
+
+1. **BioCLIP 2 embeddings with a logistic head** (0090). Zero-shot BioCLIP
+   leans toward some species names; a head trained on a few hundred photos per
+   species removes that.
+2. **The whole frame and a crop of the bird** (0092). A detector finds the
+   bird; the crop keeps bill and throat detail on small birds, the whole frame
+   keeps the habitat.
+3. **Where the photo was taken** (0091). An atlas of where each species is
+   recorded, built from the same Macaulay CSV exports the photos come from.
+   Coordinates are read from the photo's EXIF when not passed, and ignored
+   where no candidate species has a record nearby.
+
+It is a closed set: a photo of any other bird still comes back named as one of
+the trained species. `bird_box` is `None` when no bird was found. American vs.
+Fish Crow and Common vs. Chihuahuan Raven stay unreliable where their ranges
+overlap; those are audio's job.
+
+It runs in its own CPU venv, about two seconds a photo. The model is not in
+git. It is built from the photos in `data/`:
+
+```bash
+make photos        # photos for every CSV in data/photos/macaulay-exports
+make photo-train   # detect, embed, validate, fit; writes data/photos/models/photo-id
+make photo-test    # logic tests, no model needed
+```
+
+`metrics.json` beside the model holds its cross-validated accuracy per species.
+Nothing in the field server or the app calls this yet.
+
 ## History
 
 This lived inside `demo/server.py`, behind a small Flask upload page that
