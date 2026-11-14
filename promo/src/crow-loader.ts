@@ -1,4 +1,4 @@
-/** A loading bar that is a crow: it flies along a trail as the work goes, and
+/** A loading bar that is a crow: it flies across as the work goes, and
  * when the work is done it lands, turns into the cawing crow from the field
  * recording player, and caws twice to say so.
  *
@@ -20,7 +20,6 @@ const CAW_URL = new URL("./assets/caws/done-caw.mp3", import.meta.url).href;
 
 export class CrowLoader {
   readonly root: HTMLElement;
-  private readonly trail = el("span", { className: "crow-loader-trail" });
   private readonly bird = el("span", { className: "crow-loader-bird" });
   private progress = 0;
   private started = 0;
@@ -31,7 +30,7 @@ export class CrowLoader {
     this.root = el("div", {
       className: "crow-loader",
       attrs: { role: "progressbar", "aria-label": "Working", "aria-valuemin": "0", "aria-valuemax": "100" },
-    }, this.trail, this.bird);
+    }, this.bird);
   }
 
   start(): void {

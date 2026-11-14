@@ -3375,7 +3375,7 @@ audio.scan-media {
 }
 
 /* ---- crow loading bar ---------------------------------------------------- */
-/* The flying crow is the playhead of the work: it flies along a dotted trail
+/* The flying crow is the playhead of the work: it flies across
  * to --progress, then lands as the cawing crow and caws (twice through the
  * sprite) when finish() is called. */
 
@@ -3384,17 +3384,6 @@ audio.scan-media {
   position: relative;
   height: calc(var(--bird) * 1.2);
   margin: 0 0.25rem;
-}
-
-.crow-loader-trail {
-  position: absolute;
-  left: 0;
-  bottom: 22%;
-  height: 3px;
-  width: calc(var(--progress, 0) * (100% - var(--bird)) + var(--bird) * 0.4);
-  background: radial-gradient(circle, currentColor 1.2px, transparent 1.6px) 0 50% / 9px 3px repeat-x;
-  color: rgb(255 255 255 / 0.75);
-  transition: width 0.25s linear;
 }
 
 .crow-loader-bird {
@@ -3416,10 +3405,6 @@ audio.scan-media {
 
 .crow-loader.is-landing .crow-loader-bird {
   transition: left 0.6s ease-in-out;
-}
-
-.crow-loader.is-landing .crow-loader-trail {
-  transition: width 0.6s ease-in-out;
 }
 
 .crow-loader.is-done .crow-loader-bird {
