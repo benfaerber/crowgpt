@@ -388,7 +388,19 @@ class NoAudioTrack(ValueError):
     """
 
 
-def has_audio_track(src: Path) -> bool:
+#: The containers a stranger's upload may be: what the Scan page's extensions
+#: name, as ffmpeg calls their demuxers. ffmpeg picks a demuxer from the
+#: file's content, so without this a file called clip.mp4 can be a playlist
+#: that names other files on the box, or any of three hundred formats whose
+#: parsers nobody here chose to expose.
+VISITOR_FORMATS = "mov,matroska,mp3,wav,flac,ogg,aac"
+
+
+def _only(formats: str | None) -> list[str]:
+    return ["-format_whitelist", formats] if formats else []
+
+
+def has_audio_track(src: Path, formats: str | None = None) -> bool:
     """Whether the container holds any audio stream at all.
 
     Only a *successful* probe may answer no. This used to read stdout alone,
@@ -398,7 +410,7 @@ def has_audio_track(src: Path) -> bool:
     """
     try:
         probe = _guarded(
-            ["ffprobe", "-v", "error", "-select_streams", "a",
+            ["ffprobe", "-v", "error", *_only(formats), "-select_streams", "a",
              "-show_entries", "stream=codec_type", "-of", "csv=p=0", str(src)],
             text=True,
         )
@@ -412,24 +424,27 @@ def has_audio_track(src: Path) -> bool:
     return "audio" in probe.stdout
 
 
-def to_wav(src: Path, max_seconds: float | None = None) -> Path:
+def to_wav(src: Path, max_seconds: float | None = None,
+           formats: str | None = None) -> Path:
     """Extract mono 48kHz audio to a temp WAV — robust for mp3/wav/mp4/etc.,
     so BirdNET always gets clean PCM regardless of the container.
 
     `max_seconds` keeps only the start of the recording. A capture is analysed
     whole; a stranger's upload to the promo's Scan page is not, because its
-    length is theirs to choose and the worker's time is not.
+    length is theirs to choose and the worker's time is not. `formats` is the
+    same idea for the container: a comma list of the demuxers ffmpeg may use,
+    and anything else is refused unread.
 
     Checks for sound first. Without it a silent file fails as a raw subprocess
     error, which says "the analyzer crashed" when the truth is "there is nothing
     here to listen to".
     """
-    if not has_audio_track(src):
+    if not has_audio_track(src, formats):
         raise NoAudioTrack(f"{src.name} has no audio stream")
     tmp = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
     tmp.close()
     _guarded(
-        ["ffmpeg", "-v", "quiet", "-y", "-i", str(src),
+        ["ffmpeg", "-v", "quiet", "-y", *_only(formats), "-i", str(src),
          *(["-t", str(max_seconds)] if max_seconds else []),
          "-ac", "1", "-ar", "48000", tmp.name],
         check=True,

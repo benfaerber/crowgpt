@@ -156,7 +156,8 @@ class VisitorScans:
         return True
 
     def analyze(self, scan) -> dict:
-        wav = birdnet.to_wav(self.store.path(scan), max_seconds=SOUND_SECONDS)
+        wav = birdnet.to_wav(self.store.path(scan), max_seconds=SOUND_SECONDS,
+                             formats=birdnet.VISITOR_FORMATS)
         try:
             envelope, duration = birdnet.waveform_envelope(wav)
             calls = birdnet.analyze(wav, lat=scan["latitude"], lon=scan["longitude"])
