@@ -11,6 +11,38 @@
 import { el } from "./dom";
 
 const VOLUME = 0.5;
+const SVG = "http://www.w3.org/2000/svg";
+
+/** Drawn rather than painted with gradients, which step visibly at this size. */
+class PlayIcon {
+  readonly svg = document.createElementNS(SVG, "svg");
+  private readonly ring = this.shape("circle", { class: "call-play-ring", cx: "12", cy: "12", r: "11", pathLength: "100" });
+  private readonly glyph = this.shape("path", { class: "call-play-glyph" });
+
+  constructor() {
+    this.svg.setAttribute("viewBox", "0 0 24 24");
+    this.svg.setAttribute("aria-hidden", "true");
+    this.svg.append(
+      this.shape("circle", { class: "call-play-track", cx: "12", cy: "12", r: "11" }),
+      this.shape("circle", { class: "call-play-disc", cx: "12", cy: "12", r: "9" }),
+      this.ring,
+      this.glyph,
+    );
+    this.render(false, 0);
+  }
+
+  render(playing: boolean, progress: number): void {
+    this.ring.setAttribute("stroke-dasharray", `${(progress * 100).toFixed(1)} 100`);
+    this.ring.style.visibility = progress > 0 ? "visible" : "hidden";
+    this.glyph.setAttribute("d", playing ? "M9 8h2v8H9zM13 8h2v8h-2z" : "M10 7.6v8.8l6.6-4.4z");
+  }
+
+  private shape(tag: string, attrs: Record<string, string>): SVGElement {
+    const node = document.createElementNS(SVG, tag);
+    for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
+    return node;
+  }
+}
 
 export class CallSamples {
   private readonly samples: CallSample[] = [];
@@ -35,6 +67,7 @@ export class CallSamples {
 
 class CallSample {
   private readonly button: HTMLButtonElement;
+  private readonly icon = new PlayIcon();
 
   constructor(
     private readonly card: HTMLElement,
@@ -46,6 +79,7 @@ class CallSample {
       className: "call-play",
       attrs: { type: "button", "aria-label": `Play ${name.textContent?.trim().toLowerCase()}` },
     });
+    this.button.append(this.icon.svg);
     name.prepend(this.button);
   }
 
@@ -82,7 +116,7 @@ class CallSample {
   private render(): void {
     const playing = !this.audio.paused && !this.audio.ended;
     const progress = this.audio.duration ? this.audio.currentTime / this.audio.duration : 0;
-    this.button.style.setProperty("--progress", `${(progress * 100).toFixed(1)}%`);
+    this.icon.render(playing, progress);
     this.button.classList.toggle("is-playing", playing);
     this.button.setAttribute("aria-pressed", String(playing));
   }

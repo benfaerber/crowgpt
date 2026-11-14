@@ -2651,38 +2651,44 @@ audio.scan-media {
 }
 
 .call-play {
-  --progress: 0%;
   flex: none;
   width: 2rem;
   height: 2rem;
-  border-radius: 50%;
   border: 0;
   padding: 0;
+  background: none;
   cursor: pointer;
-  color: var(--surface-1);
-  background:
-    radial-gradient(closest-side, var(--call) 78%, transparent 80%),
-    conic-gradient(var(--text-primary) var(--progress), color-mix(in srgb, var(--call) 35%, transparent) 0);
-  display: grid;
-  place-items: center;
+  border-radius: 50%;
   transition: transform 0.12s ease;
 }
 
-.call-play::before {
-  content: "";
-  border-style: solid;
-  border-width: 0.32rem 0 0.32rem 0.55rem;
-  border-color: transparent transparent transparent currentColor;
-  translate: 1px 0;
+.call-play svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-.call-play.is-playing::before {
-  width: 0.5rem;
-  height: 0.6rem;
-  border-width: 0;
-  border-left: 0.18rem solid currentColor;
-  border-right: 0.18rem solid currentColor;
-  translate: 0 0;
+.call-play-track {
+  fill: none;
+  stroke: color-mix(in srgb, var(--call) 35%, transparent);
+  stroke-width: 2;
+}
+
+.call-play-ring {
+  fill: none;
+  stroke: var(--text-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 12px 12px;
+}
+
+.call-play-disc {
+  fill: var(--call);
+}
+
+.call-play-glyph {
+  fill: var(--surface-1);
 }
 
 .call-play:hover {
