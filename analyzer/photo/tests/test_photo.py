@@ -1,0 +1,187 @@
+"""The photo classifier's logic, without its models.
+
+BioCLIP and the bird detector are downloads measured in hundreds of megabytes,
+so nothing here builds one: the detector and embedder are stand-ins, and what
+is tested is everything between them — the atlas, the crop, how the two terms
+combine, and what happens with no coordinates or no bird.
+
+    make photo-test
+"""
+
+import sys
+from pathlib import Path
+
+import numpy as np
+import pytest
+from PIL import Image
+from sklearn.linear_model import LogisticRegression
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+from analyzer.photo.atlas import FLOOR, Atlas, Occurrences, slugify  # noqa: E402
+from analyzer.photo.identify import (  # noqa: E402
+    ModelMissing,
+    PhotoIdentifier,
+    SpeciesHead,
+    exif_coordinates,
+)
+from analyzer.photo.vision import BirdBox, PhotoFeatures, square_crop  # noqa: E402
+
+SALT_LAKE = (40.76, -111.89)
+MIAMI = (25.76, -80.19)
+NAMES = {
+    "american-crow": {"common": "American Crow", "scientific": "Corvus brachyrhynchos"},
+    "fish-crow": {"common": "Fish Crow", "scientific": "Corvus ossifragus"},
+}
+
+
+def atlas():
+    return Atlas(
+        {
+            "american-crow": Occurrences.from_degrees([SALT_LAKE] * 3 + [MIAMI]),
+            "fish-crow": Occurrences.from_degrees([MIAMI] * 4),
+        },
+        NAMES,
+    )
+
+
+class StubDetector:
+    def __init__(self, box):
+        self.found = box
+
+    def box(self, image):
+        return self.found
+
+
+class StubEmbedder:
+    """Embeds an image as its mean colour, so a test picks the answer by
+    painting the photo."""
+
+    def embed(self, images):
+        return np.array([np.asarray(i.resize((1, 1))).reshape(3) / 255.0 for i in images])
+
+
+def identifier(box=None):
+    reds, blues = np.tile([1.0, 0, 0, 1.0, 0, 0], (5, 1)), np.tile([0, 0, 1.0, 0, 0, 1.0], (5, 1))
+    classifier = LogisticRegression().fit(np.vstack([reds, blues]), [0] * 5 + [1] * 5)
+    head = SpeciesHead(classifier, ["american-crow", "fish-crow"])
+    return PhotoIdentifier(PhotoFeatures(StubDetector(box), StubEmbedder()), head, atlas())
+
+
+def photo(tmp_path, colour):
+    path = tmp_path / "photo.jpg"
+    Image.new("RGB", (64, 48), colour).save(path)
+    return path
+
+
+def test_subspecies_groups_fold_into_the_species():
+    assert slugify("Carrion Crow (Eastern)") == "carrion-crow"
+
+
+def test_share_counts_records_within_the_radius():
+    crow = atlas().species["american-crow"]
+    assert crow.share_within(*SALT_LAKE) == pytest.approx(0.75)
+    assert crow.share_within(*MIAMI) == pytest.approx(0.25)
+
+
+def test_a_recordist_cannot_vouch_for_their_own_photo():
+    crow = Occurrences.from_degrees([SALT_LAKE, SALT_LAKE, MIAMI], np.array(["ann", "bob", "bob"]))
+    assert crow.share_within(*SALT_LAKE, excluding_recordist="ann") == pytest.approx(0.5)
+
+
+def test_a_species_never_recorded_nearby_is_unlikely_not_impossible():
+    likelihoods = atlas().log_likelihoods(["american-crow", "fish-crow"], *SALT_LAKE)
+    assert likelihoods[1] == pytest.approx(np.log(FLOOR))
+    assert likelihoods[0] > likelihoods[1]
+
+
+def test_the_atlas_survives_a_save_without_its_recordists(tmp_path):
+    original = Atlas.from_exports(write_export(tmp_path))
+    original.save(tmp_path / "atlas.npz")
+    loaded = Atlas.load(tmp_path / "atlas.npz")
+    assert loaded.names == original.names
+    assert loaded.species["carrion-crow"].recordists is None
+    assert loaded.shares(["carrion-crow"], 51.5, 0.7) == pytest.approx(original.shares(["carrion-crow"], 51.5, 0.7))
+
+
+def write_export(tmp_path):
+    exports = tmp_path / "exports"
+    exports.mkdir()
+    header = "ML Catalog Number,Format,Common Name,Scientific Name,Recordist,Latitude,Longitude,Parent Species\n"
+    rows = (
+        "1,Photo,Carrion Crow,Corvus corone,Ann,51.52,0.78,Corvus corone\n"
+        "2,Audio,Carrion Crow (Eastern),Corvus corone orientalis,Bob,43.1,131.9,Corvus corone\n"
+        "3,Photo,Carrion Crow,Corvus corone,Cy,,,Corvus corone\n"
+    )
+    (exports / "ML_carcro1.csv").write_text("﻿" + header + rows, encoding="utf-8")
+    return exports
+
+
+def test_an_export_gives_one_species_and_skips_unlocated_rows(tmp_path):
+    built = Atlas.from_exports(write_export(tmp_path))
+    assert list(built.species) == ["carrion-crow"]
+    assert len(built.species["carrion-crow"].positions) == 2
+    assert built.names["carrion-crow"] == {"common": "Carrion Crow", "scientific": "Corvus corone"}
+
+
+def test_crop_is_a_square_with_a_margin_around_the_bird():
+    image = Image.new("RGB", (1200, 800))
+    crop = square_crop(image, BirdBox(500, 300, 600, 500, 0.9, 1))
+    assert crop.size == (240, 240)
+
+
+def test_crop_stays_inside_the_frame_for_a_bird_at_the_edge():
+    image = Image.new("RGB", (1200, 800))
+    assert square_crop(image, BirdBox(0, 0, 100, 200, 0.9, 1)).size == (240, 240)
+    assert square_crop(image, BirdBox(100, 0, 300, 790, 0.9, 1)).size == (800, 800)
+
+
+def test_no_bird_means_the_whole_frame():
+    image = Image.new("RGB", (1200, 800))
+    assert square_crop(image, None) is image
+
+
+def test_pixels_alone_decide_without_coordinates(tmp_path):
+    result = identifier().identify(photo(tmp_path, "red"))
+    assert result.best.slug == "american-crow"
+    assert result.best.common_name == "American Crow"
+    assert not result.used_location
+    assert result.bird_box is None
+    assert sum(score.probability for score in result.ranking) == pytest.approx(1.0)
+
+
+def test_location_overrules_ambiguous_pixels(tmp_path):
+    grey = photo(tmp_path, (128, 0, 128))
+    assert identifier().identify(grey, *SALT_LAKE).best.slug == "american-crow"
+    assert identifier().identify(grey, *MIAMI).best.slug == "fish-crow"
+
+
+def test_a_place_with_no_records_is_ignored(tmp_path):
+    result = identifier().identify(photo(tmp_path, "blue"), -33.87, 151.21)
+    assert not result.used_location
+    assert result.best.slug == "fish-crow"
+
+
+def test_the_bird_box_is_reported(tmp_path):
+    box = BirdBox(10, 10, 30, 30, 0.9, 1)
+    assert identifier(box).identify(photo(tmp_path, "red")).bird_box == box
+
+
+def test_coordinates_come_from_exif_when_not_given(tmp_path):
+    path = tmp_path / "geotagged.jpg"
+    exif = Image.Exif()
+    exif[0x8825] = {1: "N", 2: (25.0, 45.0, 36.0), 3: "W", 4: (80.0, 11.0, 24.0)}
+    Image.new("RGB", (64, 48), (128, 0, 128)).save(path, exif=exif)
+    assert exif_coordinates(path) == pytest.approx((25.76, -80.19))
+    result = identifier().identify(path)
+    assert result.used_location
+    assert result.best.slug == "fish-crow"
+
+
+def test_a_photo_without_gps_has_no_coordinates(tmp_path):
+    assert exif_coordinates(photo(tmp_path, "red")) is None
+
+
+def test_loading_without_a_trained_model_says_how_to_build_one(tmp_path):
+    with pytest.raises(ModelMissing, match="make photo-train"):
+        PhotoIdentifier.load(tmp_path)

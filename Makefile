@@ -1,5 +1,5 @@
 .PHONY: help crowgpt field field-stop fieldserver worker transcriber generator analyzer dashboard promo install-app devices android metro reverse test seed \
-        corpus corpus-build train train-crow export-labels backup photos watch field-deploy field-status field-logs apk-publish
+        corpus corpus-build train train-crow export-labels backup photos photo-venv photo-train photo-id photo-test watch field-deploy field-status field-logs apk-publish
 
 ADB ?= adb
 
@@ -38,6 +38,8 @@ help:
 	@echo "  make corpus       Say what the vendored label corpus holds and how much audio is on disk"
 	@echo "  make backup       Copy the recordings and database to BACKUP_DIR"
 	@echo "  make photos       Fetch corvid photos for every Macaulay CSV in data/photos/macaulay-exports  PHOTOS_LIMIT=400"
+	@echo "  make photo-train  Train the photo classifier from data/photos (needs make photos first)"
+	@echo "  make photo-id     Name the corvid in a photo    PHOTO=path [LAT= LON=]"
 	@echo "  make crowgpt      Generating crow calls — lists its own stages"
 	@echo "  make train        Train a species' call-type head    SLUG=carrion-crow"
 	@echo "                    train takes ARGS=\"--flag …\" for the rest"
@@ -194,7 +196,28 @@ backup:
 # re-run here or on another machine fetches the same photos.
 PHOTOS_LIMIT ?= 400
 photos:
-	python3 tools/import_ml_photos.py $(or $(DATA_DIR),data)/photos/macaulay-exports/*.csv --limit $(PHOTOS_LIMIT)
+	python3 tools/import_ml_photos.py $(or $(DATA_DIR),data)/photos/macaulay-exports/*.csv --limit $(PHOTOS_LIMIT) --large
+
+# The photo classifier lives in analyzer/photo with a venv of its own: BioCLIP
+# and the bird detector need torch, which the BirdNET venv does not carry, and
+# CPU wheels keep it off the card. The model it trains lands in
+# data/photos/models/photo-id, beside the photos it came from.
+PHOTO_PY := analyzer/photo/.venv/bin/python
+
+$(PHOTO_PY): analyzer/photo/pyproject.toml
+	cd analyzer/photo && uv sync
+	@touch $(PHOTO_PY)
+
+photo-venv: $(PHOTO_PY)
+
+photo-train: $(PHOTO_PY)
+	$(PHOTO_PY) -m analyzer.photo.train
+
+photo-id: $(PHOTO_PY)
+	@$(PHOTO_PY) -m analyzer.photo $(PHOTO) $(if $(LAT),--lat $(LAT) --lon $(LON))
+
+photo-test: $(PHOTO_PY)
+	$(PHOTO_PY) -m pytest analyzer/photo/tests -q
 
 # Reads the field DB directly, so the server can be up or down.
 export-labels:

@@ -1,0 +1,31 @@
+[project]
+name = "crowgpt-photo-id"
+version = "0.1.0"
+description = "Names the corvid in a photo: BioCLIP 2 embeddings, a bird crop, and where the photo was taken."
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pillow",
+    "joblib",
+    "scikit-learn>=1.5",
+    "torch>=2.8",
+    "torchvision>=0.23",
+    "open_clip_torch>=3.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+package = false
+
+# CPU wheels on purpose: one photo takes about two seconds without a GPU, and
+# this venv must never contend for the card with a training run.
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
