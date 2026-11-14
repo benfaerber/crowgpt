@@ -82,11 +82,14 @@ export default defineConfig({
     outDir: isPublic ? "dist" : "../fieldserver/src/fieldserver/static/promo",
     emptyOutDir: true,
     rollupOptions: {
-      // Two pages, not one: the credits roll is its own document so the front
+      // Three pages, not one: the credits roll is its own document so the front
       // page never loads a hundred kilobytes of attribution nobody asked for.
       input: {
         main: resolve(__dirname, "index.html"),
         credits: resolve(__dirname, "credits.html"),
+        // The scanner is the first section to become its own page: it is a
+        // tool people come back to, and the front page is long enough.
+        scan: resolve(__dirname, "scan.html"),
       },
     },
   },

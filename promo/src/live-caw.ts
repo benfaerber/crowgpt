@@ -5,6 +5,12 @@
  * job and this polls until the bout is done. Each press sends a single-use
  * Turnstile token for server verification; no secret lives on the page. Buttons
  * stay hidden until the API and widget are ready. The static page always works.
+ *
+ * The copy a field server serves at /promo is pressed without a token when
+ * that server has no Turnstile key and does not require one, which is what a
+ * local `make field` is; a page that hid itself there could never be tried.
+ * The public build never does this: on crowgpt.org a server without a key
+ * means the buttons stay hidden.
  */
 
 import { Player } from "./caw-player";
@@ -41,6 +47,7 @@ export class LiveCaw {
   private token = "";
   private busy = false;
   private unavailable = false;
+  private verified = true;
   private readonly challenge = new DemoChallenge();
 
   private fetch(path: string, options?: RequestInit): Promise<Response> {
@@ -59,7 +66,7 @@ export class LiveCaw {
   async mount(): Promise<void> {
     if (!this.root || !this.menu || !this.result) return;
     let items: MenuItem[];
-    let siteKey: string;
+    let siteKey: string | undefined;
     // The menu is the health check: it answers only from a server that is up,
     // and it is the one route that carries the CORS header — /api/health does
     // not, so a separate probe of it is blocked by the browser on crowgpt.org
@@ -67,14 +74,20 @@ export class LiveCaw {
     try {
       const menu = await this.fetch("/api/demo/menu");
       if (!menu.ok) return;
-      const body = (await menu.json()) as { items: MenuItem[]; turnstile_site_key?: string };
-      if (!body.turnstile_site_key) return;
+      const body = (await menu.json()) as {
+        items: MenuItem[];
+        turnstile_site_key?: string | null;
+        turnstile_required?: boolean;
+      };
+      const unverifiedAllowed = this.api === "" && !body.turnstile_required;
+      if (!body.turnstile_site_key && !unverifiedAllowed) return;
       items = body.items;
-      siteKey = body.turnstile_site_key;
+      siteKey = body.turnstile_site_key ?? undefined;
     } catch {
       return;
     }
-    this.menu.hidden = true;
+    this.verified = siteKey !== undefined;
+    this.menu.hidden = this.verified;
     for (const item of items) {
       const button = el("button", {
         className: "button live-caw-button",
@@ -86,6 +99,10 @@ export class LiveCaw {
       this.menu.append(button);
     }
     this.root.hidden = false;
+    if (siteKey === undefined) {
+      this.setBusy(null);
+      return;
+    }
     const widget = el("div", { className: "live-caw-verification" });
     this.root.insertBefore(widget, this.menu);
     try {
@@ -100,7 +117,7 @@ export class LiveCaw {
   }
 
   private async press(item: MenuItem, button: HTMLButtonElement): Promise<void> {
-    if (!this.token || this.busy || this.unavailable) return;
+    if (!this.ready() || this.busy) return;
     const token = this.token;
     this.token = ""; // A Siteverify token is single-use, including failed requests.
     this.stopPolling();
@@ -110,7 +127,7 @@ export class LiveCaw {
     try {
       const response = await this.fetch(`/api/demo/generate/${item.key}`, {
         method: "POST",
-        body: new URLSearchParams({ "cf-turnstile-response": token }),
+        body: new URLSearchParams(token ? { "cf-turnstile-response": token } : {}),
       });
       if (response.status === 429) {
         this.say("Too many requests just now. Please try again later.");
@@ -185,9 +202,13 @@ export class LiveCaw {
   private setBusy(active: HTMLButtonElement | null): void {
     this.busy = active !== null;
     for (const button of this.buttons) {
-      button.disabled = this.busy || !this.token || this.unavailable;
+      button.disabled = this.busy || !this.ready();
       button.classList.toggle("is-asking", button === active);
     }
+  }
+
+  private ready(): boolean {
+    return !this.unavailable && (!this.verified || this.token !== "");
   }
 
   private hide(): void {

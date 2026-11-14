@@ -33,12 +33,16 @@ export class DemoChallenge {
   private widget?: Turnstile;
   private id?: string;
 
+  /** `action` must be the one the route verifies: a token minted for the
+   *  generate buttons does not pass for an upload, nor the reverse. */
+  constructor(private readonly action = "demo-generate") {}
+
   async mount(container: HTMLElement, siteKey: string, ready: (token: string) => void,
               unavailable: () => void): Promise<void> {
     this.widget = await load();
     this.id = this.widget.render(container, {
       sitekey: siteKey,
-      action: "demo-generate",
+      action: this.action,
       appearance: "interaction-only",
       callback: ready,
       "expired-callback": () => { ready(""); this.reset(); },

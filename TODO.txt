@@ -1570,6 +1570,32 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
         are dropped after 10 idle minutes (PHOTO_ID_IDLE_MINUTES). Check the
         box has that beside the generate worker before enabling it
 
-    Decide after Ben has tried the page locally. If it goes on the promo
-    site it also needs a tokenless, throttled route like /api/demo, and a
-    plan for strangers' uploaded photos (today they are kept until Forget).
+    Ben tried it locally on 2026-11-13 and deployed the server side; the
+    worker pieces above are still what is missing on the box.
+
+[ ] The promo's Scan page is built and local; three things before it is public
+
+    2026-11-13. `promo/scan.html` + `/api/demo/scan` (revision 0038): a
+    visitor uploads a photo, recording or video; the photo worker or the
+    BirdNET worker answers; the file is deleted when the scan finishes and
+    the row an hour later. Works end to end against a local `make field` at
+    http://127.0.0.1:5100/promo/scan.html. Not deployed anywhere.
+
+      - Turnstile on the box. The page refuses to run on crowgpt.org without
+        a site key from the server, and on 2026-11-13 the hosted
+        /api/demo/menu reported none (which is also why the "Ask it
+        yourself" buttons vanished). Restore FIELD_TURNSTILE_SITE_KEY and
+        FIELD_TURNSTILE_SECRET in service.env first. The scan uses action
+        `demo-scan`; the widget needs no change for that.
+      - `make field-deploy` for the server side, then `make -C promo deploy`
+        for the page (Ben runs the second). Sound scanning works on the box
+        as soon as the first is done, since crowgpt-analyze already runs
+        there. Photos stay "not available right now" until the photo worker
+        exists on the box (entry above); the page says so by itself.
+      - Size and proxy. Sound uploads go up to 40 MB in one request, above
+        the server's default 16 MB cap (the route raises it for itself).
+        Check Caddy and, once the Cloudflare proxy is on, its 100 MB limit
+        pass that through.
+
+    Decided, revisit if abused: 12 scans an hour per address, 6 waiting per
+    queue, first 90 s of a recording analysed, no visitor address stored.

@@ -160,6 +160,31 @@ near the bottom of the page and the first thing a visitor scrolled into was a
 generative model. The hero's first button still jumps straight to the players, so
 nobody has to scroll to hear one. The stats stay up top on purpose.
 
+## Pages
+
+Three documents, each its own entry in `vite.config.ts`: the front page, the
+credits roll, and **Scan** (`scan.html`). Scan is the first section to leave
+the front page. The rule for the next one: a section becomes a page when it
+is a tool people come back to or reference material nobody reads in order
+(credits, the scanner; the app's install steps and the full results table are
+the likely next two). The story stays on one page.
+
+## Scan
+
+`scan.html` takes a visitor's photo, recording or video and shows what the
+hosted server found: a species for a photo, a call timeline for sound (the
+app's and the dashboard's picture, in the same five colours). It posts to the
+tokenless `/api/demo/scan` on the field server; `fieldserver/api/scan.py` has
+the bounds. The file is shown and played from the visitor's own device, and
+the server deletes its copy when the scan finishes.
+
+The page asks the server which kinds it can read right now and offers only
+those, so a server with no photo worker still scans sound. It needs a
+Turnstile key from the server, as the generate buttons do; the copy a field
+server serves at `/promo` runs without one when that server requires none,
+which is how it is tried locally. `tests/scan.spec.ts` covers it against a
+mocked API.
+
 ## Colours
 
 Two series, blue and orange, from the data-viz reference palette — validated

@@ -2313,3 +2313,315 @@ main {
   background: none;
   color: var(--text-muted);
 }
+
+/* ---- Scan page ----------------------------------------------------------
+ * A visitor's photo or recording, read by the server. The timeline is the
+ * app's and the dashboard's picture: waveform bars, a band per detected call
+ * in its call-type colour, a hairline at the onset.
+ */
+.scan-drop {
+  margin-top: 2rem;
+  padding: 2.75rem 1.5rem;
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-1);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.scan-drop:hover,
+.scan-drop:focus-visible,
+.scan-drop.is-over {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  outline: none;
+}
+
+.scan-drop.is-disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.scan-drop-title {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.scan-drop-sub,
+.scan-limits {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.scan-limits {
+  margin-top: 0.75rem;
+}
+
+.scan-verification {
+  margin-top: 0.75rem;
+}
+
+.scan-locate {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  max-width: var(--measure);
+  margin-top: 0.9rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.scan-locate input {
+  margin-top: 0.3rem;
+  accent-color: var(--accent);
+}
+
+.scan-status {
+  margin-top: 1.25rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.scan-results {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.scan-result {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-1);
+}
+
+.scan-file {
+  margin-bottom: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.scan-note {
+  margin-top: 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  max-width: var(--measure);
+}
+
+.scan-photo {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.scan-frame {
+  position: relative;
+  line-height: 0;
+}
+
+.scan-frame img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.scan-box {
+  position: absolute;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.scan-answer h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.scan-scientific {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.scan-ranking {
+  list-style: none;
+  margin: 1rem 0 0.4rem;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.scan-ranking li {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) 1fr 3rem;
+  gap: 0.7rem;
+  align-items: center;
+  font-size: 0.92rem;
+}
+
+.scan-ranking-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scan-ranking-track {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.scan-ranking-fill {
+  display: block;
+  height: 100%;
+  border-radius: 0 6px 6px 0;
+  background: var(--accent);
+}
+
+.scan-ranking-value {
+  text-align: right;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.scan-media {
+  display: block;
+  width: 100%;
+  max-height: 22rem;
+  border-radius: var(--radius-sm);
+  background: #000;
+}
+
+audio.scan-media {
+  background: none;
+}
+
+.scan-timeline {
+  display: block;
+  width: 100%;
+  height: 132px;
+  margin-top: 0.9rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+.scan-bar {
+  fill: var(--text-muted);
+  opacity: 0.8;
+}
+
+.scan-playhead {
+  fill: var(--accent);
+}
+
+.scan-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.scan-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+.scan-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.scan-swatch {
+  display: inline-block;
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 3px;
+}
+
+.scan-calls {
+  list-style: none;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.scan-call {
+  display: grid;
+  grid-template-columns: 5.5rem auto minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.92rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.scan-call:hover,
+.scan-call:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.scan-call-time {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.scan-call-conf {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.scan-about {
+  margin-top: 4rem;
+}
+
+.scan-about h2 {
+  font-size: 1.4rem;
+  margin: 2rem 0 0.6rem;
+}
+
+.scan-teaser {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 720px) {
+  .scan-photo {
+    grid-template-columns: 1fr;
+  }
+
+  .scan-call {
+    grid-template-columns: 5.5rem auto minmax(0, 1fr);
+  }
+
+  .scan-call-conf {
+    grid-column: 3;
+  }
+}

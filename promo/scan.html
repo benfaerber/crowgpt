@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scan a crow · CrowGPT</title>
+    <meta
+      name="description"
+      content="Upload a photo, a recording or a video. CrowGPT names the crow in the photo, or finds every corvid call in the sound and lays it out on a timeline."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icon-16.png" />
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png" />
+    <script type="module" src="/src/scan.ts"></script>
+  </head>
+  <body>
+    <main class="credits-page scan-page">
+      <nav class="nav">
+        <a class="wordmark" href="./">
+          <img
+            class="wordmark-icon"
+            src="./src/assets/icon-180.png"
+            alt=""
+            width="180"
+            height="180"
+          /><span><span class="caw">Crow</span>GPT</span>
+        </a>
+        <div class="nav-links"><a href="./">← Back to the project</a></div>
+      </nav>
+
+      <h1 class="credits-title">Scan a crow</h1>
+      <p class="section-lede">
+        Give it a photo and it names the crow. Give it a recording or a video and
+        <strong>CawDex</strong> finds every corvid call in the sound, names the species,
+        labels the call type, and lays it all out on a timeline you can play.
+      </p>
+
+      <div
+        class="scan-drop"
+        id="scan-drop"
+        role="button"
+        tabindex="0"
+        aria-describedby="scan-limits"
+      >
+        <p class="scan-drop-title">Drop a photo, a recording or a video here</p>
+        <p class="scan-drop-sub">or click to choose a file</p>
+      </div>
+      <input type="file" id="scan-picker" hidden />
+      <div id="scan-verification" class="scan-verification"></div>
+      <p class="scan-limits" id="scan-limits"></p>
+      <label class="scan-locate">
+        <input type="checkbox" id="scan-locate" />
+        <span>
+          Send my location with it. Where a bird was seen rules most look-alike species
+          out. Photos that carry their own GPS tags do not need this.
+        </span>
+      </label>
+      <p class="scan-status" id="scan-status" aria-live="polite" hidden></p>
+
+      <div id="scan-results" class="scan-results"></div>
+
+      <section class="scan-about">
+        <h2>What happens to your file</h2>
+        <p class="section-lede">
+          It goes to the project's server, is read once, and is deleted the moment the
+          scan finishes. The result is kept for an hour so this page can show it, then
+          deleted too. Nothing you upload here is added to the project's data or used
+          for training. The picture and the sound you see on this page are played from
+          your own device.
+        </p>
+        <h2>How much to trust it</h2>
+        <p class="section-lede">
+          The photo model knows nine corvids and is right about nine times in ten when
+          it knows where the photo was taken. American and Fish Crows, and Common and
+          Chihuahuan Ravens, look alike enough that it confuses them where their ranges
+          overlap. The sound model reads call types best for the American Crow; for a
+          species it has no call-type model for, it reports the species alone.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-legal"><a href="./">Back to CrowGPT</a></p>
+    </footer>
+  </body>
+</html>
