@@ -47,7 +47,8 @@ async function setup(page: Page, overrides: Record<string, unknown> = {}, result
     if (route.request().method() === "GET") {
       return route.fulfill({ headers, json: { ...config, ...overrides } });
     }
-    posts.push(route.request().postData() ?? "");
+    // The token rides in a header so the server can check it before the file.
+    posts.push(`${route.request().headers()["x-turnstile-token"] ?? ""}\n${route.request().postData() ?? ""}`);
     return route.fulfill({ status: 202, headers, json: { id: "abc", kind: "photo", state: "queued", ahead: 0 } });
   });
   await page.route(`${api}/api/demo/scan/abc`, route => route.fulfill({
@@ -80,7 +81,7 @@ test("a photo is uploaded with a scan-action token and comes back named", async 
   await expect(page.locator(".scan-answer h3")).toHaveText("American Crow");
   await expect(page.locator(".scan-box")).toBeVisible();
   await expect(page.locator(".scan-ranking li")).toHaveCount(2);
-  expect(posts[0]).toContain("single-use-token");
+  expect(posts[0].split("\n")[0]).toBe("single-use-token");
   expect(posts[0]).toContain("40.76");
   await expect(page.locator(".scan-answer")).toContainText("Your approximate location was used");
   await page.screenshot({ path: "test-results/scan-photo.png", fullPage: true });

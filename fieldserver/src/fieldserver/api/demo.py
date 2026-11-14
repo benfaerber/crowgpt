@@ -92,6 +92,9 @@ def register(app, d) -> None:
             response.headers["Access-Control-Allow-Origin"] = origin
             response.vary.add("Origin")
             response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+            # The Scan page's token rides in a header (api/scan.py), which
+            # makes its upload a preflighted request.
+            response.headers["Access-Control-Allow-Headers"] = "X-Turnstile-Token"
             response.headers["Access-Control-Max-Age"] = "86400"
         return response
 

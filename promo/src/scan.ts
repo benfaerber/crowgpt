@@ -150,12 +150,16 @@ class ScanApi {
     const form = new FormData();
     form.append("file", file);
     if (keep) form.append("keep", "1");
-    if (token) form.append("cf-turnstile-response", token);
     if (place) {
       form.append("latitude", String(place.latitude));
       form.append("longitude", String(place.longitude));
     }
-    const response = await fetch(`${this.base}/api/demo/scan`, { method: "POST", body: form });
+    // In a header, not the form: the server checks it before reading the file.
+    const response = await fetch(`${this.base}/api/demo/scan`, {
+      method: "POST",
+      body: form,
+      headers: token ? { "X-Turnstile-Token": token } : {},
+    });
     if (!response.ok) throw new Error(await ScanApi.reason(response));
     return (await response.json()) as Scan;
   }

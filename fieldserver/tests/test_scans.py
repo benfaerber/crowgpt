@@ -333,3 +333,70 @@ class TestApi:
     def test_the_promo_origin_may_read_it(self, client, scans):
         response = client.get("/api/demo/scan", headers={"Origin": "https://crowgpt.org"})
         assert response.headers["Access-Control-Allow-Origin"] == "https://crowgpt.org"
+
+
+class TestVerifiedBeforeTheBodyIsRead:
+    """A refusal should not cost the server a forty-megabyte form."""
+
+    @pytest.fixture
+    def guarded(self, db_path, monkeypatch):
+        from fieldserver.app import create_app
+
+        monkeypatch.setenv("FIELD_TURNSTILE_SITE_KEY", "public-key")
+        monkeypatch.setenv("FIELD_TURNSTILE_SECRET", "private-key")
+        monkeypatch.setenv("FIELD_DEMO_TURNSTILE_REQUIRED", "1")
+        app = create_app(db_path)
+        store = ScanStore(db_path, db_path.parent / "demo-scans")
+        store.beat("photo")
+        return app.test_client()
+
+    def answer(self, monkeypatch, success):
+        import json
+
+        from fieldserver.core import turnstile
+
+        seen = []
+
+        def verify(request, timeout):
+            seen.append(request.data)
+            return io.BytesIO(json.dumps({"success": success, "hostname": "crowgpt.org",
+                                          "action": "demo-scan"}).encode())
+        monkeypatch.setattr(turnstile, "urlopen", verify)
+        return seen
+
+    def test_a_bad_header_token_is_refused_whatever_the_body_holds(self, guarded, monkeypatch):
+        self.answer(monkeypatch, success=False)
+        refused = guarded.post("/api/demo/scan", data=b"not a form at all",
+                               content_type="multipart/form-data; boundary=x",
+                               headers={"X-Turnstile-Token": "bad"})
+        assert refused.status_code == 403
+
+    def test_a_good_header_token_is_spent_once_and_the_upload_queued(self, guarded, monkeypatch):
+        seen = self.answer(monkeypatch, success=True)
+        created = guarded.post("/api/demo/scan", data={"file": (io.BytesIO(BYTES), "crow.jpg")},
+                               content_type="multipart/form-data",
+                               headers={"X-Turnstile-Token": "good"})
+        assert created.status_code == 202
+        assert len(seen) == 1
+
+    def test_the_form_field_still_works_for_a_page_from_before_the_header(self, guarded, monkeypatch):
+        self.answer(monkeypatch, success=True)
+        assert upload(guarded, **{"cf-turnstile-response": "good"}).status_code == 202
+        assert upload(guarded).status_code == 403
+
+    def test_a_spent_allowance_is_refused_before_the_body_is_read(self, client, scans):
+        from fieldserver.api.scan import SCANS_PER_HOUR
+
+        for _ in range(SCANS_PER_HOUR):
+            upload(client)
+            scans.complete(scans.claim_next("photo")["id"], RESULT)
+        refused = client.post("/api/demo/scan", data=b"not a form at all",
+                              content_type="multipart/form-data; boundary=x")
+        assert refused.status_code == 429
+
+    def test_the_promo_origin_may_send_the_token_header(self, client, scans):
+        preflight = client.options("/api/demo/scan", headers={
+            "Origin": "https://crowgpt.org", "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "x-turnstile-token"})
+        assert preflight.status_code == 200
+        assert preflight.headers["Access-Control-Allow-Headers"] == "X-Turnstile-Token"

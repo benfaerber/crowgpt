@@ -83,6 +83,12 @@ class Allowance:
         self._throttle = Throttle(allowed, per_seconds)
         self._lock = threading.Lock()
 
+    def spent(self, key: str) -> bool:
+        """Whether the allowance is already used up, without touching it:
+        the question a route asks before doing any work for the caller."""
+        with self._lock:
+            return self._throttle.blocked(key)
+
     def spend(self, key: str) -> bool:
         # Check-and-record is one operation even when Flask handles a burst.
         with self._lock:

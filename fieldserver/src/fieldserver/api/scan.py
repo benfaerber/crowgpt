@@ -5,7 +5,10 @@ surface beside demo.py, and it is bounded the same way plus what an upload
 adds:
 
   - a single-use Turnstile token per upload (action `demo-scan`), verified
-    here whenever verification is required or a token is offered;
+    here whenever verification is required or a token is offered. The page
+    sends it in the X-Turnstile-Token header, and it is checked before the
+    body is parsed: a 40 MB form is otherwise the cost of every refusal.
+    The form field is still read, for a page deployed before the header;
   - an allowance per address, and a cap on how many uploads may be waiting;
   - a size limit per kind, set on the request before any of it is read;
   - only formats the two workers open, decided from the file's extension;
@@ -34,6 +37,9 @@ ACTION = "demo-scan"
 
 #: Uploads an address gets an hour. Each one is seconds of a worker's CPU.
 SCANS_PER_HOUR = 12
+
+#: Where the page puts its Turnstile token, so it can be checked first.
+TOKEN_HEADER = "X-Turnstile-Token"
 
 #: Room for the largest file plus the form around it.
 MAX_REQUEST_BYTES = max(MAX_BYTES.values()) + 64 * 1024
@@ -68,8 +74,7 @@ def register(app, d) -> None:
         except ValueError:
             abort(400, f"{name} must be a number")
 
-    def verify_visitor():
-        token = request.form.get("cf-turnstile-response", "")
+    def verify_visitor(token):
         if not (turnstile.required or token):
             return
         if not verifying.acquire(blocking=False):
@@ -98,6 +103,13 @@ def register(app, d) -> None:
     @app.post("/api/demo/scan")
     def scan_upload():
         request.max_content_length = MAX_REQUEST_BYTES
+        caller = request.remote_addr or "?"
+        # Everything that can refuse without the body does so first.
+        if uploads.spent(caller):
+            abort(429, "that is enough scans for one hour from one address")
+        early_token = request.headers.get(TOKEN_HEADER, "")
+        if early_token:
+            verify_visitor(early_token)
         upload = request.files.get("file")
         if upload is None or not upload.filename:
             abort(400, "attach the file as 'file'")
@@ -109,8 +121,9 @@ def register(app, d) -> None:
         queue = queue_of(kind)
         if not scans.alive(queue):
             abort(503, f"{kind} scanning is not available right now")
-        verify_visitor()
-        if not uploads.spend(request.remote_addr or "?"):
+        if not early_token:
+            verify_visitor(request.form.get("cf-turnstile-response", ""))
+        if not uploads.spend(caller):
             abort(429, "that is enough scans for one hour from one address")
         scans.prune()
         if scans.waiting(queue) >= MAX_WAITING:
