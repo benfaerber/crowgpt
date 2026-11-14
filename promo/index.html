@@ -369,11 +369,13 @@
           CawDex sorts every call it finds into one of five classes, the same five the
           app offers a recordist. Finer field labels fold into them, so a mobbing crow
           is filed as alarm and a rattle as call. The colours are the ones the app and
-          the dashboard use.
+          the dashboard use. Press a dot to hear one: the best example of each that the
+          project has, five seconds apiece.
         </p>
         <ul class="calls">
           <li class="call" style="--call: #f27070">
             <p class="call-name">Alarm call</p>
+            <audio controls preload="none" src="./src/assets/calls/alarm-call.mp3"></audio>
             <p class="call-sound">Harsh, fast, repeated, with the whole bird in it.</p>
             <p class="call-meaning">
               Something is wrong, and the other crows are being told.
@@ -382,19 +384,24 @@
               Also filed here: <span>mobbing</span> and <span>scold</span>, the directed,
               persistent version aimed at a cat, an owl or a hawk on the ground.
             </p>
+            <p class="call-credit">Clip: recorded with the app in Salt Lake City.</p>
             <p class="call-read">Reads it at 0.97 AUC on clean labels.</p>
           </li>
           <li class="call" style="--call: #6bd28a">
             <p class="call-name">Flight call</p>
+            <audio controls preload="none" src="./src/assets/calls/flight-call.mp3"></audio>
             <p class="call-sound">Spaced, carrying caws given on the wing.</p>
             <p class="call-meaning">
               Keeps the group in touch while it moves: here I am, this way.
             </p>
             <p class="call-folds">The cleanest class acoustically, and the first one the pipeline learned.</p>
+            <p class="call-credit">Clip: <a href="https://xeno-canto.org/172878">XC172878</a>, Paul Marvin, California ·
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
             <p class="call-read">Reads it at 0.91 AUC, even on archive labels.</p>
           </li>
           <li class="call" style="--call: #6ea8fe">
             <p class="call-name">Call</p>
+            <audio controls preload="none" src="./src/assets/calls/call.mp3"></audio>
             <p class="call-sound">Unhurried, spaced out, back and forth between birds.</p>
             <p class="call-meaning">
               Nothing is happening. The ordinary talk between crows that know each other.
@@ -403,10 +410,12 @@
               Also filed here: <span>contact call</span> and <span>rattle</span>, the dry,
               knocking run a crow gives close to another bird.
             </p>
+            <p class="call-credit">Clip: recorded with the app in Salt Lake City.</p>
             <p class="call-read">The largest and vaguest class, which is why the field labels split it.</p>
           </li>
           <li class="call" style="--call: #efb057">
             <p class="call-name">Begging</p>
+            <audio controls preload="none" src="./src/assets/calls/begging.mp3"></audio>
             <p class="call-sound">
               A rasping, nasal, repeated caah, flatter than an adult's, and it goes on
               and on, wings quivering.
@@ -415,16 +424,20 @@
               A fledgling asking to be fed. Hear it and there is a family group nearby.
             </p>
             <p class="call-folds">Its own class because juvenile calls were otherwise lost inside the vaguest one.</p>
+            <p class="call-credit">Clip: recorded with the app in Salt Lake City.</p>
             <p class="call-read">The detector's weak spot: BirdNET scores a begging fledgling at 0.06, so these mostly arrive by hand.</p>
           </li>
           <li class="call" style="--call: #c58af9">
             <p class="call-name">Song</p>
+            <audio controls preload="none" src="./src/assets/calls/song.mp3"></audio>
             <p class="call-sound">Quiet, odd, rambling, often to itself.</p>
             <p class="call-meaning">
               Nobody knows yet. It likely carries the most information of all, and it is out
               of scope for now because it needs a close microphone.
             </p>
             <p class="call-folds">Easy to miss and worth keeping whenever it turns up.</p>
+            <p class="call-credit">Clip: <a href="https://xeno-canto.org/316302">XC316302</a>, Sue Riffe, Florida ·
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
             <p class="call-read">Reads it at 0.91 AUC on clean labels, 0.56 on archive tags.</p>
           </li>
         </ul>

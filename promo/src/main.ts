@@ -1,6 +1,7 @@
 import "./styles.css";
 
 import { AucFigure } from "./auc-figure";
+import { CallSamples } from "./call-samples";
 import { CawPlayers } from "./caw-player";
 import { ChipTips } from "./chip-tip";
 import { Flock } from "./flock";
@@ -27,6 +28,8 @@ new MailLink(".mail").mount();
 new Flock("#flock", lightbox).mount();
 
 new CawPlayers(".caw-player").mount();
+
+new CallSamples(".call").mount();
 
 // Hidden until the hosted API answers; see live-caw.ts.
 void new LiveCaw("#live-caw", __FIELD_API__).mount();
