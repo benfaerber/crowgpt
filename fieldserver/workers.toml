@@ -1,0 +1,47 @@
+# Every background worker the field server has, in one place. `make dev` runs
+# them, `make stop` stops them, and on the hosted box each becomes the systemd
+# unit crowgpt-<name>, written from this file by a deploy. Adding a worker is
+# an entry here and its script; nothing else lists them.
+#
+#   description   the unit's Description on the box
+#   script        relative to fieldserver/
+#   venv          the venv whose python runs it, relative to fieldserver/
+#   hosted_venv   the venv on the box when it differs (the box has fewer)
+#   hosted        false keeps it off the box
+#   environment   extra variables for the unit, beside instance/service.env
+#   memory_max    a systemd MemoryMax, for a worker that could starve the server
+#
+# A worker whose venv does not exist is skipped with a line saying so, here
+# and on the box, so a venv nobody has built never becomes a crash loop.
+
+[analyze]
+description = "CrowGPT analyze worker"
+script = "worker/analyze_worker.py"
+venv = "../pipelines/representation/.venv-birdnet"
+hosted_venv = "../crowgpt/.venv"
+
+[transcribe]
+description = "CrowGPT transcribe worker"
+script = "worker/transcribe_worker.py"
+venv = "../crowgpt/.venv"
+hosted = false
+
+[generate]
+description = "CrowGPT generate worker"
+script = "worker/generate_worker.py"
+venv = "../crowgpt/.venv"
+
+[photo]
+description = "CrowGPT photo worker"
+script = "worker/photo_worker.py"
+venv = "../analyzer/photo/.venv"
+memory_max = "2600M"
+
+[photo.environment]
+MALLOC_ARENA_MAX = "2"
+PHOTO_ID_MODEL = "../data/photos/models/photo-id"
+
+[scout]
+description = "CrowGPT scout layer scheduler (weekly rebuild)"
+script = "worker/scout_scheduler.py"
+venv = ".venv"

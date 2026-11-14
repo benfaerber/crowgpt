@@ -9,9 +9,12 @@
 set -u
 
 killed=0
-for pattern in "bin/fieldserver" "uv run fieldserver" "worker/analyze_worker.py" \
-               "worker/transcribe_worker.py" "worker/generate_worker.py" \
-               "worker/scout_scheduler.py" "worker/photo_worker.py"; do
+# The worker scripts come from workers.toml, so a worker added there is
+# stopped here without this file hearing about it.
+registry="$(dirname "$0")/../workers.toml"
+scripts=$(sed -n 's/^script = "\(.*\)"$/\1/p' "$registry")
+
+for pattern in "bin/fieldserver" "uv run fieldserver" "fieldserver.core.workers dev" $scripts; do
   for pid in $(pgrep -f "$pattern" 2>/dev/null); do
     # Never signal this script, its shell, or the make that invoked it.
     case " $$ $PPID " in *" $pid "*) continue ;; esac

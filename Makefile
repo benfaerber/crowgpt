@@ -1,5 +1,5 @@
 .PHONY: help crowgpt field field-stop fieldserver worker transcriber generator analyzer dashboard promo install-app devices android metro reverse test seed \
-        corpus corpus-build train train-crow export-labels backup photos photo-venv photo-train photo-id photo-test watch field-deploy field-status field-logs apk-publish photo-deploy
+        corpus corpus-build train train-crow export-labels backup photos photo-venv photo-train photo-id photo-test watch field-deploy field-status field-logs apk-publish photo-deploy field-units
 
 ADB ?= adb
 
@@ -26,6 +26,7 @@ help:
 	@echo "  make field-stop   Stop them"
 	@echo "  make field-deploy Ship the committed tree + bundles to field.crowgpt.org and restart its services"
 	@echo "  make photo-deploy Set up or refresh the photo worker on the box: venv, trained model, weights, unit"
+	@echo "  make field-units  What a deploy would change in the box's worker units (read-only)"
 	@echo "  make field-status Are the hosted server, its workers and Caddy up"
 	@echo "  make field-logs   The hosted services' last hundred log lines"
 	@echo "  make apk-publish  Build the app and publish the APK to the hosted invite pages"
@@ -61,19 +62,22 @@ help:
 # ---- Hosted field server ----------------------------------------------------
 #
 # field.crowgpt.org is an OVH VPS, reached as `crowfield` in ~/.ssh/config. It
-# runs this same tree out of ~/crowgpt under systemd — crowgpt-field,
-# crowgpt-analyze, crowgpt-generate, crowgpt-scout, crowgpt-photo — with Caddy terminating
-# TLS in front and the server bound to loopback behind it. A deploy ships the
-# *committed* tree (git archive: nothing untracked or ignored leaves this
-# machine), the two built bundles the server serves, re-syncs the fieldserver
-# venv, and restarts the services. The release checkpoints and the instance
+# runs this same tree out of ~/crowgpt under systemd — crowgpt-field, plus a
+# crowgpt-<name> unit for each hosted worker in fieldserver/workers.toml —
+# with Caddy terminating TLS in front and the server bound to loopback behind
+# it. A deploy ships the *committed* tree (git archive: nothing untracked or
+# ignored leaves this machine), the two built bundles the server serves,
+# re-syncs the fieldserver venv, rewrites any worker unit the registry has
+# changed, and restarts the services. `make field-units` shows what a deploy
+# would change in the units without changing it. The release checkpoints and the instance
 # directory were copied once by hand and are not part of a deploy; the crowgpt
 # venv on the box carries CPU torch (`uv sync --index
 # pytorch-cu128=https://download.pytorch.org/whl/cpu`) and is re-synced by
 # hand when crowgpt/pyproject.toml changes.
 DEPLOY_HOST ?= crowfield
 DEPLOY_DIR ?= crowgpt
-DEPLOY_UNITS := crowgpt-field crowgpt-analyze crowgpt-generate crowgpt-scout crowgpt-photo
+BOX_WORKERS := .venv/bin/python -m fieldserver.core.workers
+BOX_UNITS := crowgpt-field $$(cd ~/$(DEPLOY_DIR)/fieldserver && $(BOX_WORKERS) units 2>/dev/null)
 
 field-deploy:
 	$(MAKE) -C dashboard ensure-bundle
@@ -83,7 +87,8 @@ field-deploy:
 	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/src/fieldserver/static/
 	ssh $(DEPLOY_HOST) 'export PATH=$$HOME/.local/bin:$$PATH; cd ~/$(DEPLOY_DIR)/fieldserver \
 	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q \
-	  && sudo systemctl restart $(DEPLOY_UNITS)'
+	  && $(BOX_WORKERS) install \
+	  && sudo systemctl restart $(BOX_UNITS)'
 	@ssh $(DEPLOY_HOST) 'for attempt in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do \
 	  if curl -fsS http://127.0.0.1:5100/api/health; then echo; exit 0; fi; \
 	  sleep 2; done; echo "Field API did not become healthy" >&2; exit 1'
@@ -91,8 +96,8 @@ field-deploy:
 # The photo worker is the one unit with its own venv and a model that is not
 # in git, so it has a target of its own: sync analyzer/photo's venv on the
 # box, copy the trained head and atlas, load the classifier once so BioCLIP
-# and the detector weights land in the box's caches, and install
-# fieldserver/deploy/crowgpt-photo.service. The worker holds about 2 GB while
+# and the detector weights land in the box's caches, and write its
+# unit from fieldserver/workers.toml. The worker holds about 2 GB while
 # it has photos to name and lets go when idle; the unit caps it at 2.6 GB so
 # on a 3.7 GB box it is the photo worker that dies, not the server. Run it
 # after `make photo-train` or when analyzer/photo/pyproject.toml changes;
@@ -104,16 +109,15 @@ photo-deploy:
 	@ssh $(DEPLOY_HOST) 'test -x ~/$(DEPLOY_DIR)/analyzer/photo/.venv/bin/python \
 	  || [ $$(df --output=avail -BG ~ | tail -1 | tr -dc 0-9) -ge 6 ] \
 	  || { echo "Under 6 GB free on the box; the venv and weights need about 4" >&2; exit 1; }'
-	git archive --format=tar HEAD analyzer/photo fieldserver/deploy fieldserver/worker/photo_worker.py \
+	git archive --format=tar HEAD analyzer/photo fieldserver/workers.toml fieldserver/src/fieldserver/core/workers.py fieldserver/worker/photo_worker.py \
 	  | ssh $(DEPLOY_HOST) 'tar -x -C ~/$(DEPLOY_DIR)'
 	ssh $(DEPLOY_HOST) 'export PATH=$$HOME/.local/bin:$$PATH; cd ~/$(DEPLOY_DIR)/analyzer/photo \
 	  && UV_PYTHON=3.11 uv sync --frozen --no-dev -q && mkdir -p ~/$(DEPLOY_DIR)/data/photos/models/photo-id'
 	rsync -a $(PHOTO_MODEL)/ $(DEPLOY_HOST):~/$(DEPLOY_DIR)/data/photos/models/photo-id/
 	ssh $(DEPLOY_HOST) 'cd ~/$(DEPLOY_DIR) && MALLOC_ARENA_MAX=2 PHOTO_ID_MODEL=data/photos/models/photo-id \
 	  analyzer/photo/.venv/bin/python -c "from analyzer.photo import PhotoIdentifier; PhotoIdentifier.load()"'
-	ssh $(DEPLOY_HOST) 'sudo install -m 644 ~/$(DEPLOY_DIR)/fieldserver/deploy/crowgpt-photo.service /etc/systemd/system/ \
-	  && sudo systemctl daemon-reload && sudo systemctl enable -q crowgpt-photo && sudo systemctl restart crowgpt-photo \
-	  && sleep 3 && systemctl is-active crowgpt-photo'
+	ssh $(DEPLOY_HOST) 'cd ~/$(DEPLOY_DIR)/fieldserver && $(BOX_WORKERS) install \
+	  && sudo systemctl restart crowgpt-photo && sleep 3 && systemctl is-active crowgpt-photo'
 
 # The preview page serves the newest .apk in the box's instance/apk/, so
 # publishing a build is a copy. The name carries the date and the commit so a
@@ -125,11 +129,16 @@ apk-publish:
 	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/instance/apk/crowgpt-field-$$(date +%Y%m%d)-$$(git rev-parse --short HEAD).apk
 	@echo "published: every approved invite at https://field.crowgpt.org/preview/<token> now serves it"
 
+# Read-only: the difference between the worker units installed on the box and
+# what the workers.toml already deployed there would write.
+field-units:
+	@ssh $(DEPLOY_HOST) 'cd ~/$(DEPLOY_DIR)/fieldserver && $(BOX_WORKERS) diff'
+
 field-status:
-	@ssh $(DEPLOY_HOST) 'systemctl --no-pager status $(DEPLOY_UNITS) caddy 2>/dev/null | grep -E "^.? ?[a-z-]+\.service|Active:"'
+	@ssh $(DEPLOY_HOST) 'systemctl --no-pager status $(BOX_UNITS) caddy 2>/dev/null | grep -E "^.? ?[a-z-]+\.service|Active:"'
 
 field-logs:
-	@ssh $(DEPLOY_HOST) 'sudo journalctl $(addprefix -u ,$(DEPLOY_UNITS)) -n 100 --no-pager -o short'
+	@ssh $(DEPLOY_HOST) 'sudo journalctl $$(printf " -u %s" $(BOX_UNITS)) -n 100 --no-pager -o short'
 
 # The dashboard and the promo site are built bundles the server serves, so they
 # have to exist before it starts. Both only build when missing — this runs

@@ -6,7 +6,7 @@ Monorepo for the CrowGPT project — decoding crow calls with AI. Start from
 ## Status: prototype; the field server is hosted, the fleet is still one person
 
 One user, one fleet. Since 2026-10-31 the field server runs on an OVH VPS at
-https://field.crowgpt.org (Caddy for TLS, four systemd units, `ssh crowfield`;
+https://field.crowgpt.org (Caddy for TLS, a systemd unit for the server and one per hosted worker, `ssh crowfield`;
 the deploy entry in FUTURE.txt has the layout) and `make field-deploy` from
 this laptop updates it. The promo page at crowgpt.org is a Cloudflare Worker
 (`make -C promo deploy`) and the code has been on GitHub since 2026-10-21.
@@ -260,7 +260,7 @@ scream page — never for a sitting that produces a statistic.
 - `fieldserver/` — CRUD + ingest API for the app, plus the operator dashboard
 - `analyzer/` — BirdNET inference: a path in, findings out. No server, no DB.
   `analyzer/photo/` names the corvid in a photo (own CPU venv, `make photo-id`); nothing calls it yet
-- `fieldserver/worker/` — polls for analysis jobs and calls the analyzer
+- `fieldserver/worker/` — the background workers; `fieldserver/workers.toml` is the one list of them (dev, stop and the hosted units all read it)
 - `dashboard/` — the operator dashboard (Vite + React), served by fieldserver
 - `promo/` — the public promo page, a compiled bundle fieldserver serves at `/promo`
   and `make -C promo deploy` publishes to crowgpt.org as a Cloudflare Worker;

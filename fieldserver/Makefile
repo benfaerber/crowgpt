@@ -1,18 +1,9 @@
 .PHONY: help serve worker transcriber generator photo-worker dev stop test secrets scout
 
-BIRDNET = ../pipelines/representation/.venv-birdnet/bin/python
-# A torch venv, and it must not be the BirdNET one: birdnetlib takes CUDA away
-# from torch permanently in whatever process loads it. crowgpt's already carries
-# torch+cu128 and transformers, so this costs no new dependency — and being one
-# variable is what makes moving to a dedicated venv a one-line change if
-# crowgpt's ever drifts out from under it.
-WHISPER ?= ../crowgpt/.venv/bin/python
-# Crow Chat's generation worker: crowgpt's venv for the same torch/birdnetlib
-# separation the transcriber documents.
-GENERATOR ?= ../crowgpt/.venv/bin/python
-# The Photo ID worker: analyzer/photo's own venv, the only one with torchvision
-# and open_clip. Built by `make photo-venv` at the repo root.
-PHOTO ?= ../analyzer/photo/.venv/bin/python
+# The workers are listed once, in workers.toml, with the venv each runs under;
+# fieldserver.core.workers reads it for everything below and for the hosted
+# units. Add a worker there, not here.
+WORKERS = uv run python -m fieldserver.core.workers
 
 help:
 	@echo "CrowGPT field server"
@@ -40,7 +31,7 @@ ENVFILE = .env
 LOADENV = set -a; [ -f $(ENVFILE) ] && . ./$(ENVFILE); set +a
 
 worker:
-	@$(LOADENV); $(BIRDNET) worker/analyze_worker.py
+	@$(LOADENV); $(WORKERS) run analyze
 
 # `-n auto` splits across cores. Each worker builds its own migrated template
 # database, which sounds wasteful and is not: 359 tests went from 25 seconds to
@@ -95,22 +86,17 @@ dev:
 	@trap 'kill 0' EXIT INT TERM; \
 	  eval "$$(bash tools/secrets.sh)"; \
 	  FIELD_HOST=$(FIELD_HOST) uv run fieldserver & \
-	  $(LOADENV); $(BIRDNET) worker/analyze_worker.py & \
-	  $(LOADENV); $(WHISPER) worker/transcribe_worker.py & \
-	  $(LOADENV); $(GENERATOR) worker/generate_worker.py & \
-	  if [ -x $(PHOTO) ]; then $(LOADENV); $(PHOTO) worker/photo_worker.py & \
-	  else echo "Photo ID worker skipped: no venv (make photo-venv at the repo root)"; fi; \
-	  $(LOADENV); uv run python worker/scout_scheduler.py & \
+	  $(LOADENV); $(WORKERS) dev & \
 	  wait
 
 transcriber:
-	@$(LOADENV); $(WHISPER) worker/transcribe_worker.py
+	@$(LOADENV); $(WORKERS) run transcribe
 
 generator:
-	@$(LOADENV); $(GENERATOR) worker/generate_worker.py
+	@$(LOADENV); $(WORKERS) run generate
 
 photo-worker:
-	@$(LOADENV); $(PHOTO) worker/photo_worker.py
+	@$(LOADENV); $(WORKERS) run photo
 
 stop:
 	bash tools/stop.sh
