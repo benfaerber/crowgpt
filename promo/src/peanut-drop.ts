@@ -70,9 +70,53 @@ class Peanut {
   }
 }
 
+/** A cubic Bézier walked by distance rather than by t, so the easing alone
+ * decides the speed and the bird does not surge on the straighter stretches. */
+class Path {
+  private readonly lengths: number[] = [0];
+  private readonly samples: Point[];
+
+  constructor(private readonly a: Point, private readonly b: Point, private readonly c: Point, private readonly d: Point) {
+    this.samples = Array.from({ length: 101 }, (_, i) => this.at(i / 100));
+    for (let i = 1; i < this.samples.length; i++) {
+      const [p, q] = [this.samples[i - 1], this.samples[i]];
+      this.lengths.push(this.lengths[i - 1] + Math.hypot(q.x - p.x, q.y - p.y));
+    }
+  }
+
+  static through(from: Point, via: Point, to: Point): Path {
+    const toward = (p: Point, q: Point) => new Point(p.x + (q.x - p.x) * 2 / 3, p.y + (q.y - p.y) * 2 / 3);
+    return new Path(from, toward(from, via), toward(to, via), to);
+  }
+
+  get length(): number {
+    return this.lengths[this.lengths.length - 1];
+  }
+
+  /** The point a given fraction of the way along, by distance. */
+  along(fraction: number): Point {
+    const target = fraction * this.length;
+    let i = 1;
+    while (i < this.lengths.length - 1 && this.lengths[i] < target) i++;
+    const span = this.lengths[i] - this.lengths[i - 1] || 1;
+    const t = (i - 1 + (target - this.lengths[i - 1]) / span) / 100;
+    return this.at(Math.min(1, t));
+  }
+
+  private at(t: number): Point {
+    const u = 1 - t;
+    const [w0, w1, w2, w3] = [u * u * u, 3 * u * u * t, 3 * u * t * t, t * t * t];
+    return new Point(
+      w0 * this.a.x + w1 * this.b.x + w2 * this.c.x + w3 * this.d.x,
+      w0 * this.a.y + w1 * this.b.y + w2 * this.c.y + w3 * this.d.y,
+    );
+  }
+}
+
 /** Where the carried peanut sits in the plain crow's box: the beak meets the
  * peanut there, so swapping to the carrying sprite leaves it where it was. */
 const BEAK = new Point(0.975, 0.508);
+const CARRY_SPEED = 300;
 
 class Swooper {
   readonly node = el("div", { className: "peanut-crow", attrs: { "aria-hidden": "true" } });
@@ -90,28 +134,38 @@ class Swooper {
     const start = new Point(this.target.x - this.heading * (window.innerWidth * 0.6 + this.width),
       -this.height - Math.random() * window.innerHeight * 0.1);
     const bend = new Point(this.target.x - this.heading * window.innerWidth * 0.15, this.target.y - 30);
-    await this.fly(start, bend, this.target, 1100, "cubic-bezier(0.3, 0, 0.55, 1)");
+    await this.fly(Path.through(start, bend, this.target), 1100, "cubic-bezier(0.3, 0, 0.55, 1)", 35);
   }
 
+  /** Laden, so a low takeoff that climbs gradually and leaves by the side, not
+   * a rocket to the top corner. */
   async leave(): Promise<void> {
     this.node.classList.add("is-carrying");
-    const end = new Point(this.target.x + this.heading * (window.innerWidth * 0.7 + this.width),
-      -this.height * 1.5);
-    const lift = new Point(this.target.x + this.heading * window.innerWidth * 0.2, this.target.y - 40);
-    await this.fly(this.target, lift, end, 1500, "cubic-bezier(0.45, 0, 0.8, 0.6)");
+    const height = window.innerHeight;
+    const from = this.target;
+    const exitX = this.heading > 0 ? window.innerWidth + this.width * 1.2 : -this.width * 1.2;
+    const exitY = Math.max(height * 0.08, from.y - height * (0.35 + Math.random() * 0.15));
+    const run = exitX - from.x;
+    const path = new Path(
+      from,
+      new Point(from.x + run * 0.3, from.y - 12),
+      new Point(from.x + run * 0.65, from.y - (from.y - exitY) * 0.35),
+      new Point(exitX, exitY),
+    );
+    const duration = Math.min(5000, Math.max(2200, path.length / CARRY_SPEED * 1000));
+    await this.fly(path, duration, "cubic-bezier(0.45, 0, 0.75, 0.8)", 20);
     this.node.remove();
   }
 
-  private async fly(from: Point, via: Point, to: Point, duration: number, easing: string): Promise<void> {
+  private async fly(path: Path, duration: number, easing: string, maxTilt: number): Promise<void> {
+    const steps = 40;
     const frames: Keyframe[] = [];
-    const steps = 24;
     for (let i = 0; i <= steps; i++) {
-      const t = i / steps;
-      const point = Swooper.bezier(from, via, to, t);
-      const ahead = Swooper.bezier(from, via, to, Math.min(1, t + 0.04));
-      const behind = Swooper.bezier(from, via, to, Math.max(0, t - 0.04));
+      const fraction = i / steps;
+      const ahead = path.along(Math.min(1, fraction + 0.03));
+      const behind = path.along(Math.max(0, fraction - 0.03));
       const tilt = Math.atan2(ahead.y - behind.y, Math.abs(ahead.x - behind.x)) * 180 / Math.PI;
-      frames.push({ transform: this.transform(point, Math.max(-35, Math.min(35, tilt))) });
+      frames.push({ transform: this.transform(path.along(fraction), Math.max(-maxTilt, Math.min(maxTilt, tilt))) });
     }
     await this.node.animate(frames, { duration, easing, fill: "forwards" }).finished;
   }
@@ -120,11 +174,6 @@ class Swooper {
     const left = beak.x - this.width * BEAK.x;
     const top = beak.y - this.height * BEAK.y;
     return `translate(${left}px, ${top}px) scaleX(${this.heading}) rotate(${tilt}deg)`;
-  }
-
-  private static bezier(a: Point, b: Point, c: Point, t: number): Point {
-    const u = 1 - t;
-    return new Point(u * u * a.x + 2 * u * t * b.x + t * t * c.x, u * u * a.y + 2 * u * t * b.y + t * t * c.y);
   }
 }
 
