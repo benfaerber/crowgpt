@@ -10,6 +10,25 @@ few days, this one is everything after. An item graduates from here to there
 when it has a shape and a reason to happen now.
 
 
+[ ] A photo scan takes about 30 s on the box; revisit if the Scan page gets traffic (Jay)
+
+    Ben, 2026-11-14: fine for now with the countdown, and a bigger VPS is
+    the answer if the project gets popular (VPS-2, in the box entry below,
+    is one click). What the box's log says about where the time goes, so
+    the next person does not guess as I did: every photo scan logged so far
+    was a cold start. The worker drops the models after ten idle minutes
+    (PHOTO_ID_IDLE_MINUTES), and a cold photo is about 13 s building the
+    two networks and 20 to 25 s reading BioCLIP's weights and running. The
+    MobileNet detector from 0093 made the warm case cheap (1.8 s a photo on
+    the laptop) and did nothing for this, which is why the wait did not
+    move. A warm scan on the box has never been timed.
+
+    Cheaper than a new box, untried: open_clip initialises the image tower
+    with random weights before ours overwrite them, which is seconds of the
+    13 on two old cores; and holding the models longer trades the wait for
+    1.9 GB of a 3.7 GB box that the generate worker also bursts on. With
+    VPS-2's 8 GB the worker could simply never release.
+
 [ ] What the 2026-11-14 security audit left open (Rook)
 
     The audit's findings were fixed and deployed the same day: sandboxed
