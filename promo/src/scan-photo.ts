@@ -16,6 +16,7 @@ export interface PhotoResult {
   used_location: boolean;
   latitude: number | null;
   longitude: number | null;
+  location_source: "exif" | "given" | null;
   width: number;
   height: number;
 }
@@ -86,8 +87,13 @@ export class ScanPhoto {
     } else if (this.result.bird_box.birds > 1) {
       notes.push(`${this.result.bird_box.birds} birds were found; the largest was judged.`);
     }
-    if (this.result.used_location) {
-      notes.push("Where the photo was taken was used to rule species in and out.");
+    if (this.result.used_location && this.result.location_source === "exif") {
+      notes.push("The photo's own GPS tags say where it was taken, and that was used to rule species in and out.");
+    } else if (this.result.used_location) {
+      notes.push(
+        "Your approximate location was used to rule species in and out. If the photo " +
+        "was taken somewhere else, untick the location box and scan it again.",
+      );
     } else if (this.result.latitude !== null) {
       notes.push("The location was ignored: none of the nine species is recorded near there.");
     } else {

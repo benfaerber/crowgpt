@@ -178,6 +178,14 @@ tokenless `/api/demo/scan` on the field server; `fieldserver/api/scan.py` has
 the bounds. The file is shown and played from the visitor's own device, and
 the server deletes its copy when the scan finishes.
 
+Location comes from `worker/geo.js`, the site's one script: `/geo` returns
+Cloudflare's city-level estimate of where the visitor is (`request.cf`), with
+no outside lookup and nothing stored. The page shows the place beside a
+ticked box and sends the coordinates with the upload; a photo's own GPS tags
+win over them on the server. The script runs only for paths that are not
+files, so every page and asset is still served directly. The copy a field
+server serves has no `/geo`; `scan.html?near=40.76,-111.89` stands in there.
+
 The page asks the server which kinds it can read right now and offers only
 those, so a server with no photo worker still scans sound. It needs a
 Turnstile key from the server, as the generate buttons do; the copy a field

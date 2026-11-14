@@ -44,14 +44,14 @@ class LazyIdentifier:
         self.identifier = None
         self.last_used = 0.0
 
-    def identify(self, path, latitude, longitude):
+    def identify(self, path, latitude, longitude, prefer_exif=False):
         if self.identifier is None:
             from analyzer.photo import PhotoIdentifier
 
             print("[photo] loading the classifier", flush=True)
             self.identifier = PhotoIdentifier.load()
         self.last_used = time.monotonic()
-        return self.identifier.identify(path, latitude, longitude)
+        return self.identifier.identify(path, latitude, longitude, prefer_exif=prefer_exif)
 
     def release_if_idle(self) -> bool:
         if self.identifier is None or time.monotonic() - self.last_used < self.idle_seconds:
@@ -105,7 +105,10 @@ class VisitorScans:
         if scan is None:
             return False
         try:
-            result = self.identifier.identify(self.store.path(scan), scan["latitude"], scan["longitude"])
+            # A visitor's coordinates are where they are, not where the photo
+            # was taken, so the photo's own GPS tags win when it has them.
+            result = self.identifier.identify(self.store.path(scan), scan["latitude"],
+                                              scan["longitude"], prefer_exif=True)
             self.store.complete(scan["id"], result.to_dict())
             print(f"[photo] scan {scan['id']} done", flush=True)
         except Exception as error:  # noqa: BLE001 — a stranger's file must not kill the loop

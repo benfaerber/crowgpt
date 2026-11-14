@@ -48,11 +48,13 @@
       <input type="file" id="scan-picker" hidden />
       <div id="scan-verification" class="scan-verification"></div>
       <p class="scan-limits" id="scan-limits"></p>
-      <label class="scan-locate">
-        <input type="checkbox" id="scan-locate" />
+      <label class="scan-locate" id="scan-locate-row" hidden>
+        <input type="checkbox" id="scan-locate" checked />
         <span>
-          Send my location with it. Where a bird was seen rules most look-alike species
-          out. Photos that carry their own GPS tags do not need this.
+          Use my approximate location, <strong id="scan-place"></strong>. It is a
+          city-level estimate from your internet address and rules out look-alike
+          species from elsewhere. A photo's own GPS tags are used instead when it
+          has them. Untick this for a photo or recording made somewhere else.
         </span>
       </label>
       <p class="scan-status" id="scan-status" aria-live="polite" hidden></p>
@@ -67,6 +69,12 @@
           deleted too. Nothing you upload here is added to the project's data or used
           for training. The picture and the sound you see on this page are played from
           your own device.
+        </p>
+        <p class="section-lede">
+          If the location box is ticked, an approximate location goes with the file:
+          a city-level estimate made from your internet address, not your device's
+          GPS. It is used for that one scan and deleted with the result. Your address
+          itself is not stored.
         </p>
         <h2>How much to trust it</h2>
         <p class="section-lede">

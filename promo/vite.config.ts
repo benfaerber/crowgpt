@@ -72,11 +72,20 @@ function statsTokens(): Plugin {
  */
 const FIELD_API = isPublic ? "https://field.crowgpt.org" : "";
 
+/**
+ * Where the Scan page asks for the visitor's approximate location. On
+ * crowgpt.org that is the site's own /geo (worker/geo.js). The copy a field
+ * server serves has no such route, so it asks nobody; `scan.html?near=lat,lon`
+ * stands in for it there.
+ */
+const GEO_URL = isPublic ? "/geo" : "";
+
 export default defineConfig({
   base: isPublic ? "/" : "/promo/",
   plugins: [statsTokens()],
   define: {
     __FIELD_API__: JSON.stringify(FIELD_API),
+    __GEO_URL__: JSON.stringify(GEO_URL),
   },
   build: {
     outDir: isPublic ? "dist" : "../fieldserver/src/fieldserver/static/promo",

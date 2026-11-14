@@ -2375,6 +2375,15 @@ main {
   cursor: pointer;
 }
 
+.scan-locate[hidden] {
+  display: none;
+}
+
+.scan-locate strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 .scan-locate input {
   margin-top: 0.3rem;
   accent-color: var(--accent);

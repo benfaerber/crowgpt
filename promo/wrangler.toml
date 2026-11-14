@@ -4,8 +4,10 @@
 # uploaded — cawtalker-promo-site — or a deploy makes a second, separate Worker
 # and the custom domain keeps pointing at the old one.
 #
-# There is no `main`: this is an assets-only Worker, so Cloudflare serves the
-# built files directly and no script runs on the request path.
+# Cloudflare serves the built files directly. The one script, worker/geo.js,
+# runs only for a path that is not a file: it answers /geo with the visitor's
+# approximate location for the Scan page and hands anything else back to the
+# assets, which is what serves the 404 page.
 #
 # Custom domains are bound to this Worker in Cloudflare, independently of
 # deployments. Keep the existing Worker name when changing the public domain.
@@ -14,10 +16,12 @@
 
 name = "cawtalker-promo-site"
 compatibility_date = "2026-08-06"
+main = "worker/geo.js"
 
 [assets]
 # Built by `make build-public`, which roots the page at / rather than /promo.
 # Never point this at the field server's copy — that one is built for a
 # subdirectory and every asset URL would be wrong.
 directory = "./dist"
+binding = "ASSETS"
 not_found_handling = "404-page"

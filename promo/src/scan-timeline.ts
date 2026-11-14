@@ -187,6 +187,12 @@ export class ScanTimeline {
     if (this.result.truncated) {
       notes.push(`Only the first ${Math.round(this.result.duration_sec)} seconds were scanned.`);
     }
+    if (this.result.calls.length > 0 && this.result.located) {
+      notes.push(
+        "Species were limited to those found near your approximate location. For a " +
+        "recording made somewhere else, untick the location box and scan it again.",
+      );
+    }
     if (this.result.calls.length > 0 && !this.result.located) {
       notes.push(
         "No location was sent, so the species is the model's unfiltered guess. It can " +

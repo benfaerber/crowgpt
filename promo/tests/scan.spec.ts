@@ -16,7 +16,8 @@ const photoResult = {
     { slug: "common-raven", common_name: "Common Raven", scientific_name: "Corvus corax", probability: 0.1 },
   ],
   bird_box: { left: 10, top: 10, right: 50, bottom: 40, birds: 1 },
-  used_location: true, latitude: 40.76, longitude: -111.89, width: 64, height: 48,
+  used_location: true, latitude: 40.76, longitude: -111.89, location_source: "given",
+  width: 64, height: 48,
 };
 const soundResult = {
   duration_sec: 12, truncated: false, located: false,
@@ -34,8 +35,14 @@ const PNG = Buffer.from(
   "base64",
 );
 
-async function setup(page: Page, overrides: Record<string, unknown> = {}, result: unknown = photoResult) {
+const geo = { latitude: 40.76, longitude: -111.89, city: "Salt Lake City", region: "Utah", country: "US" };
+
+async function setup(page: Page, overrides: Record<string, unknown> = {}, result: unknown = photoResult,
+                     whereabouts: unknown = geo) {
   const posts: string[] = [];
+  await page.route("**/geo", route => whereabouts
+    ? route.fulfill({ json: whereabouts })
+    : route.fulfill({ status: 404, body: "not found" }));
   await page.route(`${api}/api/demo/scan`, async route => {
     if (route.request().method() === "GET") {
       return route.fulfill({ headers, json: { ...config, ...overrides } });
@@ -74,6 +81,8 @@ test("a photo is uploaded with a scan-action token and comes back named", async 
   await expect(page.locator(".scan-box")).toBeVisible();
   await expect(page.locator(".scan-ranking li")).toHaveCount(2);
   expect(posts[0]).toContain("single-use-token");
+  expect(posts[0]).toContain("40.76");
+  await expect(page.locator(".scan-answer")).toContainText("Your approximate location was used");
   await page.screenshot({ path: "test-results/scan-photo.png", fullPage: true });
 });
 
@@ -88,6 +97,25 @@ test("a recording comes back as a timeline with its calls listed", async ({ page
   await expect(page.locator(".scan-legend li")).toHaveCount(2);
   await expect(page.locator(".scan-sound")).toContainText("unfiltered guess");
   await page.screenshot({ path: "test-results/scan-sound.png", fullPage: true });
+});
+
+test("the visitor's approximate location is shown, and left out when unticked", async ({ page }) => {
+  const posts = await setup(page);
+  await expect(page.locator("#scan-place")).toHaveText("near Salt Lake City, Utah");
+  await page.locator("#scan-locate").uncheck();
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-answer h3")).toBeVisible();
+  expect(posts[0]).not.toContain("latitude");
+});
+
+test("with no location to offer, the page offers none and sends none", async ({ page }) => {
+  const posts = await setup(page, {}, photoResult, null);
+  await solve(page);
+  await expect(page.locator("#scan-locate-row")).toBeHidden();
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-answer h3")).toBeVisible();
+  expect(posts[0]).not.toContain("latitude");
 });
 
 test("a kind with no worker is named as unavailable and refused in the browser", async ({ page }) => {

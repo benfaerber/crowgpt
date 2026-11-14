@@ -132,8 +132,10 @@ class TestStore:
 class StubIdentifier:
     def __init__(self, error=None):
         self.error = error
+        self.preferred_exif = None
 
-    def identify(self, path, latitude, longitude):
+    def identify(self, path, latitude, longitude, prefer_exif=False):
+        self.preferred_exif = prefer_exif
         if self.error:
             raise self.error
 
@@ -156,6 +158,12 @@ class TestPhotoWorker:
         assert done["result"] == RESULT
         assert not path.exists()
         assert scans.work_one() is False
+
+    def test_a_visitors_whereabouts_never_overrule_the_photos_gps(self, store):
+        queued(store, latitude=40.76, longitude=-111.89)
+        identifier = StubIdentifier()
+        photo_worker.VisitorScans(store, identifier).work_one()
+        assert identifier.preferred_exif is True
 
     def test_a_visitor_sees_a_fixed_sentence_not_the_exception(self, store):
         row = queued(store)

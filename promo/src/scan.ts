@@ -37,6 +37,52 @@ interface Scan {
   result?: PhotoResult | SoundResult;
 }
 
+/** Where the visitor roughly is, by their internet address. */
+interface Place {
+  latitude: number;
+  longitude: number;
+  label: string;
+}
+
+/** Finds the visitor's approximate location without asking the browser for
+ *  it: the public site's own /geo, which is Cloudflare's estimate. The copy a
+ *  field server serves has no /geo, so `?near=lat,lon` stands in there. */
+class Whereabouts {
+  constructor(private readonly url: string, private readonly allowOverride: boolean) {}
+
+  async find(): Promise<Place | null> {
+    return (this.allowOverride && this.fromQuery()) || this.fromNetwork();
+  }
+
+  private fromQuery(): Place | null {
+    const near = new URLSearchParams(window.location.search).get("near");
+    const [latitude, longitude] = (near ?? "").split(",").map(Number);
+    if (!near || !Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+    return { latitude, longitude, label: `${latitude.toFixed(2)}, ${longitude.toFixed(2)}` };
+  }
+
+  private async fromNetwork(): Promise<Place | null> {
+    if (!this.url) return null;
+    try {
+      const response = await fetch(this.url, { signal: AbortSignal.timeout(5000) });
+      if (!response.ok) return null;
+      const body = (await response.json()) as {
+        latitude: number | null; longitude: number | null;
+        city: string | null; region: string | null; country: string | null;
+      };
+      if (body.latitude === null || body.longitude === null) return null;
+      const names = [body.city, body.region ?? body.country].filter(Boolean);
+      return {
+        latitude: body.latitude,
+        longitude: body.longitude,
+        label: names.length ? `near ${names.join(", ")}` : "roughly where you are",
+      };
+    } catch {
+      return null;
+    }
+  }
+}
+
 const POLL_MS = 1500;
 const WAITING = {
   photo: "Looking at the photo…",
@@ -53,7 +99,7 @@ class ScanApi {
     return (await response.json()) as Config;
   }
 
-  async upload(file: File, token: string, place: GeolocationCoordinates | null): Promise<Scan> {
+  async upload(file: File, token: string, place: Place | null): Promise<Scan> {
     const form = new FormData();
     form.append("file", file);
     if (token) form.append("cf-turnstile-response", token);
@@ -89,6 +135,8 @@ class ScanPage {
   private config?: Config;
   private token = "";
   private busy = false;
+  private place: Place | null = null;
+  private readonly whereabouts = new Whereabouts(__GEO_URL__, __FIELD_API__ === "");
 
   constructor(
     private readonly drop: HTMLElement,
@@ -97,6 +145,8 @@ class ScanPage {
     private readonly results: HTMLElement,
     private readonly limits: HTMLElement,
     private readonly locate: HTMLInputElement,
+    private readonly locateRow: HTMLElement,
+    private readonly placeName: HTMLElement,
     private readonly verification: HTMLElement,
   ) {}
 
@@ -121,6 +171,7 @@ class ScanPage {
     this.limits.textContent = this.describeLimits(offered);
     this.picker.accept = offered.flatMap(kind => this.config!.formats[kind].map(ext => `.${ext}`)).join(",");
     this.wire();
+    void this.locateVisitor();
     if (this.config.turnstile_site_key) {
       try {
         await this.challenge.mount(this.verification, this.config.turnstile_site_key, token => {
@@ -133,6 +184,14 @@ class ScanPage {
       }
     }
     this.refresh();
+  }
+
+  /** Not awaited by mount: a slow or absent lookup must not hold the page. */
+  private async locateVisitor(): Promise<void> {
+    this.place = await this.whereabouts.find();
+    if (!this.place) return;
+    this.placeName.textContent = this.place.label;
+    this.locateRow.hidden = false;
   }
 
   private offered(): Kind[] {
@@ -211,7 +270,7 @@ class ScanPage {
     this.refresh();
     this.say("Uploading…");
     try {
-      const place = this.locate.checked ? await this.whereAmI() : null;
+      const place = this.locate.checked ? this.place : null;
       let scan = await this.api.upload(file, token, place);
       while (scan.state === "queued" || scan.state === "running") {
         this.say(scan.ahead ? `${scan.ahead} ahead of you in the queue…` : WAITING[kind]);
@@ -233,17 +292,6 @@ class ScanPage {
       this.challenge.reset();
       this.refresh();
     }
-  }
-
-  private whereAmI(): Promise<GeolocationCoordinates | null> {
-    return new Promise(resolve => {
-      if (!navigator.geolocation) return resolve(null);
-      navigator.geolocation.getCurrentPosition(
-        position => resolve(position.coords),
-        () => resolve(null),
-        { timeout: 8000, maximumAge: 600000 },
-      );
-    });
   }
 
   private show(file: File, kind: Kind, result: PhotoResult | SoundResult): void {
@@ -286,5 +334,7 @@ void new ScanPage(
   need("#scan-results"),
   need("#scan-limits"),
   need<HTMLInputElement>("#scan-locate"),
+  need("#scan-locate-row"),
+  need("#scan-place"),
   need("#scan-verification"),
 ).mount();

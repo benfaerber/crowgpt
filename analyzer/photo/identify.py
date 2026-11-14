@@ -55,9 +55,11 @@ class Identification:
     ranking: list
     bird_box: BirdBox | None
     used_location: bool
-    #: The coordinates considered, given or read from EXIF; None when neither.
+    #: The coordinates considered, and where they came from: "exif" for the
+    #: photo's own GPS tags, "given" for the caller's, None when neither.
     latitude: float | None
     longitude: float | None
+    location_source: str | None
     #: The upright frame the box is measured in.
     width: int
     height: int
@@ -73,6 +75,7 @@ class Identification:
             "used_location": self.used_location,
             "latitude": self.latitude,
             "longitude": self.longitude,
+            "location_source": self.location_source,
             "width": self.width,
             "height": self.height,
         }
@@ -129,9 +132,18 @@ class PhotoIdentifier:
         features = PhotoFeatures(BirdDetector(), BioclipEmbedder())
         return cls(features, SpeciesHead.load(model_dir / HEAD_FILE), Atlas.load(model_dir / ATLAS_FILE))
 
-    def identify(self, path, latitude=None, longitude=None) -> Identification:
-        if latitude is None or longitude is None:
-            latitude, longitude = exif_coordinates(path) or (None, None)
+    def identify(self, path, latitude=None, longitude=None, prefer_exif=False) -> Identification:
+        """`prefer_exif` is for coordinates that are only a guess at where
+        the photo was taken, such as the uploader's own whereabouts: the
+        photo's GPS tags then win, and the guess is the fallback."""
+        given = (latitude, longitude) if latitude is not None and longitude is not None else None
+        tagged = exif_coordinates(path) if (prefer_exif or given is None) else None
+        if tagged:
+            (latitude, longitude), source = tagged, "exif"
+        elif given:
+            source = "given"
+        else:
+            latitude = longitude = source = None
         image = open_photo(path)
         vector, box = self.features.extract(image)
         scores = self.head.log_probabilities(vector)[0]
@@ -139,7 +151,7 @@ class PhotoIdentifier:
         if used_location:
             scores = scores + self.atlas.log_likelihoods(self.head.classes, latitude, longitude)
         return Identification(self._ranking(scores), box, used_location,
-                              latitude, longitude, image.width, image.height)
+                              latitude, longitude, source, image.width, image.height)
 
     def _ranking(self, scores):
         probabilities = np.exp(scores - scores.max())

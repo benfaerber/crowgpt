@@ -182,6 +182,39 @@ def test_coordinates_come_from_exif_when_not_given(tmp_path):
     assert result.best.slug == "fish-crow"
 
 
+def geotagged_in_miami(tmp_path):
+    path = tmp_path / "geotagged.jpg"
+    exif = Image.Exif()
+    exif[0x8825] = {1: "N", 2: (25.0, 45.0, 36.0), 3: "W", 4: (80.0, 11.0, 24.0)}
+    Image.new("RGB", (64, 48), (128, 0, 128)).save(path, exif=exif)
+    return path
+
+
+def test_given_coordinates_overrule_the_photos_own_by_default(tmp_path):
+    result = identifier().identify(geotagged_in_miami(tmp_path), *SALT_LAKE)
+    assert result.location_source == "given"
+    assert result.best.slug == "american-crow"
+
+
+def test_a_guessed_location_gives_way_to_the_photos_gps_tags(tmp_path):
+    result = identifier().identify(geotagged_in_miami(tmp_path), *SALT_LAKE, prefer_exif=True)
+    assert result.location_source == "exif"
+    assert (result.latitude, result.longitude) == pytest.approx((25.76, -80.19))
+    assert result.best.slug == "fish-crow"
+
+
+def test_a_guessed_location_is_used_when_the_photo_has_none(tmp_path):
+    result = identifier().identify(photo(tmp_path, (128, 0, 128)), *SALT_LAKE, prefer_exif=True)
+    assert result.location_source == "given"
+    assert result.best.slug == "american-crow"
+
+
+def test_no_coordinates_anywhere_has_no_source(tmp_path):
+    result = identifier().identify(photo(tmp_path, "red"))
+    assert result.location_source is None
+    assert result.latitude is None
+
+
 def test_a_photo_without_gps_has_no_coordinates(tmp_path):
     assert exif_coordinates(photo(tmp_path, "red")) is None
 

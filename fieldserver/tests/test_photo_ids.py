@@ -98,7 +98,7 @@ class StubIdentifier:
         self.error = error
         self.seen = None
 
-    def identify(self, path, latitude, longitude):
+    def identify(self, path, latitude, longitude, prefer_exif=False):
         self.seen = (path, latitude, longitude)
         if self.error:
             raise self.error
