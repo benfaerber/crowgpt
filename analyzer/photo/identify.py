@@ -102,7 +102,9 @@ def exif_coordinates(path):
     """Latitude and longitude from a photo's GPS tags, or None."""
     from PIL import Image
 
-    with Image.open(path) as image:
+    from .vision import FORMATS
+
+    with Image.open(path, formats=FORMATS) as image:
         gps = image.getexif().get_ifd(0x8825)
     try:
         latitude = _degrees(gps[2], gps[1])

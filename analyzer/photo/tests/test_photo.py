@@ -25,7 +25,9 @@ from analyzer.photo.identify import (  # noqa: E402
     SpeciesHead,
     exif_coordinates,
 )
-from analyzer.photo.vision import BirdBox, PhotoFeatures, square_crop  # noqa: E402
+from analyzer.photo.vision import (  # noqa: E402
+    MAX_SIDE, BirdBox, PhotoFeatures, PhotoTooLarge, open_photo, square_crop,
+)
 
 SALT_LAKE = (40.76, -111.89)
 MIAMI = (25.76, -80.19)
@@ -222,3 +224,24 @@ def test_a_photo_without_gps_has_no_coordinates(tmp_path):
 def test_loading_without_a_trained_model_says_how_to_build_one(tmp_path):
     with pytest.raises(ModelMissing, match="make photo-train"):
         PhotoIdentifier.load(tmp_path)
+
+
+def test_a_file_that_is_not_a_photo_format_is_refused_whatever_it_is_called(tmp_path):
+    path = tmp_path / "crow.jpg"
+    Image.new("RGB", (8, 8)).save(path, "BMP")
+    with pytest.raises(Exception, match="cannot identify image file"):
+        open_photo(path)
+
+
+def test_a_frame_larger_than_any_camera_is_refused_before_it_is_decoded(tmp_path):
+    path = tmp_path / "bomb.png"
+    Image.new("1", (9000, 9000)).save(path)
+    assert path.stat().st_size < 100_000
+    with pytest.raises(PhotoTooLarge):
+        open_photo(path)
+
+
+def test_a_large_photo_is_handed_on_no_longer_than_the_models_need(tmp_path):
+    path = tmp_path / "big.jpg"
+    Image.new("RGB", (6000, 3000)).save(path)
+    assert open_photo(path).size == (MAX_SIDE, MAX_SIDE // 2)

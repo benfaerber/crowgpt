@@ -19,10 +19,33 @@ MARGIN = 1.2
 THREADS = 8
 
 
+#: The only decoders a photo may reach. Pillow picks a decoder from the
+#: file's content, not its name, so without this a file called crow.jpg can
+#: be any of the forty formats it reads.
+FORMATS = ("JPEG", "PNG", "WEBP")
+
+#: Refused before a pixel is decoded. A few megabytes of PNG can declare a
+#: frame that decodes to gigabytes; the largest phone photo is about 50 MP.
+MAX_PIXELS = 64_000_000
+
+#: The longest side either model is handed. Both resize far below this, and
+#: the detector's float tensor of a 50 MP frame alone is 600 MB.
+MAX_SIDE = 4096
+
+
+class PhotoTooLarge(ValueError):
+    """The frame is larger than any camera makes, so it is not decoded."""
+
+
 def open_photo(path) -> Image.Image:
     """Upright RGB. Phone photos carry their rotation in EXIF, and a sideways
     crow is not what either model was trained on."""
-    return ImageOps.exif_transpose(Image.open(path)).convert("RGB")
+    with Image.open(path, formats=FORMATS) as image:
+        if image.width * image.height > MAX_PIXELS:
+            raise PhotoTooLarge(f"{image.width}x{image.height} is more than {MAX_PIXELS // 10**6} MP")
+        upright = ImageOps.exif_transpose(image).convert("RGB")
+    upright.thumbnail((MAX_SIDE, MAX_SIDE))
+    return upright
 
 
 @dataclass(frozen=True)
