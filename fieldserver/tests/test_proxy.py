@@ -87,3 +87,15 @@ def test_private_pages_and_errors_are_not_cacheable(client, path):
     response = client.get(path)
     assert response.headers["Cache-Control"] == "private, no-store"
     assert response.headers["CDN-Cache-Control"] == "no-store"
+
+
+def test_the_server_leaves_forwarded_headers_for_the_proxy_middleware_and_bounds_its_threads():
+    """Waitress's default strips X-Forwarded-For, which would put every
+    visitor behind Caddy into one throttle bucket."""
+    from fieldserver.app import MAX_UPLOAD_BYTES, server_settings
+
+    settings = server_settings()
+    assert settings["clear_untrusted_proxy_headers"] is False
+    assert 4 <= settings["threads"] <= 64
+    assert MAX_UPLOAD_BYTES <= settings["max_request_body_size"] < 64 * 1024 * 1024
+    assert not settings["ident"]

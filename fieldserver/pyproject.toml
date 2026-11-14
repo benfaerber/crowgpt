@@ -8,6 +8,7 @@ dependencies = [
     "alembic>=1.18.5",
     "flask>=3.0",
     "numpy>=1.26",
+    "waitress>=3.0",
 ]
 
 [project.scripts]

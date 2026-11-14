@@ -259,7 +259,39 @@ def main() -> None:
     port = int(os.environ.get("FIELD_PORT", "5100"))
     # The refusal now lives in create_app(), keyed on the same FIELD_HOST, so it
     # fires for every entry point rather than this one alone.
-    create_app().run(host=host, port=port, debug=False)
+    from waitress import serve
+
+    serve(create_app(), host=host, port=port, **server_settings())
+
+
+#: Requests served at once. The rest wait their turn in waitress's queue,
+#: which is the point: Werkzeug's development server started a thread for
+#: every connection it was offered, with no upper bound.
+SERVER_THREADS = int(os.environ.get("FIELD_SERVER_THREADS", "16"))
+
+
+def server_settings() -> dict:
+    """How waitress is run, here so a test can hold it to the two that matter.
+
+    Waitress reads a request's whole body before a worker thread sees it, so a
+    slow or stalled upload occupies a socket and not one of the threads the
+    phones' sync needs.
+    """
+    from .api.scan import MAX_REQUEST_BYTES
+
+    return {
+        "threads": SERVER_THREADS,
+        "connection_limit": 200,
+        # The largest body any route reads; waitress refuses more unread.
+        "max_request_body_size": max(MAX_UPLOAD_BYTES, MAX_REQUEST_BYTES),
+        # False, or waitress strips X-Forwarded-For before core/proxy.py can
+        # read it and every visitor becomes 127.0.0.1 again: one throttle
+        # bucket for the whole internet. core/proxy.py decides whose headers
+        # are believed, and believes only the loopback hop.
+        "clear_untrusted_proxy_headers": False,
+        # No Server header naming the software and its version.
+        "ident": None,
+    }
 
 
 if __name__ == "__main__":
