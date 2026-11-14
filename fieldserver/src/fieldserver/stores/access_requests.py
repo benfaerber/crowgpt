@@ -12,6 +12,11 @@ from .db_base import Database, utc_now
 
 OPEN = ("pending", "approved")
 
+#: Phones one invite may enroll. A person has a handset or two and may
+#: reinstall; without a ceiling one invite is as many accounts as its holder
+#: cares to make.
+MAX_ENROLLMENTS = 5
+
 
 class AccessRequestStore(Database):
     def request(self, email, name=None, note=None, requester_ip=None) -> tuple[dict, bool]:
@@ -48,16 +53,32 @@ class AccessRequestStore(Database):
             return dict(row) if row else None
 
     def approve(self, request_id) -> dict | None:
-        """Approve, minting the invite token once; approving again keeps it."""
+        """Approve, minting the invite token and the enrollment code once;
+        approving again keeps both."""
         with self._connect() as conn:
             row = self._row(conn, request_id)
             if not row:
                 return None
             token = row["invite_token"] or secrets.token_urlsafe(18)
+            code = row["enroll_code"] or secrets.token_urlsafe(12)
             conn.execute(
                 "UPDATE access_requests SET status = 'approved', decided_at = ?, "
-                "invite_token = ? WHERE id = ?", (utc_now(), token, request_id))
+                "invite_token = ?, enroll_code = ? WHERE id = ?",
+                (utc_now(), token, code, request_id))
             return self._row(conn, request_id)
+
+    def enroll(self, code) -> dict | None:
+        """Spend one of an invite's enrollments, or None when the code is
+        not an approved invite's or has none left. One statement, so two
+        phones racing for the last place cannot both have it."""
+        if not code or not isinstance(code, str):
+            return None
+        with self._connect() as conn:
+            row = conn.execute(
+                "UPDATE access_requests SET enrollments = enrollments + 1 "
+                "WHERE enroll_code = ? AND status = 'approved' AND enrollments < ? "
+                "RETURNING id", (code, MAX_ENROLLMENTS)).fetchone()
+            return self._row(conn, row["id"]) if row else None
 
     def decline(self, request_id) -> dict | None:
         with self._connect() as conn:

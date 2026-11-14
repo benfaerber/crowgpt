@@ -6,10 +6,10 @@ enrollment token and the APK. The operator one, under /api/fleet, is the
 queue Ben works from the dashboard: approve, which mints the invite and
 emails it when a mailer is configured, or decline.
 
-What an invite hands over is the fleet's *shared* enrollment token, the same
-one every phone has typed since the beginning. The invite does not make the
-token any less shared; it only decides who is told it. Per-contributor
-tokens are the next step and a different change.
+What an invite hands over is its own enrollment code (revision 0040), never
+the fleet's shared token: it enrolls a handful of phones for that one person,
+and declining the request ends it without touching anyone else. Until
+2026-11-14 the page showed the shared token itself, to everyone invited.
 
 "Latest" APK is the newest .apk in instance/apk/, which `make apk-publish`
 fills, so publishing a build is a copy rather than a config change.
@@ -23,7 +23,6 @@ from pathlib import Path
 from flask import abort, jsonify, request, send_file
 
 from ..core.mail import Mailer
-from ..core.secrets import ENROLL_SECRET
 from ..core.throttle import Allowance
 from ..stores.contributors import FLEET_ROLES
 
@@ -95,8 +94,8 @@ INVITE = """
   the app, and the token it asks for on first launch.</p>
   <label>Enrollment token</label>
   <code>%(token)s</code>
-  <p class="small">Type or paste it into the app when it asks. It joins the
-  phone to the fleet once and is not shown in the app again.</p>
+  <p class="small">Type or paste it into the app when it asks. It is yours:
+  it joins your own phones to the project, and is not shown in the app again.</p>
   <form method="post" action="/preview/%(invite)s/apk">
     <button type="submit">Download the app (Android APK)</button>
   </form>
@@ -192,7 +191,7 @@ def register(app, d) -> None:
         row = access.by_token(token)
         if not row or row["status"] != "approved":
             return page(NOT_FOUND, 404)
-        return page(INVITE % {"token": html.escape(ENROLL_SECRET), "invite": html.escape(token),
+        return page(INVITE % {"token": html.escape(row["enroll_code"] or ""), "invite": html.escape(token),
                               "build": describe(latest_apk(apk_dir))})
 
     @app.post("/preview/<token>/apk")
@@ -202,7 +201,7 @@ def register(app, d) -> None:
             return page(NOT_FOUND, 404)
         apk = latest_apk(apk_dir)
         if apk is None:
-            return page(INVITE % {"token": html.escape(ENROLL_SECRET), "invite": html.escape(token),
+            return page(INVITE % {"token": html.escape(row["enroll_code"] or ""), "invite": html.escape(token),
                                   "build": describe(None)}, 404)
         access.record_download(token)
         return send_file(apk, mimetype=APK_TYPE, as_attachment=True,

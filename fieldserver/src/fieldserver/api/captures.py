@@ -84,6 +84,7 @@ def register(app, d) -> None:
     owned_capture = d.owned_capture
     merges = d.merges
     counts = d.counts
+    quota = d.quota
 
     # --- authenticated ingest ---
 
@@ -279,6 +280,8 @@ def register(app, d) -> None:
             start, total = parse_content_range(content_range, len(data))
         else:
             start, total = 0, len(data)
+        if not quota.admits(contributor, len(data)):
+            abort(413, "this invite's storage allowance is used up; write to hello@crowgpt.org for more")
         try:
             m = media.append(media_id, data, start)
         except ValueError as error:

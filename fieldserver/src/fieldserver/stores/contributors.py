@@ -63,17 +63,21 @@ class ContributorStore(Database):
     def __init__(self, db_path):
         super().__init__(db_path)
 
-    def create(self, display_name, role="contributor"):
-        """Create a contributor. Returns (public row, raw claim code)."""
+    def create(self, display_name, role="contributor", access_request_id=None):
+        """Create a contributor. Returns (public row, raw claim code).
+
+        `access_request_id` is the invite they enrolled with, None for the
+        fleet's own enrollment token.
+        """
         if role not in ROLES:
             raise ValueError(f"unknown role '{role}'")
         claim_code = secrets.token_urlsafe(9)
         with self._connect() as conn:
             cur = conn.execute(
                 "INSERT INTO contributors (public_uuid, display_name, role, "
-                "claim_code_hash, created_at) VALUES (?, ?, ?, ?, ?)",
-                (secrets.token_hex(16), (display_name or "").strip() or "Unnamed recordist",
-                 role, _hash(claim_code), utc_now()),
+                "claim_code_hash, created_at, access_request_id) VALUES (?, ?, ?, ?, ?, ?)",
+                (secrets.token_hex(16), (display_name or "").strip()[:120] or "Unnamed recordist",
+                 role, _hash(claim_code), utc_now(), access_request_id),
             )
             return self._public(conn, cur.lastrowid), claim_code
 
@@ -234,6 +238,7 @@ class ContributorStore(Database):
         row = conn.execute(
             "SELECT id, public_uuid, display_name, role, status, created_at, "
             "location_precision, censor_coords, fuzz_miles, region, "
-            "policy_version, policy_accepted_at, allow_generator, allow_publish "
+            "policy_version, policy_accepted_at, allow_generator, allow_publish, "
+            "access_request_id "
             "FROM contributors WHERE id = ?", (contributor_id,)).fetchone()
         return dict(row) if row else None

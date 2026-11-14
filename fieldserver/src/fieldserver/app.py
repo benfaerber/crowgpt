@@ -38,6 +38,7 @@ from .stores.dictations import DictationStore
 from .stores.media import MediaStore
 from .stores.observations import ObservationStore
 from .stores.quality import QualityStore
+from .stores.quota import StorageQuota
 from .stores.ai_descriptions import AiDescriptionStore
 from .stores.sightings import SightingStore
 
@@ -152,6 +153,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
     scans = ScanStore(resolved_db, resolved_db.parent / "demo-scans")
     scout_visits = ScoutVisitStore(resolved_db)
     access = AccessRequestStore(resolved_db)  # owns no foreign keys: an email is not a contributor
+    quota = StorageQuota(resolved_db)       # reads media and dictations; owns no table
     board = DashboardQueries(resolved_db)   # read-only joins across all of the above
 
     def current_device() -> dict:
@@ -211,7 +213,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
         photo_ids=photo_ids,
         scans=scans,
         instance_dir=resolved_db.parent, scout_visits=scout_visits, access=access,
-        demo=demo,
+        demo=demo, quota=quota,
         board=board,
         current_actor=current_actor,
         owned_capture=owned_capture, counts=counts,

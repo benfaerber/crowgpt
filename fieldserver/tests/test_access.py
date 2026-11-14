@@ -118,6 +118,51 @@ class TestDeciding:
 
 class TestTheInvite:
 
+    def _code(self, client, operator):
+        rows = client.get("/api/fleet/access-requests", headers=operator.headers).get_json()
+        return rows["requests"][0]["enroll_code"]
+
+    def _enroll(self, client, token, **more):
+        return client.post("/api/devices/register",
+                           json={"enroll_token": token, "contributor_name": "Invited", **more})
+
+    def test_the_invites_code_enrolls_a_phone_and_marks_who_invited_it(self, client, operator):
+        self._approved_url(client, operator)
+        enrolled = self._enroll(client, self._code(client, operator))
+        assert enrolled.status_code == 201
+        rows = client.get("/api/fleet/access-requests", headers=operator.headers).get_json()
+        assert enrolled.get_json()["contributor"]["access_request_id"] == rows["requests"][0]["id"]
+        assert enrolled.get_json()["contributor"]["role"] == "contributor"
+        assert rows["requests"][0]["enrollments"] == 1
+
+    def test_a_declined_invites_code_stops_working_and_the_fleet_token_does_not(self, client, operator):
+        self._approved_url(client, operator)
+        code = self._code(client, operator)
+        request_id = client.get("/api/fleet/access-requests",
+                                headers=operator.headers).get_json()["requests"][0]["id"]
+        client.post(f"/api/fleet/access-requests/{request_id}/decline", headers=operator.headers)
+        assert self._enroll(client, code).status_code == 403
+        assert self._enroll(client, DEFAULT_ENROLL_TOKEN).status_code == 201
+
+    def test_one_invite_enrolls_only_so_many_phones(self, client, operator):
+        from fieldserver.stores.access_requests import MAX_ENROLLMENTS
+
+        self._approved_url(client, operator)
+        code = self._code(client, operator)
+        statuses = [self._enroll(client, code).status_code for _ in range(MAX_ENROLLMENTS + 1)]
+        assert statuses == [201] * MAX_ENROLLMENTS + [403]
+
+    def test_a_wrong_claim_code_does_not_use_up_the_invite(self, client, operator):
+        self._approved_url(client, operator)
+        code = self._code(client, operator)
+        assert self._enroll(client, code, claim_code="nope").status_code == 403
+        rows = client.get("/api/fleet/access-requests", headers=operator.headers).get_json()
+        assert rows["requests"][0]["enrollments"] == 0
+
+    def test_an_invite_cannot_make_an_operator(self, client, operator):
+        self._approved_url(client, operator)
+        assert self._enroll(client, self._code(client, operator), is_operator=True).status_code == 403
+
     def _approved_url(self, client, operator):
         ask(client)
         rows = client.get("/api/fleet/access-requests", headers=operator.headers).get_json()
@@ -131,7 +176,8 @@ class TestTheInvite:
         response = client.get(path)
         assert response.status_code == 200
         body = response.get_data(as_text=True)
-        assert DEFAULT_ENROLL_TOKEN in body
+        assert DEFAULT_ENROLL_TOKEN not in body
+        assert self._code(client, operator) in body
         assert "crowgpt-field-test.apk" in body
 
     def test_the_link_downloads_the_newest_build_and_counts_it(self, client, operator, build):

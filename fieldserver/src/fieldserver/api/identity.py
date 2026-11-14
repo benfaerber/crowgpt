@@ -38,6 +38,7 @@ def register(app, d) -> None:
     contributors = d.contributors
     devices = d.devices
     captures = d.captures
+    access = d.access
     current_actor = d.current_actor
 
     # Per app rather than per module: two servers in one process (the tests run
@@ -66,9 +67,12 @@ def register(app, d) -> None:
         """
         caller = guessing_caller()
         body = request.get_json(silent=True) or {}
-        if not presented(body, "enroll_token", ENROLL_SECRET):
-            guesses.record_failure(caller)
-            abort(403, "invalid enrollment token")
+        # Two strings open this door: the fleet's own enrollment token, and
+        # the code an approved invite's page shows (stores/access_requests.py),
+        # which is one person's and can be ended without touching anyone else.
+        # The invite is only spent once everything else about the request has
+        # been accepted, so a wrong claim code does not use one up.
+        fleet = presented(body, "enroll_token", ENROLL_SECRET)
         # An operator can read every other contributor's captures, so the role
         # has to be earned with a second secret rather than asserted.
         is_operator = bool(body.get("is_operator"))
@@ -83,11 +87,16 @@ def register(app, d) -> None:
             # to somebody else's corpus — so a wrong one counts the same way.
             guesses.record_failure(caller)
             abort(403, "unrecognised claim code")
+        invite = None if fleet else access.enroll(body.get("enroll_token"))
+        if not fleet and not invite:
+            guesses.record_failure(caller)
+            abort(403, "invalid enrollment token")
         fresh_claim_code = None
         if not contributor:
             contributor, fresh_claim_code = contributors.create(
                 body.get("contributor_name"),
                 role="operator" if is_operator else "contributor",
+                access_request_id=invite["id"] if invite else None,
             )
         elif is_operator and contributor["role"] not in FLEET_ROLES:
             contributor = contributors.set_role(contributor["id"], "operator")

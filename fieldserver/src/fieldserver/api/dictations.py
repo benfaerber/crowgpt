@@ -70,6 +70,8 @@ def register(app, d) -> None:
         data = request.get_data() or b""
         start, total = parse_content_range(
             request.headers.get("Content-Range", ""), len(data))
+        if not d.quota.admits(contributor, len(data)):
+            abort(413, "this invite's storage allowance is used up; write to hello@crowgpt.org for more")
         try:
             row = dictations.append(dictation_id, data, start)
         except ValueError as error:

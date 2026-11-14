@@ -61,6 +61,9 @@ class Deps:
     #: stores/access_requests.py and api/access.py.
     access: Any
     demo: Any
+    #: The storage allowance of a contributor who came in on an invite.
+    #: See stores/quota.py.
+    quota: Any
 
     #: The calling device and the person it belongs to, or 401.
     current_actor: Callable[[], tuple]
