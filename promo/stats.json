@@ -232,8 +232,8 @@
       "source": "field.db · captures"
     },
     "species.heads": {
-      "value": 5,
-      "text": "5",
+      "value": 6,
+      "text": "6",
       "auto": true,
       "about": "Corvid species with their own call-type head",
       "source": "pipelines/training/models/*/metrics.json"
@@ -244,9 +244,10 @@
         "Carrion crow",
         "Common raven",
         "Hooded crow",
+        "Large-billed crow",
         "Rook"
       ],
-      "text": "American crow, Carrion crow, Common raven, Hooded crow, Rook",
+      "text": "American crow, Carrion crow, Common raven, Hooded crow, Large-billed crow, Rook",
       "auto": true,
       "about": "The species behind species.heads, shown on hover over that number",
       "source": "pipelines/training/models/*/metrics.json"

@@ -1,0 +1,16 @@
+{
+  "n": 428,
+  "n_single_label": 398,
+  "classes": {
+    "call": 362,
+    "song": 13,
+    "flight call": 23
+  },
+  "per_class_auc": {
+    "alarm call": null,
+    "begging": null,
+    "call": 0.734,
+    "flight call": 0.61,
+    "song": 0.742
+  }
+}

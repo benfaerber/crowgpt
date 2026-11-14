@@ -43,6 +43,7 @@ SPECIES_NAMES = {
     "carrion-crow": "Carrion crow",
     "common-raven": "Common raven",
     "hooded-crow": "Hooded crow",
+    "large-billed-crow": "Large-billed crow",
     "rook": "Rook",
 }
 CROWTOOLS = REPO / "pipelines" / "ingest" / "crowtools" / "labels.json"

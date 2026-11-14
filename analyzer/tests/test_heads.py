@@ -28,7 +28,7 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "pipelines" / "training"))
 
 import pooling  # noqa: E402
-from analyzer.birdnet import HeadMismatch, _check_bundle, head_width  # noqa: E402
+from analyzer.birdnet import HeadMismatch, HeadRegistry, _check_bundle, head_width  # noqa: E402
 
 MODELS = REPO / "pipelines" / "training" / "models"
 
@@ -40,6 +40,27 @@ def shipped_heads():
 @pytest.fixture(scope="module")
 def bundles():
     return {p: joblib.load(p) for p in shipped_heads()}
+
+
+def test_every_shipped_head_answers_to_birdnets_name_for_it():
+    """BirdNET says "Large-billed Crow"; the folder says large-billed-crow.
+
+    A head whose name never matches a detection is never used, and nothing
+    else would notice: the calls just come back species-only.
+    """
+    registry = HeadRegistry()
+    birdnet_names = {
+        "american-crow": "American Crow",
+        "carrion-crow": "Carrion Crow",
+        "common-raven": "Common Raven",
+        "hooded-crow": "Hooded Crow",
+        "large-billed-crow": "Large-billed Crow",
+        "rook": "Rook",
+    }
+    for path in shipped_heads():
+        slug = path.parent.name
+        assert slug in birdnet_names, f"add BirdNET's common name for {slug}"
+        assert registry.for_species(birdnet_names[slug]) is not None, slug
 
 
 def test_there_are_heads_to_check():

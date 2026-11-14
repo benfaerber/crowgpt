@@ -342,11 +342,16 @@ class HeadRegistry:
                 display = directory.name.replace("-", " ").title()
                 self._add(display, model, directory / "metrics.json")
 
+    @staticmethod
+    def key(name):
+        """Folder names lose BirdNET's hyphens: "large-billed-crow" is "Large-billed Crow"."""
+        return " ".join((name or "").replace("-", " ").lower().split())
+
     def _add(self, display, model_path, metrics_path):
-        self.heads[display.lower()] = SpeciesHead(display, model_path, metrics_path)
+        self.heads[self.key(display)] = SpeciesHead(display, model_path, metrics_path)
 
     def for_species(self, common_name):
-        return self.heads.get((common_name or "").strip().lower())
+        return self.heads.get(self.key(common_name))
 
     def reliability_payload(self):
         return {h.display: h.reliability for h in self.heads.values()}
