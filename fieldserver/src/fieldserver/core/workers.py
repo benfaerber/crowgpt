@@ -133,10 +133,8 @@ class Sandbox:
                 f"Environment=NUMBA_CACHE_DIR=/var/cache/{unit}/numba",
                 f"Environment=MPLCONFIGDIR=/var/cache/{unit}/matplotlib"]
 
-    def worker(self, unit: str, network: bool, secrets: bool) -> list[str]:
-        lines = [*self.BASE, *self.filesystem(), *self.caches(unit)]
-        if not secrets:
-            lines += self.without_secrets()
+    def worker(self, unit: str, network: bool) -> list[str]:
+        lines = [*self.BASE, *self.filesystem(), *self.caches(unit), *self.without_secrets()]
         if not network:
             lines += ["PrivateNetwork=yes"]
         # Its own process table, so the server's process and environment are
@@ -167,10 +165,8 @@ class Worker:
     #: False keeps a worker out of the full sandbox: it still cannot gain
     #: privileges, but it sees the home directory as the login user does.
     sandboxed: bool = True
-    #: True lets the unit reach the network.
+    #: True lets a sandboxed unit reach the network.
     network: bool = False
-    #: True starts the unit with the server's environment, secrets included.
-    secrets: bool = False
 
     @property
     def unit(self) -> str:
@@ -190,10 +186,9 @@ class Worker:
         sandbox = Sandbox(root)
         if not self.sandboxed:
             return list(sandbox.BASE)
-        return sandbox.worker(self.unit, self.network, self.secrets)
+        return sandbox.worker(self.unit, self.network)
 
     def unit_text(self, root: Path, user: str) -> str:
-        environment = SERVER_ENV if self.secrets else WORKER_ENV
         lines = [
             "[Unit]",
             f"Description={self.description}",
@@ -203,7 +198,7 @@ class Worker:
             "[Service]",
             f"User={user}",
             f"WorkingDirectory={root}",
-            f"EnvironmentFile={root / 'instance' / environment}",
+            f"EnvironmentFile={root / 'instance' / WORKER_ENV}",
             *(f"Environment={key}={value}" for key, value in self.resolved_environment(root).items()),
             f"ExecStart={self.python(root, hosted=True)} {self.script}",
             *([f"MemoryMax={self.memory_max}"] if self.memory_max else []),

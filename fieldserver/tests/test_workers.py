@@ -77,11 +77,12 @@ class TestUnitText:
         assert bound.split("=", 1)[1].split()[0] == "/home/ubuntu/crowgpt"
         assert "/home/ubuntu/.ssh" not in bound
 
-    def test_the_scout_scheduler_keeps_its_network_and_key_but_not_sudo(self, registry):
+    def test_the_scout_scheduler_keeps_its_network_and_disk_but_not_sudo_or_the_servers_secrets(
+            self, registry):
         lines = registry.get("scout").unit_text(BOX, "ubuntu").splitlines()
         assert "NoNewPrivileges=yes" in lines
         assert "PrivateNetwork=yes" not in lines and "ProtectHome=tmpfs" not in lines
-        assert "EnvironmentFile=/home/ubuntu/crowgpt/fieldserver/instance/service.env" in lines
+        assert "EnvironmentFile=/home/ubuntu/crowgpt/fieldserver/instance/worker.env" in lines
 
     def test_the_server_is_confined_but_keeps_its_network_and_environment(self):
         lines = server_unit_text(BOX, "ubuntu").splitlines()
@@ -92,7 +93,7 @@ class TestUnitText:
         assert not any(line.startswith("InaccessiblePaths=") for line in lines)
 
     def test_every_sandbox_line_is_one_directive(self):
-        for line in Sandbox(BOX).worker("crowgpt-x", network=False, secrets=False):
+        for line in Sandbox(BOX).worker("crowgpt-x", network=False):
             assert re.fullmatch(r"[A-Za-z]+=\S*( \S+)*", line), line
 
 

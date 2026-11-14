@@ -13,8 +13,8 @@
 #   sandboxed     false leaves the unit the login user's view of the home
 #                 directory; it still cannot gain privileges (default true)
 #   network       true lets a sandboxed unit reach the network (default false)
-#   secrets       true starts the unit with the server's environment, secrets
-#                 included, instead of instance/worker.env (default false)
+#
+# No worker is started with the server's secrets: each gets instance/worker.env.
 #   requires_server  false lets the unit outlive a stopped server (default true)
 #   restart_seconds  the wait before systemd restarts a failed worker (default 10)
 #
@@ -57,7 +57,7 @@ script = "worker/scout_scheduler.py"
 venv = ".venv"
 requires_server = false
 restart_seconds = 60
-# It runs `uv run` and fetches from the network with the eBird key, and reads
-# nothing a stranger sent, so it keeps the login user's view.
+# It runs `uv run`, fetches from the network, and reads the eBird key from
+# instance/secrets.env itself. It reads nothing a stranger sent, so it keeps
+# the login user's view of the disk.
 sandboxed = false
-secrets = true
