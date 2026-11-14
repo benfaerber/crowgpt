@@ -33,6 +33,7 @@ interface Scan {
   kind: Kind;
   state: "queued" | "running" | "done" | "failed";
   ahead?: number;
+  eta_seconds?: number;
   error?: string;
   result?: PhotoResult | SoundResult;
 }
@@ -90,6 +91,51 @@ const WAITING = {
   video: "Listening to the video's sound…",
 };
 
+/** The wait, counted down between polls. The server's guess replaces the
+ *  local count on every poll; at zero it says so instead of going quiet,
+ *  because a silent overdue wait reads as a broken page. The numbers are
+ *  hidden from screen readers, which would otherwise announce every second. */
+class Countdown {
+  private seconds: number | null = null;
+  private timer = 0;
+  private readonly label = el("span");
+  private readonly remaining = el("span", { className: "scan-eta" });
+
+  constructor(private readonly host: HTMLElement) {
+    this.remaining.setAttribute("aria-hidden", "true");
+  }
+
+  show(label: string, seconds: number | undefined): void {
+    if (!this.label.isConnected) this.host.replaceChildren(this.label, this.remaining);
+    this.host.hidden = false;
+    this.label.textContent = label;
+    this.seconds = seconds ?? null;
+    this.render();
+    if (!this.timer) this.timer = window.setInterval(() => this.tick(), 1000);
+  }
+
+  stop(): void {
+    window.clearInterval(this.timer);
+    this.timer = 0;
+  }
+
+  private tick(): void {
+    if (this.seconds !== null && this.seconds > 0) this.seconds -= 1;
+    this.render();
+  }
+
+  private render(): void {
+    this.remaining.textContent = this.seconds === null ? "" : ` ${Countdown.phrase(this.seconds)}`;
+  }
+
+  static phrase(seconds: number): string {
+    if (seconds <= 0) return "Taking longer than usual, still working.";
+    if (seconds < 60) return `About ${seconds} second${seconds === 1 ? "" : "s"} left.`;
+    const minutes = Math.ceil(seconds / 60);
+    return `About ${minutes} minutes left.`;
+  }
+}
+
 class ScanApi {
   constructor(private readonly base: string) {}
 
@@ -136,6 +182,7 @@ class ScanPage {
   private token = "";
   private busy = false;
   private place: Place | null = null;
+  private readonly countdown: Countdown;
   private readonly whereabouts = new Whereabouts(__GEO_URL__, __FIELD_API__ === "");
 
   constructor(
@@ -148,7 +195,9 @@ class ScanPage {
     private readonly locateRow: HTMLElement,
     private readonly placeName: HTMLElement,
     private readonly verification: HTMLElement,
-  ) {}
+  ) {
+    this.countdown = new Countdown(status);
+  }
 
   async mount(): Promise<void> {
     try {
@@ -273,7 +322,8 @@ class ScanPage {
       const place = this.locate.checked ? this.place : null;
       let scan = await this.api.upload(file, token, place);
       while (scan.state === "queued" || scan.state === "running") {
-        this.say(scan.ahead ? `${scan.ahead} ahead of you in the queue…` : WAITING[kind]);
+        this.countdown.show(
+          scan.ahead ? `${scan.ahead} ahead of you in the queue…` : WAITING[kind], scan.eta_seconds);
         await new Promise(resolve => window.setTimeout(resolve, POLL_MS));
         scan = await this.api.poll(scan.id);
       }
@@ -288,6 +338,7 @@ class ScanPage {
         ? error.message
         : "The scanner did not answer. Try again in a minute.");
     } finally {
+      this.countdown.stop();
       this.busy = false;
       this.challenge.reset();
       this.refresh();
@@ -316,6 +367,7 @@ class ScanPage {
   }
 
   private say(text: string): void {
+    this.countdown.stop();
     this.status.textContent = text;
     this.status.hidden = text === "";
   }

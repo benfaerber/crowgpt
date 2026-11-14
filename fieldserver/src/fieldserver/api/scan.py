@@ -45,6 +45,7 @@ def describe(scans, row) -> dict:
         body["error"] = row["error"] or "could not read this file"
     else:
         body["ahead"] = scans.ahead_of(row)
+        body["eta_seconds"] = scans.seconds_left(row)
     return body
 
 

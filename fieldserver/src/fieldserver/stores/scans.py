@@ -41,6 +41,10 @@ MAX_WAITING = 6
 #: before the upload; the worker enforces it.
 SOUND_SECONDS = 90
 
+#: What a scan is assumed to take before any has finished this hour: the
+#: hosted box's time with the models not yet loaded, which is the slow case.
+FIRST_GUESS_SECONDS = {"photo": 40, "sound": 20}
+
 #: How long a result stays readable.
 KEEP = timedelta(hours=1)
 
@@ -124,6 +128,29 @@ class ScanStore(Database):
                 f"SELECT COUNT(*) FROM demo_scans WHERE state IN ('queued', 'running') "
                 f"AND id < ? AND kind IN ({','.join('?' * len(kinds))})",
                 (row["id"], *kinds)).fetchone()[0]
+
+    def typical_seconds(self, queue) -> float:
+        """How long this queue's scans have been taking: the upper quartile
+        of the hour's finished ones, so the page's countdown errs long."""
+        kinds = QUEUES[queue]
+        with self._connect() as conn:
+            rows = conn.execute(
+                f"SELECT claimed_at, finished_at FROM demo_scans WHERE state = 'done' "
+                f"AND claimed_at IS NOT NULL AND kind IN ({','.join('?' * len(kinds))})", kinds).fetchall()
+        took = sorted((datetime.fromisoformat(r["finished_at"]) - datetime.fromisoformat(r["claimed_at"]))
+                      .total_seconds() for r in rows)
+        return took[(len(took) * 3) // 4] if took else FIRST_GUESS_SECONDS[queue]
+
+    def seconds_left(self, row, now=None) -> int:
+        """A guess at the wait for a queued or running scan: everything ahead
+        of it at the typical pace, then its own share, less what a running
+        one has already spent. Zero means overdue, not finished."""
+        typical = self.typical_seconds(queue_of(row["kind"]))
+        mine = typical
+        if row["state"] == "running" and row["claimed_at"]:
+            spent = (now or datetime.now(timezone.utc)) - datetime.fromisoformat(row["claimed_at"])
+            mine = max(typical - spent.total_seconds(), 0)
+        return round(self.ahead_of(row) * typical + mine)
 
     def prune(self, now=None) -> int:
         """Drop rows past their hour, and any file one still points at."""

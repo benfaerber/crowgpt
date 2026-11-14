@@ -86,6 +86,29 @@ test("a photo is uploaded with a scan-action token and comes back named", async 
   await page.screenshot({ path: "test-results/scan-photo.png", fullPage: true });
 });
 
+test("the wait counts down, and says so when it runs over", async ({ page }) => {
+  await setup(page);
+  let polls = 0;
+  await page.route(`${api}/api/demo/scan`, async route => route.request().method() === "GET"
+    ? route.fallback()
+    : route.fulfill({ status: 202, headers, json: { id: "abc", kind: "photo", state: "queued", ahead: 1, eta_seconds: 75 } }));
+  await page.route(`${api}/api/demo/scan/abc`, route => {
+    polls += 1;
+    if (polls === 1) return route.fulfill({ headers, json: { id: "abc", kind: "photo", state: "running", ahead: 0, eta_seconds: 3 } });
+    if (polls < 5) return route.fulfill({ headers, json: { id: "abc", kind: "photo", state: "running", ahead: 0, eta_seconds: 0 } });
+    return route.fallback();
+  });
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  const status = page.locator("#scan-status");
+  await expect(status).toContainText("1 ahead of you in the queue… About 2 minutes left.");
+  await expect(status).toContainText(/Looking at the photo… About [123] seconds? left\./);
+  await expect(status).toContainText("Looking at the photo… Taking longer than usual, still working.");
+  await expect(page.locator(".scan-eta")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.locator(".scan-answer h3")).toHaveText("American Crow");
+  await expect(status).not.toContainText("still working");
+});
+
 test("a recording comes back as a timeline with its calls listed", async ({ page }) => {
   await setup(page, {}, soundResult);
   await solve(page);

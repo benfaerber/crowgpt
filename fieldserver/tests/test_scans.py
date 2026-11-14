@@ -94,6 +94,33 @@ class TestStore:
         assert failed["state"] == "failed"
         assert not path.exists()
 
+    def test_the_wait_starts_from_a_first_guess_and_counts_the_queue(self, store):
+        first = queued(store, "a.jpg")
+        second = queued(store, "b.jpg")
+        assert store.seconds_left(first) == 40
+        assert store.seconds_left(second) == 80
+        assert store.seconds_left(queued(store, "dawn.wav")) == 20
+
+    def test_a_running_scan_counts_down_and_stops_at_zero(self, store):
+        queued(store)
+        running = store.claim_next("photo")
+        claimed = datetime.fromisoformat(running["claimed_at"])
+        assert store.seconds_left(running, now=claimed + timedelta(seconds=15)) == 25
+        assert store.seconds_left(running, now=claimed + timedelta(seconds=90)) == 0
+
+    def test_the_wait_learns_from_scans_that_finished(self, store):
+        for seconds in (4, 6, 8, 30):
+            row = queued(store)
+            store.claim_next("photo")
+            store.complete(row["id"], RESULT)
+            started = datetime.now(timezone.utc) - timedelta(seconds=seconds)
+            with store._connect() as conn:
+                conn.execute("UPDATE demo_scans SET claimed_at = ?, finished_at = ? WHERE id = ?",
+                             (started.isoformat(), (started + timedelta(seconds=seconds)).isoformat(), row["id"]))
+        assert store.typical_seconds("photo") == 30
+        assert store.typical_seconds("sound") == 20
+        assert store.seconds_left(queued(store)) == 30
+
     def test_ahead_counts_only_the_same_queue(self, store):
         queued(store, "dawn.wav")
         first = queued(store, "a.jpg")
@@ -206,7 +233,8 @@ class TestApi:
         assert body["state"] == "queued"
         assert body["kind"] == "photo"
         assert body["ahead"] == 0
-        assert set(body) == {"id", "kind", "state", "ahead"}
+        assert body["eta_seconds"] == 40
+        assert set(body) == {"id", "kind", "state", "ahead", "eta_seconds"}
 
         polled = client.get(f"/api/demo/scan/{body['id']}")
         assert polled.status_code == 200

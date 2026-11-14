@@ -70,7 +70,7 @@ class BirdDetector:
         import torch
         from torchvision.models.detection import FasterRCNN_ResNet50_FPN_V2_Weights, fasterrcnn_resnet50_fpn_v2
 
-        torch.set_num_threads(min(THREADS, os.cpu_count() or THREADS))
+        torch.set_num_threads(min(THREADS, len(os.sched_getaffinity(0))))
         weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
         self.model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=FAINT).eval()
         self.bird = weights.meta["categories"].index("bird")

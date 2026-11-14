@@ -41,6 +41,7 @@ memory_max = "2600M"
 
 [photo.environment]
 MALLOC_ARENA_MAX = "2"
+HF_HUB_OFFLINE = "1"
 PHOTO_ID_MODEL = "../data/photos/models/photo-id"
 
 [scout]
