@@ -6,6 +6,7 @@ small birds, the case a field photo usually is. torch and open_clip load only
 when a detector or embedder is built, so the geometry here tests without them.
 """
 
+import os
 from dataclasses import asdict, dataclass
 
 import numpy as np
@@ -69,7 +70,7 @@ class BirdDetector:
         import torch
         from torchvision.models.detection import FasterRCNN_ResNet50_FPN_V2_Weights, fasterrcnn_resnet50_fpn_v2
 
-        torch.set_num_threads(THREADS)
+        torch.set_num_threads(min(THREADS, os.cpu_count() or THREADS))
         weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
         self.model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=FAINT).eval()
         self.bird = weights.meta["categories"].index("bird")
@@ -95,11 +96,34 @@ class BirdDetector:
 
 
 class BioclipEmbedder:
+    """BioCLIP 2's image tower only. The text tower is a quarter of the model
+    and nothing here reads it, and the stock loader holds the checkpoint and
+    the model at once, 3.7 GB at its peak. Filling the image tower one tensor
+    at a time from the file keeps the whole worker near 1.7 GB, which is what
+    lets it run on the hosted box."""
+
+    REPO = BIOCLIP.removeprefix("hf-hub:")
+    WEIGHTS = "open_clip_model.safetensors"
+    TEXT_TOWER = ("transformer", "token_embedding", "ln_final", "positional_embedding", "text_projection")
+
     def __init__(self):
         import open_clip
 
-        self.model, _, self.preprocess = open_clip.create_model_and_transforms(BIOCLIP)
+        self.model, _, self.preprocess = open_clip.create_model_and_transforms(BIOCLIP, load_weights=False)
+        for name in self.TEXT_TOWER:
+            delattr(self.model, name)
+        self._fill_image_tower()
         self.model.eval()
+
+    def _fill_image_tower(self):
+        import torch
+        from huggingface_hub import hf_hub_download
+        from safetensors import safe_open
+
+        targets = {**dict(self.model.visual.named_parameters()), **dict(self.model.visual.named_buffers())}
+        with safe_open(hf_hub_download(self.REPO, self.WEIGHTS), framework="pt") as stored, torch.no_grad():
+            for name, target in targets.items():
+                target.copy_(stored.get_tensor(f"visual.{name}"))
 
     def embed(self, images) -> np.ndarray:
         import torch
