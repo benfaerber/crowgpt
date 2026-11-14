@@ -34,6 +34,7 @@ interface Scan {
   state: "queued" | "running" | "done" | "failed";
   ahead?: number;
   eta_seconds?: number;
+  kept?: boolean;
   error?: string;
   result?: PhotoResult | SoundResult;
 }
@@ -145,9 +146,10 @@ class ScanApi {
     return (await response.json()) as Config;
   }
 
-  async upload(file: File, token: string, place: Place | null): Promise<Scan> {
+  async upload(file: File, token: string, place: Place | null, keep: boolean): Promise<Scan> {
     const form = new FormData();
     form.append("file", file);
+    if (keep) form.append("keep", "1");
     if (token) form.append("cf-turnstile-response", token);
     if (place) {
       form.append("latitude", String(place.latitude));
@@ -195,6 +197,7 @@ class ScanPage {
     private readonly locateRow: HTMLElement,
     private readonly placeName: HTMLElement,
     private readonly verification: HTMLElement,
+    private readonly keep: HTMLInputElement,
   ) {
     this.countdown = new Countdown(status);
   }
@@ -320,7 +323,9 @@ class ScanPage {
     this.say("Uploading…");
     try {
       const place = this.locate.checked ? this.place : null;
-      let scan = await this.api.upload(file, token, place);
+      const offered = this.keep.checked;
+      this.keep.checked = false; // asked afresh for every file
+      let scan = await this.api.upload(file, token, place, offered);
       while (scan.state === "queued" || scan.state === "running") {
         this.countdown.show(
           scan.ahead ? `${scan.ahead} ahead of you in the queue…` : WAITING[kind], scan.eta_seconds);
@@ -330,7 +335,7 @@ class ScanPage {
       if (scan.state === "failed" || !scan.result) {
         this.say(scan.error ?? "Could not read this file.");
       } else {
-        this.show(file, kind, scan.result);
+        this.show(file, kind, scan.result, offered ? scan.kept === true : null);
         this.say("");
       }
     } catch (error) {
@@ -345,13 +350,18 @@ class ScanPage {
     }
   }
 
-  private show(file: File, kind: Kind, result: PhotoResult | SoundResult): void {
+  private show(file: File, kind: Kind, result: PhotoResult | SoundResult, kept: boolean | null): void {
     const url = URL.createObjectURL(file);
     const body = kind === "photo"
       ? new ScanPhoto(result as PhotoResult, url, file.name).render()
       : new ScanTimeline(result as SoundResult, this.player(kind, url)).render();
     const card = el("article", { className: "scan-result" },
       el("p", { className: "scan-file", text: file.name }), body);
+    if (kept !== null) {
+      card.append(el("p", { className: "scan-kept", text: kept
+        ? "Kept for the project, as you asked. Thank you."
+        : "Not kept: the project's space for contributed files is full. The file was deleted." }));
+    }
     this.results.prepend(card);
     card.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
@@ -389,4 +399,5 @@ void new ScanPage(
   need("#scan-locate-row"),
   need("#scan-place"),
   need("#scan-verification"),
+  need<HTMLInputElement>("#scan-keep"),
 ).mount();

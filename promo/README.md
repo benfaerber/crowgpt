@@ -176,7 +176,10 @@ hosted server found: a species for a photo, a call timeline for sound (the
 app's and the dashboard's picture, in the same five colours). It posts to the
 tokenless `/api/demo/scan` on the field server; `fieldserver/api/scan.py` has
 the bounds. The file is shown and played from the visitor's own device, and
-the server deletes its copy when the scan finishes.
+the server deletes its copy when the scan finishes, unless the visitor ticked
+"Let CrowGPT keep this file" (unticked by default, reset after every file),
+in which case it is kept as a contribution: `scan_contributions` and
+`instance/scan-contributions/` on the server, never a capture.
 
 Location comes from `worker/geo.js`, the site's one script: `/geo` returns
 Cloudflare's city-level estimate of where the visitor is (`request.cf`), with

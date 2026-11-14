@@ -2634,3 +2634,9 @@ audio.scan-media {
     grid-column: 3;
   }
 }
+
+.scan-kept {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}

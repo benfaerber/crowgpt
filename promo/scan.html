@@ -57,6 +57,14 @@
           has them. Untick this for a photo or recording made somewhere else.
         </span>
       </label>
+      <label class="scan-locate" id="scan-keep-row">
+        <input type="checkbox" id="scan-keep" />
+        <span>
+          Let CrowGPT keep this file. Ticked, the file and its result are saved on
+          the project's server and may be used to train and test its models.
+          Unticked, the file is deleted as soon as it has been scanned.
+        </span>
+      </label>
       <p class="scan-status" id="scan-status" aria-live="polite" hidden></p>
 
       <div id="scan-results" class="scan-results"></div>
@@ -66,15 +74,23 @@
         <p class="section-lede">
           It goes to the project's server, is read once, and is deleted the moment the
           scan finishes. The result is kept for an hour so this page can show it, then
-          deleted too. Nothing you upload here is added to the project's data or used
-          for training. The picture and the sound you see on this page are played from
-          your own device.
+          deleted too. Unless you tick the box above, nothing you upload here is added
+          to the project's data or used for training. The picture and the sound you see
+          on this page are played from your own device.
+        </p>
+        <p class="section-lede">
+          If you tick "Let CrowGPT keep this file", the file is kept as you uploaded
+          it, with what the scan said about it and the approximate location if that
+          box is ticked too. That includes anything inside the file: a photo's own
+          GPS tags, or voices in a recording. Please only tick it for files that are
+          yours to share. The box starts unticked every time, and a file the scanner
+          could not read is never kept.
         </p>
         <p class="section-lede">
           If the location box is ticked, an approximate location goes with the file:
           a city-level estimate made from your internet address, not your device's
-          GPS. It is used for that one scan and deleted with the result. Your address
-          itself is not stored.
+          GPS. It is used for that one scan and deleted with the result, unless you
+          asked for the file to be kept. Your address itself is not stored.
         </p>
         <h2>How much to trust it</h2>
         <p class="section-lede">

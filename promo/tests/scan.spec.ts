@@ -109,6 +109,25 @@ test("the wait counts down, and says so when it runs over", async ({ page }) => 
   await expect(status).not.toContainText("still working");
 });
 
+test("a file is only offered for keeping when its box is ticked, and the box resets", async ({ page }) => {
+  const posts = await setup(page);
+  await page.route(`${api}/api/demo/scan/abc`, route => route.fulfill({
+    headers, json: { id: "abc", kind: "photo", state: "done", result: photoResult, kept: true },
+  }));
+  await expect(page.locator("#scan-keep")).not.toBeChecked();
+  await solve(page);
+  await page.locator("#scan-keep").check();
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-kept")).toContainText("Kept for the project");
+  await expect(page.locator("#scan-keep")).not.toBeChecked();
+  expect(posts[0]).toContain('name="keep"');
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-result")).toHaveCount(2);
+  expect(posts[1]).not.toContain('name="keep"');
+  await expect(page.locator(".scan-kept")).toHaveCount(1);
+});
+
 test("a recording comes back as a timeline with its calls listed", async ({ page }) => {
   await setup(page, {}, soundResult);
   await solve(page);

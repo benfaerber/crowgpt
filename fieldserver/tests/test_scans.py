@@ -13,6 +13,7 @@ from pathlib import Path
 
 import pytest
 
+from fieldserver.stores import scans as scans_module
 from fieldserver.stores.scans import ALIVE_WITHIN, KEEP, MAX_WAITING, ScanStore, kind_of
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "worker"))
@@ -120,6 +121,45 @@ class TestStore:
         assert store.typical_seconds("photo") == 30
         assert store.typical_seconds("sound") == 20
         assert store.seconds_left(queued(store)) == 30
+
+    def test_a_scan_is_only_kept_when_the_visitor_said_so(self, store):
+        plain = queued(store, "a.jpg")
+        offered = queued(store, "b.jpg", keep=True, latitude=40.76, longitude=-111.89)
+        store.claim_next("photo")
+        assert store.complete(plain["id"], RESULT)["keep"] == 0
+        store.claim_next("photo")
+        assert store.complete(offered["id"], RESULT)["keep"] == 1
+        assert not store.path(offered).exists()
+        (kept,) = store.contributions()
+        assert kept["kind"] == "photo" and kept["result"] == RESULT
+        assert (kept["latitude"], kept["longitude"]) == (40.76, -111.89)
+        assert store.contribution_path(kept).read_bytes() == BYTES
+        assert store.kept_bytes() == len(BYTES)
+
+    def test_a_failed_scan_is_not_kept(self, store):
+        row = queued(store, keep=True)
+        store.claim_next("photo")
+        assert store.fail(row["id"], "Could not read this photo.")["keep"] == 0
+        assert store.contributions() == []
+        assert not store.path(row).exists()
+
+    def test_nothing_more_is_kept_once_the_budget_is_spent(self, store, monkeypatch):
+        monkeypatch.setattr(scans_module, "KEEP_BUDGET_BYTES", len(BYTES))
+        for name in ("a.jpg", "b.jpg"):
+            row = queued(store, name, keep=True)
+            store.claim_next("photo")
+            done = store.complete(row["id"], RESULT)
+        assert done["keep"] == 0 and done["state"] == "done"
+        assert len(store.contributions()) == 1
+        assert list(store.scan_dir.iterdir()) == []
+
+    def test_a_kept_file_outlives_the_prune_that_drops_its_scan(self, store):
+        row = queued(store, keep=True)
+        store.claim_next("photo")
+        store.complete(row["id"], RESULT)
+        assert store.prune(now=datetime.now(timezone.utc) + KEEP + timedelta(minutes=1)) == 1
+        (kept,) = store.contributions()
+        assert store.contribution_path(kept).exists()
 
     def test_ahead_counts_only_the_same_queue(self, store):
         queued(store, "dawn.wav")
@@ -245,7 +285,14 @@ class TestApi:
         row = scans.claim_next("photo")
         scans.complete(row["id"], RESULT)
         polled = client.get(f"/api/demo/scan/{body['id']}").get_json()
-        assert polled == {"id": body["id"], "kind": "photo", "state": "done", "result": RESULT}
+        assert polled == {"id": body["id"], "kind": "photo", "state": "done", "result": RESULT, "kept": False}
+
+    def test_the_keep_box_reaches_the_store_and_the_answer_says_so(self, client, scans):
+        body = upload(client, keep="1").get_json()
+        row = scans.claim_next("photo")
+        scans.complete(row["id"], RESULT)
+        assert client.get(f"/api/demo/scan/{body['id']}").get_json()["kept"] is True
+        assert len(scans.contributions()) == 1
 
     def test_a_kind_with_no_worker_is_refused_before_anything_is_stored(self, client, db_path, tmp_path):
         store = ScanStore(db_path, db_path.parent / "demo-scans")

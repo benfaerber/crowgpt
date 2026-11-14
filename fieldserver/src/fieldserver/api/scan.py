@@ -11,6 +11,9 @@ adds:
   - only formats the two workers open, decided from the file's extension;
   - the file is deleted when its worker finishes, the row an hour later, and
     the row is addressed by an unguessable id (stores/scans.py);
+  - the one exception is the visitor's own: `keep=1`, from a box on the page
+    that starts unticked, keeps the file as a contribution, up to a fixed
+    budget of disk;
   - a kind is only offered while its worker is alive, so a server with no
     photo worker refuses photos instead of accepting them and never answering.
 
@@ -41,6 +44,7 @@ def describe(scans, row) -> dict:
     body = {"id": row["public_id"], "kind": row["kind"], "state": row["state"]}
     if row["state"] == "done":
         body["result"] = row["result"]
+        body["kept"] = bool(row["keep"])
     elif row["state"] == "failed":
         body["error"] = row["error"] or "could not read this file"
     else:
@@ -113,7 +117,8 @@ def register(app, d) -> None:
             abort(503, "the scanner is busy; try again in a minute")
         upload.save(path)
         try:
-            row = scans.request(kind, storage_ref, latitude, longitude)
+            row = scans.request(kind, storage_ref, latitude, longitude,
+                                keep=request.form.get("keep") == "1")
         except ValueError as error:
             abort(400, str(error))
         return jsonify(describe(scans, row)), 202

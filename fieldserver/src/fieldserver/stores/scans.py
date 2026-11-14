@@ -9,6 +9,11 @@ differences that follow from the uploader being a stranger:
   - the row is addressed by an unguessable `public_id`, never its integer id;
   - rows are pruned an hour after they were made.
 
+A visitor who ticks the page's "keep this file" box changes the first of
+those: when the scan is done the file moves to `scan-contributions/` beside
+the scan directory and a `scan_contributions` row records it with the result
+(revision 0039). Unticked, nothing is kept.
+
 Nothing here is a capture. See revision 0038 for why it has its own table.
 """
 
@@ -45,6 +50,10 @@ SOUND_SECONDS = 90
 #: hosted box's time with the models not yet loaded, which is the slow case.
 FIRST_GUESS_SECONDS = {"photo": 40, "sound": 20}
 
+#: The most the server will hold of files visitors let it keep. The route
+#: takes no token, so without a ceiling the disk belongs to whoever asks.
+KEEP_BUDGET_BYTES = 5 * 1024 ** 3
+
 #: How long a result stays readable.
 KEEP = timedelta(hours=1)
 
@@ -69,6 +78,7 @@ class ScanStore(Database):
         super().__init__(db_path)
         self.scan_dir = Path(scan_dir)
         self.scan_dir.mkdir(parents=True, exist_ok=True)
+        self.kept_dir = self.scan_dir.parent / "scan-contributions"
 
     # --- the visitor half ---------------------------------------------------
 
@@ -82,7 +92,7 @@ class ScanStore(Database):
         storage_ref = f"{secrets.token_hex(16)}.{extension}"
         return kind, storage_ref, self.scan_dir / storage_ref
 
-    def request(self, kind, storage_ref, latitude=None, longitude=None):
+    def request(self, kind, storage_ref, latitude=None, longitude=None, keep=False):
         path = self.scan_dir / storage_ref
         try:
             self._check(kind, path, latitude, longitude)
@@ -92,8 +102,8 @@ class ScanStore(Database):
         with self._connect() as conn:
             cur = conn.execute(
                 "INSERT INTO demo_scans (public_id, kind, storage_ref, latitude, "
-                "longitude, state, created_at) VALUES (?, ?, ?, ?, ?, 'queued', ?)",
-                (secrets.token_urlsafe(18), kind, storage_ref, latitude, longitude, utc_now()))
+                "longitude, keep, state, created_at) VALUES (?, ?, ?, ?, ?, ?, 'queued', ?)",
+                (secrets.token_urlsafe(18), kind, storage_ref, latitude, longitude, int(keep), utc_now()))
             return self._row(conn, cur.lastrowid)
 
     @staticmethod
@@ -208,17 +218,53 @@ class ScanStore(Database):
 
     def _finish(self, scan_id, state, result=None, error=None):
         """The answer, and the end of the file, together: nothing of a
-        visitor's upload outlives the job that read it."""
+        visitor's upload outlives the job that read it, unless the visitor
+        asked for it to be kept and the scan could read it."""
         with self._connect() as conn:
-            before = conn.execute("SELECT storage_ref FROM demo_scans WHERE id = ?",
-                                  (scan_id,)).fetchone()
+            before = conn.execute("SELECT * FROM demo_scans WHERE id = ?", (scan_id,)).fetchone()
+        kept = bool(before) and state == "done" and bool(before["keep"]) and self._keep(dict(before), result)
+        with self._connect() as conn:
             conn.execute(
-                "UPDATE demo_scans SET state=?, result=?, error=?, finished_at=?, "
-                "storage_ref=NULL WHERE id = ?", (state, result, error, utc_now(), scan_id))
+                "UPDATE demo_scans SET state=?, result=?, error=?, finished_at=?, keep=?, "
+                "storage_ref=NULL WHERE id = ?", (state, result, error, utc_now(), int(kept), scan_id))
             row = self._row(conn, scan_id)
-        if before:
+        if before and not kept:
             self._discard(before["storage_ref"])
         return row
+
+    def _keep(self, scan, result) -> bool:
+        """Move a finished scan's file to the contributions and record it.
+        False when the file is gone or the budget is spent, and then the
+        caller deletes it like any other."""
+        source = self.scan_dir / (scan["storage_ref"] or "")
+        if not scan["storage_ref"] or not source.exists():
+            return False
+        size = source.stat().st_size
+        if self.kept_bytes() + size > KEEP_BUDGET_BYTES:
+            return False
+        self.kept_dir.mkdir(parents=True, exist_ok=True)
+        source.replace(self.kept_dir / scan["storage_ref"])
+        with self._connect() as conn:
+            conn.execute(
+                "INSERT INTO scan_contributions (kind, storage_ref, bytes, latitude, longitude, "
+                "result, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (scan["kind"], scan["storage_ref"], size, scan["latitude"], scan["longitude"],
+                 result, utc_now()))
+        return True
+
+    # --- what visitors let the project keep -----------------------------------
+
+    def kept_bytes(self) -> int:
+        with self._connect() as conn:
+            return conn.execute("SELECT COALESCE(SUM(bytes), 0) FROM scan_contributions").fetchone()[0]
+
+    def contributions(self):
+        with self._connect() as conn:
+            return [self._parsed(row) for row in conn.execute(
+                "SELECT * FROM scan_contributions ORDER BY id")]
+
+    def contribution_path(self, contribution) -> Path:
+        return self.kept_dir / contribution["storage_ref"]
 
     def _discard(self, storage_ref):
         if storage_ref:
