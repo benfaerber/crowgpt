@@ -4,7 +4,10 @@ import { createRoot } from "react-dom/client";
 
 import { App } from "./App";
 import { ApiError } from "./api/client";
+import { HostTitle } from "./hostTitle";
 import "./theme.css";
+
+new HostTitle(window.location.hostname).apply(document);
 
 const queries = new QueryClient({
   defaultOptions: {
