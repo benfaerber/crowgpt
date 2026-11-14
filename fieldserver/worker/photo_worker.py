@@ -29,6 +29,7 @@ sys.path.insert(0, str(FIELDSERVER / "src"))
 sys.path.insert(0, str(REPO))
 
 from fieldserver.stores.photo_ids import PhotoIdStore  # noqa: E402
+from fieldserver.stores.scans import ScanStore  # noqa: E402
 
 DEFAULT_DB = FIELDSERVER / "instance" / "field.db"
 IDLE_MINUTES = float(os.environ.get("PHOTO_ID_IDLE_MINUTES", "10"))
@@ -71,6 +72,50 @@ def process(job, store, identifier):
         return store.fail(job["id"], f"{type(error).__name__}: {error}")
 
 
+class VisitorScans:
+    """The promo's Scan page, from this worker's side: a stranger's photo,
+    named and not kept. The operator's own uploads always go first. The error
+    a visitor sees is one of two fixed sentences; the reason goes to the log.
+    """
+
+    QUEUE = "photo"
+    BEAT_EVERY = 15.0
+
+    def __init__(self, store, identifier):
+        self.store = store
+        self.identifier = identifier
+        self.last_beat = float("-inf")
+
+    def beat(self):
+        """Says this worker is here, so the page offers photos."""
+        if time.monotonic() - self.last_beat < self.BEAT_EVERY:
+            return
+        try:
+            self.store.beat(self.QUEUE)
+            self.last_beat = time.monotonic()
+        except sqlite3.OperationalError as error:
+            print(f"[photo] scan heartbeat skipped: {error}", flush=True)
+
+    def work_one(self) -> bool:
+        try:
+            scan = self.store.claim_next(self.QUEUE)
+        except sqlite3.OperationalError as error:
+            print(f"[photo] scan poll failed: {error}", flush=True)
+            return False
+        if scan is None:
+            return False
+        try:
+            result = self.identifier.identify(self.store.path(scan), scan["latitude"], scan["longitude"])
+            self.store.complete(scan["id"], result.to_dict())
+            print(f"[photo] scan {scan['id']} done", flush=True)
+        except Exception as error:  # noqa: BLE001 — a stranger's file must not kill the loop
+            missing = type(error).__name__ == "ModelMissing"
+            self.store.fail(scan["id"], "Photo scanning is not set up on this server." if missing
+                            else "Could not read this photo.")
+            print(f"[photo] scan {scan['id']} failed: {type(error).__name__}: {error}", flush=True)
+        return True
+
+
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     once = "--once" in argv
@@ -90,8 +135,14 @@ def main(argv=None) -> int:
     if requeued or abandoned:
         print(f"[photo] startup: {requeued} requeued, {abandoned} abandoned", flush=True)
     identifier = LazyIdentifier()
+    scans = VisitorScans(ScanStore(db_path, db_path.parent / "demo-scans"), identifier)
+    try:
+        scans.store.reclaim_running(scans.QUEUE)
+    except sqlite3.OperationalError as error:
+        print(f"[photo] scan reclaim skipped: {error}", flush=True)
     print(f"[photo] watching {db_path}", flush=True)
     while True:
+        scans.beat()
         try:
             job = store.claim_next()
         except sqlite3.OperationalError as error:
@@ -101,6 +152,8 @@ def main(argv=None) -> int:
             time.sleep(POLL_SECONDS)
             continue
         if job is None:
+            if scans.work_one():
+                continue
             if once:
                 return 0
             identifier.release_if_idle()

@@ -31,6 +31,7 @@ from fieldserver.core.coords import occurrence_coords  # noqa: E402
 from fieldserver.stores.captures import CaptureStore  # noqa: E402
 from fieldserver.stores.media import MediaStore  # noqa: E402
 from fieldserver.stores.quality import QualityStore  # noqa: E402
+from fieldserver.stores.scans import SOUND_SECONDS, ScanStore  # noqa: E402
 
 from analyzer import birdnet  # noqa: E402  — loads BirdNET + the heads at import
 from analyzer import quality  # noqa: E402  — pure DSP, no model
@@ -99,10 +100,82 @@ def process(job, jobs, media_store, captures, qualities) -> int:
     return len(calls)
 
 
+class VisitorScans:
+    """The promo's Scan page, from this worker's side: a stranger's recording
+    or video, analysed like a capture and kept like nothing. No capture row,
+    no quality row, no label; the answer goes back to demo_scans and the store
+    deletes the file. Captures always go first: this is only asked when the
+    capture queue is empty.
+
+    Only the first SOUND_SECONDS are analysed. Without coordinates BirdNET's
+    occurrence filter is off, so the species is the model's unfiltered guess
+    and the page says so.
+    """
+
+    QUEUE = "sound"
+    BEAT_EVERY = 15.0
+
+    def __init__(self, store):
+        self.store = store
+        self.last_beat = float("-inf")
+
+    def beat(self):
+        """Says this worker is here, so the page offers audio and video."""
+        if time.monotonic() - self.last_beat < self.BEAT_EVERY:
+            return
+        try:
+            self.store.beat(self.QUEUE)
+            self.last_beat = time.monotonic()
+        except Exception as exc:  # noqa: BLE001 — before the migration, or a locked DB
+            print(f"scan heartbeat skipped — {exc}", flush=True)
+
+    def reclaim(self):
+        try:
+            self.store.reclaim_running(self.QUEUE)
+        except Exception as exc:  # noqa: BLE001
+            print(f"scan reclaim skipped — {exc}", flush=True)
+
+    def work_one(self) -> bool:
+        try:
+            scan = self.store.claim_next(self.QUEUE)
+        except Exception as exc:  # noqa: BLE001
+            print(f"scan poll failed — {exc}", flush=True)
+            return False
+        if scan is None:
+            return False
+        try:
+            result = self.analyze(scan)
+            self.store.complete(scan["id"], result)
+            print(f"scan {scan['id']}: done — {len(result['calls'])} call region(s)", flush=True)
+        except birdnet.NoAudioTrack:
+            self.store.fail(scan["id"], "This file has no audio track.")
+            print(f"scan {scan['id']}: no audio track", flush=True)
+        except Exception as exc:  # noqa: BLE001 — a stranger's file must not kill the loop
+            self.store.fail(scan["id"], "Could not read this file.")
+            print(f"scan {scan['id']}: error — {exc}", flush=True)
+        return True
+
+    def analyze(self, scan) -> dict:
+        wav = birdnet.to_wav(self.store.path(scan), max_seconds=SOUND_SECONDS)
+        try:
+            envelope, duration = birdnet.waveform_envelope(wav)
+            calls = birdnet.analyze(wav, lat=scan["latitude"], lon=scan["longitude"])
+        finally:
+            wav.unlink(missing_ok=True)
+        return {
+            "duration_sec": duration,
+            "waveform": envelope,
+            "calls": calls,
+            "truncated": duration >= SOUND_SECONDS - 0.05,
+            "located": scan["latitude"] is not None,
+        }
+
+
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     once = "--once" in argv
     db = Path(os.environ.get("FIELD_DB") or DEFAULT_DB)
+    scans = VisitorScans(ScanStore(db, db.parent / "demo-scans"))
     jobs = AnalysisStore(db)
     media_store = MediaStore(db, db.parent / "media")
     captures = CaptureStore(db)
@@ -121,10 +194,12 @@ def main(argv=None) -> int:
         print(f"failed {len(abandoned)} job(s) that have used up their attempts: "
               f"{abandoned} — their captures are back at 'uploaded'", flush=True)
 
+    scans.reclaim()
     print(f"worker ready — {model_version()} — polling {db}"
           f"{' (--once)' if once else ''}", flush=True)
 
     while True:
+        scans.beat()
         try:
             job = jobs.claim_next()
         except Exception as exc:  # noqa: BLE001 — a locked DB is a wait, not a death
@@ -137,6 +212,8 @@ def main(argv=None) -> int:
             time.sleep(poll)
             continue
         if job is None:
+            if scans.work_one():
+                continue
             if once:
                 return 0
             time.sleep(poll)

@@ -32,7 +32,7 @@ class Turnstile:
     def configured(self):
         return bool(self.site_key and self.secret)
 
-    def verify(self, token: str, visitor: str) -> bool:
+    def verify(self, token: str, visitor: str, action: str = ACTION) -> bool:
         if not self.configured:
             raise Unavailable()
         if not token or len(token) > 2048:
@@ -49,4 +49,4 @@ class Turnstile:
             raise Unavailable()
         return (result.get("success") is True
                 and result.get("hostname") in self.hostnames
-                and result.get("action") == ACTION)
+                and result.get("action") == action)

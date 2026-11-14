@@ -45,6 +45,9 @@ class Deps:
     #: Photos uploaded to test the species classifier, and what it called
     #: them. Worked off by the photo worker, never this process.
     photo_ids: Any
+    #: Strangers' uploads to the promo's Scan page. Never captures; the file
+    #: is gone when its worker finishes. See stores/scans.py.
+    scans: Any
     #: Read-only joins across all of the above, for the dashboard.
     board: Any
     #: The instance directory, for published reference artifacts the app

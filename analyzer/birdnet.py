@@ -412,9 +412,13 @@ def has_audio_track(src: Path) -> bool:
     return "audio" in probe.stdout
 
 
-def to_wav(src: Path) -> Path:
+def to_wav(src: Path, max_seconds: float | None = None) -> Path:
     """Extract mono 48kHz audio to a temp WAV — robust for mp3/wav/mp4/etc.,
     so BirdNET always gets clean PCM regardless of the container.
+
+    `max_seconds` keeps only the start of the recording. A capture is analysed
+    whole; a stranger's upload to the promo's Scan page is not, because its
+    length is theirs to choose and the worker's time is not.
 
     Checks for sound first. Without it a silent file fails as a raw subprocess
     error, which says "the analyzer crashed" when the truth is "there is nothing
@@ -426,6 +430,7 @@ def to_wav(src: Path) -> Path:
     tmp.close()
     _guarded(
         ["ffmpeg", "-v", "quiet", "-y", "-i", str(src),
+         *(["-t", str(max_seconds)] if max_seconds else []),
          "-ac", "1", "-ar", "48000", tmp.name],
         check=True,
     )

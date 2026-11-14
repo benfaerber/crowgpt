@@ -28,6 +28,7 @@ from .stores.labels import LabelStore
 from .stores.merges import MergeStore
 from .stores.generations import GenerationStore
 from .stores.photo_ids import PhotoIdStore
+from .stores.scans import ScanStore
 from .stores.demo import DemoPool
 from .stores.scout_visits import ScoutVisitStore
 from .stores.access_requests import AccessRequestStore
@@ -146,6 +147,9 @@ def create_app(db_path: Path | str | None = None) -> Flask:
     demo = DemoPool(generations)  # the promo's shelf, same table, its own view
     # Classifier test uploads, beside media/ and never inside it.
     photo_ids = PhotoIdStore(resolved_db, resolved_db.parent / "photo-id")
+    # Strangers' uploads from the promo's Scan page: their own directory,
+    # emptied file by file as the workers finish.
+    scans = ScanStore(resolved_db, resolved_db.parent / "demo-scans")
     scout_visits = ScoutVisitStore(resolved_db)
     access = AccessRequestStore(resolved_db)  # owns no foreign keys: an email is not a contributor
     board = DashboardQueries(resolved_db)   # read-only joins across all of the above
@@ -205,6 +209,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
         sightings=sightings, ai_descriptions=ai_descriptions,
         merges=merges, logs=logs, listening=listening, generations=generations,
         photo_ids=photo_ids,
+        scans=scans,
         instance_dir=resolved_db.parent, scout_visits=scout_visits, access=access,
         demo=demo,
         board=board,
