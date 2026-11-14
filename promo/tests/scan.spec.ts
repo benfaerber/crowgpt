@@ -199,3 +199,20 @@ test("an unreachable server leaves the page readable", async ({ page }) => {
   await expect(page.locator("h1")).toHaveText("Scan a crow");
   await expect(page.locator("#scan-status")).toContainText("offline");
 });
+
+test("a refused upload says why, and the sentence stays after the check resets", async ({ page }) => {
+  await setup(page);
+  await page.unroute(`${api}/api/demo/scan`);
+  await page.route(`${api}/api/demo/scan`, route => route.request().method() === "GET"
+    ? route.fulfill({ headers, json: config })
+    : route.fulfill({ status: 429, headers, contentType: "text/html",
+        body: "<!doctype html><title>429</title><h1>Too Many Requests</h1><p>that is enough scans for one hour from one address</p>" }));
+  await page.reload();
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  const status = page.locator("#scan-status");
+  await expect(status).toHaveText("That is enough scans for one hour from one address");
+  await page.waitForTimeout(500);
+  await expect(status).toBeVisible();
+  await expect(status).toHaveText("That is enough scans for one hour from one address");
+});

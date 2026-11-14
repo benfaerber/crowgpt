@@ -138,6 +138,8 @@ class Countdown {
   }
 }
 
+const CHECKING = "Checking you are not a robot…";
+
 class ScanApi {
   constructor(private readonly base: string) {}
 
@@ -300,11 +302,16 @@ class ScanPage {
     return !this.busy && verified;
   }
 
+  /** Says the robot check is pending only over an empty status, and clears only
+   * its own sentence: a refusal from the last upload stays until the next one. */
   private refresh(): void {
     const waitingOnCheck = Boolean(this.config?.turnstile_site_key) && this.token === "";
     this.drop.classList.toggle("is-disabled", !this.ready());
     this.drop.setAttribute("aria-disabled", String(!this.ready()));
-    if (!this.busy) this.say(waitingOnCheck ? "Checking you are not a robot…" : "");
+    if (this.busy) return;
+    const showing = this.status.textContent ?? "";
+    if (waitingOnCheck && showing === "") this.say(CHECKING);
+    else if (!waitingOnCheck && showing === CHECKING) this.say("");
   }
 
   private kindOf(file: File): Kind | null {
