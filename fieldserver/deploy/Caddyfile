@@ -7,6 +7,17 @@ field.crowgpt.org {
 			disable_tlsalpn_challenge
 		}
 	}
+	# Browsers only: the phones ignore all of these. HSTS is for this host
+	# alone, with no includeSubDomains, so it promises nothing about the rest
+	# of crowgpt.org. No page here is meant to be framed or sniffed, and the
+	# Server headers named the software and versions to anyone who asked.
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
 	reverse_proxy 127.0.0.1:5100 {
 		header_up X-Forwarded-For {remote_host}
 	}

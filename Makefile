@@ -86,7 +86,7 @@ field-deploy:
 	rsync -a fieldserver/src/fieldserver/static/app fieldserver/src/fieldserver/static/promo \
 	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/src/fieldserver/static/
 	ssh $(DEPLOY_HOST) 'export PATH=$$HOME/.local/bin:$$PATH; cd ~/$(DEPLOY_DIR)/fieldserver \
-	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q \
+	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q --compile-bytecode \
 	  && $(BOX_WORKERS) install \
 	  && sudo systemctl restart $(BOX_UNITS)'
 	@ssh $(DEPLOY_HOST) 'for attempt in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do \

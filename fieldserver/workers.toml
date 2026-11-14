@@ -10,6 +10,11 @@
 #   hosted        false keeps it off the box
 #   environment   extra variables for the unit, beside instance/service.env
 #   memory_max    a systemd MemoryMax, for a worker that could starve the server
+#   sandboxed     false leaves the unit the login user's view of the home
+#                 directory; it still cannot gain privileges (default true)
+#   network       true lets a sandboxed unit reach the network (default false)
+#   secrets       true starts the unit with the server's environment, secrets
+#                 included, instead of instance/worker.env (default false)
 #   requires_server  false lets the unit outlive a stopped server (default true)
 #   restart_seconds  the wait before systemd restarts a failed worker (default 10)
 #
@@ -21,6 +26,7 @@ description = "CrowGPT analyze worker"
 script = "worker/analyze_worker.py"
 venv = "../pipelines/representation/.venv-birdnet"
 hosted_venv = "../crowgpt/.venv"
+memory_max = "1200M"
 
 [transcribe]
 description = "CrowGPT transcribe worker"
@@ -32,6 +38,7 @@ hosted = false
 description = "CrowGPT generate worker"
 script = "worker/generate_worker.py"
 venv = "../crowgpt/.venv"
+memory_max = "1600M"
 
 [photo]
 description = "CrowGPT photo worker"
@@ -50,3 +57,7 @@ script = "worker/scout_scheduler.py"
 venv = ".venv"
 requires_server = false
 restart_seconds = 60
+# It runs `uv run` and fetches from the network with the eBird key, and reads
+# nothing a stranger sent, so it keeps the login user's view.
+sandboxed = false
+secrets = true
