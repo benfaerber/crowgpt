@@ -487,6 +487,19 @@ class TestRegisterOverHttp:
             ],
         }
 
+    @pytest.fixture(autouse=True)
+    def pools_live_in_the_test_folder(self, monkeypatch, clips):
+        monkeypatch.setenv("FIELD_LISTENING_ROOT", str(clips.parent))
+
+    def test_a_pool_cannot_name_a_folder_outside_the_pools_directory(
+            self, client, operator, clips, tmp_path_factory):
+        elsewhere = tmp_path_factory.mktemp("elsewhere")
+        for folder in (elsewhere, clips.parent, clips / ".." / ".." / elsewhere.name, "/etc"):
+            response = client.post("/api/listening/pools", headers=operator.headers,
+                                   json={**self.body(clips), "clip_dir": str(folder)})
+            assert response.status_code == 400, folder
+            assert "listening-pools" in response.get_data(as_text=True)
+
     def test_it_needs_an_operator(self, client, recordist, clips):
         assert client.post("/api/listening/pools",
                            json=self.body(clips)).status_code == 401

@@ -36,6 +36,7 @@ NO WIRE_VERSION BUMP. Operator surface, like `training.py`. The phone neither
 knows nor cares.
 """
 
+import os
 from pathlib import Path
 
 from flask import abort, jsonify, redirect, request, send_from_directory
@@ -46,6 +47,26 @@ from ..stores.listening import DEFECTS, GRADES
 #: The page itself, from the package rather than from this file — these routes
 #: live in api/ and "next to me" is not where the static tree is.
 LISTEN_DIR = Path(__file__).resolve().parents[1] / "static" / "listen"
+
+#: Where a pool registered over HTTP may keep its clips. The clips route
+#: serves any file under a pool's directory, so a directory chosen freely by
+#: the caller made an operator token a way to read every file on the box, the
+#: server's secrets among them. `tools/register_pool.py` writes the store
+#: directly, on the machine, and is not held to this.
+DEFAULT_POOL_ROOT = Path(__file__).resolve().parents[4] / "crowgpt" / "results" / "listening-pools"
+
+
+def pool_root() -> Path:
+    return Path(os.environ.get("FIELD_LISTENING_ROOT") or DEFAULT_POOL_ROOT).resolve()
+
+
+def inside_pool_root(clip_dir) -> bool:
+    try:
+        relative = Path(str(clip_dir)).resolve().relative_to(pool_root())
+    except (ValueError, OSError):
+        return False
+    return relative != Path(".")
+
 
 NOT_BUILT = ("<h1>Listening page missing</h1>"
              "<p>Expected <code>static/listen/index.html</code> in the "
@@ -123,6 +144,8 @@ def register(app, d) -> None:
                 abort(400, f"{field} is required")
         if not isinstance(b["trials"], list):
             abort(400, "trials must be a list")
+        if not inside_pool_root(b["clip_dir"]):
+            abort(400, "clip_dir must be a folder inside the listening-pools directory")
         try:
             pool = listening.create_pool(
                 name=b["name"], question=b["question"], clip_dir=b["clip_dir"],
