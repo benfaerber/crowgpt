@@ -28,6 +28,7 @@ class Throttle:
         self.window = per_seconds
         self._failures: dict[str, list[float]] = {}
         self._lock = threading.Lock()
+        self._swept = time.monotonic()
 
     def blocked(self, key: str) -> bool:
         with self._lock:
@@ -38,6 +39,20 @@ class Throttle:
             recent = self._recent(key)
             recent.append(time.monotonic())
             self._failures[key] = recent
+            self._sweep()
+
+    def _sweep(self) -> None:
+        """Once a window, forget every key that has gone quiet.
+
+        `_recent` only prunes the key it is asked about, so an address that
+        failed once and never returned stayed for the life of the process, and
+        a caller with many addresses could grow the table without limit.
+        """
+        if time.monotonic() - self._swept < self.window:
+            return
+        self._swept = time.monotonic()
+        for key in list(self._failures):
+            self._recent(key)
 
     def _recent(self, key: str) -> list[float]:
         """This key's failures inside the window, forgetting the ones outside it.

@@ -72,6 +72,19 @@ class TestVisits:
         assert len(listed.get_json()) == 1
         assert listed.get_json()[0]["outcome"] == "nothing"
 
+    def test_a_recordist_reads_their_own_visits_and_an_operator_reads_all(
+            self, client, recordist, stranger, operator):
+        client.post("/api/scout/visits", json=self.visit("mine"), headers=recordist.headers)
+        client.post("/api/scout/visits", json=self.visit("theirs"), headers=stranger.headers)
+
+        def seen(who):
+            return {v["client_uuid"] for v in
+                    client.get("/api/scout/visits", headers=who.headers).get_json()}
+
+        assert seen(recordist) == {"mine"}
+        assert seen(stranger) == {"theirs"}
+        assert seen(operator) == {"mine", "theirs"}
+
     def test_refuses_unknown_outcome(self, client, enroll):
         device = enroll(contributor_name="Recordist")
         bad = {**self.visit(), "outcome": "maybe"}

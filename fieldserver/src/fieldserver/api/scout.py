@@ -12,6 +12,8 @@ import math
 
 from flask import abort, jsonify, request, send_file
 
+from ..stores.contributors import FLEET_ROLES
+
 VISIT_KINDS = ("tree", "target", "spot")
 VISIT_OUTCOMES = ("crows", "nothing")
 
@@ -122,8 +124,12 @@ def register(app, d) -> None:
         return jsonify(row), 201
 
     def list_scout_visits():
-        current_actor()
-        return jsonify(scout_visits.list())
+        # A visit is where somebody stood and what they wrote about it, so a
+        # recordist reads their own and only the fleet roles read everyone's.
+        _, contributor = current_actor()
+        if contributor["role"] in FLEET_ROLES:
+            return jsonify(scout_visits.list())
+        return jsonify(scout_visits.list(contributor["id"]))
 
     app.add_url_rule("/api/scout", "get_scout", get_scout, methods=["GET"])
     app.add_url_rule("/api/scout/spots", "get_scout_spots", get_scout_spots,
