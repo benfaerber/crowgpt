@@ -148,7 +148,7 @@ class VisitorScans:
             self.store.complete(scan["id"], result)
             print(f"scan {scan['id']}: done — {len(result['calls'])} call region(s)", flush=True)
         except birdnet.NoAudioTrack:
-            self.store.fail(scan["id"], "This file has no audio track.")
+            self.store.fail(scan["id"], "This video has no sound, so there is nothing to listen to. The scanner reads a video's audio, not its picture.")
             print(f"scan {scan['id']}: no audio track", flush=True)
         except Exception as exc:  # noqa: BLE001 — a stranger's file must not kill the loop
             self.store.fail(scan["id"], "Could not read this file.")

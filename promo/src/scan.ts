@@ -323,11 +323,11 @@ class ScanPage {
     if (!this.ready() || !this.config) return;
     const kind = this.kindOf(file);
     if (!kind) {
-      this.say(`This page cannot read ${file.name}. Try a JPEG or PNG photo, or an MP3, WAV, M4A or MP4.`);
+      this.fail(file, `This page cannot read ${file.name}. Try a JPEG or PNG photo, or an MP3, WAV, M4A or MP4.`);
       return;
     }
     if (file.size > this.config.max_mb[kind] * 1024 * 1024) {
-      this.say(`${file.name} is over the ${this.config.max_mb[kind]} MB limit for ${kind} files.`);
+      this.fail(file, `This is over the ${this.config.max_mb[kind]} MB limit for ${kind} files.`);
       return;
     }
     this.busy = true;
@@ -351,7 +351,7 @@ class ScanPage {
         scan = await this.api.poll(scan.id);
       }
       if (scan.state === "failed" || !scan.result) {
-        this.say(scan.error ?? "Could not read this file.");
+        this.fail(file, scan.error ?? "Could not read this file.");
       } else {
         this.countdown.stop();
         await this.loader.finish();
@@ -359,7 +359,7 @@ class ScanPage {
         this.say("");
       }
     } catch (error) {
-      this.say(error instanceof Error && error.message.length > 3
+      this.fail(file, error instanceof Error && error.message.length > 3
         ? error.message
         : "The scanner did not answer. Try again in a minute.");
     } finally {
@@ -384,6 +384,18 @@ class ScanPage {
         ? "Kept for the project, as you asked. Thank you."
         : "Not kept: the project's space for contributed files is full. The file was deleted." }));
     }
+    this.results.prepend(card);
+    card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  /** A failure leaves a card where the answer would have been, as well as the
+   * sentence under the drop zone: after a run of results the eye is on the
+   * cards, and a one-line status there reads as nothing having happened. */
+  private fail(file: File, reason: string): void {
+    this.say(reason);
+    const card = el("article", { className: "scan-result scan-result-failed", attrs: { role: "alert" } },
+      el("p", { className: "scan-file", text: file.name }),
+      el("p", { className: "scan-failed", text: reason }));
     this.results.prepend(card);
     card.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }

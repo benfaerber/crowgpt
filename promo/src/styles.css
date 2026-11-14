@@ -2395,6 +2395,20 @@ main {
   overflow-wrap: anywhere;
 }
 
+.scan-result-failed {
+  border-color: rgb(242 112 112 / 0.55);
+  border-left: 4px solid #f27070;
+}
+
+.scan-result-failed .scan-file {
+  margin-bottom: 0.35rem;
+}
+
+.scan-failed {
+  margin: 0;
+  color: var(--text-primary);
+}
+
 .scan-note {
   margin-top: 0.6rem;
   color: var(--text-muted);

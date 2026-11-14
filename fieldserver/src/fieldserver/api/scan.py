@@ -38,6 +38,11 @@ ACTION = "demo-scan"
 #: Uploads an address gets an hour. Each one is seconds of a worker's CPU.
 SCANS_PER_HOUR = 12
 
+#: Callers the hourly allowance skips, on a server that requires no
+#: verification: a local `make field` and the machine it runs on. The hosted
+#: box requires Turnstile, so nobody there is ever let off.
+LOOPBACK = frozenset({"127.0.0.1", "::1"})
+
 #: Where the page puts its Turnstile token, so it can be checked first.
 TOKEN_HEADER = "X-Turnstile-Token"
 
@@ -104,8 +109,9 @@ def register(app, d) -> None:
     def scan_upload():
         request.max_content_length = MAX_REQUEST_BYTES
         caller = request.remote_addr or "?"
+        unmetered = not turnstile.required and caller in LOOPBACK
         # Everything that can refuse without the body does so first.
-        if uploads.spent(caller):
+        if not unmetered and uploads.spent(caller):
             abort(429, "that is enough scans for one hour from one address")
         verify_visitor(request.headers.get(TOKEN_HEADER, ""))
         upload = request.files.get("file")
@@ -119,7 +125,7 @@ def register(app, d) -> None:
         queue = queue_of(kind)
         if not scans.alive(queue):
             abort(503, f"{kind} scanning is not available right now")
-        if not uploads.spend(caller):
+        if not unmetered and not uploads.spend(caller):
             abort(429, "that is enough scans for one hour from one address")
         scans.prune()
         if scans.waiting(queue) >= MAX_WAITING:

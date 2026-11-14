@@ -243,9 +243,14 @@ class TestPhotoWorker:
         assert store.alive("photo")
 
 
-def upload(client, name="crow.jpg", content=BYTES, **form):
+#: A visitor from elsewhere; the test client is otherwise 127.0.0.1, which an
+#: unverified server does not meter.
+VISITOR = {"REMOTE_ADDR": "203.0.113.7"}
+
+
+def upload(client, name="crow.jpg", content=BYTES, environ=None, **form):
     return client.post("/api/demo/scan", data={"file": (io.BytesIO(content), name), **form},
-                       content_type="multipart/form-data")
+                       content_type="multipart/form-data", environ_base=environ or {})
 
 
 @pytest.fixture
@@ -320,12 +325,19 @@ class TestApi:
 
         statuses = []
         for _ in range(SCANS_PER_HOUR + 1):
-            statuses.append(upload(client).status_code)
+            statuses.append(upload(client, environ=VISITOR).status_code)
             row = scans.claim_next("photo")
             if row:
                 scans.complete(row["id"], RESULT)
         assert statuses[-1] == 429
         assert statuses[:-1] == [202] * SCANS_PER_HOUR
+
+    def test_the_machine_running_an_unverified_server_is_not_metered(self, client, scans):
+        from fieldserver.api.scan import SCANS_PER_HOUR
+
+        for _ in range(SCANS_PER_HOUR + 3):
+            assert upload(client).status_code == 202
+            scans.complete(scans.claim_next("photo")["id"], RESULT)
 
     def test_an_unknown_id_is_404(self, client, scans):
         assert client.get("/api/demo/scan/nope").status_code == 404
@@ -389,11 +401,21 @@ class TestVerifiedBeforeTheBodyIsRead:
         from fieldserver.api.scan import SCANS_PER_HOUR
 
         for _ in range(SCANS_PER_HOUR):
-            upload(client)
+            upload(client, environ=VISITOR)
             scans.complete(scans.claim_next("photo")["id"], RESULT)
         refused = client.post("/api/demo/scan", data=b"not a form at all",
-                              content_type="multipart/form-data; boundary=x")
+                              content_type="multipart/form-data; boundary=x", environ_base=VISITOR)
         assert refused.status_code == 429
+
+    def test_loopback_is_metered_where_verification_is_required(self, guarded, monkeypatch):
+        from fieldserver.api.scan import SCANS_PER_HOUR
+
+        self.answer(monkeypatch, success=True)
+        statuses = [guarded.post("/api/demo/scan", data={"file": (io.BytesIO(BYTES), "crow.jpg")},
+                                 content_type="multipart/form-data",
+                                 headers={"X-Turnstile-Token": "good"}).status_code
+                    for _ in range(SCANS_PER_HOUR + 1)]
+        assert statuses[-1] == 429
 
     def test_the_promo_origin_may_send_the_token_header(self, client, scans):
         preflight = client.options("/api/demo/scan", headers={

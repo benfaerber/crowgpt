@@ -216,3 +216,16 @@ test("a refused upload says why, and the sentence stays after the check resets",
   await expect(status).toBeVisible();
   await expect(status).toHaveText("That is enough scans for one hour from one address");
 });
+
+test("a scan that fails on the server leaves a card saying why", async ({ page }) => {
+  await setup(page);
+  await page.unroute(`${api}/api/demo/scan/abc`);
+  await page.route(`${api}/api/demo/scan/abc`, route => route.fulfill({
+    headers, json: { id: "abc", kind: "video", state: "failed", error: "This video has no sound, so there is nothing to listen to." },
+  }));
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "walk.mp4", mimeType: "video/mp4", buffer: PNG });
+  const card = page.locator(".scan-result-failed");
+  await expect(card).toContainText("walk.mp4");
+  await expect(card).toContainText("This video has no sound");
+});
