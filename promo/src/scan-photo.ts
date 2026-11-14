@@ -19,6 +19,9 @@ export interface PhotoResult {
   location_source: "exif" | "given" | null;
   width: number;
   height: number;
+  /** "other": the photo is of something else, named in `instead`. */
+  verdict?: "corvid" | "no_bird" | "other";
+  instead?: string | null;
 }
 
 /** How many species to list. The rest are near zero. */
@@ -38,14 +41,39 @@ export class ScanPhoto {
   ) {}
 
   render(): HTMLElement {
+    const answer = el("div", { className: "scan-answer" }, ...this.headline());
+    for (const note of this.notes()) answer.append(el("p", { className: "scan-note", text: note }));
+    return el("div", { className: "scan-photo" }, this.frame(), answer);
+  }
+
+  private get verdict(): "corvid" | "no_bird" | "other" {
+    return this.result.verdict ?? (this.result.bird_box ? "corvid" : "no_bird");
+  }
+
+  /** A species is only the headline when a bird was found. A cat named as
+   *  the crow it least unlike is the answer this page must not give. */
+  private headline(): HTMLElement[] {
     const best = this.result.ranking[0];
-    const answer = el("div", { className: "scan-answer" },
+    if (this.verdict === "other") {
+      const subject = this.result.instead ?? "something else";
+      const article = /^[aeiou]/.test(subject) ? "an" : "a";
+      return [
+        el("h3", { text: "Not a corvid" }),
+        el("p", { className: "scan-scientific", text: `This looks like a photo of ${article} ${subject}, and no bird was found in it.` }),
+      ];
+    }
+    if (this.verdict === "no_bird") {
+      return [
+        el("h3", { text: "No bird found" }),
+        el("p", { className: "scan-scientific", text: `If there is a corvid in this photo, the closest match is ${best.common_name}.` }),
+        this.ranking(),
+      ];
+    }
+    return [
       el("h3", { text: best.common_name }),
       el("p", { className: "scan-scientific", text: best.scientific_name }),
       this.ranking(),
-    );
-    for (const note of this.notes()) answer.append(el("p", { className: "scan-note", text: note }));
-    return el("div", { className: "scan-photo" }, this.frame(), answer);
+    ];
   }
 
   private frame(): HTMLElement {
@@ -82,8 +110,11 @@ export class ScanPhoto {
 
   private notes(): string[] {
     const notes: string[] = [];
+    if (this.verdict === "other") {
+      return ["The scanner looks for a bird first, then tells nine corvids apart. If there is a crow in this photo, try one where it is larger in the frame."];
+    }
     if (this.result.bird_box === null) {
-      notes.push("No bird was found, so this answer describes the whole photo. Treat it as a guess.");
+      notes.push("The ranking describes the whole photo, so treat it as a guess. A photo where the bird is larger in the frame may do better.");
     } else if (this.result.bird_box.birds > 1) {
       notes.push(`${this.result.bird_box.birds} birds were found; the largest was judged.`);
     }
@@ -102,7 +133,7 @@ export class ScanPhoto {
         "what separates most look-alike crows.",
       );
     }
-    notes.push("It knows nine corvids and always answers with one of them, even for a pigeon.");
+    notes.push("It knows nine corvids. Another kind of bird, such as a pigeon or a hawk, is still answered with one of them.");
     return notes;
   }
 }

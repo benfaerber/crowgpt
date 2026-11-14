@@ -5,13 +5,14 @@ one API call — built into `fieldserver/src/fieldserver/static/promo/` and serv
 by the field server at `/promo`, the same arrangement the dashboard uses. A
 running fleet stays one process on one port.
 
-The one call is the "Ask it yourself" buttons under the CrowGPT players
-(`src/live-caw.ts`): a press posts to the field server's tokenless
-`/api/demo/*` routes and plays the clip that comes back. The public build names
-`https://field.crowgpt.org` (`__FIELD_API__` in `vite.config.ts`); the `/promo`
-build and the dev server call their own origin. The block is hidden until the
-API has answered, so a page whose server is down renders whole with the buttons
-gone. `fieldserver/src/fieldserver/api/demo.py` says how presses are bounded.
+The front page calls nothing. Generating lives on its own page, **Talk to
+CrowGPT** (`crowgpt.html`, `src/crowgpt-chat.ts`): a chat where each quick-reply
+chip posts to the field server's tokenless `/api/demo/*` routes and the clip
+that comes back arrives as a voice note (`src/voice-note.ts`). The public build
+names `https://field.crowgpt.org` (`__FIELD_API__` in `vite.config.ts`); the
+`/promo` build and the dev server call their own origin. When the API does not
+answer the chat says it is offline and offers nothing to press.
+`fieldserver/src/fieldserver/api/demo.py` says how presses are bounded.
 
 ```bash
 make -C promo dev     # hot reload on :5174, needs nothing else running
@@ -162,11 +163,12 @@ nobody has to scroll to hear one. The stats stay up top on purpose.
 
 ## Pages
 
-Three documents, each its own entry in `vite.config.ts`: the front page, the
-credits roll, and **Scan** (`scan.html`). Scan is the first section to leave
-the front page. The rule for the next one: a section becomes a page when it
+Four documents, each its own entry in `vite.config.ts`: the front page, the
+credits roll, **Scan** (`scan.html`) and **Talk to CrowGPT** (`crowgpt.html`).
+Scan was the first section to leave the front page; generating followed, while
+the "Hear it" comparison players stayed behind. The rule for the next one: a section becomes a page when it
 is a tool people come back to or reference material nobody reads in order
-(credits, the scanner; the app's install steps and the full results table are
+(credits, the scanner, the chat; the app's install steps and the full results table are
 the likely next two). The story stays on one page.
 
 ## Scan

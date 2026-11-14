@@ -123,10 +123,17 @@ function Answer({ item }: { item: PhotoIdentification }) {
     );
   }
   const best = item.result.ranking[0];
+  const verdict = item.result.verdict ?? (item.result.bird_box ? "corvid" : "no_bird");
   return (
     <>
-      <h3>{best.common_name}</h3>
-      <span className="sci">{best.scientific_name}</span>
+      <h3>{verdict === "other" ? "Not a corvid" : verdict === "no_bird" ? "No bird found" : best.common_name}</h3>
+      <span className="sci">
+        {verdict === "other"
+          ? `The detector sees ${item.result.instead ?? "something else"} and no bird. The ranking is what the head says anyway.`
+          : verdict === "no_bird"
+            ? `Closest match if there is a corvid in it: ${best.common_name}.`
+            : best.scientific_name}
+      </span>
       <div className="bars">
         {item.result.ranking.slice(0, SHOWN).map((score) => (
           <div className="bar" key={score.slug}>

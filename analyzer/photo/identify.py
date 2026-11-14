@@ -63,6 +63,11 @@ class Identification:
     #: The upright frame the box is measured in.
     width: int
     height: int
+    #: "corvid" when a bird was found and judged; "no_bird" when none was,
+    #: and the ranking is then a guess about the whole frame; "other" when
+    #: the photo is confidently of something else, named in `instead`.
+    verdict: str = "corvid"
+    instead: str | None = None
 
     @property
     def best(self) -> SpeciesScore:
@@ -78,6 +83,8 @@ class Identification:
             "location_source": self.location_source,
             "width": self.width,
             "height": self.height,
+            "verdict": self.verdict,
+            "instead": self.instead,
         }
 
 
@@ -147,13 +154,15 @@ class PhotoIdentifier:
         else:
             latitude = longitude = source = None
         image = open_photo(path)
-        vector, box = self.features.extract(image)
+        vector, look = self.features.extract(image)
+        verdict = "corvid" if look.box else "other" if look.instead else "no_bird"
         scores = self.head.log_probabilities(vector)[0]
         used_location = latitude is not None and self.atlas.knows(self.head.classes, latitude, longitude)
         if used_location:
             scores = scores + self.atlas.log_likelihoods(self.head.classes, latitude, longitude)
-        return Identification(self._ranking(scores), box, used_location,
-                              latitude, longitude, source, image.width, image.height)
+        return Identification(self._ranking(scores), look.box, used_location,
+                              latitude, longitude, source, image.width, image.height,
+                              verdict, look.instead)
 
     def _ranking(self, scores):
         probabilities = np.exp(scores - scores.max())

@@ -91,7 +91,7 @@ export default defineConfig({
     outDir: isPublic ? "dist" : "../fieldserver/src/fieldserver/static/promo",
     emptyOutDir: true,
     rollupOptions: {
-      // Three pages, not one: the credits roll is its own document so the front
+      // Four pages, not one: the credits roll is its own document so the front
       // page never loads a hundred kilobytes of attribution nobody asked for.
       input: {
         main: resolve(__dirname, "index.html"),
@@ -99,6 +99,8 @@ export default defineConfig({
         // The scanner is the first section to become its own page: it is a
         // tool people come back to, and the front page is long enough.
         scan: resolve(__dirname, "scan.html"),
+        // CrowGPT's own page, so generating has room to be a conversation.
+        crowgpt: resolve(__dirname, "crowgpt.html"),
       },
     },
   },

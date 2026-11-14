@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talk to CrowGPT</title>
+    <meta
+      name="description"
+      content="Ask CrowGPT for an alarm call, a call, begging or song, and it answers with a brand-new one, generated on the spot by a small model trained on crow recordings."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icon-16.png" />
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png" />
+    <script type="module" src="/src/crowgpt-chat.ts"></script>
+  </head>
+  <body>
+    <main class="credits-page chat-page">
+      <nav class="nav">
+        <a class="wordmark" href="./">
+          <img
+            class="wordmark-icon"
+            src="./src/assets/icon-180.png"
+            alt=""
+            width="180"
+            height="180"
+          /><span><span class="caw">Crow</span>GPT</span>
+        </a>
+        <div class="nav-links">
+          <a href="./scan.html">Scan a crow</a>
+          <a href="./">← Back to the project</a>
+        </div>
+      </nav>
+
+      <header class="chat-hero">
+        <h1 class="credits-title">Talk to <span class="caw">Crow</span>GPT</h1>
+        <p class="section-lede">
+          A small transformer, 18.7M parameters, that learned to sound like a crow from
+          call bouts cut out of archive recordings, with
+          <strong>no human labeling anywhere in the loop</strong>. Ask it for a call and
+          it makes a brand-new one. Nothing it says is a recording of a bird.
+        </p>
+      </header>
+
+      <section class="chat-window" aria-label="Chat with CrowGPT">
+        <header class="chat-top">
+          <div class="chat-wire" aria-hidden="true"></div>
+          <div class="chat-perch">
+            <span class="chat-avatar chat-avatar-big" id="chat-avatar" aria-hidden="true"></span>
+            <div>
+              <p class="chat-name">CrowGPT</p>
+              <p class="chat-presence" id="chat-presence">perched · speaks fluent crow</p>
+            </div>
+          </div>
+        </header>
+
+        <ol class="chat-thread" id="chat-thread" aria-live="polite">
+          <li class="chat-row chat-row-bot">
+            <span class="chat-avatar" aria-hidden="true"></span>
+            <div class="chat-bubble chat-bubble-bot">
+              Caw. I'm CrowGPT. I learned to talk by listening to thousands of crow
+              recordings, and nobody labelled a single one for me.
+            </div>
+          </li>
+          <li class="chat-row chat-row-bot">
+            <span class="chat-avatar" aria-hidden="true"></span>
+            <div class="chat-bubble chat-bubble-bot">
+              Ask me for a call below and I'll make one for you on the spot, with its own
+              seed, so nobody else hears the same crow.
+            </div>
+          </li>
+        </ol>
+
+        <footer class="chat-composer">
+          <div class="chat-verify" id="chat-verify"></div>
+          <p class="chat-hint" id="chat-hint">Waking the crow…</p>
+          <div class="chat-chips" id="chat-chips" role="group" aria-label="Ask CrowGPT for"></div>
+          <noscript>
+            <p class="chat-hint">The chat needs JavaScript. The examples
+            <a href="#hear-it">below</a> play without it.</p>
+          </noscript>
+        </footer>
+      </section>
+
+      <section class="callout chat-hear" id="hear-it">
+        <h2>Hear it</h2>
+        <p>
+          Two generations of the model next to the real thing. Everything under a
+          CrowGPT caption is generated, not a recording of a bird; the third is a
+          field-recorded American Crow alarm call, labeled by ear, so you can judge the
+          gap, and the progress, yourself.
+        </p>
+        <div class="caw-compare">
+          <figure class="caw-player caw-player-bot">
+            <figcaption>CrowGPT1: generated, the early “crowbot” stage</figcaption>
+            <audio controls preload="metadata"
+                   src="./src/assets/crowgpt-alarm-preview.wav"></audio>
+          </figure>
+          <figure class="caw-player caw-player-bot">
+            <figcaption>CrowGPT2: generated, the current model with a 6-second context window</figcaption>
+            <audio controls preload="metadata"
+                   src="./src/assets/crowgpt2-preview.wav"></audio>
+          </figure>
+          <figure class="caw-player">
+            <figcaption>A real crow: field recording</figcaption>
+            <audio controls preload="metadata"
+                   src="./src/assets/real-alarm-call.wav"></audio>
+          </figure>
+        </div>
+        <p class="weights-link">
+          <a href="https://huggingface.co/faerber/crowgpt"><img class="icon-hf" src="./src/assets/hf-logo.svg" alt="" width="95" height="88" /><span>Both
+          models are on Hugging Face, with a card that says how to load and sample
+          them.</span></a>
+        </p>
+        <p class="playback-note">
+          <strong>Please don't play these outdoors.</strong> A fake alarm call could
+          stress real crows, so I don't play them to birds either, and the model's access
+          terms carry the same rule.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-legal"><a href="./">Back to CrowGPT</a></p>
+    </footer>
+  </body>
+</html>

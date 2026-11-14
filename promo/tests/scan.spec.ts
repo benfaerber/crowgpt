@@ -106,7 +106,8 @@ test("the wait counts down, and says so when it runs over", async ({ page }) => 
   await expect(status).toContainText(/Looking at the photo… About [123] seconds? left\./);
   await expect(status).toContainText("Looking at the photo… Taking longer than usual, still working.");
   await expect(page.locator(".scan-eta")).toHaveAttribute("aria-hidden", "true");
-  await expect(page.locator(".scan-answer h3")).toHaveText("American Crow");
+  // The answer follows the loader's landing and caw, about two seconds more.
+  await expect(page.locator(".scan-answer h3")).toHaveText("American Crow", { timeout: 10000 });
   await expect(status).not.toContainText("still working");
 });
 
@@ -127,6 +128,24 @@ test("a file is only offered for keeping when its box is ticked, and the box res
   await expect(page.locator(".scan-result")).toHaveCount(2);
   expect(posts[1]).not.toContain('name="keep"');
   await expect(page.locator(".scan-kept")).toHaveCount(1);
+});
+
+test("a photo of a cat is called a cat, and a photo with no bird says so", async ({ page }) => {
+  await setup(page, {}, { ...photoResult, bird_box: null, verdict: "other", instead: "cat" });
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "cat.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-answer h3")).toHaveText("Not a corvid");
+  await expect(page.locator(".scan-answer")).toContainText("a photo of a cat");
+  await expect(page.locator(".scan-ranking")).toHaveCount(0);
+  await expect(page.locator(".scan-box")).toHaveCount(0);
+
+  await page.route(`${api}/api/demo/scan/abc`, route => route.fulfill({
+    headers, json: { id: "abc", kind: "photo", state: "done", result: { ...photoResult, bird_box: null, verdict: "no_bird", instead: null } },
+  }));
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "sky.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-answer h3").first()).toHaveText("No bird found");
+  await expect(page.locator(".scan-answer").first()).toContainText("the closest match is American Crow");
 });
 
 test("a recording comes back as a timeline with its calls listed", async ({ page }) => {

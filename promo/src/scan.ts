@@ -1,7 +1,7 @@
 /** The Scan page: a visitor's photo, recording or video, read by the project's
  *  server. A photo comes back as a species; sound comes back as a timeline.
  *
- *  The second thing on the site that talks to a server, after live-caw.ts, and
+ *  The second thing on the site that talks to a server, after the CrowGPT chat, and
  *  bounded the same way: the server says which kinds it can read right now and
  *  whether an upload needs a Turnstile token. When it does not answer, the
  *  page says the scanner is offline and nothing else breaks.
@@ -12,6 +12,7 @@
 
 import "./styles.css";
 
+import { CrowLoader } from "./crow-loader";
 import { DemoChallenge } from "./demo-challenge";
 import { el } from "./dom";
 import { ScanPhoto, type PhotoResult } from "./scan-photo";
@@ -189,6 +190,7 @@ class ScanPage {
   private busy = false;
   private place: Place | null = null;
   private readonly countdown: Countdown;
+  private readonly loader = new CrowLoader();
   private readonly whereabouts = new Whereabouts(__GEO_URL__, __FIELD_API__ === "");
 
   constructor(
@@ -204,6 +206,7 @@ class ScanPage {
     private readonly keep: HTMLInputElement,
   ) {
     this.countdown = new Countdown(status);
+    this.drop.querySelector(".scan-drop-sky")?.append(this.loader.root);
   }
 
   async mount(): Promise<void> {
@@ -321,6 +324,9 @@ class ScanPage {
       return;
     }
     this.busy = true;
+    this.drop.dataset.state = "busy";
+    this.drop.dataset.kind = kind;
+    this.loader.start();
     const token = this.token;
     this.token = ""; // single-use, spent whether or not the upload succeeds
     this.refresh();
@@ -333,12 +339,15 @@ class ScanPage {
       while (scan.state === "queued" || scan.state === "running") {
         this.countdown.show(
           scan.ahead ? `${scan.ahead} ahead of you in the queue…` : WAITING[kind], scan.eta_seconds);
+        this.loader.estimate(scan.eta_seconds);
         await new Promise(resolve => window.setTimeout(resolve, POLL_MS));
         scan = await this.api.poll(scan.id);
       }
       if (scan.state === "failed" || !scan.result) {
         this.say(scan.error ?? "Could not read this file.");
       } else {
+        this.countdown.stop();
+        await this.loader.finish();
         this.show(file, kind, scan.result, offered ? scan.kept === true : null);
         this.say("");
       }
@@ -348,7 +357,9 @@ class ScanPage {
         : "The scanner did not answer. Try again in a minute.");
     } finally {
       this.countdown.stop();
+      this.loader.stop();
       this.busy = false;
+      delete this.drop.dataset.state;
       this.challenge.reset();
       this.refresh();
     }

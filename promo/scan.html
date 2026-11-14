@@ -25,7 +25,10 @@
             height="180"
           /><span><span class="caw">Crow</span>GPT</span>
         </a>
-        <div class="nav-links"><a href="./">← Back to the project</a></div>
+        <div class="nav-links">
+          <a href="./crowgpt.html">Talk to CrowGPT</a>
+          <a href="./">← Back to the project</a>
+        </div>
       </nav>
 
       <h1 class="credits-title">Scan a crow</h1>
@@ -42,7 +45,25 @@
         tabindex="0"
         aria-describedby="scan-limits"
       >
-        <p class="scan-drop-title">Drop a photo, a recording or a video here</p>
+        <span class="scan-peek" aria-hidden="true"></span>
+        <div class="scan-drop-sky" aria-hidden="true">
+          <span class="scan-beam"></span>
+        </div>
+        <ul class="scan-kinds" aria-hidden="true">
+          <li style="--kind: #6ea8fe">
+            <svg viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z" /><circle cx="12" cy="13.2" r="3.6" /></svg>
+            <span><strong>A photo</strong> which corvid is it?</span>
+          </li>
+          <li style="--kind: #6bd28a">
+            <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" /></svg>
+            <span><strong>A recording</strong> every call, on a timeline</span>
+          </li>
+          <li style="--kind: #c58af9">
+            <svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2" /><path d="M16 10.5 21 7.5v9l-5-3z" /></svg>
+            <span><strong>A video</strong> its sound, read the same way</span>
+          </li>
+        </ul>
+        <p class="scan-drop-title">Drop it here</p>
         <p class="scan-drop-sub">or click to choose a file</p>
       </div>
       <input type="file" id="scan-picker" hidden />
@@ -70,6 +91,7 @@
       <div id="scan-results" class="scan-results"></div>
 
       <section class="scan-about">
+        <article class="scan-about-card">
         <h2>What happens to your file</h2>
         <p class="section-lede">
           It goes to the project's server, is read once, and is deleted the moment the
@@ -92,6 +114,8 @@
           GPS. It is used for that one scan and deleted with the result, unless you
           asked for the file to be kept. Your address itself is not stored.
         </p>
+        </article>
+        <article class="scan-about-card">
         <h2>How much to trust it</h2>
         <p class="section-lede">
           The photo model knows nine corvids and is right about nine times in ten when
@@ -100,6 +124,7 @@
           overlap. The sound model reads call types best for the American Crow; for a
           species it has no call-type model for, it reports the species alone.
         </p>
+        </article>
       </section>
     </main>
 

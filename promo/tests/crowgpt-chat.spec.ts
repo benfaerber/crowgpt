@@ -20,7 +20,7 @@ async function setup(page: Page, options: { apiDown?: boolean; widgetDown?: bool
       };
     ` });
   });
-  await page.goto("/");
+  await page.goto("/crowgpt.html");
 }
 
 async function solve(page: Page, token = "single-use-token") {
@@ -28,16 +28,24 @@ async function solve(page: Page, token = "single-use-token") {
   await page.evaluate(token => (window as any).__challenge.options.callback(token), token);
 }
 
+const chip = (page: Page) => page.getByRole("button", { name: "A caw", exact: true });
+
 for (const outage of ["apiDown", "widgetDown"] as const) {
-  test(`${outage}: static page still renders with demo hidden`, async ({ page }) => {
+  test(`${outage}: the chat says it is offline and offers nothing to press`, async ({ page }) => {
     await setup(page, { [outage]: true });
     await expect(page.locator("h1")).toBeVisible();
-    await expect(page.locator("#live-caw")).toBeHidden();
-    await expect(page.locator('form[action*="/preview/request"]')).toBeVisible();
+    await expect(page.locator("#chat-presence")).toContainText("offline");
+    await expect(page.locator(".chat-chip")).toHaveCount(0);
   });
 }
 
-test("buttons wait for verification; each press sends a new token", async ({ page }) => {
+test("the front page links to the chat instead of generating itself", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".chat-invite")).toHaveAttribute("href", "./crowgpt.html");
+  await expect(page.locator("#crowgpt-preview audio")).toHaveCount(3);
+});
+
+test("chips wait for verification; each press sends a new token", async ({ page }) => {
   const tokens: string[] = [];
   await page.route(`${api}/api/demo/generate/caw`, route => {
     tokens.push(new URLSearchParams(route.request().postData() || "").get("cf-turnstile-response") || "");
@@ -45,38 +53,58 @@ test("buttons wait for verification; each press sends a new token", async ({ pag
   });
   await page.route(`${api}/api/demo/clips/1`, route => route.fulfill({ status: 204, headers }));
   await setup(page);
-  await expect(page.locator(".live-caw-menu")).toBeHidden();
+  await expect(chip(page)).toBeDisabled();
   await solve(page, "first-token");
-  const button = page.getByRole("button", { name: "A caw", exact: true });
-  await expect(button).toBeEnabled();
-  await button.click();
-  await expect(page.locator(".live-caw-result")).toContainText("seed 42");
-  await expect(button).toBeDisabled();
+  await expect(chip(page)).toBeEnabled();
+  await chip(page).click();
+  await expect(page.locator(".chat-bubble-me")).toHaveCount(1);
+  await expect(page.locator(".chat-thread")).toContainText("seed 42");
+  await expect(page.locator(".voice-note")).toHaveCount(1);
+  await expect(chip(page)).toBeDisabled();
   await solve(page, "second-token");
-  await button.click();
+  await chip(page).click();
   await expect.poll(() => tokens).toEqual(["first-token", "second-token"]);
   expect(await page.evaluate(() => (window as any).__challenge.options.action)).toBe("demo-generate");
 });
 
-test("expired verification hides the buttons until renewed", async ({ page }) => {
+test("a queued request shows CrowGPT typing until the clip is done", async ({ page }) => {
+  let polls = 0;
+  await page.route(`${api}/api/demo/generate/caw`, route =>
+    route.fulfill({ headers, json: { id: 7, state: "queued", seed: 9, model: "crowgpt2", ahead: 2 } }));
+  await page.route(`${api}/api/demo/generations/7`, route => {
+    polls++;
+    return route.fulfill({ headers, json: { id: 7, state: "done", seed: 9, model: "crowgpt2", clip: "/api/demo/clips/7" } });
+  });
+  await page.route(`${api}/api/demo/clips/7`, route => route.fulfill({ status: 204, headers }));
+  await setup(page);
+  await solve(page);
+  await chip(page).click();
+  await expect(page.locator(".chat-typing-label")).toContainText("2 ahead of you");
+  await expect(page.locator(".chat-thread")).toContainText("seed 9", { timeout: 10000 });
+  await expect(page.locator(".chat-typing")).toHaveCount(0);
+  expect(polls).toBe(1);
+});
+
+test("expired verification disables the chips until renewed", async ({ page }) => {
   await setup(page);
   await solve(page);
   await page.evaluate(() => (window as any).__challenge.options["expired-callback"]());
-  await expect(page.locator(".live-caw-menu")).toBeHidden();
+  await expect(chip(page)).toBeDisabled();
   await solve(page, "fresh-token");
-  await expect(page.locator(".live-caw-button")).toBeEnabled();
+  await expect(chip(page)).toBeEnabled();
 });
 
-test("verification/API failure on a press hides only the optional demo", async ({ page }) => {
+test("an API failure on a press takes the chat offline, not the page", async ({ page }) => {
   await page.route(`${api}/api/demo/generate/caw`, route => route.fulfill({ status: 503, headers }));
   await setup(page);
   await solve(page);
-  await page.locator(".live-caw-button").click();
-  await expect(page.locator("#live-caw")).toBeHidden();
+  await chip(page).click();
+  await expect(page.locator("#chat-presence")).toContainText("offline");
+  await expect(page.locator(".chat-chip")).toHaveCount(0);
   await expect(page.locator("h1")).toBeVisible();
 });
 
-test("rate refusal is shown without retrying the generation", async ({ page }) => {
+test("rate refusal is said in the chat without retrying", async ({ page }) => {
   let attempts = 0;
   await page.route(`${api}/api/demo/generate/caw`, route => {
     attempts++;
@@ -84,7 +112,9 @@ test("rate refusal is shown without retrying the generation", async ({ page }) =
   });
   await setup(page);
   await solve(page);
-  await page.locator(".live-caw-button").click();
-  await expect(page.locator(".live-caw-result")).toContainText("Too many requests");
+  await chip(page).click();
+  await expect(page.locator(".chat-thread")).toContainText("a lot of crow for one hour");
   expect(attempts).toBe(1);
+  await solve(page, "next-token");
+  await expect(chip(page)).toBeEnabled();
 });

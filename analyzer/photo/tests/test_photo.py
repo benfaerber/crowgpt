@@ -26,7 +26,7 @@ from analyzer.photo.identify import (  # noqa: E402
     exif_coordinates,
 )
 from analyzer.photo.vision import (  # noqa: E402
-    MAX_SIDE, BirdBox, PhotoFeatures, PhotoTooLarge, open_photo, square_crop,
+    MAX_SIDE, BirdBox, Look, PhotoFeatures, PhotoTooLarge, open_photo, square_crop,
 )
 
 SALT_LAKE = (40.76, -111.89)
@@ -48,10 +48,10 @@ def atlas():
 
 
 class StubDetector:
-    def __init__(self, box):
-        self.found = box
+    def __init__(self, box, instead=None):
+        self.found = Look(box, instead)
 
-    def box(self, image):
+    def look(self, image):
         return self.found
 
 
@@ -171,6 +171,25 @@ def test_the_bird_box_and_its_frame_are_reported(tmp_path):
     assert (result.width, result.height) == (64, 48)
     assert result.to_dict()["bird_box"]["left"] == 10
     assert (result.latitude, result.longitude) == SALT_LAKE
+
+
+def test_a_judged_bird_is_a_corvid_verdict(tmp_path):
+    result = identifier(BirdBox(10, 10, 50, 50, 0.9, 1)).identify(photo(tmp_path, (255, 0, 0)))
+    assert (result.verdict, result.instead) == ("corvid", None)
+    assert result.to_dict()["verdict"] == "corvid"
+
+
+def test_no_bird_is_said_so_and_still_ranked(tmp_path):
+    result = identifier().identify(photo(tmp_path, (255, 0, 0)))
+    assert result.verdict == "no_bird"
+    assert result.ranking
+
+
+def test_a_photo_of_something_else_names_it(tmp_path):
+    features = PhotoFeatures(StubDetector(None, "cat"), StubEmbedder())
+    result = PhotoIdentifier(features, identifier().head, atlas()).identify(photo(tmp_path, (255, 0, 0)))
+    assert (result.verdict, result.instead) == ("other", "cat")
+    assert result.to_dict()["instead"] == "cat"
 
 
 def test_coordinates_come_from_exif_when_not_given(tmp_path):

@@ -1451,64 +1451,6 @@ main {
   font-weight: 600;
 }
 
-/* ---- ask it yourself ----------------------------------------------------- */
-
-.live-caw {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border);
-}
-
-.live-caw h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.live-caw-menu {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1rem;
-}
-
-.live-caw[hidden],
-.live-caw-menu[hidden] {
-  display: none;
-}
-
-.live-caw-button {
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.92rem;
-}
-
-.live-caw-button:disabled {
-  cursor: progress;
-  opacity: 0.55;
-  transform: none;
-}
-
-.live-caw-button.is-asking {
-  opacity: 1;
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.live-caw-result {
-  margin-top: 1rem;
-  min-height: 1.5rem;
-}
-
-.live-caw-result .caw-player {
-  max-width: 28rem;
-}
-
-.live-caw-status {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
 /* ---- honest list --------------------------------------------------------- */
 
 /* ---- call types ----------------------------------------------------------- */
@@ -2707,4 +2649,776 @@ audio.scan-media {
 
 .call-credit a {
   color: inherit;
+}
+
+/* ---- CrowGPT chat page --------------------------------------------------- */
+/* A messenger with one contact. The header is a sky with a wire across it and
+ * CrowGPT perched there, cawing (the cyborg sprite) whenever a clip of its own
+ * is playing; the little avatars beside its bubbles do the same per message. */
+
+:root {
+  --sky-top: #1d2340;
+  --sky-mid: #5a3a5c;
+  --sky-low: #c66a32;
+  --bubble-me: var(--accent);
+  --bubble-me-ink: var(--accent-ink);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --sky-top: #2c6aa8;
+    --sky-mid: #5b97cc;
+    --sky-low: #e6b07a;
+  }
+}
+
+.chat-hero .section-lede {
+  max-width: var(--measure);
+}
+
+.chat-window {
+  margin: 2rem auto 0;
+  max-width: 44rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-1);
+  overflow: hidden;
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.55);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-top {
+  position: relative;
+  padding: 1.6rem 1.25rem 0.9rem;
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 60%, var(--sky-low));
+  overflow: hidden;
+}
+
+/* The wire sags a little, like a real one between two poles. */
+.chat-wire {
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml;utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20400%20100%22%20preserveAspectRatio=%22none%22%3E%3Cpath%20d=%22M-5%2084%20Q200%2096%20405%2084%22%20fill=%22none%22%20stroke=%22rgb(20%2016%2018%20/%200.75)%22%20stroke-width=%221.6%22%20vector-effect=%22non-scaling-stroke%22/%3E%3C/svg%3E') 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.chat-perch {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+}
+
+.chat-perch > div {
+  align-self: center;
+  padding-bottom: 0.6rem;
+}
+
+.chat-name {
+  margin: 0;
+  font-family: "Fredoka", ui-rounded, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+}
+
+.chat-presence {
+  margin: 0.15rem 0 0;
+  font-size: 0.82rem;
+  color: rgb(255 255 255 / 0.85);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+}
+
+.chat-presence::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  background: #6bd28a;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.35);
+}
+
+.chat-avatar {
+  flex: none;
+  width: 34px;
+  aspect-ratio: 84 / 74;
+  background: url("./assets/crow-caw-cyborg.png") 0 0 / 1600% 100% no-repeat;
+  animation: flap 1.6s steps(16, jump-none) infinite;
+  animation-play-state: paused;
+}
+
+.chat-avatar-big {
+  width: 76px;
+  margin-bottom: -14px;
+  filter: drop-shadow(0 3px 4px rgb(0 0 0 / 0.35));
+}
+
+.chat-avatar.is-speaking,
+.chat-row.is-speaking .chat-avatar,
+.chat-perch:hover .chat-avatar-big {
+  animation-play-state: running;
+}
+
+.chat-thread {
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-height: 18rem;
+  max-height: min(60vh, 34rem);
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text-muted) 18%, transparent) 1px, transparent 0) 0 0 / 18px 18px,
+    var(--surface-0);
+}
+
+.chat-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  animation: bubble-in 0.28s ease-out both;
+}
+
+.chat-row-me {
+  justify-content: flex-end;
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+}
+
+.chat-bubble {
+  max-width: min(78%, 30rem);
+  padding: 0.6rem 0.95rem;
+  border-radius: 18px;
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.chat-bubble-bot {
+  background: var(--surface-2);
+  color: var(--text-primary);
+  border-bottom-left-radius: 5px;
+}
+
+.chat-bubble-me {
+  background: var(--bubble-me);
+  color: var(--bubble-me-ink);
+  border-bottom-right-radius: 5px;
+}
+
+.chat-bubble-voice {
+  min-width: min(100%, 17rem);
+}
+
+.chat-meta {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.chat-typing {
+  display: inline-flex;
+  gap: 0.28rem;
+  margin-right: 0.55rem;
+  vertical-align: middle;
+}
+
+.chat-typing span {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: typing 1.1s ease-in-out infinite;
+}
+
+.chat-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chat-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.chat-typing-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.chat-composer {
+  padding: 0.9rem 1rem 1.1rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface-1);
+}
+
+.chat-hint {
+  margin: 0 0 0.55rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.chat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chat-chip {
+  --chip: var(--accent);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--chip);
+  background: color-mix(in srgb, var(--chip) 14%, transparent);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.chat-chip:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--chip) 30%, transparent);
+  transform: translateY(-1px);
+}
+
+.chat-chip:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.chat-chip:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.chat-verify:empty {
+  display: none;
+}
+
+.chat-verify {
+  margin-bottom: 0.6rem;
+}
+
+.chat-notes {
+  max-width: 44rem;
+  margin: 1.75rem auto 0;
+}
+
+.chat-notes .section-lede {
+  font-size: 0.95rem;
+}
+
+.chat-hear {
+  max-width: 64rem;
+  margin: 3rem auto 0;
+}
+
+/* ---- voice note ---------------------------------------------------------- */
+
+.voice-note {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.voice-note audio {
+  display: none;
+}
+
+.voice-play {
+  flex: none;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.voice-play::before {
+  content: "";
+  border-style: solid;
+  border-width: 0.4rem 0 0.4rem 0.68rem;
+  border-color: transparent transparent transparent currentColor;
+  translate: 2px 0;
+}
+
+.voice-play.is-playing::before {
+  width: 0.62rem;
+  height: 0.72rem;
+  border-width: 0;
+  border-left: 0.22rem solid currentColor;
+  border-right: 0.22rem solid currentColor;
+  translate: 0 0;
+}
+
+.voice-wave {
+  flex: 1;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  min-width: 8rem;
+}
+
+.voice-bar {
+  flex: 1;
+  height: var(--h, 30%);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--text-muted) 55%, transparent);
+  transition: background 0.15s ease;
+}
+
+.voice-bar.is-played {
+  background: var(--accent);
+}
+
+.voice-clock {
+  flex: none;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-row,
+  .chat-typing span {
+    animation: none;
+  }
+}
+
+/* The front page's way in to the chat. */
+.chat-invite {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 0.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: linear-gradient(120deg, var(--sky-top), var(--sky-mid) 65%, var(--sky-low));
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.chat-invite:hover,
+.chat-invite:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -18px rgb(0 0 0 / 0.6);
+}
+
+.chat-invite:hover .chat-avatar,
+.chat-invite:focus-visible .chat-avatar {
+  animation-play-state: running;
+}
+
+.chat-invite-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.chat-invite-text strong {
+  color: #fff;
+  font-family: "Fredoka", ui-rounded, system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.chat-invite-text span {
+  font-size: 0.92rem;
+  opacity: 0.92;
+}
+
+.chat-invite-go {
+  margin-left: auto;
+  font-size: 1.6rem;
+  transition: translate 0.15s ease;
+}
+
+.chat-invite:hover .chat-invite-go {
+  translate: 4px 0;
+}
+
+/* ---- Scan page, the playful layer ---------------------------------------- */
+/* A crow peeks over the drop zone and caws when something is dragged at it;
+ * while a file is being read the zone turns into a strip of sky with a crow
+ * flying back and forth under a sweeping beam. The states are the drop zone's
+ * data-state, set by scan.ts. */
+
+.scan-drop {
+  position: relative;
+  margin-top: 3.25rem;
+  padding: 2.25rem 1.5rem 2rem;
+  border-width: 2.5px;
+  background:
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text-muted) 16%, transparent) 1px, transparent 0) 0 0 / 16px 16px,
+    var(--surface-1);
+}
+
+.scan-drop:hover,
+.scan-drop:focus-visible,
+.scan-drop.is-over {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -26px rgb(0 0 0 / 0.6);
+}
+
+.scan-drop {
+  transition: border-color 0.15s, background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.scan-peek {
+  position: absolute;
+  top: -50px;
+  right: 2.5rem;
+  width: 72px;
+  aspect-ratio: 84 / 74;
+  background: url("./assets/crow-caw.png") 0 0 / 1600% 100% no-repeat;
+  animation: flap 1.6s steps(16, jump-none) infinite;
+  animation-play-state: paused;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.3));
+  transform: scaleX(-1);
+  pointer-events: none;
+}
+
+.scan-drop:hover .scan-peek,
+.scan-drop.is-over .scan-peek {
+  animation-play-state: running;
+}
+
+.scan-kinds {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.scan-kinds li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.95rem 0.55rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--kind) 55%, var(--border));
+  background: color-mix(in srgb, var(--kind) 12%, var(--surface-1));
+  text-align: left;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  color: var(--text-secondary);
+}
+
+.scan-kinds strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 0.92rem;
+}
+
+.scan-kinds svg {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0.4rem;
+  border-radius: 50%;
+  background: var(--kind);
+  fill: none;
+  stroke: #1b1612;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.scan-drop:hover .scan-kinds li,
+.scan-drop.is-over .scan-kinds li {
+  animation: kind-hop 0.5s ease;
+}
+
+.scan-kinds li:nth-child(2) {
+  animation-delay: 0.06s !important;
+}
+
+.scan-kinds li:nth-child(3) {
+  animation-delay: 0.12s !important;
+}
+
+@keyframes kind-hop {
+  40% {
+    transform: translateY(-4px);
+  }
+}
+
+.scan-drop-title {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.scan-drop-sub {
+  margin: 0.1rem 0 0;
+}
+
+.scan-drop-sky {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 60%, var(--sky-low));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.scan-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 90px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.28), transparent);
+  animation: beam 2.2s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+@keyframes beam {
+  from {
+    left: -90px;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+.scan-drop[data-state="busy"] {
+  opacity: 1;
+  border-style: solid;
+  border-color: var(--accent);
+  transform: none;
+}
+
+.scan-drop[data-state="busy"] .scan-drop-sky {
+  opacity: 1;
+}
+
+.scan-drop-sky::after {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.45);
+}
+
+.scan-drop[data-kind="photo"] .scan-drop-sky::after {
+  content: "Looking at the photo…";
+}
+
+.scan-drop[data-kind="audio"] .scan-drop-sky::after {
+  content: "Listening to the recording…";
+}
+
+.scan-drop[data-kind="video"] .scan-drop-sky::after {
+  content: "Listening to the video's sound…";
+}
+
+.scan-drop:has(.crow-loader.is-done) .scan-drop-sky::after {
+  content: "Caw! Done.";
+}
+
+.scan-drop[data-state="busy"] .scan-beam {
+  animation-play-state: running;
+}
+
+.scan-drop[data-state="busy"] .scan-peek {
+  opacity: 0;
+}
+
+.scan-drop[data-state="busy"] .scan-kinds,
+.scan-drop[data-state="busy"] .scan-drop-title,
+.scan-drop[data-state="busy"] .scan-drop-sub {
+  visibility: hidden;
+}
+
+.scan-status {
+  font-weight: 600;
+}
+
+.scan-result {
+  animation: bubble-in 0.4s ease-out both;
+}
+
+.scan-about {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.25rem;
+}
+
+.scan-about-card {
+  padding: 0.25rem 1.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-1);
+}
+
+.scan-about-card .section-lede {
+  font-size: 0.95rem;
+}
+
+.scan-about-card h2 {
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 720px) {
+  .scan-kinds {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .scan-peek {
+    right: 1.25rem;
+    width: 60px;
+    top: -41px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-beam,
+  .scan-result,
+  .scan-kinds li {
+    animation: none !important;
+  }
+}
+
+/* ---- crow loading bar ---------------------------------------------------- */
+/* The flying crow is the playhead of the work: it flies along a dotted trail
+ * to --progress, then lands as the cawing crow and caws (twice through the
+ * sprite) when finish() is called. */
+
+.crow-loader {
+  --bird: 54px;
+  position: relative;
+  height: calc(var(--bird) * 1.2);
+  margin: 0 0.25rem;
+}
+
+.crow-loader-trail {
+  position: absolute;
+  left: 0;
+  bottom: 22%;
+  height: 3px;
+  width: calc(var(--progress, 0) * (100% - var(--bird)) + var(--bird) * 0.4);
+  background: radial-gradient(circle, currentColor 1.2px, transparent 1.6px) 0 50% / 9px 3px repeat-x;
+  color: rgb(255 255 255 / 0.75);
+  transition: width 0.25s linear;
+}
+
+.crow-loader-bird {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--progress, 0) * (100% - var(--bird)));
+  width: var(--bird);
+  aspect-ratio: 190 / 263;
+  background: url("./assets/crow-flight.png") 0 0 / 1000% 100% no-repeat;
+  animation: flap 0.75s steps(10, jump-none) infinite, bob 1.5s ease-in-out infinite;
+  animation-play-state: paused;
+  transition: left 0.25s linear;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.3));
+}
+
+.crow-loader.is-flying .crow-loader-bird {
+  animation-play-state: running;
+}
+
+.crow-loader.is-landing .crow-loader-bird {
+  transition: left 0.6s ease-in-out;
+}
+
+.crow-loader.is-landing .crow-loader-trail {
+  transition: width 0.6s ease-in-out;
+}
+
+.crow-loader.is-done .crow-loader-bird {
+  aspect-ratio: 84 / 74;
+  width: calc(var(--bird) * 1.15);
+  left: calc(100% - var(--bird) * 1.15);
+  background: url("./assets/crow-caw.png") 0 0 / 1600% 100% no-repeat;
+  animation: flap 0.85s steps(16, jump-none) 2, land 0.3s ease-out;
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes land {
+  from {
+    translate: 0 -10px;
+  }
+}
+
+/* In the chat the bar rides inside CrowGPT's typing bubble. */
+.chat-bubble .crow-loader {
+  --bird: 30px;
+  height: calc(var(--bird) * 1.75);
+  width: min(15rem, 60vw);
+  margin: 0.2rem 0 0.35rem;
+  padding: 0 0.4rem;
+  box-sizing: content-box;
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 60%, var(--sky-low));
+}
+
+.chat-bubble .crow-loader-bird {
+  background-image: url("./assets/crow-flight.png");
+}
+
+/* On the Scan page it flies across the busy sky. */
+.scan-drop-sky .crow-loader {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.1rem;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crow-loader-bird {
+    animation: none !important;
+  }
 }

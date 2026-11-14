@@ -14,6 +14,9 @@ from PIL import Image, ImageOps
 
 BIOCLIP = "hf-hub:imageomics/bioclip-2"
 CONFIDENT = 0.5
+#: COCO's other animals, and people. Seen confidently in a photo with no bird,
+#: one of these is what the photo is of.
+OTHER_SUBJECTS = ("person", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe")
 FAINT = 0.3
 MARGIN = 1.2
 THREADS = 8
@@ -85,6 +88,14 @@ def square_crop(image: Image.Image, box: BirdBox | None) -> Image.Image:
     return image.crop((int(x), int(y), int(x + side), int(y + side)))
 
 
+@dataclass(frozen=True)
+class Look:
+    """What the detector made of a photo: the bird to judge, and when there
+    is no bird, the animal it is a photo of instead."""
+    box: BirdBox | None
+    instead: str | None = None
+
+
 class BirdDetector:
     """torchvision's COCO Faster R-CNN on a MobileNetV3 backbone, asked only
     about birds. Experiment 0093 measured it against the ResNet-50 one this
@@ -104,18 +115,33 @@ class BirdDetector:
         torch.set_num_threads(min(THREADS, len(os.sched_getaffinity(0))))
         weights = FasterRCNN_MobileNet_V3_Large_FPN_Weights.DEFAULT
         self.model = fasterrcnn_mobilenet_v3_large_fpn(weights=weights, box_score_thresh=FAINT).eval()
-        self.bird = weights.meta["categories"].index("bird")
+        self.categories = weights.meta["categories"]
 
     def box(self, image: Image.Image) -> BirdBox | None:
-        """The largest confidently detected bird, else the best faint one.
-        The subject of a bird photo is usually its biggest bird."""
+        return self.look(image).box
+
+    def look(self, image: Image.Image) -> Look:
+        """The bird to judge, or, when there is none, the animal the photo
+        is confidently of instead: a visitor's black cat should be called a
+        cat, not the corvid it least unlike."""
         import torch
         from torchvision.transforms.functional import to_tensor
 
         with torch.no_grad():
             found = self.model([to_tensor(image)])[0]
-        birds = [(b.tolist(), s.item()) for b, label, s in zip(found["boxes"], found["labels"], found["scores"])
-                 if label.item() == self.bird]
+        seen = [(self.categories[label.item()], b.tolist(), s.item())
+                for b, label, s in zip(found["boxes"], found["labels"], found["scores"])]
+        box = self._bird([(b, s) for name, b, s in seen if name == "bird"])
+        others = [(name, b) for name, b, s in seen if name in OTHER_SUBJECTS and s >= CONFIDENT]
+        instead = None
+        if box is None and others:
+            instead = max(others, key=lambda o: (o[1][2] - o[1][0]) * (o[1][3] - o[1][1]))[0]
+        return Look(box, instead)
+
+    @staticmethod
+    def _bird(birds) -> BirdBox | None:
+        """The largest confidently detected bird, else the best faint one.
+        The subject of a bird photo is usually its biggest bird."""
         if not birds:
             return None
         confident = [b for b in birds if b[1] >= CONFIDENT]
@@ -173,8 +199,8 @@ class PhotoFeatures:
         self.embedder = embedder
 
     def extract(self, image: Image.Image):
-        box = self.detector.box(image)
-        return self.vectors([(image, box)])[0], box
+        look = self.detector.look(image)
+        return self.vectors([(image, look.box)])[0], look
 
     def vectors(self, images_and_boxes) -> np.ndarray:
         views = [view for image, box in images_and_boxes for view in (image, square_crop(image, box))]

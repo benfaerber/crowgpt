@@ -653,6 +653,8 @@ export interface SpeciesScore {
 export interface PhotoIdResult {
   ranking: SpeciesScore[];
   bird_box: { left: number; top: number; right: number; bottom: number; score: number; birds: number } | null;
+  verdict?: "corvid" | "no_bird" | "other";
+  instead?: string | null;
   used_location: boolean;
   latitude: number | null;
   longitude: number | null;

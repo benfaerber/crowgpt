@@ -55,6 +55,7 @@
           <a href="#poe">The murder</a>
           <a href="#goal">The goal</a>
           <a href="#crowgpt">CrowGPT</a>
+          <a href="./crowgpt.html">Talk to it</a>
           <a href="./scan.html">Scan a crow</a>
           <a href="#app">The app</a>
           <a href="#request">Get the app</a>
@@ -481,19 +482,15 @@
             models are on Hugging Face, with a card that says how to load and sample
             them.</span></a>
           </p>
-          <!-- Shown by live-caw.ts once the API and verification are ready; a page
-               whose API is down keeps everything above and loses only this. -->
-          <div class="live-caw" id="live-caw" hidden>
-            <h4>Ask it yourself</h4>
-            <p>
-              Pick a call and the model generates one on the project's server, a fresh
-              seed every press. Usually it is ready at once; sometimes you wait a bout.
-              Every clip is new, with its seed shown, so no two visitors hear the same
-              crow.
-            </p>
-            <div class="live-caw-menu" role="group" aria-label="Ask CrowGPT for a call"></div>
-            <div class="live-caw-result" aria-live="polite"></div>
-          </div>
+          <a class="chat-invite" href="./crowgpt.html">
+            <span class="chat-avatar chat-avatar-big" aria-hidden="true"></span>
+            <span class="chat-invite-text">
+              <strong>Talk to CrowGPT</strong>
+              <span>Ask it for an alarm call, a call, begging or song, and it answers
+              with a brand-new one, generated while you wait.</span>
+            </span>
+            <span class="chat-invite-go" aria-hidden="true">→</span>
+          </a>
           <p class="playback-note">
             <strong>Please don't play these outdoors.</strong> A fake alarm call could
             stress real crows, so I don't play them to birds either, and the model's access
