@@ -44,6 +44,8 @@ class Worker:
     hosted: bool = True
     environment: dict = field(default_factory=dict)
     memory_max: str | None = None
+    requires_server: bool = True
+    restart_seconds: int = 10
 
     @property
     def unit(self) -> str:
@@ -64,7 +66,7 @@ class Worker:
             "[Unit]",
             f"Description={self.description}",
             f"After={SERVER_UNIT}.service",
-            f"Requires={SERVER_UNIT}.service",
+            *([f"Requires={SERVER_UNIT}.service"] if self.requires_server else []),
             "",
             "[Service]",
             f"User={user}",
@@ -74,7 +76,7 @@ class Worker:
             f"ExecStart={self.python(root, hosted=True)} {self.script}",
             *([f"MemoryMax={self.memory_max}"] if self.memory_max else []),
             "Restart=on-failure",
-            "RestartSec=10",
+            f"RestartSec={self.restart_seconds}",
             "",
             "[Install]",
             "WantedBy=multi-user.target",

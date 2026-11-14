@@ -129,9 +129,12 @@ apk-publish:
 	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/instance/apk/crowgpt-field-$$(date +%Y%m%d)-$$(git rev-parse --short HEAD).apk
 	@echo "published: every approved invite at https://field.crowgpt.org/preview/<token> now serves it"
 
-# Read-only: the difference between the worker units installed on the box and
-# what the workers.toml already deployed there would write.
+# The difference between the worker units installed on the box and what the
+# committed workers.toml would write. It ships the registry and its reader
+# (two files, nothing restarts) so the answer is about HEAD, then only reads.
 field-units:
+	@git archive --format=tar HEAD fieldserver/workers.toml fieldserver/src/fieldserver/core/workers.py \
+	  | ssh $(DEPLOY_HOST) 'tar -x -C ~/$(DEPLOY_DIR)'
 	@ssh $(DEPLOY_HOST) 'cd ~/$(DEPLOY_DIR)/fieldserver && $(BOX_WORKERS) diff'
 
 field-status:

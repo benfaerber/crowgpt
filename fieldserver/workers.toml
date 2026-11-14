@@ -10,6 +10,8 @@
 #   hosted        false keeps it off the box
 #   environment   extra variables for the unit, beside instance/service.env
 #   memory_max    a systemd MemoryMax, for a worker that could starve the server
+#   requires_server  false lets the unit outlive a stopped server (default true)
+#   restart_seconds  the wait before systemd restarts a failed worker (default 10)
 #
 # A worker whose venv does not exist is skipped with a line saying so, here
 # and on the box, so a venv nobody has built never becomes a crash loop.
@@ -45,3 +47,5 @@ PHOTO_ID_MODEL = "../data/photos/models/photo-id"
 description = "CrowGPT scout layer scheduler (weekly rebuild)"
 script = "worker/scout_scheduler.py"
 venv = ".venv"
+requires_server = false
+restart_seconds = 60
