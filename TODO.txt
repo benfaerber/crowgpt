@@ -1589,8 +1589,9 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
       - Server side: deployed 2026-11-13. The hosted /api/demo/scan offers
         audio and video (crowgpt-analyze answers them), reports photo as
         unavailable, and refuses an upload without a Turnstile token (403).
-      - The page: `make -C promo deploy`, Ben's to run. Until then nothing
-        on crowgpt.org links to the route.
+      - The page: published 2026-11-13 on Ben's word. crowgpt.org/scan and
+        /geo answer. Not yet confirmed: a real upload through the live page,
+        which needs a browser to pass Turnstile.
       - Photos stay "not available right now" until the photo worker exists
         on the box (entry above); the page says so by itself.
       - Size path: Caddy sets no body limit, so 40 MB passes it. Cloudflare's
