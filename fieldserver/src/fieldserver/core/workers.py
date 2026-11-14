@@ -141,7 +141,10 @@ class Sandbox:
         # not there to be read. The worker is then PID 1 of that table, and
         # the kernel only delivers PID 1 a signal it has a handler for:
         # Python has one for SIGINT and none for SIGTERM.
-        lines += ["PrivatePIDs=yes", "KillSignal=SIGINT", "TimeoutStopSec=20"]
+        # A worker stopped that way exits on KeyboardInterrupt, which is a
+        # clean stop and not a failure to restart from.
+        lines += ["PrivatePIDs=yes", "KillSignal=SIGINT", "SuccessExitStatus=SIGINT 130",
+                  "TimeoutStopSec=20"]
         return lines
 
     def server(self) -> list[str]:

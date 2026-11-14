@@ -10,7 +10,9 @@ https://field.crowgpt.org (Caddy for TLS, a systemd unit for the server and one 
 the deploy entry in FUTURE.txt has the layout) and `make field-deploy` from
 this laptop updates it. The promo page at crowgpt.org is a Cloudflare Worker
 (`make -C promo deploy`) and the code has been on GitHub since 2026-10-21.
-Enrollment is still a single shared secret and nothing invites strangers yet.
+An approved invite enrolls with its own code (revision 0040), and the shared
+enrollment token is for Ben's own phones only; it was rotated on 2026-11-14
+and lives in the box's `instance/secrets.env`.
 Treat "how would this behave with a thousand contributors" as a design
 question worth answering, not a problem to solve today. `make field` still
 runs a local server for development; the phones point at the hosted one.
@@ -106,6 +108,19 @@ box, then checks `/api/health`. `make field-status` and `make field-logs` say
 how it is doing. The box runs only what is committed (git archive, not the
 working tree), so an uncommitted fix is not deployed however many times the
 target runs.
+
+**The hosted units are sandboxes, written from the registry.**
+`fieldserver/src/fieldserver/core/workers.py` writes the server's unit and
+every worker's on a deploy. A worker sees the repository read-only, writes
+only to `instance/` and `data/`, has no network and no sudo, and is started
+from `instance/worker.env`, which the deploy derives from `service.env` with
+the secrets left out. So a worker that needs a new setting needs its prefix in
+`WORKER_SETTINGS`, one that needs to write somewhere new needs the path in
+`Sandbox`, and one that needs the network says `network = true` in
+`workers.toml`. A model whose weights are not already in the box's caches
+cannot download them from inside the unit: fetch them over ssh first, as
+`make photo-deploy` does. The server runs under waitress, not Flask's
+development server.
 
 **Schema is Alembic's, on the server.** No store creates a table or adds a
 column any more; `create_app` runs `upgrade head` and then refuses to start if

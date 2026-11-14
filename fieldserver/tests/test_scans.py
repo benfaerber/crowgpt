@@ -379,10 +379,11 @@ class TestVerifiedBeforeTheBodyIsRead:
         assert created.status_code == 202
         assert len(seen) == 1
 
-    def test_the_form_field_still_works_for_a_page_from_before_the_header(self, guarded, monkeypatch):
-        self.answer(monkeypatch, success=True)
-        assert upload(guarded, **{"cf-turnstile-response": "good"}).status_code == 202
+    def test_a_token_in_the_form_is_not_a_token(self, guarded, monkeypatch):
+        seen = self.answer(monkeypatch, success=True)
+        assert upload(guarded, **{"cf-turnstile-response": "good"}).status_code == 403
         assert upload(guarded).status_code == 403
+        assert seen == []
 
     def test_a_spent_allowance_is_refused_before_the_body_is_read(self, client, scans):
         from fieldserver.api.scan import SCANS_PER_HOUR

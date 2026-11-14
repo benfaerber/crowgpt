@@ -10,6 +10,39 @@ few days, this one is everything after. An item graduates from here to there
 when it has a shape and a reason to happen now.
 
 
+[ ] What the 2026-11-14 security audit left open (Rook)
+
+    The audit's findings were fixed and deployed the same day: sandboxed
+    units, waitress, per-invite enrollment codes with a storage allowance,
+    scan uploads verified before the body is read and decoded only as the
+    formats the page accepts, photo size limits, the listening-pool folder
+    rule, security headers. These are what was looked at and not done:
+
+      - The field host is still DNS-only, so nothing rate-limits at the edge
+        and the origin IP answers directly. The proxy flip in
+        fieldserver/deploy/cloudflare.md is still Ben's to do or decline.
+      - /preview/request has no Turnstile, only five submissions an hour per
+        address. Adding it needs field.crowgpt.org on the widget's hostname
+        list in the Cloudflare dashboard, and `hostnames` in
+        core/turnstile.py to match.
+      - No Content-Security-Policy on the dashboard, which keeps its token in
+        localStorage. A policy has to be written against the built bundle
+        (map tiles, audio blobs, inline styles) and tested in a browser.
+      - An invited contributor past the 2 GB allowance gets a 413 the app
+        shows as a failed sync. The app should say what happened.
+      - An enrolled phone can still queue analysis jobs without limit, and
+        the WAV-to-FLAC step runs ffmpeg in the request that finishes an
+        upload. Both are bounded by who is enrolled, which is now per invite.
+      - Workers and server share one uid. The sandbox hides the server's
+        process and secrets from a worker, but a worker must write the
+        database and so could still forge a device row. A separate uid would
+        not change that; a worker that returns results over a socket would.
+      - The Cloudflare API token sat in every unit's environment until this
+        audit, and was removed from the box (promo/tools/traffic.py reads the
+        laptop's copy). Nothing suggests it leaked; rolling it is cheap.
+      - FIELD_PREVIEW_PASSWORD is still in the box's env files and nothing
+        reads it.
+
 [ ] Auto-grading the CrowGPT listening test: what has been measured, and
     the one pilot still worth running (investigated 2026-09-11, Jynx)
 

@@ -56,9 +56,9 @@ No GitHub push and no firewall changes are authorized by this rollout.
 
 The IP 135.148.166.158 is already public. Anyone can bypass Cloudflare using
 that IP with the hostname as TLS SNI/Host. Turnstile server verification and
-application limits still apply, but edge rate limiting does not. The field API
-uses Werkzeug's threaded development server, and generation/analyzer services
-currently have unlimited CPU and memory. Eight waiting demo jobs bounds the
+application limits still apply, but edge rate limiting does not. (Since
+2026-11-14 the field API runs under waitress with sixteen threads and the
+analyze, generate and photo units carry a MemoryMax; CPU is still shared.) Eight waiting demo jobs bounds the
 queue, not resource contention. Cloudflare plus Turnstile cannot promise that a
 traffic spike will never affect uploads on this shared VPS.
 

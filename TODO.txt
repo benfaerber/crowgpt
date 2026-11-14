@@ -1489,14 +1489,6 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     backup API rather than copied live. Nothing on the box should reach
     back here.
 
-[ ] A real WSGI server on the hosted box
-
-    crowgpt-field runs `fieldserver`, which is werkzeug's development server
-    behind Caddy. It works for one fleet and SQLite serialises writers
-    anyway, but it is single-process and prints the "do not use in
-    production" banner on every start. gunicorn or waitress, two workers,
-    bound to loopback; the ProxyFix opt-in already handles the headers.
-
 [ ] test_corpus: the stored-bytes route no longer sends Accept-Ranges
 
     tests/test_corpus.py::TestAudio::test_the_stored_bytes_stream_with_range_support
