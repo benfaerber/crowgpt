@@ -21,7 +21,7 @@ export interface Tag {
 }
 
 interface Figure {
-  value: number | string | Tag[];
+  value: number | string | string[] | Tag[];
   text: string;
   about: string;
   source: string;
@@ -59,5 +59,12 @@ export function num(key: string): number {
 export function tags(key = "context.vocabulary"): Tag[] {
   const { value } = figure(key);
   if (!Array.isArray(value)) throw new Error(`figure "${key}" is not a list`);
-  return value;
+  return value as Tag[];
+}
+
+/** A figure that is a list of names, such as the species behind a count. */
+export function names(key: string): string[] {
+  const { value } = figure(key);
+  if (!Array.isArray(value)) throw new Error(`figure "${key}" is not a list`);
+  return value as string[];
 }

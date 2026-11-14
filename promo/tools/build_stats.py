@@ -38,6 +38,13 @@ STATS = REPO / "promo" / "stats.json"
 FIELD_DB = Path(os.environ.get("FIELD_DB") or REPO / "fieldserver" / "instance" / "field.db")
 CREDITS = REPO / "promo" / "public" / "credits.json"
 HEADS = REPO / "pipelines" / "training" / "models"
+SPECIES_NAMES = {
+    "american-crow": "American crow",
+    "carrion-crow": "Carrion crow",
+    "common-raven": "Common raven",
+    "hooded-crow": "Hooded crow",
+    "rook": "Rook",
+}
 CROWTOOLS = REPO / "pipelines" / "ingest" / "crowtools" / "labels.json"
 
 HUMAN = "label_source = 'human'"
@@ -200,6 +207,13 @@ class Rules:
         # training run cannot quietly add a species to the front page.
         n = sum(1 for d in HEADS.iterdir() if d.is_dir() and (d / "metrics.json").exists())
         return n, grouped(n)
+
+    def species_head_list(self):
+        """The species behind `species.heads`, named for the hover on that number."""
+        names = [SPECIES_NAMES.get(d.name, d.name.replace("-", " ").capitalize())
+                 for d in sorted(HEADS.iterdir())
+                 if d.is_dir() and (d / "metrics.json").exists()]
+        return names, ", ".join(names)
 
     def crowtools_segments(self):
         labels = self.s.json_at(CROWTOOLS)["labels"]

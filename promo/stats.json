@@ -1,6 +1,6 @@
 {
   "_readme": "Every number the promo page prints. `make -C promo stats` refreshes the entries marked auto from where they are measured; the rest are typed by hand and the script only tells you when it cannot check them. The page prints `text`, never `value` — so what a visitor reads is in this file verbatim. See promo/README.md.",
-  "refreshed_at": "2026-11-06",
+  "refreshed_at": "2026-11-13",
   "figures": {
     "project.since": {
       "value": "18 July 2026",
@@ -236,6 +236,19 @@
       "text": "5",
       "auto": true,
       "about": "Corvid species with their own call-type head",
+      "source": "pipelines/training/models/*/metrics.json"
+    },
+    "species.head_list": {
+      "value": [
+        "American crow",
+        "Carrion crow",
+        "Common raven",
+        "Hooded crow",
+        "Rook"
+      ],
+      "text": "American crow, Carrion crow, Common raven, Hooded crow, Rook",
+      "auto": true,
+      "about": "The species behind species.heads, shown on hover over that number",
       "source": "pipelines/training/models/*/metrics.json"
     },
     "crowtools.segments": {

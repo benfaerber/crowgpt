@@ -8,6 +8,7 @@ import { HeadingAnchors } from "./heading-anchors";
 import { Lightbox } from "./lightbox";
 import { LiveCaw } from "./live-caw";
 import { MailLink } from "./mail-link";
+import { SpeciesTip } from "./species-tip";
 
 new AucFigure({
   chart: document.querySelector("#auc-chart"),
@@ -31,5 +32,8 @@ new CawPlayers(".caw-player").mount();
 void new LiveCaw("#live-caw", __FIELD_API__).mount();
 
 new ChipTips(".chips").mount();
+
+const speciesCount = document.querySelector<HTMLElement>("#species-heads");
+if (speciesCount) new SpeciesTip(speciesCount).mount();
 
 new HeadingAnchors("main h2, main h3, main h4").mount();

@@ -2163,7 +2163,7 @@ main {
  * centred and then nudged back inside the viewport by chip-tip.ts.
  */
 
-.chips {
+.hover-tip {
   position: relative;
   display: inline-block;
 }
@@ -2207,6 +2207,10 @@ main {
   background: var(--surface-0);
   box-shadow: 0 10px 30px rgb(0 0 0 / 0.32);
   text-align: left;
+  /* Reset, not inherited: the species panel hangs off a 2.5rem serif stat. */
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: normal;
+  line-height: 1.4;
   /* 23 chips stack taller than a phone. Cap it and let the panel scroll rather
      than run off the bottom with no way to reach the rest. */
   /* chip-tip.ts measures the room on the chosen side and sets --max-height when
@@ -2229,20 +2233,20 @@ main {
   height: 10px;
 }
 
-.chips:not([data-below]) .chips-tip::before {
+.hover-tip:not([data-below]) .chips-tip::before {
   bottom: -10px;
 }
 
-.chips[data-below] .chips-tip::before {
+.hover-tip[data-below] .chips-tip::before {
   top: -10px;
 }
 
-.chips[data-open] .chips-tip {
+.hover-tip[data-open] .chips-tip {
   display: flex;
 }
 
 /* Not enough room above the word — the panel goes under it instead. */
-.chips[data-below] .chips-tip {
+.hover-tip[data-below] .chips-tip {
   bottom: auto;
   top: var(--anchor-top, calc(100% + 8px));
 }
