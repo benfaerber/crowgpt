@@ -1586,15 +1586,16 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
         in a promo deploy on the evening of 2026-11-13, and the "Ask it
         yourself" buttons hid until Ben made a widget and synced the keys.
         The scan uses action `demo-scan`; the widget needs no change for it.
-      - `make field-deploy` for the server side, then `make -C promo deploy`
-        for the page (Ben runs the second). Sound scanning works on the box
-        as soon as the first is done, since crowgpt-analyze already runs
-        there. Photos stay "not available right now" until the photo worker
-        exists on the box (entry above); the page says so by itself.
-      - Size and proxy. Sound uploads go up to 40 MB in one request, above
-        the server's default 16 MB cap (the route raises it for itself).
-        Check Caddy and, once the Cloudflare proxy is on, its 100 MB limit
-        pass that through.
+      - Server side: deployed 2026-11-13. The hosted /api/demo/scan offers
+        audio and video (crowgpt-analyze answers them), reports photo as
+        unavailable, and refuses an upload without a Turnstile token (403).
+      - The page: `make -C promo deploy`, Ben's to run. Until then nothing
+        on crowgpt.org links to the route.
+      - Photos stay "not available right now" until the photo worker exists
+        on the box (entry above); the page says so by itself.
+      - Size path: Caddy sets no body limit, so 40 MB passes it. Cloudflare's
+        proxy, if switched on, allows 100 MB. A real 40 MB upload to the box
+        is still untested.
 
     Decided, revisit if abused: 12 scans an hour per address, 6 waiting per
     queue, first 90 s of a recording analysed, no visitor address stored.
