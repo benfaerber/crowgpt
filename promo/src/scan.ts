@@ -47,44 +47,64 @@ interface Place {
   label: string;
 }
 
+/** Where the visitor roughly is, and which country (ISO code) that is in. */
+interface Visitor {
+  place: Place | null;
+  country: string | null;
+}
+
 /** Finds the visitor's approximate location without asking the browser for
  *  it: the public site's own /geo, which is Cloudflare's estimate. The copy a
- *  field server serves has no /geo, so `?near=lat,lon` stands in there. */
+ *  field server serves has no /geo, so `?near=lat,lon` and `?country=US`
+ *  stand in there. */
 class Whereabouts {
   constructor(private readonly url: string, private readonly allowOverride: boolean) {}
 
-  async find(): Promise<Place | null> {
-    return (this.allowOverride && this.fromQuery()) || this.fromNetwork();
+  async find(): Promise<Visitor> {
+    const query = this.allowOverride ? this.fromQuery() : null;
+    return query && (query.place || query.country) ? query : this.fromNetwork();
   }
 
-  private fromQuery(): Place | null {
-    const near = new URLSearchParams(window.location.search).get("near");
+  private fromQuery(): Visitor {
+    const params = new URLSearchParams(window.location.search);
+    const near = params.get("near");
     const [latitude, longitude] = (near ?? "").split(",").map(Number);
-    if (!near || !Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
-    return { latitude, longitude, label: `${latitude.toFixed(2)}, ${longitude.toFixed(2)}` };
+    const place = near && Number.isFinite(latitude) && Number.isFinite(longitude)
+      ? { latitude, longitude, label: `${latitude.toFixed(2)}, ${longitude.toFixed(2)}` }
+      : null;
+    return { place, country: params.get("country")?.toUpperCase() ?? null };
   }
 
-  private async fromNetwork(): Promise<Place | null> {
-    if (!this.url) return null;
+  private async fromNetwork(): Promise<Visitor> {
+    const nobody = { place: null, country: null };
+    if (!this.url) return nobody;
     try {
       const response = await fetch(this.url, { signal: AbortSignal.timeout(5000) });
-      if (!response.ok) return null;
+      if (!response.ok) return nobody;
       const body = (await response.json()) as {
         latitude: number | null; longitude: number | null;
         city: string | null; region: string | null; country: string | null;
       };
-      if (body.latitude === null || body.longitude === null) return null;
+      const country = body.country ?? null;
+      if (body.latitude === null || body.longitude === null) return { place: null, country };
       const names = [body.city, body.region ?? body.country].filter(Boolean);
       return {
-        latitude: body.latitude,
-        longitude: body.longitude,
-        label: names.length ? `near ${names.join(", ")}` : "roughly where you are",
+        place: {
+          latitude: body.latitude,
+          longitude: body.longitude,
+          label: names.length ? `near ${names.join(", ")}` : "roughly where you are",
+        },
+        country,
       };
     } catch {
-      return null;
+      return nobody;
     }
   }
 }
+
+/** Countries where the keep box starts ticked. Everywhere else it starts
+ *  unticked and is asked afresh for every file. */
+const KEEP_BY_DEFAULT = new Set(["US"]);
 
 const POLL_MS = 1500;
 const WAITING = {
@@ -191,6 +211,10 @@ class ScanPage {
   private token = "";
   private busy = false;
   private place: Place | null = null;
+  /** Ticked again after each file. True only for a visitor in KEEP_BY_DEFAULT
+   *  who has not unticked it; one untick is a no for the rest of the visit. */
+  private keepDefault = false;
+  private keepTouched = false;
   private readonly countdown: Countdown;
   private readonly loader = new CrowLoader();
   private readonly whereabouts = new Whereabouts(__GEO_URL__, __FIELD_API__ === "");
@@ -249,7 +273,12 @@ class ScanPage {
 
   /** Not awaited by mount: a slow or absent lookup must not hold the page. */
   private async locateVisitor(): Promise<void> {
-    this.place = await this.whereabouts.find();
+    const visitor = await this.whereabouts.find();
+    if (visitor.country && KEEP_BY_DEFAULT.has(visitor.country) && !this.keepTouched) {
+      this.keepDefault = true;
+      this.keep.checked = true;
+    }
+    this.place = visitor.place;
     if (!this.place) return;
     this.placeName.textContent = this.place.label;
     this.locateRow.hidden = false;
@@ -272,6 +301,10 @@ class ScanPage {
   }
 
   private wire(): void {
+    this.keep.addEventListener("change", () => {
+      this.keepTouched = true;
+      if (!this.keep.checked) this.keepDefault = false;
+    });
     this.drop.addEventListener("click", () => { if (this.ready()) this.picker.click(); });
     this.drop.addEventListener("keydown", event => {
       if ((event.key === "Enter" || event.key === " ") && this.ready()) {
@@ -341,7 +374,7 @@ class ScanPage {
     try {
       const place = this.locate.checked ? this.place : null;
       const offered = this.keep.checked;
-      this.keep.checked = false; // asked afresh for every file
+      this.keep.checked = this.keepDefault;
       let scan = await this.api.upload(file, token, place, offered);
       while (scan.state === "queued" || scan.state === "running") {
         this.countdown.show(

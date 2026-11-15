@@ -112,7 +112,7 @@ test("the wait counts down, and says so when it runs over", async ({ page }) => 
 });
 
 test("a file is only offered for keeping when its box is ticked, and the box resets", async ({ page }) => {
-  const posts = await setup(page);
+  const posts = await setup(page, {}, photoResult, { ...geo, city: "Toronto", region: "Ontario", country: "CA" });
   await page.route(`${api}/api/demo/scan/abc`, route => route.fulfill({
     headers, json: { id: "abc", kind: "photo", state: "done", result: photoResult, kept: true },
   }));
@@ -228,4 +228,28 @@ test("a scan that fails on the server leaves a card saying why", async ({ page }
   const card = page.locator(".scan-result-failed");
   await expect(card).toContainText("walk.mp4");
   await expect(card).toContainText("This video has no sound");
+});
+
+test("in the US the keep box starts ticked and stays ticked from file to file", async ({ page }) => {
+  const posts = await setup(page);
+  await page.route(`${api}/api/demo/scan/abc`, route => route.fulfill({
+    headers, json: { id: "abc", kind: "photo", state: "done", result: photoResult, kept: true },
+  }));
+  await expect(page.locator("#scan-keep")).toBeChecked();
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-kept")).toContainText("Kept for the project");
+  expect(posts[0]).toContain('name="keep"');
+  await expect(page.locator("#scan-keep")).toBeChecked();
+});
+
+test("a US visitor who unticks the keep box is not ticked again", async ({ page }) => {
+  const posts = await setup(page);
+  await expect(page.locator("#scan-keep")).toBeChecked();
+  await page.locator("#scan-keep").uncheck();
+  await solve(page);
+  await page.locator("#scan-picker").setInputFiles({ name: "crow.png", mimeType: "image/png", buffer: PNG });
+  await expect(page.locator(".scan-result")).toHaveCount(1, { timeout: 10000 });
+  expect(posts[0]).not.toContain('name="keep"');
+  await expect(page.locator("#scan-keep")).not.toBeChecked();
 });
