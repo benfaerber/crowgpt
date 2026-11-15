@@ -16,7 +16,6 @@
 
 import "./styles.css";
 
-import { CawPlayers } from "./caw-player";
 import { CrowLoader } from "./crow-loader";
 import { DemoChallenge } from "./demo-challenge";
 import { el } from "./dom";
@@ -297,7 +296,7 @@ class CrowChat {
     this.voice.status("roosting · offline");
     this.hint.textContent = "";
     this.hint.append("The chat is offline right now. The examples ",
-      el("a", { text: "below", attrs: { href: "#hear-it" } }), " still play.");
+      el("a", { text: "on the project page", attrs: { href: "./#crowgpt-preview" } }), " still play.");
     this.bot("I'm off the wire right now: the server that runs me isn't answering. Try me again a little later.");
   }
 
@@ -311,8 +310,6 @@ function need<T extends HTMLElement>(selector: string): T {
   if (!node) throw new Error(`crowgpt page is missing ${selector}`);
   return node;
 }
-
-new CawPlayers(".caw-player").mount();
 
 void new CrowChat(
   need("#chat-thread"),

@@ -8,6 +8,7 @@ import { Flock } from "./flock";
 import { HeadingAnchors } from "./heading-anchors";
 import { Lightbox } from "./lightbox";
 import { MailLink } from "./mail-link";
+import { NavMenu } from "./nav-menu";
 import { PeanutDrop } from "./peanut-drop";
 import { SpeciesTip } from "./species-tip";
 
@@ -24,6 +25,10 @@ const lightbox = new Lightbox(".hero-photo, .photo, .shot, .video");
 lightbox.mount();
 
 new MailLink(".mail").mount();
+
+const nav = document.querySelector<HTMLElement>(".hero .nav");
+const navLinks = nav?.querySelector<HTMLElement>(".nav-links");
+if (nav && navLinks) new NavMenu(nav, navLinks).mount();
 
 new Flock("#flock", lightbox).mount();
 

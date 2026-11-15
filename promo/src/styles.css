@@ -513,6 +513,124 @@ img {
   color: var(--text-primary);
 }
 
+.nav-toggle {
+  display: none;
+}
+
+/* Phones: the links fold behind the Menu button (nav-menu.ts adds it and the
+ * has-menu class, so without the script they stay wrapped and reachable).
+ * Open, the hero's content rises above the flock so a crow crossing the panel
+ * cannot take the tap meant for a link. */
+@media (max-width: 720px) {
+  .nav.has-menu {
+    position: relative;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-bottom: 2.5rem;
+  }
+
+  .nav.has-menu .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-1) 75%, transparent);
+    backdrop-filter: blur(6px);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .nav-toggle-bars,
+  .nav-toggle-bars::before,
+  .nav-toggle-bars::after {
+    display: block;
+    width: 14px;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle-bars {
+    position: relative;
+  }
+
+  .nav-toggle-bars::before,
+  .nav-toggle-bars::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .nav-toggle-bars::before {
+    top: -5px;
+  }
+
+  .nav-toggle-bars::after {
+    top: 5px;
+  }
+
+  .nav.is-open .nav-toggle-bars {
+    background: transparent;
+  }
+
+  .nav.is-open .nav-toggle-bars::before {
+    transform: translateY(5px) rotate(45deg);
+    background: currentColor;
+  }
+
+  .nav.is-open .nav-toggle-bars::after {
+    transform: translateY(-5px) rotate(-45deg);
+    background: currentColor;
+  }
+
+  .nav.has-menu .nav-links {
+    display: none;
+  }
+
+  .nav.has-menu.is-open .nav-links {
+    position: absolute;
+    top: calc(100% - 1.9rem);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.15rem 1rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-1);
+    box-shadow: 0 14px 34px rgb(0 0 0 / 0.35);
+    font-size: 1rem;
+    animation: menu-in 0.18s ease-out;
+  }
+
+  .nav.has-menu.is-open .nav-links a:not(.icon-link) {
+    padding: 0.5rem 0;
+  }
+
+  .nav.has-menu.is-open .icon-link {
+    padding: 0.5rem 0;
+  }
+
+  .hero-inner:has(.nav.is-open) {
+    z-index: 4;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
 /* The two off-site links are marks rather than words: the GitHub octocat in
  * the text colour, the Hugging Face face in its own yellow. Sized to the cap
  * height of the links beside them so the row reads as one line. */
@@ -2982,9 +3100,10 @@ audio.scan-media {
   font-size: 0.95rem;
 }
 
-.chat-hear {
-  max-width: 64rem;
-  margin: 3rem auto 0;
+.chat-playback-note {
+  max-width: 44rem;
+  margin: 2rem auto 0;
+  text-align: center;
 }
 
 /* ---- voice note ---------------------------------------------------------- */
