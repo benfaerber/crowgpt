@@ -25,6 +25,7 @@ import numpy as np
 import torch
 
 from crowgpt.model import Config, CrowGPT, LegalMask
+from crowgpt.sliced import LegalSlices
 from crowgpt.tokens import TokenDataset, Vocabulary
 
 AMERICAN_CROW_UPSAMPLE = 3.0
@@ -176,11 +177,13 @@ class Batcher:
         )
         return raw / raw.sum()
 
-    def batch(self):
-        picks = self.rng.choice(
+    def picks(self):
+        return self.rng.choice(
             len(self.usable), size=self.batch_size, replace=True, p=self.probabilities
         )
-        sequences = [self.sequence(self.usable[p]) for p in picks]
+
+    def batch(self):
+        sequences = [self.sequence(self.usable[p]) for p in self.picks()]
         longest = max(len(s) for s in sequences)
 
         inputs = np.zeros((len(sequences), longest), dtype=np.int64)
@@ -193,6 +196,35 @@ class Batcher:
             torch.from_numpy(inputs[:, :-1]).to(self.device),
             torch.from_numpy(targets[:, :-1]).to(self.device),
         )
+
+
+
+class BucketedBatcher(Batcher):
+    """The same draws, dealt into batches of similar length.
+
+    A plain batch pads eight random sequences to the longest, and lengths run
+    from about 150 tokens to 3,600, so half of every step is padding. This
+    draws `window` batches' worth at once with the same sampling weights,
+    sorts them by length, cuts them into batches and serves those in random
+    order. Each sequence is as likely to be drawn as before; what changes is
+    which sequences share a batch.
+    """
+
+    def __init__(self, *args, window=64, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.window = window
+        self.queue = []
+
+    def picks(self):
+        if not self.queue:
+            drawn = self.rng.choice(len(self.usable), size=self.batch_size * self.window,
+                                    replace=True, p=self.probabilities)
+            lengths = np.array([self.dataset.records[self.usable[p]]["length"] for p in drawn])
+            ordered = drawn[np.argsort(lengths, kind="stable")]
+            self.queue = [ordered[i : i + self.batch_size]
+                          for i in range(0, len(ordered), self.batch_size)]
+            self.rng.shuffle(self.queue)
+        return self.queue.pop()
 
 
 class Trainer:
@@ -222,6 +254,8 @@ class Trainer:
         keep_groups=None,
         keep_species=None,
         eval_species=None,
+        bucketed=False,
+        sliced_loss=False,
     ):
         self.token_dir = Path(token_dir)
         self.out_dir = Path(out_dir)
@@ -320,20 +354,22 @@ class Trainer:
         self.model = CrowGPT(self.config).to(self.device)
         assert_on_gpu(self.model, "the model")
         self.legal = LegalMask(self.vocabulary, block_size + 1, self.device)
+        self.slices = LegalSlices(self.legal) if sliced_loss else None
 
         # Logits are [batch, time, vocab], and both time and vocab double when
         # the codebook count does, so the loss tensor grows fourfold between
         # 6 and 12 kbps. Size the batch to hold that roughly constant rather
         # than picking a number that only happens to fit at one bandwidth.
         budget = self.memory_budget
-        per_sample = block_size * self.config.vocab_size
+        widest = max(len(ids) for ids in self.slices.ids) if self.slices else self.config.vocab_size
+        per_sample = block_size * widest
         batch_size = int(max(2, min(batch_size, budget // per_sample)))
         self.micro_batch = batch_size
         self.effective_batch = batch_size * self.accumulate
 
         weights = self._species_weights(manifest["species"], balance)
         self.species_mix = weights
-        self.train_batcher = Batcher(
+        self.train_batcher = (BucketedBatcher if bucketed else Batcher)(
             self.train_set, batch_size, block_size, self.device, seed, weights,
             vocabulary=self.vocabulary, channels=channels, keep_groups=keep_groups,
             keep_species=keep_species
@@ -427,6 +463,8 @@ class Trainer:
         targets = self._mask_coarse(targets)
         legal = self.legal.for_batch(inputs.size(1), shift=1)
         with torch.autocast(self.device, dtype=torch.bfloat16, enabled=self.device == "cuda"):
+            if self.slices:
+                return self.slices.loss(self.model, inputs, targets)
             _, loss = self.model(inputs, targets, legal)
         return loss
 

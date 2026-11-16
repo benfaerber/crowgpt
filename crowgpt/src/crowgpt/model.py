@@ -145,6 +145,15 @@ class CrowGPT(nn.Module):
         """One [k, v] slot per block. Pass the same list back on every step."""
         return [[] for _ in self.blocks]
 
+    def hidden(self, idx, cache=None, offset=0):
+        """The final normalised states, before the output layer."""
+        _, time = idx.shape
+        positions = torch.arange(offset, offset + time, device=idx.device)
+        x = self.drop(self.token_embedding(idx) + self.position_embedding(positions))
+        for n, block in enumerate(self.blocks):
+            x = block(x, cache=None if cache is None else cache[n])
+        return self.ln_f(x)
+
     def forward(self, idx, targets=None, legal=None, cache=None, offset=0):
         """`offset` is where `idx` starts in the sequence, for the position
         embedding. It is not derivable from idx.shape once a cache exists: a
@@ -153,11 +162,7 @@ class CrowGPT(nn.Module):
         position embedding of the first — which decodes, and is wrong.
         """
         _, time = idx.shape
-        positions = torch.arange(offset, offset + time, device=idx.device)
-        x = self.drop(self.token_embedding(idx) + self.position_embedding(positions))
-        for n, block in enumerate(self.blocks):
-            x = block(x, cache=None if cache is None else cache[n])
-        logits = self.head(self.ln_f(x))
+        logits = self.head(self.hidden(idx, cache, offset))
 
         if legal is not None:
             logits = logits.masked_fill(legal[:time], float("-inf"))
