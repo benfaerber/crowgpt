@@ -1499,7 +1499,7 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
     werkzeug changed when it adds the header; find out which before the
     dashboard's scrubber is blamed.
 
-[ ] Let the field server send invite emails (Ben: Resend + DNS)
+[x] Let the field server send invite emails (Ben: Resend + DNS) — done; Ben confirmed 2026-11-15 that an approval's invite email arrives from the hosted server
 
     /preview takes access requests and the dashboard's Access page approves
     them. Approval mints the invite link either way; emailing it needs
