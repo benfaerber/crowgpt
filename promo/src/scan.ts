@@ -282,6 +282,8 @@ class ScanPage {
       this.keepAlways = true;
       this.keepRow.hidden = true;
       this.keepNotice.hidden = false;
+      document.getElementById("scan-about-choice")?.setAttribute("hidden", "");
+      document.getElementById("scan-about-always")?.removeAttribute("hidden");
     }
     this.place = visitor.place;
     if (!this.place) return;

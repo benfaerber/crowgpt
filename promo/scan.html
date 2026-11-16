@@ -97,26 +97,52 @@
       <section class="scan-about">
         <article class="scan-about-card">
         <h2>What happens to your file</h2>
+        <div id="scan-about-choice">
         <p class="section-lede">
-          It goes to the project's server, is read once, and is deleted the moment the
-          scan finishes. The result is kept for an hour so this page can show it, then
-          deleted too. Unless you tick the box above, nothing you upload here is added
-          to the project's data or used for training. The picture and the sound you see
-          on this page are played from your own device.
+          It goes to the project's server and is read once. What happens next is your
+          choice, made with the box above for each file.
         </p>
         <p class="section-lede">
-          If you tick "Let CrowGPT keep this file", the file is kept as you uploaded
-          it, with what the scan said about it and the approximate location if that
-          box is ticked too. That includes anything inside the file: a photo's own
-          GPS tags, or voices in a recording. Please only tick it for files that are
-          yours to share. The box starts unticked every time, and a file the scanner
-          could not read is never kept.
+          Unticked, the file is deleted the moment the scan finishes. The result is
+          kept for an hour so this page can show it, then deleted too. Nothing is
+          added to the project's data or used for training.
+        </p>
+        <p class="section-lede">
+          Ticked, the file is kept as you uploaded it, with what the scan said about
+          it, and may be used to train and test the project's models. That includes
+          anything inside the file: a photo's own GPS tags, or voices in a recording.
+          Please only tick it for files that are yours to share. The box starts
+          unticked every time.
+        </p>
+        </div>
+        <div id="scan-about-always" hidden>
+        <p class="section-lede">
+          It goes to the project's server, is read, and is kept. Scanning is free, and
+          keeping the file is what the project asks in return: the file as you
+          uploaded it, with what the scan said about it, may be used to train and test
+          the project's models.
+        </p>
+        <p class="section-lede">
+          That includes anything inside the file: a photo's own GPS tags, or voices in
+          a recording. Please only scan files that are yours to share.
+        </p>
+        </div>
+        <p class="section-lede">
+          A kept recording or video gets a "Label this recording" link, where you can
+          say which calls the scanner got right and what was happening. This browser
+          remembers the recordings you kept so the page can show them again; the link
+          is the only way to reach one, so share it only with people you want
+          labelling it.
+        </p>
+        <p class="section-lede">
+          A file the scanner could not read is never kept, and neither is one that
+          arrives when the project's space for contributed files is full.
         </p>
         <p class="section-lede">
           If the location box is ticked, an approximate location goes with the file:
           a city-level estimate made from your internet address, not your device's
-          GPS. It is used for that one scan and deleted with the result, unless you
-          asked for the file to be kept. Your address itself is not stored.
+          GPS. It is kept with a kept file and otherwise deleted with the result.
+          Your address itself is not stored.
         </p>
         </article>
         <article class="scan-about-card">
