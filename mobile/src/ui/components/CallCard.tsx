@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import type { AppServices } from "../../app/AppServices";
+import type { LabelingServices } from "../../app/LabelingServices";
 import { colorForCall, labelText } from "../../domain/config";
 import type { LabelCard } from "../../domain/labelCards";
 import { CallerPicker } from "./CallerPicker";
@@ -27,7 +27,7 @@ export function CallCard({
   onRetract,
   onChanged,
 }: {
-  services: AppServices;
+  services: LabelingServices;
   captureUuid: string;
   card: LabelCard;
   playing: boolean;
@@ -102,8 +102,10 @@ export function CallCard({
             </Text>
           ))}
           {card.multiLabel
-            ? " in this span. If two birds overlap here, answer for the one you"
-              + " picked and mark the other by ear on the capture screen."
+            ? services.features.markByEar
+              ? " in this span. If two birds overlap here, answer for the one you"
+                + " picked and mark the other by ear on the capture screen."
+              : " in this span. If two birds overlap here, answer for the louder one."
             : " — one call, two readings of it."}
         </Text>
       ) : null}
@@ -113,7 +115,7 @@ export function CallCard({
         {/* One tap to hear what the same call type sounded like last time.
             Consistency across a season is the hard part of hand-labelling, and
             nobody holds a fortnight of decisions in their head. */}
-        {chosen || card.predicted ? (
+        {services.features.compare && (chosen || card.predicted) ? (
           <Pressable
             onPress={() => setComparing(compareTo ? undefined : (chosen ?? card.predicted))}
             accessibilityRole="button"

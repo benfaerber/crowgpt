@@ -1,7 +1,7 @@
 import { useAudioPlayer } from "expo-audio";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { AppServices } from "../../app/AppServices";
+import type { LabelingServices } from "../../app/LabelingServices";
 import { log } from "../../app/Log";
 import type { LabelRecord } from "../../domain/labels";
 
@@ -31,7 +31,7 @@ export interface Reference {
  * One player, re-pointed per example, rather than one per row: a screen holding
  * a dozen audio players to play one of them is a memory cost for nothing.
  */
-export function useReferencePlayer(services: AppServices) {
+export function useReferencePlayer(services: LabelingServices) {
   const player = useAudioPlayer(null);
   const stopAt = useRef<number | undefined>(undefined);
   const [playing, setPlaying] = useState<string | undefined>();

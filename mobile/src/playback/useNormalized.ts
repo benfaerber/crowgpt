@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { describeGain } from "../domain/gain";
-import type { AppServices } from "../app/AppServices";
+import type { LabelingServices } from "../app/LabelingServices";
 import { log } from "../app/Log";
 
 export interface NormalizedView {
@@ -24,12 +24,14 @@ export interface NormalizedView {
  * playing rather than nothing at all.
  */
 export function useNormalized(
-  services: AppServices,
+  services: LabelingServices,
   audioPath: string | undefined,
   enabled: boolean,
 ): NormalizedView {
+  // A path on the phone; already a URI where the recording is served (the
+  // web desk hands this an https address, and it must arrive untouched).
   const original = audioPath
-    ? audioPath.startsWith("file://")
+    ? /^[a-z][a-z0-9+.-]*:\/\//i.test(audioPath)
       ? audioPath
       : `file://${audioPath}`
     : "";

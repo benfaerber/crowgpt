@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { CaptureRecord } from "../domain/types";
 import { isStaleServerLink } from "../net/HttpClient";
 import type { DetectedCall } from "../net/serverTypes";
-import type { AppServices } from "./AppServices";
+import type { LabelingServices } from "./LabelingServices";
 import { log } from "./Log";
 
 export interface AnalysisView {
@@ -35,7 +35,7 @@ const POLL_MS = 2000;
  * enqueued the job. Nothing here works until the capture has synced, because
  * until then the server has no audio to analyze.
  */
-export function useAnalysis(services: AppServices, capture: CaptureRecord): AnalysisView {
+export function useAnalysis(services: LabelingServices, capture: CaptureRecord): AnalysisView {
   const [calls, setCalls] = useState<DetectedCall[]>([]);
   const [waveform, setWaveform] = useState<number[]>([]);
   const [duration, setDuration] = useState<number | undefined>();

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import type { AppServices } from "../../app/AppServices";
+import type { LabelingServices } from "../../app/LabelingServices";
 import type { ContextRecord } from "../../domain/context";
 import { newClientUuid } from "../../domain/ids";
 import { deviceRandomBytes } from "../../platform/random";
@@ -56,7 +56,7 @@ export function ContextTagger({
   endSec,
   onChanged,
 }: {
-  services: AppServices;
+  services: LabelingServices;
   captureUuid: string;
   /**
    * The confirmed call this context belongs to.

@@ -2,6 +2,7 @@ import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Dimensions,
+  type LayoutChangeEvent,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Pressable,
@@ -11,7 +12,7 @@ import {
   View,
 } from "react-native";
 
-import type { AppServices } from "../app/AppServices";
+import type { LabelingServices } from "../app/LabelingServices";
 import { useAnalysis } from "../app/useAnalysis";
 import { useNormalized } from "../playback/useNormalized";
 import { buildLabelCards, countDecided, type LabelCard } from "../domain/labelCards";
@@ -28,6 +29,9 @@ import { colors, pageEnd, spacing } from "./theme";
 
 /** A second of lead-in — landing on the onset clips the start of the call. */
 const LEAD_IN_SEC = 1;
+
+/** Longer than the deck takes to animate to a tapped card. */
+const JUMP_MS = 500;
 
 /**
  * Labelling, one call at a time.
@@ -46,7 +50,7 @@ export function LabelingScreen({
   capture,
   onBack,
 }: {
-  services: AppServices;
+  services: LabelingServices;
   capture: CaptureRecord;
   onBack: () => void;
 }) {
@@ -58,7 +62,14 @@ export function LabelingScreen({
   const keyboardInset = useKeyboardInset();
   const [index, setIndex] = useState(0);
   const deck = useRef<ScrollView | null>(null);
-  const width = Dimensions.get("window").width;
+  const jumpedAt = useRef(0);
+  // The deck's own width, not the window's: on a phone they are the same
+  // number, and in a browser the desk sits in a column narrower than the page.
+  const [width, setWidth] = useState(Dimensions.get("window").width);
+  const measure = (event: LayoutChangeEvent) => {
+    const measured = event.nativeEvent.layout.width;
+    if (measured > 0 && Math.abs(measured - width) > 0.5) setWidth(measured);
+  };
 
   // The screen where quiet calls are judged, so the boosted copy matters most
   // here. Nothing stored changes — see playback/NormalizedWav.ts.
@@ -133,7 +144,9 @@ export function LabelingScreen({
           <Text style={styles.emptyText}>
             {analysis.calls.length === 0 && capture.syncState !== "synced"
               ? "Sync this capture and the analyzer will propose calls to work through."
-              : "The analyzer found nothing here. Mark calls by ear on the capture screen — those are the examples it most needs."}
+              : services.features.markByEar
+                ? "The analyzer found nothing here. Mark calls by ear on the capture screen — those are the examples it most needs."
+                : "The analyzer found nothing here. If you heard no crows either, say so below."}
           </Text>
 
           {/* "Nothing was said" is a labelling decision too, and this is the
@@ -153,7 +166,9 @@ export function LabelingScreen({
             }
           />
 
-          <SightingLogger services={services} captureUuid={record.uuid} />
+          {services.features.sightings ? (
+            <SightingLogger services={services} captureUuid={record.uuid} />
+          ) : null}
         </KeyboardAwareScroll>
       </View>
     );
@@ -161,11 +176,28 @@ export function LabelingScreen({
 
   const decided = countDecided(cards);
 
+  const settleOn = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offset = event.nativeEvent.contentOffset.x / width;
+    const next = Math.round(offset);
+    // Only once it has nearly arrived: mid-swipe the nearest card flips at the
+    // halfway point, and that would stop the audio of a card still on screen.
+    if (Math.abs(offset - next) > 0.05 || next === index) return;
+    // A tap on the strip animates across the cards between; they are passed,
+    // not arrived at, and the tap already said where this is going.
+    if (Date.now() - jumpedAt.current < JUMP_MS) return;
+    if (next < 0 || next >= cards.length) return;
+    // Stop the previous call rather than letting it play under the next
+    // card, which sounds like the new card is wrong.
+    player.pause();
+    playingUntil.current = undefined;
+    setIndex(next);
+  };
+
   return (
     // Padding rather than a scroll view: the deck is flex:1, so shrinking the
     // screen by the keyboard's height makes the deck give up the space and
     // everything below it — including the sighting logger — rises clear.
-    <View style={[styles.screen, { paddingBottom: keyboardInset }]}>
+    <View style={[styles.screen, { paddingBottom: keyboardInset }]} onLayout={measure}>
       <Header
         onBack={onBack}
         title={`${index + 1} of ${cards.length}`}
@@ -184,6 +216,7 @@ export function LabelingScreen({
               player.pause();
               playingUntil.current = undefined;
               setIndex(i);
+              jumpedAt.current = Date.now();
               deck.current?.scrollTo({ x: i * width, animated: true });
             }}
             style={styles.segmentTouch}
@@ -210,16 +243,12 @@ export function LabelingScreen({
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
-          const next = Math.round(event.nativeEvent.contentOffset.x / width);
-          if (next !== index) {
-            // Stop the previous call rather than letting it play under the next
-            // card, which sounds like the new card is wrong.
-            player.pause();
-            playingUntil.current = undefined;
-            setIndex(next);
-          }
-        }}
+        // Both events, because a browser never sends the momentum one: there
+        // the page settles under scroll-snap and onScroll is all that fires.
+        // Either way the card is whichever one the deck has come to rest on.
+        scrollEventThrottle={64}
+        onScroll={settleOn}
+        onMomentumScrollEnd={settleOn}
       >
         {cards.map((item) => (
           <ScrollView
@@ -252,9 +281,11 @@ export function LabelingScreen({
           recording, not about the call currently on screen — putting it on a
           card would imply otherwise. Collapsed until tapped, so it costs the
           deck nothing. */}
-      <View style={styles.footer}>
-        <SightingLogger services={services} captureUuid={record.uuid} />
-      </View>
+      {services.features.sightings ? (
+        <View style={styles.footer}>
+          <SightingLogger services={services} captureUuid={record.uuid} />
+        </View>
+      ) : null}
     </View>
   );
 }

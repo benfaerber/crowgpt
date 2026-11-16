@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
 
-import type { AppServices } from "../../app/AppServices";
+import type { LabelingServices } from "../../app/LabelingServices";
 import { ContextTagger } from "./ContextTagger";
 import { colors, radius, spacing } from "../theme";
 
@@ -28,7 +28,7 @@ export function SilenceMark({
   hasLabels,
   onChange,
 }: {
-  services: AppServices;
+  services: LabelingServices;
   captureUuid: string;
   silentConfirmedAt?: string;
   /** Calls already marked on this recording — silence would contradict them. */

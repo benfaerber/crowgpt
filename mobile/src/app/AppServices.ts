@@ -498,6 +498,9 @@ export class AppServices {
    */
   readonly normalized = new NormalizedWav();
 
+  /** The whole labelling desk: the phone has everything it can ask for. */
+  readonly features = { compare: true, sightings: true, markByEar: true };
+
   get analysisCache(): AnalysisCache | undefined {
     return this.adapters.analysisCache;
   }

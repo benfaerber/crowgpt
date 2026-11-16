@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-import type { AppServices } from "../../app/AppServices";
+import type { LabelingServices } from "../../app/LabelingServices";
 import { newClientUuid } from "../../domain/ids";
 import { deviceRandomBytes } from "../../platform/random";
 import { describeOffset, type SightingRecord } from "../../domain/sightings";
@@ -33,7 +33,7 @@ export function SightingLogger({
   services,
   captureUuid,
 }: {
-  services: AppServices;
+  services: LabelingServices;
   captureUuid: string;
 }) {
   const [rows, setRows] = useState<SightingRecord[]>([]);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import type { AppServices } from "../../app/AppServices";
+import type { LabelingServices } from "../../app/LabelingServices";
 import type { LabelRecord } from "../../domain/labels";
 import { colors, radius, spacing } from "../theme";
 
@@ -25,7 +25,7 @@ export function CallerPicker({
   label,
   onChanged,
 }: {
-  services: AppServices;
+  services: LabelingServices;
   label: LabelRecord;
   onChanged: () => void;
 }) {

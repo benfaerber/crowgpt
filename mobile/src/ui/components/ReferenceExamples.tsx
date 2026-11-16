@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import type { AppServices } from "../../app/AppServices";
+import type { LabelingServices } from "../../app/LabelingServices";
 import { labelText, type FleetConfig } from "../../domain/config";
 import { useReferencePlayer, type Reference } from "./ReferencePlayer";
 import { colors, radius, spacing } from "../theme";
@@ -24,7 +24,7 @@ export function ReferenceExamples({
   callType,
   onClose,
 }: {
-  services: AppServices;
+  services: LabelingServices;
   config: FleetConfig;
   callType: string;
   onClose: () => void;
