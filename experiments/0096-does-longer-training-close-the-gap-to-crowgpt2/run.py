@@ -64,42 +64,56 @@ class FullValidation:
         return row
 
 
-def main():
-    if require_device() != "cuda":
-        raise RuntimeError("0096 needs the GPU")
-    run = Run("0096 longer training for the larger CrowGPT", [*ARMS, "full validation"])
-    failures = {}
-    for name, rate in ARMS.items():
-        with run.stage(name) as stage:
-            trainer = ControlledTrainer(TOKENS, OUTPUT / name, learning_rate=rate, **RECIPE)
-            try:
-                result = trainer.run(
-                    on_step=lambda done, total: stage.update(done, total),
-                    on_eval=lambda step, val: run.note(f"{name} step {step}: panel val {val:.4f}"))
-                stage.say(f"60k schedule complete; best panel val {result['best_val']:.4f}")
-            except RuntimeError as error:
-                failures[name] = str(error)
-                stage.say(f"stopped: {error}")
-            del trainer
-            gc.collect()
-            torch.cuda.empty_cache()
+class LongSchedule:
+    """Train each arm on the controlled trainer, then score every snapshot
+    and the references on full validation."""
 
-    with run.stage("full validation") as stage:
-        validation = FullValidation()
-        paths = {label: path for label, path in REFERENCES.items()}
-        for name in ARMS:
-            for path in sorted((OUTPUT / name).glob("step-*.pt")):
-                paths[f"{name} {path.stem}"] = path
-        rows = []
-        for n, (label, path) in enumerate(paths.items()):
-            row = validation.of(path, on_progress=lambda done, total: stage.update(
-                n * len(validation.indices) + done, len(paths) * len(validation.indices), extra=label))
-            rows.append(dict(row, label=label))
-            print(rows[-1], flush=True)
-            atomic_json(HERE / "results.json", {
-                "validation_bouts": len(validation.indices), "recipe": RECIPE, "rates": ARMS,
-                "failures": failures, "checkpoints": rows})
+    def __init__(self, title, output, arms, recipe, results, references=REFERENCES):
+        self.title, self.output, self.arms, self.recipe = title, output, arms, recipe
+        self.results, self.references = results, references
+
+    def train(self, run):
+        failures = {}
+        for name, rate in self.arms.items():
+            with run.stage(name) as stage:
+                trainer = ControlledTrainer(TOKENS, self.output / name, learning_rate=rate, **self.recipe)
+                try:
+                    result = trainer.run(
+                        on_step=lambda done, total: stage.update(done, total),
+                        on_eval=lambda step, val: run.note(f"{name} step {step}: panel val {val:.4f}"))
+                    stage.say(f"schedule complete; best panel val {result['best_val']:.4f}")
+                except RuntimeError as error:
+                    failures[name] = str(error)
+                    stage.say(f"stopped: {error}")
+                del trainer
+                gc.collect()
+                torch.cuda.empty_cache()
+        return failures
+
+    def validate(self, run, failures):
+        with run.stage("full validation") as stage:
+            validation = FullValidation()
+            paths = dict(self.references)
+            for name in self.arms:
+                for path in sorted((self.output / name).glob("step-*.pt")):
+                    paths[f"{name} {path.stem}"] = path
+            rows = []
+            for n, (label, path) in enumerate(paths.items()):
+                row = validation.of(path, on_progress=lambda done, total: stage.update(
+                    n * len(validation.indices) + done, len(paths) * len(validation.indices), extra=label))
+                rows.append(dict(row, label=label))
+                print(rows[-1], flush=True)
+                atomic_json(self.results, {
+                    "validation_bouts": len(validation.indices), "recipe": self.recipe,
+                    "rates": self.arms, "failures": failures, "checkpoints": rows})
+
+    def main(self):
+        if require_device() != "cuda":
+            raise RuntimeError("this schedule needs the GPU")
+        run = Run(self.title, [*self.arms, "full validation"])
+        self.validate(run, self.train(run))
 
 
 if __name__ == "__main__":
-    main()
+    LongSchedule("0096 longer training for the larger CrowGPT", OUTPUT, ARMS, RECIPE,
+                 HERE / "results.json").main()
