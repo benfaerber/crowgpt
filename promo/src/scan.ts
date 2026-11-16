@@ -388,7 +388,7 @@ class ScanPage {
       } else {
         this.countdown.stop();
         await this.loader.finish();
-        this.show(file, kind, scan.result, offered ? scan.kept === true : null);
+        this.show(file, kind, scan, offered ? scan.kept === true : null);
         this.say("");
       }
     } catch (error) {
@@ -405,7 +405,8 @@ class ScanPage {
     }
   }
 
-  private show(file: File, kind: Kind, result: PhotoResult | SoundResult, kept: boolean | null): void {
+  private show(file: File, kind: Kind, scan: Scan, kept: boolean | null): void {
+    const result = scan.result as PhotoResult | SoundResult;
     const url = URL.createObjectURL(file);
     const body = kind === "photo"
       ? new ScanPhoto(result as PhotoResult, url, file.name).render()
@@ -417,8 +418,21 @@ class ScanPage {
         ? "Kept for the project, as you asked. Thank you."
         : "Not kept: the project's space for contributed files is full. The file was deleted." }));
     }
+    if (kept && kind !== "photo") card.append(this.deskInvite(scan.id));
     this.results.prepend(card);
     card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  /** The way from a kept recording to its labelling desk. The scanner can
+   *  say what a call sounded like; only the person who was there can say
+   *  what was happening, and this is the one moment they are here to ask.
+   *  The desk is the field app's own labelling screen, served by the field
+   *  server at this scan's id, and the link is theirs to come back to. */
+  private deskInvite(scanId: string): HTMLElement {
+    return el("p", { className: "scan-desk" },
+      el("span", { text: "You were there and the scanner was not. Say which calls it got right and what was happening: " }),
+      el("a", { className: "button button-primary", text: "Label this recording",
+        attrs: { href: `${__FIELD_API__}/label/${encodeURIComponent(scanId)}`, target: "_blank", rel: "noopener" } }));
   }
 
   /** A failure leaves a card where the answer would have been, as well as the
