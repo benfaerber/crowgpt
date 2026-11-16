@@ -304,7 +304,11 @@ in phases/, anything needing a measurement belongs in experiments/.
         and it settles whether a USB device gets UNPROCESSED's 17 dB of headroom
         at all.
 
-[ ] A chip for speaking to them — Ben's voice is the experiment, not noise in it
+[x] A chip for speaking to them — Ben's voice is the experiment, not noise in it
+    DONE 2026-11-15: `known_speaking` and `stranger_speaking` under [people],
+    Ben's wording and his answer to "I spoke or any human spoke": who spoke is
+    in the key. Neither carries what was said or whether a bird replied. The
+    phone needs a relaunch to see them.
 
     This is a human–animal communication project and he talks to the crows.
     That is the phenomenon. The vocabulary cannot say it, so every instance is

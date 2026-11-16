@@ -151,3 +151,29 @@ class TestTheServedConfigCarriesBegging:
         colors = client.get("/api/config?locale=en").get_json()["core_colors"]
         assert colors["begging"] != colors["call"]
 
+
+
+class TestCallTypesAddedLater:
+    """A call type added to SEED_LABELS has to reach a fleet seeded before it."""
+
+    def test_coo_and_pop_reach_a_database_seeded_without_them(self, db_path):
+        ConfigStore(db_path)
+        conn = sqlite3.connect(db_path)
+        with conn:
+            conn.execute("DELETE FROM label_defs WHERE key IN ('coo', 'pop')")
+        before = conn.execute("SELECT MAX(version) FROM config_versions").fetchone()[0]
+        conn.close()
+
+        config = ConfigStore(db_path)
+        served = {label["key"]: label for label in config.get_config()["labels"]}
+        assert served["coo"]["core"] == "song" and served["coo"]["text"] == "Coo"
+        assert served["pop"]["core"] == "song" and served["pop"]["trains"] is True
+        assert config.current_version() == before + 2
+        with sqlite3.connect(db_path) as conn:
+            introduced = dict(conn.execute(
+                "SELECT key, version_introduced FROM label_defs WHERE key IN ('coo', 'pop')"))
+        assert sorted(introduced.values()) == [before + 1, before + 2]
+
+    def test_a_second_start_publishes_nothing(self, db_path):
+        version = ConfigStore(db_path).current_version()
+        assert ConfigStore(db_path).current_version() == version

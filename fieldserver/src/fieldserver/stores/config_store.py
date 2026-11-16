@@ -47,6 +47,7 @@ class ConfigStore(Database):
         makes the phones re-fetch, so a change nobody publishes never arrives.
         """
         with self._connect() as conn:
+            self._add_missing_field_labels(conn)
             # Added after the first fleets shipped, so they have to be inserted
             # into existing databases and published, or nobody is offered them.
             for key, en, de in NON_TRAINING_LABELS:
@@ -219,6 +220,31 @@ class ConfigStore(Database):
                     "UPDATE label_defs SET color = ? WHERE key = ? AND color IS NULL",
                     (color, core),
                 )
+
+    def _add_missing_field_labels(self, conn) -> None:
+        """Offer an already-seeded fleet the call types added to SEED_LABELS
+        since it was seeded.
+
+        `_seed_if_empty` writes the list once, so a call type added to it later
+        ("coo", "pop") reached new databases and no running one. Each arrives
+        with the version it was published in, for the reason given below: a
+        label made before the word existed carries no opinion about it.
+        """
+        if not conn.execute("SELECT COUNT(*) FROM config_versions").fetchone()[0]:
+            return
+        for index, (key, core) in enumerate(SEED_LABELS):
+            if conn.execute("SELECT 1 FROM label_defs WHERE key = ?", (key,)).fetchone():
+                continue
+            conn.execute(
+                "INSERT INTO label_defs (key, core_mapping, color, sort_order) "
+                "VALUES (?, ?, ?, ?)", (key, core, CORE_COLORS.get(key), index))
+            for locale, text in SEED_TRANSLATIONS["label"].get(key, {}).items():
+                conn.execute(
+                    "INSERT OR IGNORE INTO translations (namespace, key, locale, text) "
+                    "VALUES ('label', ?, ?, ?)", (key, locale, text))
+            version = self._publish(conn, f"add label {key}")
+            conn.execute("UPDATE label_defs SET version_introduced = ? WHERE key = ?",
+                         (version, key))
 
     @staticmethod
     def _heal_version_introduced(conn) -> None:

@@ -43,6 +43,13 @@ SEED_LABELS = [
     ("scold", "alarm call"),
     ("contact call", "call"),
     ("rattle", "call"),
+    # Two soft, close-range sounds Ben started labelling on 2026-11-15: a
+    # rounded, dove-like coo and a single dry pop. Filed under song, the core
+    # that already holds the quiet close-range repertoire, while there are too
+    # few of either to know whether they belong anywhere else. The label keeps
+    # the word chosen, so remapping later loses nothing.
+    ("coo", "song"),
+    ("pop", "song"),
     # The model heard a crow here and there was not one. Worth recording rather
     # than retracting: a retraction says "ignore this", while this says "the
     # detector was wrong here", which is exactly what improves precision.
@@ -162,6 +169,14 @@ SEED_CONTEXTS = [
     ("known_approaching", "people"),
     ("stranger_passing", "people"),
     ("known_passing", "people"),
+    # Addressing the birds on purpose, which is a different act from walking
+    # past them and is the project's own question: do they answer when spoken
+    # to? Split by who is speaking, like the pairs above, and silent about any
+    # reply: a human can see a bird react, not that it answered. A span
+    # carrying one of these also has a human voice in it, which training can
+    # now exclude or keep deliberately.
+    ("known_speaking", "people"),
+    ("stranger_speaking", "people"),
     ("vehicle", "people"),
     # A human is not one stimulus. Someone walking past is a moment; someone
     # running a mower is a wall of noise that stays for an hour and disturbs the
@@ -275,6 +290,8 @@ SEED_TRANSLATIONS = {
         "contact call": {"en": "Contact call", "de": "Kontaktruf"},
         "begging": {"en": "Begging", "de": "Betteln"},
         "rattle": {"en": "Rattle", "de": "Schnarren"},
+        "coo": {"en": "Coo", "de": "Gurren"},
+        "pop": {"en": "Pop", "de": "Ploppen"},
     },
     "caller_role": {
         "fledgling": {"en": "Fledgling", "de": "Ästling"},
@@ -316,6 +333,10 @@ SEED_TRANSLATIONS = {
                              "de": "Fremde Person geht vorbei"},
         "known_passing": {"en": "Someone they know walks past",
                           "de": "Bekannte Person geht vorbei"},
+        "known_speaking": {"en": "Someone they know speaks to them",
+                           "de": "Bekannte Person spricht sie an"},
+        "stranger_speaking": {"en": "Stranger speaks to them",
+                              "de": "Fremde Person spricht sie an"},
         "vehicle": {"en": "Vehicle", "de": "Fahrzeug"},
         "human_gives_food": {"en": "Human gives food", "de": "Mensch gibt Futter"},
         "foraging": {"en": "Foraging", "de": "Futtersuche"},
