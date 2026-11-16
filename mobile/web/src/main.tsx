@@ -6,6 +6,7 @@ import { LabelingScreen } from "../../src/ui/LabelingScreen";
 import { colors, radius, spacing } from "../../src/ui/theme";
 
 import { DeskApi, DeskError, type Desk } from "./DeskApi";
+import { stageMediaElement } from "./shims/expo-audio";
 import { ScanDeskServices } from "./ScanDeskServices";
 
 const SITE = "https://crowgpt.org";
@@ -50,6 +51,20 @@ function ScanDesk() {
     () => (loaded.state === "ready" ? new ScanDeskServices(api, loaded.desk, setFailure) : undefined),
     [api, loaded],
   );
+
+  // A video scan plays through a <video> the page owns, staged before the
+  // desk makes its player, so "Play this call" shows the clip as well.
+  const picture = useMemo(() => {
+    if (loaded.state !== "ready" || loaded.desk.kind !== "video") return undefined;
+    const video = document.createElement("video");
+    video.playsInline = true;
+    video.preload = "auto";
+    Object.assign(video.style, {
+      display: "block", width: "100%", maxHeight: "38vh", background: "#000", objectFit: "contain",
+    });
+    stageMediaElement(video);
+    return video;
+  }, [loaded]);
 
   if (loaded.state === "loading") return <Notice title="Finding your recording…" />;
   if (loaded.state === "missing") {
@@ -96,9 +111,21 @@ function ScanDesk() {
             <Text style={styles.failureText}>Not saved: {failure}</Text>
           </Pressable>
         ) : null}
+        {picture ? <Picture video={picture} /> : null}
         <LabelingScreen services={services} capture={services.capture} onBack={() => setFinished(true)} />
       </View>
     </View>
+  );
+}
+
+/** The staged <video>, put on the page. */
+function Picture({ video }: { video: HTMLVideoElement }) {
+  return (
+    <div
+      ref={(host) => {
+        if (host && video.parentElement !== host) host.replaceChildren(video);
+      }}
+    />
   );
 }
 

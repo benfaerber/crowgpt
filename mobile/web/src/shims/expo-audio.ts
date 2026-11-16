@@ -15,8 +15,28 @@ export interface AudioSource {
 
 type Listener = () => void;
 
+let staged: HTMLMediaElement | undefined;
+
+/**
+ * Hand the next player an element to play through, in place of one of its own.
+ *
+ * How a video scan shows its picture without the desk knowing: the page puts
+ * a <video> on screen and stages it here, and the desk's one player, asked
+ * only for sound, plays, seeks and stops that element like any other.
+ */
+export function stageMediaElement(element: HTMLMediaElement | undefined): void {
+  staged = element;
+}
+
 export class WebAudioPlayer {
-  private readonly element = new Audio();
+  private readonly element: HTMLMediaElement = WebAudioPlayer.take();
+
+  private static take(): HTMLMediaElement {
+    const element = staged ?? new Audio();
+    staged = undefined;
+    return element;
+  }
+
   private readonly listeners = new Set<Listener>();
   private frame: number | undefined;
 
