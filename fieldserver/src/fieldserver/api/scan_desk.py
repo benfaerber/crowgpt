@@ -138,7 +138,7 @@ def register(app, d) -> None:
             "id": row["public_id"], "kind": row["kind"], "created_at": row["created_at"],
             "duration_sec": result.get("duration_sec"),
             "waveform": result.get("waveform") or [],
-            "calls": result.get("calls") or [],
+            "calls": desk.calls(row),
             "truncated": bool(result.get("truncated")),
             "closed": row["promoted_capture_id"] is not None,
             "audio_url": f"/api/scan-desk/{row['public_id']}/audio",
@@ -230,14 +230,14 @@ def register(app, d) -> None:
             "latitude": row["latitude"], "longitude": row["longitude"],
             "created_at": row["created_at"],
             "duration_sec": result.get("duration_sec"),
-            "call_count": len(result.get("calls") or []),
+            "call_count": len(desk.calls(row)),
             "silent_confirmed_at": row["silent_confirmed_at"],
             "promoted_capture_id": row["promoted_capture_id"],
             "desk_url": (request.url_root.rstrip("/") + f"/label/{row['public_id']}"
                          if row["public_id"] and row["kind"] in LABELLED_KINDS else None),
         }
         if detail:
-            out.update(result=result, labels=desk.labels(row["id"]),
+            out.update(calls=desk.calls(row), labels=desk.labels(row["id"]),
                        context=desk.context(row["id"]))
         else:
             out.update(label_count=row["label_count"], context_count=row["context_count"])

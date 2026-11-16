@@ -60,6 +60,22 @@ class ScanDeskStore(Database):
                 "(SELECT COUNT(*) FROM scan_context x WHERE x.contribution_id = c.id) AS context_count "
                 "FROM scan_contributions c ORDER BY c.id DESC")]
 
+    @staticmethod
+    def calls(contribution) -> list[dict]:
+        """What the scanner heard, in the shape a capture's detections are
+        served in. The analyzer says `start` and `end`; `detected_calls`, the
+        phone and the desk say `start_sec` and `end_sec`, and a scan's result
+        is the analyzer's own words stored as they came."""
+        found = (contribution.get("result") or {}).get("calls") or []
+        return [{
+            "start_sec": call["start"], "end_sec": call["end"],
+            "species": call.get("species"), "scientific_name": call.get("scientific_name"),
+            "call_type": call.get("call_type"), "confidence": call.get("confidence"),
+            "crow_conf": call.get("crow_conf"), "candidate": int(bool(call.get("candidate"))),
+            "alternates": call.get("alternates") or [],
+            "multi_label": bool(call.get("multi_label")),
+        } for call in found if "start" in call and "end" in call]
+
     def path(self, contribution) -> Path:
         return self.kept_dir / contribution["storage_ref"]
 

@@ -18,8 +18,11 @@ from fieldserver.stores.scans import ScanStore
 
 RESULT = {
     "duration_sec": 2.0, "waveform": [0.1, 0.9, 0.2], "truncated": False, "located": False,
-    "calls": [{"start_sec": 0.0, "end_sec": 1.5, "species": "Common Raven",
-               "call_type": "alarm call", "confidence": 0.9}],
+    # The analyzer's own words, as the worker stores them: `start` and `end`.
+    "calls": [{"start": 0.0, "end": 1.5, "species": "Common Raven",
+               "scientific_name": "Corvus corax", "call_type": "alarm call",
+               "confidence": 0.9, "alternates": [], "multi_label": True,
+               "crow_conf": 0.8, "candidate": False, "location_filtered": False}],
 }
 LABEL = "0b7c1e52-aaaa-4bbb-8ccc-1234567890ab"
 EVENT = "7d1f0c9e-dddd-4eee-8fff-ba0987654321"
@@ -68,7 +71,8 @@ class TestTheVisitorsDesk:
         with scans._connect() as conn:
             conn.execute("DELETE FROM demo_scans")
         body = client.get(f"/api/scan-desk/{public_id}").get_json()
-        assert body["calls"] == RESULT["calls"]
+        assert [(call["start_sec"], call["end_sec"], call["call_type"], call["candidate"])
+                for call in body["calls"]] == [(0.0, 1.5, "alarm call", 0)]
         assert body["labels"] == [] and body["context"] == []
         assert body["closed"] is False
         assert {label["key"] for label in body["config"]["labels"]} >= {"alarm call"}

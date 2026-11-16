@@ -186,8 +186,7 @@ function ScanDetail({
 
   if (detail.isPending) return <div className="muted">Loading…</div>;
   if (!detail.data) return <div className="muted">Could not load this scan.</div>;
-  const { labels, context, result } = detail.data;
-  const calls = result?.calls ?? [];
+  const { labels, context, calls } = detail.data;
 
   return (
     <div>

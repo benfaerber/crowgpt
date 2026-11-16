@@ -115,9 +115,8 @@ class ScanPromotion:
         A label that trains nothing claims no species, as on the phone."""
         if self.config.core_for_label(label["call_type"]) is None:
             return "unknown"
-        calls = (contribution["result"] or {}).get("calls") or []
         overlapping = [
-            call for call in calls
+            call for call in self.desk.calls(contribution)
             if call.get("species")
             and call["start_sec"] < label["end_sec"] and call["end_sec"] > label["start_sec"]]
         if overlapping:

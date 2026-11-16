@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Component, type ReactNode, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -151,8 +151,29 @@ const styles = StyleSheet.create({
   failureText: { color: "#ffd9d9", fontSize: 13, textAlign: "center" },
 });
 
+/** A render that throws says so, where it used to leave an empty page. */
+class Failsafe extends Component<{ children: ReactNode }, { failed?: string }> {
+  state: { failed?: string } = {};
+
+  static getDerivedStateFromError(error: unknown) {
+    return { failed: error instanceof Error ? error.message : String(error) };
+  }
+
+  render() {
+    return this.state.failed === undefined ? (
+      this.props.children
+    ) : (
+      <Notice title="The labelling desk hit a problem" body={`Reload to try again. (${this.state.failed})`} />
+    );
+  }
+}
+
 const root = document.getElementById("root");
 if (root) {
   root.style.display = "flex";
-  createRoot(root).render(<ScanDesk />);
+  createRoot(root).render(
+    <Failsafe>
+      <ScanDesk />
+    </Failsafe>,
+  );
 }

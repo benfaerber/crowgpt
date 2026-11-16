@@ -739,7 +739,7 @@ export interface ScanContribution {
 }
 
 export interface ScanContributionDetail extends ScanContribution {
-  result: { calls?: DetectedCall[] } | null;
+  calls: DetectedCall[];
   labels: ScanLabel[];
   context: ScanContext[];
 }
