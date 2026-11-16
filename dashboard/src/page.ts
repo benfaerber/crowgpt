@@ -42,6 +42,9 @@ export const PAGES = {
   // project keep, with whatever they said about them at the labelling desk.
   // Not captures until one is promoted from here.
   scans: "Scans",
+  // crowgpt.org's visitors, from Cloudflare, kept a day at a time by the
+  // traffic worker so the history outlives Cloudflare's eight days.
+  traffic: "Traffic",
 } as const;
 
 export type Page = keyof typeof PAGES;

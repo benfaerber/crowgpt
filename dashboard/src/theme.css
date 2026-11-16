@@ -394,3 +394,22 @@
   color:var(--muted); display:grid; gap:.15rem; }
 .photo-id-notes .warn { color:var(--warn); }
 @media (max-width:640px) { .photo-id-item { grid-template-columns:1fr; } }
+
+/* Traffic: crowgpt.org's visitors by day. */
+.traffic-head { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.traffic-ranges { display:flex; gap:.4rem; }
+.traffic-ranges button { padding:.3rem .7rem; font-size:.8rem; }
+.traffic-warn { color:var(--warn); }
+.traffic-chart { margin-top:1.1rem; }
+.traffic-chart-title { font-size:.85rem; margin-bottom:.4rem; }
+.traffic-chart svg { display:block; width:100%; height:160px; }
+.traffic-bar { fill:var(--accent); }
+.traffic-bar.provisional { fill:var(--accent); opacity:.5; }
+.traffic-bar.hot { fill:var(--text); }
+.traffic-missing { fill:var(--border); }
+.traffic-axis { stroke:var(--border); stroke-width:1; vector-effect:non-scaling-stroke; }
+.traffic-axis-labels { display:flex; justify-content:space-between; font-size:.75rem; margin-top:.3rem; }
+.traffic-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:0 1.25rem; }
+.traffic-table { display:table; width:100%; table-layout:fixed; }
+.traffic-table td.num { width:5.5rem; }
+.traffic-key { overflow:hidden; text-overflow:ellipsis; }

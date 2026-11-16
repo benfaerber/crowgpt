@@ -26,6 +26,7 @@ import { ListeningPanel } from "./components/ListeningPanel";
 import { LogsPanel } from "./components/LogsPanel";
 import { AccessPage } from "./components/AccessPage";
 import { ScansPage } from "./components/ScansPage";
+import { TrafficPage } from "./components/TrafficPage";
 import { RelabelPanel } from "./components/RelabelPanel";
 import { TrainingPanel } from "./components/TrainingPanel";
 import { CorpusPanel } from "./components/CorpusPanel";
@@ -157,6 +158,8 @@ export function App() {
         <AccessPage signedIn={signedIn} />
       ) : page === "scans" ? (
         <ScansPage signedIn={signedIn} />
+      ) : page === "traffic" ? (
+        <TrafficPage signedIn={signedIn} />
       ) : (
         <>
           <div className="card">

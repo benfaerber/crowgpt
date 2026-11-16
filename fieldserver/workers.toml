@@ -61,3 +61,13 @@ restart_seconds = 60
 # instance/secrets.env itself. It reads nothing a stranger sent, so it keeps
 # the login user's view of the disk.
 sandboxed = false
+
+[traffic]
+description = "CrowGPT traffic worker (crowgpt.org analytics, hourly)"
+script = "worker/traffic_worker.py"
+venv = ".venv"
+restart_seconds = 300
+# It reads CLOUDFLARE_API_TOKEN from instance/secrets.env itself and talks
+# only to Cloudflare, so like the scout scheduler it keeps the login user's
+# view of the disk. It reads nothing a stranger sent.
+sandboxed = false

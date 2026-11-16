@@ -25,6 +25,7 @@ from .stores.devices import DeviceStore
 from .stores.crows import CrowStore
 from .stores.families import FamilyStore
 from .stores.labels import LabelStore
+from .stores.traffic import TrafficStore
 from .stores.merges import MergeStore
 from .stores.generations import GenerationStore
 from .stores.photo_ids import PhotoIdStore
@@ -153,6 +154,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
     scans = ScanStore(resolved_db, resolved_db.parent / "demo-scans")
     scout_visits = ScoutVisitStore(resolved_db)
     access = AccessRequestStore(resolved_db)  # owns no foreign keys: an email is not a contributor
+    traffic = TrafficStore(resolved_db)     # owns no foreign keys: counts about a website
     quota = StorageQuota(resolved_db)       # reads media and dictations; owns no table
     board = DashboardQueries(resolved_db)   # read-only joins across all of the above
 
@@ -213,7 +215,7 @@ def create_app(db_path: Path | str | None = None) -> Flask:
         photo_ids=photo_ids,
         scans=scans,
         instance_dir=resolved_db.parent, scout_visits=scout_visits, access=access,
-        demo=demo, quota=quota,
+        demo=demo, quota=quota, traffic=traffic,
         board=board,
         current_actor=current_actor,
         owned_capture=owned_capture, counts=counts,

@@ -743,3 +743,30 @@ export interface ScanContributionDetail extends ScanContribution {
   labels: ScanLabel[];
   context: ScanContext[];
 }
+
+/** One UTC day of crowgpt.org traffic, as the traffic worker summarised it. */
+export interface TrafficSummary {
+  requests: number;
+  views: number;
+  visitors: number;
+  kinds: Record<string, number>;
+  countries: Record<string, number>;
+  pages: Record<string, number>;
+  agents: Record<string, Record<string, number>>;
+  probes: Record<string, number>;
+  truncated: boolean;
+}
+
+export interface TrafficDay {
+  day: string;
+  final: boolean;
+  fetched_at: string;
+  summary: TrafficSummary;
+}
+
+export interface TrafficReport {
+  days: TrafficDay[];
+  first: string;
+  last_fetched: string | null;
+  retention_days: number;
+}
