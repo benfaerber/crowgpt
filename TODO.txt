@@ -1592,3 +1592,34 @@ DECIDE ON THE DECODER FINETUNE — COSTED 2026-08-07, now waiting on one listen
 
     Decided, revisit if abused: 12 scans an hour per address, 6 waiting per
     queue, first 90 s of a recording analysed, no visitor address stored.
+
+[ ] Deploy the scan labelling desk, and watch the first real one (Raven, 2026-11-15)
+
+    Built and committed, running on the local `make field` only. A visitor who
+    scans a recording or video on the promo and leaves the keep box ticked now
+    gets a "Label this recording" link to /label/<the scan's id>, which is the
+    phone's own LabelingScreen compiled for a browser (mobile/web, built by
+    `make -C mobile desk`). Their answers land in scan_labels / scan_context
+    (revision 0041), never in `labels`. The dashboard's Scans page lists what
+    was kept, plays it, and promotes one to a capture: provenance 'scan', never
+    kept, labels carried over with label_source 'visitor'.
+
+    To go live, in this order:
+      - `make field-deploy`. It ships revision 0041 and the desk bundle, and
+        ALSO Jay's 0094 (the photo "not a corvid" verdict), which is committed
+        and waiting on Ben. Decide 0094 first.
+      - `make -C promo deploy`, for the link on the Scan result. Before the
+        server deploy the link would 404, so the promo goes second.
+      - Scan one real recording through crowgpt.org/scan with the box ticked,
+        label it on a phone browser, promote it from the dashboard.
+
+    Left out on purpose, each worth doing once a stranger has used it:
+      - a visitor can only answer for spans the scanner found. Marking a call
+        by ear lives on the app's capture screen, which the web build does not
+        have, so the classes BirdNET misses still cannot arrive this way.
+      - nothing asks for an email, so a good contributor cannot be invited.
+      - 'visitor' labels on a promoted capture reach `make export-labels` like
+        any other label. Nothing is promoted yet; check the export before the
+        first one is.
+      - kept scans from before 0041 have no public id and so no desk. They
+        still list on the Scans page and can be promoted.

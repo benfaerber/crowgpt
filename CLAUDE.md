@@ -272,6 +272,7 @@ scream page — never for a sitting that produces a statistic.
 ## Layout
 
 - `mobile/` — the field app (Expo/React Native); records, labels, syncs on demand
+  `mobile/web/` compiles the app's own `LabelingScreen` for a browser (`make -C mobile desk`); fieldserver serves it at `/label/<id>` to someone labelling a scan they let the project keep. One desk, two builds: change the screen in `mobile/src`, never fork it
 - `fieldserver/` — CRUD + ingest API for the app, plus the operator dashboard
 - `analyzer/` — BirdNET inference: a path in, findings out. No server, no DB.
   `analyzer/photo/` names the corvid in a photo (own CPU venv, `make photo-id`); nothing calls it yet
