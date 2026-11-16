@@ -1,0 +1,122 @@
+{
+  "validation_bouts": 5033,
+  "recipe": {
+    "steps": 60000,
+    "batch_size": 8,
+    "accumulate": 1,
+    "n_embd": 512,
+    "n_layer": 12,
+    "n_head": 4,
+    "dropout": 0.0,
+    "seed": 0,
+    "warmup": 200,
+    "eval_every": 1000,
+    "panel_size": 256,
+    "checkpoint_every": 10000
+  },
+  "rates": {
+    "60k-lr-3e-4": 0.0003,
+    "60k-lr-6e-4": 0.0006
+  },
+  "failures": {},
+  "checkpoints": [
+    {
+      "path": "crowgpt/results/model-longctx/model.pt",
+      "step": 30000,
+      "full_ac_val": 4.792704081625476,
+      "checkpoint_sha256": "e0858aae30d2e18cfb6a627c68ce24bd86ba0ab9b861c7cde46b530e2d58b4c5",
+      "label": "CrowGPT2"
+    },
+    {
+      "path": "crowgpt/results/tuning-0086/selected/model.pt",
+      "step": 30000,
+      "full_ac_val": 4.86898069019548,
+      "checkpoint_sha256": "e581befbedfd91659aa33e1c2028f14333ab029a8b40c8eef12ab632f77b1e91",
+      "label": "0086 selected (30k, lr 3e-4)"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-3e-4/step-10000.pt",
+      "step": 10000,
+      "full_ac_val": 5.148781118578686,
+      "checkpoint_sha256": "12bbdea2e0dc3af6e70cd754e937457f838f074e2ee2ea24cbc81fcc2c826d04",
+      "label": "60k-lr-3e-4 step-10000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-3e-4/step-20000.pt",
+      "step": 20000,
+      "full_ac_val": 4.941592685851362,
+      "checkpoint_sha256": "3b627e033d94002b42d332d8ee482d1d5c2ed3ba98586c8114fbc088c1a30961",
+      "label": "60k-lr-3e-4 step-20000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-3e-4/step-30000.pt",
+      "step": 30000,
+      "full_ac_val": 4.849171821782099,
+      "checkpoint_sha256": "a74316363d839a6f67df18312526bb766728dcf503738e19519d49c028d458dd",
+      "label": "60k-lr-3e-4 step-30000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-3e-4/step-40000.pt",
+      "step": 40000,
+      "full_ac_val": 4.78045792063526,
+      "checkpoint_sha256": "a8bac234be4bd8c50f76b0da3fd4481f9362d7751613872763dafacc6e39c5e3",
+      "label": "60k-lr-3e-4 step-40000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-3e-4/step-50000.pt",
+      "step": 50000,
+      "full_ac_val": 4.731802736884573,
+      "checkpoint_sha256": "a0b3d9fcf0a5638b60590070bf147e9124a58f876edb936f5aa01b1c45afe466",
+      "label": "60k-lr-3e-4 step-50000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-3e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.70702312977815,
+      "checkpoint_sha256": "9242ebc7ef687f6d5fba717f4592c7a52c758b268b877a1d2988ba2c2c7b9e1e",
+      "label": "60k-lr-3e-4 step-60000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-6e-4/step-10000.pt",
+      "step": 10000,
+      "full_ac_val": 5.145668186150962,
+      "checkpoint_sha256": "3b33b67e0d9ee07efc0af02f01048c92dbf7197e1e76ffe593410c03f0a2568e",
+      "label": "60k-lr-6e-4 step-10000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-6e-4/step-20000.pt",
+      "step": 20000,
+      "full_ac_val": 4.939884387059863,
+      "checkpoint_sha256": "947a361338086e58da651a8f45df472c6bd14fed0cd3b3b8462ad4bcb08fc0eb",
+      "label": "60k-lr-6e-4 step-20000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-6e-4/step-30000.pt",
+      "step": 30000,
+      "full_ac_val": 4.842087270757353,
+      "checkpoint_sha256": "e66c86bafe71c947bac128d666abf890bfae31411051624bb1728b3c49b1ec8e",
+      "label": "60k-lr-6e-4 step-30000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-6e-4/step-40000.pt",
+      "step": 40000,
+      "full_ac_val": 4.758574766871946,
+      "checkpoint_sha256": "5107595898471fd64c9add72a18f27da98aa604545a425b8552d676b39de385b",
+      "label": "60k-lr-6e-4 step-40000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-6e-4/step-50000.pt",
+      "step": 50000,
+      "full_ac_val": 4.6989876779128865,
+      "checkpoint_sha256": "0325a27182d10decbd05e8d83483ec3151835a0b6642ffdf9c79d852c5ef4254",
+      "label": "60k-lr-6e-4 step-50000"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.66798930180436,
+      "checkpoint_sha256": "a9dd45112ec0bfa0e45d3653bc75e86cc6a06f7dcef26af95636af75562e7095",
+      "label": "60k-lr-6e-4 step-60000"
+    }
+  ]
+}
