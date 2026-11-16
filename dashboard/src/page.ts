@@ -38,6 +38,10 @@ export const PAGES = {
   // Who asked to try the app, and the invites that answered. Strangers feed
   // this page through /preview; it is the one place they reach the fleet.
   access: "Access",
+  // Recordings and videos strangers scanned on the promo site and let the
+  // project keep, with whatever they said about them at the labelling desk.
+  // Not captures until one is promoted from here.
+  scans: "Scans",
 } as const;
 
 export type Page = keyof typeof PAGES;

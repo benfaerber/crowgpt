@@ -702,3 +702,44 @@ export interface AccessQueue {
   mail_configured: boolean;
   build: string;
 }
+
+/** A label a visitor put on their own kept scan, at the labelling desk. */
+export interface ScanLabel {
+  client_uuid: string;
+  start_sec: number;
+  end_sec: number;
+  call_type: string;
+  caller_role: string | null;
+  from_detection: number;
+  created_at: string;
+}
+
+export interface ScanContext {
+  client_uuid: string;
+  label_uuid: string | null;
+  key: string;
+}
+
+/** A file a visitor to the Scan page let the project keep. Not a capture. */
+export interface ScanContribution {
+  id: number;
+  kind: "photo" | "audio" | "video";
+  bytes: number;
+  latitude: number | null;
+  longitude: number | null;
+  created_at: string;
+  duration_sec: number | null;
+  call_count: number;
+  silent_confirmed_at: string | null;
+  promoted_capture_id: number | null;
+  /** The visitor's labelling link. Absent on a photo, and on rows kept before the desk existed. */
+  desk_url: string | null;
+  label_count?: number;
+  context_count?: number;
+}
+
+export interface ScanContributionDetail extends ScanContribution {
+  result: { calls?: DetectedCall[] } | null;
+  labels: ScanLabel[];
+  context: ScanContext[];
+}

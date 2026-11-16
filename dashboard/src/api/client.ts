@@ -12,6 +12,7 @@ import type {
   LabelTotal,
 } from "./types";
 import type { AccessQueue, AccessRequest } from "./types";
+import type { ScanContribution, ScanContributionDetail } from "./types";
 import type { CallContextMatrix, DeviceLog, LogLevel, RelabelRow } from "./types";
 import type { Generation, GenerationFeed, ListeningPool, TrainingStatus } from "./types";
 import type { PhotoIdFeed, PhotoIdentification } from "./types";
@@ -347,6 +348,49 @@ export function decideAccess(id: number, decision: "approve" | "decline") {
     `/api/fleet/access-requests/${id}/${decision}`,
     {},
   );
+}
+
+/**
+ * What visitors to the Scan page let the project keep. Polled like the access
+ * queue, and for the same reason: strangers feed it.
+ */
+export function useScanContributions(signedIn: boolean) {
+  return useQuery({
+    queryKey: ["scans"],
+    queryFn: () =>
+      request<{ contributions: ScanContribution[] }>("/api/fleet/scan-contributions"),
+    enabled: signedIn,
+    refetchInterval: 30_000,
+  });
+}
+
+export function useScanContribution(id: number | undefined) {
+  return useQuery({
+    queryKey: ["scans", id],
+    queryFn: () => request<ScanContributionDetail>(`/api/fleet/scan-contributions/${id}`),
+    enabled: id !== undefined,
+  });
+}
+
+export function promoteScanContribution(id: number) {
+  return post<{ capture_id: number }>(`/api/fleet/scan-contributions/${id}/promote`, {});
+}
+
+export async function deleteScanContribution(id: number): Promise<void> {
+  const response = await fetch(`/api/fleet/scan-contributions/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${storedToken()}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await reason(response));
+}
+
+/** Same blob-URL dance as fetchMediaUrl, for the same header-less player. */
+export async function fetchScanContributionUrl(id: number): Promise<string> {
+  const response = await fetch(`/api/fleet/scan-contributions/${id}/file`, {
+    headers: { Authorization: `Bearer ${storedToken()}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await reason(response));
+  return URL.createObjectURL(await response.blob());
 }
 
 export function useListening(signedIn: boolean) {
