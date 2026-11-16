@@ -1,0 +1,22 @@
+{
+  "1": {
+    "fits": 20,
+    "mean_answers": 61,
+    "mean_spearman": 0.489
+  },
+  "2": {
+    "fits": 30,
+    "mean_answers": 122,
+    "mean_spearman": 0.513
+  },
+  "3": {
+    "fits": 20,
+    "mean_answers": 182,
+    "mean_spearman": 0.522
+  },
+  "4": {
+    "fits": 5,
+    "mean_answers": 243,
+    "mean_spearman": 0.529
+  }
+}

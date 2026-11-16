@@ -1,0 +1,92 @@
+{
+  "realness": {
+    "churn-spread-0053": {
+      "n": 120,
+      "spearman": 0.087,
+      "sign_agreement": 0.511,
+      "compare_spearman": -0.077,
+      "catch_n": 12,
+      "catch_picks_real": 0.833
+    },
+    "scrape-v3-0064": {
+      "n": 40,
+      "spearman": 0.552,
+      "sign_agreement": 0.694,
+      "compare_spearman": 0.436,
+      "catch_n": 7,
+      "catch_picks_real": 1.0
+    },
+    "longctx-0067": {
+      "n": 48,
+      "spearman": 0.184,
+      "sign_agreement": 0.643,
+      "compare_spearman": 0.056,
+      "catch_n": 8,
+      "catch_picks_real": 1.0
+    },
+    "longctx-0067b": {
+      "n": 48,
+      "spearman": 0.407,
+      "sign_agreement": 0.636,
+      "compare_spearman": 0.272,
+      "catch_n": 8,
+      "catch_picks_real": 0.75
+    },
+    "dust-0069": {
+      "n": 48,
+      "spearman": 0.221,
+      "sign_agreement": 0.559,
+      "compare_spearman": -0.052,
+      "catch_n": 8,
+      "catch_picks_real": 0.875
+    },
+    "mean_spearman": 0.29,
+    "mean_compare_spearman": 0.127,
+    "catch_picks_real": 0.884
+  },
+  "realness+graded": {
+    "churn-spread-0053": {
+      "n": 120,
+      "spearman": 0.313,
+      "sign_agreement": 0.617,
+      "compare_spearman": 0.216,
+      "catch_n": 12,
+      "catch_picks_real": 0.667
+    },
+    "scrape-v3-0064": {
+      "n": 40,
+      "spearman": 0.621,
+      "sign_agreement": 0.778,
+      "compare_spearman": 0.557,
+      "catch_n": 7,
+      "catch_picks_real": 0.714
+    },
+    "longctx-0067": {
+      "n": 48,
+      "spearman": 0.484,
+      "sign_agreement": 0.786,
+      "compare_spearman": 0.44,
+      "catch_n": 8,
+      "catch_picks_real": 1.0
+    },
+    "longctx-0067b": {
+      "n": 48,
+      "spearman": 0.45,
+      "sign_agreement": 0.636,
+      "compare_spearman": 0.325,
+      "catch_n": 8,
+      "catch_picks_real": 0.75
+    },
+    "dust-0069": {
+      "n": 48,
+      "spearman": 0.528,
+      "sign_agreement": 0.706,
+      "compare_spearman": 0.358,
+      "catch_n": 8,
+      "catch_picks_real": 1.0
+    },
+    "mean_spearman": 0.479,
+    "mean_compare_spearman": 0.379,
+    "catch_picks_real": 0.814
+  }
+}

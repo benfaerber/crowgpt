@@ -278,6 +278,8 @@ class Tournament:
             "arm_verdicts_agreeing": sum((row["ear"] > 0) == (row["judge"] > 0) for row in arms),
             "held_out": held_out,
             "mean_spearman": round(float(np.mean([f["spearman"] for f in held_out.values()])), 3),
+            "mean_compare_spearman": round(float(np.mean(
+                [f["compare_spearman"] for f in held_out.values()])), 3),
             "min_spearman": min(f["spearman"] for f in held_out.values()),
             "catch_picks_real": round(sum(a * n for a, n in catches) / sum(n for _, n in catches), 3),
         }
@@ -365,6 +367,7 @@ def main():
     for name, result in sorted(report["judges"].items(), key=lambda kv: -kv[1]["mean_spearman"]):
         print(f"{name:32s} mean {result['mean_spearman']:.3f}  min {result['min_spearman']:.3f}"
               f"  catches {result['catch_picks_real']:.3f}"
+              f"  compare-only {result['mean_compare_spearman']:.3f}"
               f"  arm verdicts {result['arm_verdicts_agreeing']}/{result['arm_pairs']}")
     print(json.dumps({k: report[k] for k in ("chosen", "already_answered", "sealed_summary")}, indent=2))
 

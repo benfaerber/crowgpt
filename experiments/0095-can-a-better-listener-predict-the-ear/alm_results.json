@@ -1,0 +1,56 @@
+{
+  "model": "Qwen/Qwen2-Audio-7B-Instruct",
+  "quantization": "4-bit nf4",
+  "pools": {
+    "churn-spread-0053": {
+      "n": 120,
+      "spearman": 0.257,
+      "sign_agreement": 0.585,
+      "catch_n": 12,
+      "catch_picks_real": 0.417
+    },
+    "scrape-v3-0064": {
+      "n": 40,
+      "spearman": 0.168,
+      "sign_agreement": 0.611,
+      "catch_n": 7,
+      "catch_picks_real": 0.429
+    },
+    "longctx-0067": {
+      "n": 48,
+      "spearman": 0.373,
+      "sign_agreement": 0.643,
+      "catch_n": 8,
+      "catch_picks_real": 0.625
+    },
+    "longctx-0067b": {
+      "n": 48,
+      "spearman": 0.181,
+      "sign_agreement": 0.614,
+      "catch_n": 8,
+      "catch_picks_real": 0.5
+    },
+    "dust-0069": {
+      "n": 48,
+      "spearman": 0.168,
+      "sign_agreement": 0.529,
+      "catch_n": 8,
+      "catch_picks_real": 0.375
+    },
+    "voice-0078": {
+      "n": 16,
+      "spearman": 0.212,
+      "sign_agreement": 0.467,
+      "catch_n": 3,
+      "catch_picks_real": 0.667
+    },
+    "capacity-0086": {
+      "n": 2,
+      "spearman": 1.0,
+      "sign_agreement": 1.0
+    }
+  },
+  "mean_spearman_completed_pools": 0.229,
+  "mean_abs_position_bias": 0.979,
+  "mean_abs_toward_first": 0.072
+}

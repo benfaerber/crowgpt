@@ -1,0 +1,26 @@
+{
+  "longer": {
+    "churn-spread-0053": -0.095,
+    "scrape-v3-0064": -0.073,
+    "longctx-0067": -0.082,
+    "longctx-0067b": -0.015,
+    "dust-0069": 0.127,
+    "mean": -0.028
+  },
+  "louder": {
+    "churn-spread-0053": 0.044,
+    "scrape-v3-0064": -0.09,
+    "longctx-0067": 0.128,
+    "longctx-0067b": 0.022,
+    "dust-0069": 0.003,
+    "mean": 0.021
+  },
+  "more periodic": {
+    "churn-spread-0053": 0.247,
+    "scrape-v3-0064": 0.085,
+    "longctx-0067": 0.099,
+    "longctx-0067b": 0.35,
+    "dust-0069": 0.389,
+    "mean": 0.234
+  }
+}

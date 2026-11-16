@@ -65,6 +65,19 @@ when it has a shape and a reason to happen now.
 [ ] Auto-grading the CrowGPT listening test: what has been measured, and
     the one pilot still worth running (investigated 2026-09-11, Jynx)
 
+    RUN 2026-11-15 AS EXPERIMENT 0095, AND THE ANSWER IS NO. The audio-language
+    pilot below picked the real recording in 20 of 43 catch trials and mostly
+    answered "A". Better listeners under 0082's harness (Whisper layers, CLAP,
+    codec latents) all land between 0.36 and 0.54 against 0082's 0.48, and the
+    best judge fitted on one sitting scores 0.49 against 0.53 on four, so more
+    grading does not move it either. Decided not to build a pre-screen. What
+    is left open: no pool repeats a trial, so the ear's own repeatability, the
+    ceiling for any judge, has never been measured. Next time a pool is built,
+    repeat four to six of its trials later in the sitting (the builder is
+    whatever experiment registers the pool; register_pool.py takes the trial
+    list as given). The crowd variant further down is untested and is now the
+    only untried route. The text below is kept as the reasoning of the time.
+
     Ben asked whether an AI model could grade the sittings for him. The
     honest state of the instruments, all already in experiments/:
 

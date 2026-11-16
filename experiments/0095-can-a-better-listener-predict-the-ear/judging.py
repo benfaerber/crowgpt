@@ -57,6 +57,9 @@ class Scorer:
         if decided.any():
             out["sign_agreement"] = round(float(np.mean(
                 (predictions[decided] > 0) == (grades[decided] > 0))), 3)
+        compare = np.asarray([t["kind"] == "compare" for t in trials])
+        if compare.sum() > 2:
+            out["compare_spearman"] = round(cls.spearman(predictions[compare], grades[compare]), 3)
         catches = [(p, t) for p, t in zip(predictions, trials) if t["kind"] == "catch"]
         if catches:
             out["catch_n"] = len(catches)

@@ -1,0 +1,1602 @@
+{
+ "1": {
+  "toward_first": -0.1875,
+  "position_bias": -0.8125
+ },
+ "2": {
+  "toward_first": 0.0,
+  "position_bias": -0.5
+ },
+ "3": {
+  "toward_first": -0.0625,
+  "position_bias": -1.0625
+ },
+ "4": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "5": {
+  "toward_first": -0.03125,
+  "position_bias": -0.71875
+ },
+ "6": {
+  "toward_first": 0.0,
+  "position_bias": -0.625
+ },
+ "7": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "8": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "9": {
+  "toward_first": -0.09375,
+  "position_bias": -0.53125
+ },
+ "10": {
+  "toward_first": -0.15625,
+  "position_bias": -0.78125
+ },
+ "11": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "12": {
+  "toward_first": 0.0,
+  "position_bias": -0.375
+ },
+ "13": {
+  "toward_first": -0.09375,
+  "position_bias": -0.71875
+ },
+ "14": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "15": {
+  "toward_first": -0.09375,
+  "position_bias": -0.71875
+ },
+ "16": {
+  "toward_first": 0.0,
+  "position_bias": -0.9375
+ },
+ "17": {
+  "toward_first": -0.03125,
+  "position_bias": -0.65625
+ },
+ "18": {
+  "toward_first": 0.0625,
+  "position_bias": -1.0625
+ },
+ "19": {
+  "toward_first": 0.0625,
+  "position_bias": -0.6875
+ },
+ "20": {
+  "toward_first": 0.0625,
+  "position_bias": -0.8125
+ },
+ "21": {
+  "toward_first": 0.0,
+  "position_bias": -1.375
+ },
+ "22": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "23": {
+  "toward_first": 0.0,
+  "position_bias": -0.625
+ },
+ "24": {
+  "toward_first": -0.125,
+  "position_bias": -0.875
+ },
+ "25": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "26": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "27": {
+  "toward_first": 0.0625,
+  "position_bias": -0.8125
+ },
+ "28": {
+  "toward_first": 0.0625,
+  "position_bias": -0.5625
+ },
+ "29": {
+  "toward_first": 0.0625,
+  "position_bias": -0.8125
+ },
+ "30": {
+  "toward_first": -0.03125,
+  "position_bias": -0.71875
+ },
+ "31": {
+  "toward_first": -0.03125,
+  "position_bias": -1.03125
+ },
+ "32": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "33": {
+  "toward_first": -0.0625,
+  "position_bias": -0.6875
+ },
+ "34": {
+  "toward_first": 0.0,
+  "position_bias": -0.6875
+ },
+ "35": {
+  "toward_first": -0.125,
+  "position_bias": -0.375
+ },
+ "36": {
+  "toward_first": -0.125,
+  "position_bias": -0.875
+ },
+ "37": {
+  "toward_first": 0.03125,
+  "position_bias": -0.59375
+ },
+ "38": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "39": {
+  "toward_first": -0.09375,
+  "position_bias": -0.71875
+ },
+ "40": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "41": {
+  "toward_first": 0.0625,
+  "position_bias": -0.5625
+ },
+ "42": {
+  "toward_first": 0.0625,
+  "position_bias": -1.0625
+ },
+ "43": {
+  "toward_first": -0.03125,
+  "position_bias": -0.90625
+ },
+ "44": {
+  "toward_first": 0.0625,
+  "position_bias": -0.4375
+ },
+ "45": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "46": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "47": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "48": {
+  "toward_first": 0.0,
+  "position_bias": -1.125
+ },
+ "49": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "50": {
+  "toward_first": 0.03125,
+  "position_bias": -0.71875
+ },
+ "51": {
+  "toward_first": -0.03125,
+  "position_bias": -1.03125
+ },
+ "52": {
+  "toward_first": 0.125,
+  "position_bias": -0.5
+ },
+ "53": {
+  "toward_first": -0.03125,
+  "position_bias": -0.90625
+ },
+ "54": {
+  "toward_first": 0.0625,
+  "position_bias": -0.6875
+ },
+ "55": {
+  "toward_first": 0.03125,
+  "position_bias": -0.90625
+ },
+ "56": {
+  "toward_first": 0.1875,
+  "position_bias": -0.3125
+ },
+ "57": {
+  "toward_first": 0.125,
+  "position_bias": -0.6875
+ },
+ "58": {
+  "toward_first": -0.0625,
+  "position_bias": -0.6875
+ },
+ "59": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "60": {
+  "toward_first": -0.0625,
+  "position_bias": -1.0625
+ },
+ "61": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "62": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "63": {
+  "toward_first": 0.125,
+  "position_bias": -1.125
+ },
+ "64": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "65": {
+  "toward_first": 0.03125,
+  "position_bias": -0.96875
+ },
+ "66": {
+  "toward_first": -0.03125,
+  "position_bias": -0.90625
+ },
+ "67": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "68": {
+  "toward_first": -0.03125,
+  "position_bias": -0.78125
+ },
+ "69": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "70": {
+  "toward_first": 0.21875,
+  "position_bias": -1.21875
+ },
+ "71": {
+  "toward_first": 0.0,
+  "position_bias": -0.625
+ },
+ "72": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "73": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "74": {
+  "toward_first": 0.09375,
+  "position_bias": -0.53125
+ },
+ "75": {
+  "toward_first": 0.0625,
+  "position_bias": -0.8125
+ },
+ "76": {
+  "toward_first": 0.125,
+  "position_bias": -0.75
+ },
+ "77": {
+  "toward_first": 0.09375,
+  "position_bias": -0.78125
+ },
+ "78": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "79": {
+  "toward_first": 0.125,
+  "position_bias": -0.75
+ },
+ "80": {
+  "toward_first": -0.09375,
+  "position_bias": -0.53125
+ },
+ "81": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "82": {
+  "toward_first": 0.0625,
+  "position_bias": -0.75
+ },
+ "83": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "84": {
+  "toward_first": 0.0,
+  "position_bias": -0.8125
+ },
+ "85": {
+  "toward_first": 0.09375,
+  "position_bias": -0.65625
+ },
+ "86": {
+  "toward_first": -0.03125,
+  "position_bias": -1.15625
+ },
+ "87": {
+  "toward_first": 0.0625,
+  "position_bias": -1.0625
+ },
+ "88": {
+  "toward_first": 0.0,
+  "position_bias": -1.1875
+ },
+ "89": {
+  "toward_first": -0.125,
+  "position_bias": -1.0
+ },
+ "90": {
+  "toward_first": -0.0625,
+  "position_bias": -0.5625
+ },
+ "91": {
+  "toward_first": -0.03125,
+  "position_bias": -1.03125
+ },
+ "92": {
+  "toward_first": -0.0625,
+  "position_bias": -0.6875
+ },
+ "93": {
+  "toward_first": -0.125,
+  "position_bias": -0.75
+ },
+ "94": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "95": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "96": {
+  "toward_first": 0.0625,
+  "position_bias": -0.625
+ },
+ "97": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "98": {
+  "toward_first": -0.03125,
+  "position_bias": -0.78125
+ },
+ "99": {
+  "toward_first": 0.15625,
+  "position_bias": -0.90625
+ },
+ "100": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "101": {
+  "toward_first": -0.03125,
+  "position_bias": -0.78125
+ },
+ "102": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "103": {
+  "toward_first": -0.1875,
+  "position_bias": -0.8125
+ },
+ "104": {
+  "toward_first": -0.03125,
+  "position_bias": -0.21875
+ },
+ "105": {
+  "toward_first": 0.03125,
+  "position_bias": -0.71875
+ },
+ "106": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "107": {
+  "toward_first": -0.21875,
+  "position_bias": -0.71875
+ },
+ "108": {
+  "toward_first": 0.0625,
+  "position_bias": -0.6875
+ },
+ "109": {
+  "toward_first": -0.09375,
+  "position_bias": -0.34375
+ },
+ "110": {
+  "toward_first": -0.0625,
+  "position_bias": -1.0625
+ },
+ "111": {
+  "toward_first": 0.09375,
+  "position_bias": -0.78125
+ },
+ "112": {
+  "toward_first": 0.0625,
+  "position_bias": -0.8125
+ },
+ "113": {
+  "toward_first": 0.03125,
+  "position_bias": -0.59375
+ },
+ "114": {
+  "toward_first": -0.15625,
+  "position_bias": -0.65625
+ },
+ "115": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "116": {
+  "toward_first": -0.03125,
+  "position_bias": -0.78125
+ },
+ "117": {
+  "toward_first": -0.0625,
+  "position_bias": -0.6875
+ },
+ "118": {
+  "toward_first": -0.125,
+  "position_bias": -0.75
+ },
+ "119": {
+  "toward_first": 0.125,
+  "position_bias": -0.8125
+ },
+ "120": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "121": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "122": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "123": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "124": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "125": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "126": {
+  "toward_first": -0.09375,
+  "position_bias": -0.96875
+ },
+ "127": {
+  "toward_first": 0.125,
+  "position_bias": -1.125
+ },
+ "128": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "129": {
+  "toward_first": -0.15625,
+  "position_bias": -0.84375
+ },
+ "130": {
+  "toward_first": 0.0,
+  "position_bias": -0.6875
+ },
+ "131": {
+  "toward_first": -0.0625,
+  "position_bias": -0.3125
+ },
+ "132": {
+  "toward_first": 0.0625,
+  "position_bias": -0.6875
+ },
+ "133": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "134": {
+  "toward_first": 0.0625,
+  "position_bias": -0.4375
+ },
+ "135": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "136": {
+  "toward_first": -0.03125,
+  "position_bias": -1.03125
+ },
+ "137": {
+  "toward_first": -0.03125,
+  "position_bias": -1.34375
+ },
+ "138": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "139": {
+  "toward_first": 0.0625,
+  "position_bias": -1.0625
+ },
+ "140": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "141": {
+  "toward_first": 0.0,
+  "position_bias": -1.125
+ },
+ "142": {
+  "toward_first": 0.25,
+  "position_bias": -1.125
+ },
+ "143": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "144": {
+  "toward_first": 0.125,
+  "position_bias": -0.875
+ },
+ "145": {
+  "toward_first": -0.03125,
+  "position_bias": -1.09375
+ },
+ "146": {
+  "toward_first": 0.0625,
+  "position_bias": -1.0625
+ },
+ "147": {
+  "toward_first": 0.09375,
+  "position_bias": -1.15625
+ },
+ "148": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "149": {
+  "toward_first": 0.03125,
+  "position_bias": -0.78125
+ },
+ "150": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "151": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "152": {
+  "toward_first": 0.03125,
+  "position_bias": -1.15625
+ },
+ "153": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "154": {
+  "toward_first": -0.0625,
+  "position_bias": -1.1875
+ },
+ "155": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "156": {
+  "toward_first": 0.0625,
+  "position_bias": -1.1875
+ },
+ "157": {
+  "toward_first": -0.125,
+  "position_bias": -0.875
+ },
+ "158": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "159": {
+  "toward_first": -0.09375,
+  "position_bias": -0.78125
+ },
+ "160": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "161": {
+  "toward_first": 0.0,
+  "position_bias": -0.5
+ },
+ "162": {
+  "toward_first": 0.0,
+  "position_bias": -1.625
+ },
+ "163": {
+  "toward_first": 0.0625,
+  "position_bias": -0.6875
+ },
+ "164": {
+  "toward_first": 0.0,
+  "position_bias": -0.9375
+ },
+ "165": {
+  "toward_first": 0.28125,
+  "position_bias": -0.65625
+ },
+ "166": {
+  "toward_first": -0.15625,
+  "position_bias": -0.90625
+ },
+ "167": {
+  "toward_first": 0.0625,
+  "position_bias": -0.75
+ },
+ "168": {
+  "toward_first": 0.03125,
+  "position_bias": -0.59375
+ },
+ "169": {
+  "toward_first": 0.0625,
+  "position_bias": -1.4375
+ },
+ "170": {
+  "toward_first": 0.0,
+  "position_bias": -1.3125
+ },
+ "171": {
+  "toward_first": -0.03125,
+  "position_bias": -0.90625
+ },
+ "172": {
+  "toward_first": 0.15625,
+  "position_bias": -0.78125
+ },
+ "173": {
+  "toward_first": 0.03125,
+  "position_bias": -1.09375
+ },
+ "174": {
+  "toward_first": 0.21875,
+  "position_bias": -1.03125
+ },
+ "175": {
+  "toward_first": -0.0625,
+  "position_bias": -0.6875
+ },
+ "176": {
+  "toward_first": 0.125,
+  "position_bias": -0.75
+ },
+ "177": {
+  "toward_first": 0.125,
+  "position_bias": -0.875
+ },
+ "178": {
+  "toward_first": 0.09375,
+  "position_bias": -1.34375
+ },
+ "179": {
+  "toward_first": 0.1875,
+  "position_bias": -1.25
+ },
+ "180": {
+  "toward_first": 0.15625,
+  "position_bias": -1.15625
+ },
+ "181": {
+  "toward_first": -0.0625,
+  "position_bias": -1.125
+ },
+ "182": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "183": {
+  "toward_first": 0.0625,
+  "position_bias": -0.75
+ },
+ "184": {
+  "toward_first": -0.0625,
+  "position_bias": -1.0
+ },
+ "185": {
+  "toward_first": 0.03125,
+  "position_bias": -1.09375
+ },
+ "186": {
+  "toward_first": -0.09375,
+  "position_bias": -1.21875
+ },
+ "187": {
+  "toward_first": -0.03125,
+  "position_bias": -0.96875
+ },
+ "188": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "189": {
+  "toward_first": -0.0625,
+  "position_bias": -1.25
+ },
+ "190": {
+  "toward_first": 0.03125,
+  "position_bias": -0.78125
+ },
+ "191": {
+  "toward_first": -0.15625,
+  "position_bias": -0.96875
+ },
+ "192": {
+  "toward_first": 0.09375,
+  "position_bias": -0.90625
+ },
+ "193": {
+  "toward_first": 0.3125,
+  "position_bias": -1.25
+ },
+ "194": {
+  "toward_first": 0.1875,
+  "position_bias": -0.9375
+ },
+ "195": {
+  "toward_first": -0.0625,
+  "position_bias": -1.25
+ },
+ "196": {
+  "toward_first": 0.34375,
+  "position_bias": -0.96875
+ },
+ "197": {
+  "toward_first": -0.0625,
+  "position_bias": -1.1875
+ },
+ "198": {
+  "toward_first": -0.125,
+  "position_bias": -1.25
+ },
+ "199": {
+  "toward_first": 0.03125,
+  "position_bias": -0.96875
+ },
+ "200": {
+  "toward_first": -0.09375,
+  "position_bias": -0.78125
+ },
+ "201": {
+  "toward_first": 0.0625,
+  "position_bias": -1.1875
+ },
+ "202": {
+  "toward_first": 0.0,
+  "position_bias": -1.125
+ },
+ "203": {
+  "toward_first": -0.1875,
+  "position_bias": -1.1875
+ },
+ "204": {
+  "toward_first": -0.09375,
+  "position_bias": -1.34375
+ },
+ "205": {
+  "toward_first": -0.15625,
+  "position_bias": -1.03125
+ },
+ "206": {
+  "toward_first": -0.1875,
+  "position_bias": -0.6875
+ },
+ "207": {
+  "toward_first": -0.125,
+  "position_bias": -0.375
+ },
+ "208": {
+  "toward_first": 0.1875,
+  "position_bias": -1.3125
+ },
+ "209": {
+  "toward_first": 0.0625,
+  "position_bias": -0.5625
+ },
+ "210": {
+  "toward_first": -0.03125,
+  "position_bias": -0.03125
+ },
+ "211": {
+  "toward_first": -0.1875,
+  "position_bias": -0.4375
+ },
+ "212": {
+  "toward_first": -0.0625,
+  "position_bias": -0.5
+ },
+ "213": {
+  "toward_first": -0.0625,
+  "position_bias": -0.25
+ },
+ "214": {
+  "toward_first": 0.0,
+  "position_bias": -0.5
+ },
+ "215": {
+  "toward_first": 0.03125,
+  "position_bias": -0.28125
+ },
+ "216": {
+  "toward_first": -0.0625,
+  "position_bias": -0.3125
+ },
+ "217": {
+  "toward_first": 0.0,
+  "position_bias": -0.375
+ },
+ "218": {
+  "toward_first": -0.03125,
+  "position_bias": -0.15625
+ },
+ "219": {
+  "toward_first": -0.15625,
+  "position_bias": -0.15625
+ },
+ "220": {
+  "toward_first": 0.0625,
+  "position_bias": -0.4375
+ },
+ "221": {
+  "toward_first": 0.03125,
+  "position_bias": -0.21875
+ },
+ "222": {
+  "toward_first": 0.09375,
+  "position_bias": -0.59375
+ },
+ "223": {
+  "toward_first": -0.03125,
+  "position_bias": -0.53125
+ },
+ "224": {
+  "toward_first": -0.25,
+  "position_bias": -0.25
+ },
+ "225": {
+  "toward_first": 0.0625,
+  "position_bias": -0.25
+ },
+ "226": {
+  "toward_first": 0.125,
+  "position_bias": -0.375
+ },
+ "227": {
+  "toward_first": -0.03125,
+  "position_bias": -0.34375
+ },
+ "228": {
+  "toward_first": 0.0,
+  "position_bias": -0.125
+ },
+ "229": {
+  "toward_first": 0.03125,
+  "position_bias": -0.40625
+ },
+ "230": {
+  "toward_first": 0.0625,
+  "position_bias": -0.4375
+ },
+ "231": {
+  "toward_first": 0.0,
+  "position_bias": -0.4375
+ },
+ "232": {
+  "toward_first": 0.09375,
+  "position_bias": -0.40625
+ },
+ "233": {
+  "toward_first": 0.03125,
+  "position_bias": -0.40625
+ },
+ "234": {
+  "toward_first": 0.125,
+  "position_bias": -0.5
+ },
+ "235": {
+  "toward_first": 0.03125,
+  "position_bias": -0.28125
+ },
+ "236": {
+  "toward_first": -0.0625,
+  "position_bias": -0.3125
+ },
+ "237": {
+  "toward_first": -0.03125,
+  "position_bias": -0.03125
+ },
+ "238": {
+  "toward_first": 0.0,
+  "position_bias": -0.125
+ },
+ "239": {
+  "toward_first": 0.0625,
+  "position_bias": -0.4375
+ },
+ "240": {
+  "toward_first": -0.03125,
+  "position_bias": -0.21875
+ },
+ "241": {
+  "toward_first": -0.03125,
+  "position_bias": -0.65625
+ },
+ "242": {
+  "toward_first": -0.0625,
+  "position_bias": -0.375
+ },
+ "243": {
+  "toward_first": -0.03125,
+  "position_bias": -0.34375
+ },
+ "244": {
+  "toward_first": -0.03125,
+  "position_bias": -0.40625
+ },
+ "245": {
+  "toward_first": 0.0625,
+  "position_bias": -0.125
+ },
+ "246": {
+  "toward_first": 0.0,
+  "position_bias": -0.25
+ },
+ "247": {
+  "toward_first": 0.03125,
+  "position_bias": -0.46875
+ },
+ "248": {
+  "toward_first": 0.125,
+  "position_bias": -0.125
+ },
+ "249": {
+  "toward_first": 0.0625,
+  "position_bias": -0.4375
+ },
+ "250": {
+  "toward_first": -0.09375,
+  "position_bias": -0.78125
+ },
+ "251": {
+  "toward_first": -0.09375,
+  "position_bias": -0.46875
+ },
+ "252": {
+  "toward_first": -0.125,
+  "position_bias": -0.5
+ },
+ "253": {
+  "toward_first": -0.125,
+  "position_bias": -0.375
+ },
+ "254": {
+  "toward_first": -0.0625,
+  "position_bias": -0.375
+ },
+ "255": {
+  "toward_first": -0.125,
+  "position_bias": -0.5
+ },
+ "256": {
+  "toward_first": -0.125,
+  "position_bias": -0.25
+ },
+ "257": {
+  "toward_first": -0.0625,
+  "position_bias": -1.4375
+ },
+ "258": {
+  "toward_first": 0.09375,
+  "position_bias": -1.09375
+ },
+ "259": {
+  "toward_first": 0.0,
+  "position_bias": -1.5625
+ },
+ "260": {
+  "toward_first": 0.125,
+  "position_bias": -1.625
+ },
+ "261": {
+  "toward_first": 0.0625,
+  "position_bias": -1.5
+ },
+ "262": {
+  "toward_first": -0.09375,
+  "position_bias": -1.15625
+ },
+ "263": {
+  "toward_first": 0.0,
+  "position_bias": -1.3125
+ },
+ "264": {
+  "toward_first": 0.03125,
+  "position_bias": -1.71875
+ },
+ "265": {
+  "toward_first": -0.09375,
+  "position_bias": -1.78125
+ },
+ "266": {
+  "toward_first": 0.09375,
+  "position_bias": -1.15625
+ },
+ "267": {
+  "toward_first": -0.09375,
+  "position_bias": -1.65625
+ },
+ "268": {
+  "toward_first": 0.0,
+  "position_bias": -1.9375
+ },
+ "269": {
+  "toward_first": 0.125,
+  "position_bias": -1.3125
+ },
+ "270": {
+  "toward_first": -0.0625,
+  "position_bias": -1.1875
+ },
+ "271": {
+  "toward_first": -0.09375,
+  "position_bias": -1.09375
+ },
+ "272": {
+  "toward_first": -0.125,
+  "position_bias": -1.125
+ },
+ "273": {
+  "toward_first": -0.03125,
+  "position_bias": -1.34375
+ },
+ "274": {
+  "toward_first": -0.03125,
+  "position_bias": -1.59375
+ },
+ "275": {
+  "toward_first": 0.0,
+  "position_bias": -1.5
+ },
+ "276": {
+  "toward_first": -0.03125,
+  "position_bias": -1.21875
+ },
+ "277": {
+  "toward_first": 0.09375,
+  "position_bias": -1.46875
+ },
+ "278": {
+  "toward_first": -0.15625,
+  "position_bias": -1.21875
+ },
+ "279": {
+  "toward_first": 0.0,
+  "position_bias": -1.6875
+ },
+ "280": {
+  "toward_first": 0.0,
+  "position_bias": -1.5
+ },
+ "281": {
+  "toward_first": 0.125,
+  "position_bias": -1.75
+ },
+ "282": {
+  "toward_first": 0.0625,
+  "position_bias": -1.625
+ },
+ "283": {
+  "toward_first": 0.03125,
+  "position_bias": -1.59375
+ },
+ "284": {
+  "toward_first": 0.125,
+  "position_bias": -1.125
+ },
+ "285": {
+  "toward_first": -0.0625,
+  "position_bias": -1.125
+ },
+ "286": {
+  "toward_first": 0.15625,
+  "position_bias": -1.15625
+ },
+ "287": {
+  "toward_first": -0.0625,
+  "position_bias": -1.5
+ },
+ "288": {
+  "toward_first": -0.09375,
+  "position_bias": -0.96875
+ },
+ "289": {
+  "toward_first": 0.0,
+  "position_bias": -1.6875
+ },
+ "290": {
+  "toward_first": -0.03125,
+  "position_bias": -1.59375
+ },
+ "291": {
+  "toward_first": -0.0625,
+  "position_bias": -1.4375
+ },
+ "292": {
+  "toward_first": -0.0625,
+  "position_bias": -1.4375
+ },
+ "293": {
+  "toward_first": 0.0,
+  "position_bias": -1.5
+ },
+ "294": {
+  "toward_first": 0.03125,
+  "position_bias": -1.65625
+ },
+ "295": {
+  "toward_first": 0.0625,
+  "position_bias": -1.9375
+ },
+ "296": {
+  "toward_first": 0.125,
+  "position_bias": -1.375
+ },
+ "297": {
+  "toward_first": 0.125,
+  "position_bias": -1.625
+ },
+ "298": {
+  "toward_first": -0.0625,
+  "position_bias": -1.9375
+ },
+ "299": {
+  "toward_first": 0.0,
+  "position_bias": -0.9375
+ },
+ "300": {
+  "toward_first": -0.0625,
+  "position_bias": -1.1875
+ },
+ "301": {
+  "toward_first": 0.0,
+  "position_bias": -1.25
+ },
+ "302": {
+  "toward_first": 0.0625,
+  "position_bias": -1.25
+ },
+ "303": {
+  "toward_first": 0.09375,
+  "position_bias": -1.71875
+ },
+ "304": {
+  "toward_first": 0.03125,
+  "position_bias": -1.59375
+ },
+ "305": {
+  "toward_first": -0.0625,
+  "position_bias": -2.0625
+ },
+ "306": {
+  "toward_first": 0.0,
+  "position_bias": -2.125
+ },
+ "307": {
+  "toward_first": 0.0625,
+  "position_bias": -1.5625
+ },
+ "308": {
+  "toward_first": -0.0625,
+  "position_bias": -1.1875
+ },
+ "309": {
+  "toward_first": -0.125,
+  "position_bias": -2.0
+ },
+ "310": {
+  "toward_first": 0.125,
+  "position_bias": -1.75
+ },
+ "311": {
+  "toward_first": 0.0,
+  "position_bias": -2.0
+ },
+ "312": {
+  "toward_first": 0.0625,
+  "position_bias": -2.0625
+ },
+ "313": {
+  "toward_first": -0.0625,
+  "position_bias": -1.5625
+ },
+ "314": {
+  "toward_first": -0.09375,
+  "position_bias": -1.59375
+ },
+ "315": {
+  "toward_first": 0.0625,
+  "position_bias": -1.8125
+ },
+ "316": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "317": {
+  "toward_first": 0.3125,
+  "position_bias": -1.8125
+ },
+ "318": {
+  "toward_first": 0.0,
+  "position_bias": -1.5
+ },
+ "319": {
+  "toward_first": -0.125,
+  "position_bias": -1.875
+ },
+ "320": {
+  "toward_first": -0.15625,
+  "position_bias": -1.53125
+ },
+ "321": {
+  "toward_first": 0.21875,
+  "position_bias": -1.71875
+ },
+ "322": {
+  "toward_first": -0.0625,
+  "position_bias": -1.5625
+ },
+ "323": {
+  "toward_first": 0.09375,
+  "position_bias": -2.03125
+ },
+ "324": {
+  "toward_first": -0.15625,
+  "position_bias": -1.40625
+ },
+ "325": {
+  "toward_first": 0.3125,
+  "position_bias": -1.9375
+ },
+ "326": {
+  "toward_first": 0.1875,
+  "position_bias": -1.9375
+ },
+ "327": {
+  "toward_first": 0.0,
+  "position_bias": -1.25
+ },
+ "328": {
+  "toward_first": -0.1875,
+  "position_bias": -1.4375
+ },
+ "329": {
+  "toward_first": 0.0625,
+  "position_bias": -2.0
+ },
+ "330": {
+  "toward_first": 0.0,
+  "position_bias": -2.0
+ },
+ "331": {
+  "toward_first": 0.0,
+  "position_bias": -2.0
+ },
+ "332": {
+  "toward_first": 0.1875,
+  "position_bias": -1.8125
+ },
+ "333": {
+  "toward_first": 0.0,
+  "position_bias": -1.625
+ },
+ "334": {
+  "toward_first": 0.0625,
+  "position_bias": -1.9375
+ },
+ "335": {
+  "toward_first": -0.09375,
+  "position_bias": -1.59375
+ },
+ "336": {
+  "toward_first": 0.03125,
+  "position_bias": -2.21875
+ },
+ "337": {
+  "toward_first": 0.125,
+  "position_bias": -2.25
+ },
+ "338": {
+  "toward_first": 0.125,
+  "position_bias": -1.75
+ },
+ "339": {
+  "toward_first": 0.0,
+  "position_bias": -2.0
+ },
+ "340": {
+  "toward_first": 0.09375,
+  "position_bias": -2.15625
+ },
+ "341": {
+  "toward_first": -0.09375,
+  "position_bias": -2.09375
+ },
+ "342": {
+  "toward_first": 0.125,
+  "position_bias": -1.625
+ },
+ "343": {
+  "toward_first": 0.125,
+  "position_bias": -1.625
+ },
+ "344": {
+  "toward_first": 0.0625,
+  "position_bias": -2.1875
+ },
+ "345": {
+  "toward_first": 0.125,
+  "position_bias": -1.625
+ },
+ "346": {
+  "toward_first": 0.0625,
+  "position_bias": -1.8125
+ },
+ "347": {
+  "toward_first": 0.03125,
+  "position_bias": -1.34375
+ },
+ "348": {
+  "toward_first": 0.03125,
+  "position_bias": -2.34375
+ },
+ "349": {
+  "toward_first": 0.0,
+  "position_bias": -1.5
+ },
+ "350": {
+  "toward_first": -0.03125,
+  "position_bias": -1.96875
+ },
+ "351": {
+  "toward_first": 0.0625,
+  "position_bias": -1.8125
+ },
+ "352": {
+  "toward_first": 0.0625,
+  "position_bias": -2.0625
+ },
+ "353": {
+  "toward_first": 0.0625,
+  "position_bias": -1.0625
+ },
+ "354": {
+  "toward_first": -0.125,
+  "position_bias": -1.25
+ },
+ "355": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "356": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "357": {
+  "toward_first": 0.0,
+  "position_bias": -1.125
+ },
+ "358": {
+  "toward_first": -0.1875,
+  "position_bias": -0.8125
+ },
+ "359": {
+  "toward_first": 0.125,
+  "position_bias": -1.0
+ },
+ "360": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "361": {
+  "toward_first": 0.0625,
+  "position_bias": -1.3125
+ },
+ "362": {
+  "toward_first": 0.125,
+  "position_bias": -0.625
+ },
+ "363": {
+  "toward_first": 0.0625,
+  "position_bias": -0.1875
+ },
+ "364": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "365": {
+  "toward_first": -0.1875,
+  "position_bias": -1.3125
+ },
+ "366": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "367": {
+  "toward_first": -0.125,
+  "position_bias": 0.125
+ },
+ "368": {
+  "toward_first": -0.0625,
+  "position_bias": -0.8125
+ },
+ "369": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ },
+ "370": {
+  "toward_first": 0.25,
+  "position_bias": -1.125
+ },
+ "371": {
+  "toward_first": 0.0625,
+  "position_bias": -0.5625
+ },
+ "372": {
+  "toward_first": 0.0625,
+  "position_bias": -0.9375
+ },
+ "373": {
+  "toward_first": 0.0,
+  "position_bias": -1.0
+ },
+ "374": {
+  "toward_first": -0.125,
+  "position_bias": -0.75
+ },
+ "375": {
+  "toward_first": -0.1875,
+  "position_bias": -0.3125
+ },
+ "376": {
+  "toward_first": -0.125,
+  "position_bias": -1.375
+ },
+ "377": {
+  "toward_first": -0.0625,
+  "position_bias": -1.1875
+ },
+ "378": {
+  "toward_first": -0.25,
+  "position_bias": -0.375
+ },
+ "379": {
+  "toward_first": -0.125,
+  "position_bias": -0.5
+ },
+ "380": {
+  "toward_first": -0.125,
+  "position_bias": -0.375
+ },
+ "381": {
+  "toward_first": -0.0625,
+  "position_bias": -0.9375
+ },
+ "382": {
+  "toward_first": -0.125,
+  "position_bias": -0.375
+ },
+ "383": {
+  "toward_first": -0.125,
+  "position_bias": -1.125
+ },
+ "384": {
+  "toward_first": -0.1875,
+  "position_bias": -0.6875
+ },
+ "385": {
+  "toward_first": -0.3125,
+  "position_bias": -0.5625
+ },
+ "386": {
+  "toward_first": -0.125,
+  "position_bias": -0.875
+ },
+ "387": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "388": {
+  "toward_first": 0.125,
+  "position_bias": -0.875
+ },
+ "389": {
+  "toward_first": 0.0625,
+  "position_bias": -0.4375
+ },
+ "390": {
+  "toward_first": 0.3125,
+  "position_bias": -0.5625
+ },
+ "391": {
+  "toward_first": 0.0625,
+  "position_bias": -0.8125
+ },
+ "392": {
+  "toward_first": -0.0625,
+  "position_bias": -0.5625
+ },
+ "393": {
+  "toward_first": -0.0625,
+  "position_bias": -0.1875
+ },
+ "394": {
+  "toward_first": 0.125,
+  "position_bias": -1.125
+ },
+ "395": {
+  "toward_first": 0.0,
+  "position_bias": -0.875
+ },
+ "396": {
+  "toward_first": -0.0625,
+  "position_bias": -0.6875
+ },
+ "397": {
+  "toward_first": 0.0625,
+  "position_bias": -0.8125
+ },
+ "398": {
+  "toward_first": -0.3125,
+  "position_bias": -1.5625
+ },
+ "399": {
+  "toward_first": -0.0625,
+  "position_bias": -0.6875
+ },
+ "400": {
+  "toward_first": 0.0,
+  "position_bias": -0.75
+ }
+}
