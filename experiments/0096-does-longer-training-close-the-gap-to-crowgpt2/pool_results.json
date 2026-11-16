@@ -1,0 +1,50 @@
+{
+  "pool": "capacity-0096",
+  "trials": 54,
+  "gate": {
+    "real": {
+      "n": 200,
+      "mean_units": 3.95,
+      "gaps_per_clip": 3.075,
+      "single_share": 0.195,
+      "median_gap_s": 0.30933333333333335,
+      "dust_rate": 0.17714285714285713,
+      "dust_scored_n": 175,
+      "mean_crescendo": 0.014734040613309539,
+      "crescendo_scored_n": 161
+    },
+    "crowgpt2": {
+      "n": 100,
+      "mean_units": 3.94,
+      "gaps_per_clip": 3.11,
+      "single_share": 0.22,
+      "median_gap_s": 0.2773333333333333,
+      "dust_rate": 0.3493975903614458,
+      "dust_scored_n": 83,
+      "mean_crescendo": 0.024905029773752443,
+      "crescendo_scored_n": 78
+    },
+    "0086 selected": {
+      "n": 100,
+      "mean_units": 4.06,
+      "gaps_per_clip": 3.17,
+      "single_share": 0.23,
+      "median_gap_s": 0.288,
+      "dust_rate": 0.23595505617977527,
+      "dust_scored_n": 89,
+      "mean_crescendo": -0.0006792174892492835,
+      "crescendo_scored_n": 77
+    },
+    "candidate": {
+      "n": 100,
+      "mean_units": 4.31,
+      "gaps_per_clip": 3.38,
+      "single_share": 0.16,
+      "median_gap_s": 0.288,
+      "dust_rate": 0.2903225806451613,
+      "dust_scored_n": 93,
+      "mean_crescendo": 0.0093604844054242,
+      "crescendo_scored_n": 84
+    }
+  }
+}

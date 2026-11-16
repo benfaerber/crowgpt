@@ -2678,9 +2678,9 @@ CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
     on 60k steps at batch 8 (1.8 passes) scores 4.668 on full American Crow
     validation against CrowGPT2's 4.793; 0086's 30k run of the same model
     scored 4.869. lr 0.0006 beat 0.0003 and the curve was still falling at
-    60k. Loss only, nobody has heard it. Open, Ben's call: a listening pool
-    for 60k-lr-6e-4/step-60000.pt (it supersedes the candidate in
-    capacity-0086, which sits at 2 of 48); a 120k run; and CrowGPT2's size
+    60k. Loss only, nobody has heard it. Listening pool capacity-0096 is
+    registered for 60k-lr-6e-4/step-60000.pt (it supersedes the candidate in
+    capacity-0086, which sits at 2 of 48). Open, Ben's call: a 120k run; and CrowGPT2's size
     at 60k, the control that would say whether size or steps did it.
 
     WHAT SURVIVES INTACT is 0048's train/val gap column, and it is the strongest

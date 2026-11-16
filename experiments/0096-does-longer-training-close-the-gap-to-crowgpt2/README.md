@@ -24,7 +24,7 @@ Every snapshot, CrowGPT2 and 0086's selected model were then scored on all
 5,033 canonical American Crow validation bouts by the same code. The two
 references reproduce 0086's published numbers exactly (4.7927, 4.8690).
 
-No clips were generated and no listening pool was built.
+`pool.py` then built the sitting (see "The sitting" below).
 
 ## Results
 
@@ -55,6 +55,31 @@ Full American Crow validation cross entropy, lower is better:
   falling. The model is not yet memorising.
 - No arm failed or produced a non-finite loss.
 
+## The sitting
+
+`pool.py` registered listening pool **capacity-0096** (id 8): the lr 0.0006
+step-60,000 snapshot against CrowGPT2, with 0086's sampler settings, decoder
+and question. 54 trials in three doses of 18, 30-minute cooldown, results
+withheld until all 54 are answered: 40 comparisons, 8 catches against a real
+recording, and 6 repeats. A repeat is an earlier comparison played again in
+a later dose with the sides swapped, so the ear's own repeatability is
+measured for the first time (0095's open caveat). Clips are the first 44
+gradeable draws per model from seed 96000, with no selection. The real
+anchors are test groups no earlier pool used.
+
+The instrument measures 0086 reported, on 100 draws from the same seeds:
+
+| | real | CrowGPT2 | 0086 selected | 60k candidate |
+|---|---:|---:|---:|---:|
+| units per clip | 3.95 | 3.94 | 4.06 | 4.31 |
+| single-unit share | 0.20 | 0.22 | 0.23 | 0.16 |
+| median gap, seconds | 0.309 | 0.277 | 0.288 | 0.288 |
+| dust-probe fraction | 0.18 | 0.35 | 0.24 | 0.29 |
+| late-minus-early pitch strength | +0.015 | +0.025 | −0.001 | +0.009 |
+
+Nothing here separates the candidate from CrowGPT2 beyond what 100 draws
+can vary by. It makes slightly more calls per clip than real bouts do.
+
 ## Caveats
 
 - **Loss is not the ear.** 0086 required "a pass by ear, not lower cross
@@ -78,10 +103,10 @@ Full American Crow validation cross entropy, lower is better:
   compared from here on. 60,000 is the new floor, and the curves say more
   would still help.
 - **The candidate to hear next** is
-  `crowgpt/results/longer-0096/60k-lr-6e-4/step-60000.pt`. No pool was
-  built for it, because capacity-0086 (2 of 48 answered) asks the same
-  question about a model this one supersedes. Ben's call: replace that
-  sitting with one for this candidate, or finish it first.
+  `crowgpt/results/longer-0096/60k-lr-6e-4/step-60000.pt`, and pool
+  capacity-0096 is waiting in the Listening panel for it. capacity-0086
+  (2 of 48 answered) asks the same question about a model this one
+  supersedes and is left as it is.
 - Two follow-ups, neither started: the same recipe at 120,000 steps, and
   CrowGPT2's size on 60,000 steps as the missing control.
 - The weights are local only (`*.pt` is gitignored). Nothing was released.
