@@ -1,0 +1,2536 @@
+{
+  "answers": {
+    "churn-spread-0053": 120,
+    "scrape-v3-0064": 40,
+    "longctx-0067": 48,
+    "longctx-0067b": 48,
+    "dust-0069": 48,
+    "voice-0078": 16,
+    "capacity-0086": 2
+  },
+  "judges": {
+    "ast+dust": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 5,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.544,
+          "sign_agreement": 0.766,
+          "catch_n": 12,
+          "catch_picks_real": 0.833,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.26
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.12
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.126
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.474,
+          "sign_agreement": 0.611,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.227
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.517,
+          "sign_agreement": 0.69,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.064
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.382,
+          "sign_agreement": 0.636,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.016
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.594,
+          "sign_agreement": 0.853,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.06
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.502,
+      "min_spearman": 0.382,
+      "catch_picks_real": 0.744
+    },
+    "ast+dust+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 5,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.515,
+          "sign_agreement": 0.766,
+          "catch_n": 12,
+          "catch_picks_real": 0.917,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.173
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.073
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.05
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.452,
+          "sign_agreement": 0.611,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.186
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.518,
+          "sign_agreement": 0.762,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.043
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.304,
+          "sign_agreement": 0.636,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.054
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.563,
+          "sign_agreement": 0.824,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.059
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.47,
+      "min_spearman": 0.304,
+      "catch_picks_real": 0.721
+    },
+    "whisper-L4": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.448,
+          "sign_agreement": 0.649,
+          "catch_n": 12,
+          "catch_picks_real": 0.5,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.14
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.162
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.169
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.503,
+          "sign_agreement": 0.722,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.178
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.515,
+          "sign_agreement": 0.786,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.008
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.353,
+          "sign_agreement": 0.636,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.032
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.603,
+          "sign_agreement": 0.765,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.036
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.484,
+      "min_spearman": 0.353,
+      "catch_picks_real": 0.674
+    },
+    "whisper-L4+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.433,
+          "sign_agreement": 0.628,
+          "catch_n": 12,
+          "catch_picks_real": 0.583,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.088
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.125
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.12
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.55,
+          "sign_agreement": 0.778,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.116
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.501,
+          "sign_agreement": 0.762,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.02
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.376,
+          "sign_agreement": 0.591,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.048
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.577,
+          "sign_agreement": 0.765,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.036
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.487,
+      "min_spearman": 0.376,
+      "catch_picks_real": 0.698
+    },
+    "whisper-L8": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 6,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.387,
+          "sign_agreement": 0.66,
+          "catch_n": 12,
+          "catch_picks_real": 0.5,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.142
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.077
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.072
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.571,
+          "sign_agreement": 0.722,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.185
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.567,
+          "sign_agreement": 0.786,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.026
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.356,
+          "sign_agreement": 0.659,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": 0.011
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.656,
+          "sign_agreement": 0.853,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.002
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.507,
+      "min_spearman": 0.356,
+      "catch_picks_real": 0.674
+    },
+    "whisper-L8+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.35,
+          "sign_agreement": 0.638,
+          "catch_n": 12,
+          "catch_picks_real": 0.583,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.11
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.047
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.02
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.538,
+          "sign_agreement": 0.75,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.14
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.534,
+          "sign_agreement": 0.714,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.022
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.312,
+          "sign_agreement": 0.614,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.049
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.629,
+          "sign_agreement": 0.824,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.002
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.473,
+      "min_spearman": 0.312,
+      "catch_picks_real": 0.721
+    },
+    "whisper-L16": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 3,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.311,
+          "sign_agreement": 0.617,
+          "catch_n": 12,
+          "catch_picks_real": 0.667,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.061
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.024
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": 0.066
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.588,
+          "sign_agreement": 0.806,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.146
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.564,
+          "sign_agreement": 0.833,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.105
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.403,
+          "sign_agreement": 0.591,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.018
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.517,
+          "sign_agreement": 0.765,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.045
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.477,
+      "min_spearman": 0.311,
+      "catch_picks_real": 0.698
+    },
+    "whisper-L16+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 2,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.253,
+          "sign_agreement": 0.585,
+          "catch_n": 12,
+          "catch_picks_real": 0.667,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.017
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.023
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": 0.076
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.541,
+          "sign_agreement": 0.806,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.096
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.609,
+          "sign_agreement": 0.762,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.145
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.346,
+          "sign_agreement": 0.614,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.034
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.492,
+          "sign_agreement": 0.706,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.003
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.448,
+      "min_spearman": 0.253,
+      "catch_picks_real": 0.698
+    },
+    "whisper-L24": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 3,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.352,
+          "sign_agreement": 0.628,
+          "catch_n": 12,
+          "catch_picks_real": 0.667,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.115
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.065
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": 0.034
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.546,
+          "sign_agreement": 0.722,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.095
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.643,
+          "sign_agreement": 0.786,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.069
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.259,
+          "sign_agreement": 0.659,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": 0.022
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.488,
+          "sign_agreement": 0.676,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.035
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.458,
+      "min_spearman": 0.259,
+      "catch_picks_real": 0.698
+    },
+    "whisper-L24+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 3,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.376,
+          "sign_agreement": 0.628,
+          "catch_n": 12,
+          "catch_picks_real": 0.583,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.182
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.045
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.037
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.502,
+          "sign_agreement": 0.722,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.092
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.681,
+          "sign_agreement": 0.857,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.09
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.311,
+          "sign_agreement": 0.636,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.039
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.538,
+          "sign_agreement": 0.647,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.02
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.482,
+      "min_spearman": 0.311,
+      "catch_picks_real": 0.651
+    },
+    "whisper-L32": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 5,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.452,
+          "sign_agreement": 0.702,
+          "catch_n": 12,
+          "catch_picks_real": 0.667,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.37
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.19
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.069
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.537,
+          "sign_agreement": 0.778,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 10000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.056
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.683,
+          "sign_agreement": 0.81,
+          "catch_n": 8,
+          "catch_picks_real": 1.0,
+          "alpha": 10000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.037
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.333,
+          "sign_agreement": 0.591,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 10000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": 0.019
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.671,
+          "sign_agreement": 0.853,
+          "catch_n": 8,
+          "catch_picks_real": 1.0,
+          "alpha": 10000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.008
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.535,
+      "min_spearman": 0.333,
+      "catch_picks_real": 0.767
+    },
+    "whisper-L32+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 5,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.457,
+          "sign_agreement": 0.713,
+          "catch_n": 12,
+          "catch_picks_real": 0.667,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.305
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.164
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.063
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.581,
+          "sign_agreement": 0.722,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.059
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.656,
+          "sign_agreement": 0.786,
+          "catch_n": 8,
+          "catch_picks_real": 1.0,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.08
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.338,
+          "sign_agreement": 0.568,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": 0.008
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.655,
+          "sign_agreement": 0.824,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.014
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.537,
+      "min_spearman": 0.338,
+      "catch_picks_real": 0.744
+    },
+    "clap": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.595,
+          "sign_agreement": 0.766,
+          "catch_n": 12,
+          "catch_picks_real": 1.0,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.667
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.05
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.172
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.351,
+          "sign_agreement": 0.611,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.099
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.468,
+          "sign_agreement": 0.69,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.058
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.493,
+          "sign_agreement": 0.727,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.016
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.534,
+          "sign_agreement": 0.794,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.063
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.488,
+      "min_spearman": 0.351,
+      "catch_picks_real": 0.744
+    },
+    "clap+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.571,
+          "sign_agreement": 0.745,
+          "catch_n": 12,
+          "catch_picks_real": 0.917,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.564
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": 0.045
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.121
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.331,
+          "sign_agreement": 0.611,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.067
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.614,
+          "sign_agreement": 0.81,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.041
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.495,
+          "sign_agreement": 0.682,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.017
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.5,
+          "sign_agreement": 0.765,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.06
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.502,
+      "min_spearman": 0.331,
+      "catch_picks_real": 0.744
+    },
+    "encodec": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.304,
+          "sign_agreement": 0.67,
+          "catch_n": 12,
+          "catch_picks_real": 0.417,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.644
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.286
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.712
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.349,
+          "sign_agreement": 0.583,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 10.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.197
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.405,
+          "sign_agreement": 0.667,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.039
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.372,
+          "sign_agreement": 0.659,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.048
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.373,
+          "sign_agreement": 0.588,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 10.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.026
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.361,
+      "min_spearman": 0.304,
+      "catch_picks_real": 0.651
+    },
+    "encodec+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.232,
+          "sign_agreement": 0.606,
+          "catch_n": 12,
+          "catch_picks_real": 0.333,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.29
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.155
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.317
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.124,
+          "sign_agreement": 0.639,
+          "catch_n": 7,
+          "catch_picks_real": 0.429,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.057
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.46,
+          "sign_agreement": 0.643,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.037
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.341,
+          "sign_agreement": 0.636,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.019
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.263,
+          "sign_agreement": 0.588,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 10.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.032
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.284,
+      "min_spearman": 0.124,
+      "catch_picks_real": 0.512
+    },
+    "mel": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 5,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.322,
+          "sign_agreement": 0.606,
+          "catch_n": 12,
+          "catch_picks_real": 0.667,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.263
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.405
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.45
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.343,
+          "sign_agreement": 0.694,
+          "catch_n": 7,
+          "catch_picks_real": 0.429,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.251
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.431,
+          "sign_agreement": 0.714,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.011
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.374,
+          "sign_agreement": 0.705,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.043
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.563,
+          "sign_agreement": 0.794,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.055
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.407,
+      "min_spearman": 0.322,
+      "catch_picks_real": 0.675
+    },
+    "mel+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 3,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.38,
+          "sign_agreement": 0.67,
+          "catch_n": 12,
+          "catch_picks_real": 0.583,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.192
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.218
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.217
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.44,
+          "sign_agreement": 0.722,
+          "catch_n": 7,
+          "catch_picks_real": 0.429,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.076
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.456,
+          "sign_agreement": 0.738,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": 0.009
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.419,
+          "sign_agreement": 0.75,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.049
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.48,
+          "sign_agreement": 0.706,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.031
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.435,
+      "min_spearman": 0.38,
+      "catch_picks_real": 0.674
+    },
+    "whisper-L8+L24": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.391,
+          "sign_agreement": 0.638,
+          "catch_n": 12,
+          "catch_picks_real": 0.583,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.149
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.02
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.047
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.612,
+          "sign_agreement": 0.806,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.143
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.599,
+          "sign_agreement": 0.762,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.041
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.332,
+          "sign_agreement": 0.614,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.051
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.662,
+          "sign_agreement": 0.824,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.007
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.519,
+      "min_spearman": 0.332,
+      "catch_picks_real": 0.698
+    },
+    "whisper-L8+L24+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 3,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.341,
+          "sign_agreement": 0.617,
+          "catch_n": 12,
+          "catch_picks_real": 0.667,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.086
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.011
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": 0.002
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.559,
+          "sign_agreement": 0.778,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.208
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.6,
+          "sign_agreement": 0.833,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.041
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.298,
+          "sign_agreement": 0.614,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.052
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.554,
+          "sign_agreement": 0.735,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.01
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.47,
+      "min_spearman": 0.298,
+      "catch_picks_real": 0.698
+    },
+    "whisper-L8+encodec+mel": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 5,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.409,
+          "sign_agreement": 0.67,
+          "catch_n": 12,
+          "catch_picks_real": 0.5,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.193
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.139
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.172
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.537,
+          "sign_agreement": 0.722,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.181
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.559,
+          "sign_agreement": 0.786,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.023
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.34,
+          "sign_agreement": 0.614,
+          "catch_n": 8,
+          "catch_picks_real": 0.5,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": 0.006
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.673,
+          "sign_agreement": 0.824,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.0
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.504,
+      "min_spearman": 0.34,
+      "catch_picks_real": 0.651
+    },
+    "whisper-L8+encodec+mel+anchor": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 4,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.381,
+          "sign_agreement": 0.606,
+          "catch_n": 12,
+          "catch_picks_real": 0.5,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.145
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.093
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.093
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.523,
+          "sign_agreement": 0.694,
+          "catch_n": 7,
+          "catch_picks_real": 0.571,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.133
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.543,
+          "sign_agreement": 0.762,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.021
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.329,
+          "sign_agreement": 0.614,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.042
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.605,
+          "sign_agreement": 0.824,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": -0.01
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.476,
+      "min_spearman": 0.329,
+      "catch_picks_real": 0.674
+    },
+    "ensemble(whisper-L32,clap,ast+dust,mel)": {
+      "arm_pairs": 7,
+      "arm_verdicts_agreeing": 5,
+      "held_out": {
+        "churn-spread-0053": {
+          "n": 120,
+          "spearman": 0.545,
+          "sign_agreement": 0.745,
+          "catch_n": 12,
+          "catch_picks_real": 0.75,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "channel-000",
+              "against": "channel-081",
+              "n": 36,
+              "ear": 0.833,
+              "judge": 0.716
+            },
+            {
+              "toward": "channel-000",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.056,
+              "judge": -0.19
+            },
+            {
+              "toward": "channel-081",
+              "against": "channel-205",
+              "n": 36,
+              "ear": -0.694,
+              "judge": -0.485
+            }
+          ]
+        },
+        "scrape-v3-0064": {
+          "n": 40,
+          "spearman": 0.54,
+          "sign_agreement": 0.75,
+          "catch_n": 7,
+          "catch_picks_real": 0.714,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "v2-fair-k8",
+              "against": "v3-scrape",
+              "n": 33,
+              "ear": -0.03,
+              "judge": 0.237
+            }
+          ]
+        },
+        "longctx-0067": {
+          "n": 48,
+          "spearman": 0.537,
+          "sign_agreement": 0.762,
+          "catch_n": 8,
+          "catch_picks_real": 0.875,
+          "alpha": 100.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": -0.2,
+              "judge": -0.091
+            }
+          ]
+        },
+        "longctx-0067b": {
+          "n": 48,
+          "spearman": 0.428,
+          "sign_agreement": 0.659,
+          "catch_n": 8,
+          "catch_picks_real": 0.625,
+          "alpha": 1000.0,
+          "arms": [
+            {
+              "toward": "model-longctx",
+              "against": "model-units",
+              "n": 40,
+              "ear": 0.2,
+              "judge": -0.036
+            }
+          ]
+        },
+        "dust-0069": {
+          "n": 48,
+          "spearman": 0.58,
+          "sign_agreement": 0.824,
+          "catch_n": 8,
+          "catch_picks_real": 0.75,
+          "alpha": 10000.0,
+          "arms": [
+            {
+              "toward": "default",
+              "against": "hot",
+              "n": 40,
+              "ear": 0.05,
+              "judge": 0.057
+            }
+          ]
+        }
+      },
+      "mean_spearman": 0.526,
+      "min_spearman": 0.428,
+      "catch_picks_real": 0.744
+    }
+  },
+  "chosen": {
+    "judge": "whisper-L32+anchor",
+    "alpha": 1000.0,
+    "chosen_on": "mean held-out Spearman over the five completed pools"
+  },
+  "already_answered": {
+    "voice-0078": {
+      "n": 16,
+      "spearman": 0.439,
+      "sign_agreement": 0.733,
+      "catch_n": 3,
+      "catch_picks_real": 0.667
+    },
+    "capacity-0086": {
+      "n": 2,
+      "spearman": -1.0,
+      "sign_agreement": 0.0
+    }
+  },
+  "sealed_summary": {
+    "voice-0078": {
+      "favoured_if_positive": "b32",
+      "other": [
+        "calltype"
+      ],
+      "mean_margin": -0.033,
+      "share_favouring": 0.519,
+      "n_compare_trials": 27
+    },
+    "capacity-0086": {
+      "favoured_if_positive": "candidate",
+      "other": [
+        "crowgpt2"
+      ],
+      "mean_margin": -0.062,
+      "share_favouring": 0.395,
+      "n_compare_trials": 38
+    }
+  }
+}
