@@ -5,6 +5,7 @@ import {
   type LayoutChangeEvent,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -138,7 +139,10 @@ export function LabelingScreen({
 
   if (cards.length === 0) {
     return (
-      <View style={styles.screen}>
+      // Measured here as well as on the deck. The deck replaces this view in
+      // place once the calls load, and a browser only watches a view's size if
+      // the handler was there when it first appeared.
+      <View style={styles.screen} onLayout={measure}>
         <Header onBack={onBack} title="Label calls" subtitle="" />
         <KeyboardAwareScroll contentContainerStyle={styles.emptyBody}>
           <Text style={styles.emptyText}>
@@ -176,6 +180,14 @@ export function LabelingScreen({
 
   const decided = countDecided(cards);
 
+  const jumpTo = (i: number) => {
+    player.pause();
+    playingUntil.current = undefined;
+    setIndex(i);
+    jumpedAt.current = Date.now();
+    deck.current?.scrollTo({ x: i * width, animated: true });
+  };
+
   const settleOn = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offset = event.nativeEvent.contentOffset.x / width;
     const next = Math.round(offset);
@@ -212,13 +224,7 @@ export function LabelingScreen({
         {cards.map((card, i) => (
           <Pressable
             key={card.key}
-            onPress={() => {
-              player.pause();
-              playingUntil.current = undefined;
-              setIndex(i);
-              jumpedAt.current = Date.now();
-              deck.current?.scrollTo({ x: i * width, animated: true });
-            }}
+            onPress={() => jumpTo(i)}
             style={styles.segmentTouch}
           >
             <View
@@ -271,11 +277,21 @@ export function LabelingScreen({
         ))}
       </ScrollView>
 
-      <Text style={styles.swipeHint}>
-        {index < cards.length - 1
-          ? "Tag what was happening, then swipe for the next call"
-          : "Last call"}
-      </Text>
+      {Platform.OS === "web" && index < cards.length - 1 ? (
+        // A mouse cannot swipe a deck sideways, so in a browser the hint is
+        // also the way on.
+        <Pressable onPress={() => jumpTo(index + 1)}>
+          <Text style={[styles.swipeHint, styles.swipeLink]}>
+            Tag what was happening, then go to the next call ›
+          </Text>
+        </Pressable>
+      ) : (
+        <Text style={styles.swipeHint}>
+          {index < cards.length - 1
+            ? "Tag what was happening, then swipe for the next call"
+            : "Last call"}
+        </Text>
+      )}
 
       {/* Below the deck rather than inside it: a sighting is about the whole
           recording, not about the call currently on screen — putting it on a
@@ -341,6 +357,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingBottom: spacing.lg,
   },
+  swipeLink: { color: colors.accent },
   emptyBody: { padding: spacing.lg, gap: spacing.lg, paddingBottom: pageEnd },
   footer: { paddingHorizontal: spacing.lg, paddingBottom: spacing.lg },
   emptyText: { color: colors.textFaint, fontSize: 14, textAlign: "center" },

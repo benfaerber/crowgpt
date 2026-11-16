@@ -162,3 +162,37 @@ ifeq ($(NODE_BIN),)
 	@echo "Install one with 'nvm install --lts', or set NODE_BIN=/path/to/node/bin." >&2
 	@exit 1
 endif
+
+# ---- The labelling desk in a browser ----------------------------------------
+#
+# web/ compiles src/ui/LabelingScreen.tsx, the same file the phone runs, for
+# the field server to serve at /label/<id> to someone who scanned a recording
+# on the promo site. It is a package of its own so that nothing it needs
+# (react-dom, react-native-web, vite) enters the app's dependency tree.
+#
+# Unlike the dashboard's bundle this one is rebuilt whenever a source it
+# compiles is newer: the desk is the app's own screen, and a bundle left
+# behind a change to it is two labelling desks again.
+DESK_BUNDLE = ../fieldserver/src/fieldserver/static/label/index.html
+DESK_SOURCES = $(shell find web/src src -name '*.ts' -o -name '*.tsx') web/index.html web/vite.config.ts
+
+.PHONY: desk desk-bundle desk-dev desk-typecheck
+
+web/node_modules: web/package.json
+	cd web && npm install --no-audit --no-fund
+	@touch web/node_modules
+
+$(DESK_BUNDLE): web/node_modules $(DESK_SOURCES)
+	cd web && npm run build
+
+desk-bundle: $(DESK_BUNDLE)
+
+desk: web/node_modules
+	cd web && npm run build
+
+# Against a local `make field` on :5100. Open /label/<public id of a kept scan>.
+desk-dev: web/node_modules
+	cd web && npm run dev
+
+desk-typecheck: web/node_modules
+	cd web && npm run typecheck

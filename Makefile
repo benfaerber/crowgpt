@@ -82,8 +82,10 @@ BOX_UNITS := crowgpt-field $$(cd ~/$(DEPLOY_DIR)/fieldserver && $(BOX_WORKERS) u
 field-deploy:
 	$(MAKE) -C dashboard ensure-bundle
 	$(MAKE) -C promo ensure-bundle
+	$(MAKE) -C mobile desk-bundle
 	git archive --format=tar HEAD | ssh $(DEPLOY_HOST) 'tar -x -C ~/$(DEPLOY_DIR)'
 	rsync -a fieldserver/src/fieldserver/static/app fieldserver/src/fieldserver/static/promo \
+	  fieldserver/src/fieldserver/static/label \
 	  $(DEPLOY_HOST):~/$(DEPLOY_DIR)/fieldserver/src/fieldserver/static/
 	ssh $(DEPLOY_HOST) 'export PATH=$$HOME/.local/bin:$$PATH; cd ~/$(DEPLOY_DIR)/fieldserver \
 	  && UV_PYTHON=3.10 uv sync --frozen --no-dev -q --compile-bytecode \
@@ -149,6 +151,7 @@ field-logs:
 field:
 	$(MAKE) -C dashboard ensure-bundle
 	$(MAKE) -C promo ensure-bundle
+	$(MAKE) -C mobile desk-bundle
 	$(MAKE) -C fieldserver dev
 
 field-stop:

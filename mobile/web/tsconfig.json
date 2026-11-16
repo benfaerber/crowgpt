@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "types": ["vite/client"],
+    // The same two mappings mobile/tsconfig.json carries, for the same reason:
+    // the shared screen is typechecked against the real React Native.
+    "paths": {
+      "react-native/types/*": ["../node_modules/react-native/types/*"],
+      "react-native/Libraries/*": ["../node_modules/react-native/Libraries/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

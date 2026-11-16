@@ -21,5 +21,7 @@
   },
   // tests/ targets Node, not the app runtime — it is typechecked by
   // tsconfig.tests.json (make test) and would otherwise fail here on node: imports.
-  "exclude": ["node_modules", "tests", ".test-build"]
+  // web/ is the labelling desk's browser shell, a package of its own with its
+  // own tsconfig (make desk-typecheck).
+  "exclude": ["node_modules", "tests", ".test-build", "web"]
 }

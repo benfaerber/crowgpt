@@ -53,7 +53,7 @@ MIMETYPES = {
 
 NOT_BUILT = (
     "<h1>Labelling desk not built</h1>"
-    "<p>Run <code>make -C mobile web-desk</code>, "
+    "<p>Run <code>make -C mobile desk</code>, "
     "or <code>make field</code>, which builds it for you.</p>"
 )
 

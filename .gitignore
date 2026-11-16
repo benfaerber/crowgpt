@@ -33,6 +33,9 @@ fieldserver/src/fieldserver/static/app/
 # Built by `make -C promo build`; same deal.
 fieldserver/src/fieldserver/static/promo/
 
+# Built by `make -C mobile desk`: the labelling screen compiled for a browser.
+fieldserver/src/fieldserver/static/label/
+
 # Personal shortcuts — handset serials, and whatever else is true of one desk
 # and no other. `make` includes it when present and shrugs when it isn't.
 Makefile.local
