@@ -615,6 +615,10 @@ img {
     padding: 0.5rem 0;
   }
 
+  .nav.has-menu.is-open .nav-icons {
+    gap: 1.25rem;
+  }
+
   .nav.has-menu.is-open .icon-link {
     padding: 0.5rem 0;
   }
@@ -636,6 +640,12 @@ img {
  * height of the links beside them so the row reads as one line. */
 .nav-links {
   align-items: center;
+}
+
+.nav-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .icon-link {
