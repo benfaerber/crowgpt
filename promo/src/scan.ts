@@ -103,9 +103,11 @@ class Whereabouts {
   }
 }
 
-/** Countries where the keep box starts ticked. Everywhere else it starts
- *  unticked and is asked afresh for every file. */
-const KEEP_BY_DEFAULT = new Set(["US"]);
+/** Countries where a scanned file is always kept, which the page says in
+ *  place of the box: Ben's decision of 2026-11-15, that keeping the file is
+ *  what the free scan costs. Everywhere else, and wherever the country is
+ *  not known, keeping is the visitor's choice, asked afresh for every file. */
+const KEEP_ALWAYS = new Set(["US"]);
 
 const POLL_MS = 1500;
 const WAITING = {
@@ -213,10 +215,7 @@ class ScanPage {
   private token = "";
   private busy = false;
   private place: Place | null = null;
-  /** Ticked again after each file. True only for a visitor in KEEP_BY_DEFAULT
-   *  who has not unticked it; one untick is a no for the rest of the visit. */
-  private keepDefault = false;
-  private keepTouched = false;
+  private keepAlways = false;
   private readonly countdown: Countdown;
   private readonly loader = new CrowLoader();
   private readonly whereabouts = new Whereabouts(__GEO_URL__, __FIELD_API__ === "");
@@ -232,6 +231,8 @@ class ScanPage {
     private readonly placeName: HTMLElement,
     private readonly verification: HTMLElement,
     private readonly keep: HTMLInputElement,
+    private readonly keepRow: HTMLElement,
+    private readonly keepNotice: HTMLElement,
   ) {
     this.countdown = new Countdown(status);
     this.drop.querySelector(".scan-drop-sky")?.append(this.loader.root);
@@ -277,9 +278,10 @@ class ScanPage {
   /** Not awaited by mount: a slow or absent lookup must not hold the page. */
   private async locateVisitor(): Promise<void> {
     const visitor = await this.whereabouts.find();
-    if (visitor.country && KEEP_BY_DEFAULT.has(visitor.country) && !this.keepTouched) {
-      this.keepDefault = true;
-      this.keep.checked = true;
+    if (visitor.country && KEEP_ALWAYS.has(visitor.country)) {
+      this.keepAlways = true;
+      this.keepRow.hidden = true;
+      this.keepNotice.hidden = false;
     }
     this.place = visitor.place;
     if (!this.place) return;
@@ -304,10 +306,6 @@ class ScanPage {
   }
 
   private wire(): void {
-    this.keep.addEventListener("change", () => {
-      this.keepTouched = true;
-      if (!this.keep.checked) this.keepDefault = false;
-    });
     this.drop.addEventListener("click", () => { if (this.ready()) this.picker.click(); });
     this.drop.addEventListener("keydown", event => {
       if ((event.key === "Enter" || event.key === " ") && this.ready()) {
@@ -376,8 +374,8 @@ class ScanPage {
     this.say("Uploading…");
     try {
       const place = this.locate.checked ? this.place : null;
-      const offered = this.keep.checked;
-      this.keep.checked = this.keepDefault;
+      const offered = this.keepAlways || this.keep.checked;
+      this.keep.checked = false;
       let scan = await this.api.upload(file, token, place, offered);
       while (scan.state === "queued" || scan.state === "running") {
         this.countdown.show(
@@ -508,4 +506,6 @@ void new ScanPage(
   need("#scan-place"),
   need("#scan-verification"),
   need<HTMLInputElement>("#scan-keep"),
+  need("#scan-keep-row"),
+  need("#scan-keep-always"),
 ).mount();

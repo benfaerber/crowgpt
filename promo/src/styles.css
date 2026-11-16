@@ -2485,6 +2485,10 @@ main {
   display: none;
 }
 
+.scan-keep-always {
+  cursor: default;
+}
+
 .scan-locate strong {
   color: var(--text-primary);
   font-weight: 600;
