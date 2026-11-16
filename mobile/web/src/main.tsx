@@ -11,6 +11,26 @@ import { ScanDeskServices } from "./ScanDeskServices";
 
 const SITE = "https://crowgpt.org";
 
+/**
+ * The Scan page the visitor came from, which the link to here names after
+ * `#from=`. Believed only when it is the project's site or this server's own
+ * copy of it; anything else gets the public Scan page.
+ */
+function scanPage(): string {
+  const fallback = `${SITE}/scan`;
+  try {
+    const from = new URLSearchParams(window.location.hash.slice(1)).get("from");
+    if (!from) return fallback;
+    const url = new URL(from);
+    const trusted = [new URL(SITE).origin, "https://www.crowgpt.org", window.location.origin];
+    return trusted.includes(url.origin) ? url.origin + url.pathname : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+const SCAN_PAGE = scanPage();
+
 type Loaded =
   | { state: "loading" }
   | { state: "missing" }
@@ -72,7 +92,7 @@ function ScanDesk() {
       <Notice
         title="This link does not open a recording"
         body="Labelling is for a recording or video you scanned and let CrowGPT keep. The link is on the scan's result."
-        action={{ label: "Scan a recording", href: `${SITE}/scan` }}
+        action={{ label: "Scan a recording", href: SCAN_PAGE }}
       />
     );
   }
@@ -84,7 +104,7 @@ function ScanDesk() {
       <Notice
         title="This recording has been reviewed"
         body="Someone on the project has listened to it and taken your labels with it, so they are final. Thank you."
-        action={{ label: "Scan another", href: `${SITE}/scan` }}
+        action={{ label: "Back to your scans", href: SCAN_PAGE }}
       />
     );
   }
@@ -97,7 +117,8 @@ function ScanDesk() {
             ? `${services.decided} ${services.decided === 1 ? "call" : "calls"} labelled. What you heard and what was happening is the part no model can supply.`
             : "Nothing is labelled yet. You can come back to this link whenever you like."
         }
-        action={{ label: "Get the field app", href: `${SITE}/#request` }}
+        action={{ label: "Back to your scan", href: SCAN_PAGE }}
+        more={{ label: "Get the field app", href: `${SITE}/#request` }}
         back={{ label: "Keep labelling", onPress: () => setFinished(false) }}
       />
     );
@@ -133,11 +154,13 @@ function Notice({
   title,
   body,
   action,
+  more,
   back,
 }: {
   title: string;
   body?: string;
   action?: { label: string; href: string };
+  more?: { label: string; href: string };
   back?: { label: string; onPress: () => void };
 }) {
   return (
@@ -153,6 +176,11 @@ function Notice({
         {action ? (
           <Pressable accessibilityRole="link" onPress={() => window.location.assign(action.href)}>
             <Text style={styles.link}>{action.label}</Text>
+          </Pressable>
+        ) : null}
+        {more ? (
+          <Pressable accessibilityRole="link" onPress={() => window.location.assign(more.href)}>
+            <Text style={styles.link}>{more.label}</Text>
           </Pressable>
         ) : null}
       </View>

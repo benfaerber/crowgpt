@@ -29,6 +29,7 @@ from pathlib import Path
 from flask import abort, jsonify, request, send_from_directory, send_file
 
 from ..core.promotion import NotPromotable, ScanPromotion
+from .demo import allowed_origins
 from ..core.throttle import Allowance
 from ..core.transcode import TranscodeError
 from ..stores.contributors import FLEET_ROLES
@@ -65,6 +66,7 @@ def register(app, d) -> None:
     promotion = ScanPromotion(desk, config, d.contributors, d.devices, d.captures, d.media,
                               d.labels, d.context, d.analysis)
     writes = Allowance(allowed=WRITES_PER_HOUR, per_seconds=3600)
+    scan_page_origins = allowed_origins()
 
     def current_operator() -> dict:
         _, contributor = current_actor()
@@ -130,6 +132,18 @@ def register(app, d) -> None:
 
     # --- the visitor's routes ----------------------------------------------------
 
+    @app.after_request
+    def scan_page_may_read(response):
+        """The promo's Scan page shows a visitor the recordings they kept on
+        earlier visits, read from here by the same link. Reading only: every
+        write stays with the desk itself, which is same-origin."""
+        if request.method == "GET" and request.path.startswith("/api/scan-desk/"):
+            origin = request.headers.get("Origin")
+            if origin in scan_page_origins:
+                response.headers["Access-Control-Allow-Origin"] = origin
+                response.vary.add("Origin")
+        return response
+
     @app.get("/api/scan-desk/<public_id>")
     def scan_desk(public_id):
         row = contribution_for(public_id)
@@ -140,6 +154,7 @@ def register(app, d) -> None:
             "waveform": result.get("waveform") or [],
             "calls": desk.calls(row),
             "truncated": bool(result.get("truncated")),
+            "located": bool(result.get("located")),
             "closed": row["promoted_capture_id"] is not None,
             "audio_url": f"/api/scan-desk/{row['public_id']}/audio",
             "config": config.get_config(request.args.get("locale", "en")),

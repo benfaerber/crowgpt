@@ -77,6 +77,17 @@ class TestTheVisitorsDesk:
         assert body["closed"] is False
         assert {label["key"] for label in body["config"]["labels"]} >= {"alarm call"}
 
+    def test_the_scan_page_may_read_a_desk_and_nothing_else_may(self, client, scans):
+        public_id = kept(scans)
+        read = client.get(f"/api/scan-desk/{public_id}", headers={"Origin": "https://crowgpt.org"})
+        assert read.headers["Access-Control-Allow-Origin"] == "https://crowgpt.org"
+        other = client.get(f"/api/scan-desk/{public_id}", headers={"Origin": "https://example.com"})
+        assert "Access-Control-Allow-Origin" not in other.headers
+        write = client.options(f"/api/scan-desk/{public_id}/labels/{LABEL}",
+                               headers={"Origin": "https://crowgpt.org",
+                                        "Access-Control-Request-Method": "PUT"})
+        assert "Access-Control-Allow-Origin" not in write.headers
+
     def test_a_guessed_or_photo_link_opens_nothing(self, client, scans):
         photo = kept(scans, "crow.jpg", b"jpeg", {"ranking": []})
         assert client.get("/api/scan-desk/nope").status_code == 404

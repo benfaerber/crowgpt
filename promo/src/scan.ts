@@ -16,6 +16,7 @@ import { CrowLoader } from "./crow-loader";
 import { DemoChallenge } from "./demo-challenge";
 import { el } from "./dom";
 import { ScanPhoto, type PhotoResult } from "./scan-photo";
+import { KeptScans } from "./kept-scans";
 import { ScanTimeline, type SoundResult } from "./scan-timeline";
 
 type Kind = "photo" | "audio" | "video";
@@ -206,6 +207,7 @@ class ScanApi {
 
 class ScanPage {
   private readonly api = new ScanApi(__FIELD_API__);
+  private readonly kept = new KeptScans(__FIELD_API__);
   private readonly challenge = new DemoChallenge("demo-scan");
   private config?: Config;
   private token = "";
@@ -236,6 +238,7 @@ class ScanPage {
   }
 
   async mount(): Promise<void> {
+    void this.recall();
     try {
       this.config = await this.api.config();
     } catch {
@@ -413,14 +416,38 @@ class ScanPage {
       : new ScanTimeline(result as SoundResult, this.player(kind, url)).render();
     const card = el("article", { className: "scan-result" },
       el("p", { className: "scan-file", text: file.name }), body);
+    card.dataset.scan = scan.id;
     if (kept !== null) {
       card.append(el("p", { className: "scan-kept", text: kept
         ? "Kept for the project, as you asked. Thank you."
         : "Not kept: the project's space for contributed files is full. The file was deleted." }));
     }
-    if (kept && kind !== "photo") card.append(this.deskInvite(scan.id));
+    if (kept && kind !== "photo") {
+      card.append(this.deskInvite(scan.id));
+      this.kept.remember({ id: scan.id, name: file.name, kind });
+    }
     this.results.prepend(card);
     card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  /** The recordings this browser kept on earlier visits, back on the page:
+   *  someone returning from the labelling desk, or reloading, finds their
+   *  scan where they left it. Below anything scanned since the page opened. */
+  private async recall(): Promise<void> {
+    for (const { scan, result, mediaUrl, labelled, closed } of await this.kept.recall()) {
+      if (this.results.querySelector(`[data-scan="${CSS.escape(scan.id)}"]`)) continue;
+      const card = el("article", { className: "scan-result" },
+        el("p", { className: "scan-file", text: scan.name }),
+        new ScanTimeline(result, this.player(scan.kind, mediaUrl)).render(),
+        el("p", { className: "scan-kept", text: closed
+          ? "Kept for the project, and reviewed. Thank you."
+          : labelled > 0
+            ? `Kept for the project. You have labelled ${labelled} of its calls.`
+            : "Kept for the project, as you asked. Thank you." }));
+      card.dataset.scan = scan.id;
+      if (!closed) card.append(this.deskInvite(scan.id));
+      this.results.append(card);
+    }
   }
 
   /** The way from a kept recording to its labelling desk. The scanner can
@@ -432,7 +459,7 @@ class ScanPage {
     return el("p", { className: "scan-desk" },
       el("span", { text: "You were there and the scanner was not. Say which calls it got right and what was happening: " }),
       el("a", { className: "button button-primary", text: "Label this recording",
-        attrs: { href: `${__FIELD_API__}/label/${encodeURIComponent(scanId)}`, target: "_blank", rel: "noopener" } }));
+        attrs: { href: `${__FIELD_API__}/label/${encodeURIComponent(scanId)}#from=${encodeURIComponent(location.origin + location.pathname)}` } }));
   }
 
   /** A failure leaves a card where the answer would have been, as well as the
