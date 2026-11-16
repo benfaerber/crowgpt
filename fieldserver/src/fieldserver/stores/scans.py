@@ -12,7 +12,9 @@ differences that follow from the uploader being a stranger:
 A visitor who ticks the page's "keep this file" box changes the first of
 those: when the scan is done the file moves to `scan-contributions/` beside
 the scan directory and a `scan_contributions` row records it with the result
-(revision 0039). Unticked, nothing is kept.
+(revision 0039). Unticked, nothing is kept. The contribution keeps the scan's
+`public_id`, which is how its visitor reaches the labelling desk after this
+table's row is pruned (stores/scan_desk.py).
 
 Nothing here is a capture. See revision 0038 for why it has its own table.
 """
@@ -246,10 +248,10 @@ class ScanStore(Database):
         source.replace(self.kept_dir / scan["storage_ref"])
         with self._connect() as conn:
             conn.execute(
-                "INSERT INTO scan_contributions (kind, storage_ref, bytes, latitude, longitude, "
-                "result, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (scan["kind"], scan["storage_ref"], size, scan["latitude"], scan["longitude"],
-                 result, utc_now()))
+                "INSERT INTO scan_contributions (public_id, kind, storage_ref, bytes, latitude, "
+                "longitude, result, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (scan["public_id"], scan["kind"], scan["storage_ref"], size, scan["latitude"],
+                 scan["longitude"], result, utc_now()))
         return True
 
     # --- what visitors let the project keep -----------------------------------
