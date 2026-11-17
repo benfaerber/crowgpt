@@ -1,7 +1,9 @@
 """0098, second half: does the faster trainer reach the same loss?
 
 0097's best arm (CrowGPT2's size, 60k steps, peak rate 0.0006) again with
-the sliced loss and length-bucketed batches, scored beside the original.
+the sliced loss and length-bucketed batches, scored beside the original:
+first eight sequences to a batch, then batches cut to a token budget equal
+to what a plain batch of eight holds on average (12,300).
 """
 import importlib.util
 import sys
@@ -23,6 +25,12 @@ REFERENCES = {
     "0097 same arm, plain trainer": REPO / "crowgpt/results/control-0097/60k-lr-6e-4/step-60000.pt",
 }
 
+BUDGETED = dict(RECIPE, token_budget=12300)
+BUDGETED_REFERENCES = dict(REFERENCES)
+BUDGETED_REFERENCES["0098 bucketed, eight per batch"] = OUTPUT / "trimmed-lr-6e-4/step-60000.pt"
+
 if __name__ == "__main__":
     longer.LongSchedule("0098 the faster trainer, full schedule", OUTPUT, {"trimmed-lr-6e-4": 6e-4},
                         RECIPE, HERE / "train_results.json", REFERENCES).main()
+    longer.LongSchedule("0098 the faster trainer, token budget", OUTPUT, {"budget-lr-6e-4": 6e-4},
+                        BUDGETED, HERE / "budget_results.json", BUDGETED_REFERENCES).main()

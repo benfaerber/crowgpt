@@ -1,0 +1,81 @@
+{
+  "validation_bouts": 5033,
+  "recipe": {
+    "steps": 60000,
+    "batch_size": 8,
+    "accumulate": 1,
+    "n_embd": 384,
+    "n_layer": 8,
+    "n_head": 4,
+    "dropout": 0.0,
+    "seed": 0,
+    "warmup": 200,
+    "eval_every": 1000,
+    "panel_size": 256,
+    "checkpoint_every": 10000,
+    "sliced_loss": true,
+    "bucketed": true
+  },
+  "rates": {
+    "trimmed-lr-6e-4": 0.0006
+  },
+  "failures": {},
+  "checkpoints": [
+    {
+      "path": "crowgpt/results/model-longctx/model.pt",
+      "step": 30000,
+      "full_ac_val": 4.792704081625476,
+      "checkpoint_sha256": "e0858aae30d2e18cfb6a627c68ce24bd86ba0ab9b861c7cde46b530e2d58b4c5",
+      "label": "CrowGPT2"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.690227772333219,
+      "checkpoint_sha256": "25b0771be8034564f67b34caf877473da4647768e7035b403804115aa9bb48b6",
+      "label": "0097 same arm, plain trainer"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/trimmed-lr-6e-4/step-10000.pt",
+      "step": 10000,
+      "full_ac_val": 5.235760718236062,
+      "checkpoint_sha256": "895e0d522aa0b800e2d0a62e628d54477571d70ec944c7bd284519c180cd1fd7",
+      "label": "trimmed-lr-6e-4 step-10000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/trimmed-lr-6e-4/step-20000.pt",
+      "step": 20000,
+      "full_ac_val": 5.047011507698238,
+      "checkpoint_sha256": "e516c6c76801a638629e7d6b6cac0493985f4a9375d9a29655a57903cf41e699",
+      "label": "trimmed-lr-6e-4 step-20000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/trimmed-lr-6e-4/step-30000.pt",
+      "step": 30000,
+      "full_ac_val": 4.952439675285155,
+      "checkpoint_sha256": "53e7c7e358f151384315ba2fa557e3f28a02374b7ad8e962aba407b60c7ecdf8",
+      "label": "trimmed-lr-6e-4 step-30000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/trimmed-lr-6e-4/step-40000.pt",
+      "step": 40000,
+      "full_ac_val": 4.872271564751824,
+      "checkpoint_sha256": "721e93bb2fce9093ab76c8537bdc9d6bf90793176e158ab289ea7f89c699afbb",
+      "label": "trimmed-lr-6e-4 step-40000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/trimmed-lr-6e-4/step-50000.pt",
+      "step": 50000,
+      "full_ac_val": 4.81492976442001,
+      "checkpoint_sha256": "a357bd9df730fc50b61774e0eabbb73edbda29c6bc92845bdc0a3c9d436555a5",
+      "label": "trimmed-lr-6e-4 step-50000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/trimmed-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.781063500007282,
+      "checkpoint_sha256": "888f7b5253acacacc838351ae9ef5b5d6c593138560889ecb74315b62b3520ac",
+      "label": "trimmed-lr-6e-4 step-60000"
+    }
+  ]
+}

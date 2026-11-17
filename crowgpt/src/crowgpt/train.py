@@ -208,21 +208,38 @@ class BucketedBatcher(Batcher):
     sorts them by length, cuts them into batches and serves those in random
     order. Each sequence is as likely to be drawn as before; what changes is
     which sequences share a batch.
+
+    WITH A FIXED COUNT PER BATCH THIS TRAINS WORSE (0098: 4.781 against 4.690).
+    The loss is a mean over a batch's tokens, so eight short sequences get a
+    whole optimiser step for a tenth of the tokens eight long ones bring.
+    `token_budget` cuts by padded size instead: many short sequences or a few
+    long ones, every step about the same number of tokens.
     """
 
-    def __init__(self, *args, window=64, **kwargs):
+    def __init__(self, *args, window=64, token_budget=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.window = window
+        self.token_budget = token_budget
         self.queue = []
+
+    def cut(self, ordered, lengths):
+        if not self.token_budget:
+            return [ordered[i : i + self.batch_size]
+                    for i in range(0, len(ordered), self.batch_size)]
+        batches, start = [], 0
+        for end in range(1, len(ordered) + 1):
+            if end == len(ordered) or (end + 1 - start) * lengths[end] > self.token_budget:
+                batches.append(ordered[start:end])
+                start = end
+        return batches
 
     def picks(self):
         if not self.queue:
             drawn = self.rng.choice(len(self.usable), size=self.batch_size * self.window,
                                     replace=True, p=self.probabilities)
             lengths = np.array([self.dataset.records[self.usable[p]]["length"] for p in drawn])
-            ordered = drawn[np.argsort(lengths, kind="stable")]
-            self.queue = [ordered[i : i + self.batch_size]
-                          for i in range(0, len(ordered), self.batch_size)]
+            order = np.argsort(lengths, kind="stable")
+            self.queue = self.cut(drawn[order], lengths[order])
             self.rng.shuffle(self.queue)
         return self.queue.pop()
 
@@ -255,6 +272,7 @@ class Trainer:
         keep_species=None,
         eval_species=None,
         bucketed=False,
+        token_budget=None,
         sliced_loss=False,
     ):
         self.token_dir = Path(token_dir)
@@ -369,10 +387,11 @@ class Trainer:
 
         weights = self._species_weights(manifest["species"], balance)
         self.species_mix = weights
+        bucketing = dict(token_budget=token_budget) if bucketed else {}
         self.train_batcher = (BucketedBatcher if bucketed else Batcher)(
             self.train_set, batch_size, block_size, self.device, seed, weights,
             vocabulary=self.vocabulary, channels=channels, keep_groups=keep_groups,
-            keep_species=keep_species
+            keep_species=keep_species, **bucketing
         )
         # Counted against what the block size alone would have kept, so a
         # deliberate `keep_groups` subset is not reported as sequences too long.

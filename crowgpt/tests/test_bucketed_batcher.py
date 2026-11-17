@@ -49,3 +49,22 @@ def test_a_batch_holds_similar_lengths():
         lengths = [data.records[batcher.usable[p]]["length"] for p in batcher.picks()]
         spreads.append(max(lengths) - min(lengths))
     assert np.median(spreads) < 20
+
+
+def test_a_token_budget_evens_out_the_tokens_per_step():
+    data = dataset()
+    batcher = BucketedBatcher(data, 8, 400, "cpu", seed=0, token_budget=1600)
+    cells, drawn = [], 0
+    for _ in range(300):
+        picks = batcher.picks()
+        lengths = [data.records[batcher.usable[p]]["length"] for p in picks]
+        cells.append(len(lengths) * max(lengths))
+        drawn += len(picks)
+    assert max(cells) <= 1600
+    assert np.mean(cells) > 0.85 * 1600
+
+
+def test_a_token_budget_loses_no_draw():
+    batcher = BucketedBatcher(dataset(), 8, 400, "cpu", seed=0, window=16, token_budget=1600)
+    first = batcher.picks()
+    assert len(first) + sum(map(len, batcher.queue)) == 8 * 16
