@@ -1,0 +1,50 @@
+{
+  "as trained in 0096": {
+    "batch": 8,
+    "seconds_per_step": 0.20875806282041595,
+    "sequences_per_second": 38.32187313829405,
+    "real_tokens_per_second": 58856.07403135185,
+    "real_share_of_batch": 0.4712595888309297,
+    "peak_gib": 9.345202922821045,
+    "last_loss": 6.013043403625488
+  },
+  "sliced loss": {
+    "batch": 8,
+    "seconds_per_step": 0.19431529064429923,
+    "sequences_per_second": 41.17020319643436,
+    "real_tokens_per_second": 63230.639026195764,
+    "real_share_of_batch": 0.4712595888309297,
+    "peak_gib": 6.885334014892578,
+    "last_loss": 6.0159735679626465
+  },
+  "bucketed": {
+    "batch": 8,
+    "seconds_per_step": 0.09972451452980749,
+    "sequences_per_second": 80.22099719130559,
+    "real_tokens_per_second": 122586.50801800597,
+    "real_share_of_batch": 0.984378623515164,
+    "peak_gib": 9.347375392913818,
+    "last_loss": 6.3734211921691895
+  },
+  "sliced + bucketed": {
+    "batch": 8,
+    "seconds_per_step": 0.09678194337524473,
+    "sequences_per_second": 82.66004712244982,
+    "real_tokens_per_second": 126313.64460828679,
+    "real_share_of_batch": 0.984378623515164,
+    "peak_gib": 6.887825012207031,
+    "last_loss": 6.349536418914795
+  },
+  "sliced + bucketed, batch 16": {
+    "batch": 16,
+    "seconds_per_step": 0.18671141288010404,
+    "sequences_per_second": 85.69374390774031,
+    "real_tokens_per_second": 133044.67904140128,
+    "real_share_of_batch": 0.9826826674768343,
+    "peak_gib": 13.129715919494629,
+    "last_loss": 6.3856353759765625
+  },
+  "sliced + bucketed, batch 32": {
+    "failed": "out of memory"
+  }
+}
