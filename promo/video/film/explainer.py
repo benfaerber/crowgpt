@@ -1,15 +1,15 @@
-"""The explainer: the whole project in eight chapters, told along one power line."""
+"""The explainer: the project, its hypothesis and how to help, told along one power line."""
 
 import json
 import math
 import random
 from pathlib import Path
 
-from .crow import PerchedCrow, Plumage
+from .crow import FlyingCrow, PerchedCrow, Plumage
 from .director import Camera, Film
 from .kit import Materials, Palette, Shapes
-from .props import (Arrow, CallColors, Chip, Dog, Emitter, Person, Phone, Sign, Subtitles,
-                    ValleyMap)
+from .props import (Arrow, CallColors, Chip, ContextColors, Dog, Emitter, Person, Phone, Sign,
+                    Subtitles, TagTest, ValleyMap, Website)
 from .sets import Dusk, Lattice, Lockup, PowerLine, SoundRings, Spectrogram, TokenStream
 from .timeline import ExplainerTimeline as T
 
@@ -42,9 +42,11 @@ class Explainer(Film):
         self._the_goal()
         self._listen()
         self._cawdex_and_meaning()
+        self._the_hypothesis()
         self._the_app()
         self._cawscout()
         self._crowgpt()
+        self._the_website()
         self._where_it_is()
         return self.scene
 
@@ -73,8 +75,8 @@ class Explainer(Film):
         camera.move(T.GOAL, (1.0, -5.6, 4.6), (0.05, 0.0, 5.4))
         self._cut(T.MURDER, camera)
         self._say(camera, [
-            ("It started with five backyard crows.", 12, 84),
-            ("Obviously smart. Obviously talking.\nAbout what?", 92, T.GOAL - 4),
+            ("It started with five backyard crows.", 12, 78),
+            ("Obviously smart. Obviously talking.\nAbout what?", 86, T.GOAL - 4),
         ])
 
     def _the_goal(self):
@@ -102,8 +104,8 @@ class Explainer(Film):
         camera.move(T.LISTEN, (-29.6, -11.0, z + 0.4), (-30.0, 0.0, z + 0.75))
         self._cut(T.GOAL, camera)
         self._say(camera, [
-            ("The goal: a translator\nthat runs in both directions.", T.GOAL + 6, T.GOAL + 92),
-            ("CawDex reads the calls.\nCrowGPT says them back.", T.GOAL + 98, T.LISTEN - 4),
+            ("The goal: a translator\nthat runs in both directions.", T.GOAL + 6, T.GOAL + 88),
+            ("CawDex reads the calls.\nCrowGPT says them back.", T.GOAL + 94, T.LISTEN - 4),
         ])
 
     def _listen(self):
@@ -134,33 +136,62 @@ class Explainer(Film):
                                (left + width / 2.0, 1.0, z + 3.9), size=0.44).pop(
                 T.CAWDEX + 56 + index * 9)
             left += width + 0.35
-        chips["alarm call"].single_out(T.CAWDEX + 126, hold=90)
-
+        chips["alarm call"].single_out(T.CAWDEX + 118, hold=62)
         Sign(self.stage, self.fonts, "?", (55.4, 0.0, z + 0.9), 2.2,
-             color=Palette.ACCENT, strength=2.5).pop(T.MEANING + 50)
-        Arrow(self.stage, (56.6, 0.0, z + 1.7), 1.6).pop(T.MEANING + 118)
-        self.stage.add("Witness plate", Shapes.block("witness", (2.2, 2.2, 0.1)),
-                       Materials.surface("Witness plate", "#15121c", 0.35, 0.5),
-                       location=(59.6, 0.0, z - 0.05))
-        self._light((58.5, -5.0, z + 4.0))
-        Dog(self.stage, (59.5, 0.0, z), size=1.6).pop(T.MEANING + 124)
-        for index, body in enumerate(("dog", "person", "food")):
-            Chip(self.stage, self.fonts, body, Palette.CREAM,
-                 (62.3, 0.0, z + 2.9 - index * 1.0), size=0.44).pop(
-                T.MEANING + 140 + index * 12)
+             color=Palette.ACCENT, strength=2.5).pop(T.MEANING + 44)
 
         camera = Camera(self.stage, "CawDex camera", 28.0)
         for frame, x, pull in ((T.CAWDEX, 45.5, 13.0), (T.MEANING + 4, 46.5, 13.0),
-                               (T.MEANING + 70, 57.0, 9.5), (T.APP, 58.0, 9.0)):
+                               (T.MEANING + 64, 54.0, 10.5), (T.HYPOTHESIS, 54.6, 10.0)):
             camera.move(frame, (x - 2.5, -pull, z + 2.3), (x + 0.5, 0.0, z + 1.6))
         self._cut(T.CAWDEX, camera)
-        auc = self.figures.text("auc.alarm.clean")
         self._say(camera, [
-            ("CawDex finds every crow call\nand names its type.", T.CAWDEX + 8, T.CAWDEX + 118),
-            (f"Alarm calls: {auc} AUC on clean labels.", T.CAWDEX + 126, T.MEANING - 4),
-            ("But a type is not a meaning.", T.MEANING + 6, T.MEANING + 104),
-            ("Meaning needs a witness: what was\nhappening when the bird called.",
-             T.MEANING + 112, T.APP - 4),
+            ("CawDex finds every crow call\nand names its type.", T.CAWDEX + 8, T.CAWDEX + 110),
+            ("This one is an alarm call.", T.CAWDEX + 118, T.MEANING - 4),
+            ("An alarm at what?\nA type is not a meaning.", T.MEANING + 6, T.HYPOTHESIS - 4),
+        ])
+
+    def _the_hypothesis(self):
+        z, start = self.FLOOR, T.HYPOTHESIS
+        ground, air = (151.2, 0.0, z), (164.8, 0.0, z + 2.0)
+        self.stage.add("Ground plate", Shapes.block("ground plate", (3.0, 2.4, 0.1)),
+                       Materials.surface("Ground plate", "#15121c", 0.35, 0.5),
+                       location=(151.2, 0.0, z - 0.05))
+        self._light((150.0, -5.0, z + 4.0))
+        self._light((165.0, -5.0, z + 5.0))
+        Dog(self.stage, ground, size=1.7).pop(start + 14)
+        hawk = FlyingCrow(self.stage, "Hawk", Materials.surface("Hawk", "#b0764a", 0.7),
+                          size=3.4)
+        hawk.root.rotation_euler = (0.5, 0.0, 0.0)
+        hawk.flap(start)
+        for step in range(0, T.APP - start + 30, 30):
+            lift = 0.25 if (step // 30) % 2 else -0.25
+            hawk.root.location = (air[0], air[1], air[2] + lift)
+            hawk.root.keyframe_insert("location", frame=start + step)
+        Chip(self.stage, self.fonts, "dog visible", ContextColors.GROUND,
+             (151.4, 0.0, z + 4.3), size=0.5).pop(start + 150)
+        Chip(self.stage, self.fonts, "raptor overhead", ContextColors.AIR,
+             (164.0, 0.0, z + 5.3), size=0.5).pop(start + 162)
+
+        test = TagTest(self.stage, (158.0, 0.0, z + 2.1))
+        Sign(self.stage, self.fonts, "do the calls differ?", (158.0, 0.0, z + 5.0), 0.62).pop(
+            start + 250)
+        test.collect(start + 262, (151.6, -0.4, z + 1.6), ContextColors.GROUND, (-1.9, -0.75))
+        test.collect(start + 270, (164.4, -0.4, z + 2.2), ContextColors.AIR, (1.9, 0.75))
+        test.circle(start + 356, ContextColors.GROUND, (-1.9, -0.75))
+        test.circle(start + 364, ContextColors.AIR, (1.9, 0.75))
+
+        camera = Camera(self.stage, "Hypothesis camera", 28.0)
+        camera.move(start, (156.8, -18.0, z + 2.9), (158.0, 0.0, z + 2.5))
+        camera.move(T.APP, (159.2, -17.4, z + 2.9), (158.0, 0.0, z + 2.5))
+        self._cut(start, camera)
+        self._say(camera, [
+            ("The hypothesis: crows answer a threat on the ground,\n"
+             "like a dog, differently from one in the air, like a hawk.", start + 6, start + 138),
+            ("So every labelled call gets a context tag:\n"
+             "what was there when the bird called.", start + 146, start + 250),
+            ("If dog calls and hawk calls land in separate groups,\n"
+             "the hypothesis holds. If they mix, it does not.", start + 258, T.APP - 4),
         ])
 
     def _the_app(self):
@@ -170,35 +201,31 @@ class Explainer(Film):
         phone.record(T.APP + 14, 70).keep(T.APP + 96)
         Chip(self.stage, self.fonts, "alarm call", CallColors.ALARM, (74.5, 0.0, z + 0.9),
              size=0.3).pop(T.APP + 112)
-        Chip(self.stage, self.fonts, "dog", Palette.CREAM, (74.1, 0.0, z + 0.2),
+        Chip(self.stage, self.fonts, "dog visible", ContextColors.GROUND, (74.55, 0.0, z + 0.2),
              size=0.3).pop(T.APP + 126)
-        Chip(self.stage, self.fonts, "person", Palette.CREAM, (74.4, 0.0, z - 0.5),
-             size=0.3).pop(T.APP + 138)
         camera = Camera(self.stage, "App camera", 35.0)
         camera.move(T.APP, (71.4, -9.0, z + 0.2), (72.6, 0.0, z))
         camera.move(T.SCOUT, (73.6, -7.6, z + 0.2), (72.8, 0.0, z))
         self._cut(T.APP, camera)
         minutes = self.figures.text("labels.minutes")
         self._say(camera, [
-            ("So there is a field app: record,\nlabel each call, tag what was happening.",
-             T.APP + 6, T.APP + 150),
+            ("The field app records the call\nand its tag together, on the spot.",
+             T.APP + 6, T.APP + 104),
             (f"{minutes} minutes of human-labelled calls so far.\n"
-             "That number is what limits the project.", T.APP + 158, T.SCOUT - 4),
+             "One backyard cannot collect enough.", T.APP + 110, T.SCOUT - 4),
         ])
 
     def _cawscout(self):
         z = self.FLOOR
         valley = ValleyMap(self.stage, self.fonts, (86.0, -3.0, z))
-        valley.score(T.SCOUT + 6).subtract_predator(T.SCOUT + 96).rank(T.SCOUT + 126)
+        valley.score(T.SCOUT + 4).subtract_predator(T.SCOUT + 72).rank(T.SCOUT + 92)
         camera = Camera(self.stage, "Scout camera", 30.0)
         camera.move(T.SCOUT, (88.0, -15.5, z + 6.0), (90.5, 0.0, z + 1.6))
         camera.move(T.CROWGPT, (93.0, -14.0, z + 5.4), (90.5, 0.0, z + 1.6))
         self._cut(T.SCOUT, camera)
         self._say(camera, [
-            ("One backyard is one family. CawScout scores\nthe whole valley to find the next.",
-             T.SCOUT + 6, T.SCOUT + 90),
-            ("Tall trees add. Owls subtract.\nThe best cells become numbered targets.",
-             T.SCOUT + 96, T.CROWGPT - 4),
+            ("CawScout scores the whole valley\nto find more crow families to record.",
+             T.SCOUT + 6, T.CROWGPT - 4),
         ])
 
     def _crowgpt(self):
@@ -207,7 +234,7 @@ class Explainer(Film):
         Chip(self.stage, self.fonts, "call type", Palette.CREAM, prompt, size=0.36).pop(
             T.CROWGPT + 6)
         lattice = Lattice(self.stage, (110.0, 0.0, z + 1.6))
-        Sign(self.stage, self.fonts, "CrowGPT", (110.0, 0.0, z + 3.6), 0.9).pop(
+        Sign(self.stage, self.fonts, "CrowGPT", (110.0, 0.0, z + 3.5), 0.6).pop(
             T.CROWGPT + 30)
         said = Spectrogram(self.stage, "Said",
                            self.generated_call.spectrogram(self.COLUMNS, self.BANDS),
@@ -219,14 +246,14 @@ class Explainer(Film):
                       T.GENERATED_CALL + self.generated_call.frames)
 
         camera = Camera(self.stage, "CrowGPT camera", 28.0)
-        for frame, x in ((T.CROWGPT, 105.5), (T.CROWGPT + 80, 109.5),
+        for frame, x in ((T.CROWGPT, 105.5), (T.CROWGPT + 70, 109.5),
                          (T.GENERATED_CALL + 20, 120.0), (T.REPLY, 121.0)):
             camera.move(frame, (x - 2.5, -13.0, z + 1.9), (x + 0.5, 0.0, z + 1.2))
         self._cut(T.CROWGPT, camera)
         self._say(camera, [
-            ("CrowGPT is the speaking half.", T.CROWGPT + 6, T.CROWGPT + 76),
+            ("CrowGPT is the speaking half.", T.CROWGPT + 6, T.CROWGPT + 66),
             ("Ask for a call type and it generates\na brand-new crow call.",
-             T.CROWGPT + 82, T.REPLY - 4),
+             T.CROWGPT + 72, T.REPLY - 4),
         ])
 
         reply = PerchedCrow(self.stage, "Generated crow", Plumage.generated())
@@ -235,11 +262,26 @@ class Explainer(Film):
                        not_before=T.REPLY - 12)
         close = Camera(self.stage, "Reply camera", 55.0)
         close.move(T.REPLY, (132.85, -1.7, 5.5), (133.82, 0.0, 5.32))
-        close.move(T.FINALE, (133.2, -1.4, 5.44), (133.82, 0.0, 5.32))
+        close.move(T.WEBSITE, (133.2, -1.4, 5.44), (133.82, 0.0, 5.32))
         self._cut(T.REPLY, close)
         self._say(close, [
-            ("Generated, not a recording of a bird.", T.REPLY + 4, T.REPLY + 58),
-            ("And never played to wild crows.", T.REPLY + 64, T.FINALE - 4),
+            ("Generated, not a recording of a bird.", T.REPLY + 4, T.WEBSITE - 4),
+        ])
+
+    def _the_website(self):
+        start, centre = T.WEBSITE, (-60.0, 0.0, self.FLOOR + 2.0)
+        self._light((-61.5, -6.0, centre[2] + 2.0), 1800.0)
+        Website(self.stage, self.fonts, centre).drop(start + 40).results(start + 100).keep(
+            start + 178)
+        camera = Camera(self.stage, "Website camera", 35.0)
+        camera.move(start, (-61.0, -13.0, centre[2] + 0.2), (-60.0, 0.0, centre[2] - 0.9))
+        camera.move(T.FINALE, (-59.2, -12.0, centre[2] + 0.2), (-60.0, 0.0, centre[2] - 0.9))
+        self._cut(start, camera)
+        self._say(camera, [
+            ("Try it at crowgpt.org: scan a photo or a recording\n"
+             "and CawDex reads every call in it.", start + 6, start + 160),
+            ("Share the file and say what was happening.\n"
+             "That is the data the hypothesis needs.", start + 168, T.FINALE - 4),
         ])
 
     def _where_it_is(self):
@@ -256,7 +298,7 @@ class Explainer(Film):
         camera.move(T.END, (0.8, -7.4, 4.7), (0.8, 0.0, 5.85))
         self._cut(T.FINALE, camera)
         self._say(camera, [
-            ("No call has been translated yet.\nThat takes many more witnessed calls.",
-             T.FINALE + 6, T.TITLE - 10),
-            ("Open source. Bring your crows.", T.TITLE + 50, T.END),
+            ("No call has been translated yet.\nIt takes crows from far more than one backyard.",
+             T.FINALE + 6, T.FINALE + 104),
+            ("Scan yours at crowgpt.org.", T.FINALE + 112, T.END),
         ])

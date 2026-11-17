@@ -27,7 +27,7 @@ help:
 	@echo "  make video        Render the 3D film as a 540p draft into data/video (needs Blender 4.5 LTS)"
 	@echo "  make video-final  The same film at 1080p"
 	@echo "  make video-stills Six frames across the film, FRAMES=1,60,... to choose"
-	@echo "  make video-explainer  The 76 s explainer of the whole project, QUALITY=final for 1080p"
+	@echo "  make video-explainer  The 92 s explainer of the whole project, QUALITY=final for 1080p"
 
 node_modules:
 	npm install
@@ -117,7 +117,7 @@ video-final:
 video-stills:
 	$(VIDEO_PYTHON) video/render.py --quality draft --stills $(FRAMES)
 
-# The 76 s explainer. Same script, FILM=explainer; QUALITY=final for 1080p.
+# The 92 s explainer. Same script, FILM=explainer; QUALITY=final for 1080p.
 QUALITY ?= draft
 
 video-explainer:

@@ -32,23 +32,25 @@ class Timeline(Clock):
 
 
 class ExplainerTimeline(Clock):
-    """The 76-second explainer, one chapter per cut."""
+    """The 92-second explainer, one chapter per cut."""
 
-    END = 1824
+    END = 2208
 
     MURDER = 1
-    GOAL = 169
-    LISTEN = 337
-    REAL_CALL = 345
-    CAWDEX = 385
-    MEANING = 625
-    APP = 865
-    SCOUT = 1105
-    CROWGPT = 1297
-    GENERATED_CALL = 1420
-    REPLY = 1464
-    FINALE = 1585
-    TITLE = 1690
+    GOAL = 157
+    LISTEN = 313
+    REAL_CALL = 321
+    CAWDEX = 361
+    MEANING = 553
+    HYPOTHESIS = 673
+    APP = 1105
+    SCOUT = 1297
+    CROWGPT = 1441
+    GENERATED_CALL = 1556
+    REPLY = 1600
+    WEBSITE = 1681
+    FINALE = 1969
+    TITLE = 2009
 
     CUES = {"real": REAL_CALL, "generated": GENERATED_CALL}
 

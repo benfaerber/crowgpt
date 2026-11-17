@@ -283,6 +283,146 @@ class ValleyMap:
         return self
 
 
+class ContextColors:
+    """One colour per context tag in the hypothesis chapter."""
+
+    GROUND = "#efb057"
+    AIR = "#6ea8fe"
+
+
+class TagTest:
+    """The test of the hypothesis: do calls tagged differently land apart?"""
+
+    def __init__(self, stage, centre, width=8.0, height=3.8):
+        self.stage = stage
+        self.centre = centre
+        self.random = random.Random(23)
+        self.material = Materials.per_object("Tagged call", 2.2)
+        self.mesh = Shapes.block("tagged call", (0.2, 0.2, 0.2))
+        x, y, z = centre
+        stage.add("Test board", Shapes.block("test board", (width + 0.6, 0.1, height + 0.6)),
+                  Materials.surface("Test board", "#15121c", roughness=0.4, metallic=0.4),
+                  location=(x, y + 0.3, z))
+        corner = (x - width / 2.0, y, z - height / 2.0)
+        axes = [(corner, (x + width / 2.0, y, z - height / 2.0)),
+                (corner, (x - width / 2.0, y, z + height / 2.0))]
+        stage.add("Test axes", Shapes.struts("test axes", axes, 0.02),
+                  Materials.glow("Test axes", Palette.CREAM, 0.8))
+
+    def collect(self, frame, source, color, offset, count=14, flight=36):
+        """Send one tag's calls from where they were heard to where they land."""
+        x, y, z = self.centre
+        tint = Palette.linear(color)[:3] + (1.0,)
+        for index in range(count):
+            start = frame + index * 4
+            jitter = [self.random.uniform(-0.5, 0.5) for _ in range(3)]
+            origin = tuple(source[i] + jitter[i] for i in range(3))
+            landing = (x + offset[0] + self.random.gauss(0.0, 0.62), y - 0.15,
+                       z + offset[1] + self.random.gauss(0.0, 0.4))
+            call = self.stage.add("Tagged call", self.mesh, self.material, location=origin)
+            call.color = tint
+            Keys.at(call, start - 1, scale=(0.0, 0.0, 0.0), location=origin)
+            Keys.at(call, start + 5, scale=(1.0, 1.0, 1.0), location=origin)
+            Keys.at(call, start + flight, location=landing)
+        return self
+
+    def circle(self, frame, color, offset):
+        x, y, z = self.centre
+        ring = self.stage.add("Group ring", Shapes.ring("group ring", 1.0, 0.022, around=56),
+                              Materials.glow("Group ring", color, 2.5),
+                              location=(x + offset[0], y - 0.15, z + offset[1]),
+                              rotation=(0.0, 0.0, math.pi / 2.0), scale=(1.0, 1.75, 1.2))
+        Keys.pop(ring, frame, frames=14)
+        return self
+
+
+class Website:
+    """crowgpt.org's scan page: a file goes in, a labelled timeline comes out."""
+
+    WIDTH, HEIGHT = 8.0, 5.0
+
+    def __init__(self, stage, fonts, centre):
+        self.stage, self.fonts = stage, fonts
+        self.root = stage.pivot("Website", location=centre)
+        top = self.HEIGHT / 2.0
+        self._panel("page", (self.WIDTH, 0.1, self.HEIGHT), (0.0, 0.0, 0.0),
+                    Materials.surface("Page", "#1b1722", roughness=0.5))
+        self._panel("bar", (self.WIDTH, 0.02, 0.52), (0.0, -0.06, top - 0.26),
+                    Materials.flat("Browser bar", "#2c2536"))
+        self._panel("address", (3.4, 0.02, 0.32), (0.0, -0.075, top - 0.26),
+                    Materials.flat("Address", "#120f16"))
+        self._sign("crowgpt.org", (0.0, -0.09, top - 0.33), 0.2)
+        self._sign("Scan a crow", (0.0, -0.07, top - 1.25), 0.5)
+        zone = [(-2.4, -0.07, -0.55), (2.4, -0.07, -0.55), (2.4, -0.07, 0.75), (-2.4, -0.07, 0.75)]
+        frame = stage.add("Drop zone", Shapes.struts("drop zone", list(zip(zone, zone[1:] + zone[:1])),
+                                                     0.018),
+                          Materials.glow("Drop zone", Palette.SKY_MID, 2.0), self.root)
+        self.hint = self._sign("Drop a photo or a recording here", (0.0, -0.07, 0.02), 0.2,
+                               Palette.ACCENT)
+        self.zone = frame
+
+    def _panel(self, name, size, location, material):
+        return self.stage.add(f"Website {name}", Shapes.block(f"website {name}", size),
+                              material, self.root, location=location)
+
+    def _sign(self, body, location, size, color=Palette.CREAM):
+        sign = Sign(self.stage, self.fonts, body, location, size, color=color, strength=1.3)
+        sign.item.parent = self.root
+        return sign
+
+    def drop(self, frame):
+        card = self.stage.add("File card", Shapes.block("file card", (0.8, 0.05, 1.0)),
+                              Materials.glow("File card", Palette.CREAM, 0.9), self.root)
+        label = self.stage.text("File label", "caw.wav", self.fonts.display, 0.15,
+                                Materials.flat("File ink", Palette.INK), (0.0, -0.04, -0.06),
+                                extrude=0.004, align="CENTER")
+        label.parent = card
+        label.rotation_euler = (math.pi / 2.0, 0.0, 0.0)
+        Keys.at(card, frame - 1, scale=(0.0, 0.0, 0.0), location=(4.6, -3.0, 2.6),
+                rotation_euler=(0.0, 0.5, 0.0))
+        Keys.at(card, frame, scale=(1.0, 1.0, 1.0))
+        Keys.at(card, frame + 30, location=(0.0, -0.3, 0.1), rotation_euler=(0.0, 0.0, 0.0))
+        Keys.at(card, frame + 46, scale=(1.0, 1.0, 1.0))
+        Keys.at(card, frame + 56, scale=(0.0, 0.0, 0.0))
+        self.hint.leave(frame + 30)
+        for item in (self.zone,):
+            Keys.at(item, frame + 46, scale=(1.0, 1.0, 1.0))
+            Keys.at(item, frame + 56, scale=(0.0, 0.0, 0.0))
+        return self
+
+    def results(self, frame):
+        line = self._panel("timeline", (6.6, 0.03, 0.08), (0.0, -0.07, -0.25),
+                           Materials.glow("Scan timeline", Palette.SKY_MID, 1.5))
+        Keys.at(line, frame - 1, scale=(0.0, 1.0, 1.0))
+        Keys.at(line, frame + 12, scale=(1.0, 1.0, 1.0))
+        found = [("alarm call", CallColors.ALARM, -2.3), ("call", CallColors.CALL, -0.6),
+                 ("alarm call", CallColors.ALARM, 0.9), ("flight call", CallColors.FLIGHT, 2.5)]
+        for index, (body, color, x) in enumerate(found):
+            chip = Chip(self.stage, self.fonts, body, color, (x, -0.1, 0.2), size=0.2)
+            chip.root.parent = self.root
+            chip.pop(frame + 14 + index * 9)
+        return self
+
+    def keep(self, frame):
+        box = [(-2.6, -0.07, -1.55), (-2.3, -0.07, -1.55), (-2.3, -0.07, -1.25),
+               (-2.6, -0.07, -1.25)]
+        self.stage.add("Keep box", Shapes.struts("keep box", list(zip(box, box[1:] + box[:1])),
+                                                 0.015),
+                       Materials.glow("Keep box", Palette.CREAM, 1.5), self.root)
+        words = self.stage.text("Keep words", "Let CrowGPT keep this file", self.fonts.display,
+                                0.22, Materials.glow("Keep words", Palette.CREAM, 1.3),
+                                (-2.1, -0.07, -1.48), extrude=0.005)
+        words.parent = self.root
+        tick = self.stage.add(
+            "Keep tick", Shapes.struts("keep tick", [((-2.56, -0.09, -1.4), (-2.46, -0.09, -1.52)),
+                                                     ((-2.46, -0.09, -1.52), (-2.26, -0.09, -1.2))],
+                                       0.03),
+            Materials.glow("Keep tick", CallColors.FLIGHT, 3.0), self.root)
+        Keys.at(tick, frame - 1, scale=(0.0, 0.0, 0.0))
+        Keys.at(tick, frame + 8, scale=(1.0, 1.0, 1.0))
+        return self
+
+
 class Emitter:
     """Where tokens start when there is no spectrogram behind them: a prompt."""
 
