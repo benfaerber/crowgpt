@@ -92,8 +92,8 @@ class Film:
         self.crow.look(Timeline.REAL_CALL - 2, yaw=0.0)
         self._call_out(self.crow, self.real_call, Timeline.REAL_CALL, 1.0)
         camera = Camera(self.stage, "Call camera", 40.0, focus_stop=2.8)
-        camera.move(1, (4.6, -11.0, 7.0), (0.3, 0.0, 5.35))
-        camera.move(Timeline.DECODE_CUT, (1.0, -1.9, 5.45), (0.22, 0.0, 5.3))
+        camera.move(1, (4.2, -10.0, 4.2), (0.6, 0.0, 5.6))
+        camera.move(Timeline.DECODE_CUT, (1.0, -1.9, 5.12), (0.3, 0.0, 5.34))
         self._cut(1, camera)
 
     def _the_machine(self):
@@ -113,16 +113,16 @@ class Film:
                       Timeline.GENERATED_CALL + self.generated_call.frames)
 
         captions = Caption(self.stage, self.fonts)
-        captions.stand("a real crow call", (46.0, -3.3, floor - 0.1), Timeline.DECODE_CUT + 8)
-        captions.stand("CrowGPT", (60.5, -3.3, floor - 0.1), first_token + 40)
-        captions.stand("a generated call", (74.0, -3.3, floor - 0.1),
+        captions.stand("a real crow call", (46.0, -2.8, floor - 0.75), Timeline.DECODE_CUT + 8)
+        captions.stand("CrowGPT", (60.5, -2.8, floor - 0.75), first_token + 40)
+        captions.stand("a generated call", (74.0, -2.8, floor - 0.75),
                        Timeline.GENERATED_CALL + 4)
 
         camera = Camera(self.stage, "Machine camera", 28.0)
         for frame, x in ((Timeline.DECODE_CUT, 45.5), (first_token + 4, 46.5),
                          (Timeline.TOKENS_LAND - 14, 60.0), (Timeline.GENERATED_CALL + 30, 72.5),
                          (Timeline.REPLY_CUT, 73.5)):
-            camera.move(frame, (x - 2.5, -17.0, floor + 4.5), (x + 0.5, 0.0, floor + 0.8))
+            camera.move(frame, (x - 2.5, -13.0, floor + 1.9), (x + 0.5, 0.0, floor + 1.2))
         self._cut(Timeline.DECODE_CUT, camera)
 
     def _the_reply(self):
@@ -144,13 +144,13 @@ class Film:
         self.crow.look(cut + 82, yaw=-0.9, tilt=0.0)
         self.crow.look(Timeline.END, yaw=-0.95, tilt=-0.12)
 
-        Lockup(self.stage, self.fonts, self.logo, (1.5, 3.5, 7.35), size=0.78).reveal(
+        Lockup(self.stage, self.fonts, self.logo, (0.9, 2.0, 7.0), size=0.8).reveal(
             Timeline.TITLE)
         self._flock(cut + 4)
 
         camera = Camera(self.stage, "Finale camera", 32.0)
-        camera.move(cut, (1.7, -5.2, 5.6), (2.3, 0.0, 6.25))
-        camera.move(Timeline.END, (2.1, -6.6, 5.7), (2.4, 0.0, 6.3))
+        camera.move(cut, (1.3, -5.0, 4.6), (1.9, 0.0, 6.05))
+        camera.move(Timeline.END, (1.6, -6.2, 4.6), (2.1, 0.0, 6.1))
         self._cut(cut, camera)
 
     def _flock(self, start):
@@ -211,22 +211,30 @@ class Darkroom:
                 continue
 
     def _bloom(self):
-        self.scene.use_nodes = True
-        tree = self.scene.node_tree
-        layers = tree.nodes.get("Render Layers") or tree.nodes.new("CompositorNodeRLayers")
-        output = tree.nodes.get("Composite") or tree.nodes.new("CompositorNodeComposite")
+        tree, layers, output = self._compositor()
         glare = tree.nodes.new("CompositorNodeGlare")
-        for kind in ("BLOOM", "FOG_GLOW"):
-            try:
-                glare.glare_type = kind
-                break
-            except TypeError:
-                continue
+        if "Type" in glare.inputs:
+            glare.inputs["Type"].default_value = "Bloom"
+        else:
+            glare.glare_type = "BLOOM"
         for name, value in (("Threshold", 1.2), ("Strength", 0.7), ("Size", 0.6)):
             if name in glare.inputs:
                 glare.inputs[name].default_value = value
         tree.links.new(layers.outputs["Image"], glare.inputs["Image"])
         tree.links.new(glare.outputs["Image"], output.inputs["Image"])
+
+    def _compositor(self):
+        """Blender 5 keeps the compositor in a node group; 4.x keeps it on the scene."""
+        if hasattr(self.scene, "compositing_node_group"):
+            tree = bpy.data.node_groups.new("Grade", "CompositorNodeTree")
+            tree.interface.new_socket("Image", in_out="OUTPUT", socket_type="NodeSocketColor")
+            self.scene.compositing_node_group = tree
+            return (tree, tree.nodes.new("CompositorNodeRLayers"),
+                    tree.nodes.new("NodeGroupOutput"))
+        self.scene.use_nodes = True
+        tree = self.scene.node_tree
+        return (tree, tree.nodes.get("Render Layers") or tree.nodes.new("CompositorNodeRLayers"),
+                tree.nodes.get("Composite") or tree.nodes.new("CompositorNodeComposite"))
 
     def stills(self, frames, folder):
         for frame in frames:

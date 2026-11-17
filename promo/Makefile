@@ -104,12 +104,14 @@ deploy-dry: node_modules typecheck build-public
 # The 3D film. CPU only (Cycles), so it never competes with a training run for
 # the card. BLENDER=/path/to/blender if it is not on PATH.
 FRAMES ?= 1,60,120,200,300,480
+# The system python: it has fonttools, which the brand font's woff2 needs.
+VIDEO_PYTHON ?= /usr/bin/python3
 
 video:
-	python3 video/render.py --quality draft
+	$(VIDEO_PYTHON) video/render.py --quality draft
 
 video-final:
-	python3 video/render.py --quality final
+	$(VIDEO_PYTHON) video/render.py --quality final
 
 video-stills:
-	python3 video/render.py --quality draft --stills $(FRAMES)
+	$(VIDEO_PYTHON) video/render.py --quality draft --stills $(FRAMES)

@@ -29,7 +29,7 @@ class Plumage:
 
     @classmethod
     def generated(cls):
-        light = Materials.hologram("Generated feather", Palette.ACCENT, 4.0)
+        light = Materials.hologram("Generated feather", Palette.ACCENT, 1.8)
         bright = Materials.glow("Generated eye", Palette.CREAM, 6.0)
         return cls(feather=light, beak=light, eye=bright, glint=bright, leg=light)
 
@@ -165,4 +165,7 @@ class FlyingCrow:
             point = [origin[i] + (destination[i] - origin[i]) * mix for i in range(3)]
             point[2] += bob * math.sin(mix * math.pi * 3.0)
             Keys.at(self.root, start + (end - start) * mix, location=tuple(point))
+        size = tuple(self.root.scale)
+        Keys.at(self.root, start - 1, scale=(0.0, 0.0, 0.0))
+        Keys.at(self.root, start, scale=size)
         return self

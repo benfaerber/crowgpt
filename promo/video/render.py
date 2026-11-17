@@ -11,6 +11,7 @@ crowgpt.progress.Run, so it has a card on the dashboard's Training panel.
 import argparse
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -116,22 +117,33 @@ class Soundtrack:
 
 
 class Blender:
-    SUPPORTED = ((4, 2), (4, 5))
+    SUPPORTED = ((4, 2), (5, 2))
+    FLATPAK = "org.blender.Blender"
 
-    def __init__(self, executable):
-        self.executable = executable or os.environ.get("BLENDER") or shutil.which("blender")
-        if not self.executable:
-            sys.exit("Blender not found. Install Blender 4.5 LTS, or pass --blender /path/to/blender")
-        banner = subprocess.run([self.executable, "--version"], capture_output=True, text=True)
+    def __init__(self, chosen):
+        self.launch = self._find(chosen)
+        banner = subprocess.run([*self.launch, "--version"], capture_output=True, text=True)
         found = re.search(r"Blender (\d+)\.(\d+)", banner.stdout)
         self.version = tuple(int(part) for part in found.groups()) if found else (0, 0)
         low, high = self.SUPPORTED
         if not low <= self.version <= high:
-            sys.exit(f"Blender {'.'.join(map(str, self.version))} found; the scene is written "
-                     f"for {low[0]}.{low[1]} to {high[0]}.{high[1]} (4.5 LTS recommended)")
+            sys.exit(f"Blender {'.'.join(map(str, self.version))} found; the scene is tested "
+                     f"on {high[0]}.{high[1]} and written to run from {low[0]}.{low[1]}")
+
+    def _find(self, chosen):
+        named = chosen or os.environ.get("BLENDER")
+        if named:
+            return shlex.split(named)
+        if shutil.which("blender"):
+            return ["blender"]
+        flatpak = shutil.which("flatpak")
+        if flatpak and subprocess.run([flatpak, "info", self.FLATPAK],
+                                      capture_output=True).returncode == 0:
+            return [flatpak, "run", self.FLATPAK]
+        sys.exit("Blender not found. Install it, or pass --blender '/path/to/blender'")
 
     def command(self, workspace, quality, threads, frames_folder, extra):
-        return [self.executable, "-b", "--factory-startup", "--python", str(HERE / "scene.py"),
+        return [*self.launch, "-b", "--factory-startup", "--python", str(HERE / "scene.py"),
                 "--", "--work", str(workspace.work), "--frames", str(frames_folder),
                 "--logo", str(REPO / "images" / "crowgpt-logo.svg"),
                 "--quality", quality, "--threads", str(threads), *extra]

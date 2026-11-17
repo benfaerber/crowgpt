@@ -25,10 +25,12 @@ cut moves the audio with it.
 
 ## Needs
 
-- **Blender 4.2 – 4.5** (4.5 LTS recommended) on `PATH`, or `BLENDER=/path/to/blender`.
-  Blender 5 removed an animation API the scene uses.
-- `ffmpeg`, and `fonttools` + `brotli` for the system `python3` (the brand font
-  ships as woff2 and Blender wants a TTF).
+- **Blender**, tested on 5.2 LTS. `render.py` looks for `blender` on `PATH`, then
+  for the Flatpak (`org.blender.Blender`); `BLENDER='...'` or `--blender` names
+  another. A Flatpak Blender cannot see `/tmp`, which is one reason everything
+  is written under `data/video/`.
+- `ffmpeg`, and `fonttools` + `brotli` in `/usr/bin/python3`, which the make
+  targets use (the brand font ships as woff2 and Blender wants a TTF).
 
 It renders with Cycles on the CPU, 24 threads by default (`--threads`), and
 never touches the GPU. Progress reports through `crowgpt.progress.Run`, so a

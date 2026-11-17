@@ -69,9 +69,9 @@ class Dusk:
         lit = Materials.glow("Window", "#ffb866", 4.0)
         for _ in range(110):
             x = self.random.uniform(-420.0, 480.0)
-            y = self.random.uniform(170.0, 330.0)
+            y = self.random.uniform(260.0, 430.0)
             width = self.random.uniform(8.0, 22.0)
-            height = self.random.uniform(5.0, 26.0)
+            height = self.random.uniform(4.0, 15.0)
             self.stage.add("Building", Shapes.block("building", (width, 10.0, height), True),
                            dark, location=(x, y, 0.0))
             for _ in range(self.random.randint(0, 3)):
@@ -84,7 +84,7 @@ class Dusk:
         self._lamp("Sunset", "SUN", (0.0, 0.0, 30.0), (math.radians(-84), 0.0, math.radians(-8)),
                    "#ff9a55", 4.0)
         key = self._lamp("Sky fill", "AREA", (-3.0, -7.0, 9.5),
-                         (math.radians(62), 0.0, math.radians(-22)), "#8fa6ff", 900.0)
+                         (math.radians(62), 0.0, math.radians(-22)), "#8fa6ff", 2600.0)
         key.data.size = 6.0
 
     def _lamp(self, name, kind, location, rotation, color, energy):
@@ -129,8 +129,8 @@ class SoundRings:
 
     def __init__(self, stage):
         self.stage = stage
-        self.material = Materials.per_object("Sound ring", 7.0, fades=True)
-        self.mesh = Shapes.ring("sound ring", 0.1, 0.006)
+        self.material = Materials.per_object("Sound ring", 3.0, fades=True)
+        self.mesh = Shapes.ring("sound ring", 0.1, 0.004)
         self.color = Palette.linear(Palette.ACCENT)[:3]
 
     def emit(self, frame, source, direction, reach=7.0, life=44, count=3, spacing=4):
@@ -140,7 +140,7 @@ class SoundRings:
             Keys.at(ring, start - 1, scale=(0.0, 0.0, 0.0), color=(*self.color, 0.0))
             Keys.at(ring, start, scale=(1.0, 1.0, 1.0), color=(*self.color, 1.0),
                     location=source)
-            Keys.at(ring, start + life, scale=(1.0, 15.0, 15.0), color=(*self.color, 0.0),
+            Keys.at(ring, start + life, scale=(1.0, 10.0, 10.0), color=(*self.color, 0.0),
                     location=(source[0] + direction * reach, source[1], source[2]))
             Keys.at(ring, start + life + 1, scale=(0.0, 0.0, 0.0))
 
@@ -159,7 +159,7 @@ class Spectrogram:
         self._build()
 
     def _build(self):
-        material = Materials.per_object(f"{self.name} bar", 3.2)
+        material = Materials.per_object(f"{self.name} bar", 1.1)
         mesh = Shapes.block(f"{self.name} bar", (1.0, 1.0, 1.0), grounded=True)
         cell_x, cell_y = self.width / self.columns, self.depth / self.bands
         x0, y0, z0 = self.origin
@@ -203,8 +203,8 @@ class Spectrogram:
         x0, y0, z0 = self.origin
         beam = self.stage.add(
             f"{self.name} playhead",
-            Shapes.block("playhead", (0.03, self.depth + 0.5, self.height + 0.5), True),
-            Materials.glow(f"{self.name} playhead", Palette.CREAM, 5.0), location=(x0, y0, z0))
+            Shapes.block("playhead", (0.02, self.depth + 0.3, self.height * 0.6), True),
+            Materials.glow(f"{self.name} playhead", Palette.ACCENT, 1.6), location=(x0, y0, z0))
         Keys.at(beam, start - 1, scale=(0.0, 0.0, 0.0), location=(x0, y0, z0))
         Keys.at(beam, start, scale=(1.0, 1.0, 1.0))
         Keys.at(beam, start + frames, scale=(1.0, 1.0, 1.0),
@@ -403,6 +403,5 @@ class Caption:
     def stand(self, body, location, frame, size=0.42):
         label = self.stage.text(f"Caption {body}", body, self.fonts.display, size,
                                 self.material, location, extrude=0.01, align="CENTER")
-        label.rotation_euler = (math.radians(62), 0.0, 0.0)
         Keys.pop(label, frame, frames=10)
         return label

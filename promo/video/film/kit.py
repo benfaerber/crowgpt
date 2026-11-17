@@ -264,7 +264,13 @@ class Keys:
     @staticmethod
     def curves(item):
         animation = item.animation_data
-        return list(animation.action.fcurves) if animation and animation.action else []
+        if not (animation and animation.action):
+            return []
+        if hasattr(animation.action, "fcurves"):
+            return list(animation.action.fcurves)
+        from bpy_extras import anim_utils
+        bag = anim_utils.action_get_channelbag_for_slot(animation.action, animation.action_slot)
+        return list(bag.fcurves) if bag else []
 
     @classmethod
     def straighten(cls, item):
