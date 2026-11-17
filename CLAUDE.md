@@ -283,6 +283,7 @@ scream page — never for a sitting that produces a statistic.
   every number on it is hardcoded at build time, so it reads no store and takes no token;
   its one live call is the "Ask it yourself" buttons, which post to the hosted
   server's tokenless `/api/demo/*` and hide themselves when it does not answer
+  `promo/video/` is the 3D film: a Blender scene written as Python (`make -C promo video`), frames and mp4 in `data/video/`
 - `transcriber/` — the speech-to-text module the field server's dictation worker runs
 - `tools/` — repo-wide scripts, currently the corpus and database backup behind `make backup`
 - `crowgpt/` — generating crow calls; own venv carrying torch *and* birdnetlib

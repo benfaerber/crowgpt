@@ -1,4 +1,4 @@
-.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic
+.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic video video-final video-stills
 
 # node/npm are nvm lazy-load *zsh functions*, so they don't exist in make's
 # /bin/sh. Resolve nvm's default version and put it first on PATH, the same way
@@ -24,6 +24,9 @@ help:
 	@echo "  make stats-check  Report stale figures without writing (exit 1 if any)"
 	@echo "  make credits      Rebuild public/credits.json from the corpus"
 	@echo "  make traffic      Last week of crowgpt.org traffic from Cloudflare, humans split from bots"
+	@echo "  make video        Render the 3D film as a 540p draft into data/video (needs Blender 4.5 LTS)"
+	@echo "  make video-final  The same film at 1080p"
+	@echo "  make video-stills Six frames across the film, FRAMES=1,60,... to choose"
 
 node_modules:
 	npm install
@@ -97,3 +100,16 @@ deploy: node_modules typecheck build-public
 # the file list wrangler would send.
 deploy-dry: node_modules typecheck build-public
 	npx wrangler deploy --dry-run
+
+# The 3D film. CPU only (Cycles), so it never competes with a training run for
+# the card. BLENDER=/path/to/blender if it is not on PATH.
+FRAMES ?= 1,60,120,200,300,480
+
+video:
+	python3 video/render.py --quality draft
+
+video-final:
+	python3 video/render.py --quality final
+
+video-stills:
+	python3 video/render.py --quality draft --stills $(FRAMES)
