@@ -180,6 +180,12 @@ class Explainer(Film):
         test.collect(start + 270, (164.4, -0.4, z + 2.2), ContextColors.AIR, (1.9, 0.75))
         test.circle(start + 356, ContextColors.GROUND, (-1.9, -0.75))
         test.circle(start + 364, ContextColors.AIR, (1.9, 0.75))
+        later = zip(ContextColors.LATER, (152.5, 158.0, 163.5),
+                    ((-1.9, 1.2), (0.0, 0.0), (1.9, -1.2)))
+        for index, ((tag, color), x, landing) in enumerate(later):
+            frame = T.MORE + 10 + index * 22
+            Chip(self.stage, self.fonts, tag, color, (x, 0.0, z + 6.5), size=0.42).pop(frame)
+            test.collect(frame + 10, (x, -0.4, z + 6.2), color, landing, count=9, spread=0.4)
 
         camera = Camera(self.stage, "Hypothesis camera", 28.0)
         camera.move(start, (156.8, -18.0, z + 2.9), (158.0, 0.0, z + 2.5))
@@ -191,7 +197,11 @@ class Explainer(Film):
             ("So every labelled call gets a context tag:\n"
              "what was there when the bird called.", start + 146, start + 250),
             ("If dog calls and hawk calls land in separate groups,\n"
-             "the hypothesis holds. If they mix, it does not.", start + 258, T.APP - 4),
+             "the hypothesis holds. If they mix, it does not.", start + 258, T.MORE - 4),
+            ("That is one hypothesis.\nMore recordings make room for more of them.",
+             T.MORE + 4, T.MORE + 80),
+            ("One test at a time,\nthe meaning of the calls gets worked out.",
+             T.MORE + 86, T.APP - 4),
         ])
 
     def _the_app(self):

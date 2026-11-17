@@ -288,6 +288,8 @@ class ContextColors:
 
     GROUND = "#efb057"
     AIR = "#6ea8fe"
+    LATER = (("cat visible", "#f28b82"), ("human gives food", "#7bd88f"),
+             ("stranger approaching", "#c58af9"))
 
 
 class TagTest:
@@ -309,7 +311,7 @@ class TagTest:
         stage.add("Test axes", Shapes.struts("test axes", axes, 0.02),
                   Materials.glow("Test axes", Palette.CREAM, 0.8))
 
-    def collect(self, frame, source, color, offset, count=14, flight=36):
+    def collect(self, frame, source, color, offset, count=14, flight=36, spread=1.0):
         """Send one tag's calls from where they were heard to where they land."""
         x, y, z = self.centre
         tint = Palette.linear(color)[:3] + (1.0,)
@@ -317,8 +319,8 @@ class TagTest:
             start = frame + index * 4
             jitter = [self.random.uniform(-0.5, 0.5) for _ in range(3)]
             origin = tuple(source[i] + jitter[i] for i in range(3))
-            landing = (x + offset[0] + self.random.gauss(0.0, 0.62), y - 0.15,
-                       z + offset[1] + self.random.gauss(0.0, 0.4))
+            landing = (x + offset[0] + self.random.gauss(0.0, 0.62 * spread), y - 0.15,
+                       z + offset[1] + self.random.gauss(0.0, 0.4 * spread))
             call = self.stage.add("Tagged call", self.mesh, self.material, location=origin)
             call.color = tint
             Keys.at(call, start - 1, scale=(0.0, 0.0, 0.0), location=origin)

@@ -26,7 +26,7 @@ cut moves the audio with it.
 ## The explainer
 
 `make -C promo video-explainer` (`QUALITY=final` for 1080p) renders a second,
-92-second film along the same power line, with captions pinned to the lens.
+99-second film along the same power line, with captions pinned to the lens.
 Its job is to send people to crowgpt.org: it states the hypothesis the project
 is testing and what a visitor's own recordings would add.
 
@@ -36,10 +36,11 @@ is testing and what a visitor's own recordings would add.
 | 13 – 23 | A real call, its spectrogram, and the call types CawDex sorts it into. |
 | 23 – 28 | An alarm at what? A type is not a meaning. |
 | 28 – 46 | The hypothesis: a threat on the ground (a dog) and one in the air (a hawk) get different calls. Calls tagged `dog visible` and `raptor overhead` either land in separate groups or they do not. |
-| 46 – 60 | The field app, which records call and tag together, and CawScout. |
-| 60 – 70 | CrowGPT: a call type in, a generated call out. |
-| 70 – 82 | crowgpt.org's scan page: drop a file, get a labelled timeline, share it. |
-| 82 – 92 | Nothing translated yet; the family under the wordmark; "Scan yours at crowgpt.org." |
+| 46 – 53 | That is one hypothesis: calls under other tags (`cat visible`, `human gives food`, `stranger approaching`) join the chart, one test at a time. |
+| 53 – 67 | The field app, which records call and tag together, and CawScout. |
+| 67 – 77 | CrowGPT: a call type in, a generated call out. |
+| 77 – 89 | crowgpt.org's scan page: drop a file, get a labelled timeline, share it. |
+| 89 – 99 | Nothing translated yet; the family under the wordmark; "Scan yours at crowgpt.org." |
 
 The hypothesis chapter draws the outcome that would support it, under a
 caption that begins "If": it is an illustration of the test, not a result.
