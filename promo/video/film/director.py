@@ -48,12 +48,14 @@ class Film:
     REAL_CROW_X = 0.0
     GENERATED_CROW_X = 84.0
     DECODER_HEIGHT = 9.0
+    CLOCK = Timeline
 
-    def __init__(self, work, logo):
+    def __init__(self, work, logo, stats=None):
         bpy.ops.wm.read_factory_settings(use_empty=True)
         self.scene = bpy.context.scene
-        self.scene.render.fps = Timeline.FPS
-        self.scene.frame_start, self.scene.frame_end = 1, Timeline.END
+        self.scene.render.fps = self.CLOCK.FPS
+        self.scene.frame_start, self.scene.frame_end = 1, self.CLOCK.END
+        self.stats = stats
         self.stage = Stage(self.scene)
         self.fonts = Fonts(work)
         self.logo = logo
@@ -161,20 +163,20 @@ class Film:
             z = dice.uniform(8.5, 16.0)
             bird = FlyingCrow(self.stage, f"Flyer {index}", shadow, size=dice.uniform(1.5, 2.1))
             bird.flap(dice.uniform(0.0, FlyingCrow.FLAP_FRAMES))
-            bird.cross(start + dice.uniform(0.0, 30.0), Timeline.END + dice.uniform(0.0, 40.0),
+            bird.cross(start + dice.uniform(0.0, 30.0), self.CLOCK.END + dice.uniform(0.0, 40.0),
                        (dice.uniform(-52.0, -34.0), y, z),
                        (dice.uniform(48.0, 70.0), y, z + dice.uniform(-1.5, 2.5)))
 
 
 class Darkroom:
-    """Render settings. Cycles on the CPU: the GPU is booked for training."""
+    """Render settings. Cycles on the CPU unless asked: the GPU is usually booked for training."""
 
     QUALITY = {
         "draft": {"size": (960, 540), "samples": 16},
         "final": {"size": (1920, 1080), "samples": 48},
     }
 
-    def __init__(self, scene, quality, threads):
+    def __init__(self, scene, quality, threads, device="cpu"):
         self.scene = scene
         preset = self.QUALITY[quality]
         render = scene.render
@@ -186,7 +188,7 @@ class Darkroom:
         render.use_persistent_data = True
         render.threads_mode, render.threads = "FIXED", threads
         cycles = scene.cycles
-        cycles.device = "CPU"
+        cycles.device = "GPU" if device == "gpu" and self._claim_gpu() else "CPU"
         cycles.samples = preset["samples"]
         cycles.use_adaptive_sampling = True
         cycles.adaptive_threshold = 0.04
@@ -194,6 +196,24 @@ class Darkroom:
         cycles.max_bounces = 4
         self._grade()
         self._bloom()
+
+    @staticmethod
+    def _claim_gpu():
+        settings = bpy.context.preferences.addons["cycles"].preferences
+        for backend in ("OPTIX", "CUDA"):
+            try:
+                settings.compute_device_type = backend
+            except TypeError:
+                continue
+            settings.get_devices()
+            cards = [device for device in settings.devices if device.type == backend]
+            if cards:
+                for device in settings.devices:
+                    device.use = device.type == backend
+                print(f"film: rendering on {backend}: {cards[0].name}")
+                return True
+        print("film: no GPU Cycles can use; rendering on the CPU")
+        return False
 
     def _grade(self):
         view = self.scene.view_settings

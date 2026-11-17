@@ -26,18 +26,24 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(REPO / "crowgpt" / "src"))
 
 from crowgpt.progress import Run  # noqa: E402
-from film.timeline import Timeline  # noqa: E402
+from film.timeline import FILMS  # noqa: E402
 
 
 class Workspace:
-    def __init__(self, quality):
+    NAMES = {"short": "film", "explainer": "explainer"}
+
+    def __init__(self, film, quality):
         data = os.environ.get("DATA_DIR")
+        name = self.NAMES[film]
         self.root = (Path(data).expanduser() if data else REPO / "data") / "video"
         self.work = self.root / "work"
-        self.frames = self.root / quality / "frames"
+        self.frames = self.root / ("" if film == "short" else name) / quality / "frames"
         self.stills = self.root / "stills"
-        self.soundtrack = self.work / "soundtrack.wav"
-        self.film = self.root / f"crowgpt-film-{quality}.mp4"
+        self.soundtrack = self.work / ("soundtrack.wav" if film == "short"
+                                       else f"soundtrack-{name}.wav")
+        self.film = self.root / f"crowgpt-{name}-{quality}.mp4"
+        self.clock = FILMS[film]
+        self.name = film
         for folder in (self.work, self.frames, self.stills):
             folder.mkdir(parents=True, exist_ok=True)
 
@@ -95,9 +101,10 @@ class Soundtrack:
         self.bed = bed
 
     def mix(self):
-        duration = Timeline.duration()
-        real_ms = round(Timeline.seconds(Timeline.REAL_CALL) * 1000)
-        generated_ms = round(Timeline.seconds(Timeline.GENERATED_CALL) * 1000)
+        clock = self.workspace.clock
+        duration = clock.duration()
+        real_ms = round(clock.seconds(clock.CUES["real"]) * 1000)
+        generated_ms = round(clock.seconds(clock.CUES["generated"]) * 1000)
         graph = [f"[0:a]aresample=48000,adelay={real_ms}:all=1[real]",
                  f"[1:a]aresample=48000,adelay={generated_ms}:all=1[generated]"]
         voices = ["[real]", "[generated]"]
@@ -120,7 +127,8 @@ class Blender:
     SUPPORTED = ((4, 2), (5, 2))
     FLATPAK = "org.blender.Blender"
 
-    def __init__(self, chosen):
+    def __init__(self, chosen, device="cpu"):
+        self.device = device
         self.launch = self._find(chosen)
         banner = subprocess.run([*self.launch, "--version"], capture_output=True, text=True)
         found = re.search(r"Blender (\d+)\.(\d+)", banner.stdout)
@@ -146,6 +154,7 @@ class Blender:
         return [*self.launch, "-b", "--factory-startup", "--python", str(HERE / "scene.py"),
                 "--", "--work", str(workspace.work), "--frames", str(frames_folder),
                 "--logo", str(REPO / "images" / "crowgpt-logo.svg"),
+                "--film", workspace.name, "--device", self.device, "--stats", str(REPO / "promo" / "stats.json"),
                 "--quality", quality, "--threads", str(threads), *extra]
 
     def stills(self, workspace, quality, threads, frames):
@@ -161,9 +170,9 @@ class Blender:
             time.sleep(5)
             on_progress(workspace.rendered())
         on_progress(workspace.rendered())
-        if job.returncode or workspace.rendered() < Timeline.END:
+        if job.returncode or workspace.rendered() < workspace.clock.END:
             raise RuntimeError(
-                f"Blender stopped with {workspace.rendered()}/{Timeline.END} frames; "
+                f"Blender stopped with {workspace.rendered()}/{workspace.clock.END} frames; "
                 f"see {workspace.work / 'blender.log'}")
 
 
@@ -173,7 +182,7 @@ class Encoder:
 
     def encode(self):
         subprocess.run(
-            ["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(Timeline.FPS),
+            ["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(self.workspace.clock.FPS),
              "-i", str(self.workspace.frames / "%04d.png"), "-i", str(self.workspace.soundtrack),
              "-c:v", "libx264", "-preset", "slow", "-crf", "16", "-pix_fmt", "yuv420p",
              "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-shortest",
@@ -182,23 +191,26 @@ class Encoder:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    parser.add_argument("--film", choices=sorted(FILMS), default="short")
     parser.add_argument("--quality", choices=("draft", "final"), default="draft")
     parser.add_argument("--stills", help="comma-separated frames to render instead of the film")
     parser.add_argument("--blender", help="path to the blender executable")
     parser.add_argument("--threads", type=int, default=24)
+    parser.add_argument("--device", choices=("cpu", "gpu"), default="cpu",
+                        help="gpu only when GPU-CALENDAR.md says the card is free")
     parser.add_argument("--fresh", action="store_true", help="discard frames already rendered")
     parser.add_argument("--no-bed", action="store_true", help="calls only, no ambient bed")
     options = parser.parse_args()
 
-    workspace = Workspace(options.quality)
-    blender = Blender(options.blender)
+    workspace = Workspace(options.film, options.quality)
+    blender = Blender(options.blender, options.device)
     if options.stills:
         Ingredients(workspace).prepare()
         blender.stills(workspace, options.quality, options.threads, options.stills)
         print(f"stills in {workspace.stills}")
         return
 
-    run = Run(f"CrowGPT film ({options.quality})", ["prepare", "render", "encode"])
+    run = Run(f"CrowGPT {Workspace.NAMES[options.film]} ({options.quality})", ["prepare", "render", "encode"])
     with run.stage("prepare"):
         if options.fresh:
             workspace.clear_frames()
@@ -206,7 +218,7 @@ def main():
         Soundtrack(workspace, bed=not options.no_bed).mix()
     with run.stage("render") as stage:
         blender.animation(workspace, options.quality, options.threads,
-                          lambda done: stage.update(done, Timeline.END, "frames"))
+                          lambda done: stage.update(done, workspace.clock.END, "frames"))
     with run.stage("encode"):
         Encoder(workspace).encode()
     run.note(str(workspace.film))

@@ -81,13 +81,13 @@ class Dusk:
                               self.random.uniform(0.2, 0.9) * height))
 
     def _lights(self):
-        self._lamp("Sunset", "SUN", (0.0, 0.0, 30.0), (math.radians(-84), 0.0, math.radians(-8)),
+        self.lamp("Sunset", "SUN", (0.0, 0.0, 30.0), (math.radians(-84), 0.0, math.radians(-8)),
                    "#ff9a55", 4.0)
-        key = self._lamp("Sky fill", "AREA", (-3.0, -7.0, 9.5),
+        key = self.lamp("Sky fill", "AREA", (-3.0, -7.0, 9.5),
                          (math.radians(62), 0.0, math.radians(-22)), "#8fa6ff", 2600.0)
         key.data.size = 6.0
 
-    def _lamp(self, name, kind, location, rotation, color, energy):
+    def lamp(self, name, kind, location, rotation, color, energy):
         data = bpy.data.lights.new(name, kind)
         data.color = Palette.linear(color)[:3]
         data.energy = energy

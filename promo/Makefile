@@ -1,4 +1,4 @@
-.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic video video-final video-stills
+.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic video video-final video-stills video-explainer
 
 # node/npm are nvm lazy-load *zsh functions*, so they don't exist in make's
 # /bin/sh. Resolve nvm's default version and put it first on PATH, the same way
@@ -27,6 +27,7 @@ help:
 	@echo "  make video        Render the 3D film as a 540p draft into data/video (needs Blender 4.5 LTS)"
 	@echo "  make video-final  The same film at 1080p"
 	@echo "  make video-stills Six frames across the film, FRAMES=1,60,... to choose"
+	@echo "  make video-explainer  The 76 s explainer of the whole project, QUALITY=final for 1080p"
 
 node_modules:
 	npm install
@@ -115,3 +116,9 @@ video-final:
 
 video-stills:
 	$(VIDEO_PYTHON) video/render.py --quality draft --stills $(FRAMES)
+
+# The 76 s explainer. Same script, FILM=explainer; QUALITY=final for 1080p.
+QUALITY ?= draft
+
+video-explainer:
+	$(VIDEO_PYTHON) video/render.py --film explainer --quality $(QUALITY)
