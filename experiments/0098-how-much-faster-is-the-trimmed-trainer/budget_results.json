@@ -1,0 +1,89 @@
+{
+  "validation_bouts": 5033,
+  "recipe": {
+    "steps": 60000,
+    "batch_size": 8,
+    "accumulate": 1,
+    "n_embd": 384,
+    "n_layer": 8,
+    "n_head": 4,
+    "dropout": 0.0,
+    "seed": 0,
+    "warmup": 200,
+    "eval_every": 1000,
+    "panel_size": 256,
+    "checkpoint_every": 10000,
+    "sliced_loss": true,
+    "bucketed": true,
+    "token_budget": 12300
+  },
+  "rates": {
+    "budget-lr-6e-4": 0.0006
+  },
+  "failures": {},
+  "checkpoints": [
+    {
+      "path": "crowgpt/results/model-longctx/model.pt",
+      "step": 30000,
+      "full_ac_val": 4.792704081625476,
+      "checkpoint_sha256": "e0858aae30d2e18cfb6a627c68ce24bd86ba0ab9b861c7cde46b530e2d58b4c5",
+      "label": "CrowGPT2"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.690227772333219,
+      "checkpoint_sha256": "25b0771be8034564f67b34caf877473da4647768e7035b403804115aa9bb48b6",
+      "label": "0097 same arm, plain trainer"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/trimmed-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.781063500007282,
+      "checkpoint_sha256": "888f7b5253acacacc838351ae9ef5b5d6c593138560889ecb74315b62b3520ac",
+      "label": "0098 bucketed, eight per batch"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/budget-lr-6e-4/step-10000.pt",
+      "step": 10000,
+      "full_ac_val": 5.132208439205601,
+      "checkpoint_sha256": "887eb5f77b9a472aeaa03cad106fc39049a822b370bb481fa14c96c8f90ce4e1",
+      "label": "budget-lr-6e-4 step-10000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/budget-lr-6e-4/step-20000.pt",
+      "step": 20000,
+      "full_ac_val": 4.95726420947648,
+      "checkpoint_sha256": "864e0f84d8557e54085d5dde60c17b612480a43f538f5560a1e772e95c1c9507",
+      "label": "budget-lr-6e-4 step-20000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/budget-lr-6e-4/step-30000.pt",
+      "step": 30000,
+      "full_ac_val": 4.866603364662882,
+      "checkpoint_sha256": "f627f425650ca420c2cdca7319ad66721e31bee7f87599668c378d8c02e8aec2",
+      "label": "budget-lr-6e-4 step-30000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/budget-lr-6e-4/step-40000.pt",
+      "step": 40000,
+      "full_ac_val": 4.793425571172043,
+      "checkpoint_sha256": "bf9320978c215156b82d33bb9c939298a3f10032d5186b0414a15b59d160c1fb",
+      "label": "budget-lr-6e-4 step-40000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/budget-lr-6e-4/step-50000.pt",
+      "step": 50000,
+      "full_ac_val": 4.7348516273158445,
+      "checkpoint_sha256": "9fb0368b7619fb48decd1a5ebf6466cb6ce442cba247a139c1f91045a381f643",
+      "label": "budget-lr-6e-4 step-50000"
+    },
+    {
+      "path": "crowgpt/results/trimmed-0098/budget-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.706403236967723,
+      "checkpoint_sha256": "35d245eb075880e046f8f367cfe88b2c01bb5597c319ece5d7100b6f24039ed3",
+      "label": "budget-lr-6e-4 step-60000"
+    }
+  ]
+}
