@@ -2680,8 +2680,15 @@ CROWGPT: "MORE DATA WILL NOT HELP" IS STATED HARDER THAN 0048 EARNED
     scored 4.869. lr 0.0006 beat 0.0003 and the curve was still falling at
     60k. Loss only, nobody has heard it. Listening pool capacity-0096 is
     registered for 60k-lr-6e-4/step-60000.pt (it supersedes the candidate in
-    capacity-0086, which sits at 2 of 48). Open, Ben's call: a 120k run; and CrowGPT2's size
-    at 60k, the control that would say whether size or steps did it.
+    capacity-0086, which sits at 2 of 48).
+
+    2026-11-16, 0097, THE CONTROL: IT WAS THE STEPS. CrowGPT2's own size on
+    the same 60k schedule reaches 4.690 (lr 0.0006), so 0.103 of the 0.125
+    gain needs no extra size; the larger model's edge at equal schedule is
+    0.02 to 0.03 on one seed. CrowGPT2 was undertrained too. Recipe to beat
+    from here: 60k steps, peak lr 0.0006. Open, Ben's call: 120k on the
+    small model (2 h per 60k), once capacity-0096 says whether lower loss
+    at this scale is audible at all.
 
     WHAT SURVIVES INTACT is 0048's train/val gap column, and it is the strongest
     thing in the file: +0.016 at 50% of the corpus. Checked — `eval_train_batcher`

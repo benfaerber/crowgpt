@@ -1,0 +1,136 @@
+{
+  "validation_bouts": 5033,
+  "recipe": {
+    "steps": 60000,
+    "batch_size": 8,
+    "accumulate": 1,
+    "n_embd": 384,
+    "n_layer": 8,
+    "n_head": 4,
+    "dropout": 0.0,
+    "seed": 0,
+    "warmup": 200,
+    "eval_every": 1000,
+    "panel_size": 256,
+    "checkpoint_every": 10000
+  },
+  "rates": {
+    "60k-lr-3e-4": 0.0003,
+    "60k-lr-6e-4": 0.0006
+  },
+  "failures": {},
+  "checkpoints": [
+    {
+      "path": "crowgpt/results/model-longctx/model.pt",
+      "step": 30000,
+      "full_ac_val": 4.792704081625476,
+      "checkpoint_sha256": "e0858aae30d2e18cfb6a627c68ce24bd86ba0ab9b861c7cde46b530e2d58b4c5",
+      "label": "CrowGPT2"
+    },
+    {
+      "path": "crowgpt/results/tuning-0086/selected/model.pt",
+      "step": 30000,
+      "full_ac_val": 4.86898069019548,
+      "checkpoint_sha256": "e581befbedfd91659aa33e1c2028f14333ab029a8b40c8eef12ab632f77b1e91",
+      "label": "0086 selected (30k, lr 3e-4)"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.66798930180436,
+      "checkpoint_sha256": "a9dd45112ec0bfa0e45d3653bc75e86cc6a06f7dcef26af95636af75562e7095",
+      "label": "0096 larger model, 60k, lr 6e-4"
+    },
+    {
+      "path": "crowgpt/results/longer-0096/60k-lr-3e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.70702312977815,
+      "checkpoint_sha256": "9242ebc7ef687f6d5fba717f4592c7a52c758b268b877a1d2988ba2c2c7b9e1e",
+      "label": "0096 larger model, 60k, lr 3e-4"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-3e-4/step-10000.pt",
+      "step": 10000,
+      "full_ac_val": 5.157897060900979,
+      "checkpoint_sha256": "749f0a7d5ce745d00675fec10a50b11478762544bf8fca5ad51f290c4fc08ae5",
+      "label": "60k-lr-3e-4 step-10000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-3e-4/step-20000.pt",
+      "step": 20000,
+      "full_ac_val": 4.962160833110541,
+      "checkpoint_sha256": "a3b5d153baa49106696c210d55692f4a485c84b829399e0f8102e03102716b93",
+      "label": "60k-lr-3e-4 step-20000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-3e-4/step-30000.pt",
+      "step": 30000,
+      "full_ac_val": 4.869891782859648,
+      "checkpoint_sha256": "af611ccdc5b4bc9979fdb7d8776f58ad23c3de75c6f366673412e864a900ee8a",
+      "label": "60k-lr-3e-4 step-30000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-3e-4/step-40000.pt",
+      "step": 40000,
+      "full_ac_val": 4.803872351612487,
+      "checkpoint_sha256": "5deacfd832ae53e1bb3aa465b4ffc2b641fae8a5e9238603660f14bda23f6a12",
+      "label": "60k-lr-3e-4 step-40000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-3e-4/step-50000.pt",
+      "step": 50000,
+      "full_ac_val": 4.758668815317227,
+      "checkpoint_sha256": "e5ced6e190983f0b17888c1a05ff57446839235d403a9497bcb23b08bd2e2e18",
+      "label": "60k-lr-3e-4 step-50000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-3e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.735776461569671,
+      "checkpoint_sha256": "e7d4f09dd8be6c969351a50471ea90299dcfdae29b7afe4c519d0e8b8b924da8",
+      "label": "60k-lr-3e-4 step-60000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-10000.pt",
+      "step": 10000,
+      "full_ac_val": 5.111437172004985,
+      "checkpoint_sha256": "03a26d78d67bcc2650b48c15a6d03aca6e34c759705ce2d8179c571b42facb8a",
+      "label": "60k-lr-6e-4 step-10000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-20000.pt",
+      "step": 20000,
+      "full_ac_val": 4.930458072017167,
+      "checkpoint_sha256": "a5f96660d690e89302e139548064d98a7328766373ca509dbb008bab9d02db34",
+      "label": "60k-lr-6e-4 step-20000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-30000.pt",
+      "step": 30000,
+      "full_ac_val": 4.846736028642034,
+      "checkpoint_sha256": "f8db262263dca2e2584a966607e8d40cff2a8d9364300f3cc73e10eab0121ac2",
+      "label": "60k-lr-6e-4 step-30000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-40000.pt",
+      "step": 40000,
+      "full_ac_val": 4.772179700339434,
+      "checkpoint_sha256": "1fb35b075ce6e482206e8a3e72072e8b4a57c8aa8df9d02cc4bd2d90588ae663",
+      "label": "60k-lr-6e-4 step-40000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-50000.pt",
+      "step": 50000,
+      "full_ac_val": 4.718435288397576,
+      "checkpoint_sha256": "7be55f1c21d0a4a976e3704ad91e9acd7f3b28633ea7b37e13442096da8e22eb",
+      "label": "60k-lr-6e-4 step-50000"
+    },
+    {
+      "path": "crowgpt/results/control-0097/60k-lr-6e-4/step-60000.pt",
+      "step": 60000,
+      "full_ac_val": 4.690227772333219,
+      "checkpoint_sha256": "25b0771be8034564f67b34caf877473da4647768e7035b403804115aa9bb48b6",
+      "label": "60k-lr-6e-4 step-60000"
+    }
+  ]
+}
