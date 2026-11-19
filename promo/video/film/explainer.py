@@ -275,7 +275,7 @@ class Explainer(Film):
         camera.move(T.FINALE, (-59.2, -12.0, centre[2] + 0.2), (-60.0, 0.0, centre[2] - 0.9))
         self._cut(start, camera)
         self._say(camera, [
-            ("Try it at crowgpt.org: scan a photo or a recording\n"
+            ("Try it at crowgpt.org: scan a video or a recording\n"
              "and CawDex reads every call in it.", start + 6, start + 160),
             ("Share the file and say what was happening.\n"
              "That is the data the hypothesis needs.", start + 168, T.FINALE - 4),

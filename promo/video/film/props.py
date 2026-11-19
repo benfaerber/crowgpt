@@ -265,7 +265,7 @@ class Website:
         frame = stage.add("Drop zone", Shapes.struts("drop zone", list(zip(zone, zone[1:] + zone[:1])),
                                                      0.018),
                           Materials.glow("Drop zone", Palette.SKY_MID, 2.0), self.root)
-        self.hint = self._sign("Drop a photo or a recording here", (0.0, -0.07, 0.02), 0.2,
+        self.hint = self._sign("Drop a video or a recording here", (0.0, -0.07, 0.02), 0.2,
                                Palette.ACCENT)
         self.zone = frame
 
