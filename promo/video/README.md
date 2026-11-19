@@ -26,7 +26,11 @@ cut moves the audio with it.
 ## The explainer
 
 `make -C promo video-explainer` (`QUALITY=final` for 1080p) renders a second,
-99-second film along the same power line, with captions pinned to the lens.
+film along the same power line, with captions pinned to the lens. Its chapters
+are written at 99 seconds and `ExplainerTimeline.PACE` (1.25) stretches them to
+124 so a narrator has room; the table below is in unstretched seconds, and the
+crow calls stay at their real speed. `QUALITY=preview` renders it with EEVEE at
+540p in minutes, for timing a narration while the final renders.
 Its job is to send people to crowgpt.org: it states the hypothesis the project
 is testing and what a visitor's own recordings would add.
 

@@ -2,17 +2,28 @@
 
 
 class Clock:
+    """Chapters are written in the film's own frames; PACE stretches them for the screen."""
+
     FPS = 24
+    PACE = 1.0
     END = 0
     CUES = {}
 
     @classmethod
+    def screen(cls, frame):
+        return round(1 + (frame - 1) * cls.PACE)
+
+    @classmethod
     def seconds(cls, frame):
-        return (frame - 1) / cls.FPS
+        return (cls.screen(frame) - 1) / cls.FPS
+
+    @classmethod
+    def length(cls):
+        return cls.screen(cls.END)
 
     @classmethod
     def duration(cls):
-        return cls.END / cls.FPS
+        return cls.length() / cls.FPS
 
 
 class Timeline(Clock):
@@ -32,8 +43,9 @@ class Timeline(Clock):
 
 
 class ExplainerTimeline(Clock):
-    """The 99-second explainer, one chapter per cut."""
+    """The explainer, one chapter per cut, slowed to leave room for a narrator."""
 
+    PACE = 1.25
     END = 2376
 
     MURDER = 1

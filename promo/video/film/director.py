@@ -59,8 +59,8 @@ class Film:
         self.stage = Stage(self.scene)
         self.fonts = Fonts(work)
         self.logo = logo
-        self.real_call = Clip(Path(work) / "real.wav", Timeline.FPS)
-        self.generated_call = Clip(Path(work) / "generated.wav", Timeline.FPS)
+        self.real_call = Clip(Path(work) / "real.wav", self.CLOCK.FPS / self.CLOCK.PACE)
+        self.generated_call = Clip(Path(work) / "generated.wav", self.CLOCK.FPS / self.CLOCK.PACE)
         self.rings = None
         self.crow = None
 
@@ -169,9 +169,13 @@ class Film:
 
 
 class Darkroom:
-    """Render settings. Cycles on the CPU unless asked: the GPU is usually booked for training."""
+    """Render settings. Cycles on the CPU unless asked: the GPU is usually booked for training.
+
+    The preview is EEVEE: minutes rather than hours, close enough to time a narration against.
+    """
 
     QUALITY = {
+        "preview": {"size": (960, 540), "samples": 8, "engines": ("BLENDER_EEVEE", "BLENDER_EEVEE_NEXT")},
         "draft": {"size": (960, 540), "samples": 16},
         "final": {"size": (1920, 1080), "samples": 48},
     }
@@ -180,7 +184,7 @@ class Darkroom:
         self.scene = scene
         preset = self.QUALITY[quality]
         render = scene.render
-        render.engine = "CYCLES"
+        self._engine(preset.get("engines", ("CYCLES",)))
         render.resolution_x, render.resolution_y = preset["size"]
         render.resolution_percentage = 100
         render.image_settings.file_format = "PNG"
@@ -196,6 +200,17 @@ class Darkroom:
         cycles.max_bounces = 4
         self._grade()
         self._bloom()
+
+    def _engine(self, names):
+        for name in names:
+            try:
+                self.scene.render.engine = name
+            except TypeError:
+                continue
+            if name != "CYCLES":
+                self.scene.eevee.taa_render_samples = self.QUALITY["preview"]["samples"]
+            return
+        raise RuntimeError(f"this Blender has none of {names}")
 
     @staticmethod
     def _claim_gpu():

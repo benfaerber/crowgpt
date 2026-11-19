@@ -290,3 +290,32 @@ class Keys:
         cls.at(item, frame, scale=(0.0, 0.0, 0.0))
         cls.at(item, frame + frames * 0.6, scale=tuple(full * 1.08))
         cls.at(item, frame + frames, scale=tuple(full))
+
+
+class Pace:
+    """Stretches everything already keyed onto the clock's screen frames."""
+
+    def __init__(self, clock):
+        self.clock = clock
+
+    def apply(self, scene):
+        if self.clock.PACE == 1.0:
+            return
+        for action in bpy.data.actions:
+            for curve in self._curves(action):
+                for point in curve.keyframe_points:
+                    moved = self.clock.screen(point.co.x) - point.co.x
+                    point.co.x += moved
+                    point.handle_left.x += moved
+                    point.handle_right.x += moved
+                curve.update()
+        for marker in scene.timeline_markers:
+            marker.frame = self.clock.screen(marker.frame)
+        scene.frame_end = self.clock.length()
+
+    @staticmethod
+    def _curves(action):
+        if hasattr(action, "fcurves"):
+            return list(action.fcurves)
+        return [curve for layer in action.layers for strip in layer.strips
+                for bag in strip.channelbags for curve in bag.fcurves]

@@ -7,7 +7,7 @@ from pathlib import Path
 
 from .crow import FlyingCrow, PerchedCrow, Plumage
 from .director import Camera, Film
-from .kit import Materials, Palette, Shapes
+from .kit import Materials, Pace, Palette, Shapes
 from .props import (Arrow, CallColors, Chip, ContextColors, Dog, Emitter, Person, Phone, Sign,
                     Subtitles, TagTest, ValleyMap, Website)
 from .sets import Dusk, Lattice, Lockup, PowerLine, SoundRings, Spectrogram, TokenStream
@@ -48,6 +48,7 @@ class Explainer(Film):
         self._crowgpt()
         self._the_website()
         self._where_it_is()
+        Pace(self.CLOCK).apply(self.scene)
         return self.scene
 
     def _light(self, location, energy=2500.0):

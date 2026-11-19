@@ -170,9 +170,9 @@ class Blender:
             time.sleep(5)
             on_progress(workspace.rendered())
         on_progress(workspace.rendered())
-        if job.returncode or workspace.rendered() < workspace.clock.END:
+        if job.returncode or workspace.rendered() < workspace.clock.length():
             raise RuntimeError(
-                f"Blender stopped with {workspace.rendered()}/{workspace.clock.END} frames; "
+                f"Blender stopped with {workspace.rendered()}/{workspace.clock.length()} frames; "
                 f"see {workspace.work / 'blender.log'}")
 
 
@@ -192,7 +192,7 @@ class Encoder:
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--film", choices=sorted(FILMS), default="short")
-    parser.add_argument("--quality", choices=("draft", "final"), default="draft")
+    parser.add_argument("--quality", choices=("preview", "draft", "final"), default="draft")
     parser.add_argument("--stills", help="comma-separated frames to render instead of the film")
     parser.add_argument("--blender", help="path to the blender executable")
     parser.add_argument("--threads", type=int, default=24)
@@ -218,7 +218,7 @@ def main():
         Soundtrack(workspace, bed=not options.no_bed).mix()
     with run.stage("render") as stage:
         blender.animation(workspace, options.quality, options.threads,
-                          lambda done: stage.update(done, workspace.clock.END, "frames"))
+                          lambda done: stage.update(done, workspace.clock.length(), "frames"))
     with run.stage("encode"):
         Encoder(workspace).encode()
     run.note(str(workspace.film))

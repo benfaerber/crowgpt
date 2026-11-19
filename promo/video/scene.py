@@ -41,7 +41,7 @@ def main():
     if options.stills:
         darkroom.stills([int(frame) for frame in options.stills.split(",")], options.frames)
     else:
-        darkroom.animation(options.frames, options.start, options.end or film.CLOCK.END)
+        darkroom.animation(options.frames, options.start, options.end or film.CLOCK.length())
 
 
 main()
