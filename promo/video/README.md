@@ -27,8 +27,8 @@ cut moves the audio with it.
 
 `make -C promo video-explainer` (`QUALITY=final` for 1080p) renders a second,
 film along the same power line, with captions pinned to the lens. Its chapters
-are written at 99 seconds and `ExplainerTimeline.PACE` (1.25) stretches them to
-124 so a narrator has room; the table below is in unstretched seconds, and the
+are written at 93 seconds and `ExplainerTimeline.PACE` (1.25) stretches them to
+116 so a narrator has room; the table below is in unstretched seconds, and the
 crow calls stay at their real speed. `QUALITY=preview` renders it with EEVEE at
 540p in minutes, for timing a narration while the final renders.
 Its job is to send people to crowgpt.org: it states the hypothesis the project
@@ -41,10 +41,10 @@ is testing and what a visitor's own recordings would add.
 | 23 – 28 | An alarm at what? A type is not a meaning. |
 | 28 – 46 | The hypothesis: a threat on the ground (a dog) and one in the air (a hawk) get different calls. Calls tagged `dog visible` and `raptor overhead` either land in separate groups or they do not. |
 | 46 – 53 | That is one hypothesis: calls under other tags (`cat visible`, `human gives food`, `stranger approaching`) join the chart, one test at a time. |
-| 53 – 67 | The field app, which records call and tag together, and CawScout. |
-| 67 – 77 | CrowGPT: a call type in, a generated call out. |
-| 77 – 89 | crowgpt.org's scan page: drop a file, get a labelled timeline, share it. |
-| 89 – 99 | Nothing translated yet; the family under the wordmark; "Scan yours at crowgpt.org." |
+| 53 – 61 | The field app, which records call and tag together. |
+| 61 – 71 | CrowGPT: a call type in, a generated call out. |
+| 71 – 83 | crowgpt.org's scan page: drop a file, get a labelled timeline, share it. |
+| 83 – 93 | Nothing translated yet; the family under the wordmark; "Scan yours at crowgpt.org." |
 
 The hypothesis chapter draws the outcome that would support it, under a
 caption that begins "If": it is an illustration of the test, not a result.

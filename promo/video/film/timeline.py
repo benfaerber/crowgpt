@@ -46,7 +46,7 @@ class ExplainerTimeline(Clock):
     """The explainer, one chapter per cut, slowed to leave room for a narrator."""
 
     PACE = 1.25
-    END = 2376
+    END = 2232
 
     MURDER = 1
     GOAL = 157
@@ -57,13 +57,12 @@ class ExplainerTimeline(Clock):
     HYPOTHESIS = 673
     MORE = 1105
     APP = 1273
-    SCOUT = 1465
-    CROWGPT = 1609
-    GENERATED_CALL = 1724
-    REPLY = 1768
-    WEBSITE = 1849
-    FINALE = 2137
-    TITLE = 2177
+    CROWGPT = 1465
+    GENERATED_CALL = 1580
+    REPLY = 1624
+    WEBSITE = 1705
+    FINALE = 1993
+    TITLE = 2033
 
     CUES = {"real": REAL_CALL, "generated": GENERATED_CALL}
 

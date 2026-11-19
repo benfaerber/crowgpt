@@ -9,7 +9,7 @@ from .crow import FlyingCrow, PerchedCrow, Plumage
 from .director import Camera, Film
 from .kit import Materials, Pace, Palette, Shapes
 from .props import (Arrow, CallColors, Chip, ContextColors, Dog, Emitter, Person, Phone, Sign,
-                    Subtitles, TagTest, ValleyMap, Website)
+                    Subtitles, TagTest, Website)
 from .sets import Dusk, Lattice, Lockup, PowerLine, SoundRings, Spectrogram, TokenStream
 from .timeline import ExplainerTimeline as T
 
@@ -44,7 +44,6 @@ class Explainer(Film):
         self._cawdex_and_meaning()
         self._the_hypothesis()
         self._the_app()
-        self._cawscout()
         self._crowgpt()
         self._the_website()
         self._where_it_is()
@@ -216,27 +215,14 @@ class Explainer(Film):
              size=0.3).pop(T.APP + 126)
         camera = Camera(self.stage, "App camera", 35.0)
         camera.move(T.APP, (71.4, -9.0, z + 0.2), (72.6, 0.0, z))
-        camera.move(T.SCOUT, (73.6, -7.6, z + 0.2), (72.8, 0.0, z))
+        camera.move(T.CROWGPT, (73.6, -7.6, z + 0.2), (72.8, 0.0, z))
         self._cut(T.APP, camera)
         minutes = self.figures.text("labels.minutes")
         self._say(camera, [
             ("The field app records the call\nand its tag together, on the spot.",
              T.APP + 6, T.APP + 104),
             (f"{minutes} minutes of human-labelled calls so far.\n"
-             "One backyard cannot collect enough.", T.APP + 110, T.SCOUT - 4),
-        ])
-
-    def _cawscout(self):
-        z = self.FLOOR
-        valley = ValleyMap(self.stage, self.fonts, (86.0, -3.0, z))
-        valley.score(T.SCOUT + 4).subtract_predator(T.SCOUT + 72).rank(T.SCOUT + 92)
-        camera = Camera(self.stage, "Scout camera", 30.0)
-        camera.move(T.SCOUT, (88.0, -15.5, z + 6.0), (90.5, 0.0, z + 1.6))
-        camera.move(T.CROWGPT, (93.0, -14.0, z + 5.4), (90.5, 0.0, z + 1.6))
-        self._cut(T.SCOUT, camera)
-        self._say(camera, [
-            ("CawScout scores the whole valley\nto find more crow families to record.",
-             T.SCOUT + 6, T.CROWGPT - 4),
+             "One backyard cannot collect enough.", T.APP + 110, T.CROWGPT - 4),
         ])
 
     def _crowgpt(self):
