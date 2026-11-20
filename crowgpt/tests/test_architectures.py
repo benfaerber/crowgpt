@@ -192,3 +192,39 @@ def test_min_p_and_repeat_penalty_behave_cleanly():
         for _ in range(30)
     ]
     assert picks.count(1) > 25
+
+
+def test_dualar_cfg_sampler_matches_unguided_at_scale_1():
+    """CFG with guidance_scale=1.0 must produce identical tokens to unguided sampling."""
+    from crowgpt.dualar import DualARSampler
+
+    torch.manual_seed(0)
+    channels = ("q0_noisy", "q4_crisp", "q_unknown")
+    vocab = Vocabulary(8, ["american-crow"], channels=channels, n_unit_buckets=5)
+    cfg = DualARConfig(
+        vocab_size=vocab.size, n_codebooks=8, block_size=128,
+        n_layer=2, depth_layer=1, n_head=4, depth_head=4, n_embd=32,
+        dropout=0.0, prefix_len=vocab.prefix_len,
+    )
+    model = DualARCrowGPT(cfg).eval()
+    sampler = object.__new__(DualARSampler)
+    sampler.device = "cpu"
+    sampler.config = cfg
+    sampler.model = model
+    sampler.vocabulary = vocab
+    sampler.manifest = {"species": ["american-crow"], "channels": list(channels)}
+
+    plain = sampler.tokens("american-crow", channel="q4_crisp", max_frames=4, seed=42, guidance_scale=1.0)
+    guided_eq = sampler.tokens(
+        "american-crow", channel="q4_crisp", max_frames=4, seed=42,
+        guidance_scale=1.0 + 1e-8, uncond_channel="q_unknown",
+    )
+    assert np.array_equal(plain, guided_eq)
+
+    # Strong guidance should run cleanly and produce valid 8-codebook frames.
+    guided = sampler.tokens(
+        "american-crow", channel="q4_crisp", max_frames=4, seed=42,
+        guidance_scale=2.0, uncond_channel="q_unknown",
+    )
+    assert guided.size % 8 == 0
+

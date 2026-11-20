@@ -21,6 +21,8 @@ reason and lost nothing by it.
 
 ## Booked
 
+- ~~**2026-11-20 07:28 → 2026-11-20 09:30 (America/Denver)** — **experiment 0101: recording-quality conditioning + CFG on Dual-AR 17M** (240k steps on `tokens-6s` with spliced acoustic quality tier + 15% CFG dropout, ~1.1 GB VRAM, ~95 min total). Currawong; Ben approved ("Lets do it").~~ Done 09:25. Card free.
+
 - ~~**2026-11-19 23:27 → 2026-11-20 06:30 (America/Denver)** — **experiments 0099 (done 02:24) + 0100 (Dual-AR scaling: 17.3M @ 240k + ~40M d512/L8+D3 @ 120k + 0015 memorisation check + morning diagnostic page; ~1–3 GB VRAM)**. Currawong; Ben offered the GPU overnight ("Lets do A").~~ Done 05:34. Card free.
 
 - ~~**2026-11-19 18:00 → 2026-11-19 21:00 (America/Denver)** — Blender Cycles (OptiX) render of the 1080p narrated explainer in `promo/video/`, about 3 GB of VRAM. Rook. Killable on request: it resumes from the frames already written.~~ Finished 20:13. Card free.

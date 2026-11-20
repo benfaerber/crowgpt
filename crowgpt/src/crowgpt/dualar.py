@@ -428,6 +428,9 @@ class DualARSampler:
         min_p=None,
         stage_temperatures=None,
         repeat_penalty=1.0,
+        guidance_scale=1.0,
+        uncond_channel=None,
+        uncond_call_type=None,
     ):
         from crowgpt.sample import draw_from_logits
 
@@ -436,36 +439,58 @@ class DualARSampler:
         k = self.vocabulary.n_codebooks
         written = self._prefix_written(species, call_type, channel)
         slots = self.vocabulary.prefix_slots()
+        use_cfg = guidance_scale is not None and abs(guidance_scale - 1.0) > 1e-6
+
+        if use_cfg:
+            uncond_written = self._prefix_written(
+                species,
+                uncond_call_type if uncond_call_type is not None else call_type,
+                uncond_channel if uncond_channel is not None else channel,
+            )
+            prefix_tensor = torch.tensor(
+                [written, uncond_written], device=self.device, dtype=torch.long
+            )
+        else:
+            prefix_tensor = torch.tensor([written], device=self.device, dtype=torch.long)
 
         t_cache = self.model.empty_temporal_cache()
-        prefix_tensor = torch.tensor([written], device=self.device, dtype=torch.long)
         h = self.model.temporal_hidden(
             self.model.token_embedding(prefix_tensor), cache=t_cache, offset=0
         )
         t_pos = len(written)
 
-        # Sample trailing prefix slots (unit bucket, duration).
+        # Sample trailing prefix slots (unit bucket, duration) from the conditional
+        # stream so bout length and caw count match the requested condition.
         while t_pos < self.vocabulary.prefix_len:
             start, end = slots[t_pos]
-            logits = h[:, -1, :] @ self.model.head.weight[start:end].T
+            logits = h[:1, -1, :] @ self.model.head.weight[start:end].T
             local = draw_from_logits(logits, temperature=temperature, top_k=top_k, min_p=min_p)
             tok = int(local.item()) + start
-            tok_tensor = torch.tensor([[tok]], device=self.device, dtype=torch.long)
+            tok_tensor = torch.full(
+                (2 if use_cfg else 1, 1), tok, device=self.device, dtype=torch.long
+            )
             h = self.model.temporal_hidden(
                 self.model.token_embedding(tok_tensor), cache=t_cache, offset=t_pos
             )
             t_pos += 1
 
+        def combine(logits_batch):
+            if not use_cfg:
+                return logits_batch
+            cond, uncond = logits_batch[:1], logits_batch[1:2]
+            return uncond + guidance_scale * (cond - uncond)
+
         # Autoregressive frame loop: Depth Transformer (length K) + 1 Temporal step.
         frames = []
         prev_frame = None
+        batch_n = 2 if use_cfg else 1
         for _ in range(max_frames):
             d_cache = self.model.empty_depth_cache()
-            h_t = h[:, -1:, :]  # [1, 1, D]
+            h_t = h[:, -1:, :]  # [B, 1, D]
             dh = self.model.depth_hidden(h_t, cache=d_cache, offset=0)
 
             t0 = stage_temperatures[0] if stage_temperatures is not None else temperature
-            logits0 = dh[:, -1, :] @ self.model.head.weight[self.model.stage0_ids].T
+            logits0 = combine(dh[:, -1, :] @ self.model.head.weight[self.model.stage0_ids].T)
             rep0 = prev_frame[0] if (prev_frame is not None and repeat_penalty != 1.0) else None
             idx0 = int(
                 draw_from_logits(
@@ -484,13 +509,13 @@ class DualARSampler:
             prev_tok_id = idx0
             for s in range(1, k):
                 tok_emb = self.model.token_embedding(
-                    torch.tensor([[prev_tok_id]], device=self.device, dtype=torch.long)
+                    torch.full((batch_n, 1), prev_tok_id, device=self.device, dtype=torch.long)
                 )
                 dh = self.model.depth_hidden(tok_emb, cache=d_cache, offset=s)
                 lo = s * CODEBOOK_SIZE
                 hi = (s + 1) * CODEBOOK_SIZE
                 ts = stage_temperatures[s] if stage_temperatures is not None else temperature
-                logits_s = dh[:, -1, :] @ self.model.head.weight[lo:hi].T
+                logits_s = combine(dh[:, -1, :] @ self.model.head.weight[lo:hi].T)
                 reps = (
                     prev_frame[s] - lo
                     if (prev_frame is not None and repeat_penalty != 1.0)
@@ -511,7 +536,9 @@ class DualARSampler:
 
             frames.append(frame)
             prev_frame = frame
-            frame_tensor = torch.tensor([[frame]], device=self.device, dtype=torch.long)
+            frame_tensor = torch.tensor(
+                [[frame]] * batch_n, device=self.device, dtype=torch.long
+            )
             f_emb = self.model.embed_frames(frame_tensor)
             h = self.model.temporal_hidden(f_emb, cache=t_cache, offset=t_pos)
             t_pos += 1
