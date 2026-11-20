@@ -39,7 +39,7 @@ class Workspace:
         cut = quality if shape == "wide" else f"{quality}-{shape}"
         self.root = (Path(data).expanduser() if data else REPO / "data") / "video"
         self.work = self.root / "work"
-        self.frames = self.root / ("" if film == "short" else name) / quality / "frames"
+        self.frames = self.root / ("" if film == "short" else name) / cut / "frames"
         self.stills = self.root / "stills"
         self.soundtrack = self.work / ("soundtrack.wav" if film == "short"
                                        else f"soundtrack-{name}.wav")
