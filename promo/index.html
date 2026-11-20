@@ -92,15 +92,22 @@
         </div>
       </div>
 
-      <figure class="hero-photo" id="photo-thrasher">
-        <img
-          src="./src/assets/hero-crow.jpg"
-          alt="An American crow standing on grass, head turned toward the camera"
-          width="1600"
-          height="686"
-        />
-        <figcaption>Thrasher, one of the two parents, strutting the lawn.</figcaption>
-      </figure>
+      <div class="film hero-film" id="explainer">
+        <a
+          class="film-poster"
+          href="https://www.youtube.com/watch?v=FcGq9AV1sIw"
+          data-video="FcGq9AV1sIw"
+          aria-label="Play the CrowGPT explainer"
+        >
+          <img
+            src="./src/assets/explainer-poster.jpg"
+            alt="Low-poly crows calling on a power line at dusk, under the words: Can AI decode crow calls?"
+            width="1280"
+            height="720"
+          />
+          <span class="film-play" aria-hidden="true"></span>
+        </a>
+      </div>
 
       <dl class="stat-row" id="stat-row">
         <div class="stat">
@@ -128,30 +135,6 @@
     </header>
 
     <main>
-      <section class="section" id="explainer">
-        <h2>The two-minute version</h2>
-        <p class="section-lede">
-          What the project is, the first hypothesis it is testing, and what a recording
-          of your own crows would add to it.
-        </p>
-        <div class="film">
-          <a
-            class="film-poster"
-            href="https://www.youtube.com/watch?v=FcGq9AV1sIw"
-            data-video="FcGq9AV1sIw"
-            aria-label="Play the CrowGPT explainer"
-          >
-            <img
-              src="./src/assets/explainer-poster.jpg"
-              alt="Low-poly crows calling on a power line at dusk, under the words: Can AI decode crow calls?"
-              width="1280"
-              height="720"
-            />
-            <span class="film-play" aria-hidden="true"></span>
-          </a>
-        </div>
-      </section>
-
       <section class="section" id="poe">
         <h2>The murder in question</h2>
         <p class="section-lede">
@@ -164,6 +147,16 @@
         </p>
 
         <div class="gallery">
+          <figure class="photo" id="photo-thrasher">
+            <img
+              src="./src/assets/hero-crow.jpg"
+              alt="An American crow standing on grass, head turned toward the camera"
+              width="1600"
+              height="686"
+              loading="lazy"
+            />
+            <figcaption>Thrasher, one of the two parents, strutting the lawn.</figcaption>
+          </figure>
           <figure class="photo" id="photo-edgar">
             <img
               src="./src/assets/edgar-wire.jpg"

@@ -950,6 +950,12 @@ h1 {
   overflow: hidden;
 }
 
+/* In the hero the film takes the full column, where the photograph used to be. */
+.hero-film {
+  max-width: none;
+  margin: 3.5rem 0 0;
+}
+
 .film-poster {
   position: relative;
   display: block;
