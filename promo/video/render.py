@@ -96,9 +96,10 @@ class Soundtrack:
         "sine=frequency=220.7:duration={d},volume=0.018[high]",
     ]
 
-    def __init__(self, workspace, bed=True):
+    def __init__(self, workspace, bed=True, narration=None):
         self.workspace = workspace
         self.bed = bed
+        self.narration = narration
 
     def mix(self):
         clock = self.workspace.clock
@@ -111,14 +112,19 @@ class Soundtrack:
         if self.bed:
             graph += [part.format(d=duration) for part in self.BED]
             voices += ["[wind]", "[low]", "[fifth]", "[high]"]
+        spoken = []
+        if self.narration:
+            graph.append("[2:a]aresample=48000[narration]")
+            voices.append("[narration]")
+            spoken = ["-i", str(self.narration)]
         graph.append(
             f"{''.join(voices)}amix=inputs={len(voices)}:duration=longest:normalize=0,"
-            f"apad,atrim=duration={duration},afade=t=in:d=1.2,"
+            f"alimiter=limit=0.95,apad,atrim=duration={duration},afade=t=in:d=0.4,"
             f"afade=t=out:st={duration - 2.0}:d=2.0[out]")
         subprocess.run(
             ["ffmpeg", "-y", "-loglevel", "error",
              "-i", str(ASSETS / Ingredients.CALLS["real"]),
-             "-i", str(ASSETS / Ingredients.CALLS["generated"]),
+             "-i", str(ASSETS / Ingredients.CALLS["generated"]), *spoken,
              "-filter_complex", ";".join(graph), "-map", "[out]",
              "-ar", "48000", "-ac", "2", str(self.workspace.soundtrack)], check=True)
 
@@ -200,6 +206,8 @@ def main():
                         help="gpu only when GPU-CALENDAR.md says the card is free")
     parser.add_argument("--fresh", action="store_true", help="discard frames already rendered")
     parser.add_argument("--no-bed", action="store_true", help="calls only, no ambient bed")
+    parser.add_argument("--narration", type=Path,
+                        help="a voice recording made against the film, laid in from its first frame")
     options = parser.parse_args()
 
     workspace = Workspace(options.film, options.quality)
@@ -215,7 +223,7 @@ def main():
         if options.fresh:
             workspace.clear_frames()
         Ingredients(workspace).prepare()
-        Soundtrack(workspace, bed=not options.no_bed).mix()
+        Soundtrack(workspace, bed=not options.no_bed, narration=options.narration).mix()
     with run.stage("render") as stage:
         blender.animation(workspace, options.quality, options.threads,
                           lambda done: stage.update(done, workspace.clock.length(), "frames"))

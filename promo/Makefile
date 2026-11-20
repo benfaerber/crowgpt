@@ -118,7 +118,8 @@ video-stills:
 	$(VIDEO_PYTHON) video/render.py --quality draft --stills $(FRAMES)
 
 # The explainer. Same script, FILM=explainer; QUALITY=preview is EEVEE, final is 1080p.
+# NARRATION=/path/to.wav lays a voice recording over it.
 QUALITY ?= draft
 
 video-explainer:
-	$(VIDEO_PYTHON) video/render.py --film explainer --quality $(QUALITY)
+	$(VIDEO_PYTHON) video/render.py --film explainer --quality $(QUALITY) $(if $(NARRATION),--narration $(NARRATION))
