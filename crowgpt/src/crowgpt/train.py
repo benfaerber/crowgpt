@@ -274,6 +274,10 @@ class Trainer:
         bucketed=False,
         token_budget=None,
         sliced_loss=False,
+        pos_encoding="learned",
+        norm="layernorm",
+        mlp="gelu",
+        stage_weights=None,
     ):
         self.token_dir = Path(token_dir)
         self.out_dir = Path(out_dir)
@@ -368,11 +372,15 @@ class Trainer:
             n_embd=n_embd,
             dropout=dropout,
             prefix_len=self.vocabulary.prefix_len,
+            pos_encoding=pos_encoding,
+            norm=norm,
+            mlp=mlp,
         )
+        self.stage_weights = tuple(stage_weights) if stage_weights is not None else None
         self.model = CrowGPT(self.config).to(self.device)
         assert_on_gpu(self.model, "the model")
         self.legal = LegalMask(self.vocabulary, block_size + 1, self.device)
-        self.slices = LegalSlices(self.legal) if sliced_loss else None
+        self.slices = LegalSlices(self.legal) if (sliced_loss or self.stage_weights) else None
 
         # Logits are [batch, time, vocab], and both time and vocab double when
         # the codebook count does, so the loss tensor grows fourfold between
@@ -394,12 +402,10 @@ class Trainer:
             keep_species=keep_species, **bucketing
         )
         # Counted against what the block size alone would have kept, so a
-        # deliberate `keep_groups` subset is not reported as sequences too long.
-        # The warning exists to catch a silently truncated corpus; blaming the
-        # block for a subset the caller asked for would make it noise.
+        # deliberate `keep_groups`/`keep_species` subset is not reported as
+        # sequences too long.
         in_block = sum(1 for r in self.train_set.records if r["length"] <= block_size + 1)
-        dropped = in_block - len(self.train_batcher.usable) if keep_groups is None \
-            else len(self.train_set) - in_block
+        dropped = len(self.train_set) - in_block
         if dropped:
             share = dropped / max(1, len(self.train_set))
             print(f"   WARNING: {dropped} sequences ({share:.1%}) exceed the "
@@ -478,12 +484,13 @@ class Trainer:
         keep[codec & (targets // CODEBOOK_SIZE < self.loss_from_stage)] = -1
         return keep
 
-    def _loss(self, inputs, targets):
+    def _loss(self, inputs, targets, weighted=True):
         targets = self._mask_coarse(targets)
         legal = self.legal.for_batch(inputs.size(1), shift=1)
         with torch.autocast(self.device, dtype=torch.bfloat16, enabled=self.device == "cuda"):
             if self.slices:
-                return self.slices.loss(self.model, inputs, targets)
+                weights = self.stage_weights if weighted else None
+                return self.slices.loss(self.model, inputs, targets, stage_weights=weights)
             _, loss = self.model(inputs, targets, legal)
         return loss
 
@@ -498,8 +505,9 @@ class Trainer:
         it is the only measurement that can say whether the model is underfit.
         """
         self.model.eval()
-        val = [self._loss(*self.val_batcher.batch()).item() for _ in range(self.eval_batches)]
-        train = [self._loss(*self.eval_train_batcher.batch()).item()
+        val = [self._loss(*self.val_batcher.batch(), weighted=False).item()
+               for _ in range(self.eval_batches)]
+        train = [self._loss(*self.eval_train_batcher.batch(), weighted=False).item()
                  for _ in range(self.eval_batches)]
         self.model.train()
         return float(np.mean(train)), float(np.mean(val))

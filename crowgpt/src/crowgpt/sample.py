@@ -46,6 +46,42 @@ from crowgpt.model import Config, CrowGPT, LegalMask
 from crowgpt.tokens import TokenDataset, Vocabulary, codec_from_manifest
 
 
+def draw_from_logits(
+    logits,
+    forbidden=None,
+    temperature=1.0,
+    top_k=200,
+    min_p=None,
+    repeat_token=None,
+    repeat_penalty=1.0,
+):
+    """One masked, tempered, top-k / min-p / repeat-penalised draw from [B, V] logits."""
+    step = logits.float()
+    if forbidden is not None:
+        step = step.masked_fill(forbidden, float("-inf"))
+    if repeat_penalty != 1.0 and repeat_token is not None:
+        val = step[:, repeat_token]
+        step = step.clone()
+        step[:, repeat_token] = torch.where(
+            val > 0, val / repeat_penalty, val * repeat_penalty
+        )
+    step = step / max(temperature, 1e-5)
+    if top_k:
+        kept = min(top_k, int((~torch.isinf(step)).sum().item()))
+        if kept > 0:
+            cutoff = torch.topk(step, kept, dim=-1).values[:, [-1]]
+            step = step.masked_fill(step < cutoff, float("-inf"))
+    if min_p is not None and 0.0 < min_p < 1.0:
+        probs = torch.softmax(step, dim=-1)
+        peak = probs.max(dim=-1, keepdim=True).values
+        keep = probs >= (peak * min_p)
+        # Always retain the argmax so the distribution can never empty.
+        top1 = probs.argmax(dim=-1, keepdim=True)
+        keep.scatter_(-1, top1, True)
+        step = step.masked_fill(~keep, float("-inf"))
+    return torch.multinomial(torch.softmax(step, dim=-1), num_samples=1)
+
+
 class Prefix:
     """The written conditioning tokens, and the count the model adds itself.
 
@@ -138,7 +174,8 @@ class Sampler:
 
     @torch.no_grad()
     def tokens(self, species, temperature=1.0, top_k=200, seed=None, max_frames=225,
-               call_type=None, channel=None):
+               call_type=None, channel=None, min_p=None, stage_temperatures=None,
+               repeat_penalty=1.0):
         """One generated sequence of codec tokens, prefix and EOS stripped.
 
         `call_type` names what to ask for. Omitted, the model is handed
@@ -158,28 +195,38 @@ class Sampler:
         # tests/test_kv_cache.py holds this to bit-equality with that path.
         cache = self.model.empty_cache()
         logits, _ = self.model(sequence, cache=cache, offset=0)
+        k = self.vocabulary.n_codebooks
         # The legality mask walks the model through the sampled prefix slots
         # (duration, and the unit bucket when the vocabulary has one) before
         # any codec token, so the loop counts from the sequence actually
         # built while the strip below uses prefix.stated_len.
         for _ in range(limit - sequence.size(1)):
             grown = sequence.size(1)
-            step = logits[:, -1, :].float()
-            step = step.masked_fill(self.legal.forbidden[grown], float("-inf"))
-            step = step / max(temperature, 1e-5)
-            if top_k:
-                kept = min(top_k, int((~torch.isinf(step)).sum().item()))
-                if kept > 0:
-                    cutoff = torch.topk(step, kept, dim=-1).values[:, [-1]]
-                    step = step.masked_fill(step < cutoff, float("-inf"))
-            nxt = torch.multinomial(torch.softmax(step, dim=-1), num_samples=1)
+            step_temp = temperature
+            rep_tok = None
+            if grown >= prefix.stated_len:
+                codec_pos = grown - prefix.stated_len
+                stage = codec_pos % k
+                if stage_temperatures is not None:
+                    step_temp = stage_temperatures[stage]
+                if repeat_penalty != 1.0 and codec_pos >= k:
+                    rep_tok = int(sequence[0, grown - k].item())
+            nxt = draw_from_logits(
+                logits[:, -1, :],
+                forbidden=self.legal.forbidden[grown],
+                temperature=step_temp,
+                top_k=top_k,
+                min_p=min_p,
+                repeat_token=rep_tok,
+                repeat_penalty=repeat_penalty,
+            )
             if int(nxt) == self.vocabulary.eos:
                 break
             sequence = torch.cat([sequence, nxt], dim=1)
             logits, _ = self.model(nxt, cache=cache, offset=grown)
 
         flat = sequence[0, prefix.stated_len:].cpu().numpy()
-        usable = (flat.size // self.vocabulary.n_codebooks) * self.vocabulary.n_codebooks
+        usable = (flat.size // k) * k
         return flat[:usable].astype(np.int64)
 
     @torch.no_grad()

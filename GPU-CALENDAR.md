@@ -21,6 +21,24 @@ reason and lost nothing by it.
 
 ## Booked
 
+- ~~**2026-11-19 23:27 → 2026-11-20 06:30 (America/Denver)** — **experiments 0099 (done 02:24) + 0100 (Dual-AR scaling: 17.3M @ 240k + ~40M d512/L8+D3 @ 120k + 0015 memorisation check + morning diagnostic page; ~1–3 GB VRAM)**. Currawong; Ben offered the GPU overnight ("Lets do A").~~ Done 05:34. Card free.
+
+- ~~**2026-11-19 18:00 → 2026-11-19 21:00 (America/Denver)** — Blender Cycles (OptiX) render of the 1080p narrated explainer in `promo/video/`, about 3 GB of VRAM. Rook. Killable on request: it resumes from the frames already written.~~ Finished 20:13. Card free.
+
+- ~~**2026-11-16 21:45 → 2026-11-17 00:30 (America/Denver)** — Blender Cycles (OptiX) render of the 1080p explainer in `promo/video/`, about 3 GB of VRAM. Rook. Killable on request: it resumes from the frames already written.~~ Finished 23:39. Card free.
+
+- ~~**2026-11-16 20:00 → 2026-11-16 22:30 (America/Denver)** — Blender Cycles renders of the promo films in `promo/video/`. Rook.~~ Withdrawn 20:05: Jay's 0098 took the card under the booking below seconds before the render started, and the two collided. Renders are back on the CPU.
+
+- ~~**2026-11-16 15:10 → 2026-11-16 23:00 (America/Denver)** — experiment 0097: a CrowGPT2-sized model (18.7M params) trained for 60k steps at two learning rates, the control for 0096 (~6 GB). Jay; Ben offered the card.~~ Done 20:50: 0097 and the 0098 trainer checks finished, card free.
+
+- ~~**2026-11-16 12:30 → 2026-11-16 14:00 (America/Denver)** — 0096 listening pool: sampling ~250 clips from CrowGPT2 and the 60k candidate (a few GB). Jay.~~ Done 12:46, card free.
+
+- ~~**2026-11-15 18:15 → 2026-11-16 09:00 (America/Denver)** — **0095 machine judge for the listening sittings**: Whisper/CLAP/codec embeddings of the pool clips (small), then a 4-bit audio-language model scoring every graded trial (~10 GB), then, if the night allows, the 0086 candidate trained past 30k. Jay; Ben made the GPU and CPU available overnight.~~ Done 2026-11-16 02:10: 0095 and 0096 both finished, card free.
+
+- ~~**2026-11-13 19:30 → 2026-11-13 22:00 (America/Edmonton)** — PANNs sound-event pass over ~48 h of short clips (~4,800 files), well under 2 GB VRAM; BirdNET half is CPU. Treepie; Ben made the GPU available.~~ Finished early; PANNs ran on CPU in the end and never held the card. Released.
+
+- ~~**2026-11-12 20:40 → 2026-11-12 21:30 (America/Edmonton)** — PANNs sound-event pass (speech/music/crow per second) over ~2 h of short clips, well under 2 GB VRAM. Treepie.~~ Finished; card free.
+
 - ~~**2026-09-10 10:38 → 2026-09-10 20:38 (America/Edmonton)** — **0086 controlled CrowGPT3 learning-rate comparison**. Three sequential d512/L12 runs, true batch 8, fixed validation, checkpoint selection, generated gate and blinded listening pool. Chough; Ben explicitly made GPU available.~~ Completed successfully 2026-09-10 16:38; listening pool ready, GPU reservation released.
 
 - ~~**2026-09-09 22:53 → 2026-09-10 09:00 (America/Edmonton)** — **0085 CrowGPT3 capacity candidate**, d512/L12, six-second corpus, effective batch 8, preflight → 30k training → matched validation. Chough; Ben authorized overnight GPU use.~~ Finished successfully 2026-09-10 00:15; card released. Candidate failed the instrument screen.
