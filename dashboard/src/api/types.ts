@@ -728,6 +728,8 @@ export interface ScanContribution {
   latitude: number | null;
   longitude: number | null;
   created_at: string;
+  /** The address the file was uploaded from. Null on rows kept before revision 0043. */
+  requester_ip: string | null;
   duration_sec: number | null;
   call_count: number;
   silent_confirmed_at: string | null;
@@ -736,6 +738,20 @@ export interface ScanContribution {
   desk_url: string | null;
   label_count?: number;
   context_count?: number;
+}
+
+/** A scan still inside its hour on the server, kept or not. */
+export interface RecentScan {
+  kind: "photo" | "audio" | "video";
+  state: "queued" | "running" | "done" | "failed";
+  keep: number;
+  requester_ip: string | null;
+  created_at: string;
+}
+
+export interface ScanPile {
+  contributions: ScanContribution[];
+  recent: RecentScan[];
 }
 
 export interface ScanContributionDetail extends ScanContribution {

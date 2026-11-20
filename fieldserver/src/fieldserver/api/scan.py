@@ -133,7 +133,7 @@ def register(app, d) -> None:
         upload.save(path)
         try:
             row = scans.request(kind, storage_ref, latitude, longitude,
-                                keep=request.form.get("keep") == "1")
+                                keep=request.form.get("keep") == "1", requester_ip=caller)
         except ValueError as error:
             abort(400, str(error))
         return jsonify(describe(scans, row)), 202

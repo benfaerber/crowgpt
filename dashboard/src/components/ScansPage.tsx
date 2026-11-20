@@ -9,7 +9,7 @@ import {
   useScanContribution,
   useScanContributions,
 } from "../api/client";
-import type { FleetConfig, ScanContribution } from "../api/types";
+import type { FleetConfig, RecentScan, ScanContribution } from "../api/types";
 import { formatBytes, formatTime } from "../format";
 import { colorForCall, contextText, labelText } from "../vocab";
 
@@ -56,6 +56,8 @@ export function ScansPage({ signedIn }: { signedIn: boolean }) {
   const unreviewed = rows.filter((row) => row.promoted_capture_id === null).length;
 
   return (
+    <>
+    <RecentScans rows={pile.data?.recent ?? []} loading={pile.isPending} />
     <div className="card">
       <h2>Kept scans{unreviewed ? ` · ${unreviewed} unreviewed` : ""}</h2>
       <div className="note">
@@ -70,6 +72,7 @@ export function ScansPage({ signedIn }: { signedIn: boolean }) {
             <tr>
               <th>Kept</th>
               <th>File</th>
+              <th>From</th>
               <th>Scanner heard</th>
               <th>Visitor said</th>
               <th></th>
@@ -78,7 +81,7 @@ export function ScansPage({ signedIn }: { signedIn: boolean }) {
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="muted">
+                <td colSpan={6} className="muted">
                   {pile.isPending ? "Loading…" : "Nothing has been kept yet."}
                 </td>
               </tr>
@@ -93,6 +96,66 @@ export function ScansPage({ signedIn }: { signedIn: boolean }) {
                 onToggle={() => setOpen(open === row.id ? undefined : row.id)}
                 onAct={(action) => void act(row, action)}
               />
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </>
+  );
+}
+
+/**
+ * Every scan the server still holds a row for, kept or not: the hour in which
+ * a flood from one address is visible before its rows are pruned.
+ */
+function RecentScans({ rows, loading }: { rows: RecentScan[]; loading: boolean }) {
+  const perAddress = new Map<string, number>();
+  for (const row of rows) {
+    if (row.requester_ip) {
+      perAddress.set(row.requester_ip, (perAddress.get(row.requester_ip) ?? 0) + 1);
+    }
+  }
+  return (
+    <div className="card">
+      <h2>Scans in the last hour{rows.length ? ` · ${rows.length}` : ""}</h2>
+      <div className="note">
+        Everything uploaded to the Scan page, kept or not. A row lasts about an hour; the
+        file is gone as soon as it is read unless its visitor let the project keep it.
+      </div>
+      <div className="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Uploaded</th>
+              <th>File</th>
+              <th>From</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="muted">
+                  {loading ? "Loading…" : "Nobody has scanned anything in the last hour."}
+                </td>
+              </tr>
+            ) : null}
+            {rows.map((row, index) => (
+              <tr key={`${row.created_at}-${index}`}>
+                <td className="muted">{formatTime(row.created_at)}</td>
+                <td>{row.kind}</td>
+                <td className="muted">
+                  {row.requester_ip ?? "—"}
+                  {row.requester_ip && perAddress.get(row.requester_ip)! > 1
+                    ? ` · ${perAddress.get(row.requester_ip)} from here`
+                    : ""}
+                </td>
+                <td>
+                  {row.state}
+                  {row.keep ? " · kept" : ""}
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
@@ -129,6 +192,7 @@ function ScanRow({
             {row.latitude != null ? " · located" : ""}
           </div>
         </td>
+        <td className="muted">{row.requester_ip ?? "—"}</td>
         <td>{row.kind === "photo" ? <span className="muted">a photo</span> : `${row.call_count} call region${row.call_count === 1 ? "" : "s"}`}</td>
         <td>
           {row.silent_confirmed_at ? (
@@ -161,7 +225,7 @@ function ScanRow({
       </tr>
       {open ? (
         <tr>
-          <td colSpan={5}>
+          <td colSpan={6}>
             <ScanDetail id={row.id} kind={row.kind} config={config} deskUrl={row.desk_url} />
           </td>
         </tr>

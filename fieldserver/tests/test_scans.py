@@ -292,6 +292,15 @@ class TestApi:
         polled = client.get(f"/api/demo/scan/{body['id']}").get_json()
         assert polled == {"id": body["id"], "kind": "photo", "state": "done", "result": RESULT, "kept": False}
 
+    def test_a_scan_remembers_its_address_and_never_says_it_back(self, client, scans):
+        body = upload(client, environ=VISITOR, keep="1").get_json()
+        (recent,) = scans.recent()
+        assert recent["requester_ip"] == VISITOR["REMOTE_ADDR"]
+        scans.complete(scans.claim_next("photo")["id"], RESULT)
+        (kept,) = scans.contributions()
+        assert kept["requester_ip"] == VISITOR["REMOTE_ADDR"]
+        assert VISITOR["REMOTE_ADDR"] not in client.get(f"/api/demo/scan/{body['id']}").get_data(as_text=True)
+
     def test_the_keep_box_reaches_the_store_and_the_answer_says_so(self, client, scans):
         body = upload(client, keep="1").get_json()
         row = scans.claim_next("photo")

@@ -12,7 +12,7 @@ import type {
   LabelTotal,
 } from "./types";
 import type { AccessQueue, AccessRequest } from "./types";
-import type { ScanContribution, ScanContributionDetail, TrafficReport } from "./types";
+import type { ScanContributionDetail, ScanPile, TrafficReport } from "./types";
 import type { CallContextMatrix, DeviceLog, LogLevel, RelabelRow } from "./types";
 import type { Generation, GenerationFeed, ListeningPool, TrainingStatus } from "./types";
 import type { PhotoIdFeed, PhotoIdentification } from "./types";
@@ -358,7 +358,7 @@ export function useScanContributions(signedIn: boolean) {
   return useQuery({
     queryKey: ["scans"],
     queryFn: () =>
-      request<{ contributions: ScanContribution[] }>("/api/fleet/scan-contributions"),
+      request<ScanPile>("/api/fleet/scan-contributions"),
     enabled: signedIn,
     refetchInterval: 30_000,
   });

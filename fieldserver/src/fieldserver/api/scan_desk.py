@@ -243,7 +243,7 @@ def register(app, d) -> None:
         out = {
             "id": row["id"], "kind": row["kind"], "bytes": row["bytes"],
             "latitude": row["latitude"], "longitude": row["longitude"],
-            "created_at": row["created_at"],
+            "created_at": row["created_at"], "requester_ip": row["requester_ip"],
             "duration_sec": result.get("duration_sec"),
             "call_count": len(desk.calls(row)),
             "silent_confirmed_at": row["silent_confirmed_at"],
@@ -268,7 +268,8 @@ def register(app, d) -> None:
     @app.get("/api/fleet/scan-contributions")
     def list_scan_contributions():
         current_operator()
-        return jsonify({"contributions": [operator_view(row) for row in desk.list_all()]})
+        return jsonify({"contributions": [operator_view(row) for row in desk.list_all()],
+                        "recent": d.scans.recent()})
 
     @app.get("/api/fleet/scan-contributions/<int:contribution_id>")
     def get_scan_contribution(contribution_id):

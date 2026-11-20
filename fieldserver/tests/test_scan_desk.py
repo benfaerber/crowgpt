@@ -50,10 +50,13 @@ def desk(scans):
     return ScanDeskStore(scans.db_path, scans.kept_dir)
 
 
+ADDRESS = "203.0.113.7"
+
+
 def kept(scans, name="dawn.wav", content=None, result=RESULT):
     kind, ref, path = scans.allocate(name)
     path.write_bytes(content or tone())
-    row = scans.request(kind, ref, keep=True)
+    row = scans.request(kind, ref, keep=True, requester_ip=ADDRESS)
     scans.claim_next("photo" if kind == "photo" else "sound")
     scans.complete(row["id"], result)
     return row["public_id"]
@@ -168,10 +171,14 @@ class TestTheOperatorsPile:
         public_id = kept(scans)
         put_label(client, public_id)
         rows = client.get("/api/fleet/scan-contributions",
-                          headers=operator.headers).get_json()["contributions"]
+                          headers=operator.headers).get_json()
+        assert [scan["requester_ip"] for scan in rows["recent"]] == [ADDRESS]
+        rows = rows["contributions"]
         assert len(rows) == 1
         assert rows[0]["label_count"] == 1 and rows[0]["call_count"] == 1
         assert rows[0]["desk_url"].endswith(f"/label/{public_id}")
+        assert rows[0]["requester_ip"] == ADDRESS
+        assert ADDRESS not in client.get(f"/api/scan-desk/{public_id}").get_data(as_text=True)
         detail = client.get(f"/api/fleet/scan-contributions/{rows[0]['id']}",
                             headers=operator.headers).get_json()
         assert detail["labels"][0]["call_type"] == "alarm call"

@@ -7,7 +7,9 @@ differences that follow from the uploader being a stranger:
 
   - the file is deleted as soon as a worker finishes with it, done or failed;
   - the row is addressed by an unguessable `public_id`, never its integer id;
-  - rows are pruned an hour after they were made.
+  - rows are pruned an hour after they were made;
+  - the row carries the address it was uploaded from (revision 0043), which
+    only the operator's routes return.
 
 A visitor who ticks the page's "keep this file" box changes the first of
 those: when the scan is done the file moves to `scan-contributions/` beside
@@ -94,7 +96,8 @@ class ScanStore(Database):
         storage_ref = f"{secrets.token_hex(16)}.{extension}"
         return kind, storage_ref, self.scan_dir / storage_ref
 
-    def request(self, kind, storage_ref, latitude=None, longitude=None, keep=False):
+    def request(self, kind, storage_ref, latitude=None, longitude=None, keep=False,
+                requester_ip=None):
         path = self.scan_dir / storage_ref
         try:
             self._check(kind, path, latitude, longitude)
@@ -104,8 +107,10 @@ class ScanStore(Database):
         with self._connect() as conn:
             cur = conn.execute(
                 "INSERT INTO demo_scans (public_id, kind, storage_ref, latitude, "
-                "longitude, keep, state, created_at) VALUES (?, ?, ?, ?, ?, ?, 'queued', ?)",
-                (secrets.token_urlsafe(18), kind, storage_ref, latitude, longitude, int(keep), utc_now()))
+                "longitude, keep, requester_ip, state, created_at) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, 'queued', ?)",
+                (secrets.token_urlsafe(18), kind, storage_ref, latitude, longitude, int(keep),
+                 requester_ip, utc_now()))
             return self._row(conn, cur.lastrowid)
 
     @staticmethod
@@ -174,6 +179,13 @@ class ScanStore(Database):
         for row in rows:
             self._discard(row["storage_ref"])
         return len(rows)
+
+    def recent(self) -> list[dict]:
+        """Every scan still inside its hour, newest first, for the operator."""
+        with self._connect() as conn:
+            return [dict(row) for row in conn.execute(
+                "SELECT kind, state, keep, requester_ip, created_at FROM demo_scans "
+                "ORDER BY id DESC")]
 
     # --- the worker half ----------------------------------------------------
 
@@ -249,9 +261,9 @@ class ScanStore(Database):
         with self._connect() as conn:
             conn.execute(
                 "INSERT INTO scan_contributions (public_id, kind, storage_ref, bytes, latitude, "
-                "longitude, result, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                "longitude, result, requester_ip, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (scan["public_id"], scan["kind"], scan["storage_ref"], size, scan["latitude"],
-                 scan["longitude"], result, utc_now()))
+                 scan["longitude"], result, scan["requester_ip"], utc_now()))
         return True
 
     # --- what visitors let the project keep -----------------------------------
