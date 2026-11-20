@@ -12,6 +12,9 @@ import { formatTime } from "../format";
  * it; either way the link is here to copy, because the mail may not have
  * gone and because some people are easier to reach by hand. Declined rows
  * stay visible so a repeat request reads as one.
+ *
+ * Each row carries the address it came from and how many requests share it:
+ * a flood from a few addresses is the one thing the emails alone do not show.
  */
 export function AccessPage({ signedIn }: { signedIn: boolean }) {
   const queue = useAccessRequests(signedIn);
@@ -52,6 +55,12 @@ export function AccessPage({ signedIn }: { signedIn: boolean }) {
 
   const rows = queue.data?.requests ?? [];
   const pending = rows.filter((r) => r.status === "pending").length;
+  const perAddress = new Map<string, number>();
+  for (const row of rows) {
+    if (row.requester_ip) {
+      perAddress.set(row.requester_ip, (perAddress.get(row.requester_ip) ?? 0) + 1);
+    }
+  }
 
   return (
     <div className="card">
@@ -73,6 +82,7 @@ export function AccessPage({ signedIn }: { signedIn: boolean }) {
             <tr>
               <th>Who</th>
               <th>Asked</th>
+              <th>From</th>
               <th>Status</th>
               <th>Invite</th>
               <th></th>
@@ -81,7 +91,7 @@ export function AccessPage({ signedIn }: { signedIn: boolean }) {
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="muted">
+                <td colSpan={6} className="muted">
                   {queue.isPending ? "Loading…" : "Nobody has asked yet."}
                 </td>
               </tr>
@@ -94,6 +104,12 @@ export function AccessPage({ signedIn }: { signedIn: boolean }) {
                   {row.note ? <div className="muted">{row.note}</div> : null}
                 </td>
                 <td className="muted">{formatTime(row.requested_at)}</td>
+                <td className="muted">
+                  {row.requester_ip ?? "—"}
+                  {row.requester_ip && perAddress.get(row.requester_ip)! > 1 ? (
+                    <div>{perAddress.get(row.requester_ip)} requests from here</div>
+                  ) : null}
+                </td>
                 <td>
                   {row.status}
                   {row.status === "approved" ? (
