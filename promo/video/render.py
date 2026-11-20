@@ -32,16 +32,18 @@ from film.timeline import FILMS  # noqa: E402
 class Workspace:
     NAMES = {"short": "film", "explainer": "explainer"}
 
-    def __init__(self, film, quality):
+    def __init__(self, film, quality, shape="wide"):
         data = os.environ.get("DATA_DIR")
         name = self.NAMES[film]
+        self.shape = shape
+        cut = quality if shape == "wide" else f"{quality}-{shape}"
         self.root = (Path(data).expanduser() if data else REPO / "data") / "video"
         self.work = self.root / "work"
         self.frames = self.root / ("" if film == "short" else name) / quality / "frames"
         self.stills = self.root / "stills"
         self.soundtrack = self.work / ("soundtrack.wav" if film == "short"
                                        else f"soundtrack-{name}.wav")
-        self.film = self.root / f"crowgpt-{name}-{quality}.mp4"
+        self.film = self.root / f"crowgpt-{name}-{cut}.mp4"
         self.clock = FILMS[film]
         self.name = film
         for folder in (self.work, self.frames, self.stills):
@@ -161,7 +163,7 @@ class Blender:
                 "--", "--work", str(workspace.work), "--frames", str(frames_folder),
                 "--logo", str(REPO / "images" / "crowgpt-logo.svg"),
                 "--film", workspace.name, "--device", self.device, "--stats", str(REPO / "promo" / "stats.json"),
-                "--quality", quality, "--threads", str(threads), *extra]
+                "--quality", quality, "--shape", workspace.shape, "--threads", str(threads), *extra]
 
     def stills(self, workspace, quality, threads, frames):
         subprocess.run(self.command(workspace, quality, threads, workspace.stills,
@@ -199,6 +201,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--film", choices=sorted(FILMS), default="short")
     parser.add_argument("--quality", choices=("preview", "draft", "final"), default="draft")
+    parser.add_argument("--shape", choices=("wide", "square"), default="wide",
+                        help="square keeps the wide frame's width and adds sky and ground")
     parser.add_argument("--stills", help="comma-separated frames to render instead of the film")
     parser.add_argument("--blender", help="path to the blender executable")
     parser.add_argument("--threads", type=int, default=24)
@@ -210,7 +214,7 @@ def main():
                         help="a voice recording made against the film, laid in from its first frame")
     options = parser.parse_args()
 
-    workspace = Workspace(options.film, options.quality)
+    workspace = Workspace(options.film, options.quality, options.shape)
     blender = Blender(options.blender, options.device)
     if options.stills:
         Ingredients(workspace).prepare()
@@ -218,7 +222,7 @@ def main():
         print(f"stills in {workspace.stills}")
         return
 
-    run = Run(f"CrowGPT {Workspace.NAMES[options.film]} ({options.quality})", ["prepare", "render", "encode"])
+    run = Run(f"CrowGPT {Workspace.NAMES[options.film]} ({workspace.film.stem.split('-', 2)[2]})", ["prepare", "render", "encode"])
     with run.stage("prepare"):
         if options.fresh:
             workspace.clear_frames()

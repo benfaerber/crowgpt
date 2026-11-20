@@ -30,11 +30,12 @@ def main():
     parser.add_argument("--stats", default="")
     parser.add_argument("--device", choices=("cpu", "gpu"), default="cpu")
     parser.add_argument("--save", default="")
+    parser.add_argument("--shape", choices=("wide", "square"), default="wide")
     options = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
 
     film = FILMS[options.film](options.work, options.logo, options.stats)
     scene = film.build()
-    darkroom = Darkroom(scene, options.quality, options.threads, options.device)
+    darkroom = Darkroom(scene, options.quality, options.threads, options.device, options.shape)
     if options.save:
         import bpy
         bpy.ops.wm.save_as_mainfile(filepath=options.save)

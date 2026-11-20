@@ -180,12 +180,13 @@ class Darkroom:
         "final": {"size": (1920, 1080), "samples": 48},
     }
 
-    def __init__(self, scene, quality, threads, device="cpu"):
+    def __init__(self, scene, quality, threads, device="cpu", shape="wide"):
         self.scene = scene
         preset = self.QUALITY[quality]
         render = scene.render
         self._engine(preset.get("engines", ("CYCLES",)))
-        render.resolution_x, render.resolution_y = preset["size"]
+        width, height = preset["size"]
+        render.resolution_x, render.resolution_y = (height, height) if shape == "square" else (width, height)
         render.resolution_percentage = 100
         render.image_settings.file_format = "PNG"
         render.use_overwrite = False
