@@ -4,6 +4,7 @@ import { AucFigure } from "./auc-figure";
 import { CallSamples } from "./call-samples";
 import { CawPlayers } from "./caw-player";
 import { ChipTips } from "./chip-tip";
+import { ExplainerFilm } from "./explainer-film";
 import { Flock } from "./flock";
 import { HeadingAnchors } from "./heading-anchors";
 import { Lightbox } from "./lightbox";
@@ -25,6 +26,8 @@ const lightbox = new Lightbox(".hero-photo, .photo, .shot, .video");
 lightbox.mount();
 
 new MailLink(".mail").mount();
+
+new ExplainerFilm(".film-poster").mount();
 
 const nav = document.querySelector<HTMLElement>(".hero .nav");
 const navLinks = nav?.querySelector<HTMLElement>(".nav-links");

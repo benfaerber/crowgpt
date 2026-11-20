@@ -938,6 +938,63 @@ h1 {
   color: var(--text-muted);
 }
 
+/* ---- explainer film ------------------------------------------------------ */
+
+.film {
+  max-width: 54rem;
+  margin: 2rem auto 0;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  overflow: hidden;
+}
+
+.film-poster {
+  position: relative;
+  display: block;
+  height: 100%;
+}
+
+.film-poster img,
+.film-player {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+
+.film-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.62);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.film-play::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0;
+  height: 0;
+  translate: 0.2rem 0;
+  border-style: solid;
+  border-width: 0.85rem 0 0.85rem 1.4rem;
+  border-color: transparent transparent transparent #fff;
+}
+
+.film-poster:hover .film-play,
+.film-poster:focus-visible .film-play {
+  transform: scale(1.08);
+  background: rgb(0 0 0 / 0.8);
+}
+
 /* ---- lightbox ------------------------------------------------------------ */
 
 .hero-photo img,
