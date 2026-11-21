@@ -9,7 +9,7 @@ from .crow import FlyingCrow, PerchedCrow, Plumage
 from .director import Camera, Film
 from .kit import Materials, Pace, Palette, Shapes
 from .props import (Arrow, CallColors, Chip, ContextColors, Dog, Emitter, Person, Phone, Sign,
-                    Subtitles, TagTest, Website)
+                    CaptionLayout, Subtitles, TagTest, Website)
 from .sets import Dusk, Lattice, Lockup, PowerLine, SoundRings, Spectrogram, TokenStream
 from .timeline import ExplainerTimeline as T
 
@@ -33,7 +33,7 @@ class Explainer(Film):
 
     def build(self):
         self.figures = Figures(self.stats)
-        self.subtitles = Subtitles(self.stage, self.fonts)
+        self.subtitles = Subtitles(self.stage, self.fonts, CaptionLayout.of(self.shape))
         self.family = {}
         self.dusk = Dusk(self.stage)
         PowerLine(self.stage)

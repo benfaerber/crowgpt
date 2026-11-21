@@ -52,6 +52,10 @@ The one number quoted (minutes of human-labelled audio) is read from
 `promo/stats.json` at render time. Chapters live in `film/explainer.py`, the
 props in `film/props.py`, the cut frames in `ExplainerTimeline`.
 
+`--shape square` and `--shape tall` (9:16, for phones) keep the wide picture's
+width and add sky above and ground below; the tall cut re-wraps the captions
+larger into the ground under the picture.
+
 `--device gpu` renders on the card (OptiX, then CUDA) and falls back to the CPU
 if Cycles cannot see one. Read `GPU-CALENDAR.md` first.
 

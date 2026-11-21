@@ -201,8 +201,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--film", choices=sorted(FILMS), default="short")
     parser.add_argument("--quality", choices=("preview", "draft", "final"), default="draft")
-    parser.add_argument("--shape", choices=("wide", "square"), default="wide",
-                        help="square keeps the wide frame's width and adds sky and ground")
+    parser.add_argument("--shape", choices=("wide", "square", "tall"), default="wide",
+                        help="square and tall (9:16) keep the wide frame's width and add sky and ground")
     parser.add_argument("--stills", help="comma-separated frames to render instead of the film")
     parser.add_argument("--blender", help="path to the blender executable")
     parser.add_argument("--threads", type=int, default=24)

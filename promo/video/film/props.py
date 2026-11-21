@@ -1,5 +1,6 @@
 """Things the explainer points at: labels, a phone, a map of the valley, a dog."""
 
+import textwrap
 import math
 import random
 
@@ -346,24 +347,50 @@ class Emitter:
         return self.origin[2]
 
 
+class CaptionLayout:
+    """Where a caption sits and how big it is, in half-widths of the frame.
+
+    The tall cut keeps the wide picture as a band across the middle of a 9:16
+    frame, so its captions go in the dark ground below that band, re-wrapped
+    and larger, and stop short of where a phone app draws its own controls.
+    """
+
+    def __init__(self, size, top, wrap=None):
+        self.size, self.top, self.wrap = size, top, wrap
+
+    @classmethod
+    def of(cls, shape):
+        if shape == "tall":
+            return cls(size=0.1, top=-0.7, wrap=30)
+        return cls(size=0.07, top=-0.6 * 9.0 / 16.0)
+
+    def lines(self, body):
+        if not self.wrap:
+            return body.split("\n")
+        words = body.replace("\n", " ")
+        rows = len(textwrap.wrap(words, self.wrap))
+        narrowest = next(width for width in range(8, self.wrap + 1)
+                         if len(textwrap.wrap(words, width)) == rows)
+        return textwrap.wrap(words, narrowest)
+
+
 class Subtitles:
     """Captions pinned to the lens, on a dark strip so they read over anything."""
 
     DISTANCE = 0.4
 
-    def __init__(self, stage, fonts):
-        self.stage, self.fonts = stage, fonts
+    def __init__(self, stage, fonts, layout):
+        self.stage, self.fonts, self.layout = stage, fonts, layout
         self.ink = Materials.glow("Subtitle", Palette.CREAM, 1.0)
         self.strip = Materials.surface("Subtitle strip", "#000000", roughness=1.0)
         self.strip.node_tree.nodes["Principled BSDF"].inputs["Alpha"].default_value = 0.6
 
     def show(self, camera, body, start, end):
         half_width = self.DISTANCE * 18.0 / camera.body.data.lens
-        half_height = half_width * 9.0 / 16.0
-        size = half_width * 0.07
-        lines = body.split("\n")
-        top = -half_height * 0.6
-        text = self.stage.text(f"Subtitle {start}", body, self.fonts.display, size, self.ink,
+        size = half_width * self.layout.size
+        lines = self.layout.lines(body)
+        top = half_width * self.layout.top
+        text = self.stage.text(f"Subtitle {start}", "\n".join(lines), self.fonts.display, size, self.ink,
                                (0.0, top, -self.DISTANCE), extrude=0.0, align="CENTER")
         text.rotation_euler = (0.0, 0.0, 0.0)
         text.parent = camera.body

@@ -25,6 +25,7 @@ class Camera:
         data = bpy.data.cameras.new(name)
         data.lens = lens
         data.clip_end = 6000.0
+        data.sensor_fit = "HORIZONTAL"
         self.body = bpy.data.objects.new(name, data)
         stage.collection.objects.link(self.body)
         self.target = stage.pivot(f"{name} target")
@@ -50,7 +51,8 @@ class Film:
     DECODER_HEIGHT = 9.0
     CLOCK = Timeline
 
-    def __init__(self, work, logo, stats=None):
+    def __init__(self, work, logo, stats=None, shape="wide"):
+        self.shape = shape
         bpy.ops.wm.read_factory_settings(use_empty=True)
         self.scene = bpy.context.scene
         self.scene.render.fps = self.CLOCK.FPS
@@ -180,13 +182,19 @@ class Darkroom:
         "final": {"size": (1920, 1080), "samples": 48},
     }
 
+    SHAPES = {
+        "wide": lambda width, height: (width, height),
+        "square": lambda width, height: (height, height),
+        "tall": lambda width, height: (height, width),
+    }
+
     def __init__(self, scene, quality, threads, device="cpu", shape="wide"):
         self.scene = scene
         preset = self.QUALITY[quality]
         render = scene.render
         self._engine(preset.get("engines", ("CYCLES",)))
         width, height = preset["size"]
-        render.resolution_x, render.resolution_y = (height, height) if shape == "square" else (width, height)
+        render.resolution_x, render.resolution_y = self.SHAPES[shape](width, height)
         render.resolution_percentage = 100
         render.image_settings.file_format = "PNG"
         render.use_overwrite = False
