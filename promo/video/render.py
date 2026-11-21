@@ -9,6 +9,7 @@ crowgpt.progress.Run, so it has a card on the dashboard's Training panel.
 """
 
 import argparse
+import json
 import os
 import re
 import shlex
@@ -219,7 +220,9 @@ def main():
     options = parser.parse_args()
 
     if options.script:
-        print(FILMS[options.film].PLAY.script())
+        figures = json.loads((REPO / "promo" / "stats.json").read_text())["figures"]
+        print(re.sub(r"\{([a-z_.]+)\}", lambda found: figures[found.group(1)]["text"],
+                     FILMS[options.film].PLAY.script()))
         return
     workspace = Workspace(options.film, options.quality, options.shape)
     blender = Blender(options.blender, options.device)

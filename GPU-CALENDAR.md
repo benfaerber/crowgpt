@@ -21,6 +21,10 @@ reason and lost nothing by it.
 
 ## Booked
 
+- **2026-11-21 14:30 → 2026-11-21 15:20 (America/Denver)** — Blender EEVEE preview (960×540) of the six-minute feature film in `promo/video/`, light use of the card. Rook. Killable on request.
+
+- ~~**2026-11-21 13:28 → 2026-11-21 14:13 (America/Denver)** — Blender EEVEE re-render of the eight crow-vision shots in `~/Code/crowsim` at a slower pace, several Blender processes at once, a few GB of VRAM. Rook. Killable on request.~~ Finished 13:49. Card free.
+
 - ~~**2026-11-21 12:25 → 2026-11-21 12:45 (America/Denver)** — **0101 listening pool `quality-0101`**: sampling 44 clips each from CrowGPT2 and 0101 Dual-AR `q4_crisp CFG 1.6` (~0.6 GB VRAM, ~3 min). Currawong; Ben requested step 1.~~ Done 12:30. Card free.
 
 - ~~**2026-11-20 21:15 → 2026-11-21 00:15 (America/Denver)** — Blender Cycles (OptiX) render of the tall 1080×1920 explainer in `promo/video/`, about 3 GB of VRAM. Rook. Killable on request: it resumes from the frames already written.~~ Finished 23:24. Card free.
