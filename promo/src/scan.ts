@@ -15,6 +15,7 @@ import "./styles.css";
 import { CrowLoader } from "./crow-loader";
 import { DemoChallenge } from "./demo-challenge";
 import { el } from "./dom";
+import { NavMenu } from "./nav-menu";
 import { ScanPhoto, type PhotoResult } from "./scan-photo";
 import { KeptScans } from "./kept-scans";
 import { ScanTimeline, type SoundResult } from "./scan-timeline";
@@ -511,3 +512,5 @@ void new ScanPage(
   need("#scan-keep-row"),
   need("#scan-keep-always"),
 ).mount();
+
+NavMenu.mountOn(".subpage > .nav");

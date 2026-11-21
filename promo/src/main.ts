@@ -35,9 +35,7 @@ Carousel.mountAll(".carousel");
 
 new ExplainerFilm(".film-poster").mount();
 
-const nav = document.querySelector<HTMLElement>(".hero .nav, .subpage > .nav");
-const navLinks = nav?.querySelector<HTMLElement>(".nav-links");
-if (nav && navLinks) new NavMenu(nav, navLinks).mount();
+NavMenu.mountOn(".hero .nav, .subpage > .nav");
 
 new Flock("#flock", lightbox).mount();
 

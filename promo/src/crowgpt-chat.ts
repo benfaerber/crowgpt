@@ -19,6 +19,7 @@ import "./styles.css";
 import { CrowLoader } from "./crow-loader";
 import { DemoChallenge } from "./demo-challenge";
 import { el } from "./dom";
+import { NavMenu } from "./nav-menu";
 import { VoiceNote } from "./voice-note";
 
 interface MenuItem {
@@ -319,3 +320,5 @@ void new CrowChat(
   need("#chat-avatar"),
   need("#chat-presence"),
 ).mount();
+
+NavMenu.mountOn(".subpage > .nav");

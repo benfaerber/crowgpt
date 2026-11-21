@@ -14,6 +14,12 @@ export class NavMenu {
 
   constructor(private readonly nav: HTMLElement, private readonly links: HTMLElement) {}
 
+  static mountOn(selector: string): void {
+    const nav = document.querySelector<HTMLElement>(selector);
+    const links = nav?.querySelector<HTMLElement>(".nav-links");
+    if (nav && links) new NavMenu(nav, links).mount();
+  }
+
   mount(): void {
     if (!this.links.id) this.links.id = "nav-links";
     this.button.setAttribute("aria-controls", this.links.id);

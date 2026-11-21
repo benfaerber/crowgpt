@@ -12,6 +12,7 @@
 import "./styles.css";
 
 import { el } from "./dom";
+import { NavMenu } from "./nav-menu";
 
 interface Recordist {
   name: string;
@@ -145,3 +146,5 @@ class CreditsPage {
 }
 
 void new CreditsPage().load();
+
+NavMenu.mountOn(".subpage > .nav");
