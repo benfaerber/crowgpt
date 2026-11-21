@@ -267,3 +267,61 @@ class TestBanning:
         response = client.post("/api/demo/scan", data={}, environ_base=self.SPAMMER,
                                content_type="multipart/form-data")
         assert response.status_code == 403
+
+
+class TestTheHumanCheck:
+
+    @pytest.fixture
+    def guarded(self, db_path, monkeypatch):
+        from fieldserver.app import create_app
+        monkeypatch.setenv("FIELD_TURNSTILE_SITE_KEY", "public-key")
+        monkeypatch.setenv("FIELD_TURNSTILE_SECRET", "private-key")
+        return create_app(db_path)
+
+    def answer(self, monkeypatch, **verdict):
+        import json
+        from io import BytesIO
+        from fieldserver.core import turnstile
+        monkeypatch.setattr(turnstile, "urlopen",
+                            lambda *a, **k: BytesIO(json.dumps(verdict).encode()))
+
+    @pytest.fixture
+    def stored(self, db_path):
+        from fieldserver.stores.access_requests import AccessRequestStore
+        return AccessRequestStore(db_path).list_all
+
+    def test_the_form_carries_the_widget_and_never_the_secret(self, guarded):
+        page = guarded.test_client().get("/preview").data
+        assert b'data-sitekey="public-key"' in page and b"private-key" not in page
+
+    def test_a_verified_request_is_stored(self, guarded, monkeypatch, stored):
+        self.answer(monkeypatch, success=True, hostname="localhost", action="access-request")
+        response = ask(guarded.test_client(), **{"cf-turnstile-response": "token"})
+        assert response.status_code == 200
+        assert len(stored()) == 1
+
+    @pytest.mark.parametrize("verdict", [
+        {"success": False},
+        {"success": True, "hostname": "localhost", "action": "demo-scan"},
+        {"success": True, "hostname": "evil.example", "action": "access-request"},
+    ])
+    def test_an_unverified_request_stores_nothing(self, guarded, monkeypatch, stored, verdict):
+        self.answer(monkeypatch, **verdict)
+        response = ask(guarded.test_client(), **{"cf-turnstile-response": "token"})
+        assert response.status_code == 403
+        assert stored() == []
+
+    def test_no_token_stores_nothing_and_asks_nobody(self, guarded, monkeypatch, stored):
+        from fieldserver.core import turnstile
+        monkeypatch.setattr(turnstile, "urlopen",
+                            lambda *a, **k: pytest.fail("must not call Siteverify"))
+        assert ask(guarded.test_client()).status_code == 403
+        assert stored() == []
+
+    def test_an_unreachable_verifier_is_said_and_stores_nothing(self, guarded, monkeypatch, stored):
+        from fieldserver.core import turnstile
+        def down(*a, **k):
+            raise OSError("no route")
+        monkeypatch.setattr(turnstile, "urlopen", down)
+        assert ask(guarded.test_client(), **{"cf-turnstile-response": "token"}).status_code == 503
+        assert stored() == []

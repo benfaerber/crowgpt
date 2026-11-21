@@ -1,4 +1,4 @@
-"""Server-side verification for the public demo only, with bounded waiting."""
+"""Server-side verification for the public forms, with bounded waiting."""
 
 import json
 import os
@@ -32,7 +32,7 @@ class Turnstile:
     def configured(self):
         return bool(self.site_key and self.secret)
 
-    def verify(self, token: str, visitor: str, action: str = ACTION) -> bool:
+    def verify(self, token: str, visitor: str, action: str = ACTION, hostnames=None) -> bool:
         if not self.configured:
             raise Unavailable()
         if not token or len(token) > 2048:
@@ -48,5 +48,5 @@ class Turnstile:
         if not isinstance(result, dict):
             raise Unavailable()
         return (result.get("success") is True
-                and result.get("hostname") in self.hostnames
+                and result.get("hostname") in (hostnames or self.hostnames)
                 and result.get("action") == action)

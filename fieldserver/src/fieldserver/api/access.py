@@ -6,6 +6,12 @@ enrollment token and the APK. The operator one, under /api/fleet, is the
 queue Ben works from the dashboard: approve, which mints the invite and
 emails it when a mailer is configured, or decline.
 
+The form is the one page here a script can reach without a token, and on
+2026-11-19 scripts found it: other people's emails, posted from a few
+addresses. When Turnstile is configured the form carries its widget and a
+request without a verified token stores nothing. The widget is served from
+this server's own hostname, so that is the hostname a token must name.
+
 What an invite hands over is its own enrollment code (revision 0040), never
 the fleet's shared token: it enrolls a handful of phones for that one person,
 and declining the request ends it without touching anyone else. Until
@@ -25,12 +31,15 @@ from flask import abort, jsonify, request, send_file
 
 from ..core.mail import Mailer
 from ..core.throttle import Allowance
+from ..core.turnstile import Turnstile, Unavailable
 from ..stores.contributors import FLEET_ROLES
 
 #: Submissions, not failures: five requests an hour from one address is a
 #: person retrying, more is a script.
 SUBMISSIONS_PER_HOUR = 5
 APK_TYPE = "application/vnd.android.package-archive"
+TURNSTILE_ACTION = "access-request"
+TURNSTILE_FIELD = "cf-turnstile-response"
 EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 PAGE = """<!doctype html>
@@ -79,8 +88,14 @@ REQUEST_FORM = """
     <label>Name<input type="text" name="name" value="%(name)s" autocomplete="name"></label>
     <label>Where would you record, and what crows are there?
       <textarea name="note" rows="3">%(note)s</textarea></label>
+    %(challenge)s
     <button type="submit">Request access</button>
   </form>
+"""
+
+CHALLENGE = """
+    <div class="cf-turnstile" data-sitekey="%(site_key)s" data-action="%(action)s" data-theme="dark"></div>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 """
 
 THANKS = """
@@ -149,6 +164,7 @@ def register(app, d) -> None:
     apk_dir = d.instance_dir / "apk"
     submissions = Allowance(allowed=SUBMISSIONS_PER_HOUR, per_seconds=3600)
     mailer = Mailer.from_env()
+    turnstile = Turnstile.from_env()
 
     def current_operator() -> dict:
         _, contributor = current_actor()
@@ -166,7 +182,16 @@ def register(app, d) -> None:
             "name": html.escape(values.get("name", "")),
             "note": html.escape(values.get("note", "")),
             "error": f'<p class="error">{error}</p>' if error else "",
+            "challenge": CHALLENGE % {"site_key": html.escape(turnstile.site_key),
+                                      "action": TURNSTILE_ACTION} if turnstile.configured else "",
         }
+
+    def human() -> bool:
+        if not turnstile.configured:
+            return True
+        return turnstile.verify(request.form.get(TURNSTILE_FIELD, ""), request.remote_addr or "",
+                                action=TURNSTILE_ACTION,
+                                hostnames={request.host.partition(":")[0]})
 
     # --- public ---
 
@@ -188,6 +213,13 @@ def register(app, d) -> None:
             return page(THANKS % {"email": html.escape(email)})
         if not submissions.spend(caller):
             return page(form(values, "Too many requests from here; try again in an hour."), 429)
+        try:
+            if not human():
+                return page(form(values, "The check that you are a person did not pass. "
+                                         "Wait for the box below to finish, then send again."), 403)
+        except Unavailable:
+            return page(form(values, "The check that you are a person is unavailable right now. "
+                                     "Try again in a few minutes."), 503)
         access.request(email, name=values["name"][:120] or None,
                        note=values["note"][:2000] or None, requester_ip=caller)
         return page(THANKS % {"email": html.escape(email)})
