@@ -139,8 +139,8 @@
         <p class="section-lede">
           The crows I feed are five: Thrasher and Ripjaw the parents, Killer and Shredder
           the fledglings, and Edgar, a yearling who stayed on to help guard the brood. The
-          notes I was already keeping on them turned out to be proto-labels for the call
-          types further down this page.
+          notes I was already keeping on them turned out to be exactly the data this
+          needed.
         </p>
 
         <div class="carousel carousel-photos" role="region" aria-label="Photos of the family">
@@ -284,21 +284,13 @@
             </p>
           </article>
         </div>
-        <p class="section-lede section-lede-after">
-          Simple calls come first, because those are the ones a backyard produces often
-          enough to learn from: a dog walking past, a person arriving, food going down.
-          Nobody is decoding crow grammar here.
-        </p>
       </section>
 
       <section class="section" id="what-it-can-already-tell-apart">
         <h2>What it can already tell apart</h2>
         <p class="section-lede">
-          CawDex sorts every call it finds into one of five classes, the same five the
-          app offers a recordist. Finer field labels fold into them, so a mobbing crow
-          is filed as alarm and a rattle as call. The colours are the ones the app and
-          the dashboard use. Press a dot to hear one: the best example of each that the
-          project has, five seconds apiece.
+          CawDex sorts every call it finds into one of five types. Press a dot to hear
+          one: the best example of each the project has, five seconds apiece.
         </p>
         <ul class="calls">
           <li class="call" style="--call: #f27070">
@@ -313,7 +305,6 @@
               persistent version aimed at a cat, an owl or a hawk on the ground.
             </p>
             <p class="call-credit">Clip: recorded with the app in Salt Lake City.</p>
-            <p class="call-read">Reads it at 0.97 AUC on clean labels.</p>
           </li>
           <li class="call" style="--call: #6bd28a">
             <p class="call-name">Flight call</p>
@@ -322,10 +313,8 @@
             <p class="call-meaning">
               Keeps the group in touch while it moves: here I am, this way.
             </p>
-            <p class="call-folds">The cleanest class acoustically, and the first one the pipeline learned.</p>
             <p class="call-credit">Clip: <a href="https://xeno-canto.org/172878">XC172878</a>, Paul Marvin, California ·
               <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
-            <p class="call-read">Reads it at 0.91 AUC, even on archive labels.</p>
           </li>
           <li class="call" style="--call: #6ea8fe">
             <p class="call-name">Call</p>
@@ -339,7 +328,6 @@
               knocking run a crow gives close to another bird.
             </p>
             <p class="call-credit">Clip: recorded with the app in Salt Lake City.</p>
-            <p class="call-read">The largest and vaguest class, which is why the field labels split it.</p>
           </li>
           <li class="call" style="--call: #efb057">
             <p class="call-name">Begging</p>
@@ -351,9 +339,7 @@
             <p class="call-meaning">
               A fledgling asking to be fed. Hear it and there is a family group nearby.
             </p>
-            <p class="call-folds">Its own class because juvenile calls were otherwise lost inside the vaguest one.</p>
             <p class="call-credit">Clip: recorded with the app in Salt Lake City.</p>
-            <p class="call-read">The detector's weak spot: BirdNET scores a begging fledgling at 0.06, so these mostly arrive by hand.</p>
           </li>
           <li class="call" style="--call: #c58af9">
             <p class="call-name">Song</p>
@@ -363,10 +349,8 @@
               Nobody knows yet. It likely carries the most information of all, and it is out
               of scope for now because it needs a close microphone.
             </p>
-            <p class="call-folds">Easy to miss and worth keeping whenever it turns up.</p>
             <p class="call-credit">Clip: <a href="https://xeno-canto.org/807484">XC807484</a>, Barry Edmonston, Massachusetts ·
               <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
-            <p class="call-read">Reads it at 0.91 AUC on clean labels, 0.56 on archive tags.</p>
           </li>
         </ul>
       </section>
@@ -395,7 +379,7 @@
                      src="./src/assets/crowgpt-alarm-preview.wav"></audio>
             </figure>
             <figure class="caw-player caw-player-bot">
-              <figcaption>CrowGPT2: generated, the current model with a 6-second context window</figcaption>
+              <figcaption>CrowGPT2: generated, the current model</figcaption>
               <audio controls preload="metadata"
                      src="./src/assets/crowgpt2-preview.wav"></audio>
             </figure>
@@ -430,9 +414,8 @@
       <section class="section" id="app">
         <h2>The app: collecting the other half</h2>
         <p class="section-lede">
-          Building a labeled set by hand does not scale, so the collection is its own
-          system: record corvid audio in the field with GPS, get it analyzed, and say what
-          was heard <em>and what was happening</em>.
+          So I built an app: record crows with GPS, get the calls identified, and note
+          what was happening when each one was made.
         </p>
 
         <div class="carousel carousel-shots" role="region" aria-label="Screens from the app">
@@ -483,8 +466,7 @@
                 loading="lazy"
               />
               <figcaption>
-                What was happening, from a closed vocabulary. Tapped per call, not per
-                recording.
+                What was happening, picked from a list.
               </figcaption>
             </figure>
             <figure class="shot">
@@ -521,7 +503,7 @@
                 loading="lazy"
               />
               <figcaption>
-                Guesses are kept apart from observations, so being wrong costs nothing.
+                Your guess at what it meant, kept separate from what you saw.
               </figcaption>
             </figure>
           </div>
@@ -535,8 +517,8 @@
         <p class="section-lede">
           The field app is Android, free, and in a closed preview: it records, labels
           and syncs to the project server, so a recordist anywhere can add their crows to
-          the corpus. Ask below and Ben sends an invite with the app and the token it
-          needs to join. Say where you would record and which corvids are there; a
+          the corpus. Ask below and Ben sends an invite. Say where you would record and
+          which corvids are there; a
           population the corpus does not have yet is the best reason to say yes.
         </p>
         <form class="request-form" method="post" action="https://field.crowgpt.org/preview/request">
@@ -555,8 +537,7 @@
           <div class="request-form-actions">
             <button type="submit" class="button button-primary">Request access</button>
             <span class="request-form-note">
-              One email, no account. The invite is a link; the app asks for the token on
-              first launch.
+              One email, no account.
             </span>
           </div>
         </form>
@@ -606,31 +587,14 @@
         <h3 class="subhead">Where it still falls short</h3>
         <ul class="honest-list">
           <li>
-            <strong>Human labeling is early.</strong> {{labels.count}} labels across
-            {{labels.captures}} captures, plus {{context.events}} context events. Measured
-            as call audio rather than label count, that is about {{labels.minutes}} minutes,
-            the number that actually limits this project.
-          </li>
-          <li>
-            <strong>Detected calls are guesses.</strong> Only human labels are ground
-            truth, and until recently there were none at all.
+            <strong>Human labeling is early.</strong> About {{labels.minutes}} minutes of
+            hand-labelled calls so far, and that is what limits the project.
           </li>
           <li>
             <strong>No call has been translated.</strong> The classifier says
             <em>alarm call</em>; it does not say <em>dog</em>. Nothing here has yet mapped
             a call to a meaning, because that needs enough calls paired with a witnessed
             situation, and I am still collecting the first few dozen.
-          </li>
-          <li>
-            <strong>Recording is invite-only for now.</strong> The code is open and the
-            server is hosted, but the field app is a closed preview, sent out one invite at
-            a time.
-          </li>
-          <li>
-            <strong>Scope is loud calls only.</strong> Crows also make quiet soft song
-            that likely carries more information, but it needs a close mic and drowns in
-            noise. Broadcast calls are stereotyped, repeated and high-SNR, which is what
-            weak supervision needs.
           </li>
         </ul>
       </section>
@@ -650,7 +614,7 @@
           </li>
           <li>
             <strong>Audio ML.</strong> CrowGPT is small and there is obvious headroom in
-            the generation half, and a listening test to design that is not circular.
+            the generation half: room to make it sound more like a real crow.
           </li>
           <li>
             <strong>Android and dashboards.</strong> The capture app and the labeling
