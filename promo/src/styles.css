@@ -3811,3 +3811,16 @@ audio.scan-media {
     font-size: 0.75rem;
   }
 }
+
+/* The one technical aside on the CrowGPT page, under the chat. */
+.chat-notes {
+  max-width: 46rem;
+  margin: 3rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.chat-notes h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}

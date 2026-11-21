@@ -377,7 +377,8 @@
           The speaking half. A small transformer, 18.7M parameters, trained from scratch on
           call bouts cut out of archive recordings, with
           <strong>no human labeling anywhere in the loop</strong>. Ask it for an alarm
-          call, a generic call, begging or song, and it produces one.
+          call, a generic call, begging or song, and it produces a new one: generated,
+          not copied from anything it heard.
         </p>
         <div class="callout" id="crowgpt-preview">
           <h3>Hear it</h3>
@@ -424,14 +425,6 @@
             terms carry the same rule.
           </p>
         </div>
-        <p class="section-lede section-lede-after">
-          Two things about it matter more than the audio. It does <em>not</em> copy its
-          training set: what it produces is generated, not retrieved. And on a crow
-          detector, an earlier 18M version scored well ahead of a 433M pretrained audio
-          model fine-tuned on the same corpus. That detector also chose the training data,
-          which flatters the lead by an unknown amount, so a listening test gets the final
-          word.
-        </p>
       </section>
 
       <section class="section" id="app">
