@@ -111,6 +111,8 @@ def register(app, d) -> None:
         caller = request.remote_addr or "?"
         unmetered = not turnstile.required and caller in LOOPBACK
         # Everything that can refuse without the body does so first.
+        if d.bans.banned(caller):
+            abort(403, "scans from this address are not being accepted")
         if not unmetered and uploads.spent(caller):
             abort(429, "that is enough scans for one hour from one address")
         verify_visitor(request.headers.get(TOKEN_HEADER, ""))

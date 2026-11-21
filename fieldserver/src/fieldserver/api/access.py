@@ -16,6 +16,7 @@ fills, so publishing a build is a copy rather than a config change.
 """
 
 import html
+import ipaddress
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -143,6 +144,7 @@ def invite_text(invite_url: str) -> str:
 
 def register(app, d) -> None:
     access = d.access
+    bans = d.bans
     current_actor = d.current_actor
     apk_dir = d.instance_dir / "apk"
     submissions = Allowance(allowed=SUBMISSIONS_PER_HOUR, per_seconds=3600)
@@ -180,6 +182,10 @@ def register(app, d) -> None:
         email = values["email"].lower()
         if not EMAIL.match(email):
             return page(form(values, "That does not look like an email address."), 400)
+        if bans.banned(caller):
+            # The same page a real request gets, and nothing stored: a script
+            # told it is banned comes back from somewhere else.
+            return page(THANKS % {"email": html.escape(email)})
         if not submissions.spend(caller):
             return page(form(values, "Too many requests from here; try again in an hour."), 429)
         access.request(email, name=values["name"][:120] or None,
@@ -219,6 +225,7 @@ def register(app, d) -> None:
         current_operator()
         return jsonify({
             "requests": [with_link(r) for r in access.list_all()],
+            "banned": bans.list_all(),
             "mail_configured": mailer is not None,
             "build": describe(latest_apk(apk_dir)),
         })
@@ -250,3 +257,24 @@ def register(app, d) -> None:
         if not row:
             abort(404, "no such request")
         return jsonify({"request": with_link(row)})
+
+    def address(value) -> str:
+        try:
+            return str(ipaddress.ip_address((value or "").strip()))
+        except ValueError:
+            abort(400, "not an internet address")
+
+    @app.post("/api/fleet/banned-addresses")
+    def ban_address():
+        """Ban an address from the public forms and decline what it still has
+        pending. Declining sends nothing, so no stranger hears about it."""
+        current_operator()
+        ip = address((request.get_json(silent=True) or {}).get("ip"))
+        return jsonify({"ip": ip, "declined": bans.ban(ip)})
+
+    @app.delete("/api/fleet/banned-addresses/<ip>")
+    def lift_ban(ip):
+        current_operator()
+        if not bans.lift(address(ip)):
+            abort(404, "that address is not banned")
+        return "", 204

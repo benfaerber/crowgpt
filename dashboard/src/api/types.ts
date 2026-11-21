@@ -697,8 +697,16 @@ export interface AccessRequest {
   last_download_at: string | null;
 }
 
+/** An address the public forms take nothing from, and how many requests it made. */
+export interface BannedAddress {
+  ip: string;
+  banned_at: string;
+  requests: number;
+}
+
 export interface AccessQueue {
   requests: AccessRequest[];
+  banned: BannedAddress[];
   mail_configured: boolean;
   build: string;
 }

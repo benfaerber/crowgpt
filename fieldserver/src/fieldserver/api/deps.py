@@ -67,6 +67,8 @@ class Deps:
     #: crowgpt.org's Cloudflare traffic, a summary per day, written by the
     #: traffic worker. See stores/traffic.py.
     traffic: Any
+    #: Addresses the operator banned from the public forms. See stores/address_bans.py.
+    bans: Any
 
     #: The calling device and the person it belongs to, or 401.
     current_actor: Callable[[], tuple]

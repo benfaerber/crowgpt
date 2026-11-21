@@ -207,3 +207,63 @@ class TestTheInvite:
         path, _ = self._approved_url(client, operator)
         assert b"No build has been published yet" in client.get(path).data
         assert client.post(f"{path}/apk").status_code == 404
+
+
+class TestBanning:
+
+    SPAMMER = {"REMOTE_ADDR": "203.0.113.9"}
+
+    def flood(self, client, count=3):
+        for i in range(count):
+            client.post("/preview/request", data={"email": f"victim{i}@example.org"},
+                        environ_base=self.SPAMMER)
+
+    def queue(self, client, operator):
+        return client.get("/api/fleet/access-requests", headers=operator.headers).get_json()
+
+    def ban(self, client, operator, ip="203.0.113.9"):
+        return client.post("/api/fleet/banned-addresses", json={"ip": ip},
+                           headers=operator.headers)
+
+    def test_a_ban_declines_what_the_address_had_pending_and_nobody_elses(self, client, operator):
+        self.flood(client)
+        ask(client, email="real@example.org", note="Rooks, Norfolk")
+        assert self.ban(client, operator).get_json() == {"ip": "203.0.113.9", "declined": 3}
+        rows = self.queue(client, operator)
+        assert {r["email"]: r["status"] for r in rows["requests"]}["real@example.org"] == "pending"
+        assert [r["status"] for r in rows["requests"]
+                if r["requester_ip"] == "203.0.113.9"] == ["declined"] * 3
+        assert [(b["ip"], b["requests"]) for b in rows["banned"]] == [("203.0.113.9", 3)]
+
+    def test_a_ban_leaves_an_invite_already_given(self, client, operator):
+        self.flood(client, count=1)
+        first = self.queue(client, operator)["requests"][0]
+        client.post(f"/api/fleet/access-requests/{first['id']}/approve", headers=operator.headers)
+        assert self.ban(client, operator).get_json()["declined"] == 0
+        assert self.queue(client, operator)["requests"][0]["status"] == "approved"
+
+    def test_a_banned_address_is_thanked_and_nothing_is_stored(self, client, operator):
+        self.ban(client, operator)
+        response = client.post("/preview/request", data={"email": "victim@example.org"},
+                               environ_base=self.SPAMMER)
+        assert response.status_code == 200 and b"Thanks" in response.data
+        assert self.queue(client, operator)["requests"] == []
+
+    def test_lifting_a_ban_lets_the_address_ask_again(self, client, operator):
+        self.ban(client, operator)
+        assert client.delete("/api/fleet/banned-addresses/203.0.113.9",
+                             headers=operator.headers).status_code == 204
+        self.flood(client, count=1)
+        assert len(self.queue(client, operator)["requests"]) == 1
+        assert client.delete("/api/fleet/banned-addresses/203.0.113.9",
+                             headers=operator.headers).status_code == 404
+
+    def test_only_an_operator_bans_and_only_an_address(self, client, operator, recordist):
+        assert self.ban(client, recordist).status_code == 403
+        assert self.ban(client, operator, ip="not an address").status_code == 400
+
+    def test_a_banned_address_cannot_scan(self, client, operator):
+        self.ban(client, operator)
+        response = client.post("/api/demo/scan", data={}, environ_base=self.SPAMMER,
+                               content_type="multipart/form-data")
+        assert response.status_code == 403

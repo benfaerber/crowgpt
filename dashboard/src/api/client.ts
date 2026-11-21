@@ -350,6 +350,19 @@ export function decideAccess(id: number, decision: "approve" | "decline") {
   );
 }
 
+/** Ban an address from the public forms; its pending requests are declined. */
+export function banAddress(ip: string) {
+  return post<{ ip: string; declined: number }>("/api/fleet/banned-addresses", { ip });
+}
+
+export async function liftBan(ip: string): Promise<void> {
+  const response = await fetch(`/api/fleet/banned-addresses/${encodeURIComponent(ip)}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${storedToken()}` },
+  });
+  if (!response.ok) throw new ApiError(response.status, await reason(response));
+}
+
 /**
  * What visitors to the Scan page let the project keep. Polled like the access
  * queue, and for the same reason: strangers feed it.
