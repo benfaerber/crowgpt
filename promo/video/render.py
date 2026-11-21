@@ -48,6 +48,7 @@ class Workspace:
         self.soundtrack = self.work / ("soundtrack.wav" if film == "short"
                                        else f"soundtrack-{name}.wav")
         self.film = self.root / f"crowgpt-{name}-{cut}.mp4"
+        self.blend = self.root / f"crowgpt-{name}.blend"
         self.clock = FILMS[film]
         self.name = film
         for folder in (self.work, self.frames, self.stills):
@@ -254,6 +255,13 @@ class Blender:
                 "--film", workspace.name, "--device", self.device, "--stats", str(REPO / "promo" / "stats.json"),
                 "--quality", quality, "--shape", workspace.shape, "--threads", str(threads), *extra]
 
+    def save(self, workspace, quality, threads):
+        """Write the scene as a .blend with its soundtrack, to scrub and play in Blender."""
+        subprocess.run(self.command(workspace, quality, threads, workspace.frames,
+                                    ["--save", str(workspace.blend),
+                                     "--sound", str(workspace.soundtrack)]), check=True)
+        return workspace.blend
+
     def stills(self, workspace, quality, threads, frames):
         subprocess.run(self.command(workspace, quality, threads, workspace.stills,
                                     ["--stills", frames]), check=True)
@@ -301,6 +309,9 @@ def main():
     parser.add_argument("--script", action="store_true",
                         help="print the narration with the time each line starts, and stop")
     parser.add_argument("--no-bed", action="store_true", help="calls only, no ambient bed")
+    parser.add_argument("--blend", action="store_true",
+                        help="write the scene and its soundtrack as a .blend to play in Blender, "
+                             "and stop")
     parser.add_argument("--scratch-voice", action="store_true",
                         help="narrate with a synthetic voice, to preview the timing with sound")
     parser.add_argument("--narration", type=Path,
@@ -318,6 +329,16 @@ def main():
         Ingredients(workspace).prepare()
         blender.stills(workspace, options.quality, options.threads, options.stills)
         print(f"stills in {workspace.stills}")
+        return
+
+    if options.blend:
+        Ingredients(workspace).prepare()
+        narration = options.narration
+        if options.scratch_voice:
+            figures = json.loads((REPO / "promo" / "stats.json").read_text())["figures"]
+            narration = ScratchVoice(workspace, figures).record()
+        Soundtrack(workspace, bed=not options.no_bed, narration=narration).mix()
+        print(blender.save(workspace, options.quality, options.threads))
         return
 
     run = Run(f"CrowGPT {Workspace.NAMES[options.film]} ({workspace.film.stem.split('-', 2)[2]})", ["prepare", "render", "encode"])

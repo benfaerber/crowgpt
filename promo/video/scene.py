@@ -31,6 +31,7 @@ def main():
     parser.add_argument("--stats", default="")
     parser.add_argument("--device", choices=("cpu", "gpu"), default="cpu")
     parser.add_argument("--save", default="")
+    parser.add_argument("--sound", default="")
     parser.add_argument("--shape", choices=("wide", "square", "tall"), default="wide")
     options = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
 
@@ -39,7 +40,12 @@ def main():
     darkroom = Darkroom(scene, options.quality, options.threads, options.device, options.shape)
     if options.save:
         import bpy
+        scene.frame_start, scene.frame_end = 1, film.CLOCK.length()
+        if options.sound:
+            scene.sequence_editor_create().strips.new_sound("Soundtrack", options.sound, 1, 1)
+            scene.sync_mode = "AUDIO_SYNC"
         bpy.ops.wm.save_as_mainfile(filepath=options.save)
+        return
     if options.stills:
         darkroom.stills([int(frame) for frame in options.stills.split(",")], options.frames)
     else:
