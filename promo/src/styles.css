@@ -3824,3 +3824,8 @@ audio.scan-media {
   font-size: 1.2rem;
   margin-bottom: 0.75rem;
 }
+
+/* The other pages carry the footer's first column only: who, and where the code is. */
+.footer-minimal .footer-grid {
+  grid-template-columns: 1fr;
+}
