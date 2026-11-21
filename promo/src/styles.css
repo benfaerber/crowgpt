@@ -3753,6 +3753,20 @@ audio.scan-media {
   --carousel-item: calc((100% - 4rem) / 4.6);
 }
 
+/* The call cards are a grid on a wide screen and only swipe on a phone. */
+.carousel-calls {
+  margin-top: 0;
+}
+
+@media (min-width: 721px) {
+  .carousel-calls .carousel-track {
+    grid-auto-flow: row;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+}
+
 .carousel-arrow {
   position: absolute;
   top: 40%;
@@ -3805,6 +3819,14 @@ audio.scan-media {
 
   .carousel-shots {
     --carousel-item: 46%;
+  }
+
+  .carousel-calls {
+    --carousel-item: 78%;
+  }
+
+  .carousel-calls .carousel-track {
+    grid-template-columns: none;
   }
 
   .carousel-shots figcaption {
