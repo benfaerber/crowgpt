@@ -68,10 +68,12 @@ Still **zero memorisation** at 16 and 32 frames (`1.0%` and `0.0%`, strictly bel
 ## Audition & caveats
 
 - **Labelled diagnostic page:** `crowgpt/results/quality-0101/compare.html` (8 rows: Real, CrowGPT2, 0100 Dual-AR 240k uncond, 0101 `q4_crisp w=1.0`, 0101 `q4_crisp CFG w=1.6`). Diagnostic only—not a blinded sitting.
+- **Ben's informal labelled audition (2026-11-20, unblinded):** *"I think this is best: 0101 Dual-AR q4_crisp (q4_crisp_cfg16)."* Recorded as a diagnostic sanity check, not a blinded verdict; clears the candidate to proceed to a blinded sitting against CrowGPT2.
 - **Watch for over-guidance:** `CFG w=1.3` had the lowest dust (`12.0%`) and highest `p25_pitch` (`0.498`) while `w=1.6` had the highest mean pitch (`0.612`) and lowest hiss (`0.088`). Auditioning both `w=1.0` and `w=1.6` (and `clips/q4_crisp_cfg13/`) will tell quickly whether `w=1.0`, `1.3`, or `1.6` sounds most natural.
 
 ## What it changed
 
 - **Dual-AR + recording-quality conditioning + CFG is the new leading candidate:** `crowgpt/results/quality-0101/dualar-quality-240k/step-240000.pt` (17.35M params, 67 MB).
 - **`DualARSampler.tokens()` now supports native batch-2 CFG** (`guidance_scale`, `uncond_channel`, `uncond_call_type`), tested in `crowgpt/tests/test_architectures.py`.
-- **Next step:** Audition `compare.html`; if `q4_crisp` (at `w=1.0` or `CFG 1.3–1.6`) clearly beats unconditioned 0100 and CrowGPT2 by ear, register a blinded listening pool against CrowGPT2 and then apply the exact same Dual-AR + quality + CFG recipe to `tokens-6s-ct` for Crow Chat.
+- **Blinded sitting registered (`pool.py`):** pool **`quality-0101`** (id 9) in the dashboard's Listening panel — 54 trials in 3 doses of 18 (30-min cooldown, 40 comparisons + 8 real catches + 6 swapped-side repeats, fresh test groups disjoint from all earlier pools, unseen seed block `101500+`), comparing `0101 Dual-AR q4_crisp CFG w=1.6` against `CrowGPT2`.
+- **Next step:** Grade `quality-0101` in the dashboard; if it passes by ear, apply the same Dual-AR + quality + CFG recipe to `tokens-6s-ct` (0102) and wire `DualARSampler` into `releases.py` / `hub.py` / `generate_worker.py` for CrowGPT3.

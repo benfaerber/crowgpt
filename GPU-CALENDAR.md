@@ -21,6 +21,12 @@ reason and lost nothing by it.
 
 ## Booked
 
+- ~~**2026-11-21 12:25 → 2026-11-21 12:45 (America/Denver)** — **0101 listening pool `quality-0101`**: sampling 44 clips each from CrowGPT2 and 0101 Dual-AR `q4_crisp CFG 1.6` (~0.6 GB VRAM, ~3 min). Currawong; Ben requested step 1.~~ Done 12:30. Card free.
+
+- ~~**2026-11-20 21:15 → 2026-11-21 00:15 (America/Denver)** — Blender Cycles (OptiX) render of the tall 1080×1920 explainer in `promo/video/`, about 3 GB of VRAM. Rook. Killable on request: it resumes from the frames already written.~~ Finished 23:24. Card free.
+
+- ~~**2026-11-20 10:11 → +2 h (America/Denver)** — Blender Cycles (OptiX) render of the square 1080×1080 explainer in `promo/video/`, about 3 GB of VRAM. Rook. Killable on request: it resumes from the frames already written.~~ Finished 11:32. Card free.
+
 - ~~**2026-11-20 07:28 → 2026-11-20 09:30 (America/Denver)** — **experiment 0101: recording-quality conditioning + CFG on Dual-AR 17M** (240k steps on `tokens-6s` with spliced acoustic quality tier + 15% CFG dropout, ~1.1 GB VRAM, ~95 min total). Currawong; Ben approved ("Lets do it").~~ Done 09:25. Card free.
 
 - ~~**2026-11-19 23:27 → 2026-11-20 06:30 (America/Denver)** — **experiments 0099 (done 02:24) + 0100 (Dual-AR scaling: 17.3M @ 240k + ~40M d512/L8+D3 @ 120k + 0015 memorisation check + morning diagnostic page; ~1–3 GB VRAM)**. Currawong; Ben offered the GPU overnight ("Lets do A").~~ Done 05:34. Card free.

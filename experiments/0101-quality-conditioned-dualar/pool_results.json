@@ -1,0 +1,32 @@
+{
+  "pool": "quality-0101",
+  "pool_id": 9,
+  "trials": 54,
+  "dose_size": 18,
+  "cooldown_minutes": 30,
+  "seed_base": 101500,
+  "arm_summaries": {
+    "crowgpt2": {
+      "n": 44,
+      "mean_units": 3.909090909090909,
+      "gaps_per_clip": 3.090909090909091,
+      "single_share": 0.2727272727272727,
+      "median_gap_s": 0.24533333333333332,
+      "dust_rate": 0.2222222222222222,
+      "dust_scored_n": 36,
+      "mean_crescendo": 0.004251671468230784,
+      "crescendo_scored_n": 32
+    },
+    "candidate": {
+      "n": 44,
+      "mean_units": 5.545454545454546,
+      "gaps_per_clip": 4.568181818181818,
+      "single_share": 0.045454545454545456,
+      "median_gap_s": 0.224,
+      "dust_rate": 0.20930232558139536,
+      "dust_scored_n": 43,
+      "mean_crescendo": 0.009131820692317502,
+      "crescendo_scored_n": 42
+    }
+  }
+}
