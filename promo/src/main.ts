@@ -2,6 +2,7 @@ import "./styles.css";
 
 import { AucFigure } from "./auc-figure";
 import { CallSamples } from "./call-samples";
+import { Carousel } from "./carousel";
 import { CawPlayers } from "./caw-player";
 import { ChipTips } from "./chip-tip";
 import { ExplainerFilm } from "./explainer-film";
@@ -29,6 +30,8 @@ const lightbox = new Lightbox(".hero-photo, .photo, .shot, .video");
 lightbox.mount();
 
 new MailLink(".mail").mount();
+
+Carousel.mountAll(".carousel");
 
 new ExplainerFilm(".film-poster").mount();
 

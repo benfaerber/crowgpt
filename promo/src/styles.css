@@ -3674,15 +3674,6 @@ audio.scan-media {
   text-decoration: underline;
 }
 
-.gallery-teaser {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.shots-teaser {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 48rem;
-}
-
 .card-actions {
   display: flex;
   flex-wrap: wrap;
@@ -3710,22 +3701,113 @@ audio.scan-media {
   text-underline-offset: 0.3em;
 }
 
+
+/* A sideways row: the browser does the scrolling and the snapping, the script
+ * only adds arrows. The next item always shows a sliver, which on a phone is
+ * the whole instruction. */
+.carousel {
+  position: relative;
+  margin-top: 2.5rem;
+}
+
+.carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--carousel-item);
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.25rem;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track > * {
+  scroll-snap-align: start;
+}
+
+.carousel-photos {
+  --carousel-item: calc((100% - 3rem) / 3.6);
+}
+
+.carousel-photos .photo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-photos .photo img {
+  aspect-ratio: 4 / 5;
+  object-position: center 35%;
+}
+
+.carousel-photos figcaption {
+  flex: 1;
+}
+
+.carousel-shots {
+  --carousel-item: calc((100% - 4rem) / 4.6);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 40%;
+  z-index: 2;
+  display: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.18);
+  transform: translateY(-50%);
+}
+
+.carousel-prev {
+  left: -1.3rem;
+}
+
+.carousel-next {
+  right: -1.3rem;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .carousel.is-scrollable .carousel-arrow {
+    display: grid;
+    place-items: center;
+  }
+}
+
 @media (max-width: 720px) {
-  .gallery-teaser {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem;
+  .carousel-track {
+    gap: 0.75rem;
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem 0.25rem;
+    scroll-padding: 0 1.5rem;
   }
 
-  .gallery-teaser figcaption {
-    padding: 0.5rem 0.6rem 0.6rem;
+  .carousel-photos {
+    --carousel-item: 72%;
+  }
+
+  .carousel-shots {
+    --carousel-item: 46%;
+  }
+
+  .carousel-shots figcaption {
     font-size: 0.75rem;
-  }
-
-  .shots-teaser {
-    gap: 0.6rem;
-  }
-
-  .shots-teaser figcaption {
-    font-size: 0.72rem;
   }
 }
