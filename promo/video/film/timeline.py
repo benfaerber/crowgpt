@@ -104,6 +104,7 @@ class FeatureTimeline(Clock):
         "streetlight": ("pair-streetlight.jpg", (0.05, 0.14, 0.72, 0.645)),
         "edgar": ("edgar-looks.jpg", (0.2, 0.33, 0.76, 0.75)),
         "edgar-wire": ("edgar-wire.jpg", (0.17, 0.3, 0.72, 0.72)),
+        "kit": ("field-kit.jpg", (0.05, 0.14, 0.95, 0.82)),
     }
 
     @classmethod

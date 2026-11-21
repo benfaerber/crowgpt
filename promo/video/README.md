@@ -68,11 +68,18 @@ spoken. Rewrite a line and the cuts, the captions and the sound cues all move.
 `make -C promo video-feature-script` prints the script with the time each line
 starts, to read from while recording.
 
-`--scratch-voice` narrates the film with Piper, a text-to-speech model that
-runs on this machine (fetched once into `data/video/work/voices`), so the
-timing can be heard before anyone records it. It prints every line that took
-the voice longer than the screenplay allows. The family's photographs in the
-opening scenes are the promo page's own, cropped by `FeatureTimeline.PHOTOS`.
+`--scratch-voice` narrates the film with a synthetic voice, so the timing can
+be heard before anyone records it, and prints every line that took the voice
+longer than the screenplay allows. By default it is a clone of the narrator
+made by Chatterbox from `--voice-of` (the explainer's narration unless told
+otherwise): it needs the GPU for a few minutes, and its environment and
+weights are fetched once into `data/video/work/voices`. `--scratch-voice piper`
+is a stock voice that runs on the CPU. Neither is the voice of a finished film.
+
+`--blend` writes the scene and its soundtrack to `data/video/crowgpt-feature.blend`
+to scrub and play in Blender without rendering. The photographs in the film
+(the family, the field kit) are the promo page's own, cropped by
+`FeatureTimeline.PHOTOS`.
 
 Its claims are the promo page's own or published findings: the figures come
 from `promo/stats.json` at render time, the hypothesis chapter says the chart

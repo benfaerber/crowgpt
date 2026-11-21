@@ -160,6 +160,7 @@ FEATURE = Screenplay(
           "every crow call and names its type.", key="name"),
         L("It learned from {credits.recordings} recordings shared by\n"
           "{credits.recordists} recordists on Xeno-canto.", key="archive"),
+        L("In all, about four hundred hours of crows.", key="hours"),
         L("At first it was poor at alarm calls.\nNot much better than guessing.", key="weak"),
         L("I assumed it needed a bigger model. It did not."),
         L("It needed better labels. Trained on labels checked by hand,\n"
@@ -197,11 +198,14 @@ FEATURE = Screenplay(
     ),
     Scene(
         "app",
-        L("So I built a phone app to collect exactly that."),
+        L("So I go out and collect exactly that."),
+        L("My field kit is a shotgun microphone, a furry windshield,\n"
+          "and a bag that fits in one hand.", key="kit"),
+        L("Crows notice equipment. So it stays small."),
+        L("And I built a phone app to go with it.", key="phone"),
         L("It records the crows, finds the calls,\nand asks what was going on.", key="record"),
-        L("Since July, I have {labels.minutes} minutes of calls\nlabelled by hand.",
-          key="minutes"),
-        L("That is not a typo. One family, on one street."),
+        L("Labelling by hand is slow, and I am one person\n"
+          "with one family of crows, on one street."),
         L("One backyard cannot collect enough.", after=0.4),
     ),
     Scene(

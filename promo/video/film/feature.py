@@ -227,6 +227,8 @@ class Feature(Film):
         Sign(self.stage, self.fonts,
              f"{self.figures.text('credits.recordists')} recordists · Xeno-canto",
              (x, 0.0, z + 0.1), 0.4).pop(archive + 34)
+        Sign(self.stage, self.fonts, "about 400 hours of crow audio", (x, 0.0, z - 0.75), 0.5,
+             color=Palette.ACCENT, strength=2.0).pop(scene.at("hours") + 6)
 
         board = (x + 26.0, 0.0, z + 1.4)
         self._light((board[0], -6.0, z + 4.0))
@@ -238,8 +240,8 @@ class Feature(Film):
                  "checked by hand", CallColors.FLIGHT)
 
         camera = Camera(self.stage, "CawDex camera", 28.0)
-        camera.move(scene.start, (x - 1.5, -15.0, z + 2.4), (x, 0.0, z + 2.3))
-        camera.move(scene.at("weak") - 16, (x + 1.0, -14.0, z + 2.4), (x, 0.0, z + 2.3))
+        camera.move(scene.start, (x - 1.5, -15.0, z + 1.6), (x, 0.0, z + 1.0))
+        camera.move(scene.at("weak") - 16, (x + 1.0, -14.0, z + 1.6), (x, 0.0, z + 1.0))
         camera.move(scene.at("weak") + 8, (board[0] - 1.6, -15.5, z + 2.9), (board[0] - 0.6, 0.0, z + 2.9))
         camera.move(scene.end, (board[0] + 0.4, -14.5, z + 2.9), (board[0] - 0.6, 0.0, z + 2.9))
         self._cut(scene.start, camera)
@@ -361,18 +363,19 @@ class Feature(Film):
     def _the_app(self):
         scene, z = self.play.scene("app"), self.FLOOR + 1.3
         self._light((70.5, -5.0, z + 2.5), 1500.0)
-        record = scene.at("record")
+        record = scene.at("record") - 20
         phone = Phone(self.stage, self.fonts, (72.0, 0.0, z), self.clips["real"].envelope())
         phone.record(record + 10, 60).keep(record + 78)
         Chip(self.stage, self.fonts, "alarm call", CallColors.ALARM, (74.5, 0.0, z + 0.9),
              size=0.3).pop(record + 92)
         Chip(self.stage, self.fonts, "dog visible", ContextColors.GROUND, (74.55, 0.0, z + 0.2),
              size=0.3).pop(record + 106)
-        Sign(self.stage, self.fonts, f"{self.figures.text('labels.minutes')} minutes",
-             (74.6, 0.0, z + 1.7), 0.52, color=Palette.ACCENT, strength=2.0).pop(
-            scene.at("minutes") + 20)
+        self._snapshot("kit", "the whole field kit", (64.0, 0.0, z + 0.95), scene.start + 10,
+                       scene.at("phone") + 30, size=2.2, lean=-0.04)
         camera = Camera(self.stage, "App camera", 35.0)
-        camera.move(scene.start, (71.4, -9.0, z + 0.2), (72.6, 0.0, z))
+        camera.move(scene.start, (63.4, -9.0, z + 0.2), (64.0, 0.0, z))
+        camera.move(scene.at("phone") - 6, (64.6, -8.6, z + 0.2), (64.0, 0.0, z))
+        camera.move(scene.at("phone") + 26, (71.4, -9.0, z + 0.2), (72.6, 0.0, z))
         camera.move(scene.end, (74.0, -7.8, z + 0.2), (73.0, 0.0, z))
         self._cut(scene.start, camera)
         self._narrate(camera, scene)
