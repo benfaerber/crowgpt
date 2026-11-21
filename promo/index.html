@@ -110,24 +110,24 @@
 
       <dl class="stat-row" id="stat-row">
         <div class="stat">
-          <dt>Corvid species with a call-type head</dt>
+          <dt>Crow species it can read</dt>
           <dd class="stat-value"><span id="species-heads">{{species.heads}}</span></dd>
-          <p class="stat-note">Each detection routed to its own species' model</p>
+          <p class="stat-note">From American crow to raven and rook</p>
         </div>
         <div class="stat">
-          <dt>Alarm-call AUC on clean labels</dt>
-          <dd class="stat-value">{{auc.alarm.clean}}</dd>
-          <p class="stat-note">Recording-grouped CV, one-vs-rest</p>
+          <dt>Call types it tells apart</dt>
+          <dd class="stat-value">5</dd>
+          <p class="stat-note">Alarm, flight call, call, begging, song</p>
         </div>
         <div class="stat">
-          <dt>Call types CrowGPT can generate</dt>
+          <dt>Call types CrowGPT can say</dt>
           <dd class="stat-value">{{crowgpt.call_types}}</dd>
           <p class="stat-note">{{crowgpt.call_type_list}}</p>
         </div>
         <div class="stat">
-          <dt>Human-labeled call audio</dt>
-          <dd class="stat-value">{{labels.minutes}}<span class="stat-unit">min</span></dd>
-          <p class="stat-note">The number that actually limits the project</p>
+          <dt>Recordings it learned from</dt>
+          <dd class="stat-value">{{credits.recordings}}</dd>
+          <p class="stat-note">Shared by {{credits.recordists}} recordists on Xeno-canto</p>
         </div>
         </dl>
       </div>

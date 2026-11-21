@@ -18,7 +18,7 @@ export class SpeciesTip extends HoverTip {
     return [
       el("span", {
         className: "chips-tip-head",
-        text: "One call-type model each:",
+        text: "The species it reads:",
       }),
       el(
         "span",
