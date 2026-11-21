@@ -68,6 +68,12 @@ spoken. Rewrite a line and the cuts, the captions and the sound cues all move.
 `make -C promo video-feature-script` prints the script with the time each line
 starts, to read from while recording.
 
+`--scratch-voice` narrates the film with Piper, a text-to-speech model that
+runs on this machine (fetched once into `data/video/work/voices`), so the
+timing can be heard before anyone records it. It prints every line that took
+the voice longer than the screenplay allows. The family's photographs in the
+opening scenes are the promo page's own, cropped by `FeatureTimeline.PHOTOS`.
+
 Its claims are the promo page's own or published findings: the figures come
 from `promo/stats.json` at render time, the hypothesis chapter says the chart
 is what a yes would look like and not a result, and the two archive clips it

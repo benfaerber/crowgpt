@@ -14,6 +14,8 @@ class Line:
     WORDS_PER_SECOND = 2.5
     BREATH = 0.55
     SHORTEST = 1.3
+    FULL_STOP = 0.3
+    FIGURE = 4
 
     def __init__(self, text="", key=None, after=0.0, clip=None, gain=1.0, under=False):
         self.text, self.key = text, key
@@ -21,10 +23,17 @@ class Line:
         self.start = self.spoken = self.end = 0
 
     @property
+    def words(self):
+        """Words as they are said: a figure is several, however short it is written."""
+        return sum(self.FIGURE if word.startswith("{") else 1 for word in self.text.split())
+
+    @property
     def speaking(self):
         if not self.text:
             return 0.0
-        return max(self.SHORTEST, len(self.text.split()) / self.WORDS_PER_SECOND)
+        stops = sum(self.text.count(mark) for mark in ".?:") - 1
+        return max(self.SHORTEST,
+                   self.words / self.WORDS_PER_SECOND + max(0, stops) * self.FULL_STOP)
 
     @property
     def seconds(self):

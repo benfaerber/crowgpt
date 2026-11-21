@@ -16,8 +16,8 @@ from .director import Camera, Film
 from .explainer import Figures
 from .kit import Keys, Materials, Palette, Shapes
 from .props import (Arrow, CallColors, CallGlyph, CaptionLayout, Chip, ContextColors, Dog,
-                    Emitter, Mask, Peanut, Person, Phone, ScoreBars, Sign, Subtitles, TagTest,
-                    Website)
+                    Emitter, Mask, Peanut, Person, Phone, ScoreBars, Sign, Snapshot, Subtitles,
+                    TagTest, Website)
 from .sets import Dusk, Lattice, Lockup, PowerLine, SoundRings, Spectrogram, TokenStream
 from .timeline import FeatureTimeline as T
 
@@ -71,6 +71,10 @@ class Feature(Film):
             if line.text and since <= line.start and (until is None or line.start < until):
                 self.subtitles.show(camera, self._worded(line), line.start + 2, line.spoken + 8)
 
+    def _snapshot(self, photo, caption, location, start, end, size=0.9, lean=0.0):
+        Snapshot(self.stage, self.fonts, Path(self.work) / f"photo-{photo}.jpg", caption,
+                 location, size, lean).show(start, end)
+
     def _title(self, body, location, frame, size=0.62):
         return Sign(self.stage, self.fonts, body, location, size).pop(frame)
 
@@ -98,6 +102,8 @@ class Feature(Film):
         for frame in range(scene.at("promise") + 40, murder.end, 34):
             edgar.look(frame + dice.randint(0, 12), yaw=dice.uniform(-0.9, 0.4),
                        tilt=dice.uniform(-0.2, 0.2))
+        self._snapshot("edgar-wire", "Edgar", (1.0, 0.5, 5.76), caw.end + 16,
+                       scene.at("promise") - 4, size=0.4, lean=0.06)
         camera = Camera(self.stage, "Open camera", 40.0)
         camera.move(1, (1.5, -3.0, 5.05), (0.3, 0.0, 5.34))
         camera.move(scene.at("promise"), (1.0, -1.9, 5.12), (0.3, 0.0, 5.34))
@@ -117,6 +123,14 @@ class Feature(Film):
                 x = self.family[name].root.location.x
                 Sign(self.stage, self.fonts, name, (x, 0.0, PowerLine.HEIGHT + 0.62), 0.15).pop(
                     scene.at(key) + 6 + index * 14).leave(scene.end)
+        album = [("parents", "fledglings", (("thrasher", "Thrasher", -1.85), ("ripjaw", "Ripjaw", -0.65))),
+                 ("fledglings", "edgar", (("killer", "Killer", 0.55),
+                                          ("streetlight", "Killer, Edgar, Shredder", 1.75))),
+                 ("edgar", "killer", (("edgar", "Edgar", 0.0),))]
+        for shown, gone, prints in album:
+            for index, (photo, caption, x) in enumerate(prints):
+                self._snapshot(photo, caption, (x, 0.6, 6.75), scene.at(shown) + 12 + index * 12,
+                               scene.at(gone) - 2, size=1.0, lean=0.05 if index else -0.05)
         killer = self.family["Killer"]
         reply = scene.line("killer").spoken - 22
         killer.look(reply - 14, yaw=-0.9, tilt=0.0)

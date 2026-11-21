@@ -76,6 +76,21 @@ class Materials:
         return material
 
     @classmethod
+    def picture(cls, name, path, strength=1.0):
+        """A photograph that shows as it was taken, whatever the light on the set."""
+        material = bpy.data.materials.new(name)
+        material.use_nodes = True
+        nodes, links = material.node_tree.nodes, material.node_tree.links
+        nodes.remove(nodes["Principled BSDF"])
+        image = nodes.new("ShaderNodeTexImage")
+        image.image = bpy.data.images.load(str(path))
+        emission = nodes.new("ShaderNodeEmission")
+        emission.inputs["Strength"].default_value = strength
+        links.new(image.outputs["Color"], emission.inputs["Color"])
+        links.new(emission.outputs["Emission"], nodes["Material Output"].inputs["Surface"])
+        return material
+
+    @classmethod
     def per_object(cls, name, strength, fades=False):
         """Colour and brightness come from each object's own colour and alpha."""
         material, nodes, links, shader = cls._new(name)
@@ -162,6 +177,18 @@ class Shapes:
         if grounded:
             shape = Matrix.Translation((0.0, 0.0, size[2] / 2.0)) @ shape
         return cls._mesh(name, lambda g: bmesh.ops.create_cube(g, size=1.0, matrix=shape))
+
+    @classmethod
+    def card(cls, name, width, height):
+        """An upright rectangle facing the camera side, mapped to hold a picture."""
+        def build(geometry):
+            corners = [(-0.5, 0.0), (0.5, 0.0), (0.5, 1.0), (-0.5, 1.0)]
+            face = geometry.faces.new([
+                geometry.verts.new(((u) * width, 0.0, (v - 0.5) * height)) for u, v in corners])
+            layer = geometry.loops.layers.uv.new("UVMap")
+            for loop, (u, v) in zip(face.loops, corners):
+                loop[layer].uv = (u + 0.5, v)
+        return cls._mesh(name, build)
 
     @classmethod
     def disc(cls, name, radius, sides=48):

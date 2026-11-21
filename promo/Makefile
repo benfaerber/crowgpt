@@ -28,7 +28,7 @@ help:
 	@echo "  make video-final  The same film at 1080p"
 	@echo "  make video-stills Six frames across the film, FRAMES=1,60,... to choose"
 	@echo "  make video-explainer  The explainer of the whole project; QUALITY=preview (minutes) or final (1080p)"
-	@echo "  make video-feature    The six-minute narrated film; QUALITY and NARRATION as for the explainer"
+	@echo "  make video-feature    The six-minute narrated film; QUALITY and NARRATION as for the explainer, SCRATCH=1 for a synthetic voice"
 	@echo "  make video-feature-script  Its narration, with the time each line starts"
 
 node_modules:
@@ -128,7 +128,7 @@ video-explainer:
 
 # The feature: six minutes, timed from its own narration (video/film/screenplay.py).
 video-feature:
-	$(VIDEO_PYTHON) video/render.py --film feature --quality $(QUALITY) $(if $(NARRATION),--narration $(NARRATION))
+	$(VIDEO_PYTHON) video/render.py --film feature --quality $(QUALITY) $(if $(NARRATION),--narration $(NARRATION)) $(if $(SCRATCH),--scratch-voice)
 
 video-feature-script:
 	@$(VIDEO_PYTHON) video/render.py --film feature --script

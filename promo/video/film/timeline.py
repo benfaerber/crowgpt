@@ -13,6 +13,7 @@ class Clock:
     #: The sounds a film plays, by the name its scenes use: the promo asset and
     #: how many seconds of it are heard (None for all of it).
     SOUNDS = {"real": ("real-alarm-call.wav", None), "generated": ("crowgpt2-preview.wav", None)}
+    PHOTOS = {}
 
     @classmethod
     def cues(cls):
@@ -92,6 +93,17 @@ class FeatureTimeline(Clock):
         "call": ("calls/call.mp3", 3.6),
         "begging": ("calls/begging.mp3", 3.6),
         "song": ("calls/song.mp3", 3.6),
+    }
+
+    #: Real photographs of the family, from the promo page: the asset and the
+    #: square of it the film shows, as (left, top, right, bottom) fractions.
+    PHOTOS = {
+        "thrasher": ("hero-crow.jpg", (0.05, 0.31, 0.65, 0.76)),
+        "ripjaw": ("crow-street.jpg", (0.2, 0.18, 0.8, 0.63)),
+        "killer": ("killer-roof.jpg", (0.25, 0.32, 0.8, 0.73)),
+        "streetlight": ("pair-streetlight.jpg", (0.05, 0.14, 0.72, 0.645)),
+        "edgar": ("edgar-looks.jpg", (0.2, 0.33, 0.76, 0.75)),
+        "edgar-wire": ("edgar-wire.jpg", (0.17, 0.3, 0.72, 0.72)),
     }
 
     @classmethod

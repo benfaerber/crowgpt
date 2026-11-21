@@ -116,6 +116,33 @@ class Mask:
                       self.root, location=place)
 
 
+class Snapshot:
+    """A real photograph, framed like a print with its caption underneath."""
+
+    def __init__(self, stage, fonts, path, caption, location, size=0.9, lean=0.0):
+        self.root = stage.pivot(f"Snapshot {caption}", location=location,
+                                rotation=(0.0, lean, 0.0))
+        stage.add("Snapshot print", Shapes.block("print", (size * 1.1, 0.01, size * 1.32)),
+                  Materials.flat(f"Print {caption}", Palette.CREAM), self.root,
+                  location=(0.0, 0.02, -size * 0.11))
+        stage.add("Snapshot picture", Shapes.card("picture", size, size),
+                  Materials.picture(f"Picture {caption}", path), self.root)
+        letter = size * min(0.11, 1.7 / max(1, len(caption)))
+        label = stage.text(f"Snapshot label {caption}", caption, fonts.display, letter,
+                           Materials.flat(f"Print ink {caption}", Palette.INK),
+                           (0.0, -0.01, -size * 0.7), extrude=0.0, align="CENTER")
+        label.parent = self.root
+        self.root.scale = (0.0, 0.0, 0.0)
+
+    def show(self, start, end):
+        Keys.at(self.root, start - 1, scale=(0.0, 0.0, 0.0))
+        Keys.at(self.root, start + 7, scale=(1.08, 1.08, 1.08))
+        Keys.at(self.root, start + 11, scale=(1.0, 1.0, 1.0))
+        Keys.at(self.root, end - 7, scale=(1.0, 1.0, 1.0))
+        Keys.at(self.root, end, scale=(0.0, 0.0, 0.0))
+        return self
+
+
 class Peanut:
     """One peanut in its shell, thrown from where the camera stands."""
 

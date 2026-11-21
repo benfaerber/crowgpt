@@ -17,7 +17,10 @@ import shutil
 import subprocess
 import sys
 import time
+import wave
 from pathlib import Path
+
+import numpy as np
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -74,7 +77,18 @@ class Ingredients:
                  *(["-t", str(seconds)] if seconds else []),
                  "-ac", "1", "-ar", "22050", "-c:a", "pcm_s16le",
                  str(self.workspace.work / f"{name}.wav")], check=True)
+        self._photos()
         self._font()
+
+    def _photos(self):
+        from PIL import Image
+        for name, (source, box) in self.workspace.clock.PHOTOS.items():
+            photo = Image.open(ASSETS / source).convert("RGB")
+            wide, tall = photo.size
+            left, top, right, bottom = box
+            photo.crop((round(left * wide), round(top * tall), round(right * wide),
+                        round(bottom * tall))).resize((720, 720), Image.LANCZOS).save(
+                self.workspace.work / f"photo-{name}.jpg", quality=92)
 
     def _font(self):
         from fontTools.ttLib import TTFont
@@ -132,6 +146,78 @@ class Soundtrack:
             ["ffmpeg", "-y", "-loglevel", "error", *heard, *spoken,
              "-filter_complex", ";".join(graph), "-map", "[out]",
              "-ar", "48000", "-ac", "2", str(self.workspace.soundtrack)], check=True)
+
+
+class ScratchVoice:
+    """A synthetic narrator, so the film can be heard before anyone records it.
+
+    Each line of the screenplay is spoken by Piper, a small text-to-speech
+    model that runs on this machine, and laid in at the frame the picture
+    expects it. It is a stand-in to judge the timing by, never the voice of a
+    finished film. A line that takes it longer to say than the screenplay
+    allows is reported: a person reading it would be squeezed there too.
+    """
+
+    VOICE = "en_US-lessac-medium"
+    SOURCE = "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium"
+    #: Piper reads faster than a narrator does; this brings it to the screenplay's pace.
+    UNHURRIED = "1.2"
+    SAID_AS = {"CrowGPT": "Crow G P T", "crowgpt.org": "crow G P T dot org", "CawDex": "Caw Dex",
+               "Xeno-canto": "Zeeno canto", "AI": "A I"}
+
+    def __init__(self, workspace, figures):
+        self.workspace, self.figures = workspace, figures
+        self.folder = workspace.work / "voices"
+        self.path = workspace.work / f"scratch-voice-{workspace.name}.wav"
+
+    def _model(self):
+        self.folder.mkdir(exist_ok=True)
+        model = self.folder / f"{self.VOICE}.onnx"
+        for part in (model, model.with_name(model.name + ".json")):
+            if not part.exists() or not part.stat().st_size:
+                subprocess.run(["curl", "-sSL", "-o", str(part), f"{self.SOURCE}/{part.name}"],
+                               check=True)
+        return model
+
+    def _spoken(self, text):
+        text = re.sub(r"\{([a-z_.]+)\}", lambda found: self.figures[found.group(1)]["text"],
+                      " ".join(text.split()))
+        for written, said in sorted(self.SAID_AS.items(), key=lambda pair: -len(pair[0])):
+            text = re.sub(rf"\b{re.escape(written)}\b", said, text)
+        return text.replace('"', "")
+
+    def _say(self, model, text, target):
+        subprocess.run(
+            ["uv", "run", "-q", "--no-project", "--python", "3.11", "--with", "piper-tts",
+             "python", "-m", "piper", "--model", str(model), "--length-scale", self.UNHURRIED,
+             "--output_file", str(target)],
+            input=text.encode(), check=True, capture_output=True)
+        with wave.open(str(target)) as said:
+            samples = np.frombuffer(said.readframes(said.getnframes()), dtype=np.int16)
+            return samples.astype(np.float32) / 32768.0, said.getframerate()
+
+    def record(self):
+        clock, model = self.workspace.clock, self._model()
+        track, rate, squeezed = None, 0, []
+        take = self.folder / "line.wav"
+        for line in (line for line in clock.PLAY.lines() if line.text):
+            said, rate = self._say(model, self._spoken(line.text), take)
+            if track is None:
+                track = np.zeros(int((clock.duration() + 1.0) * rate), dtype=np.float32)
+            start = int(clock.seconds(line.start + 2) * rate)
+            said = said[:len(track) - start]
+            track[start:start + len(said)] += said
+            over = len(said) / rate - (line.speaking + line.BREATH)
+            if over > 0.25:
+                squeezed.append((over, " ".join(line.text.split())))
+        with wave.open(str(self.path), "wb") as out:
+            out.setnchannels(1)
+            out.setsampwidth(2)
+            out.setframerate(rate)
+            out.writeframes((np.clip(track, -1.0, 1.0) * 32767).astype(np.int16).tobytes())
+        for over, text in sorted(squeezed, reverse=True):
+            print(f"scratch voice ran {over:.1f}s over: {text}")
+        return self.path
 
 
 class Blender:
@@ -215,6 +301,8 @@ def main():
     parser.add_argument("--script", action="store_true",
                         help="print the narration with the time each line starts, and stop")
     parser.add_argument("--no-bed", action="store_true", help="calls only, no ambient bed")
+    parser.add_argument("--scratch-voice", action="store_true",
+                        help="narrate with a synthetic voice, to preview the timing with sound")
     parser.add_argument("--narration", type=Path,
                         help="a voice recording made against the film, laid in from its first frame")
     options = parser.parse_args()
@@ -237,7 +325,11 @@ def main():
         if options.fresh:
             workspace.clear_frames()
         Ingredients(workspace).prepare()
-        Soundtrack(workspace, bed=not options.no_bed, narration=options.narration).mix()
+        narration = options.narration
+        if options.scratch_voice:
+            figures = json.loads((REPO / "promo" / "stats.json").read_text())["figures"]
+            narration = ScratchVoice(workspace, figures).record()
+        Soundtrack(workspace, bed=not options.no_bed, narration=narration).mix()
     with run.stage("render") as stage:
         blender.animation(workspace, options.quality, options.threads,
                           lambda done: stage.update(done, workspace.clock.length(), "frames"))
