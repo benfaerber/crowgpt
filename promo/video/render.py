@@ -170,7 +170,7 @@ class PiperVoice:
 
     def say(self, texts):
         model, takes = self._model(), []
-        for index, text in enumerate(texts):
+        for index, (text, _allowed) in enumerate(texts):
             takes.append(self.folder / "lines" / f"line-{index:03d}.wav")
             subprocess.run(
                 ["uv", "run", "-q", "--no-project", "--python", "3.11", "--with", "piper-tts",
@@ -256,7 +256,8 @@ class ScratchVoice:
     def record(self):
         clock = self.workspace.clock
         lines = [line for line in clock.PLAY.lines() if line.text]
-        takes = self.voice.say([self._spoken(line.text) for line in lines])
+        takes = self.voice.say([(self._spoken(line.text), line.speaking + line.BREATH + 0.5)
+                                for line in lines])
         track = np.zeros(int((clock.duration() + 1.0) * self.RATE), dtype=np.float32)
         squeezed = []
         for line, take in zip(lines, takes):
