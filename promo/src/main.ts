@@ -9,9 +9,12 @@ import { Flock } from "./flock";
 import { HeadingAnchors } from "./heading-anchors";
 import { Lightbox } from "./lightbox";
 import { MailLink } from "./mail-link";
+import { MovedAnchors } from "./moved-anchors";
 import { NavMenu } from "./nav-menu";
 import { PeanutDrop } from "./peanut-drop";
 import { SpeciesTip } from "./species-tip";
+
+new MovedAnchors().follow();
 
 new AucFigure({
   chart: document.querySelector("#auc-chart"),
@@ -29,7 +32,7 @@ new MailLink(".mail").mount();
 
 new ExplainerFilm(".film-poster").mount();
 
-const nav = document.querySelector<HTMLElement>(".hero .nav");
+const nav = document.querySelector<HTMLElement>(".hero .nav, .subpage > .nav");
 const navLinks = nav?.querySelector<HTMLElement>(".nav-links");
 if (nav && navLinks) new NavMenu(nav, navLinks).mount();
 

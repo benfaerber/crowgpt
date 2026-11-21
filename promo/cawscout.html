@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CawScout: where to point the microphone</title>
+    <meta
+      name="description"
+      content="A 250 m grid over the Salt Lake valley, scored on canopy, greenery, sightings and predators, ranked into a target list for finding crow families."
+    />
+    <link rel="canonical" href="https://crowgpt.org/cawscout" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icon-16.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./src/assets/icon-512.png" />
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <main class="credits-page subpage">
+      <nav class="nav">
+        <a class="wordmark" href="./">
+          <img
+            class="wordmark-icon"
+            src="./src/assets/icon-180.png"
+            alt=""
+            width="180"
+            height="180"
+          /><span><span class="caw">Crow</span>GPT</span>
+        </a>
+        <div class="nav-links">
+          <a href="./crows.html">The murder</a>
+          <a href="./app.html">The app</a>
+          <a href="./cawscout.html" aria-current="page">CawScout</a>
+          <a href="./cawdex.html">CawDex</a>
+          <a href="./crowgpt.html">Talk to it</a>
+          <a href="./scan.html">Scan a crow</a>
+          <a href="./">← Back to the project</a>
+        </div>
+      </nav>
+
+      <section class="section subpage-lead" id="cawscout">
+        <h1 class="credits-title">CawScout: where to point the microphone</h1>
+        <p class="section-lede">
+          One backyard produces one family's calls. Finding the next family used to be
+          a random dawn walk, and the random walks kept coming home empty. CawScout
+          replaces them with a prior: a 250&nbsp;m grid over the whole valley, scored on
+          where crows should be and ranked into a numbered target list on the app's
+          map.
+        </p>
+        <div class="aside-photo">
+          <div>
+            <div class="pieces">
+              <article class="piece">
+                <h3>The trees</h3>
+                <p>
+                  Crows nest and roost high, so canopy is the loudest signal in the
+                  score. A satellite canopy-height model reads every tree in the
+                  valley at 1&nbsp;m resolution; stands of 15&nbsp;m and up, about
+                  45,000 of them, go into the grid, joined by thousands of
+                  individually-mapped street trees, each assigned its height from the
+                  same model. The taller the stand, the harder it pulls on the cells
+                  around it.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The greenery</h3>
+                <p>
+                  Crows forage on open turf, so parks, cemeteries, golf courses and
+                  grass come in from OpenStreetMap, nearly eight thousand features,
+                  with water and human food (fast food, supermarkets, picnic sites)
+                  as their own smaller signals. Each one radiates a few hundred
+                  metres into the surrounding cells, because a crow near a park is a
+                  crow the park explains.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The score</h3>
+                <p>
+                  Every signal becomes a heat layer over the grid and they sum by
+                  weight, canopy first, community crow sightings second, on purpose:
+                  the satellite measures every block equally, while sightings pile up
+                  wherever birders happen to walk. Predators then subtract, corrected
+                  for how well-watched the ground is. Great Horned Owls, the top
+                  predator of crow nests, cost the most. That penalty alone knocked
+                  a raptor-patrolled university cluster out of the top five.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The map</h3>
+                <p>
+                  Numbered targets over satellite imagery, alongside every capture's
+                  pin and community sightings of crows and each predator species:
+                  dated, photographed, toggleable per species. A target explains its
+                  own score and offers street view and directions, and the header says
+                  whether right now is even a good time to be out.
+                </p>
+              </article>
+            </div>
+          </div>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-cawscout.jpg"
+              alt="The CawScout map over satellite imagery of Salt Lake City: numbered green and red target pins, owl and hawk icons, a popup scoring 6th East Park with street view and directions buttons, and a species filter listing crows, magpies, ravens, hawks, owls and falcons"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Target #1 open on the map: why it scored, how to get there, and the two
+              buttons a visit ends with. Owls and hawks drawn where others saw them.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section-cta subpage-next">
+        <h2>Where next</h2>
+        <div class="subpage-links">
+          <a class="button" href="./crows.html">The murder</a>
+          <a class="button" href="./app.html">The app</a>
+          <a class="button" href="./cawdex.html">CawDex</a>
+          <a class="button" href="./crowgpt.html">Talk to it</a>
+          <a class="button" href="./scan.html">Scan a crow</a>
+        </div>
+        <p class="section-lede section-lede-after">
+          Have corvids nearby? <a href="./#request">Ask for the field app</a>, or read
+          <a href="./#collab">how to collaborate</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <p class="wordmark">
+            <img
+              class="wordmark-icon"
+              src="./src/assets/icon-180.png"
+              alt=""
+              width="180"
+              height="180"
+            /><span><span class="caw">Crow</span>GPT</span>
+          </p>
+          <p class="footer-note">
+            One person, a murder of backyard crows, and a translator under construction.
+          </p>
+          <p class="footer-note">
+            Built by Ben Faerber.
+          </p>
+          <p class="footer-note footer-links">
+            <a class="icon-link" href="https://github.com/benfaerber/crowgpt"
+               title="Source on GitHub" aria-label="Source on GitHub"><svg class="icon-github" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+            <a class="icon-link" href="https://huggingface.co/faerber/crowgpt"
+               title="Weights on Hugging Face" aria-label="Weights on Hugging Face"><img class="icon-hf" src="./src/assets/hf-logo.svg" alt="" width="95" height="88" /></a>
+            <span>·</span>
+            <a href="https://github.com/benfaerber">Ben on GitHub</a>
+            <span>·</span>
+            <a href="https://benfaerber.github.io">What the Functor?</a>
+          </p>
+        </div>
+        <div>
+          <h3>Owed</h3>
+          <p class="footer-note">
+            The single biggest result here is not ours. It came from
+            <a href="https://github.com/CrowCall/crow-tools">crow-tools</a> (MIT, ©
+            OpenShot Studios / owlmaddie) and the several thousand seconds of crow
+            somebody hand-reviewed, one second at a time.
+          </p>
+        </div>
+        <div>
+          <h3>Audio</h3>
+          <p class="footer-note">
+            Recordings from <a href="https://xeno-canto.org/">Xeno-canto</a>, shared by
+            its recordists under Creative Commons licences.
+            <a href="./credits.html">All {{credits.recordings}} of them are credited by name and ID</a>, and
+            CrowGPT learned from every one.
+          </p>
+        </div>
+      </div>
+      <p class="footer-legal">Photographs of the Poe family, Salt Lake City.</p>
+    </footer>
+  </body>
+</html>

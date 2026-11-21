@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The CrowGPT field app</title>
+    <meta
+      name="description"
+      content="An Android app that records corvid calls with GPS, gets them analyzed, and asks what was happening when each call was made."
+    />
+    <link rel="canonical" href="https://crowgpt.org/app" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icon-16.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./src/assets/icon-512.png" />
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <main class="credits-page subpage">
+      <nav class="nav">
+        <a class="wordmark" href="./">
+          <img
+            class="wordmark-icon"
+            src="./src/assets/icon-180.png"
+            alt=""
+            width="180"
+            height="180"
+          /><span><span class="caw">Crow</span>GPT</span>
+        </a>
+        <div class="nav-links">
+          <a href="./crows.html">The murder</a>
+          <a href="./app.html" aria-current="page">The app</a>
+          <a href="./cawscout.html">CawScout</a>
+          <a href="./cawdex.html">CawDex</a>
+          <a href="./crowgpt.html">Talk to it</a>
+          <a href="./scan.html">Scan a crow</a>
+          <a href="./">← Back to the project</a>
+        </div>
+      </nav>
+
+      <section class="section subpage-lead" id="app">
+        <h1 class="credits-title">The app: collecting the other half</h1>
+        <p class="section-lede">
+          Building a labeled set by hand does not scale, so the collection is its own
+          system: record corvid audio in the field with GPS, get it analyzed, and say what
+          was heard <em>and what was happening</em>. Heavy model work never sits in the
+          request path.
+        </p>
+
+        <div class="shots">
+          <figure class="shot">
+            <img
+              src="./src/assets/app-homepage.jpg"
+              alt="The CrowGPT app's capture list, showing starred recordings with dates, durations and a coarse location"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Record, then keep. The ★ is the recordist saying <em>this one is real</em>.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-flight-call.jpg"
+              alt="A capture's waveform with colored spans labeled flight call, begging and call"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Calls typed and placed on the waveform: flight call, begging, call.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-call-decision.jpg"
+              alt="One detected call under review: the analyzer's guess of begging shown above a grid of call types, with begging confirmed, and a row of caller roles below"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              The analyzer's guess is shown, then confirmed or overruled. Only the human
+              answer counts.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-context-chips.jpg"
+              alt="The context picker for a single call, with chips grouped under people, animals, food and what the crows did; two are selected"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              What was happening, from a closed vocabulary. Tapped per call, not per
+              recording.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-lawnmower.jpg"
+              alt="A capture named lawnmower plus four crows on ground, with a written description of the scene"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              The witnessed situation, written at the time. This is the scarce half.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-map.jpg"
+              alt="The app's map view with crow markers scattered across a Salt Lake City neighborhood"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Every capture carries where it was taken, so territory questions stay
+              answerable.
+            </figcaption>
+          </figure>
+          <figure class="shot">
+            <img
+              src="./src/assets/app-crows-scatter.jpg"
+              alt="A capture describing crows scattering from a car, with a separate guess field about what it meant"
+              width="540"
+              height="1205"
+              loading="lazy"
+            />
+            <figcaption>
+              Guesses are kept apart from observations, so being wrong costs nothing.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="aside-photo">
+          <div>
+            <div class="pieces">
+              <article class="piece">
+                <h3>The app</h3>
+                <p>
+                  Android, local-first. Records unprocessed 48 kHz audio and video, shows
+                  the waveform, and uploads only when asked, so an interrupted upload is
+                  the normal case, and every step is resumable and safe to repeat.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The analysis</h3>
+                <p>
+                  Detection and call-typing run in the background, off the recording
+                  device. Findings come back attached to the waveform, and nothing waits
+                  on a model to finish.
+                </p>
+              </article>
+              <article class="piece">
+                <h3>The labeling desk</h3>
+                <p>
+                  Where the work happens. Calls get confirmed, corrected, or marked by
+                  ear, and each one <span class="chips">tagged with what was going on</span>
+                  at the time.
+                </p>
+              </article>
+            </div>
+          </div>
+          <figure class="photo">
+            <img
+              src="./src/assets/field-kit.jpg"
+              alt="A small black shoulder bag with an embroidered crow, a furry windshield poking out of the top"
+              width="1200"
+              height="1500"
+            />
+            <figcaption>
+              The whole field kit: a shotgun mic, a dead cat, and a bag that fits in one
+              hand. Crows notice equipment.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="callout">
+          <h3>Three kinds of ground truth, deliberately kept apart</h3>
+          <p>
+            <strong>Labels</strong> are what the bird said: a span plus a call type from
+            a closed vocabulary. They are the only thing that feeds training.
+            <strong class="chips">Context</strong> is what a human saw while that call was made, and it
+            attaches to the call rather than the recording: tag the whole capture and you
+            credit every situation to every call in it, so a clip where a dog walks
+            through and the crow later sings would report that crows sing at dogs.
+            <strong>Observations</strong> are free text written afterwards, to explain a
+            confusing prediction and to find which situations recur often enough to earn a
+            tag of their own.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="request">
+        <h2>Try the app</h2>
+        <p class="section-lede">
+          The field app is Android, free, and in a closed preview: it records, labels
+          and syncs to the project server, so a recordist anywhere can add their crows to
+          the corpus. Ask below and Ben sends an invite with the app and the token it
+          needs to join. Say where you would record and which corvids are there; a
+          population the corpus does not have yet is the best reason to say yes.
+        </p>
+        <form class="request-form" method="post" action="https://field.crowgpt.org/preview/request">
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required autocomplete="email" placeholder="you@example.org">
+          </label>
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" placeholder="What to call you">
+          </label>
+          <label class="request-form-wide">
+            <span>Where would you record, and what crows are there?</span>
+            <textarea name="note" rows="3" placeholder="Hooded crows on a Berlin allotment; a raven pair on the cliffs; ..."></textarea>
+          </label>
+          <div class="request-form-actions">
+            <button type="submit" class="button button-primary">Request access</button>
+            <span class="request-form-note">
+              One email, no account. The invite is a link; the app asks for the token on
+              first launch.
+            </span>
+          </div>
+        </form>
+      </section>
+      <section class="section section-cta subpage-next">
+        <h2>Where next</h2>
+        <div class="subpage-links">
+          <a class="button" href="./crows.html">The murder</a>
+          <a class="button" href="./cawscout.html">CawScout</a>
+          <a class="button" href="./cawdex.html">CawDex</a>
+          <a class="button" href="./crowgpt.html">Talk to it</a>
+          <a class="button" href="./scan.html">Scan a crow</a>
+        </div>
+        <p class="section-lede section-lede-after">
+          Have corvids nearby? <a href="./#request">Ask for the field app</a>, or read
+          <a href="./#collab">how to collaborate</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <p class="wordmark">
+            <img
+              class="wordmark-icon"
+              src="./src/assets/icon-180.png"
+              alt=""
+              width="180"
+              height="180"
+            /><span><span class="caw">Crow</span>GPT</span>
+          </p>
+          <p class="footer-note">
+            One person, a murder of backyard crows, and a translator under construction.
+          </p>
+          <p class="footer-note">
+            Built by Ben Faerber.
+          </p>
+          <p class="footer-note footer-links">
+            <a class="icon-link" href="https://github.com/benfaerber/crowgpt"
+               title="Source on GitHub" aria-label="Source on GitHub"><svg class="icon-github" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+            <a class="icon-link" href="https://huggingface.co/faerber/crowgpt"
+               title="Weights on Hugging Face" aria-label="Weights on Hugging Face"><img class="icon-hf" src="./src/assets/hf-logo.svg" alt="" width="95" height="88" /></a>
+            <span>·</span>
+            <a href="https://github.com/benfaerber">Ben on GitHub</a>
+            <span>·</span>
+            <a href="https://benfaerber.github.io">What the Functor?</a>
+          </p>
+        </div>
+        <div>
+          <h3>Owed</h3>
+          <p class="footer-note">
+            The single biggest result here is not ours. It came from
+            <a href="https://github.com/CrowCall/crow-tools">crow-tools</a> (MIT, ©
+            OpenShot Studios / owlmaddie) and the several thousand seconds of crow
+            somebody hand-reviewed, one second at a time.
+          </p>
+        </div>
+        <div>
+          <h3>Audio</h3>
+          <p class="footer-note">
+            Recordings from <a href="https://xeno-canto.org/">Xeno-canto</a>, shared by
+            its recordists under Creative Commons licences.
+            <a href="./credits.html">All {{credits.recordings}} of them are credited by name and ID</a>, and
+            CrowGPT learned from every one.
+          </p>
+        </div>
+      </div>
+      <p class="footer-legal">Photographs of the Poe family, Salt Lake City.</p>
+    </footer>
+  </body>
+</html>

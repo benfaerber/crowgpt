@@ -465,26 +465,29 @@ export class Flock {
   /**
    * The other half of meeting a bird: hear it, then see it.
    *
-   * The photograph is already on the page further down, so this opens the
+   * A photograph on this page opens in place; one only the crows page carries
+   * (the front page keeps four of them) becomes a link there. Otherwise this opens the
    * lightbox by clicking that figure's image — the viewer the rest of the page
    * uses, with its own slide order and arrows, rather than a second one that
    * would behave differently. The bird is let go first: leaving a frozen crow
    * and a tooltip under a full-screen overlay is how you come back to a hero
    * that has quietly stopped.
    */
-  private photoButton(bird: Bird): HTMLButtonElement | null {
+  private photoButton(bird: Bird): HTMLElement | null {
     if (!bird.photo || !this.viewer) return null;
+    const label = [
+      el("span", { className: "crow-tip-play-icon", text: "◆" }),
+      el("span", { text: bird.photoNote ? `See the clip` : `See ${bird.name}` }),
+    ];
     const figure = document.getElementById(bird.photo);
-    if (!figure) return null;
+    if (!figure) {
+      return el("a", { className: "crow-tip-photo", attrs: { href: `./crows.html#${bird.photo}` } }, ...label);
+    }
 
     const button = el("button", {
       className: "crow-tip-photo",
       attrs: { type: "button" },
-    });
-    button.append(
-      el("span", { className: "crow-tip-play-icon", text: "◆" }),
-      el("span", { text: bird.photoNote ? `See the clip` : `See ${bird.name}` }),
-    );
+    }, ...label);
     button.addEventListener("click", () => {
       this.releaseHeld();
       this.viewer!.openFigure(figure);

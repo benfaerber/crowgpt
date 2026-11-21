@@ -3658,3 +3658,74 @@ audio.scan-media {
     animation: none !important;
   }
 }
+
+/* ---- the split: front-page teasers and the pages they lead to ---------- */
+
+.more-link {
+  display: inline-flex;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.more-link:hover {
+  text-decoration: underline;
+}
+
+.gallery-teaser {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.shots-teaser {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 48rem;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.subpage .section:first-of-type {
+  padding-top: 0;
+}
+
+.subpage-lead .credits-title {
+  margin-bottom: 1.25rem;
+}
+
+.subpage-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.subpage .nav-links a[aria-current="page"] {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+@media (max-width: 720px) {
+  .gallery-teaser {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .gallery-teaser figcaption {
+    padding: 0.5rem 0.6rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .shots-teaser {
+    gap: 0.6rem;
+  }
+
+  .shots-teaser figcaption {
+    font-size: 0.72rem;
+  }
+}

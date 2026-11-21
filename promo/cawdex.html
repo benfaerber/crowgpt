@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CawDex: reading crow calls</title>
+    <meta
+      name="description"
+      content="How CawDex finds, names and types every corvid call in a recording, and the result that shaped the project: labels, not models, were the bottleneck."
+    />
+    <link rel="canonical" href="https://crowgpt.org/cawdex" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icon-16.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./src/assets/icon-512.png" />
+    <link rel="apple-touch-icon" href="./src/assets/apple-touch-icon.png" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <main class="credits-page subpage">
+      <nav class="nav">
+        <a class="wordmark" href="./">
+          <img
+            class="wordmark-icon"
+            src="./src/assets/icon-180.png"
+            alt=""
+            width="180"
+            height="180"
+          /><span><span class="caw">Crow</span>GPT</span>
+        </a>
+        <div class="nav-links">
+          <a href="./crows.html">The murder</a>
+          <a href="./app.html">The app</a>
+          <a href="./cawscout.html">CawScout</a>
+          <a href="./cawdex.html" aria-current="page">CawDex</a>
+          <a href="./crowgpt.html">Talk to it</a>
+          <a href="./scan.html">Scan a crow</a>
+          <a href="./">← Back to the project</a>
+        </div>
+      </nav>
+
+      <section class="section subpage-lead" id="cawdex">
+        <h1 class="credits-title">CawDex: reading the calls</h1>
+        <p class="section-lede">
+          The listening half. CawDex is the call-type classifier: audio goes in, and
+          every corvid call in it comes out found, named by species, and labeled by
+          type on a timeline. It is the index the translator will be built on, hence
+          the name.
+        </p>
+        <p class="scan-teaser">
+          <a class="button button-primary" href="./scan.html">Try it: scan a photo or a recording</a>
+        </p>
+        <p class="section-lede">
+          Raw audio is too high-dimensional to classify directly, so every clip becomes a
+          fixed-length fingerprint first.
+        </p>
+        <ol class="steps">
+          <li>
+            <h3>Detect</h3>
+            <p>
+              BirdNET finds the corvids in any audio or video file and names the species,
+              with a waveform timeline of where the calls sit.
+            </p>
+          </li>
+          <li>
+            <h3>Embed</h3>
+            <p>
+              Each clip becomes a BirdNET embedding, a fingerprint where acoustically
+              similar calls land near each other. Classical MFCC features and a general
+              audio transformer both sat near chance; a bird-specific model was the
+              unlock.
+            </p>
+          </li>
+          <li>
+            <h3>Pool</h3>
+            <p>
+              Mean, standard deviation and max across the clip's three-second segments, so
+              the feature captures temporal spread, the signature of a repeated,
+              insistent alarm versus a single call.
+            </p>
+          </li>
+          <li>
+            <h3>Classify</h3>
+            <p>
+              A small logistic-regression head per species maps the fingerprint to a call
+              type. At a few hundred examples per species, a regularized linear model
+              beats a deep net.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section" id="two-problems">
+        <h2>Two problems hide in one question</h2>
+        <p class="section-lede">
+          Inside the listening half there is a second split, and keeping it straight is
+          the main design decision in the project. These need different machinery, and
+          only one of them is solved.
+        </p>
+        <dl class="split">
+          <div class="split-item split-done">
+            <dt>
+              <span class="split-status">Solved</span>
+              What <em>are</em> the call types?
+            </dt>
+            <dd>
+              Are the categories acoustically separable at all? That is a plain
+              classification problem on audio, and the answer is yes, given labels good
+              enough to learn from. Everything below this line is engineering.
+            </dd>
+          </div>
+          <div class="split-item split-open">
+            <dt>
+              <span class="split-status">Open</span>
+              What does each type <em>mean</em>?
+            </dt>
+            <dd>
+              Mapping a call to <em>“I see a dog”</em> needs that call paired with
+              <span class="chips">witnessed context</span>, written down at the moment it
+              happened. No quantity of
+              audio alone gets there, which is why the rest of this project is a
+              data-collection system. This is the frontier, and it is where I am.
+            </dd>
+          </div>
+        </dl>
+      </section>
+      <section class="section" id="results">
+        <h2>The result that matters</h2>
+        <p class="section-lede">
+          Two call classes stayed stubbornly weak when trained on the archives' coarse
+          free-text tags. Trained instead on hand-reviewed labels ({{crowtools.segments}} segments
+          somebody sat and listened to, one second at a time), the same pipeline,
+          unchanged, lifts them decisively. The bottleneck was never the algorithm.
+        </p>
+
+        <figure class="figure" id="auc-figure">
+          <figcaption class="figure-head">
+            <span class="figure-title">One-vs-rest AUC by label quality</span>
+            <span class="figure-sub"
+              >American Crow · recording-grouped cross-validation, so nothing is graded
+              on data it trained on</span
+            >
+          </figcaption>
+          <div class="legend" id="auc-legend"></div>
+          <div class="chart" id="auc-chart"></div>
+          <div class="figure-foot">
+            <p class="figure-note">
+              Chance is 0.50. The two classes not shown, flight call and rattle, were
+              already strong on weak labels; these two were the failures.
+            </p>
+            <button class="table-toggle" type="button" aria-expanded="false" id="auc-table-toggle">
+              Show as table
+            </button>
+          </div>
+          <div class="table-wrap" id="auc-table" hidden></div>
+        </figure>
+
+        <p class="section-lede section-lede-after">
+          So alarm and song were <strong>label-limited, not unlearnable</strong>. The path
+          to strong heads is clean contextual labels, not a fancier model, which is
+          exactly why the rest of this project is a data-collection system rather than
+          more machine learning.
+        </p>
+      </section>
+      <section class="section section-cta subpage-next">
+        <h2>Where next</h2>
+        <div class="subpage-links">
+          <a class="button" href="./crows.html">The murder</a>
+          <a class="button" href="./app.html">The app</a>
+          <a class="button" href="./cawscout.html">CawScout</a>
+          <a class="button" href="./crowgpt.html">Talk to it</a>
+          <a class="button" href="./scan.html">Scan a crow</a>
+        </div>
+        <p class="section-lede section-lede-after">
+          Have corvids nearby? <a href="./#request">Ask for the field app</a>, or read
+          <a href="./#collab">how to collaborate</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <p class="wordmark">
+            <img
+              class="wordmark-icon"
+              src="./src/assets/icon-180.png"
+              alt=""
+              width="180"
+              height="180"
+            /><span><span class="caw">Crow</span>GPT</span>
+          </p>
+          <p class="footer-note">
+            One person, a murder of backyard crows, and a translator under construction.
+          </p>
+          <p class="footer-note">
+            Built by Ben Faerber.
+          </p>
+          <p class="footer-note footer-links">
+            <a class="icon-link" href="https://github.com/benfaerber/crowgpt"
+               title="Source on GitHub" aria-label="Source on GitHub"><svg class="icon-github" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+            <a class="icon-link" href="https://huggingface.co/faerber/crowgpt"
+               title="Weights on Hugging Face" aria-label="Weights on Hugging Face"><img class="icon-hf" src="./src/assets/hf-logo.svg" alt="" width="95" height="88" /></a>
+            <span>·</span>
+            <a href="https://github.com/benfaerber">Ben on GitHub</a>
+            <span>·</span>
+            <a href="https://benfaerber.github.io">What the Functor?</a>
+          </p>
+        </div>
+        <div>
+          <h3>Owed</h3>
+          <p class="footer-note">
+            The single biggest result here is not ours. It came from
+            <a href="https://github.com/CrowCall/crow-tools">crow-tools</a> (MIT, ©
+            OpenShot Studios / owlmaddie) and the several thousand seconds of crow
+            somebody hand-reviewed, one second at a time.
+          </p>
+        </div>
+        <div>
+          <h3>Audio</h3>
+          <p class="footer-note">
+            Recordings from <a href="https://xeno-canto.org/">Xeno-canto</a>, shared by
+            its recordists under Creative Commons licences.
+            <a href="./credits.html">All {{credits.recordings}} of them are credited by name and ID</a>, and
+            CrowGPT learned from every one.
+          </p>
+        </div>
+      </div>
+      <p class="footer-legal">Photographs of the Poe family, Salt Lake City.</p>
+    </footer>
+  </body>
+</html>
