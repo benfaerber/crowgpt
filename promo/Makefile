@@ -1,4 +1,4 @@
-.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic video video-final video-stills video-explainer
+.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic video video-final video-stills video-explainer video-feature video-feature-script
 
 # node/npm are nvm lazy-load *zsh functions*, so they don't exist in make's
 # /bin/sh. Resolve nvm's default version and put it first on PATH, the same way
@@ -28,6 +28,8 @@ help:
 	@echo "  make video-final  The same film at 1080p"
 	@echo "  make video-stills Six frames across the film, FRAMES=1,60,... to choose"
 	@echo "  make video-explainer  The explainer of the whole project; QUALITY=preview (minutes) or final (1080p)"
+	@echo "  make video-feature    The six-minute narrated film; QUALITY and NARRATION as for the explainer"
+	@echo "  make video-feature-script  Its narration, with the time each line starts"
 
 node_modules:
 	npm install
@@ -123,3 +125,10 @@ QUALITY ?= draft
 
 video-explainer:
 	$(VIDEO_PYTHON) video/render.py --film explainer --quality $(QUALITY) $(if $(NARRATION),--narration $(NARRATION))
+
+# The feature: six minutes, timed from its own narration (video/film/screenplay.py).
+video-feature:
+	$(VIDEO_PYTHON) video/render.py --film feature --quality $(QUALITY) $(if $(NARRATION),--narration $(NARRATION))
+
+video-feature-script:
+	@$(VIDEO_PYTHON) video/render.py --film feature --script

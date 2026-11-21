@@ -58,6 +58,7 @@ class Film:
         self.scene.render.fps = self.CLOCK.FPS
         self.scene.frame_start, self.scene.frame_end = 1, self.CLOCK.END
         self.stats = stats
+        self.work = work
         self.stage = Stage(self.scene)
         self.fonts = Fonts(work)
         self.logo = logo

@@ -30,7 +30,7 @@ from film.timeline import FILMS  # noqa: E402
 
 
 class Workspace:
-    NAMES = {"short": "film", "explainer": "explainer"}
+    NAMES = {"short": "film", "explainer": "explainer", "feature": "feature"}
 
     def __init__(self, film, quality, shape="wide"):
         data = os.environ.get("DATA_DIR")
@@ -58,9 +58,8 @@ class Workspace:
 
 
 class Ingredients:
-    """The two calls as 16-bit mono for the scene, and the brand font as a TTF."""
+    """The film's calls as 16-bit mono for the scene, and the brand font as a TTF."""
 
-    CALLS = {"real": "real-alarm-call.wav", "generated": "crowgpt2-preview.wav"}
     FONT = ASSETS / "fonts" / "fredoka-latin.woff2"
     WEIGHT = 600
 
@@ -68,9 +67,10 @@ class Ingredients:
         self.workspace = workspace
 
     def prepare(self):
-        for name, source in self.CALLS.items():
+        for name, (source, seconds) in self.workspace.clock.SOUNDS.items():
             subprocess.run(
                 ["ffmpeg", "-y", "-loglevel", "error", "-i", str(ASSETS / source),
+                 *(["-t", str(seconds)] if seconds else []),
                  "-ac", "1", "-ar", "22050", "-c:a", "pcm_s16le",
                  str(self.workspace.work / f"{name}.wav")], check=True)
         self._font()
@@ -89,7 +89,7 @@ class Ingredients:
 
 
 class Soundtrack:
-    """Both calls at the frames the picture plays them, over a quiet bed."""
+    """Every call at the moment the picture plays it, over a quiet bed."""
 
     BED = [
         "anoisesrc=color=brown:amplitude=0.4:duration={d},lowpass=f=380,volume=0.10[wind]",
@@ -106,17 +106,21 @@ class Soundtrack:
     def mix(self):
         clock = self.workspace.clock
         duration = clock.duration()
-        real_ms = round(clock.seconds(clock.CUES["real"]) * 1000)
-        generated_ms = round(clock.seconds(clock.CUES["generated"]) * 1000)
-        graph = [f"[0:a]aresample=48000,adelay={real_ms}:all=1[real]",
-                 f"[1:a]aresample=48000,adelay={generated_ms}:all=1[generated]"]
-        voices = ["[real]", "[generated]"]
+        graph, voices, heard = [], [], []
+        for index, (name, at, gain) in enumerate(clock.cues()):
+            source, seconds = clock.SOUNDS[name]
+            heard += ["-i", str(ASSETS / source)]
+            trim = (f"atrim=duration={seconds},afade=t=out:st={seconds - 0.25}:d=0.25,"
+                    if seconds else "")
+            graph.append(f"[{index}:a]{trim}aresample=48000,volume={gain},"
+                         f"adelay={round(at * 1000)}:all=1[call{index}]")
+            voices.append(f"[call{index}]")
         if self.bed:
             graph += [part.format(d=duration) for part in self.BED]
             voices += ["[wind]", "[low]", "[fifth]", "[high]"]
         spoken = []
         if self.narration:
-            graph.append("[2:a]aresample=48000[narration]")
+            graph.append(f"[{len(heard) // 2}:a]aresample=48000[narration]")
             voices.append("[narration]")
             spoken = ["-i", str(self.narration)]
         graph.append(
@@ -124,9 +128,7 @@ class Soundtrack:
             f"alimiter=limit=0.95,apad,atrim=duration={duration},afade=t=in:d=0.4,"
             f"afade=t=out:st={duration - 2.0}:d=2.0[out]")
         subprocess.run(
-            ["ffmpeg", "-y", "-loglevel", "error",
-             "-i", str(ASSETS / Ingredients.CALLS["real"]),
-             "-i", str(ASSETS / Ingredients.CALLS["generated"]), *spoken,
+            ["ffmpeg", "-y", "-loglevel", "error", *heard, *spoken,
              "-filter_complex", ";".join(graph), "-map", "[out]",
              "-ar", "48000", "-ac", "2", str(self.workspace.soundtrack)], check=True)
 
@@ -209,11 +211,16 @@ def main():
     parser.add_argument("--device", choices=("cpu", "gpu"), default="cpu",
                         help="gpu only when GPU-CALENDAR.md says the card is free")
     parser.add_argument("--fresh", action="store_true", help="discard frames already rendered")
+    parser.add_argument("--script", action="store_true",
+                        help="print the narration with the time each line starts, and stop")
     parser.add_argument("--no-bed", action="store_true", help="calls only, no ambient bed")
     parser.add_argument("--narration", type=Path,
                         help="a voice recording made against the film, laid in from its first frame")
     options = parser.parse_args()
 
+    if options.script:
+        print(FILMS[options.film].PLAY.script())
+        return
     workspace = Workspace(options.film, options.quality, options.shape)
     blender = Blender(options.blender, options.device)
     if options.stills:

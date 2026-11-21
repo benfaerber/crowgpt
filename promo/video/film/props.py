@@ -98,6 +98,106 @@ class Person:
         return self
 
 
+class Mask:
+    """A rubber face worn over a Person's head, turned to the camera."""
+
+    def __init__(self, stage, person, height=1.9):
+        skin = Materials.surface("Mask", "#a8744e", roughness=0.9)
+        dark = Materials.flat("Mask hollow", "#120c0a")
+        self.root = stage.pivot("Mask", person.root, (0.0, -0.24, height * 0.84))
+        parts = [("face", (0.5, 0.1, 0.56), (0.0, 0.0, 0.0), skin),
+                 ("brow", (0.54, 0.14, 0.1), (0.0, -0.03, 0.14), skin),
+                 ("nose", (0.1, 0.16, 0.16), (0.0, -0.06, -0.02), skin),
+                 ("mouth", (0.24, 0.04, 0.05), (0.0, -0.06, -0.18), dark)]
+        for x in (-0.12, 0.12):
+            parts.append(("eye", (0.11, 0.04, 0.07), (x, -0.06, 0.05), dark))
+        for label, size, place, material in parts:
+            stage.add(f"Mask {label}", Shapes.block(f"mask {label}", size), material,
+                      self.root, location=place)
+
+
+class Peanut:
+    """One peanut in its shell, thrown from where the camera stands."""
+
+    def __init__(self, stage, landing):
+        self.landing = landing
+        shell = Materials.surface("Peanut", "#d2a765", roughness=0.9)
+        self.root = stage.pivot("Peanut", location=landing)
+        for x in (-0.028, 0.028):
+            stage.add("Peanut lobe", Shapes.blob("peanut lobe", (0.04, 0.03, 0.03), detail=1),
+                      shell, self.root, location=(x, 0.0, 0.0))
+
+    def toss(self, frame, flight=16):
+        x, y, z = self.landing
+        Keys.at(self.root, frame - 1, scale=(0.0, 0.0, 0.0), location=(x + 0.6, y - 3.0, z - 0.6))
+        Keys.at(self.root, frame, scale=(1.0, 1.0, 1.0))
+        Keys.at(self.root, frame + flight * 0.6, location=(x + 0.15, y - 0.8, z + 0.5),
+                rotation_euler=(2.0, 1.0, 0.0))
+        Keys.at(self.root, frame + flight, location=self.landing, rotation_euler=(4.0, 2.0, 0.3))
+        return self
+
+
+class CallGlyph:
+    """A call drawn as a row of bars, so two different calls look different."""
+
+    def __init__(self, stage, location, pattern, color, width=2.2, height=1.1):
+        self.root = stage.pivot("Call glyph", location=location)
+        material = Materials.glow("Call glyph", color, 2.2)
+        mesh = Shapes.block("glyph bar", (1.0, 1.0, 1.0))
+        step = width / len(pattern)
+        self.bars = [
+            (stage.add("Glyph bar", mesh, material, self.root,
+                       location=(-width / 2.0 + (index + 0.5) * step, 0.0, 0.0),
+                       scale=(step * 0.55, 0.05, 0.001)), max(0.04, level * height))
+            for index, level in enumerate(pattern)]
+
+    def pop(self, frame):
+        for index, (bar, tall) in enumerate(self.bars):
+            wide, deep, _ = bar.scale
+            Keys.at(bar, frame + index - 1, scale=(wide, deep, 0.001))
+            Keys.at(bar, frame + index + 5, scale=(wide, deep, tall))
+        return self
+
+
+class ScoreBars:
+    """How well a classifier tells one call type from the rest, bar by bar.
+
+    The scale is the one the promo page quotes: 0.5 is guessing, 1.0 is perfect.
+    """
+
+    HEIGHT = 3.6
+    GUESSING = 0.5
+
+    def __init__(self, stage, fonts, base):
+        self.stage, self.fonts, self.base = stage, fonts, base
+        x, y, z = base
+        rule = Materials.glow("Score rule", Palette.CREAM, 0.7)
+        for score, body in ((self.GUESSING, "guessing"), (1.0, "perfect")):
+            level = z + self._height(score)
+            stage.add("Score rule", Shapes.block("score rule", (7.4, 0.03, 0.03)), rule,
+                      location=(x, y + 0.2, level))
+            Sign(stage, fonts, body, (x - 4.9, y, level - 0.14), 0.4,
+                 color=Palette.CREAM, strength=1.0).pop(1)
+        stage.add("Score floor", Shapes.block("score floor", (7.4, 0.5, 0.06)), rule,
+                  location=(x, y, z))
+
+    def _height(self, score):
+        return self.HEIGHT * (score - 0.4) / 0.6
+
+    def bar(self, frame, offset, score, label, color):
+        x, y, z = self.base
+        tall = self._height(float(score))
+        column = self.stage.add("Score bar", Shapes.block("score bar", (1.5, 0.4, 1.0), True),
+                                Materials.glow(f"Score bar {label}", color, 1.4),
+                                location=(x + offset, y, z))
+        Keys.at(column, frame - 1, scale=(1.0, 1.0, 0.001))
+        Keys.at(column, frame + 22, scale=(1.0, 1.0, tall))
+        Sign(self.stage, self.fonts, str(score), (x + offset, y, z + tall + 0.25), 0.55,
+             color=color, strength=2.0).pop(frame + 20)
+        Sign(self.stage, self.fonts, label, (x + offset, y, z - 0.7), 0.38).pop(frame)
+        return self
+
+
 class Dog:
     """Faces +X, paws on its origin."""
 

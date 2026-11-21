@@ -52,6 +52,27 @@ The one number quoted (minutes of human-labelled audio) is read from
 `promo/stats.json` at render time. Chapters live in `film/explainer.py`, the
 props in `film/props.py`, the cut frames in `ExplainerTimeline`.
 
+## The feature
+
+`make -C promo video-feature` renders a third film, about six minutes, for
+people who have never heard of the project: one crow's call nobody can read,
+the five birds it started with, why crows are worth it, the five call types
+with a clip of each, what CawDex got wrong and why, the animals known to name
+their predators, the hypothesis, the app, CrowGPT, and the ask.
+
+It is written to be narrated, and it is timed from the narration.
+`film/screenplay.py` is the script: each line lasts as long as it takes to say
+(2.5 words a second, plus a breath, plus any silence the picture needs), and
+every scene in `film/feature.py` asks the screenplay when its lines are
+spoken. Rewrite a line and the cuts, the captions and the sound cues all move.
+`make -C promo video-feature-script` prints the script with the time each line
+starts, to read from while recording.
+
+Its claims are the promo page's own or published findings: the figures come
+from `promo/stats.json` at render time, the hypothesis chapter says the chart
+is what a yes would look like and not a result, and the two archive clips it
+plays carry their Xeno-canto credit on screen.
+
 `--shape square` and `--shape tall` (9:16, for phones) keep the wide picture's
 width and add sky above and ground below; the tall cut re-wraps the captions
 larger into the ground under the picture.

@@ -28,6 +28,13 @@ class Plumage:
         )
 
     @classmethod
+    def tinted(cls, name, color):
+        """Another species of bird, told apart by its feathers alone."""
+        base = cls.living()
+        return cls(feather=Materials.surface(f"{name} feather", color, roughness=0.6),
+                   beak=base.beak, eye=base.eye, glint=base.glint, leg=base.leg)
+
+    @classmethod
     def generated(cls):
         light = Materials.hologram("Generated feather", Palette.ACCENT, 1.8)
         bright = Materials.glow("Generated eye", Palette.CREAM, 6.0)
