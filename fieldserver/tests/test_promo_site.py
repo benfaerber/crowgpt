@@ -47,3 +47,20 @@ class TestItGivesNothingAway:
         # An SPA fallback here would answer 200 to every path under /promo,
         # which turns a broken asset link into a silently blank page.
         assert client.get("/promo/assets/does-not-exist.js").status_code == 404
+
+
+class TestItIsOnlyALocalPreview:
+    """crowgpt.org is the promo's home; the hosted field server must not be a second copy."""
+
+    def test_a_public_host_is_sent_to_crowgpt_org(self, client):
+        response = client.get("/promo/", headers={"Host": "field.crowgpt.org"})
+        assert response.status_code == 308
+        assert response.headers["Location"] == "https://crowgpt.org/"
+
+    def test_a_page_keeps_its_path_on_the_way(self, client):
+        response = client.get("/promo/crowgpt.html", headers={"Host": "field.crowgpt.org"})
+        assert response.headers["Location"] == "https://crowgpt.org/crowgpt.html"
+
+    def test_loopback_still_previews(self, client):
+        response = client.get("/promo/", headers={"Host": "127.0.0.1:5100"})
+        assert response.status_code in (200, 503)
