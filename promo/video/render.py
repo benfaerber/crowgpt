@@ -196,7 +196,7 @@ class ClonedVoice:
         home = self.folder / "chatterbox"
         if not (home / "bin" / "python").exists():
             subprocess.run(["uv", "venv", "-q", str(home), "--python", "3.11"], check=True)
-            subprocess.run(["uv", "pip", "install", "-q", "chatterbox-tts"], check=True,
+            subprocess.run(["uv", "pip", "install", "-q", "chatterbox-tts", "setuptools<81"], check=True,
                            env={**os.environ, "VIRTUAL_ENV": str(home)})
         return home / "bin" / "python"
 

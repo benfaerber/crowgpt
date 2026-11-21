@@ -21,7 +21,7 @@ reason and lost nothing by it.
 
 ## Booked
 
-- **2026-11-21 14:30 → 2026-11-21 15:20 (America/Denver)** — Blender EEVEE preview (960×540) of the six-minute feature film in `promo/video/`, light use of the card. Rook. Killable on request.
+- **2026-11-21 14:57 → 2026-11-21 15:47 (America/Denver)** — Chatterbox voice clone for the feature's scratch narration (a few GB, a few minutes), then the Blender EEVEE preview (960×540) of the feature film in `promo/video/`. Rook. Killable on request.
 
 - ~~**2026-11-21 13:28 → 2026-11-21 14:13 (America/Denver)** — Blender EEVEE re-render of the eight crow-vision shots in `~/Code/crowsim` at a slower pace, several Blender processes at once, a few GB of VRAM. Rook. Killable on request.~~ Finished 13:49. Card free.
 
