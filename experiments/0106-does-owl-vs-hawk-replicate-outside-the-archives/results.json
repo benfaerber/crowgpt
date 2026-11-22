@@ -1,0 +1,58 @@
+{
+  "trained_on": {
+    "n": 146,
+    "owl": 79,
+    "hawk": 67
+  },
+  "labelled_recordings": 90,
+  "extracted_ok": 90,
+  "primary_frozen_model_strict": {
+    "recordings": 61,
+    "owl_events": 20,
+    "hawk_events": 32,
+    "interpretable": true,
+    "auc": 0.7531,
+    "p_two_sided": 0.0024,
+    "ci95": [
+      0.6125,
+      0.8758
+    ]
+  },
+  "secondary_duty_alone_strict": {
+    "recordings": 61,
+    "owl_events": 20,
+    "hawk_events": 32,
+    "interpretable": true,
+    "auc": 0.6391,
+    "p_two_sided": 0.096,
+    "ci95": [
+      0.4723,
+      0.7899
+    ]
+  },
+  "secondary_frozen_model_non_strict": {
+    "recordings": 82,
+    "owl_events": 23,
+    "hawk_events": 45,
+    "interpretable": true,
+    "auc": 0.7449,
+    "p_two_sided": 0.001,
+    "ci95": [
+      0.6223,
+      0.8531
+    ]
+  },
+  "secondary_in_domain": {
+    "skipped": "needs 30 events a class, has 20 owl and 32 hawk"
+  },
+  "strict_medians": {
+    "owl_mobbing": {
+      "duty": 0.4493,
+      "duration_s": 24.3
+    },
+    "hawk_mobbing": {
+      "duty": 0.3651,
+      "duration_s": 13.8
+    }
+  }
+}

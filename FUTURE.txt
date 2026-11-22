@@ -59,25 +59,15 @@ when it has a shape and a reason to happen now.
     should reach the app, the dashboard or the promo page — "calling density"
     is the honest name for what can be measured.
 
-[ ] A sealed replication set for the archive findings needs remark text the
-    database does not hold (Alala, 2026-11-21)
-
-    Ben asked for the owl-versus-hawk result to be replicated on the rest of
-    the corpus. It cannot be run from what is on disk. Only the Xeno-canto and
-    Macaulay rows carry recordists' remarks; every other row in `corvid.db`
-    has its identifiers, place and date in `raw` and no description, so there
-    is nothing to harvest a context from — 8,986 American Crow recordings
-    among them. The two archives themselves are exhausted: a second pass over
-    all 2,637 American Crow remarks found 7 raptor mentions the first screen
-    missed, and 0103 has already spent the 2023+ holdout. Two ways to unblock,
-    both Ben's to do: have the corpus tooling pull the description text for
-    the rows that lack it, or make a fresh Macaulay CSV export so recordings
-    uploaded since the 2026-08-06 crawl can be added (at the archive's rate of
-    about one strict owl or hawk clip per hundred recordings, four months of
-    uploads is roughly half a dozen clips — a top-up, not a test set). The
-    first is the one that would give a replication of any size. When either
-    lands: harvest with 0102's `run.py`, seal the new rows before anything is
-    measured, and predict once.
+[x] A sealed replication set for the archive findings — DONE in 0106
+    (2026-11-21): the corpus tooling supplied descriptions for the rows
+    outside the two archives (`data/cache/descriptions/descriptions.jsonl`,
+    2,475 American Crow recordings with text), and the model frozen on the
+    archives scored 0.753 (p = 0.0024) on 20 owl and 32 hawk events it had
+    never seen. Only the owl and hawk descriptions have been read. The other
+    ~2,300 are still unread: before anyone opens them, declare the next
+    question (begging, roost, food) and its test, so they can be a sealed set
+    a second time.
 
 [ ] Timestamped events are the right design and the archive has six of them
     (Alala, 2026-11-21)
