@@ -18,13 +18,14 @@ _BIRDNET_NAMES = (
     "CROW_MIN_CONF",
     "CROW_TERMS",
     "HEADS",
+    "THREAT_HEADS",
     "NoAudioTrack",
     "analyze",
     "to_wav",
     "waveform_envelope",
 )
 
-__all__ = [*_BIRDNET_NAMES, "quality"]
+__all__ = [*_BIRDNET_NAMES, "quality", "threat"]
 
 
 def __getattr__(name):
