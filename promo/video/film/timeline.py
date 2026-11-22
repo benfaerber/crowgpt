@@ -1,5 +1,6 @@
 """Each film's clock, shared by the Blender scene and the soundtrack mix."""
 
+from .owl_screenplay import OWL
 from .screenplay import FEATURE
 
 
@@ -78,7 +79,15 @@ class ExplainerTimeline(Clock):
     CUES = {"real": REAL_CALL, "generated": GENERATED_CALL}
 
 
-class FeatureTimeline(Clock):
+class Narrated(Clock):
+    """A film timed from its screenplay: its length and every sound cue follow from the lines."""
+
+    @classmethod
+    def cues(cls):
+        return [(name, cls.seconds(frame), gain) for name, frame, gain in cls.PLAY.cues()]
+
+
+class FeatureTimeline(Narrated):
     """The feature: its length and every sound cue follow from the screenplay."""
 
     PLAY = FEATURE
@@ -107,9 +116,19 @@ class FeatureTimeline(Clock):
         "kit": ("field-kit.jpg", (0.05, 0.14, 0.95, 0.82)),
     }
 
-    @classmethod
-    def cues(cls):
-        return [(name, cls.seconds(frame), gain) for name, frame, gain in cls.PLAY.cues()]
+
+class OwlTimeline(Narrated):
+    """The owl film. Its crows are the family's own alarm calls, not an owl or hawk mob."""
+
+    PLAY = OWL
+    END = OWL.end
+    SOUNDS = {
+        "real": ("real-alarm-call.wav", None),
+        "generated": ("crowgpt2-preview.wav", None),
+        "mob": ("caws/adult-alarm-c.mp3", None),
+        "single": ("caws/edgar-alarm.mp3", None),
+    }
 
 
-FILMS = {"short": Timeline, "explainer": ExplainerTimeline, "feature": FeatureTimeline}
+FILMS = {"short": Timeline, "explainer": ExplainerTimeline, "feature": FeatureTimeline,
+         "owl": OwlTimeline}

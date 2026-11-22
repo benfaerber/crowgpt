@@ -1,4 +1,4 @@
-.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic video video-final video-stills video-explainer video-feature video-feature-script
+.PHONY: help install dev build build-public deploy deploy-dry login typecheck clean ensure-bundle stats stats-check credits traffic video video-final video-stills video-explainer video-feature video-feature-script video-owl video-owl-script
 
 # node/npm are nvm lazy-load *zsh functions*, so they don't exist in make's
 # /bin/sh. Resolve nvm's default version and put it first on PATH, the same way
@@ -30,6 +30,8 @@ help:
 	@echo "  make video-explainer  The explainer of the whole project; QUALITY=preview (minutes) or final (1080p)"
 	@echo "  make video-feature    The six-minute narrated film; QUALITY and NARRATION as for the explainer, SCRATCH=1 for a synthetic voice"
 	@echo "  make video-feature-script  Its narration, with the time each line starts"
+	@echo "  make video-owl        The owl-versus-hawk film, standalone; QUALITY, NARRATION and SCRATCH as for the feature"
+	@echo "  make video-owl-script Its narration, with the time each line starts"
 
 node_modules:
 	npm install
@@ -132,3 +134,10 @@ video-feature:
 
 video-feature-script:
 	@$(VIDEO_PYTHON) video/render.py --film feature --script
+
+# Owl mobs against hawk mobs, and what experiments 0102-0113 say about why (video/film/owl_screenplay.py).
+video-owl:
+	$(VIDEO_PYTHON) video/render.py --film owl --quality $(QUALITY) $(if $(NARRATION),--narration $(NARRATION)) $(if $(SCRATCH),--scratch-voice)
+
+video-owl-script:
+	@$(VIDEO_PYTHON) video/render.py --film owl --script

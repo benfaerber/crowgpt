@@ -34,7 +34,7 @@ from film.timeline import FILMS  # noqa: E402
 
 
 class Workspace:
-    NAMES = {"short": "film", "explainer": "explainer", "feature": "feature"}
+    NAMES = {"short": "film", "explainer": "explainer", "feature": "feature", "owl": "owl"}
 
     def __init__(self, film, quality, shape="wide"):
         data = os.environ.get("DATA_DIR")

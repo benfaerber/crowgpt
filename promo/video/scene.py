@@ -13,8 +13,9 @@ sys.path.insert(0, str(HERE))
 from film.director import Darkroom, Film  # noqa: E402
 from film.explainer import Explainer  # noqa: E402
 from film.feature import Feature  # noqa: E402
+from film.owl import OwlFilm  # noqa: E402
 
-FILMS = {"short": Film, "explainer": Explainer, "feature": Feature}
+FILMS = {"short": Film, "explainer": Explainer, "feature": Feature, "owl": OwlFilm}
 
 
 def main():

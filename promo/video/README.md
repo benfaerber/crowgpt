@@ -93,6 +93,24 @@ larger into the ground under the picture.
 `--device gpu` renders on the card (OptiX, then CUDA) and falls back to the CPU
 if Cycles cannot see one. Read `GPU-CALENDAR.md` first.
 
+## The owl film
+
+`make -C promo video-owl` renders a standalone film, about three and a half
+minutes, on one question: crows mobbing an owl sound different from crows
+mobbing a hawk, so are they naming the predator? It follows experiments 0102
+to 0113: the archive result (0.78), its replication on new recordings
+(0.75), and the three suspects (a call that means owl, posture, the crowd),
+each with what its test found. It ends where they do, with a difference that is
+real and no evidence yet of a name, and asks for a recording of a perched hawk
+being mobbed.
+
+It is timed from its narration like the feature (`film/owl_screenplay.py`,
+`make -C promo video-owl-script`) and its scenes are methods of a `Feature`
+subclass in `film/owl.py`, so any of them can move into the feature unchanged.
+Every figure is written into the screenplay from the experiment READMEs, not
+from `promo/stats.json`. The crows heard are the family's own alarm calls, not
+an owl or hawk mob: the picture says what is being mobbed, the sound does not.
+
 ## Needs
 
 - **Blender**, tested on 5.2 LTS. `render.py` looks for `blender` on `PATH`, then
