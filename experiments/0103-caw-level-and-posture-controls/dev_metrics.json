@@ -1,0 +1,273 @@
+{
+  "split": "dev_only (date < 2023-01-01)",
+  "step_c_primary_full_dev": {
+    "n_caws": 2150,
+    "n_recordings": 100,
+    "n_pos_recs": 60,
+    "n_neg_recs": 40,
+    "n_groups": 82,
+    "primary_weighted_per_caw_auc": 0.5156,
+    "weighted_bal_acc": 0.5334,
+    "exploratory_unweighted_per_caw_auc": 0.4692,
+    "exploratory_rec_mean_caw_auc": 0.5242,
+    "perm_p": 0.409,
+    "perm_mean": 0.4982
+  },
+  "step_c_metadata_null": {
+    "n": 100,
+    "n_pos": 60,
+    "n_neg": 40,
+    "n_groups": 82,
+    "auc": 0.4704,
+    "bal_acc": 0.5125,
+    "perm_p": null,
+    "perm_mean": null
+  },
+  "step_c_density_matched_dev": {
+    "n_caws": 1589,
+    "n_recordings": 76,
+    "n_pos_recs": 38,
+    "n_neg_recs": 38,
+    "n_groups": 66,
+    "primary_weighted_per_caw_auc": 0.5969,
+    "weighted_bal_acc": 0.5774,
+    "exploratory_unweighted_per_caw_auc": 0.5331,
+    "exploratory_rec_mean_caw_auc": 0.6177,
+    "perm_p": 0.0773,
+    "perm_mean": 0.5043
+  },
+  "step_c_density_covariate_check": {
+    "n": 76,
+    "n_pos": 38,
+    "n_neg": 38,
+    "n_groups": 66,
+    "auc": 0.5395,
+    "bal_acc": 0.5658,
+    "perm_p": null,
+    "perm_mean": null
+  },
+  "step_c_exploratory": {
+    "birdnet_isolated_caw_full": {
+      "n_caws": 2150,
+      "n_recordings": 100,
+      "n_pos_recs": 60,
+      "n_neg_recs": 40,
+      "n_groups": 82,
+      "primary_weighted_per_caw_auc": 0.5223,
+      "weighted_bal_acc": 0.5158,
+      "exploratory_unweighted_per_caw_auc": 0.5119,
+      "exploratory_rec_mean_caw_auc": 0.5442,
+      "perm_p": 0.2836,
+      "perm_mean": 0.4938
+    },
+    "birdnet_isolated_caw_density_matched": {
+      "n_caws": 1589,
+      "n_recordings": 76,
+      "n_pos_recs": 38,
+      "n_neg_recs": 38,
+      "n_groups": 66,
+      "primary_weighted_per_caw_auc": 0.571,
+      "weighted_bal_acc": 0.5584,
+      "exploratory_unweighted_per_caw_auc": 0.5387,
+      "exploratory_rec_mean_caw_auc": 0.6295,
+      "perm_p": 0.1343,
+      "perm_mean": 0.5018
+    },
+    "recording_bn_raptor_masked_only_same_recs": {
+      "n": 101,
+      "n_pos": 61,
+      "n_neg": 40,
+      "n_groups": 83,
+      "auc": 0.6512,
+      "bal_acc": 0.6154,
+      "perm_p": 0.0498,
+      "perm_mean": 0.5005
+    },
+    "recording_bn_all_noncrow_masked": {
+      "n": 101,
+      "n_pos": 61,
+      "n_neg": 40,
+      "n_groups": 83,
+      "auc": 0.6385,
+      "bal_acc": 0.64,
+      "perm_p": 0.0574,
+      "perm_mean": 0.4986
+    },
+    "recording_bn_all_noncrow_masked_density_matched": {
+      "n": 76,
+      "n_pos": 38,
+      "n_neg": 38,
+      "n_groups": 66,
+      "auc": 0.6683,
+      "bal_acc": 0.6316,
+      "perm_p": 0.0399,
+      "perm_mean": 0.5006
+    },
+    "bystander_prevalence_dev": {
+      "owl_recs_with_any_bystander": "46/61",
+      "hawk_recs_with_any_bystander": "38/45",
+      "top_owl_bystanders": [
+        [
+          "Fish Crow",
+          18
+        ],
+        [
+          "Rook",
+          15
+        ],
+        [
+          "Carrion Crow",
+          5
+        ],
+        [
+          "Common Raven",
+          5
+        ],
+        [
+          "Large-billed Crow",
+          4
+        ],
+        [
+          "Downy Woodpecker",
+          4
+        ],
+        [
+          "Palm Crow",
+          3
+        ],
+        [
+          "Pied Crow",
+          3
+        ],
+        [
+          "Blue Jay",
+          3
+        ],
+        [
+          "Wood Duck",
+          2
+        ]
+      ],
+      "top_hawk_bystanders": [
+        [
+          "Rook",
+          12
+        ],
+        [
+          "Fish Crow",
+          10
+        ],
+        [
+          "Hooded Crow",
+          7
+        ],
+        [
+          "Large-billed Crow",
+          5
+        ],
+        [
+          "Carrion Crow",
+          5
+        ],
+        [
+          "American Tree Sparrow",
+          4
+        ],
+        [
+          "Black-capped Chickadee",
+          3
+        ],
+        [
+          "White-crowned Sparrow",
+          3
+        ],
+        [
+          "Acorn Woodpecker",
+          3
+        ],
+        [
+          "Little Raven",
+          2
+        ]
+      ]
+    }
+  },
+  "step_d_posture_table_dev": {
+    "hawk_mobbing|flying": 11,
+    "hawk_mobbing|mixed": 4,
+    "hawk_mobbing|perched": 10,
+    "hawk_mobbing|unknown": 20,
+    "owl_mobbing|flying": 1,
+    "owl_mobbing|mixed": 4,
+    "owl_mobbing|perched": 12,
+    "owl_mobbing|unknown": 44
+  },
+  "step_d_primary_perched_pure_bn": {
+    "n": 20,
+    "n_pos": 12,
+    "n_neg": 8,
+    "n_groups": 19,
+    "auc": 0.4896,
+    "bal_acc": 0.4583,
+    "perm_p": 0.4439,
+    "perm_mean": 0.4647
+  },
+  "step_d_metadata_null": {
+    "n": 20,
+    "n_pos": 12,
+    "n_neg": 8,
+    "n_groups": 19,
+    "auc": 0.6458,
+    "bal_acc": 0.5625,
+    "perm_p": null,
+    "perm_mean": null
+  },
+  "step_d_exploratory": {
+    "perched_raptor_masked_only_bn": {
+      "n": 22,
+      "n_pos": 12,
+      "n_neg": 10,
+      "n_groups": 21,
+      "auc": 0.5917,
+      "bal_acc": 0.525,
+      "perm_p": 0.207,
+      "perm_mean": 0.4566
+    },
+    "perched_caw_acoustic_44d": {
+      "n_caws": 335,
+      "n_recordings": 19,
+      "n_pos_recs": 11,
+      "n_neg_recs": 8,
+      "n_groups": 18,
+      "primary_weighted_per_caw_auc": 0.4325,
+      "weighted_bal_acc": 0.4476,
+      "exploratory_unweighted_per_caw_auc": 0.5043,
+      "exploratory_rec_mean_caw_auc": 0.4432,
+      "perm_p": 0.586,
+      "perm_mean": 0.4729
+    },
+    "perched_caw_isolated_bn": {
+      "n_caws": 335,
+      "n_recordings": 19,
+      "n_pos_recs": 11,
+      "n_neg_recs": 8,
+      "n_groups": 18,
+      "primary_weighted_per_caw_auc": 0.511,
+      "weighted_bal_acc": 0.493,
+      "exploratory_unweighted_per_caw_auc": 0.4978,
+      "exploratory_rec_mean_caw_auc": 0.5,
+      "perm_p": 0.5174,
+      "perm_mean": 0.507
+    },
+    "within_hawk_perched_vs_flying": {
+      "n": 18,
+      "n_pos": 8,
+      "n_neg": 10,
+      "n_groups": 17,
+      "auc": 0.625,
+      "bal_acc": 0.4375,
+      "perm_p": 0.3184,
+      "perm_mean": 0.5165
+    }
+  }
+}

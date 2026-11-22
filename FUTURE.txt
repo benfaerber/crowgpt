@@ -10,6 +10,20 @@ few days, this one is everything after. An item graduates from here to there
 when it has a shape and a reason to happen now.
 
 
+[ ] Two-way semantic generation: condition CrowGPT (Dual-AR) to speak owl
+    alarm vs. hawk alarm vs. terrestrial/human scold (Pinyon, 2026-11-21)
+
+    Now that `analyzer/threat.py` ships a calibrated American Crow threat head
+    trained from Experiment 0102 (owl / hawk / terrestrial / non_threat; 0.786
+    macro AUC, 0.881 owl OvR, 0.797 owl vs hawk, verified zero-shot on Poe
+    Family), run the head over the unlabeled American Crow bout corpus to
+    pseudo-label high-confidence `owl_mobbing`, `hawk_mobbing`, and
+    `terrestrial_scold` bouts (keeping only high-lift / high-margin bouts).
+    Fine-tune or condition the `0101` Dual-AR checkpoint on those semantic tokens
+    so CrowGPT can be asked for an owl alarm vs. a hawk alarm vs. a human scold
+    and evaluated both acoustically (speed + harmonic ratio + pitch contour)
+    and by ear via a blinded listening pool. Requires a GPU booking.
+
 [ ] Probe CrowGPT hidden states and Perch on 0102's 561 witnessed semantic
     recordings (Pinyon, 2026-11-21)
 

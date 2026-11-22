@@ -1,0 +1,94 @@
+{
+  "cutoff_date": "2023-01-01",
+  "step_c_holdout_full": {
+    "n_caws": 718,
+    "n_recordings": 32,
+    "n_pos_recs": 17,
+    "n_neg_recs": 15,
+    "primary_weighted_per_caw_auc": 0.7198,
+    "weighted_bal_acc": 0.6639,
+    "exploratory_unweighted_per_caw_auc": 0.7324,
+    "exploratory_rec_mean_caw_auc": 0.8431,
+    "rec_mw_p_two_sided": 0.001,
+    "rec_mw_p_one_sided": 0.0005
+  },
+  "step_c_holdout_zero_overlap": {
+    "n_caws": 559,
+    "n_recordings": 26,
+    "n_pos_recs": 15,
+    "n_neg_recs": 11,
+    "primary_weighted_per_caw_auc": 0.7208,
+    "weighted_bal_acc": 0.6607,
+    "exploratory_unweighted_per_caw_auc": 0.7256,
+    "exploratory_rec_mean_caw_auc": 0.8485,
+    "rec_mw_p_two_sided": 0.0031,
+    "rec_mw_p_one_sided": 0.0015
+  },
+  "step_c_exploratory_isolated_bn_holdout": {
+    "n_caws": 718,
+    "n_recordings": 32,
+    "n_pos_recs": 17,
+    "n_neg_recs": 15,
+    "primary_weighted_per_caw_auc": 0.7148,
+    "weighted_bal_acc": 0.6299,
+    "exploratory_unweighted_per_caw_auc": 0.6953,
+    "exploratory_rec_mean_caw_auc": 0.8824,
+    "rec_mw_p_two_sided": 0.0002,
+    "rec_mw_p_one_sided": 0.0001
+  },
+  "exploratory_rec_pure_bn_holdout_full": {
+    "n": 32,
+    "n_pos": 17,
+    "n_neg": 15,
+    "auc": 0.7922,
+    "bal_acc": 0.6412,
+    "mw_p_two_sided": 0.0052,
+    "mw_p_one_sided": 0.0026
+  },
+  "exploratory_rec_pure_bn_holdout_zero_overlap": {
+    "n": 26,
+    "n_pos": 15,
+    "n_neg": 11,
+    "auc": 0.7394,
+    "bal_acc": 0.6152,
+    "mw_p_two_sided": 0.043,
+    "mw_p_one_sided": 0.0215
+  },
+  "step_d_holdout_perched_pure_full": {
+    "n": 6,
+    "n_pos": 4,
+    "n_neg": 2,
+    "auc": 0.5,
+    "bal_acc": 0.375,
+    "mw_p_two_sided": 1.0,
+    "mw_p_one_sided": 0.6
+  },
+  "step_d_holdout_perched_pure_zero_overlap": {
+    "n": 5,
+    "n_pos": 3,
+    "n_neg": 2,
+    "auc": 0.3333,
+    "bal_acc": 0.3333,
+    "mw_p_two_sided": 0.8,
+    "mw_p_one_sided": 0.8
+  },
+  "step_d_exploratory_perched_raptor_masked_holdout": {
+    "n": 6,
+    "n_pos": 4,
+    "n_neg": 2,
+    "auc": 0.75,
+    "bal_acc": 0.5,
+    "mw_p_two_sided": 0.5333,
+    "mw_p_one_sided": 0.2667
+  },
+  "holdout_posture_table": {
+    "hawk_mobbing|flying": 7,
+    "hawk_mobbing|mixed": 2,
+    "hawk_mobbing|perched": 2,
+    "hawk_mobbing|unknown": 13,
+    "owl_mobbing|flying": 1,
+    "owl_mobbing|mixed": 1,
+    "owl_mobbing|perched": 4,
+    "owl_mobbing|unknown": 12
+  }
+}

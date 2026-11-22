@@ -21,7 +21,11 @@ reason and lost nothing by it.
 
 ## Booked
 
-- **2026-11-21 14:57 → 2026-11-21 15:47 (America/Denver)** — Chatterbox voice clone for the feature's scratch narration (a few GB, a few minutes), then the Blender EEVEE preview (960×540) of the feature film in `promo/video/`. Rook. Killable on request.
+- ~~**2026-11-21 21:04 → 2026-11-21 21:10 (America/Denver)** — **Experiment 0102 crow-masked Perch 2.0 Poe Family check**: Perch 2.0 inference over BirdNET-detected crow windows only (~200 windows across 25 kept captures, ~2 GB VRAM, ~20 s). Pinyon. Killable on request.~~ Done 21:05; card released.
+
+- ~~**2026-11-21 20:37 → 2026-11-21 20:55 (America/Denver)** — **Experiment 0102 Perch 2.0 threat-translation benchmark**: Perch 2.0 embedding extraction over ~375 strict witnessed American Crow archive recordings + 29 kept Poe Family captures + local eval clips (~2–3 GB VRAM, ~4 min). Pinyon. Killable on request.~~ Done 20:51; card released.
+
+- ~~**2026-11-21 14:57 → 2026-11-21 15:47 (America/Denver)** — Chatterbox voice clone for the feature's scratch narration (a few GB, a few minutes), then the Blender EEVEE preview (960×540) of the feature film in `promo/video/`. Rook. Killable on request.~~ Done 15:46; card released.
 
 - ~~**2026-11-21 13:28 → 2026-11-21 14:13 (America/Denver)** — Blender EEVEE re-render of the eight crow-vision shots in `~/Code/crowsim` at a slower pace, several Blender processes at once, a few GB of VRAM. Rook. Killable on request.~~ Finished 13:49. Card free.
 

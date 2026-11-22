@@ -1,0 +1,890 @@
+[
+  {
+    "id": 130,
+    "context": "owl_mobbing",
+    "posture": "flying",
+    "cue": "chasing and mobbing a barred owl that I had flushed"
+  },
+  {
+    "id": 214,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "mobbed two Bubo virginianus in willows"
+  },
+  {
+    "id": 242,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "dive-bombs a sitting Cooper's Hawk"
+  },
+  {
+    "id": 347,
+    "context": "owl_mobbing",
+    "posture": "mixed",
+    "cue": "tucked into a eucalyptus tree, finally chased to owl off"
+  },
+  {
+    "id": 387,
+    "context": "hawk_mobbing",
+    "posture": "mixed",
+    "cue": "see the raptor well enough to identify it before it flew off"
+  },
+  {
+    "id": 22374,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22423,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22428,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22449,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22490,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22570,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22613,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22619,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 22809,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "mobbing a Red-tailed Hawk in flight"
+  },
+  {
+    "id": 22843,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23007,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23023,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23031,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "the Owl hopped to a new branch"
+  },
+  {
+    "id": 23241,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23299,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23321,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "on a perched female Great Horned Owl"
+  },
+  {
+    "id": 23372,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23402,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23443,
+    "context": "owl_mobbing",
+    "posture": "mixed",
+    "cue": "close to the owls ... The owl then flies away again"
+  },
+  {
+    "id": 23474,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23520,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23606,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "Great Horned Owl at owl's day roost"
+  },
+  {
+    "id": 23649,
+    "context": "owl_mobbing",
+    "posture": "mixed",
+    "cue": "targeted an adult GHOW. The owl flew at 9 seconds"
+  },
+  {
+    "id": 23742,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23773,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 23775,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "mobbing a Great Horned Owl in a hardwood"
+  },
+  {
+    "id": 23820,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24169,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "making noise as a Red-tailed Hawk took flight"
+  },
+  {
+    "id": 24259,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24403,
+    "context": "hawk_mobbing",
+    "posture": "mixed",
+    "cue": "mobbed a perched Cooper's Hawk. Eventually, the hawk flew north"
+  },
+  {
+    "id": 24452,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24545,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "at low circling Turkey Vultures"
+  },
+  {
+    "id": 24553,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24562,
+    "context": "hawk_mobbing",
+    "posture": "mixed",
+    "cue": "Red-tailed Hawk on a telephone pole ... RTHA flying off"
+  },
+  {
+    "id": 24577,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24582,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24623,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24663,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "a red-tailed hawk in the tree"
+  },
+  {
+    "id": 24783,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24816,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "behind the trees which the crows were following"
+  },
+  {
+    "id": 24860,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24903,
+    "context": "hawk_mobbing",
+    "posture": "mixed",
+    "cue": "at the top of a Doug fir ... flew off"
+  },
+  {
+    "id": 24918,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24948,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 24978,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25057,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25082,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "BAOW  cornered in magnolia tree"
+  },
+  {
+    "id": 25257,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25428,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25494,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25516,
+    "context": "owl_mobbing",
+    "posture": "mixed",
+    "cue": "flushed from original perch and landed in my tree"
+  },
+  {
+    "id": 25566,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25567,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25569,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25596,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25618,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "away from the Peregrine Falcon, on the same tree"
+  },
+  {
+    "id": 25678,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25684,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "the goshawk mantling over one of their brethren"
+  },
+  {
+    "id": 25716,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 25729,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "when Bald Eagle flew overhead at low elevation"
+  },
+  {
+    "id": 25867,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26072,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26102,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26161,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "mobbing a perched PEFA  or COHA"
+  },
+  {
+    "id": 26222,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26350,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26479,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "right before the Cooper's Hawk flew in"
+  },
+  {
+    "id": 26593,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26616,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "Great Horned Owl perched in a relatively small Cottonwood Tree"
+  },
+  {
+    "id": 26713,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "to a nearby euc where they continued to harrass"
+  },
+  {
+    "id": 26722,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "Red-tailed Hawk eating a recently caught American Robin"
+  },
+  {
+    "id": 26742,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "Pursuing/harassing red-shouldered hawk"
+  },
+  {
+    "id": 26810,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26855,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 26861,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 27048,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "mobbing a Red-tailed Hawk in a tree"
+  },
+  {
+    "id": 27087,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 27102,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 27111,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "three harassing hawk, all in flight"
+  },
+  {
+    "id": 27224,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 27238,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 27351,
+    "context": "owl_mobbing",
+    "posture": "flying",
+    "cue": "Great Horned Owl) flying away through the trees"
+  },
+  {
+    "id": 27553,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 27603,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 27654,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "mobbing a Great Horned Owl at its roost"
+  },
+  {
+    "id": 27883,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "scolding a Red-tailed Hawk in the tree tops"
+  },
+  {
+    "id": 28236,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 28316,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 28320,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 28381,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 28391,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 28490,
+    "context": "owl_mobbing",
+    "posture": "mixed",
+    "cue": "ABOVE GREAT HORNED OWL, THEN FLYING OFF WITH THE OWL"
+  },
+  {
+    "id": 28498,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "HARASSING STUFFED OWL"
+  },
+  {
+    "id": 28505,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "Sound stimulation was (other): Stuffed owl"
+  },
+  {
+    "id": 28626,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "chasing the hawk"
+  },
+  {
+    "id": 28660,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 28992,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 29119,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 29123,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 29662,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "Cooper's Hawk who was in a hedge area"
+  },
+  {
+    "id": 29688,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 29709,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "Chasing buteo in flight"
+  },
+  {
+    "id": 29712,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "GHOW sitting on its nest"
+  },
+  {
+    "id": 29770,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "Great Horned Owl perched in a Douglas Fir Tree"
+  },
+  {
+    "id": 29798,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "small hawk, which darted past and vanished"
+  },
+  {
+    "id": 29868,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 30136,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "chasing and harassing a RTHA"
+  },
+  {
+    "id": 30150,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 30157,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 30269,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 30296,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 30470,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "Red-tailed Hawk on the ground between the compost piles"
+  },
+  {
+    "id": 30855,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "entire flock started chasing a Red-shouldered Hawk"
+  },
+  {
+    "id": 31186,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 31201,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 31368,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 31427,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 31501,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 31506,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 31907,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "the owl, which remained perched in the tree"
+  },
+  {
+    "id": 31929,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "eagle or hawk flying northwest around rooftop level"
+  },
+  {
+    "id": 32047,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 32207,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "two perched next to a Cooper's Hawk"
+  },
+  {
+    "id": 32211,
+    "context": "hawk_mobbing",
+    "posture": "perched",
+    "cue": "harassing a perched OSPR"
+  },
+  {
+    "id": 32259,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 32261,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "Barred Owl that had taken refuge in a pine"
+  },
+  {
+    "id": 32544,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 32558,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "in pursuit of a Sharp-shinned Hawk"
+  },
+  {
+    "id": 32622,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 32713,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 32830,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 32847,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "harassing a red-tailed hawk in flight"
+  },
+  {
+    "id": 32918,
+    "context": "hawk_mobbing",
+    "posture": "mixed",
+    "cue": "Red-tailed Hawk who flew in, then sat in a tree"
+  },
+  {
+    "id": 33065,
+    "context": "hawk_mobbing",
+    "posture": "mixed",
+    "cue": "sitting high atop a wooden pole ... finally left"
+  },
+  {
+    "id": 33269,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 33391,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 33989,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 34021,
+    "context": "owl_mobbing",
+    "posture": "perched",
+    "cue": "DIVING AND HARASSING STUFFED OWL"
+  },
+  {
+    "id": 34324,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 34573,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "Two birds chasing after larger buteo"
+  },
+  {
+    "id": 34592,
+    "context": "owl_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 35100,
+    "context": "hawk_mobbing",
+    "posture": "unknown",
+    "cue": ""
+  },
+  {
+    "id": 35336,
+    "context": "hawk_mobbing",
+    "posture": "flying",
+    "cue": "2 Amer Crows chasing a raptor"
+  }
+]
