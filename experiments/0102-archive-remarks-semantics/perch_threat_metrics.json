@@ -1,0 +1,391 @@
+{
+  "class_counts": {
+    "terrestrial": 26,
+    "non_threat": 206,
+    "owl": 79,
+    "hawk": 67
+  },
+  "cv_arms": {
+    "birdnet_pooled_only": {
+      "n": 378,
+      "macro_auc": 0.7503,
+      "ovr_auc": {
+        "owl": 0.8567,
+        "hawk": 0.6682,
+        "terrestrial": 0.6484,
+        "non_threat": 0.828
+      },
+      "brier": {
+        "owl": 0.1182,
+        "hawk": 0.1382,
+        "terrestrial": 0.064,
+        "non_threat": 0.1674
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7735,
+        "owl_vs_terrestrial": 0.6796,
+        "hawk_vs_terrestrial": 0.6206
+      },
+      "sat_99": 0.0013
+    },
+    "birdnet_pooled_plus_pros_speed": {
+      "n": 378,
+      "macro_auc": 0.7687,
+      "ovr_auc": {
+        "owl": 0.8561,
+        "hawk": 0.6882,
+        "terrestrial": 0.7004,
+        "non_threat": 0.8302
+      },
+      "brier": {
+        "owl": 0.1145,
+        "hawk": 0.1359,
+        "terrestrial": 0.0635,
+        "non_threat": 0.1666
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7697,
+        "owl_vs_terrestrial": 0.6938,
+        "hawk_vs_terrestrial": 0.698
+      },
+      "sat_99": 0.0026
+    },
+    "perch_mean_only (1536d)": {
+      "n": 378,
+      "macro_auc": 0.7475,
+      "ovr_auc": {
+        "owl": 0.8425,
+        "hawk": 0.6487,
+        "terrestrial": 0.6685,
+        "non_threat": 0.8302
+      },
+      "brier": {
+        "owl": 0.1207,
+        "hawk": 0.141,
+        "terrestrial": 0.0639,
+        "non_threat": 0.1665
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7368,
+        "owl_vs_terrestrial": 0.6534,
+        "hawk_vs_terrestrial": 0.6699
+      },
+      "sat_99": 0.002
+    },
+    "perch_pooled_only (4608d)": {
+      "n": 378,
+      "macro_auc": 0.78,
+      "ovr_auc": {
+        "owl": 0.8533,
+        "hawk": 0.7028,
+        "terrestrial": 0.7195,
+        "non_threat": 0.8443
+      },
+      "brier": {
+        "owl": 0.1171,
+        "hawk": 0.1365,
+        "terrestrial": 0.0617,
+        "non_threat": 0.1568
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7591,
+        "owl_vs_terrestrial": 0.6938,
+        "hawk_vs_terrestrial": 0.7285
+      },
+      "sat_99": 0.0013
+    },
+    "perch_pooled_plus_pros_speed": {
+      "n": 378,
+      "macro_auc": 0.7903,
+      "ovr_auc": {
+        "owl": 0.844,
+        "hawk": 0.6969,
+        "terrestrial": 0.7812,
+        "non_threat": 0.8391
+      },
+      "brier": {
+        "owl": 0.1183,
+        "hawk": 0.1368,
+        "terrestrial": 0.0592,
+        "non_threat": 0.1596
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7397,
+        "owl_vs_terrestrial": 0.724,
+        "hawk_vs_terrestrial": 0.7778
+      },
+      "sat_99": 0.0013
+    },
+    "perch_plus_birdnet_pooled": {
+      "n": 378,
+      "macro_auc": 0.781,
+      "ovr_auc": {
+        "owl": 0.864,
+        "hawk": 0.6972,
+        "terrestrial": 0.7171,
+        "non_threat": 0.8458
+      },
+      "brier": {
+        "owl": 0.1132,
+        "hawk": 0.136,
+        "terrestrial": 0.0627,
+        "non_threat": 0.1565
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7774,
+        "owl_vs_terrestrial": 0.7016,
+        "hawk_vs_terrestrial": 0.7055
+      },
+      "sat_99": 0.0013
+    },
+    "perch_plus_birdnet_plus_pros_speed": {
+      "n": 378,
+      "macro_auc": 0.7907,
+      "ovr_auc": {
+        "owl": 0.8579,
+        "hawk": 0.6997,
+        "terrestrial": 0.7617,
+        "non_threat": 0.8433
+      },
+      "brier": {
+        "owl": 0.1128,
+        "hawk": 0.1356,
+        "terrestrial": 0.0607,
+        "non_threat": 0.1575
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7619,
+        "owl_vs_terrestrial": 0.7293,
+        "hawk_vs_terrestrial": 0.7577
+      },
+      "sat_99": 0.0007
+    }
+  },
+  "poe_perch_eval": [
+    {
+      "id": 69,
+      "probs": {
+        "owl": 0.052,
+        "hawk": 0.396,
+        "terrestrial": 0.027,
+        "non_threat": 0.393
+      }
+    },
+    {
+      "id": 87,
+      "probs": {
+        "owl": 0.009,
+        "hawk": 0.438,
+        "terrestrial": 0.033,
+        "non_threat": 0.65
+      }
+    },
+    {
+      "id": 88,
+      "probs": {
+        "owl": 0.068,
+        "hawk": 0.288,
+        "terrestrial": 0.023,
+        "non_threat": 0.497
+      }
+    },
+    {
+      "id": 94,
+      "probs": {
+        "owl": 0.121,
+        "hawk": 0.3,
+        "terrestrial": 0.087,
+        "non_threat": 0.265
+      }
+    },
+    {
+      "id": 95,
+      "probs": {
+        "owl": 0.059,
+        "hawk": 0.335,
+        "terrestrial": 0.052,
+        "non_threat": 0.385
+      }
+    },
+    {
+      "id": 96,
+      "probs": {
+        "owl": 0.123,
+        "hawk": 0.369,
+        "terrestrial": 0.07,
+        "non_threat": 0.235
+      }
+    },
+    {
+      "id": 97,
+      "probs": {
+        "owl": 0.375,
+        "hawk": 0.12,
+        "terrestrial": 0.053,
+        "non_threat": 0.418
+      }
+    },
+    {
+      "id": 100,
+      "probs": {
+        "owl": 0.07,
+        "hawk": 0.256,
+        "terrestrial": 0.045,
+        "non_threat": 0.472
+      }
+    },
+    {
+      "id": 102,
+      "probs": {
+        "owl": 0.024,
+        "hawk": 0.395,
+        "terrestrial": 0.025,
+        "non_threat": 0.537
+      }
+    },
+    {
+      "id": 103,
+      "probs": {
+        "owl": 0.005,
+        "hawk": 0.277,
+        "terrestrial": 0.031,
+        "non_threat": 0.898
+      }
+    },
+    {
+      "id": 104,
+      "probs": {
+        "owl": 0.005,
+        "hawk": 0.174,
+        "terrestrial": 0.013,
+        "non_threat": 0.944
+      }
+    },
+    {
+      "id": 105,
+      "probs": {
+        "owl": 0.01,
+        "hawk": 0.328,
+        "terrestrial": 0.033,
+        "non_threat": 0.782
+      }
+    },
+    {
+      "id": 113,
+      "probs": {
+        "owl": 0.275,
+        "hawk": 0.158,
+        "terrestrial": 0.031,
+        "non_threat": 0.57
+      }
+    },
+    {
+      "id": 114,
+      "probs": {
+        "owl": 0.008,
+        "hawk": 0.286,
+        "terrestrial": 0.034,
+        "non_threat": 0.855
+      }
+    },
+    {
+      "id": 115,
+      "probs": {
+        "owl": 0.048,
+        "hawk": 0.204,
+        "terrestrial": 0.024,
+        "non_threat": 0.779
+      }
+    },
+    {
+      "id": 116,
+      "probs": {
+        "owl": 0.002,
+        "hawk": 0.204,
+        "terrestrial": 0.014,
+        "non_threat": 0.966
+      }
+    },
+    {
+      "id": 119,
+      "probs": {
+        "owl": 0.03,
+        "hawk": 0.146,
+        "terrestrial": 0.018,
+        "non_threat": 0.878
+      }
+    },
+    {
+      "id": 153,
+      "probs": {
+        "owl": 0.02,
+        "hawk": 0.13,
+        "terrestrial": 0.01,
+        "non_threat": 0.933
+      }
+    },
+    {
+      "id": 154,
+      "probs": {
+        "owl": 0.014,
+        "hawk": 0.367,
+        "terrestrial": 0.021,
+        "non_threat": 0.623
+      }
+    },
+    {
+      "id": 155,
+      "probs": {
+        "owl": 0.02,
+        "hawk": 0.164,
+        "terrestrial": 0.024,
+        "non_threat": 0.908
+      }
+    },
+    {
+      "id": 156,
+      "probs": {
+        "owl": 0.019,
+        "hawk": 0.184,
+        "terrestrial": 0.031,
+        "non_threat": 0.895
+      }
+    },
+    {
+      "id": 157,
+      "probs": {
+        "owl": 0.004,
+        "hawk": 0.422,
+        "terrestrial": 0.025,
+        "non_threat": 0.806
+      }
+    },
+    {
+      "id": 158,
+      "probs": {
+        "owl": 0.012,
+        "hawk": 0.293,
+        "terrestrial": 0.026,
+        "non_threat": 0.801
+      }
+    },
+    {
+      "id": 178,
+      "probs": {
+        "owl": 0.04,
+        "hawk": 0.287,
+        "terrestrial": 0.016,
+        "non_threat": 0.751
+      }
+    },
+    {
+      "id": 197,
+      "probs": {
+        "owl": 0.006,
+        "hawk": 0.38,
+        "terrestrial": 0.021,
+        "non_threat": 0.836
+      }
+    }
+  ]
+}

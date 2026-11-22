@@ -1,103 +1,103 @@
 {
   "selected_arm": "birdnet_pooled_plus_prosody_speed_w0.35",
   "class_counts": {
-    "terrestrial": 21,
-    "non_threat": 200,
-    "owl": 78,
-    "hawk": 66
+    "terrestrial": 26,
+    "non_threat": 206,
+    "owl": 79,
+    "hawk": 67
   },
   "cv_arms": {
     "birdnet_mean_only": {
-      "n": 365,
-      "n_groups": 228,
-      "macro_auc": 0.7649,
+      "n": 378,
+      "n_groups": 234,
+      "macro_auc": 0.7439,
       "ovr_auc": {
-        "owl": 0.8736,
-        "hawk": 0.7174,
-        "terrestrial": 0.622,
-        "non_threat": 0.8465
+        "owl": 0.8627,
+        "hawk": 0.6696,
+        "terrestrial": 0.6,
+        "non_threat": 0.8433
       },
       "brier": {
-        "owl": 0.1103,
-        "hawk": 0.1384,
-        "terrestrial": 0.0542,
-        "non_threat": 0.1586
+        "owl": 0.1151,
+        "hawk": 0.1388,
+        "terrestrial": 0.0647,
+        "non_threat": 0.1608
       },
       "pair_aucs": {
-        "owl_vs_hawk": 0.7826,
-        "owl_vs_terrestrial": 0.6972,
-        "hawk_vs_terrestrial": 0.6645
+        "owl_vs_hawk": 0.7625,
+        "owl_vs_terrestrial": 0.6636,
+        "hawk_vs_terrestrial": 0.6246
       },
-      "sat_rate_99": 0.0062
+      "sat_rate_99": 0.0033
     },
     "birdnet_pooled_only": {
-      "n": 365,
-      "n_groups": 228,
-      "macro_auc": 0.7747,
+      "n": 378,
+      "n_groups": 234,
+      "macro_auc": 0.7503,
       "ovr_auc": {
-        "owl": 0.8793,
-        "hawk": 0.716,
-        "terrestrial": 0.6665,
-        "non_threat": 0.837
+        "owl": 0.8567,
+        "hawk": 0.6682,
+        "terrestrial": 0.6484,
+        "non_threat": 0.828
       },
       "brier": {
-        "owl": 0.1094,
-        "hawk": 0.1372,
-        "terrestrial": 0.054,
-        "non_threat": 0.1635
+        "owl": 0.1182,
+        "hawk": 0.1382,
+        "terrestrial": 0.064,
+        "non_threat": 0.1674
       },
       "pair_aucs": {
-        "owl_vs_hawk": 0.7889,
-        "owl_vs_terrestrial": 0.7778,
-        "hawk_vs_terrestrial": 0.6934
+        "owl_vs_hawk": 0.7735,
+        "owl_vs_terrestrial": 0.6796,
+        "hawk_vs_terrestrial": 0.6211
       },
-      "sat_rate_99": 0.0055
+      "sat_rate_99": 0.0013
     },
     "birdnet_mean_plus_prosody_speed_w0.35": {
-      "n": 365,
-      "n_groups": 228,
-      "macro_auc": 0.7712,
+      "n": 378,
+      "n_groups": 234,
+      "macro_auc": 0.7499,
       "ovr_auc": {
-        "owl": 0.8792,
-        "hawk": 0.7371,
-        "terrestrial": 0.6264,
-        "non_threat": 0.8422
+        "owl": 0.861,
+        "hawk": 0.6802,
+        "terrestrial": 0.6202,
+        "non_threat": 0.8381
       },
       "brier": {
-        "owl": 0.1069,
-        "hawk": 0.1357,
-        "terrestrial": 0.0545,
-        "non_threat": 0.1598
+        "owl": 0.1124,
+        "hawk": 0.1371,
+        "terrestrial": 0.0644,
+        "non_threat": 0.1622
       },
       "pair_aucs": {
-        "owl_vs_hawk": 0.7984,
-        "owl_vs_terrestrial": 0.6868,
-        "hawk_vs_terrestrial": 0.6869
+        "owl_vs_hawk": 0.7659,
+        "owl_vs_terrestrial": 0.65,
+        "hawk_vs_terrestrial": 0.6579
       },
-      "sat_rate_99": 0.0055
+      "sat_rate_99": 0.0026
     },
     "birdnet_pooled_plus_prosody_speed_w0.35": {
-      "n": 365,
-      "n_groups": 228,
-      "macro_auc": 0.786,
+      "n": 378,
+      "n_groups": 234,
+      "macro_auc": 0.757,
       "ovr_auc": {
-        "owl": 0.8805,
-        "hawk": 0.7299,
-        "terrestrial": 0.6898,
-        "non_threat": 0.8439
+        "owl": 0.8592,
+        "hawk": 0.6852,
+        "terrestrial": 0.6532,
+        "non_threat": 0.8305
       },
       "brier": {
-        "owl": 0.1067,
-        "hawk": 0.1346,
-        "terrestrial": 0.0541,
-        "non_threat": 0.1594
+        "owl": 0.1142,
+        "hawk": 0.1364,
+        "terrestrial": 0.0636,
+        "non_threat": 0.1664
       },
       "pair_aucs": {
-        "owl_vs_hawk": 0.7972,
-        "owl_vs_terrestrial": 0.7521,
-        "hawk_vs_terrestrial": 0.7136
+        "owl_vs_hawk": 0.7752,
+        "owl_vs_terrestrial": 0.6626,
+        "hawk_vs_terrestrial": 0.6642
       },
-      "sat_rate_99": 0.0068
+      "sat_rate_99": 0.002
     }
   },
   "poe_family_eval": [
@@ -111,10 +111,10 @@
       "caws_per_s": 1.33,
       "shipped_p_alarm": 0.579,
       "probs": {
-        "owl": 0.141,
-        "hawk": 0.343,
-        "terrestrial": 0.032,
-        "non_threat": 0.285
+        "owl": 0.136,
+        "hawk": 0.305,
+        "terrestrial": 0.054,
+        "non_threat": 0.29
       },
       "top": "hawk"
     },
@@ -128,10 +128,10 @@
       "caws_per_s": 3.17,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.012,
-        "hawk": 0.245,
-        "terrestrial": 0.011,
-        "non_threat": 0.836
+        "owl": 0.011,
+        "hawk": 0.259,
+        "terrestrial": 0.017,
+        "non_threat": 0.852
       },
       "top": "non_threat"
     },
@@ -145,10 +145,10 @@
       "caws_per_s": 2.67,
       "shipped_p_alarm": 0.016,
       "probs": {
-        "owl": 0.035,
-        "hawk": 0.235,
-        "terrestrial": 0.024,
-        "non_threat": 0.612
+        "owl": 0.041,
+        "hawk": 0.234,
+        "terrestrial": 0.028,
+        "non_threat": 0.686
       },
       "top": "non_threat"
     },
@@ -162,10 +162,10 @@
       "caws_per_s": 3.67,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.01,
-        "hawk": 0.291,
-        "terrestrial": 0.013,
-        "non_threat": 0.612
+        "owl": 0.007,
+        "hawk": 0.322,
+        "terrestrial": 0.023,
+        "non_threat": 0.587
       },
       "top": "non_threat"
     },
@@ -179,10 +179,10 @@
       "caws_per_s": 1.33,
       "shipped_p_alarm": 0.739,
       "probs": {
-        "owl": 0.051,
-        "hawk": 0.383,
-        "terrestrial": 0.022,
-        "non_threat": 0.636
+        "owl": 0.043,
+        "hawk": 0.41,
+        "terrestrial": 0.03,
+        "non_threat": 0.659
       },
       "top": "non_threat"
     },
@@ -196,10 +196,10 @@
       "caws_per_s": 1.33,
       "shipped_p_alarm": 0.835,
       "probs": {
-        "owl": 0.056,
-        "hawk": 0.391,
-        "terrestrial": 0.025,
-        "non_threat": 0.665
+        "owl": 0.041,
+        "hawk": 0.407,
+        "terrestrial": 0.033,
+        "non_threat": 0.708
       },
       "top": "non_threat"
     },
@@ -213,10 +213,10 @@
       "caws_per_s": 1.33,
       "shipped_p_alarm": 0.893,
       "probs": {
-        "owl": 0.044,
-        "hawk": 0.396,
-        "terrestrial": 0.022,
-        "non_threat": 0.718
+        "owl": 0.032,
+        "hawk": 0.428,
+        "terrestrial": 0.033,
+        "non_threat": 0.741
       },
       "top": "non_threat"
     },
@@ -230,10 +230,10 @@
       "caws_per_s": 1.67,
       "shipped_p_alarm": 0.641,
       "probs": {
-        "owl": 0.31,
-        "hawk": 0.249,
-        "terrestrial": 0.042,
-        "non_threat": 0.392
+        "owl": 0.275,
+        "hawk": 0.222,
+        "terrestrial": 0.056,
+        "non_threat": 0.424
       },
       "top": "non_threat"
     },
@@ -247,10 +247,10 @@
       "caws_per_s": 1.5,
       "shipped_p_alarm": 0.036,
       "probs": {
-        "owl": 0.125,
-        "hawk": 0.245,
-        "terrestrial": 0.026,
-        "non_threat": 0.647
+        "owl": 0.101,
+        "hawk": 0.255,
+        "terrestrial": 0.036,
+        "non_threat": 0.654
       },
       "top": "non_threat"
     },
@@ -264,10 +264,10 @@
       "caws_per_s": 0.67,
       "shipped_p_alarm": 0.999,
       "probs": {
-        "owl": 0.161,
-        "hawk": 0.256,
-        "terrestrial": 0.064,
-        "non_threat": 0.305
+        "owl": 0.127,
+        "hawk": 0.253,
+        "terrestrial": 0.075,
+        "non_threat": 0.309
       },
       "top": "non_threat"
     },
@@ -281,10 +281,10 @@
       "caws_per_s": 2.83,
       "shipped_p_alarm": 0.035,
       "probs": {
-        "owl": 0.042,
+        "owl": 0.039,
         "hawk": 0.204,
-        "terrestrial": 0.032,
-        "non_threat": 0.614
+        "terrestrial": 0.042,
+        "non_threat": 0.61
       },
       "top": "non_threat"
     },
@@ -298,10 +298,10 @@
       "caws_per_s": 2.33,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.059,
-        "hawk": 0.104,
-        "terrestrial": 0.02,
-        "non_threat": 0.804
+        "owl": 0.044,
+        "hawk": 0.087,
+        "terrestrial": 0.03,
+        "non_threat": 0.808
       },
       "top": "non_threat"
     },
@@ -316,9 +316,9 @@
       "shipped_p_alarm": 0.001,
       "probs": {
         "owl": 0.061,
-        "hawk": 0.353,
-        "terrestrial": 0.018,
-        "non_threat": 0.567
+        "hawk": 0.377,
+        "terrestrial": 0.026,
+        "non_threat": 0.555
       },
       "top": "non_threat"
     },
@@ -332,10 +332,10 @@
       "caws_per_s": 3.67,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.008,
-        "hawk": 0.175,
-        "terrestrial": 0.013,
-        "non_threat": 0.787
+        "owl": 0.009,
+        "hawk": 0.174,
+        "terrestrial": 0.02,
+        "non_threat": 0.766
       },
       "top": "non_threat"
     },
@@ -349,10 +349,10 @@
       "caws_per_s": 2.33,
       "shipped_p_alarm": 0.933,
       "probs": {
-        "owl": 0.109,
-        "hawk": 0.223,
-        "terrestrial": 0.052,
-        "non_threat": 0.468
+        "owl": 0.095,
+        "hawk": 0.226,
+        "terrestrial": 0.061,
+        "non_threat": 0.464
       },
       "top": "non_threat"
     },
@@ -366,10 +366,10 @@
       "caws_per_s": 3.33,
       "shipped_p_alarm": 0.336,
       "probs": {
-        "owl": 0.079,
-        "hawk": 0.242,
-        "terrestrial": 0.022,
-        "non_threat": 0.582
+        "owl": 0.074,
+        "hawk": 0.257,
+        "terrestrial": 0.029,
+        "non_threat": 0.603
       },
       "top": "non_threat"
     },
@@ -383,10 +383,10 @@
       "caws_per_s": 2.0,
       "shipped_p_alarm": 0.2,
       "probs": {
-        "owl": 0.043,
-        "hawk": 0.184,
-        "terrestrial": 0.054,
-        "non_threat": 0.648
+        "owl": 0.041,
+        "hawk": 0.182,
+        "terrestrial": 0.062,
+        "non_threat": 0.645
       },
       "top": "non_threat"
     },
@@ -400,10 +400,10 @@
       "caws_per_s": 2.0,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.009,
-        "hawk": 0.18,
-        "terrestrial": 0.02,
-        "non_threat": 0.813
+        "owl": 0.01,
+        "hawk": 0.19,
+        "terrestrial": 0.026,
+        "non_threat": 0.817
       },
       "top": "non_threat"
     },
@@ -417,10 +417,10 @@
       "caws_per_s": 3.17,
       "shipped_p_alarm": 0.014,
       "probs": {
-        "owl": 0.153,
-        "hawk": 0.137,
-        "terrestrial": 0.012,
-        "non_threat": 0.601
+        "owl": 0.127,
+        "hawk": 0.13,
+        "terrestrial": 0.021,
+        "non_threat": 0.617
       },
       "top": "non_threat"
     },
@@ -435,9 +435,9 @@
       "shipped_p_alarm": 0.0,
       "probs": {
         "owl": 0.03,
-        "hawk": 0.18,
-        "terrestrial": 0.017,
-        "non_threat": 0.794
+        "hawk": 0.19,
+        "terrestrial": 0.024,
+        "non_threat": 0.796
       },
       "top": "non_threat"
     },
@@ -451,10 +451,10 @@
       "caws_per_s": 3.33,
       "shipped_p_alarm": 0.998,
       "probs": {
-        "owl": 0.092,
-        "hawk": 0.171,
-        "terrestrial": 0.099,
-        "non_threat": 0.388
+        "owl": 0.082,
+        "hawk": 0.152,
+        "terrestrial": 0.082,
+        "non_threat": 0.446
       },
       "top": "non_threat"
     },
@@ -468,10 +468,10 @@
       "caws_per_s": 2.33,
       "shipped_p_alarm": 0.325,
       "probs": {
-        "owl": 0.226,
-        "hawk": 0.148,
-        "terrestrial": 0.051,
-        "non_threat": 0.426
+        "owl": 0.207,
+        "hawk": 0.141,
+        "terrestrial": 0.048,
+        "non_threat": 0.479
       },
       "top": "non_threat"
     },
@@ -486,9 +486,9 @@
       "shipped_p_alarm": 0.045,
       "probs": {
         "owl": 0.021,
-        "hawk": 0.14,
-        "terrestrial": 0.074,
-        "non_threat": 0.778
+        "hawk": 0.128,
+        "terrestrial": 0.07,
+        "non_threat": 0.784
       },
       "top": "non_threat"
     },
@@ -502,10 +502,10 @@
       "caws_per_s": 3.0,
       "shipped_p_alarm": 0.06,
       "probs": {
-        "owl": 0.031,
-        "hawk": 0.126,
-        "terrestrial": 0.069,
-        "non_threat": 0.67
+        "owl": 0.038,
+        "hawk": 0.132,
+        "terrestrial": 0.055,
+        "non_threat": 0.665
       },
       "top": "non_threat"
     },
@@ -519,10 +519,10 @@
       "caws_per_s": 2.67,
       "shipped_p_alarm": 0.326,
       "probs": {
-        "owl": 0.134,
-        "hawk": 0.275,
-        "terrestrial": 0.046,
-        "non_threat": 0.35
+        "owl": 0.13,
+        "hawk": 0.278,
+        "terrestrial": 0.049,
+        "non_threat": 0.377
       },
       "top": "non_threat"
     },
@@ -536,10 +536,10 @@
       "caws_per_s": 4.33,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.002,
-        "hawk": 0.182,
-        "terrestrial": 0.016,
-        "non_threat": 0.826
+        "owl": 0.003,
+        "hawk": 0.185,
+        "terrestrial": 0.018,
+        "non_threat": 0.823
       },
       "top": "non_threat"
     },
@@ -553,10 +553,10 @@
       "caws_per_s": 4.0,
       "shipped_p_alarm": 1.0,
       "probs": {
-        "owl": 0.12,
-        "hawk": 0.391,
-        "terrestrial": 0.037,
-        "non_threat": 0.214
+        "owl": 0.127,
+        "hawk": 0.403,
+        "terrestrial": 0.045,
+        "non_threat": 0.218
       },
       "top": "hawk"
     },
@@ -570,10 +570,10 @@
       "caws_per_s": 4.33,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.001,
-        "hawk": 0.48,
-        "terrestrial": 0.008,
-        "non_threat": 0.74
+        "owl": 0.0,
+        "hawk": 0.539,
+        "terrestrial": 0.013,
+        "non_threat": 0.717
       },
       "top": "non_threat"
     },
@@ -587,10 +587,10 @@
       "caws_per_s": 4.67,
       "shipped_p_alarm": 0.0,
       "probs": {
-        "owl": 0.018,
-        "hawk": 0.396,
-        "terrestrial": 0.094,
-        "non_threat": 0.266
+        "owl": 0.021,
+        "hawk": 0.408,
+        "terrestrial": 0.076,
+        "non_threat": 0.282
       },
       "top": "hawk"
     }
