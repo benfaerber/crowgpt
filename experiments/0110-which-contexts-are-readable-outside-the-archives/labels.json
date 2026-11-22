@@ -1,0 +1,2948 @@
+{
+ "coded": "2026-11-22, from the observer's description alone, before any audio feature was extracted",
+ "coder": "a second agent given the codebook and the text and nothing else: not the hypotheses, the audio, or any score. A sample of 73 rows was audited against the text and none was changed.",
+ "screened": 1428,
+ "rule": "as pre-registered. raptor_mobbing is exactly the 90 recordings coded for 0106; three further rows the coder called raptor_mobbing had been excluded in 0106 and stay out. Where the rule left room the coder settled: a bare large flock, large murder or hundreds is roost_gathering; a large flock described only as flying over is flight_contact; \"a few\", \"several\", \"dozens\" count as 3+; \"multiple\", \"some\", \"at least two\" are not a count.",
+ "labels": [
+  {
+   "recording_id": 49201,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "e9ed3f5103"
+  },
+  {
+   "recording_id": 52436,
+   "context": null,
+   "count_stated": 1,
+   "event": "da041506a5"
+  },
+  {
+   "recording_id": 52444,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "494e9cccc5"
+  },
+  {
+   "recording_id": 52460,
+   "context": null,
+   "count_stated": 3,
+   "event": "089d4d8bd1"
+  },
+  {
+   "recording_id": 52465,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "2b3c522ba4"
+  },
+  {
+   "recording_id": 52470,
+   "context": null,
+   "count_stated": 3,
+   "event": "6e16a90eb4"
+  },
+  {
+   "recording_id": 52499,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "d1d6d70ccb"
+  },
+  {
+   "recording_id": 52515,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "83afe0fe15"
+  },
+  {
+   "recording_id": 52517,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "88bdcfbb18"
+  },
+  {
+   "recording_id": 52539,
+   "context": null,
+   "count_stated": 1,
+   "event": "40c050cb93"
+  },
+  {
+   "recording_id": 52577,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "35acee0603"
+  },
+  {
+   "recording_id": 52619,
+   "context": null,
+   "count_stated": 3,
+   "event": "916bbc3691"
+  },
+  {
+   "recording_id": 52644,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "f16237dec8"
+  },
+  {
+   "recording_id": 52647,
+   "context": null,
+   "count_stated": 2,
+   "event": "37392b8de9"
+  },
+  {
+   "recording_id": 52657,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "0612e565c1"
+  },
+  {
+   "recording_id": 52700,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "54387cc9f6"
+  },
+  {
+   "recording_id": 52711,
+   "context": "raptor_mobbing",
+   "count_stated": 2,
+   "event": "056b3fda79"
+  },
+  {
+   "recording_id": 52762,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "3d184b29e2"
+  },
+  {
+   "recording_id": 52828,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "426e4e36b1"
+  },
+  {
+   "recording_id": 52829,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "3e934a9e26"
+  },
+  {
+   "recording_id": 52848,
+   "context": null,
+   "count_stated": 2,
+   "event": "316596759d"
+  },
+  {
+   "recording_id": 52859,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "f874958c03"
+  },
+  {
+   "recording_id": 52895,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "60e5668922"
+  },
+  {
+   "recording_id": 52902,
+   "context": null,
+   "count_stated": 3,
+   "event": "fda32f8b35"
+  },
+  {
+   "recording_id": 52914,
+   "context": null,
+   "count_stated": 3,
+   "event": "148f623f6a"
+  },
+  {
+   "recording_id": 52921,
+   "context": null,
+   "count_stated": 3,
+   "event": "ad99533ce0"
+  },
+  {
+   "recording_id": 52923,
+   "context": "begging",
+   "count_stated": null,
+   "event": "30cc1bf6f4"
+  },
+  {
+   "recording_id": 52949,
+   "context": null,
+   "count_stated": 3,
+   "event": "47756a0f29"
+  },
+  {
+   "recording_id": 52961,
+   "context": "food_foraging",
+   "count_stated": 1,
+   "event": "19d158ad00"
+  },
+  {
+   "recording_id": 52966,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "2df29010e4"
+  },
+  {
+   "recording_id": 52969,
+   "context": null,
+   "count_stated": 3,
+   "event": "05269ec27b"
+  },
+  {
+   "recording_id": 52974,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "03f32dd1cb"
+  },
+  {
+   "recording_id": 53019,
+   "context": null,
+   "count_stated": 3,
+   "event": "8e5efcdfa0"
+  },
+  {
+   "recording_id": 53033,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "c437c95969"
+  },
+  {
+   "recording_id": 53038,
+   "context": "food_foraging",
+   "count_stated": 2,
+   "event": "1147337a96"
+  },
+  {
+   "recording_id": 53104,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "64294a45e8"
+  },
+  {
+   "recording_id": 53106,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "8514b723ae"
+  },
+  {
+   "recording_id": 53111,
+   "context": null,
+   "count_stated": 2,
+   "event": "cfc3ce3ece"
+  },
+  {
+   "recording_id": 53123,
+   "context": null,
+   "count_stated": 3,
+   "event": "597c209302"
+  },
+  {
+   "recording_id": 53127,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "b423b65afb"
+  },
+  {
+   "recording_id": 53142,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "ea821514a2"
+  },
+  {
+   "recording_id": 53152,
+   "context": "flight_contact",
+   "count_stated": 2,
+   "event": "8eca9a0117"
+  },
+  {
+   "recording_id": 53153,
+   "context": "begging",
+   "count_stated": null,
+   "event": "a4ce5aef67"
+  },
+  {
+   "recording_id": 53154,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "3a11f8045b"
+  },
+  {
+   "recording_id": 53158,
+   "context": "flight_contact",
+   "count_stated": 1,
+   "event": "e2ad2e0a77"
+  },
+  {
+   "recording_id": 53172,
+   "context": null,
+   "count_stated": 3,
+   "event": "ec8a72c884"
+  },
+  {
+   "recording_id": 53177,
+   "context": null,
+   "count_stated": 2,
+   "event": "71268ca62f"
+  },
+  {
+   "recording_id": 53202,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "abd59f1a70"
+  },
+  {
+   "recording_id": 53207,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "d9d988b4bd"
+  },
+  {
+   "recording_id": 53235,
+   "context": null,
+   "count_stated": 2,
+   "event": "861c9ac454"
+  },
+  {
+   "recording_id": 53241,
+   "context": null,
+   "count_stated": 3,
+   "event": "2308afc467"
+  },
+  {
+   "recording_id": 53247,
+   "context": null,
+   "count_stated": 3,
+   "event": "c9c0a3e0f6"
+  },
+  {
+   "recording_id": 53272,
+   "context": null,
+   "count_stated": 3,
+   "event": "85367b9009"
+  },
+  {
+   "recording_id": 53273,
+   "context": null,
+   "count_stated": 3,
+   "event": "c52a01ee1c"
+  },
+  {
+   "recording_id": 53300,
+   "context": null,
+   "count_stated": 3,
+   "event": "7868f717b8"
+  },
+  {
+   "recording_id": 53311,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "413abd4b8d"
+  },
+  {
+   "recording_id": 53397,
+   "context": "flight_contact",
+   "count_stated": 2,
+   "event": "a12877eea2"
+  },
+  {
+   "recording_id": 53398,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "e898e3cb4d"
+  },
+  {
+   "recording_id": 53425,
+   "context": null,
+   "count_stated": 1,
+   "event": "8331d5835f"
+  },
+  {
+   "recording_id": 53470,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "9a506da80e"
+  },
+  {
+   "recording_id": 53503,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "80446f102a"
+  },
+  {
+   "recording_id": 53518,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "df76219bef"
+  },
+  {
+   "recording_id": 53525,
+   "context": null,
+   "count_stated": 1,
+   "event": "634f6c411d"
+  },
+  {
+   "recording_id": 53527,
+   "context": "begging",
+   "count_stated": null,
+   "event": "14ee34401c"
+  },
+  {
+   "recording_id": 53528,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "df252ea3fb"
+  },
+  {
+   "recording_id": 53540,
+   "context": "begging",
+   "count_stated": null,
+   "event": "8eedac7829"
+  },
+  {
+   "recording_id": 53542,
+   "context": "begging",
+   "count_stated": null,
+   "event": "a2c7b47f42"
+  },
+  {
+   "recording_id": 53559,
+   "context": "begging",
+   "count_stated": null,
+   "event": "6eca7d7ce7"
+  },
+  {
+   "recording_id": 53562,
+   "context": "begging",
+   "count_stated": null,
+   "event": "b67a1156ec"
+  },
+  {
+   "recording_id": 53563,
+   "context": "begging",
+   "count_stated": null,
+   "event": "b67a1156ec"
+  },
+  {
+   "recording_id": 53564,
+   "context": "begging",
+   "count_stated": null,
+   "event": "b67a1156ec"
+  },
+  {
+   "recording_id": 53569,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "c6f8f07331"
+  },
+  {
+   "recording_id": 53576,
+   "context": "begging",
+   "count_stated": null,
+   "event": "4b02d167fe"
+  },
+  {
+   "recording_id": 53580,
+   "context": null,
+   "count_stated": 3,
+   "event": "4f60e9c773"
+  },
+  {
+   "recording_id": 53581,
+   "context": "begging",
+   "count_stated": null,
+   "event": "3d8461ecc4"
+  },
+  {
+   "recording_id": 53586,
+   "context": null,
+   "count_stated": 3,
+   "event": "9a9f5769e8"
+  },
+  {
+   "recording_id": 53588,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "61e80fde4a"
+  },
+  {
+   "recording_id": 53616,
+   "context": null,
+   "count_stated": 1,
+   "event": "fad53aaf50"
+  },
+  {
+   "recording_id": 53631,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "b0e1accf47"
+  },
+  {
+   "recording_id": 53671,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "47fa26692c"
+  },
+  {
+   "recording_id": 53677,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "b86c9d89d6"
+  },
+  {
+   "recording_id": 53719,
+   "context": null,
+   "count_stated": 3,
+   "event": "0dbdf219b2"
+  },
+  {
+   "recording_id": 53760,
+   "context": null,
+   "count_stated": 1,
+   "event": "6f1d7ca031"
+  },
+  {
+   "recording_id": 53796,
+   "context": null,
+   "count_stated": 3,
+   "event": "0b95cbf67a"
+  },
+  {
+   "recording_id": 53805,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "35d0251ed7"
+  },
+  {
+   "recording_id": 53832,
+   "context": null,
+   "count_stated": 3,
+   "event": "efe9b7c26d"
+  },
+  {
+   "recording_id": 53841,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "d33b37533f"
+  },
+  {
+   "recording_id": 53893,
+   "context": null,
+   "count_stated": 3,
+   "event": "5bdc84a1d7"
+  },
+  {
+   "recording_id": 53910,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "4eff0214db"
+  },
+  {
+   "recording_id": 53914,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "2ee7018ab9"
+  },
+  {
+   "recording_id": 53915,
+   "context": "raptor_mobbing",
+   "count_stated": 2,
+   "event": "440f6addf4"
+  },
+  {
+   "recording_id": 53949,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "94c9ba70a3"
+  },
+  {
+   "recording_id": 53963,
+   "context": null,
+   "count_stated": 3,
+   "event": "8d46b433a5"
+  },
+  {
+   "recording_id": 54017,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "73b35aee40"
+  },
+  {
+   "recording_id": 54023,
+   "context": "roost_gathering",
+   "count_stated": null,
+   "event": "c8a394c427"
+  },
+  {
+   "recording_id": 54024,
+   "context": "roost_gathering",
+   "count_stated": null,
+   "event": "c8a394c427"
+  },
+  {
+   "recording_id": 54029,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "4b2c49e740"
+  },
+  {
+   "recording_id": 54031,
+   "context": null,
+   "count_stated": 3,
+   "event": "4b8dea6e5d"
+  },
+  {
+   "recording_id": 54032,
+   "context": null,
+   "count_stated": 3,
+   "event": "4b8dea6e5d"
+  },
+  {
+   "recording_id": 54033,
+   "context": null,
+   "count_stated": 3,
+   "event": "4b8dea6e5d"
+  },
+  {
+   "recording_id": 54038,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "dd662da4ff"
+  },
+  {
+   "recording_id": 54040,
+   "context": null,
+   "count_stated": 3,
+   "event": "5fc0a0d95b"
+  },
+  {
+   "recording_id": 54041,
+   "context": null,
+   "count_stated": 1,
+   "event": "3fcaf09e2c"
+  },
+  {
+   "recording_id": 54051,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "97c33a81c6"
+  },
+  {
+   "recording_id": 54064,
+   "context": null,
+   "count_stated": 3,
+   "event": "e9227b8394"
+  },
+  {
+   "recording_id": 54076,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "ed1a1e5677"
+  },
+  {
+   "recording_id": 54087,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "6e65c8ed48"
+  },
+  {
+   "recording_id": 54094,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "e515553ae6"
+  },
+  {
+   "recording_id": 54099,
+   "context": null,
+   "count_stated": 1,
+   "event": "4109f14808"
+  },
+  {
+   "recording_id": 54100,
+   "context": null,
+   "count_stated": 1,
+   "event": "a6fbc9772a"
+  },
+  {
+   "recording_id": 54111,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54112,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54113,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54114,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54115,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54120,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "c0a0b74383"
+  },
+  {
+   "recording_id": 54123,
+   "context": null,
+   "count_stated": 1,
+   "event": "8f9581389c"
+  },
+  {
+   "recording_id": 54128,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "97cfb3a8a9"
+  },
+  {
+   "recording_id": 54140,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "e6ccf92e5f"
+  },
+  {
+   "recording_id": 54141,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "a2a3d12dcd"
+  },
+  {
+   "recording_id": 54161,
+   "context": null,
+   "count_stated": 3,
+   "event": "1c1908f996"
+  },
+  {
+   "recording_id": 54174,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "4b5be77b5b"
+  },
+  {
+   "recording_id": 54181,
+   "context": null,
+   "count_stated": 1,
+   "event": "df16e5aad2"
+  },
+  {
+   "recording_id": 54196,
+   "context": null,
+   "count_stated": 2,
+   "event": "60d373c90b"
+  },
+  {
+   "recording_id": 54204,
+   "context": "raptor_mobbing",
+   "count_stated": 1,
+   "event": "7b200168c3"
+  },
+  {
+   "recording_id": 54210,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "ef7c201e11"
+  },
+  {
+   "recording_id": 54236,
+   "context": null,
+   "count_stated": 3,
+   "event": "e9306069c0"
+  },
+  {
+   "recording_id": 54258,
+   "context": null,
+   "count_stated": 3,
+   "event": "352a9dc0e5"
+  },
+  {
+   "recording_id": 54302,
+   "context": "begging",
+   "count_stated": null,
+   "event": "bd374f22a1"
+  },
+  {
+   "recording_id": 54333,
+   "context": null,
+   "count_stated": 2,
+   "event": "f2406e7fad"
+  },
+  {
+   "recording_id": 54466,
+   "context": null,
+   "count_stated": 1,
+   "event": "e67f6ca8f7"
+  },
+  {
+   "recording_id": 54467,
+   "context": null,
+   "count_stated": 1,
+   "event": "e67f6ca8f7"
+  },
+  {
+   "recording_id": 54468,
+   "context": null,
+   "count_stated": 1,
+   "event": "e67f6ca8f7"
+  },
+  {
+   "recording_id": 54490,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "cf39696954"
+  },
+  {
+   "recording_id": 54514,
+   "context": null,
+   "count_stated": 3,
+   "event": "85006239ac"
+  },
+  {
+   "recording_id": 54515,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "e17661ec4e"
+  },
+  {
+   "recording_id": 54530,
+   "context": null,
+   "count_stated": 3,
+   "event": "30f3592e1a"
+  },
+  {
+   "recording_id": 54533,
+   "context": null,
+   "count_stated": 3,
+   "event": "81e5955917"
+  },
+  {
+   "recording_id": 54556,
+   "context": "begging",
+   "count_stated": null,
+   "event": "66263a39b0"
+  },
+  {
+   "recording_id": 54558,
+   "context": "begging",
+   "count_stated": null,
+   "event": "f919175086"
+  },
+  {
+   "recording_id": 54564,
+   "context": null,
+   "count_stated": 2,
+   "event": "170c0c86d5"
+  },
+  {
+   "recording_id": 54565,
+   "context": null,
+   "count_stated": 2,
+   "event": "170c0c86d5"
+  },
+  {
+   "recording_id": 54575,
+   "context": null,
+   "count_stated": 3,
+   "event": "9f6a3941f0"
+  },
+  {
+   "recording_id": 54576,
+   "context": "begging",
+   "count_stated": null,
+   "event": "908e0e8e2f"
+  },
+  {
+   "recording_id": 54592,
+   "context": "begging",
+   "count_stated": null,
+   "event": "d01ec9f2ce"
+  },
+  {
+   "recording_id": 54638,
+   "context": null,
+   "count_stated": 3,
+   "event": "9c2b71b4cf"
+  },
+  {
+   "recording_id": 54696,
+   "context": null,
+   "count_stated": 3,
+   "event": "8d5e5b9b1a"
+  },
+  {
+   "recording_id": 54697,
+   "context": "begging",
+   "count_stated": null,
+   "event": "0a9d76daa4"
+  },
+  {
+   "recording_id": 54698,
+   "context": "begging",
+   "count_stated": null,
+   "event": "0a9d76daa4"
+  },
+  {
+   "recording_id": 54699,
+   "context": "begging",
+   "count_stated": null,
+   "event": "7a07c8756a"
+  },
+  {
+   "recording_id": 54713,
+   "context": null,
+   "count_stated": 3,
+   "event": "d8f89445de"
+  },
+  {
+   "recording_id": 54751,
+   "context": null,
+   "count_stated": 3,
+   "event": "0962984417"
+  },
+  {
+   "recording_id": 54814,
+   "context": null,
+   "count_stated": 3,
+   "event": "0cb4dcdc5f"
+  },
+  {
+   "recording_id": 54815,
+   "context": null,
+   "count_stated": 3,
+   "event": "0cb4dcdc5f"
+  },
+  {
+   "recording_id": 54829,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "bdc5f96c07"
+  },
+  {
+   "recording_id": 54854,
+   "context": null,
+   "count_stated": 1,
+   "event": "9ba794deba"
+  },
+  {
+   "recording_id": 54895,
+   "context": null,
+   "count_stated": 3,
+   "event": "1ea2a8f455"
+  },
+  {
+   "recording_id": 54913,
+   "context": null,
+   "count_stated": 1,
+   "event": "1b4b4b6146"
+  },
+  {
+   "recording_id": 54919,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "37a2d7b942"
+  },
+  {
+   "recording_id": 54926,
+   "context": null,
+   "count_stated": 3,
+   "event": "bf65389101"
+  },
+  {
+   "recording_id": 54949,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "b00eeb7d76"
+  },
+  {
+   "recording_id": 54950,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "b00eeb7d76"
+  },
+  {
+   "recording_id": 54951,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "b00eeb7d76"
+  },
+  {
+   "recording_id": 54952,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "b00eeb7d76"
+  },
+  {
+   "recording_id": 54955,
+   "context": null,
+   "count_stated": 1,
+   "event": "92b20725ad"
+  },
+  {
+   "recording_id": 54966,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "a1a3851913"
+  },
+  {
+   "recording_id": 54970,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "668450ac82"
+  },
+  {
+   "recording_id": 54971,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "363b7bc396"
+  },
+  {
+   "recording_id": 54972,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "363b7bc396"
+  },
+  {
+   "recording_id": 54973,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "363b7bc396"
+  },
+  {
+   "recording_id": 54977,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "63602e1709"
+  },
+  {
+   "recording_id": 54992,
+   "context": "roost_gathering",
+   "count_stated": null,
+   "event": "00cea9c3d3"
+  },
+  {
+   "recording_id": 55003,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "699fee627c"
+  },
+  {
+   "recording_id": 55011,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "e591f44b65"
+  },
+  {
+   "recording_id": 55013,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "5d60ca145e"
+  },
+  {
+   "recording_id": 55018,
+   "context": null,
+   "count_stated": 3,
+   "event": "86f05ca360"
+  },
+  {
+   "recording_id": 55022,
+   "context": null,
+   "count_stated": 2,
+   "event": "5462278097"
+  },
+  {
+   "recording_id": 55024,
+   "context": null,
+   "count_stated": 3,
+   "event": "e8a858eef6"
+  },
+  {
+   "recording_id": 55026,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "86820e60ea"
+  },
+  {
+   "recording_id": 55029,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "5d524419c0"
+  },
+  {
+   "recording_id": 55043,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "0bdfa5daef"
+  },
+  {
+   "recording_id": 55084,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "c6bef21ee1"
+  },
+  {
+   "recording_id": 55101,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "ce1699cd41"
+  },
+  {
+   "recording_id": 55115,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "dafa705ee6"
+  },
+  {
+   "recording_id": 55127,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "5e688add3f"
+  },
+  {
+   "recording_id": 55128,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "5e688add3f"
+  },
+  {
+   "recording_id": 55137,
+   "context": null,
+   "count_stated": 3,
+   "event": "1b1ec031bc"
+  },
+  {
+   "recording_id": 55140,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "786a4faa2c"
+  },
+  {
+   "recording_id": 55147,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "e1b591a620"
+  },
+  {
+   "recording_id": 55161,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "e3f10ac8aa"
+  },
+  {
+   "recording_id": 55195,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "cbeb61c799"
+  },
+  {
+   "recording_id": 55204,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "03b5c29aa0"
+  },
+  {
+   "recording_id": 55205,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "03b5c29aa0"
+  },
+  {
+   "recording_id": 55206,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "dfd6ce52e1"
+  },
+  {
+   "recording_id": 55226,
+   "context": null,
+   "count_stated": 3,
+   "event": "bbccca7147"
+  },
+  {
+   "recording_id": 55227,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "a4af20673a"
+  },
+  {
+   "recording_id": 55230,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "81e1d4ad37"
+  },
+  {
+   "recording_id": 55232,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "427fadfd35"
+  },
+  {
+   "recording_id": 55237,
+   "context": null,
+   "count_stated": 3,
+   "event": "53648a75d0"
+  },
+  {
+   "recording_id": 55276,
+   "context": null,
+   "count_stated": 3,
+   "event": "569b1faeb5"
+  },
+  {
+   "recording_id": 55287,
+   "context": null,
+   "count_stated": 3,
+   "event": "6d3cccd045"
+  },
+  {
+   "recording_id": 55305,
+   "context": null,
+   "count_stated": 3,
+   "event": "489c349a39"
+  },
+  {
+   "recording_id": 55336,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "9b44441a5d"
+  },
+  {
+   "recording_id": 55352,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "cfddaf037b"
+  },
+  {
+   "recording_id": 55354,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "58336ab903"
+  },
+  {
+   "recording_id": 55362,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "31a84904ff"
+  },
+  {
+   "recording_id": 55410,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "b2399a36d0"
+  },
+  {
+   "recording_id": 55414,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "5955118984"
+  },
+  {
+   "recording_id": 55439,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "2a1ac2c354"
+  },
+  {
+   "recording_id": 55479,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "79d2234bec"
+  },
+  {
+   "recording_id": 55499,
+   "context": null,
+   "count_stated": 3,
+   "event": "13702c3c17"
+  },
+  {
+   "recording_id": 55512,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "401c8f3000"
+  },
+  {
+   "recording_id": 55558,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "42a32c90dc"
+  },
+  {
+   "recording_id": 55570,
+   "context": null,
+   "count_stated": 3,
+   "event": "6d1fb2ffbe"
+  },
+  {
+   "recording_id": 55678,
+   "context": null,
+   "count_stated": 1,
+   "event": "b9ce7738c1"
+  },
+  {
+   "recording_id": 55716,
+   "context": null,
+   "count_stated": 2,
+   "event": "9c30678346"
+  },
+  {
+   "recording_id": 55736,
+   "context": null,
+   "count_stated": 3,
+   "event": "46bd695bec"
+  },
+  {
+   "recording_id": 55785,
+   "context": "flight_contact",
+   "count_stated": 1,
+   "event": "852dd9ab5f"
+  },
+  {
+   "recording_id": 55810,
+   "context": null,
+   "count_stated": 1,
+   "event": "743ec46e16"
+  },
+  {
+   "recording_id": 55850,
+   "context": "begging",
+   "count_stated": null,
+   "event": "555f9f2876"
+  },
+  {
+   "recording_id": 55920,
+   "context": null,
+   "count_stated": 3,
+   "event": "3b5f808e5b"
+  },
+  {
+   "recording_id": 55929,
+   "context": null,
+   "count_stated": 3,
+   "event": "0e8b4629ab"
+  },
+  {
+   "recording_id": 55959,
+   "context": "begging",
+   "count_stated": null,
+   "event": "d90769518e"
+  },
+  {
+   "recording_id": 55966,
+   "context": "begging",
+   "count_stated": null,
+   "event": "2ff9e38b70"
+  },
+  {
+   "recording_id": 55972,
+   "context": "begging",
+   "count_stated": null,
+   "event": "ce2d2be8a1"
+  },
+  {
+   "recording_id": 55973,
+   "context": "begging",
+   "count_stated": null,
+   "event": "ce2d2be8a1"
+  },
+  {
+   "recording_id": 55974,
+   "context": "begging",
+   "count_stated": null,
+   "event": "ce2d2be8a1"
+  },
+  {
+   "recording_id": 55989,
+   "context": "begging",
+   "count_stated": null,
+   "event": "78f11334fa"
+  },
+  {
+   "recording_id": 55990,
+   "context": null,
+   "count_stated": 3,
+   "event": "6d36efcaaf"
+  },
+  {
+   "recording_id": 56013,
+   "context": "begging",
+   "count_stated": null,
+   "event": "f02bb87ba5"
+  },
+  {
+   "recording_id": 56028,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "c2f9afeadc"
+  },
+  {
+   "recording_id": 56072,
+   "context": null,
+   "count_stated": 3,
+   "event": "1c4ee616fc"
+  },
+  {
+   "recording_id": 56074,
+   "context": null,
+   "count_stated": 3,
+   "event": "8c1fcdbb40"
+  },
+  {
+   "recording_id": 56157,
+   "context": null,
+   "count_stated": 3,
+   "event": "55e2b8ace0"
+  },
+  {
+   "recording_id": 56168,
+   "context": null,
+   "count_stated": 3,
+   "event": "eae3e42664"
+  },
+  {
+   "recording_id": 56169,
+   "context": null,
+   "count_stated": 3,
+   "event": "eae3e42664"
+  },
+  {
+   "recording_id": 56170,
+   "context": null,
+   "count_stated": 3,
+   "event": "0a4782b3fd"
+  },
+  {
+   "recording_id": 56171,
+   "context": null,
+   "count_stated": 3,
+   "event": "0a4782b3fd"
+  },
+  {
+   "recording_id": 56172,
+   "context": null,
+   "count_stated": 3,
+   "event": "523a954a31"
+  },
+  {
+   "recording_id": 56173,
+   "context": null,
+   "count_stated": 3,
+   "event": "523a954a31"
+  },
+  {
+   "recording_id": 56174,
+   "context": null,
+   "count_stated": 3,
+   "event": "f12f85d413"
+  },
+  {
+   "recording_id": 56175,
+   "context": null,
+   "count_stated": 3,
+   "event": "f12f85d413"
+  },
+  {
+   "recording_id": 56207,
+   "context": null,
+   "count_stated": 2,
+   "event": "5e3653b21a"
+  },
+  {
+   "recording_id": 56266,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "a0f7ce8756"
+  },
+  {
+   "recording_id": 56279,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "c2ddf836a5"
+  },
+  {
+   "recording_id": 56306,
+   "context": null,
+   "count_stated": 3,
+   "event": "c7899a07ab"
+  },
+  {
+   "recording_id": 56337,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "c2cf45618d"
+  },
+  {
+   "recording_id": 56423,
+   "context": "begging",
+   "count_stated": 3,
+   "event": "d223d515a1"
+  },
+  {
+   "recording_id": 56443,
+   "context": null,
+   "count_stated": 3,
+   "event": "19df2fb7be"
+  },
+  {
+   "recording_id": 56444,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "ddefb3991a"
+  },
+  {
+   "recording_id": 56456,
+   "context": null,
+   "count_stated": 3,
+   "event": "d968e10ebc"
+  },
+  {
+   "recording_id": 56462,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "6905e74a16"
+  },
+  {
+   "recording_id": 56465,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "455f933c29"
+  },
+  {
+   "recording_id": 56470,
+   "context": null,
+   "count_stated": 3,
+   "event": "143a103e31"
+  },
+  {
+   "recording_id": 56474,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "73853150c6"
+  },
+  {
+   "recording_id": 56475,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "8b0a2c3dd4"
+  },
+  {
+   "recording_id": 56510,
+   "context": null,
+   "count_stated": 3,
+   "event": "f0a8f6c059"
+  },
+  {
+   "recording_id": 56561,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "f7578fe9fc"
+  },
+  {
+   "recording_id": 56563,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "1231b8c27f"
+  },
+  {
+   "recording_id": 56597,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "1981abc947"
+  },
+  {
+   "recording_id": 56621,
+   "context": null,
+   "count_stated": 2,
+   "event": "36f67f3635"
+  },
+  {
+   "recording_id": 56674,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "c8fbed6d20"
+  },
+  {
+   "recording_id": 56687,
+   "context": null,
+   "count_stated": 3,
+   "event": "542efae158"
+  },
+  {
+   "recording_id": 56688,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "2a1ea37a10"
+  },
+  {
+   "recording_id": 56740,
+   "context": null,
+   "count_stated": 3,
+   "event": "a4c7ef3082"
+  },
+  {
+   "recording_id": 56753,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "d39d65e55a"
+  },
+  {
+   "recording_id": 56769,
+   "context": null,
+   "count_stated": 3,
+   "event": "bd51d507db"
+  },
+  {
+   "recording_id": 56774,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "e0f236acc8"
+  },
+  {
+   "recording_id": 56775,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "f967de3f78"
+  },
+  {
+   "recording_id": 56799,
+   "context": null,
+   "count_stated": 1,
+   "event": "1d946712be"
+  },
+  {
+   "recording_id": 56807,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "70bfdc1a6c"
+  },
+  {
+   "recording_id": 56808,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "70bfdc1a6c"
+  },
+  {
+   "recording_id": 56849,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 56850,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 56851,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 56852,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 56921,
+   "context": null,
+   "count_stated": 1,
+   "event": "935f7ce810"
+  },
+  {
+   "recording_id": 56997,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "157d5df4d8"
+  },
+  {
+   "recording_id": 57056,
+   "context": "flight_contact",
+   "count_stated": 2,
+   "event": "eca4221173"
+  },
+  {
+   "recording_id": 57074,
+   "context": null,
+   "count_stated": 3,
+   "event": "28c56b1c9a"
+  },
+  {
+   "recording_id": 57081,
+   "context": null,
+   "count_stated": 3,
+   "event": "562d096b6e"
+  },
+  {
+   "recording_id": 57124,
+   "context": null,
+   "count_stated": 1,
+   "event": "d11ca1b2ef"
+  },
+  {
+   "recording_id": 57125,
+   "context": null,
+   "count_stated": 1,
+   "event": "d11ca1b2ef"
+  },
+  {
+   "recording_id": 57185,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "df19357e02"
+  },
+  {
+   "recording_id": 57281,
+   "context": "begging",
+   "count_stated": null,
+   "event": "d1b004ba24"
+  },
+  {
+   "recording_id": 57331,
+   "context": null,
+   "count_stated": 1,
+   "event": "e560d4c56b"
+  },
+  {
+   "recording_id": 57332,
+   "context": null,
+   "count_stated": 1,
+   "event": "e560d4c56b"
+  },
+  {
+   "recording_id": 57333,
+   "context": null,
+   "count_stated": 1,
+   "event": "e560d4c56b"
+  },
+  {
+   "recording_id": 57334,
+   "context": null,
+   "count_stated": 1,
+   "event": "1f9bf04168"
+  },
+  {
+   "recording_id": 57346,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "78b1481817"
+  },
+  {
+   "recording_id": 57405,
+   "context": "begging",
+   "count_stated": null,
+   "event": "6aa7fc5ee7"
+  },
+  {
+   "recording_id": 57410,
+   "context": null,
+   "count_stated": 3,
+   "event": "f2c1ea347b"
+  },
+  {
+   "recording_id": 57442,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "8a80a3c141"
+  },
+  {
+   "recording_id": 57462,
+   "context": null,
+   "count_stated": 3,
+   "event": "21baec842c"
+  },
+  {
+   "recording_id": 57463,
+   "context": null,
+   "count_stated": 3,
+   "event": "21baec842c"
+  },
+  {
+   "recording_id": 57468,
+   "context": "begging",
+   "count_stated": null,
+   "event": "2d7941f8b5"
+  },
+  {
+   "recording_id": 57486,
+   "context": null,
+   "count_stated": 3,
+   "event": "56d3c531bc"
+  },
+  {
+   "recording_id": 57490,
+   "context": "begging",
+   "count_stated": null,
+   "event": "152e4ef90e"
+  },
+  {
+   "recording_id": 57504,
+   "context": null,
+   "count_stated": 3,
+   "event": "da1c7c5305"
+  },
+  {
+   "recording_id": 57505,
+   "context": null,
+   "count_stated": 3,
+   "event": "da1c7c5305"
+  },
+  {
+   "recording_id": 57544,
+   "context": null,
+   "count_stated": 3,
+   "event": "eb79fda201"
+  },
+  {
+   "recording_id": 57545,
+   "context": null,
+   "count_stated": 3,
+   "event": "eb79fda201"
+  },
+  {
+   "recording_id": 57580,
+   "context": null,
+   "count_stated": 3,
+   "event": "fed8f49d6e"
+  },
+  {
+   "recording_id": 57605,
+   "context": "begging",
+   "count_stated": null,
+   "event": "695cc79a9e"
+  },
+  {
+   "recording_id": 57613,
+   "context": "begging",
+   "count_stated": null,
+   "event": "d61fd3ffad"
+  },
+  {
+   "recording_id": 57615,
+   "context": "begging",
+   "count_stated": 2,
+   "event": "4971e6d19d"
+  },
+  {
+   "recording_id": 57651,
+   "context": "roost_gathering",
+   "count_stated": null,
+   "event": "d5d7079879"
+  },
+  {
+   "recording_id": 57661,
+   "context": "begging",
+   "count_stated": null,
+   "event": "bf50c41699"
+  },
+  {
+   "recording_id": 57718,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "f13a01db76"
+  },
+  {
+   "recording_id": 57722,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "f12e8990a7"
+  },
+  {
+   "recording_id": 57723,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "f12e8990a7"
+  },
+  {
+   "recording_id": 57784,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "d84b2dc957"
+  },
+  {
+   "recording_id": 57789,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "1ef1161649"
+  },
+  {
+   "recording_id": 57832,
+   "context": null,
+   "count_stated": 3,
+   "event": "1b59f52f59"
+  },
+  {
+   "recording_id": 57852,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "e72e09ad71"
+  },
+  {
+   "recording_id": 57860,
+   "context": null,
+   "count_stated": 1,
+   "event": "5146ff1bf4"
+  },
+  {
+   "recording_id": 57861,
+   "context": null,
+   "count_stated": 1,
+   "event": "5146ff1bf4"
+  },
+  {
+   "recording_id": 57878,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "929d003d2c"
+  },
+  {
+   "recording_id": 57887,
+   "context": null,
+   "count_stated": 2,
+   "event": "f886cbd48c"
+  },
+  {
+   "recording_id": 57904,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "7b5bda5aa4"
+  },
+  {
+   "recording_id": 57905,
+   "context": null,
+   "count_stated": 3,
+   "event": "9392bde8f8"
+  },
+  {
+   "recording_id": 57926,
+   "context": null,
+   "count_stated": 3,
+   "event": "85d6a3e9b5"
+  },
+  {
+   "recording_id": 57927,
+   "context": null,
+   "count_stated": 3,
+   "event": "85d6a3e9b5"
+  },
+  {
+   "recording_id": 57928,
+   "context": null,
+   "count_stated": 3,
+   "event": "85d6a3e9b5"
+  },
+  {
+   "recording_id": 57929,
+   "context": null,
+   "count_stated": 3,
+   "event": "85d6a3e9b5"
+  },
+  {
+   "recording_id": 57930,
+   "context": null,
+   "count_stated": 3,
+   "event": "85d6a3e9b5"
+  },
+  {
+   "recording_id": 57959,
+   "context": null,
+   "count_stated": 3,
+   "event": "3f6749d68f"
+  },
+  {
+   "recording_id": 57972,
+   "context": null,
+   "count_stated": 3,
+   "event": "447542288e"
+  },
+  {
+   "recording_id": 57991,
+   "context": null,
+   "count_stated": 3,
+   "event": "af034fd7f5"
+  },
+  {
+   "recording_id": 57992,
+   "context": null,
+   "count_stated": 3,
+   "event": "af034fd7f5"
+  },
+  {
+   "recording_id": 57993,
+   "context": null,
+   "count_stated": 3,
+   "event": "af034fd7f5"
+  },
+  {
+   "recording_id": 57994,
+   "context": null,
+   "count_stated": 3,
+   "event": "af034fd7f5"
+  },
+  {
+   "recording_id": 58014,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "15ca85aed0"
+  },
+  {
+   "recording_id": 58056,
+   "context": null,
+   "count_stated": 2,
+   "event": "8cb45aba2d"
+  },
+  {
+   "recording_id": 58065,
+   "context": null,
+   "count_stated": 2,
+   "event": "d3bc8c4259"
+  },
+  {
+   "recording_id": 58079,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "a29ea05285"
+  },
+  {
+   "recording_id": 58083,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "1dfff9c4cc"
+  },
+  {
+   "recording_id": 58084,
+   "context": null,
+   "count_stated": 3,
+   "event": "723e8c5325"
+  },
+  {
+   "recording_id": 58088,
+   "context": null,
+   "count_stated": 3,
+   "event": "f80fb32577"
+  },
+  {
+   "recording_id": 58131,
+   "context": null,
+   "count_stated": 3,
+   "event": "cf42d22532"
+  },
+  {
+   "recording_id": 58136,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "b2ec9007cc"
+  },
+  {
+   "recording_id": 58177,
+   "context": null,
+   "count_stated": 3,
+   "event": "6add0af28a"
+  },
+  {
+   "recording_id": 58234,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "b56ba40227"
+  },
+  {
+   "recording_id": 58249,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "d71db64e1f"
+  },
+  {
+   "recording_id": 58262,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "b957ad0ca3"
+  },
+  {
+   "recording_id": 58263,
+   "context": null,
+   "count_stated": 3,
+   "event": "cee1e9b05b"
+  },
+  {
+   "recording_id": 58266,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "4d4e5f6cc8"
+  },
+  {
+   "recording_id": 58286,
+   "context": null,
+   "count_stated": 3,
+   "event": "7f696892c1"
+  },
+  {
+   "recording_id": 58287,
+   "context": null,
+   "count_stated": 3,
+   "event": "7f696892c1"
+  },
+  {
+   "recording_id": 58288,
+   "context": null,
+   "count_stated": 3,
+   "event": "7f696892c1"
+  },
+  {
+   "recording_id": 58289,
+   "context": null,
+   "count_stated": 3,
+   "event": "7f696892c1"
+  },
+  {
+   "recording_id": 58293,
+   "context": null,
+   "count_stated": 3,
+   "event": "b8f0041b5c"
+  },
+  {
+   "recording_id": 58294,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "225aa32a72"
+  },
+  {
+   "recording_id": 58304,
+   "context": null,
+   "count_stated": 3,
+   "event": "992a11b717"
+  },
+  {
+   "recording_id": 58320,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "12345e2077"
+  },
+  {
+   "recording_id": 58342,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "abcad1cc72"
+  },
+  {
+   "recording_id": 58357,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "12905c6665"
+  },
+  {
+   "recording_id": 58358,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "12905c6665"
+  },
+  {
+   "recording_id": 58369,
+   "context": null,
+   "count_stated": 3,
+   "event": "05f66d1fa8"
+  },
+  {
+   "recording_id": 58373,
+   "context": null,
+   "count_stated": 3,
+   "event": "cf69c43a6a"
+  },
+  {
+   "recording_id": 58394,
+   "context": null,
+   "count_stated": 3,
+   "event": "fb7d1dbd20"
+  },
+  {
+   "recording_id": 58402,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "aaee0bcd62"
+  },
+  {
+   "recording_id": 58403,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "aaee0bcd62"
+  },
+  {
+   "recording_id": 58405,
+   "context": null,
+   "count_stated": 3,
+   "event": "1578c41104"
+  },
+  {
+   "recording_id": 58413,
+   "context": null,
+   "count_stated": 3,
+   "event": "c15e9986bc"
+  },
+  {
+   "recording_id": 58416,
+   "context": null,
+   "count_stated": 2,
+   "event": "cdf3c028df"
+  },
+  {
+   "recording_id": 58422,
+   "context": null,
+   "count_stated": 2,
+   "event": "62107d569b"
+  },
+  {
+   "recording_id": 58425,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "a24c1997e5"
+  },
+  {
+   "recording_id": 58455,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "41d5f2a401"
+  },
+  {
+   "recording_id": 58456,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "41d5f2a401"
+  },
+  {
+   "recording_id": 58485,
+   "context": null,
+   "count_stated": 2,
+   "event": "1291f2ea14"
+  },
+  {
+   "recording_id": 58520,
+   "context": "raptor_mobbing",
+   "count_stated": 2,
+   "event": "618b7cc49e"
+  },
+  {
+   "recording_id": 58530,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "4d59b841ee"
+  },
+  {
+   "recording_id": 58545,
+   "context": null,
+   "count_stated": 3,
+   "event": "20dbf82a01"
+  },
+  {
+   "recording_id": 58548,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "9361b53d55"
+  },
+  {
+   "recording_id": 58567,
+   "context": null,
+   "count_stated": 2,
+   "event": "9babda640f"
+  },
+  {
+   "recording_id": 58646,
+   "context": "food_foraging",
+   "count_stated": 1,
+   "event": "d66b4333dc"
+  },
+  {
+   "recording_id": 58668,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "782d04d833"
+  },
+  {
+   "recording_id": 58683,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "1a92f92be1"
+  },
+  {
+   "recording_id": 58684,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "1a92f92be1"
+  },
+  {
+   "recording_id": 58797,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "a17a26296d"
+  },
+  {
+   "recording_id": 58964,
+   "context": "begging",
+   "count_stated": null,
+   "event": "09602abfb4"
+  },
+  {
+   "recording_id": 58979,
+   "context": null,
+   "count_stated": 3,
+   "event": "9fc981bbb3"
+  },
+  {
+   "recording_id": 58980,
+   "context": null,
+   "count_stated": 3,
+   "event": "9fc981bbb3"
+  },
+  {
+   "recording_id": 59004,
+   "context": null,
+   "count_stated": 3,
+   "event": "b8c9b0ccbd"
+  },
+  {
+   "recording_id": 59016,
+   "context": null,
+   "count_stated": 3,
+   "event": "a3228492c0"
+  },
+  {
+   "recording_id": 59036,
+   "context": null,
+   "count_stated": 1,
+   "event": "caa8626deb"
+  },
+  {
+   "recording_id": 59051,
+   "context": null,
+   "count_stated": 3,
+   "event": "905cdc84b7"
+  },
+  {
+   "recording_id": 59052,
+   "context": null,
+   "count_stated": 3,
+   "event": "905cdc84b7"
+  },
+  {
+   "recording_id": 59078,
+   "context": null,
+   "count_stated": 3,
+   "event": "d3f37d31e3"
+  },
+  {
+   "recording_id": 59159,
+   "context": null,
+   "count_stated": 3,
+   "event": "ffa9578e8f"
+  },
+  {
+   "recording_id": 59161,
+   "context": null,
+   "count_stated": 3,
+   "event": "d7b8526553"
+  },
+  {
+   "recording_id": 59162,
+   "context": null,
+   "count_stated": 3,
+   "event": "d7b8526553"
+  },
+  {
+   "recording_id": 59209,
+   "context": "food_foraging",
+   "count_stated": 2,
+   "event": "7369f3627f"
+  },
+  {
+   "recording_id": 59210,
+   "context": null,
+   "count_stated": 3,
+   "event": "e53ff15256"
+  },
+  {
+   "recording_id": 59213,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "210d874de2"
+  },
+  {
+   "recording_id": 59220,
+   "context": null,
+   "count_stated": 3,
+   "event": "e2f3e647d3"
+  },
+  {
+   "recording_id": 59233,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "b06a2bdc9c"
+  },
+  {
+   "recording_id": 59234,
+   "context": "begging",
+   "count_stated": null,
+   "event": "0576a3ae87"
+  },
+  {
+   "recording_id": 59237,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "300f58054c"
+  },
+  {
+   "recording_id": 59299,
+   "context": null,
+   "count_stated": 3,
+   "event": "c38886c8b4"
+  },
+  {
+   "recording_id": 59332,
+   "context": null,
+   "count_stated": 3,
+   "event": "7f391aa77e"
+  },
+  {
+   "recording_id": 59365,
+   "context": null,
+   "count_stated": 3,
+   "event": "3fabc091b7"
+  },
+  {
+   "recording_id": 59386,
+   "context": null,
+   "count_stated": 2,
+   "event": "68b6e1b549"
+  },
+  {
+   "recording_id": 59428,
+   "context": null,
+   "count_stated": 3,
+   "event": "a5cfaa6993"
+  },
+  {
+   "recording_id": 59429,
+   "context": null,
+   "count_stated": 3,
+   "event": "a5cfaa6993"
+  },
+  {
+   "recording_id": 59532,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "251bcb0a49"
+  },
+  {
+   "recording_id": 59533,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "251bcb0a49"
+  },
+  {
+   "recording_id": 59587,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "379bf1ea41"
+  },
+  {
+   "recording_id": 59605,
+   "context": null,
+   "count_stated": 3,
+   "event": "950bc15a0b"
+  },
+  {
+   "recording_id": 59711,
+   "context": null,
+   "count_stated": 3,
+   "event": "8d6d236217"
+  },
+  {
+   "recording_id": 59716,
+   "context": null,
+   "count_stated": 3,
+   "event": "65b2f47d8c"
+  },
+  {
+   "recording_id": 59743,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "049727d714"
+  },
+  {
+   "recording_id": 59744,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "049727d714"
+  },
+  {
+   "recording_id": 59768,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "43b7ba6db5"
+  },
+  {
+   "recording_id": 59775,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "528e8dc78e"
+  },
+  {
+   "recording_id": 59784,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "34f0246b1f"
+  },
+  {
+   "recording_id": 59791,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "f2c9be7955"
+  },
+  {
+   "recording_id": 59841,
+   "context": null,
+   "count_stated": 3,
+   "event": "70ba2a027d"
+  },
+  {
+   "recording_id": 59845,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "2fde208a83"
+  },
+  {
+   "recording_id": 59875,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "276535af48"
+  },
+  {
+   "recording_id": 59911,
+   "context": null,
+   "count_stated": 3,
+   "event": "4664a4922e"
+  },
+  {
+   "recording_id": 59942,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "2763da7bb8"
+  },
+  {
+   "recording_id": 59982,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "442fe2615b"
+  },
+  {
+   "recording_id": 59983,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "442fe2615b"
+  },
+  {
+   "recording_id": 59990,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "e4eca9b930"
+  },
+  {
+   "recording_id": 60046,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "93d0ff896a"
+  },
+  {
+   "recording_id": 60067,
+   "context": "roost_gathering",
+   "count_stated": null,
+   "event": "d96f50500a"
+  },
+  {
+   "recording_id": 60091,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "10da464089"
+  },
+  {
+   "recording_id": 60096,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "3d1fe2f52f"
+  },
+  {
+   "recording_id": 60116,
+   "context": null,
+   "count_stated": 3,
+   "event": "1dcb4c7faf"
+  },
+  {
+   "recording_id": 60118,
+   "context": null,
+   "count_stated": 3,
+   "event": "d978e3588f"
+  },
+  {
+   "recording_id": 60120,
+   "context": null,
+   "count_stated": 1,
+   "event": "3ea6ecd350"
+  },
+  {
+   "recording_id": 60125,
+   "context": null,
+   "count_stated": 3,
+   "event": "95aaece1a9"
+  },
+  {
+   "recording_id": 60133,
+   "context": null,
+   "count_stated": 3,
+   "event": "ace9ec90da"
+  },
+  {
+   "recording_id": 60134,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "abe025b019"
+  },
+  {
+   "recording_id": 60136,
+   "context": null,
+   "count_stated": 3,
+   "event": "6fe3a39b75"
+  },
+  {
+   "recording_id": 60167,
+   "context": null,
+   "count_stated": 3,
+   "event": "f7643de4df"
+  },
+  {
+   "recording_id": 60196,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "ebe00b6c2e"
+  },
+  {
+   "recording_id": 60232,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "17e2e39bd3"
+  },
+  {
+   "recording_id": 60233,
+   "context": null,
+   "count_stated": 2,
+   "event": "b6df85ae80"
+  },
+  {
+   "recording_id": 60244,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "a9156fa879"
+  },
+  {
+   "recording_id": 60272,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "21440913d3"
+  },
+  {
+   "recording_id": 60286,
+   "context": "flight_contact",
+   "count_stated": null,
+   "event": "0a24380dd9"
+  },
+  {
+   "recording_id": 60294,
+   "context": null,
+   "count_stated": 3,
+   "event": "0cba7138d1"
+  },
+  {
+   "recording_id": 60295,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "a139a2e0e0"
+  },
+  {
+   "recording_id": 60299,
+   "context": "flight_contact",
+   "count_stated": 1,
+   "event": "f060164369"
+  },
+  {
+   "recording_id": 60300,
+   "context": "flight_contact",
+   "count_stated": 3,
+   "event": "c88f64ff33"
+  },
+  {
+   "recording_id": 60396,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "df0f4837b0"
+  },
+  {
+   "recording_id": 60432,
+   "context": null,
+   "count_stated": 2,
+   "event": "3988830bdc"
+  },
+  {
+   "recording_id": 60433,
+   "context": null,
+   "count_stated": 1,
+   "event": "4d54e0cd33"
+  },
+  {
+   "recording_id": 60436,
+   "context": null,
+   "count_stated": 3,
+   "event": "cddde4366d"
+  },
+  {
+   "recording_id": 60448,
+   "context": "begging",
+   "count_stated": null,
+   "event": "b9538e273f"
+  },
+  {
+   "recording_id": 60455,
+   "context": null,
+   "count_stated": 2,
+   "event": "4cfb866463"
+  },
+  {
+   "recording_id": 60466,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "d60c7fac0e"
+  },
+  {
+   "recording_id": 60467,
+   "context": "food_foraging",
+   "count_stated": 3,
+   "event": "d60c7fac0e"
+  },
+  {
+   "recording_id": 60543,
+   "context": null,
+   "count_stated": 1,
+   "event": "5d1f4cca4e"
+  },
+  {
+   "recording_id": 60604,
+   "context": null,
+   "count_stated": 3,
+   "event": "9a8c9ff077"
+  },
+  {
+   "recording_id": 60636,
+   "context": null,
+   "count_stated": 1,
+   "event": "28306135b2"
+  },
+  {
+   "recording_id": 60666,
+   "context": "raptor_mobbing",
+   "count_stated": 2,
+   "event": "197a5bd73e"
+  },
+  {
+   "recording_id": 60667,
+   "context": "raptor_mobbing",
+   "count_stated": 2,
+   "event": "197a5bd73e"
+  },
+  {
+   "recording_id": 60680,
+   "context": null,
+   "count_stated": 1,
+   "event": "06c356e52c"
+  },
+  {
+   "recording_id": 60681,
+   "context": null,
+   "count_stated": 1,
+   "event": "06c356e52c"
+  },
+  {
+   "recording_id": 60682,
+   "context": null,
+   "count_stated": 1,
+   "event": "06c356e52c"
+  },
+  {
+   "recording_id": 60684,
+   "context": null,
+   "count_stated": 3,
+   "event": "a373ac27d9"
+  },
+  {
+   "recording_id": 60843,
+   "context": "roost_gathering",
+   "count_stated": 3,
+   "event": "8d3807420d"
+  },
+  {
+   "recording_id": 60853,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "e82d9c2d6c"
+  },
+  {
+   "recording_id": 60873,
+   "context": null,
+   "count_stated": 3,
+   "event": "47315adaeb"
+  },
+  {
+   "recording_id": 60947,
+   "context": null,
+   "count_stated": 3,
+   "event": "df2d12b93e"
+  },
+  {
+   "recording_id": 61000,
+   "context": null,
+   "count_stated": 2,
+   "event": "d444a6c43f"
+  },
+  {
+   "recording_id": 61001,
+   "context": null,
+   "count_stated": 2,
+   "event": "d444a6c43f"
+  },
+  {
+   "recording_id": 61017,
+   "context": "raptor_mobbing",
+   "count_stated": 2,
+   "event": "2252fd9ad5"
+  },
+  {
+   "recording_id": 61025,
+   "context": null,
+   "count_stated": 1,
+   "event": "470b2601ef"
+  },
+  {
+   "recording_id": 61111,
+   "context": null,
+   "count_stated": 3,
+   "event": "da4b8f77ea"
+  },
+  {
+   "recording_id": 61118,
+   "context": "begging",
+   "count_stated": null,
+   "event": "aae758229b"
+  },
+  {
+   "recording_id": 61128,
+   "context": null,
+   "count_stated": 2,
+   "event": "fc10b85d47"
+  },
+  {
+   "recording_id": 61135,
+   "context": null,
+   "count_stated": 2,
+   "event": "2893551a00"
+  },
+  {
+   "recording_id": 61136,
+   "context": null,
+   "count_stated": 2,
+   "event": "2893551a00"
+  },
+  {
+   "recording_id": 61137,
+   "context": null,
+   "count_stated": 2,
+   "event": "2893551a00"
+  },
+  {
+   "recording_id": 61138,
+   "context": null,
+   "count_stated": 2,
+   "event": "2893551a00"
+  },
+  {
+   "recording_id": 61141,
+   "context": "raptor_mobbing",
+   "count_stated": null,
+   "event": "d6b9ab6d55"
+  },
+  {
+   "recording_id": 61154,
+   "context": null,
+   "count_stated": 3,
+   "event": "ef98ab5ec1"
+  },
+  {
+   "recording_id": 61158,
+   "context": null,
+   "count_stated": 3,
+   "event": "454431e63a"
+  },
+  {
+   "recording_id": 61159,
+   "context": null,
+   "count_stated": 3,
+   "event": "454431e63a"
+  },
+  {
+   "recording_id": 61178,
+   "context": "begging",
+   "count_stated": null,
+   "event": "81a68adbbe"
+  },
+  {
+   "recording_id": 61190,
+   "context": "raptor_mobbing",
+   "count_stated": 3,
+   "event": "21db35df1a"
+  },
+  {
+   "recording_id": 61197,
+   "context": null,
+   "count_stated": 3,
+   "event": "a1c1d229ac"
+  },
+  {
+   "recording_id": 61213,
+   "context": "food_foraging",
+   "count_stated": null,
+   "event": "81a60f8b91"
+  },
+  {
+   "recording_id": 61233,
+   "context": null,
+   "count_stated": 3,
+   "event": "0bc51a1d4c"
+  },
+  {
+   "recording_id": 61364,
+   "context": "begging",
+   "count_stated": null,
+   "event": "fe050838f1"
+  }
+ ]
+}
