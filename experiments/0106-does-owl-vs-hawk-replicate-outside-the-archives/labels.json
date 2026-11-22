@@ -1,0 +1,728 @@
+{
+ "coded": "2026-11-21, from the observer's description alone, before any audio feature was extracted",
+ "screened": 191,
+ "rule": "owl_mobbing or hawk_mobbing only where the observer says they saw the predator or the mobbing; guesses (possibly, probably, might, unseen), unattended recordings, predators merely present, and targets that turned out to be ravens are left out. hawk_mobbing covers diurnal raptors as in 0102 (eagles and a falcon are marked in trigger).",
+ "event_note": "event is a hash of the upload the recording belongs to; several recordings can share one event",
+ "labels": [
+  {
+   "recording_id": 49201,
+   "context": "owl_mobbing",
+   "trigger": "owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "e9ed3f5103"
+  },
+  {
+   "recording_id": 52829,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "3e934a9e26"
+  },
+  {
+   "recording_id": 53311,
+   "context": "owl_mobbing",
+   "trigger": "barred_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "413abd4b8d"
+  },
+  {
+   "recording_id": 53398,
+   "context": "owl_mobbing",
+   "trigger": "barred_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "e898e3cb4d"
+  },
+  {
+   "recording_id": 53528,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "df252ea3fb"
+  },
+  {
+   "recording_id": 53910,
+   "context": "owl_mobbing",
+   "trigger": "owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "4eff0214db"
+  },
+  {
+   "recording_id": 53915,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "440f6addf4"
+  },
+  {
+   "recording_id": 53949,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "94c9ba70a3"
+  },
+  {
+   "recording_id": 54087,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "6e65c8ed48"
+  },
+  {
+   "recording_id": 54111,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54112,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54113,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54114,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54115,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "d57f35f4bd"
+  },
+  {
+   "recording_id": 54966,
+   "context": "owl_mobbing",
+   "trigger": "owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "a1a3851913"
+  },
+  {
+   "recording_id": 54971,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "363b7bc396"
+  },
+  {
+   "recording_id": 54972,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "363b7bc396"
+  },
+  {
+   "recording_id": 54973,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "363b7bc396"
+  },
+  {
+   "recording_id": 54977,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "63602e1709"
+  },
+  {
+   "recording_id": 55084,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "c6bef21ee1"
+  },
+  {
+   "recording_id": 55195,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "cbeb61c799"
+  },
+  {
+   "recording_id": 56475,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "8b0a2c3dd4"
+  },
+  {
+   "recording_id": 56849,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 56850,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 56851,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 56852,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "3355aef431"
+  },
+  {
+   "recording_id": 58083,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "1dfff9c4cc"
+  },
+  {
+   "recording_id": 58342,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "abcad1cc72"
+  },
+  {
+   "recording_id": 58402,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "aaee0bcd62"
+  },
+  {
+   "recording_id": 58403,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "aaee0bcd62"
+  },
+  {
+   "recording_id": 59942,
+   "context": "owl_mobbing",
+   "trigger": "barred_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "2763da7bb8"
+  },
+  {
+   "recording_id": 60096,
+   "context": "owl_mobbing",
+   "trigger": "owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "3d1fe2f52f"
+  },
+  {
+   "recording_id": 60396,
+   "context": "owl_mobbing",
+   "trigger": "great_horned_owl",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "df0f4837b0"
+  },
+  {
+   "recording_id": 52465,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "2b3c522ba4"
+  },
+  {
+   "recording_id": 52577,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "35acee0603"
+  },
+  {
+   "recording_id": 52711,
+   "context": "hawk_mobbing",
+   "trigger": "accipiter",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "056b3fda79"
+  },
+  {
+   "recording_id": 52762,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "3d184b29e2"
+  },
+  {
+   "recording_id": 52828,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "426e4e36b1"
+  },
+  {
+   "recording_id": 52859,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "f874958c03"
+  },
+  {
+   "recording_id": 52966,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "2df29010e4"
+  },
+  {
+   "recording_id": 53033,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "c437c95969"
+  },
+  {
+   "recording_id": 53142,
+   "context": "hawk_mobbing",
+   "trigger": "bald_eagle",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "ea821514a2"
+  },
+  {
+   "recording_id": 53202,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "abd59f1a70"
+  },
+  {
+   "recording_id": 53588,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "61e80fde4a"
+  },
+  {
+   "recording_id": 53631,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "b0e1accf47"
+  },
+  {
+   "recording_id": 53671,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "47fa26692c"
+  },
+  {
+   "recording_id": 53805,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "35d0251ed7"
+  },
+  {
+   "recording_id": 53841,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "d33b37533f"
+  },
+  {
+   "recording_id": 54029,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "4b2c49e740"
+  },
+  {
+   "recording_id": 54140,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "e6ccf92e5f"
+  },
+  {
+   "recording_id": 54141,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "a2a3d12dcd"
+  },
+  {
+   "recording_id": 54204,
+   "context": "hawk_mobbing",
+   "trigger": "accipiter",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "7b200168c3"
+  },
+  {
+   "recording_id": 54210,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "ef7c201e11"
+  },
+  {
+   "recording_id": 54829,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "bdc5f96c07"
+  },
+  {
+   "recording_id": 55043,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "0bdfa5daef"
+  },
+  {
+   "recording_id": 55101,
+   "context": "hawk_mobbing",
+   "trigger": "bald_eagle",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "ce1699cd41"
+  },
+  {
+   "recording_id": 55147,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "e1b591a620"
+  },
+  {
+   "recording_id": 55232,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "427fadfd35"
+  },
+  {
+   "recording_id": 55336,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "9b44441a5d"
+  },
+  {
+   "recording_id": 55558,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "42a32c90dc"
+  },
+  {
+   "recording_id": 56279,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "c2ddf836a5"
+  },
+  {
+   "recording_id": 56337,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "c2cf45618d"
+  },
+  {
+   "recording_id": 56444,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "ddefb3991a"
+  },
+  {
+   "recording_id": 56563,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "1231b8c27f"
+  },
+  {
+   "recording_id": 57185,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "df19357e02"
+  },
+  {
+   "recording_id": 57442,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "8a80a3c141"
+  },
+  {
+   "recording_id": 57718,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "f13a01db76"
+  },
+  {
+   "recording_id": 57722,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "f12e8990a7"
+  },
+  {
+   "recording_id": 57723,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "f12e8990a7"
+  },
+  {
+   "recording_id": 57878,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "929d003d2c"
+  },
+  {
+   "recording_id": 58262,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "b957ad0ca3"
+  },
+  {
+   "recording_id": 58520,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "618b7cc49e"
+  },
+  {
+   "recording_id": 58668,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "782d04d833"
+  },
+  {
+   "recording_id": 58683,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "1a92f92be1"
+  },
+  {
+   "recording_id": 58684,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "1a92f92be1"
+  },
+  {
+   "recording_id": 58797,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "a17a26296d"
+  },
+  {
+   "recording_id": 59532,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "251bcb0a49"
+  },
+  {
+   "recording_id": 59533,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "251bcb0a49"
+  },
+  {
+   "recording_id": 59587,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "379bf1ea41"
+  },
+  {
+   "recording_id": 59743,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "049727d714"
+  },
+  {
+   "recording_id": 59744,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "049727d714"
+  },
+  {
+   "recording_id": 59982,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "442fe2615b"
+  },
+  {
+   "recording_id": 59983,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "442fe2615b"
+  },
+  {
+   "recording_id": 60091,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "10da464089"
+  },
+  {
+   "recording_id": 60244,
+   "context": "hawk_mobbing",
+   "trigger": "red_tailed_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "a9156fa879"
+  },
+  {
+   "recording_id": 60666,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "197a5bd73e"
+  },
+  {
+   "recording_id": 60667,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "197a5bd73e"
+  },
+  {
+   "recording_id": 61017,
+   "context": "hawk_mobbing",
+   "trigger": "hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "2252fd9ad5"
+  },
+  {
+   "recording_id": 61141,
+   "context": "hawk_mobbing",
+   "trigger": "falcon",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "d6b9ab6d55"
+  },
+  {
+   "recording_id": 61190,
+   "context": "hawk_mobbing",
+   "trigger": "red_shouldered_hawk",
+   "witnessed": true,
+   "pred_vocal": false,
+   "event": "21db35df1a"
+  }
+ ]
+}

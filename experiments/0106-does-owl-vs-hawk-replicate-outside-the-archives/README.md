@@ -58,6 +58,16 @@ direction (owl higher). (2) The same frozen model on the non-strict set.
 cross-validation, if both classes reach 30, to compare an in-domain score
 with the transferred one.
 
+**Amendment made after reading the text and before any audio was touched
+(same night).** The screen returned 191 descriptions; 90 recordings were coded
+(33 owl, 57 hawk). Reading them showed something the plan had not allowed for:
+one upload can carry several recordings of the same mob with one shared
+description. Counting those as separate recordings would count one event up to
+five times. So the unit of analysis is the **event**: a recording's score is
+averaged within its event, the 15-per-class floor counts events, and the
+bootstrap resamples events. `labels.json` is frozen with this amendment.
+Nothing else in the plan changes.
+
 ## Results
 
 _Filled in after the single run._
