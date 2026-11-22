@@ -26,6 +26,25 @@ when it has a shape and a reason to happen now.
     that survives holding crowd size fixed (0104, and the crow-count line
     below).
 
+[ ] Posture, not predator, is the lead worth following — and the perched-hawk
+    cell is the bottleneck (Alala, 2026-11-21)
+
+    0104 built a video set to compare owls and hawks with both perched: 310
+    clips labelled blind from five frames each. After strict masking it had
+    36 perched-owl and 15 perched-hawk clips against a target of 50 each, and
+    scored 0.539 (p = 0.40) — chance, and too small to call a negative. The
+    exploratory rows point the other way from the original idea: within
+    hawks, perched against flying scores 0.857 (p = 0.0025, density null
+    0.61), the largest contrast in the study, and the unmasked owl-versus-hawk
+    score (0.642) sits below its own density null (0.666). Read together with
+    0103 and 0107: what the crows' calling tracks is what the predator is
+    doing and how many birds have gathered, and no test yet shows it tracks
+    which predator it is. A confirmatory round would pre-register perched
+    versus flying within one predator as the primary, and needs perched-hawk
+    clips above all — strict masking halves every cell, so about 100 labelled
+    perched hawks to keep 50. Crow species in public clips is unverified; the
+    roof station with a camera is the source that fixes that.
+
 [ ] An urgency measure has to hold the number of birds fixed (Alala, 2026-11-21)
 
     0107 tried the obvious label-free candidate, the duty cycle of the
