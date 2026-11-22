@@ -90,18 +90,18 @@ when it has a shape and a reason to happen now.
     BirdNET sat at 0.559 vs prosody's 0.712). Requires a short GPU booking for
     CrowGPT/Perch extraction.
 
-[ ] Fold 0102's 77 witnessed American Crow begging clips (+ 25 timestamped
-    remarks) into the shipped call-type head (Pinyon, 2026-11-21)
+[x] Fold 0102's 77 witnessed American Crow begging clips into the shipped
+    call-type head — DECIDED NOT TO, measured in 0108 (2026-11-21)
 
-    README.md notes begging as BirdNET's weak spot (0.06 conf on fledglings).
-    0102 surfaced 77 witnessed American Crow begging recordings (67 crow-detected,
-    451.1 min across 60 recordists) where BirdNET clean windows separated
-    begging from the other six semantic contexts at 0.963 OvR AUC (0.967 vs
-    mobbing), plus 25 witnessed American Crow recordings whose remarks carry
-    explicit event timestamps. Audit a 20-clip sample by ear first (to verify
-    whether BirdNET is detecting the begging fledgling itself vs an accompanying
-    adult), then test adding the clean begging spans to `pipelines/ingest/` and
-    re-scoring the American Crow head on held-out field begging captures.
+    22 of the 77 were already crow-tools recordings. The other 55, added as
+    weakly labelled crow windows, lift begging AUC from 0.9131 to 0.9195 and
+    cost the alarm class 0.015 in all ten seeds, which fails the guard set
+    beforehand. On the 11 human-labelled field begging spans the shipped head
+    already scores 1.000, so there was no headroom to buy. Two recordings hold
+    73% of the "451 minutes". REVISIT IF someone listens to the 20
+    least-certain clips listed in 0108's README and marks clean begging spans,
+    or tries the untested variant: give the weak rows to the begging
+    one-vs-rest model only, which removes the alarm cost by construction.
 
 
 [ ] A photo scan takes about 30 s on the box; revisit if the Scan page gets traffic (Jay)
