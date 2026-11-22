@@ -11,18 +11,68 @@ when it has a shape and a reason to happen now.
 
 
 [ ] Two-way semantic generation: condition CrowGPT (Dual-AR) to speak owl
-    alarm vs. hawk alarm vs. terrestrial/human scold (Pinyon, 2026-11-21)
+    alarm vs. hawk alarm vs. terrestrial/human scold (Pinyon, 2026-11-21;
+    premise corrected by Alala the same night)
 
-    Now that `analyzer/threat.py` ships a calibrated American Crow threat head
-    trained from Experiment 0102 (owl / hawk / terrestrial / non_threat; 0.786
-    macro AUC, 0.881 owl OvR, 0.797 owl vs hawk, verified zero-shot on Poe
-    Family), run the head over the unlabeled American Crow bout corpus to
-    pseudo-label high-confidence `owl_mobbing`, `hawk_mobbing`, and
-    `terrestrial_scold` bouts (keeping only high-lift / high-margin bouts).
-    Fine-tune or condition the `0101` Dual-AR checkpoint on those semantic tokens
-    so CrowGPT can be asked for an owl alarm vs. a hawk alarm vs. a human scold
-    and evaluated both acoustically (speed + harmonic ratio + pitch contour)
-    and by ear via a blinded listening pool. Requires a GPU booking.
+    NOT READY, and the reason is the classifier, not the generator. This entry
+    was written when `analyzer/threat.py` shipped a threat head; that was
+    reverted (94d5e81) after its verdict rule scored 57% precision on owl,
+    39% on hawk and 10% on terrestrial on held-out archive clips. Pseudo-labels
+    from it would teach the generator the classifier's mistakes. And 0107
+    found a duty-cycle number alone recovers most of owl-versus-hawk (0.71
+    against 0.78) while scoring a roost as high as an owl mob — so what there
+    is to condition on today is "how much crow sound", not a predator.
+    REVISIT WHEN: a perched-matched or single-bird test shows a difference
+    that survives holding crowd size fixed (0104, and the crow-count line
+    below).
+
+[ ] An urgency measure has to hold the number of birds fixed (Alala, 2026-11-21)
+
+    0107 tried the obvious label-free candidate, the duty cycle of the
+    crow-band envelope. It orders human-sorted softSong < alert < mob segments
+    (rho 0.29) but loses about half of that on single-bird segments (0.17),
+    and a witnessed roost scores at or above an owl mob. It is birds times
+    calling. The crow-tools labels carry a human `crowCount` on every reviewed
+    segment (1,909 one bird, 329 two, 248 four or more), which is enough to
+    train a per-segment crow-count estimate and then ask whether anything
+    about single-bird calling still separates alert from mob. No new data
+    needed; CPU only. Until that exists, nothing called "urgency" or "threat"
+    should reach the app, the dashboard or the promo page — "calling density"
+    is the honest name for what can be measured.
+
+[ ] A sealed replication set for the archive findings needs remark text the
+    database does not hold (Alala, 2026-11-21)
+
+    Ben asked for the owl-versus-hawk result to be replicated on the rest of
+    the corpus. It cannot be run from what is on disk. Only the Xeno-canto and
+    Macaulay rows carry recordists' remarks; every other row in `corvid.db`
+    has its identifiers, place and date in `raw` and no description, so there
+    is nothing to harvest a context from — 8,986 American Crow recordings
+    among them. The two archives themselves are exhausted: a second pass over
+    all 2,637 American Crow remarks found 7 raptor mentions the first screen
+    missed, and 0103 has already spent the 2023+ holdout. Two ways to unblock,
+    both Ben's to do: have the corpus tooling pull the description text for
+    the rows that lack it, or make a fresh Macaulay CSV export so recordings
+    uploaded since the 2026-08-06 crawl can be added (at the archive's rate of
+    about one strict owl or hawk clip per hundred recordings, four months of
+    uploads is roughly half a dozen clips — a top-up, not a test set). The
+    first is the one that would give a replication of any size. When either
+    lands: harvest with 0102's `run.py`, seal the new rows before anything is
+    measured, and predict once.
+
+[ ] Timestamped events are the right design and the archive has six of them
+    (Alala, 2026-11-21)
+
+    0105 compared calling before and after moments where a recordist's own
+    words describe a change ("crowd really gets going at about 1:02"): the
+    same birds on the same microphone, so recordist, equipment and site drop
+    out. Six such moments exist in 62 timestamped remarks; caw rate moved the
+    described way at four (p = 0.34). The code in
+    `experiments/0105-does-calling-change-when-the-recordist-says-so/run.py`
+    takes any list of (recording, time, expected direction). A camera on the
+    roof station (`phases/roof-station.md`) would produce such events by the
+    dozen without anyone choosing them — a reason to put the camera in the
+    first build of the station rather than a later one.
 
 [ ] Probe CrowGPT hidden states and Perch on 0102's 561 witnessed semantic
     recordings (Pinyon, 2026-11-21)
