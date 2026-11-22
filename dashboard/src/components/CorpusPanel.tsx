@@ -6,7 +6,8 @@ import {
   useCorpusSummary,
 } from "../api/client";
 import type { CorpusFilters } from "../api/client";
-import type { CorpusDetection, CorpusRecording } from "../api/types";
+import type { CorpusDetection, CorpusRecording, CorpusTier } from "../api/types";
+import { GradeBadge, QualityTable, SignalChips, SourceNotes } from "./CorpusQuality";
 
 function hms(seconds: number | null | undefined): string {
   if (seconds === null || seconds === undefined) return "—";
@@ -84,6 +85,8 @@ function RecordingDetail({ id, signedIn }: { id: number; signedIn: boolean }) {
           </>
         ) : null}
       </p>
+
+      <SourceNotes notes={row.notes} grade={row.quality} tier={row.tier} callType={row.call_type} />
 
       {row.playable ? (
         audioUrl ? (
@@ -244,12 +247,20 @@ export function CorpusPanel({ signedIn }: { signedIn: boolean }) {
           Click a source or species row to filter; counts are the detector's
           confident guesses, not ground truth.
         </p>
+        <QualityTable
+          rows={summary.data.quality}
+          totals={summary.data.quality_totals}
+          active={filters.source}
+          onPick={(source) =>
+            change({ source: filters.source === source ? undefined : source })
+          }
+        />
       </div>
 
       <div className="panel">
         <div className="corpus-controls">
           <input
-            placeholder="search recordist / species / ref"
+            placeholder="search recordist / species / ref / remark text"
             value={filters.q ?? ""}
             onChange={(event) => change({ q: event.target.value || undefined })}
           />
@@ -261,6 +272,50 @@ export function CorpusPanel({ signedIn }: { signedIn: boolean }) {
             />{" "}
             only recordings with calls
           </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.hasRemark ?? false}
+              onChange={(event) => change({ hasRemark: event.target.checked })}
+            />{" "}
+            has text
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.labelled ?? false}
+              onChange={(event) => change({ labelled: event.target.checked })}
+            />{" "}
+            call type given
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.annotated ?? false}
+              onChange={(event) => change({ annotated: event.target.checked })}
+            />{" "}
+            timed annotations
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.clean ?? false}
+              onChange={(event) => change({ clean: event.target.checked })}
+            />{" "}
+            no other species named
+          </label>
+          <select
+            value={filters.tier ?? ""}
+            onChange={(event) =>
+              change({ tier: (event.target.value || undefined) as CorpusTier | undefined })
+            }
+          >
+            <option value="">any grade</option>
+            <option value="high">high grade</option>
+            <option value="mid">mid grade</option>
+            <option value="low">low grade</option>
+            <option value="unrated">ungraded</option>
+          </select>
           <select
             value={filters.sort}
             onChange={(event) =>
@@ -271,6 +326,8 @@ export function CorpusPanel({ signedIn }: { signedIn: boolean }) {
             <option value="calls">most calls first</option>
             <option value="duration">longest first</option>
             <option value="recent">newest first</option>
+            <option value="documented">best documented first</option>
+            <option value="remark">longest remark first</option>
           </select>
           <span className="muted">
             {total.toLocaleString()} match{filters.source ? ` in ${filters.source}` : ""}
@@ -284,6 +341,9 @@ export function CorpusPanel({ signedIn }: { signedIn: boolean }) {
               <th>ref</th>
               <th>source</th>
               <th>species</th>
+              <th>labelled as</th>
+              <th>grade</th>
+              <th>documentation</th>
               <th>recordist</th>
               <th className="num">length</th>
               <th className="num">calls</th>
@@ -301,6 +361,15 @@ export function CorpusPanel({ signedIn }: { signedIn: boolean }) {
                   <td>{r.source_ref}</td>
                   <td>{r.source}</td>
                   <td>{r.species ?? <span className="muted">—</span>}</td>
+                  <td>
+                    {r.labelled ? r.source_call_type : <span className="muted">—</span>}
+                  </td>
+                  <td>
+                    <GradeBadge grade={r.grade} tier={r.tier} />
+                  </td>
+                  <td>
+                    <SignalChips row={r} />
+                  </td>
                   <td>{r.recordist ?? "—"}</td>
                   <td className="num">{hms(r.duration_seconds)}</td>
                   <td className="num">
@@ -313,7 +382,7 @@ export function CorpusPanel({ signedIn }: { signedIn: boolean }) {
                 </tr>
                 {open === r.id ? (
                   <tr key={`${r.id}-detail`} className="corpus-detail-row">
-                    <td colSpan={7}>
+                    <td colSpan={10}>
                       <RecordingDetail id={r.id} signedIn={signedIn} />
                     </td>
                   </tr>

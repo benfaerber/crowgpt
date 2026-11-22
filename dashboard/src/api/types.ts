@@ -547,11 +547,37 @@ export interface CorpusSpeciesRow {
   caw_minutes: number;
 }
 
+/** How much each source told us about its recordings, counted per signal.
+ *  Tiers fold letter grades, star ratings and review states onto one scale. */
+export interface CorpusQualityCounts {
+  recordings: number;
+  with_remark: number;
+  tier_high: number;
+  tier_mid: number;
+  tier_low: number;
+  tier_unrated: number;
+  labelled: number;
+  annotated: number;
+  background: number;
+  geo: number;
+  dated: number;
+  analyzed: number;
+  with_calls: number;
+}
+
+export interface CorpusQualityRow extends CorpusQualityCounts {
+  source: string;
+}
+
+export type CorpusTier = "high" | "mid" | "low" | "unrated";
+
 export interface CorpusSummary {
   available: boolean;
   path: string;
   sources: CorpusSourceRow[];
   species: CorpusSpeciesRow[];
+  quality: CorpusQualityRow[];
+  quality_totals: CorpusQualityCounts | null;
   totals: {
     recordings: number;
     downloaded: number;
@@ -575,9 +601,35 @@ export interface CorpusRecording {
   downloaded: number;
   page_url: string | null;
   created_at: string;
+  grade: string | null;
+  tier: CorpusTier;
+  source_call_type: string | null;
+  remark_chars: number;
+  remark_preview: string | null;
+  labelled: number;
+  annotated: number;
+  background: number;
+  geo: number;
   calls: number;
   candidates: number;
   caw_seconds: number;
+}
+
+export interface CorpusAnnotation {
+  label: string;
+  start_seconds: number | null;
+  end_seconds: number | null;
+  seconds: number | null;
+}
+
+/** What the source row said about itself: remark, other species audible,
+ *  recordist-set flags, and any timed annotations a person made. */
+export interface CorpusNotes {
+  remark: string | null;
+  background: string[];
+  flags: Record<string, string>;
+  rating_count: number | null;
+  annotations: CorpusAnnotation[];
 }
 
 export interface CorpusDetection {
@@ -605,7 +657,10 @@ export interface CorpusRecordingDetail {
   lat: number | null;
   lng: number | null;
   quality: string | null;
+  call_type: string | null;
+  tier: CorpusTier;
   playable: boolean;
+  notes: CorpusNotes;
   detections: CorpusDetection[];
 }
 

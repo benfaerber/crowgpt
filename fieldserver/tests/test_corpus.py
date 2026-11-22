@@ -20,6 +20,7 @@ def build_corpus(path, tmp_path):
             recordist TEXT, date TEXT, duration_seconds INTEGER, license TEXT,
             downloaded INTEGER, file_path TEXT, page_url TEXT, location TEXT,
             lat REAL, lng REAL, quality TEXT, analyzed_at TEXT,
+            call_type TEXT, raw TEXT,
             created_at TEXT DEFAULT '2026-08-01');
         CREATE TABLE detections (
             id INTEGER PRIMARY KEY, recording_id INTEGER,
@@ -158,3 +159,98 @@ class TestAudio:
     def test_a_never_downloaded_row_is_a_404(self, client, operator, corpus):
         assert client.get("/api/corpus/recordings/4/audio",
                           headers=operator.headers).status_code == 404
+
+
+def add_documentation(path):
+    """Four shapes a source might use: letter grade with a remark and
+    background species, numeric rating with notes, review state with nothing
+    written, and an ungraded row with timed annotations."""
+    conn = sqlite3.connect(path)
+    conn.executemany(
+        "UPDATE recordings SET quality = ?, call_type = ?, raw = ? WHERE id = ?",
+        [
+            ("A", "alarm call", '{"rmk": "two birds mobbing a hawk", "also": ["Robin"],'
+                                ' "animal-seen": "yes"}', 1),
+            ("4.50", None, '{"mediaNotes": "adult calling near feeders", "ratingCount": 12}', 2),
+            ("needs_id", "uncertain", '{"rmk": ""}', 3),
+            (None, None, '{"events": [{"tags": ["Rook"], "start_time_seconds": 2.0,'
+                         ' "end_time_seconds": 4.5}]}', 4),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+@pytest.fixture
+def documented(corpus):
+    add_documentation(corpus)
+    return corpus
+
+
+class TestQuality:
+    def test_grades_of_every_shape_land_in_one_tier_scale(self, client, operator, documented):
+        body = client.get("/api/corpus/recordings", headers=operator.headers).get_json()
+
+        tiers = {r["id"]: r["tier"] for r in body["recordings"]}
+        assert tiers == {1: "high", 2: "high", 3: "mid", 4: "unrated"}
+
+    def test_a_remark_is_whichever_text_field_the_row_carries(self, client, operator, documented):
+        body = client.get("/api/corpus/recordings?has_remark=1",
+                          headers=operator.headers).get_json()
+
+        assert {r["id"] for r in body["recordings"]} == {1, 2}
+
+    def test_uncertain_is_not_a_label(self, client, operator, documented):
+        body = client.get("/api/corpus/recordings?labelled=1",
+                          headers=operator.headers).get_json()
+
+        assert {r["id"] for r in body["recordings"]} == {1}
+
+    def test_search_reaches_the_remark(self, client, operator, documented):
+        body = client.get("/api/corpus/recordings?q=hawk",
+                          headers=operator.headers).get_json()
+
+        assert {r["id"] for r in body["recordings"]} == {1}
+
+    def test_clean_hides_rows_with_other_species_named(self, client, operator, documented):
+        body = client.get("/api/corpus/recordings?clean=1",
+                          headers=operator.headers).get_json()
+
+        assert 1 not in {r["id"] for r in body["recordings"]}
+
+    def test_the_summary_counts_each_signal_per_source(self, client, operator, documented):
+        body = client.get("/api/corpus/summary", headers=operator.headers).get_json()
+
+        by_source = {q["source"]: q for q in body["quality"]}
+        assert by_source["archive-a"]["with_remark"] == 2
+        assert by_source["archive-b"]["annotated"] == 1
+        assert body["quality_totals"]["tier_high"] == 2
+
+    def test_the_detail_carries_what_the_source_said(self, client, operator, documented):
+        one = client.get("/api/corpus/recordings/1", headers=operator.headers).get_json()
+        four = client.get("/api/corpus/recordings/4", headers=operator.headers).get_json()
+
+        assert one["tier"] == "high"
+        assert one["notes"]["remark"] == "two birds mobbing a hawk"
+        assert one["notes"]["background"] == ["Robin"]
+        assert one["notes"]["flags"]["animal seen"] == "yes"
+        assert four["notes"]["annotations"][0]["label"] == "Rook"
+        assert "raw" not in one
+
+    def test_html_in_a_remark_reads_as_text(self, client, operator, corpus):
+        conn = sqlite3.connect(corpus)
+        conn.execute("UPDATE recordings SET raw = ? WHERE id = 1",
+                     ('{"rmk": "<p style=\\"x\\">Crows &amp; a hawk</p><p>later</p>"}',))
+        conn.commit()
+        conn.close()
+
+        detail = client.get("/api/corpus/recordings/1", headers=operator.headers).get_json()
+        listed = client.get("/api/corpus/recordings?q=hawk", headers=operator.headers).get_json()
+
+        assert detail["notes"]["remark"] == "Crows & a hawk\nlater"
+        assert listed["recordings"][0]["remark_preview"] == "Crows & a hawk later"
+
+    def test_a_row_without_raw_still_reads(self, client, operator, corpus):
+        body = client.get("/api/corpus/recordings/1", headers=operator.headers).get_json()
+
+        assert body["notes"]["remark"] is None

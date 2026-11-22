@@ -413,3 +413,52 @@
 .traffic-table { display:table; width:100%; table-layout:fixed; }
 .traffic-table td.num { width:5.5rem; }
 .traffic-key { overflow:hidden; text-overflow:ellipsis; }
+
+/* --- corpus documentation quality --------------------------------------- */
+.quality-heading { margin: 1.4rem 0 .5rem; font-size: .9rem; color: var(--muted); font-weight: 600; }
+.quality-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.quality-table th { text-align: left; color: var(--muted); font-weight: 500;
+  padding: .25rem .45rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.quality-table th.num { text-align: right; }
+.quality-table td { padding: .3rem .45rem; border-bottom: 1px solid var(--border); }
+.quality-table tbody tr { cursor: pointer; }
+.quality-table tbody tr:hover { background: var(--panel2); }
+.quality-table tfoot td { font-weight: 600; border-bottom: none; }
+.quality-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.quality-gradecol { width: 9rem; }
+.quality-cell { background: linear-gradient(to left,
+  color-mix(in srgb, var(--accent) 22%, transparent) var(--share), transparent var(--share)); }
+.quality-tierbar { display: flex; height: .7rem; border-radius: 999px; overflow: hidden;
+  background: var(--bg); min-width: 7rem; }
+.quality-tierbar > span { display: block; min-width: 2px; }
+.quality-tier-high { background: var(--good); }
+.quality-tier-mid { background: var(--warn); }
+.quality-tier-low { background: var(--bad); }
+.quality-tier-unrated { background: var(--border); }
+.quality-key { display: inline-block; width: .65rem; height: .65rem; border-radius: 2px;
+  vertical-align: -1px; margin-left: .3rem; }
+.quality-badge { display: inline-block; min-width: 1.6rem; text-align: center; padding: 0 .35rem;
+  border-radius: 3px; font-size: .74rem; font-weight: 600; border: 1px solid; white-space: nowrap; }
+.quality-badge-high { color: var(--good); border-color: var(--good); }
+.quality-badge-mid { color: var(--warn); border-color: var(--warn); }
+.quality-badge-low { color: var(--bad); border-color: var(--bad); }
+.quality-badge-unrated { color: var(--muted); border-color: var(--border); }
+.quality-chips { display: inline-flex; gap: .25rem; flex-wrap: wrap; }
+.quality-chip { display: inline-block; padding: 0 .35rem; border-radius: 999px; font-size: .7rem;
+  background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--text);
+  white-space: nowrap; }
+.quality-chip-strong { background: color-mix(in srgb, var(--good) 25%, transparent); }
+.quality-chip-warn { background: color-mix(in srgb, var(--warn) 22%, transparent); }
+.quality-chip-faint { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+.quality-notes { margin: 0 0 .8rem; }
+.quality-notes-line { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap;
+  font-size: .82rem; margin-bottom: .5rem; }
+.quality-remark { margin: 0 0 .5rem; padding: .5rem .8rem; border-left: 3px solid var(--accent);
+  background: var(--bg); white-space: pre-wrap; font-size: .82rem; line-height: 1.45;
+  max-height: 14rem; overflow-y: auto; }
+.quality-background { margin: 0 0 .5rem; font-size: .82rem; }
+.quality-annotations { margin-bottom: .8rem; }
+.quality-annotations tbody tr { cursor: default; }
+@media (max-width: 60rem) {
+  .quality-table { display: block; overflow-x: auto; }
+}

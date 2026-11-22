@@ -17,11 +17,13 @@ NO WIRE_VERSION BUMP. Dashboard surface; the phone neither knows nor cares.
 
 import os
 import sqlite3
+from dataclasses import asdict
 from pathlib import Path
 
 from flask import abort, jsonify, request, send_file
 
 from ..stores.contributors import FLEET_ROLES
+from .corpus_quality import QualitySignals, RecordingNotes, Remark
 
 REPO = Path(__file__).resolve().parents[4]
 
@@ -40,7 +42,11 @@ SORTS = {
     "caw": "caw_seconds DESC",
     "duration": "duration_seconds DESC",
     "recent": "created_at DESC",
+    "documented": f"{QualitySignals.richness()} DESC, length(remark) DESC",
+    "remark": "length(remark) DESC",
 }
+
+TIERS = set(QualitySignals.TIERS)
 
 
 def _db_path() -> Path:
@@ -91,7 +97,8 @@ def register(app, deps) -> None:
         conn = _connect()
         if conn is None:
             return jsonify({"available": False, "path": str(_db_path()),
-                            "sources": [], "species": [], "totals": None})
+                            "sources": [], "species": [], "totals": None,
+                            "quality": [], "quality_totals": None})
         with conn:
             sources = [dict(r) for r in conn.execute(
                 """
@@ -106,6 +113,13 @@ def register(app, deps) -> None:
                 """ + ROLLUP + """
                 GROUP BY r.source ORDER BY calls DESC
                 """)]
+            quality = [dict(r) for r in conn.execute(
+                QualitySignals.cte() + "SELECT r.source, "
+                + QualitySignals.coverage_columns() + " FROM rq r " + ROLLUP
+                + " GROUP BY r.source ORDER BY recordings DESC")]
+            quality_totals = {key: sum(row[key] or 0 for row in quality)
+                              for key in (quality[0] if quality else {})
+                              if key != "source"}
             species = [dict(r) for r in conn.execute(
                 """
                 SELECT species,
@@ -129,7 +143,8 @@ def register(app, deps) -> None:
         conn.close()
         return jsonify({"available": True, "path": str(_db_path()),
                         "sources": sources, "species": species,
-                        "totals": totals})
+                        "totals": totals, "quality": quality,
+                        "quality_totals": quality_totals})
 
     @app.get("/api/corpus/recordings")
     def corpus_recordings():
@@ -152,8 +167,20 @@ def register(app, deps) -> None:
             clauses.append("COALESCE(d.calls, 0) > 0")
         if request.args.get("q"):
             like = f"%{request.args['q']}%"
-            clauses.append("(r.recordist LIKE ? OR r.species LIKE ? OR r.source_ref LIKE ?)")
-            params += [like, like, like]
+            clauses.append("(r.recordist LIKE ? OR r.species LIKE ? OR r.source_ref LIKE ?"
+                           " OR r.remark LIKE ? OR r.call_type LIKE ?)")
+            params += [like] * 5
+        if request.args.get("has_remark") == "1":
+            clauses.append("r.remark IS NOT NULL")
+        if request.args.get("labelled") == "1":
+            clauses.append("r.labelled")
+        if request.args.get("annotated") == "1":
+            clauses.append("r.annotated")
+        if request.args.get("clean") == "1":
+            clauses.append("NOT r.background")
+        if request.args.get("tier") in TIERS:
+            clauses.append("r.tier = ?")
+            params.append(request.args["tier"])
 
         order = SORTS.get(request.args.get("sort", "caw"), SORTS["caw"])
         limit = min(int(request.args.get("limit", 50)), MAX_PAGE)
@@ -162,20 +189,28 @@ def register(app, deps) -> None:
 
         with conn:
             total = conn.execute(
-                f"SELECT COUNT(*) FROM recordings r {ROLLUP} WHERE {where}",
+                f"{QualitySignals.cte()} SELECT COUNT(*) FROM rq r {ROLLUP} WHERE {where}",
                 params).fetchone()[0]
             rows = [dict(r) for r in conn.execute(
-                f"""
+                f"""{QualitySignals.cte()}
                 SELECT r.id, r.source, r.source_ref, r.species, r.recordist,
                        r.date, r.duration_seconds, r.license, r.downloaded,
                        r.page_url, r.created_at,
+                       r.quality AS grade, r.tier, r.call_type AS source_call_type,
+                       r.remark,
+                       r.labelled, r.annotated, r.background,
+                       r.lat IS NOT NULL AS geo,
                        COALESCE(d.calls, 0) AS calls,
                        COALESCE(d.candidates, 0) AS candidates,
                        ROUND(COALESCE(d.caw_seconds, 0), 1) AS caw_seconds
-                FROM recordings r {ROLLUP}
+                FROM rq r {ROLLUP}
                 WHERE {where} ORDER BY {order} LIMIT ? OFFSET ?
                 """, params + [limit, offset])]
         conn.close()
+        for row in rows:
+            remark = Remark.clean(row.pop("remark"))
+            row["remark_chars"] = len(remark) if remark else 0
+            row["remark_preview"] = Remark.preview(remark)
         return jsonify({"recordings": rows, "total": total})
 
     @app.get("/api/corpus/recordings/<int:recording_id>")
@@ -187,10 +222,11 @@ def register(app, deps) -> None:
             abort(404, "no corpus database")
         try:
             row = conn.execute(
-                "SELECT id, source, source_ref, species, recordist, date, "
-                "       duration_seconds, license, downloaded, file_path, "
-                "       page_url, location, lat, lng, quality "
-                "FROM recordings WHERE id = ?", (recording_id,)).fetchone()
+                "SELECT r.id, r.source, r.source_ref, r.species, r.recordist, r.date, "
+                "       r.duration_seconds, r.license, r.downloaded, r.file_path, "
+                "       r.page_url, r.location, r.lat, r.lng, r.quality, r.call_type, r.raw, "
+                f"      {QualitySignals.tier()} AS tier "
+                "FROM recordings r WHERE r.id = ?", (recording_id,)).fetchone()
             if row is None:
                 abort(404, "no such recording")
             detections = [dict(r) for r in conn.execute(
@@ -203,7 +239,9 @@ def register(app, deps) -> None:
         body = dict(row)
         playable = bool(body.get("file_path")) and Path(body["file_path"]).exists()
         body.pop("file_path", None)  # a server path is not the dashboard's business
+        notes = RecordingNotes.from_raw(body.pop("raw", None))
         body["playable"] = playable
+        body["notes"] = asdict(notes)
         body["detections"] = detections
         return jsonify(body)
 

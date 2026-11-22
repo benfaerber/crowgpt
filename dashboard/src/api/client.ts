@@ -20,6 +20,7 @@ import type {
   CorpusPage,
   CorpusRecordingDetail,
   CorpusSummary,
+  CorpusTier,
 } from "./types";
 import type { ServerBuild } from "../buildInfo";
 
@@ -551,7 +552,12 @@ export interface CorpusFilters {
   species?: string;
   withCalls?: boolean;
   q?: string;
-  sort?: "caw" | "calls" | "duration" | "recent";
+  sort?: "caw" | "calls" | "duration" | "recent" | "documented" | "remark";
+  tier?: CorpusTier;
+  hasRemark?: boolean;
+  labelled?: boolean;
+  annotated?: boolean;
+  clean?: boolean;
   offset?: number;
 }
 
@@ -561,6 +567,11 @@ export function useCorpusRecordings(signedIn: boolean, filters: CorpusFilters) {
   if (filters.species) params.set("species", filters.species);
   if (filters.withCalls) params.set("with_calls", "1");
   if (filters.q) params.set("q", filters.q);
+  if (filters.tier) params.set("tier", filters.tier);
+  if (filters.hasRemark) params.set("has_remark", "1");
+  if (filters.labelled) params.set("labelled", "1");
+  if (filters.annotated) params.set("annotated", "1");
+  if (filters.clean) params.set("clean", "1");
   params.set("sort", filters.sort ?? "caw");
   params.set("limit", "50");
   params.set("offset", String(filters.offset ?? 0));
