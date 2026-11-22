@@ -1,0 +1,103 @@
+{
+  "events": [
+    {
+      "recording_id": 23031,
+      "t_sec": 140,
+      "expect": "up",
+      "duration_s": 218.2,
+      "valid": true,
+      "distance_confound": false,
+      "rate_before": 1.296,
+      "rate_after": 2.185,
+      "rate_change_signed": 0.889,
+      "duty_change_signed": 0.361,
+      "other_moments": 190,
+      "fraction_of_other_moments_as_large": 0.079
+    },
+    {
+      "recording_id": 25516,
+      "t_sec": 62,
+      "expect": "up",
+      "duration_s": 110.2,
+      "valid": true,
+      "distance_confound": false,
+      "rate_before": 2.593,
+      "rate_after": 2.037,
+      "rate_change_signed": -0.556,
+      "duty_change_signed": -0.056,
+      "other_moments": 82,
+      "fraction_of_other_moments_as_large": 0.476
+    },
+    {
+      "recording_id": 26329,
+      "t_sec": 78,
+      "expect": "down",
+      "duration_s": 172.1,
+      "valid": true,
+      "distance_confound": false,
+      "rate_before": 2.852,
+      "rate_after": 1.519,
+      "rate_change_signed": 1.333,
+      "duty_change_signed": 0.679,
+      "other_moments": 144,
+      "fraction_of_other_moments_as_large": 0.104
+    },
+    {
+      "recording_id": 397,
+      "t_sec": 50,
+      "expect": "up",
+      "duration_s": 99.9,
+      "valid": true,
+      "distance_confound": false,
+      "rate_before": 1.37,
+      "rate_after": 0.815,
+      "rate_change_signed": -0.556,
+      "duty_change_signed": 0.036,
+      "other_moments": 71,
+      "fraction_of_other_moments_as_large": 0.746
+    },
+    {
+      "recording_id": 35068,
+      "t_sec": 60,
+      "expect": "up",
+      "duration_s": 197.7,
+      "valid": true,
+      "distance_confound": true,
+      "rate_before": 1.704,
+      "rate_after": 2.63,
+      "rate_change_signed": 0.926,
+      "duty_change_signed": 0.249,
+      "other_moments": 169,
+      "fraction_of_other_moments_as_large": 0.219
+    },
+    {
+      "recording_id": 25139,
+      "t_sec": 44,
+      "expect": "up",
+      "duration_s": 73.0,
+      "valid": true,
+      "distance_confound": false,
+      "rate_before": 0.37,
+      "rate_after": 1.229,
+      "rate_change_signed": 0.859,
+      "duty_change_signed": 0.062,
+      "other_moments": 45,
+      "fraction_of_other_moments_as_large": 0.044
+    }
+  ],
+  "primary_caw_rate": {
+    "hits": 4,
+    "n": 6,
+    "p_one_sided": 0.3438
+  },
+  "without_distance_confound": {
+    "hits": 3,
+    "n": 5,
+    "p_one_sided": 0.5
+  },
+  "duty_cycle": {
+    "hits": 5,
+    "n": 6,
+    "p_one_sided": 0.1094
+  }
+}
