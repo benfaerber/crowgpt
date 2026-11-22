@@ -1,0 +1,29 @@
+{
+  "coded": "2026-11-21, from the remark text alone, before any audio was measured",
+  "rule": "Tier A = the recordist's own words describe a change in how the crows are calling at a stated time. Tier B = an event at a stated time whose effect on calling the recordist does not describe. Only tier A is tested.",
+  "tier_a": [
+    {"recording_id": 23031, "t_sec": 140, "expect": "up",
+     "words": "Close to the 2:20 time mark, the Owl hopped to a new branch, causing some ruckus amongst the Crows."},
+    {"recording_id": 25516, "t_sec": 62, "expect": "up",
+     "words": "Crowd really gets going at about 1:02."},
+    {"recording_id": 26329, "t_sec": 78, "expect": "down",
+     "words": "You can hear the hawk's call at about 1:18 as it flies about 30m to a different tree. The crows become somewhat quieter."},
+    {"recording_id": 397, "t_sec": 50, "expect": "up",
+     "words": "The recording gets louder at 0:50"},
+    {"recording_id": 35068, "t_sec": 60, "expect": "up", "distance_confound": true,
+     "words": "the thick trees muffed the battle, about 35 sec. is when they were getting closer and around 1:00 they were battling."},
+    {"recording_id": 25139, "t_sec": 44, "expect": "up",
+     "words": "At about :44 that individual flies off and calls continuously while flying."}
+  ],
+  "tier_b_not_tested": [
+    {"recording_id": 24100, "t_sec": 100, "why": "a crow lands near an owl; the recordist describes no change in calling"},
+    {"recording_id": 26329, "t_sec": 148, "why": "calling 'intensifies' at an unstated time before the hawk calls again at 2:28"},
+    {"recording_id": 397, "t_sec": 89, "why": "the flock takes off after the hawk; no change in calling described"},
+    {"recording_id": 32497, "t_sec": 210, "why": "the loudest crow flies off; direction is my guess, not the recordist's"},
+    {"recording_id": 24204, "t_sec": 50, "why": "a fledgling is fed; no change in calling described"},
+    {"recording_id": 29418, "t_sec": 43, "why": "an adult arrives at begging young; no change described"},
+    {"recording_id": 30369, "t_sec": 34, "why": "a juvenile is fed, then adults object to the recordist; two events in one"},
+    {"recording_id": 196, "t_sec": 17, "why": "begging starts; an onset from silence would pass trivially"},
+    {"recording_id": 25741, "t_sec": 150, "why": "most of a roost leaves; no change in calling described"}
+  ]
+}
