@@ -1,0 +1,718 @@
+{
+  "overlap": {
+    "witnessed_begging_clips": 77,
+    "already_in_crowtools": 22,
+    "new_clips": 55,
+    "new_clips_embedded": 55,
+    "new_clips_with_a_crow_window": 46,
+    "new_clip_recordists": 49,
+    "failed_to_embed": {}
+  },
+  "begging_by_seed": {
+    "0": {
+      "baseline": {
+        "auc": 0.9130817252732021,
+        "ap": 0.7781534998817985
+      },
+      "all_crow_windows": {
+        "auc": 0.9195469023828247,
+        "ap": 0.784038862212707
+      },
+      "head_says_begging": {
+        "auc": 0.9172687886061375,
+        "ap": 0.7904123012501992
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          203,
+          214,
+          210,
+          229,
+          194
+        ],
+        "head_says_begging": [
+          151,
+          181,
+          165,
+          166,
+          145
+        ]
+      }
+    },
+    "1": {
+      "baseline": {
+        "auc": 0.9155231496158085,
+        "ap": 0.7803615149942582
+      },
+      "all_crow_windows": {
+        "auc": 0.9244915071643933,
+        "ap": 0.7823948577506191
+      },
+      "head_says_begging": {
+        "auc": 0.9170313707245911,
+        "ap": 0.7935080466389302
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          202,
+          214,
+          204,
+          207,
+          219
+        ],
+        "head_says_begging": [
+          153,
+          177,
+          169,
+          141,
+          182
+        ]
+      }
+    },
+    "2": {
+      "baseline": {
+        "auc": 0.9159156439170931,
+        "ap": 0.767271576597004
+      },
+      "all_crow_windows": {
+        "auc": 0.9183927495598163,
+        "ap": 0.7839456810314802
+      },
+      "head_says_begging": {
+        "auc": 0.918215715416929,
+        "ap": 0.7776343231365191
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          199,
+          218,
+          207,
+          215,
+          223
+        ],
+        "head_says_begging": [
+          168,
+          170,
+          156,
+          166,
+          167
+        ]
+      }
+    },
+    "3": {
+      "baseline": {
+        "auc": 0.9146036699589527,
+        "ap": 0.7655031604596731
+      },
+      "all_crow_windows": {
+        "auc": 0.9139147463951595,
+        "ap": 0.755117308104238
+      },
+      "head_says_begging": {
+        "auc": 0.9198447040030302,
+        "ap": 0.7789326111973783
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          210,
+          199,
+          208,
+          223,
+          193
+        ],
+        "head_says_begging": [
+          168,
+          161,
+          157,
+          164,
+          155
+        ]
+      }
+    },
+    "4": {
+      "baseline": {
+        "auc": 0.9175858032340981,
+        "ap": 0.7756937633884355
+      },
+      "all_crow_windows": {
+        "auc": 0.9261534323352176,
+        "ap": 0.7871448451139412
+      },
+      "head_says_begging": {
+        "auc": 0.921864814532719,
+        "ap": 0.7864229688055829
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          199,
+          203,
+          204,
+          194,
+          206
+        ],
+        "head_says_begging": [
+          133,
+          156,
+          150,
+          166,
+          166
+        ]
+      }
+    },
+    "5": {
+      "baseline": {
+        "auc": 0.9192847820627359,
+        "ap": 0.7732431709376693
+      },
+      "all_crow_windows": {
+        "auc": 0.9232865771066034,
+        "ap": 0.780253128986424
+      },
+      "head_says_begging": {
+        "auc": 0.9207683007329762,
+        "ap": 0.787837249009613
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          206,
+          199,
+          216,
+          203,
+          218
+        ],
+        "head_says_begging": [
+          141,
+          133,
+          173,
+          160,
+          188
+        ]
+      }
+    },
+    "6": {
+      "baseline": {
+        "auc": 0.9229009445938027,
+        "ap": 0.7753699112433908
+      },
+      "all_crow_windows": {
+        "auc": 0.9249430128466405,
+        "ap": 0.7862194398646355
+      },
+      "head_says_begging": {
+        "auc": 0.9230436697942699,
+        "ap": 0.7910370105475901
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          199,
+          202,
+          187,
+          199,
+          202
+        ],
+        "head_says_begging": [
+          166,
+          151,
+          155,
+          150,
+          147
+        ]
+      }
+    },
+    "7": {
+      "baseline": {
+        "auc": 0.9126466878833166,
+        "ap": 0.7601296401776477
+      },
+      "all_crow_windows": {
+        "auc": 0.9196429674216007,
+        "ap": 0.7573038708042643
+      },
+      "head_says_begging": {
+        "auc": 0.9167816016237738,
+        "ap": 0.7794337295011634
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          191,
+          212,
+          195,
+          209,
+          204
+        ],
+        "head_says_begging": [
+          134,
+          175,
+          146,
+          162,
+          171
+        ]
+      }
+    },
+    "8": {
+      "baseline": {
+        "auc": 0.9239000209970728,
+        "ap": 0.7678045124918953
+      },
+      "all_crow_windows": {
+        "auc": 0.9254494128367594,
+        "ap": 0.775822404148432
+      },
+      "head_says_begging": {
+        "auc": 0.9255331266562641,
+        "ap": 0.7847240718999302
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          196,
+          228,
+          232,
+          205,
+          211
+        ],
+        "head_says_begging": [
+          154,
+          175,
+          170,
+          162,
+          161
+        ]
+      }
+    },
+    "9": {
+      "baseline": {
+        "auc": 0.9123530033362016,
+        "ap": 0.7788386545371085
+      },
+      "all_crow_windows": {
+        "auc": 0.9193520275898791,
+        "ap": 0.778556971562841
+      },
+      "head_says_begging": {
+        "auc": 0.912877243976379,
+        "ap": 0.7879241707756363
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          187,
+          229,
+          206,
+          215,
+          196
+        ],
+        "head_says_begging": [
+          147,
+          169,
+          139,
+          178,
+          151
+        ]
+      }
+    }
+  },
+  "guard_seed0": {
+    "alarm call": {
+      "baseline": {
+        "auc": 0.9392681094104358,
+        "ap": 0.9393341402783939
+      },
+      "all_crow_windows": {
+        "auc": 0.924658923036816,
+        "ap": 0.9129047763704861
+      },
+      "head_says_begging": {
+        "auc": 0.9355888344968089,
+        "ap": 0.9332656160875905
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          178,
+          207,
+          232,
+          218,
+          188
+        ],
+        "head_says_begging": [
+          145,
+          158,
+          172,
+          175,
+          155
+        ]
+      }
+    },
+    "call": {
+      "baseline": {
+        "auc": 0.9504457186544343,
+        "ap": 0.8687615771962491
+      },
+      "all_crow_windows": {
+        "auc": 0.9507347094801223,
+        "ap": 0.8709159402083749
+      },
+      "head_says_begging": {
+        "auc": 0.9508960244648317,
+        "ap": 0.870870816199227
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          220,
+          201,
+          190,
+          212,
+          189
+        ],
+        "head_says_begging": [
+          170,
+          163,
+          123,
+          165,
+          139
+        ]
+      }
+    },
+    "song": {
+      "baseline": {
+        "auc": 0.9037534586303944,
+        "ap": 0.804738334839025
+      },
+      "all_crow_windows": {
+        "auc": 0.9051697089969044,
+        "ap": 0.8056588566040601
+      },
+      "head_says_begging": {
+        "auc": 0.9043517295720506,
+        "ap": 0.8049055692304523
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          217,
+          200,
+          207,
+          212,
+          190
+        ],
+        "head_says_begging": [
+          158,
+          152,
+          162,
+          159,
+          162
+        ]
+      }
+    },
+    "flight call": {
+      "baseline": {
+        "auc": 0.9789116296863045,
+        "ap": 0.6158363105733772
+      },
+      "all_crow_windows": {
+        "auc": 0.9600612088752869,
+        "ap": 0.6055308417338234
+      },
+      "head_says_begging": {
+        "auc": 0.9615723029839325,
+        "ap": 0.6018541261286156
+      },
+      "n_added_per_fold": {
+        "all_crow_windows": [
+          224,
+          217,
+          206,
+          207,
+          194
+        ],
+        "head_says_begging": [
+          185,
+          175,
+          147,
+          153,
+          160
+        ]
+      }
+    }
+  },
+  "verdicts": {
+    "all_crow_windows": {
+      "primary": true,
+      "baseline_auc_seed0": 0.9131,
+      "candidate_auc_seed0": 0.9195,
+      "gain_seed0": 0.0065,
+      "gain_mean_10_seeds": 0.0047,
+      "gain_min_max": [
+        -0.0007,
+        0.009
+      ],
+      "seeds_positive": 9,
+      "ap_seed0": [
+        0.7782,
+        0.784
+      ],
+      "guard_drops_seed0": {
+        "alarm call": 0.0146,
+        "call": -0.0003,
+        "song": -0.0014,
+        "flight call": 0.0189
+      },
+      "guard_mean_drop": 0.0079,
+      "helps": true,
+      "guard_ok": false,
+      "passes": false
+    },
+    "head_says_begging": {
+      "primary": false,
+      "baseline_auc_seed0": 0.9131,
+      "candidate_auc_seed0": 0.9173,
+      "gain_seed0": 0.0042,
+      "gain_mean_10_seeds": 0.0025,
+      "gain_min_max": [
+        0.0001,
+        0.0052
+      ],
+      "seeds_positive": 10,
+      "ap_seed0": [
+        0.7782,
+        0.7904
+      ],
+      "guard_drops_seed0": {
+        "alarm call": 0.0037,
+        "call": -0.0005,
+        "song": -0.0006,
+        "flight call": 0.0173
+      },
+      "guard_mean_drop": 0.005,
+      "helps": false,
+      "guard_ok": false,
+      "passes": false
+    }
+  },
+  "added_rows_full_fit": {
+    "all_crow_windows": {
+      "rows": 296,
+      "clips": 46
+    },
+    "head_says_begging": {
+      "rows": 226,
+      "clips": 44
+    }
+  },
+  "field_check": {
+    "human_label_totals": [
+      [
+        "alarm call",
+        41
+      ],
+      [
+        "begging",
+        11
+      ],
+      [
+        "call",
+        14
+      ],
+      [
+        "flight call",
+        1
+      ],
+      [
+        "not_a_crow",
+        2
+      ],
+      [
+        "song",
+        1
+      ],
+      [
+        "unsure",
+        7
+      ]
+    ],
+    "scored_spans": 68,
+    "begging_spans": 11,
+    "begging_captures": [
+      104,
+      116
+    ],
+    "captures": 20,
+    "baseline": {
+      "auc": 1.0,
+      "median_p_on_begging": 0.9954,
+      "median_p_on_other": 0.0001,
+      "begging_above_0.5": 10,
+      "other_above_0.5": 0
+    },
+    "all_crow_windows": {
+      "auc": 0.9984,
+      "median_p_on_begging": 0.9998,
+      "median_p_on_other": 0.0002,
+      "begging_above_0.5": 11,
+      "other_above_0.5": 1
+    },
+    "head_says_begging": {
+      "auc": 1.0,
+      "median_p_on_begging": 0.9983,
+      "median_p_on_other": 0.0001,
+      "begging_above_0.5": 10,
+      "other_above_0.5": 0
+    }
+  },
+  "window_diagnostic": {
+    "windows_in_new_clips": 7495,
+    "crow_windows": 1279,
+    "crow_windows_head_says_begging": 486,
+    "non_crow_windows_head_says_begging": 280
+  },
+  "audit_least_sure_20": [
+    {
+      "recording_id": 27016,
+      "source": "macaulay",
+      "source_ref": "637282113",
+      "mean_p_begging": 0.001,
+      "windows": 4
+    },
+    {
+      "recording_id": 26888,
+      "source": "macaulay",
+      "source_ref": "161788611",
+      "mean_p_begging": 0.087,
+      "windows": 6
+    },
+    {
+      "recording_id": 25568,
+      "source": "macaulay",
+      "source_ref": "320277101",
+      "mean_p_begging": 0.089,
+      "windows": 8
+    },
+    {
+      "recording_id": 27337,
+      "source": "macaulay",
+      "source_ref": "637883814",
+      "mean_p_begging": 0.136,
+      "windows": 8
+    },
+    {
+      "recording_id": 26887,
+      "source": "macaulay",
+      "source_ref": "163795651",
+      "mean_p_begging": 0.259,
+      "windows": 5
+    },
+    {
+      "recording_id": 27534,
+      "source": "macaulay",
+      "source_ref": "619230987",
+      "mean_p_begging": 0.301,
+      "windows": 8
+    },
+    {
+      "recording_id": 28361,
+      "source": "macaulay",
+      "source_ref": "165316211",
+      "mean_p_begging": 0.437,
+      "windows": 8
+    },
+    {
+      "recording_id": 23644,
+      "source": "macaulay",
+      "source_ref": "64132831",
+      "mean_p_begging": 0.499,
+      "windows": 8
+    },
+    {
+      "recording_id": 27083,
+      "source": "macaulay",
+      "source_ref": "106330461",
+      "mean_p_begging": 0.52,
+      "windows": 6
+    },
+    {
+      "recording_id": 28466,
+      "source": "macaulay",
+      "source_ref": "236291",
+      "mean_p_begging": 0.542,
+      "windows": 8
+    },
+    {
+      "recording_id": 29697,
+      "source": "macaulay",
+      "source_ref": "322204051",
+      "mean_p_begging": 0.571,
+      "windows": 8
+    },
+    {
+      "recording_id": 258,
+      "source": "xeno_canto",
+      "source_ref": "109698",
+      "mean_p_begging": 0.624,
+      "windows": 7
+    },
+    {
+      "recording_id": 22816,
+      "source": "macaulay",
+      "source_ref": "660247361",
+      "mean_p_begging": 0.669,
+      "windows": 8
+    },
+    {
+      "recording_id": 28465,
+      "source": "macaulay",
+      "source_ref": "236292",
+      "mean_p_begging": 0.689,
+      "windows": 8
+    },
+    {
+      "recording_id": 27129,
+      "source": "macaulay",
+      "source_ref": "659770283",
+      "mean_p_begging": 0.693,
+      "windows": 8
+    },
+    {
+      "recording_id": 22594,
+      "source": "macaulay",
+      "source_ref": "203928771",
+      "mean_p_begging": 0.729,
+      "windows": 3
+    },
+    {
+      "recording_id": 28450,
+      "source": "macaulay",
+      "source_ref": "32684721",
+      "mean_p_begging": 0.731,
+      "windows": 7
+    },
+    {
+      "recording_id": 23794,
+      "source": "macaulay",
+      "source_ref": "643967334",
+      "mean_p_begging": 0.749,
+      "windows": 8
+    },
+    {
+      "recording_id": 30367,
+      "source": "macaulay",
+      "source_ref": "246445461",
+      "mean_p_begging": 0.761,
+      "windows": 8
+    },
+    {
+      "recording_id": 29681,
+      "source": "macaulay",
+      "source_ref": "345628801",
+      "mean_p_begging": 0.847,
+      "windows": 3
+    }
+  ],
+  "eval_rows": 2654,
+  "eval_begging_rows": 311,
+  "eval_recordings_with_known_recordist": 1187,
+  "eval_recordings": 1355,
+  "class_counts": {
+    "alarm call": 1311,
+    "song": 623,
+    "call": 654,
+    "begging": 311,
+    "flight call": 40
+  }
+}

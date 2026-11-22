@@ -1,0 +1,54 @@
+{
+  "all_crow_windows": {
+    "alarm call": {
+      "mean_drop": 0.0149,
+      "min": 0.0116,
+      "max": 0.0181,
+      "seeds_with_a_drop": 10
+    },
+    "call": {
+      "mean_drop": -0.0009,
+      "min": -0.0018,
+      "max": 0.0003,
+      "seeds_with_a_drop": 1
+    },
+    "song": {
+      "mean_drop": -0.0016,
+      "min": -0.0031,
+      "max": 0.0004,
+      "seeds_with_a_drop": 1
+    },
+    "flight call": {
+      "mean_drop": 0.0011,
+      "min": -0.0316,
+      "max": 0.0358,
+      "seeds_with_a_drop": 5
+    }
+  },
+  "head_says_begging": {
+    "alarm call": {
+      "mean_drop": 0.0031,
+      "min": 0.0014,
+      "max": 0.0044,
+      "seeds_with_a_drop": 10
+    },
+    "call": {
+      "mean_drop": -0.0008,
+      "min": -0.0019,
+      "max": 0.0006,
+      "seeds_with_a_drop": 2
+    },
+    "song": {
+      "mean_drop": -0.0003,
+      "min": -0.0023,
+      "max": 0.0015,
+      "seeds_with_a_drop": 3
+    },
+    "flight call": {
+      "mean_drop": -0.0032,
+      "min": -0.0488,
+      "max": 0.0324,
+      "seeds_with_a_drop": 4
+    }
+  }
+}
