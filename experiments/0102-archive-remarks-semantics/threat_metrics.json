@@ -1,0 +1,598 @@
+{
+  "selected_arm": "birdnet_pooled_plus_prosody_speed_w0.35",
+  "class_counts": {
+    "terrestrial": 21,
+    "non_threat": 200,
+    "owl": 78,
+    "hawk": 66
+  },
+  "cv_arms": {
+    "birdnet_mean_only": {
+      "n": 365,
+      "n_groups": 228,
+      "macro_auc": 0.7649,
+      "ovr_auc": {
+        "owl": 0.8736,
+        "hawk": 0.7174,
+        "terrestrial": 0.622,
+        "non_threat": 0.8465
+      },
+      "brier": {
+        "owl": 0.1103,
+        "hawk": 0.1384,
+        "terrestrial": 0.0542,
+        "non_threat": 0.1586
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7826,
+        "owl_vs_terrestrial": 0.6972,
+        "hawk_vs_terrestrial": 0.6645
+      },
+      "sat_rate_99": 0.0062
+    },
+    "birdnet_pooled_only": {
+      "n": 365,
+      "n_groups": 228,
+      "macro_auc": 0.7747,
+      "ovr_auc": {
+        "owl": 0.8793,
+        "hawk": 0.716,
+        "terrestrial": 0.6665,
+        "non_threat": 0.837
+      },
+      "brier": {
+        "owl": 0.1094,
+        "hawk": 0.1372,
+        "terrestrial": 0.054,
+        "non_threat": 0.1635
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7889,
+        "owl_vs_terrestrial": 0.7778,
+        "hawk_vs_terrestrial": 0.6934
+      },
+      "sat_rate_99": 0.0055
+    },
+    "birdnet_mean_plus_prosody_speed_w0.35": {
+      "n": 365,
+      "n_groups": 228,
+      "macro_auc": 0.7712,
+      "ovr_auc": {
+        "owl": 0.8792,
+        "hawk": 0.7371,
+        "terrestrial": 0.6264,
+        "non_threat": 0.8422
+      },
+      "brier": {
+        "owl": 0.1069,
+        "hawk": 0.1357,
+        "terrestrial": 0.0545,
+        "non_threat": 0.1598
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7984,
+        "owl_vs_terrestrial": 0.6868,
+        "hawk_vs_terrestrial": 0.6869
+      },
+      "sat_rate_99": 0.0055
+    },
+    "birdnet_pooled_plus_prosody_speed_w0.35": {
+      "n": 365,
+      "n_groups": 228,
+      "macro_auc": 0.786,
+      "ovr_auc": {
+        "owl": 0.8805,
+        "hawk": 0.7299,
+        "terrestrial": 0.6898,
+        "non_threat": 0.8439
+      },
+      "brier": {
+        "owl": 0.1067,
+        "hawk": 0.1346,
+        "terrestrial": 0.0541,
+        "non_threat": 0.1594
+      },
+      "pair_aucs": {
+        "owl_vs_hawk": 0.7972,
+        "owl_vs_terrestrial": 0.7521,
+        "hawk_vs_terrestrial": 0.7136
+      },
+      "sat_rate_99": 0.0068
+    }
+  },
+  "poe_family_eval": [
+    {
+      "capture_id": 69,
+      "name": "Ben walk under crow tree and feed",
+      "ctx_keys": "human_passing,human_gives_food,several_birds,human_known",
+      "lbl_types": "call",
+      "behavior_guess": "Crows announce my presence. \"Oh shit! It's peanut guy!\"",
+      "n_crow_segs": 3,
+      "caws_per_s": 1.33,
+      "shipped_p_alarm": 0.579,
+      "probs": {
+        "owl": 0.141,
+        "hawk": 0.343,
+        "terrestrial": 0.032,
+        "non_threat": 0.285
+      },
+      "top": "hawk"
+    },
+    {
+      "capture_id": 87,
+      "name": "Edgar alarms on 10 story building",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "Crow felt threatened by teenage boys",
+      "n_crow_segs": 3,
+      "caws_per_s": 3.17,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.012,
+        "hawk": 0.245,
+        "terrestrial": 0.011,
+        "non_threat": 0.836
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 88,
+      "name": "Crow alarms on top of tall building",
+      "ctx_keys": "human_passing,crows_still",
+      "lbl_types": "not_a_crow,alarm call",
+      "behavior_guess": "Crow is threatened by a group of teenage boys it hasn't seen.",
+      "n_crow_segs": 5,
+      "caws_per_s": 2.67,
+      "shipped_p_alarm": 0.016,
+      "probs": {
+        "owl": 0.035,
+        "hawk": 0.235,
+        "terrestrial": 0.024,
+        "non_threat": 0.612
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 89,
+      "name": "Ben passthrough, crows silent",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "Crow saw me earlier in the day, no need to announce me.",
+      "n_crow_segs": 0,
+      "caws_per_s": 3.67,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.01,
+        "hawk": 0.291,
+        "terrestrial": 0.013,
+        "non_threat": 0.612
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 94,
+      "name": "Peanut drop, family of five, mowers",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "Four crows foraging on the ground a few metres away with two juveniles among them, one adult on a wire above. They did n",
+      "n_crow_segs": 6,
+      "caws_per_s": 1.33,
+      "shipped_p_alarm": 0.739,
+      "probs": {
+        "owl": 0.051,
+        "hawk": 0.383,
+        "terrestrial": 0.022,
+        "non_threat": 0.636
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 95,
+      "name": "Peanut drop, family of five, mowers",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "Four crows foraging on the ground a few metres away with two juveniles among them, one adult on a wire above. They did n",
+      "n_crow_segs": 3,
+      "caws_per_s": 1.33,
+      "shipped_p_alarm": 0.835,
+      "probs": {
+        "owl": 0.056,
+        "hawk": 0.391,
+        "terrestrial": 0.025,
+        "non_threat": 0.665
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 96,
+      "name": "Peanut drop, family of five, mowers",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "Four crows foraging on the ground a few metres away with two juveniles among them, one adult on a wire above. They did n",
+      "n_crow_segs": 3,
+      "caws_per_s": 1.33,
+      "shipped_p_alarm": 0.893,
+      "probs": {
+        "owl": 0.044,
+        "hawk": 0.396,
+        "terrestrial": 0.022,
+        "non_threat": 0.718
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 97,
+      "name": "Peanut drop, family of five, mowers",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "Four crows foraging on the ground a few metres away with two juveniles among them, one adult on a wire above. They did n",
+      "n_crow_segs": 4,
+      "caws_per_s": 1.67,
+      "shipped_p_alarm": 0.641,
+      "probs": {
+        "owl": 0.31,
+        "hawk": 0.249,
+        "terrestrial": 0.042,
+        "non_threat": 0.392
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 100,
+      "name": "Lawnmower + 4 crows on ground + 1 on wire",
+      "ctx_keys": "human_approaching,human_known,loud_worker,human_gives_food,caller_stays,crows_still",
+      "lbl_types": "alarm call,not_a_crow,call",
+      "behavior_guess": "Four crows foraging on the ground a few metres away with two juveniles among them, one adult on a wire above. They did n",
+      "n_crow_segs": 17,
+      "caws_per_s": 1.5,
+      "shipped_p_alarm": 0.036,
+      "probs": {
+        "owl": 0.125,
+        "hawk": 0.245,
+        "terrestrial": 0.026,
+        "non_threat": 0.647
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 102,
+      "name": "Unseen crow caws from distance",
+      "ctx_keys": "",
+      "lbl_types": "alarm call",
+      "behavior_guess": "One crow calling out of sight. Never seen, so nothing is known about how many birds were there or how far away.",
+      "n_crow_segs": 1,
+      "caws_per_s": 0.67,
+      "shipped_p_alarm": 0.999,
+      "probs": {
+        "owl": 0.161,
+        "hawk": 0.256,
+        "terrestrial": 0.064,
+        "non_threat": 0.305
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 103,
+      "name": "4 fly, Edgar watches from top of apt",
+      "ctx_keys": "human_passing,human_known,crow_departs,human_approaching,caller_stays",
+      "lbl_types": "alarm call,unsure,call",
+      "behavior_guess": "Edgar called from the top of the apartment building; the other four flew off during the bout. He called again and stayed",
+      "n_crow_segs": 6,
+      "caws_per_s": 2.83,
+      "shipped_p_alarm": 0.035,
+      "probs": {
+        "owl": 0.042,
+        "hawk": 0.204,
+        "terrestrial": 0.032,
+        "non_threat": 0.614
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 104,
+      "name": "Fledgling cries and whines",
+      "ctx_keys": "human_approaching,human_known,human_passing,crows_still,caller_stays,human_gives_food",
+      "lbl_types": "call,begging",
+      "behavior_guess": "Fledgling whines and wants food. Parent acknowledges. Fledgling keeps begging. Parent says \"shut up\". Fledgling stops. A",
+      "n_crow_segs": 15,
+      "caws_per_s": 2.33,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.059,
+        "hawk": 0.104,
+        "terrestrial": 0.02,
+        "non_threat": 0.804
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 105,
+      "name": "More fledgling cry with adult call at end",
+      "ctx_keys": "human_approaching,human_known,loud_worker",
+      "lbl_types": "call",
+      "behavior_guess": "",
+      "n_crow_segs": 5,
+      "caws_per_s": 4.17,
+      "shipped_p_alarm": 0.001,
+      "probs": {
+        "owl": 0.061,
+        "hawk": 0.353,
+        "terrestrial": 0.018,
+        "non_threat": 0.567
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 106,
+      "name": "Ben walks under Edgar, silent",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "",
+      "n_crow_segs": 0,
+      "caws_per_s": 3.67,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.008,
+        "hawk": 0.175,
+        "terrestrial": 0.013,
+        "non_threat": 0.787
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 113,
+      "name": "5 crows some on ground some in tree",
+      "ctx_keys": "caller_stays,crows_agitated,crows_still,stranger_approaching,stranger_passing,known_passing,human_gives_food",
+      "lbl_types": "alarm call",
+      "behavior_guess": "The lady is unknown in the neighborhood and the crows were freaking out. When I walk under the crow I get \"call\" when sh",
+      "n_crow_segs": 28,
+      "caws_per_s": 2.33,
+      "shipped_p_alarm": 0.933,
+      "probs": {
+        "owl": 0.109,
+        "hawk": 0.223,
+        "terrestrial": 0.052,
+        "non_threat": 0.468
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 114,
+      "name": "5 crows in shaded flower bed",
+      "ctx_keys": "caller_stays,crows_still,known_approaching,known_passing",
+      "lbl_types": "alarm call",
+      "behavior_guess": "I think they were excited to see me or simply telling others I was there",
+      "n_crow_segs": 5,
+      "caws_per_s": 3.33,
+      "shipped_p_alarm": 0.336,
+      "probs": {
+        "owl": 0.079,
+        "hawk": 0.242,
+        "terrestrial": 0.022,
+        "non_threat": 0.582
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 115,
+      "name": "Crows scatter from car then land in 4 diff trees",
+      "ctx_keys": "known_approaching,vehicle,known_passing",
+      "lbl_types": "alarm call,call",
+      "behavior_guess": "Crows caw at me to acknowledge me. They get scared of a car horn and start alarming",
+      "n_crow_segs": 13,
+      "caws_per_s": 2.0,
+      "shipped_p_alarm": 0.2,
+      "probs": {
+        "owl": 0.043,
+        "hawk": 0.184,
+        "terrestrial": 0.054,
+        "non_threat": 0.648
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 116,
+      "name": "Baby caws from north, family flies south",
+      "ctx_keys": "nothing_obvious,crows_agitated",
+      "lbl_types": "begging",
+      "behavior_guess": "They were organizing something. The movement + the cawing + the baby. Maybe organizing moving trees?",
+      "n_crow_segs": 15,
+      "caws_per_s": 2.0,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.009,
+        "hawk": 0.18,
+        "terrestrial": 0.02,
+        "non_threat": 0.813
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 119,
+      "name": "Crows across the street",
+      "ctx_keys": "known_approaching,crow_departs",
+      "lbl_types": "unsure",
+      "behavior_guess": "",
+      "n_crow_segs": 6,
+      "caws_per_s": 3.17,
+      "shipped_p_alarm": 0.014,
+      "probs": {
+        "owl": 0.153,
+        "hawk": 0.137,
+        "terrestrial": 0.012,
+        "non_threat": 0.601
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 153,
+      "name": "Fledgling annoys his dad",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "",
+      "n_crow_segs": 27,
+      "caws_per_s": 2.0,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.03,
+        "hawk": 0.18,
+        "terrestrial": 0.017,
+        "non_threat": 0.794
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 154,
+      "name": "Edgar caw on top of office",
+      "ctx_keys": "stranger_passing",
+      "lbl_types": "alarm call",
+      "behavior_guess": "I think it was alerting to me.",
+      "n_crow_segs": 1,
+      "caws_per_s": 3.33,
+      "shipped_p_alarm": 0.998,
+      "probs": {
+        "owl": 0.092,
+        "hawk": 0.171,
+        "terrestrial": 0.099,
+        "non_threat": 0.388
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 155,
+      "name": "New crows",
+      "ctx_keys": "stranger_approaching,human_gives_food,caller_stays",
+      "lbl_types": "alarm call",
+      "behavior_guess": "",
+      "n_crow_segs": 3,
+      "caws_per_s": 2.33,
+      "shipped_p_alarm": 0.325,
+      "probs": {
+        "owl": 0.226,
+        "hawk": 0.148,
+        "terrestrial": 0.051,
+        "non_threat": 0.426
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 156,
+      "name": "New crows",
+      "ctx_keys": "stranger_approaching",
+      "lbl_types": "alarm call",
+      "behavior_guess": "",
+      "n_crow_segs": 4,
+      "caws_per_s": 1.83,
+      "shipped_p_alarm": 0.045,
+      "probs": {
+        "owl": 0.021,
+        "hawk": 0.14,
+        "terrestrial": 0.074,
+        "non_threat": 0.778
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 157,
+      "name": "Interesting call",
+      "ctx_keys": "",
+      "lbl_types": "",
+      "behavior_guess": "",
+      "n_crow_segs": 1,
+      "caws_per_s": 3.0,
+      "shipped_p_alarm": 0.06,
+      "probs": {
+        "owl": 0.031,
+        "hawk": 0.126,
+        "terrestrial": 0.069,
+        "non_threat": 0.67
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 158,
+      "name": "3 new crows",
+      "ctx_keys": "stranger_approaching,crow_arrives,stranger_passing,group_gathers",
+      "lbl_types": "alarm call",
+      "behavior_guess": "",
+      "n_crow_segs": 4,
+      "caws_per_s": 2.67,
+      "shipped_p_alarm": 0.326,
+      "probs": {
+        "owl": 0.134,
+        "hawk": 0.275,
+        "terrestrial": 0.046,
+        "non_threat": 0.35
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 176,
+      "name": "Unseen crow caws from unknown distance",
+      "ctx_keys": "",
+      "lbl_types": "call,unsure",
+      "behavior_guess": "",
+      "n_crow_segs": 0,
+      "caws_per_s": 4.33,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.002,
+        "hawk": 0.182,
+        "terrestrial": 0.016,
+        "non_threat": 0.826
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 178,
+      "name": "Caws then flies north",
+      "ctx_keys": "caller_leaves",
+      "lbl_types": "alarm call",
+      "behavior_guess": "",
+      "n_crow_segs": 1,
+      "caws_per_s": 4.0,
+      "shipped_p_alarm": 1.0,
+      "probs": {
+        "owl": 0.12,
+        "hawk": 0.391,
+        "terrestrial": 0.037,
+        "non_threat": 0.214
+      },
+      "top": "hawk"
+    },
+    {
+      "capture_id": 196,
+      "name": "Crow flies around and caws",
+      "ctx_keys": "",
+      "lbl_types": "call",
+      "behavior_guess": "",
+      "n_crow_segs": 0,
+      "caws_per_s": 4.33,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.001,
+        "hawk": 0.48,
+        "terrestrial": 0.008,
+        "non_threat": 0.74
+      },
+      "top": "non_threat"
+    },
+    {
+      "capture_id": 197,
+      "name": "2 crows approach a light pole then fly away",
+      "ctx_keys": "crow_departs",
+      "lbl_types": "alarm call",
+      "behavior_guess": "",
+      "n_crow_segs": 1,
+      "caws_per_s": 4.67,
+      "shipped_p_alarm": 0.0,
+      "probs": {
+        "owl": 0.018,
+        "hawk": 0.396,
+        "terrestrial": 0.094,
+        "non_threat": 0.266
+      },
+      "top": "hawk"
+    }
+  ]
+}
