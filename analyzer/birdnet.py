@@ -370,18 +370,11 @@ class HeadRegistry:
                 f"heads:{heads or 'none'}")
 
 
-try:
-    from .threat import ThreatRegistry  # noqa: E402
-except ImportError:
-    from threat import ThreatRegistry  # noqa: E402
-
 print("loading BirdNET + call-type heads…", flush=True)
 with contextlib.redirect_stdout(DEVNULL):
     ANALYZER = Analyzer()
 HEADS = HeadRegistry()
-THREAT_HEADS = ThreatRegistry()
-print(f"ready — heads: {', '.join(sorted(h.display for h in HEADS.heads.values())) or 'none'}"
-      f"; threat heads: {', '.join(sorted(h.display for h in THREAT_HEADS.heads.values())) or 'none'}",
+print(f"ready — heads: {', '.join(sorted(h.display for h in HEADS.heads.values())) or 'none'}",
       flush=True)
 
 
@@ -550,7 +543,7 @@ def analyze(path: Path, lat=None, lon=None, when=None):
             "emb": emb,
         })
     windows.sort(key=lambda w: w["start"])
-    return [{**classify_region(r, audio_path=path), "location_filtered": located}
+    return [{**classify_region(r), "location_filtered": located}
             for r in group_regions(windows)]
 
 
@@ -572,7 +565,7 @@ def group_regions(windows):
     return regions
 
 
-def classify_region(region, audio_path: Path | None = None):
+def classify_region(region):
     species = region[0]["species"]
     head = HEADS.for_species(species)
     call_type, confidence, alternates = None, None, []
@@ -594,17 +587,6 @@ def classify_region(region, audio_path: Path | None = None):
                 found = where.get(alt["call_type"])
                 if found:
                     alt.update(found)
-    threat = None
-    threat_head = THREAT_HEADS.for_species(species)
-    if threat_head is not None and not region[0]["candidate"]:
-        try:
-            threat = threat_head.predict_region(
-                [w["emb"] for w in region],
-                audio_path=audio_path,
-                windows=[(w["start"], w["end"]) for w in region],
-            )
-        except Exception:  # noqa: BLE001 — threat readout must never break call detection
-            threat = None
     return {
         "start": region[0]["start"],
         "end": region[-1]["end"],
@@ -623,7 +605,4 @@ def classify_region(region, audio_path: Path | None = None):
         # The model named a corvid but was not sure. Offered for labelling,
         # counted as nothing until somebody says.
         "candidate": region[0]["candidate"],
-        # Optional calibrated semantic threat translation (owl/hawk/terrestrial/non_threat)
-        # when a threat head is shipped for this species.
-        "threat": threat,
     }
