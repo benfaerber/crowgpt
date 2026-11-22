@@ -1,0 +1,473 @@
+{
+  "threshold_T": -2.0026,
+  "archive": {
+    "recordings": 423,
+    "begging": 66,
+    "held_out_false_alarms_at_T": {
+      "hits": 47,
+      "n": 357,
+      "rate": 0.1317,
+      "ci95": [
+        0.1005,
+        0.1707
+      ]
+    }
+  },
+  "A_hand_labelled": {
+    "false_alarms": {
+      "at_T": {
+        "hits": 208,
+        "n": 981,
+        "rate": 0.212,
+        "ci95": [
+          0.1876,
+          0.2387
+        ]
+      },
+      "at_zero": {
+        "hits": 76,
+        "n": 981,
+        "rate": 0.0775,
+        "ci95": [
+          0.0623,
+          0.0959
+        ]
+      }
+    },
+    "recall": {
+      "at_T": {
+        "hits": 70,
+        "n": 102,
+        "rate": 0.6863,
+        "ci95": [
+          0.5909,
+          0.7682
+        ]
+      },
+      "at_zero": {
+        "hits": 52,
+        "n": 102,
+        "rate": 0.5098,
+        "ci95": [
+          0.4142,
+          0.6047
+        ]
+      }
+    },
+    "recall_without_training_recordists": {
+      "at_T": {
+        "hits": 55,
+        "n": 82,
+        "rate": 0.6707,
+        "ci95": [
+          0.5634,
+          0.7628
+        ]
+      },
+      "at_zero": {
+        "hits": 41,
+        "n": 82,
+        "rate": 0.5,
+        "ci95": [
+          0.3942,
+          0.6058
+        ]
+      }
+    },
+    "false_alarms_by_call_type": {
+      "mob": {
+        "hits": 97,
+        "n": 462,
+        "rate": 0.21,
+        "ci95": [
+          0.1753,
+          0.2494
+        ]
+      },
+      "alert": {
+        "hits": 45,
+        "n": 281,
+        "rate": 0.1601,
+        "ci95": [
+          0.1219,
+          0.2076
+        ]
+      },
+      "scold": {
+        "hits": 1,
+        "n": 11,
+        "rate": 0.0909,
+        "ci95": [
+          0.0162,
+          0.3774
+        ]
+      },
+      "rattle": {
+        "hits": 36,
+        "n": 117,
+        "rate": 0.3077,
+        "ci95": [
+          0.2313,
+          0.3963
+        ]
+      },
+      "softSong": {
+        "hits": 29,
+        "n": 110,
+        "rate": 0.2636,
+        "ci95": [
+          0.1903,
+          0.3529
+        ]
+      }
+    }
+  },
+  "B_seasonal": {
+    "winter": {
+      "drawn": 400,
+      "with_clean_crow_window": 297,
+      "at_T": {
+        "hits": 12,
+        "n": 297,
+        "rate": 0.0404,
+        "ci95": [
+          0.0233,
+          0.0693
+        ]
+      },
+      "at_zero": {
+        "hits": 3,
+        "n": 297,
+        "rate": 0.0101,
+        "ci95": [
+          0.0034,
+          0.0293
+        ]
+      }
+    },
+    "summer": {
+      "drawn": 400,
+      "with_clean_crow_window": 301,
+      "at_T": {
+        "hits": 75,
+        "n": 301,
+        "rate": 0.2492,
+        "ci95": [
+          0.2037,
+          0.301
+        ]
+      },
+      "at_zero": {
+        "hits": 40,
+        "n": 301,
+        "rate": 0.1329,
+        "ci95": [
+          0.0991,
+          0.1759
+        ]
+      }
+    }
+  },
+  "recall_on_0110_begging_events": {
+    "at_T": {
+      "hits": 33,
+      "n": 33,
+      "rate": 1.0,
+      "ci95": [
+        0.8957,
+        1.0
+      ]
+    },
+    "at_zero": {
+      "hits": 33,
+      "n": 33,
+      "rate": 1.0,
+      "ci95": [
+        0.8957,
+        1.0
+      ]
+    }
+  },
+  "C_kept_captures": [
+    {
+      "capture": 69,
+      "date": "2026-07-25",
+      "juveniles_noted": null,
+      "human_labels": [
+        "call"
+      ],
+      "score": -3.199,
+      "fires_at_T": false
+    },
+    {
+      "capture": 87,
+      "date": "2026-07-26",
+      "juveniles_noted": null,
+      "human_labels": [],
+      "score": -2.073,
+      "fires_at_T": false
+    },
+    {
+      "capture": 88,
+      "date": "2026-07-26",
+      "juveniles_noted": null,
+      "human_labels": [
+        "alarm call",
+        "not_a_crow"
+      ],
+      "score": -5.493,
+      "fires_at_T": false
+    },
+    {
+      "capture": 89,
+      "date": "2026-07-26",
+      "juveniles_noted": 2,
+      "human_labels": [],
+      "score": null,
+      "fires_at_T": null
+    },
+    {
+      "capture": 94,
+      "date": "2026-07-28",
+      "juveniles_noted": 2,
+      "human_labels": [],
+      "score": -3.287,
+      "fires_at_T": false
+    },
+    {
+      "capture": 95,
+      "date": "2026-07-28",
+      "juveniles_noted": 2,
+      "human_labels": [],
+      "score": -2.519,
+      "fires_at_T": false
+    },
+    {
+      "capture": 96,
+      "date": "2026-07-28",
+      "juveniles_noted": 2,
+      "human_labels": [],
+      "score": -3.25,
+      "fires_at_T": false
+    },
+    {
+      "capture": 97,
+      "date": "2026-07-28",
+      "juveniles_noted": 2,
+      "human_labels": [],
+      "score": -3.693,
+      "fires_at_T": false
+    },
+    {
+      "capture": 100,
+      "date": "2026-07-28",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "alarm call",
+        "call",
+        "not_a_crow"
+      ],
+      "score": -3.196,
+      "fires_at_T": false
+    },
+    {
+      "capture": 102,
+      "date": "2026-07-29",
+      "juveniles_noted": null,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -7.148,
+      "fires_at_T": false
+    },
+    {
+      "capture": 103,
+      "date": "2026-07-29",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "alarm call",
+        "call",
+        "unsure"
+      ],
+      "score": -6.977,
+      "fires_at_T": false
+    },
+    {
+      "capture": 104,
+      "date": "2026-07-30",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "begging",
+        "call"
+      ],
+      "score": 1.31,
+      "fires_at_T": true
+    },
+    {
+      "capture": 105,
+      "date": "2026-07-30",
+      "juveniles_noted": 3,
+      "human_labels": [
+        "call"
+      ],
+      "score": -4.023,
+      "fires_at_T": false
+    },
+    {
+      "capture": 106,
+      "date": "2026-07-30",
+      "juveniles_noted": null,
+      "human_labels": [],
+      "score": null,
+      "fires_at_T": null
+    },
+    {
+      "capture": 113,
+      "date": "2026-07-31",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -3.522,
+      "fires_at_T": false
+    },
+    {
+      "capture": 114,
+      "date": "2026-07-31",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -2.571,
+      "fires_at_T": false
+    },
+    {
+      "capture": 115,
+      "date": "2026-07-31",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "alarm call",
+        "call"
+      ],
+      "score": -3.622,
+      "fires_at_T": false
+    },
+    {
+      "capture": 116,
+      "date": "2026-07-31",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "begging"
+      ],
+      "score": -0.06,
+      "fires_at_T": true
+    },
+    {
+      "capture": 119,
+      "date": "2026-08-01",
+      "juveniles_noted": null,
+      "human_labels": [
+        "unsure"
+      ],
+      "score": -12.008,
+      "fires_at_T": false
+    },
+    {
+      "capture": 153,
+      "date": "2026-08-03",
+      "juveniles_noted": 1,
+      "human_labels": [],
+      "score": -3.601,
+      "fires_at_T": false
+    },
+    {
+      "capture": 154,
+      "date": "2026-08-04",
+      "juveniles_noted": null,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -7.57,
+      "fires_at_T": false
+    },
+    {
+      "capture": 155,
+      "date": "2026-08-04",
+      "juveniles_noted": null,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -8.204,
+      "fires_at_T": false
+    },
+    {
+      "capture": 156,
+      "date": "2026-08-04",
+      "juveniles_noted": null,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -7.764,
+      "fires_at_T": false
+    },
+    {
+      "capture": 157,
+      "date": "2026-08-06",
+      "juveniles_noted": null,
+      "human_labels": [],
+      "score": -3.489,
+      "fires_at_T": false
+    },
+    {
+      "capture": 158,
+      "date": "2026-08-14",
+      "juveniles_noted": 2,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -5.359,
+      "fires_at_T": false
+    },
+    {
+      "capture": 176,
+      "date": "2026-08-20",
+      "juveniles_noted": null,
+      "human_labels": [
+        "call",
+        "unsure"
+      ],
+      "score": null,
+      "fires_at_T": null
+    },
+    {
+      "capture": 178,
+      "date": "2026-08-20",
+      "juveniles_noted": null,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": null,
+      "fires_at_T": null
+    },
+    {
+      "capture": 196,
+      "date": "2026-08-21",
+      "juveniles_noted": null,
+      "human_labels": [
+        "call"
+      ],
+      "score": null,
+      "fires_at_T": null
+    },
+    {
+      "capture": 197,
+      "date": "2026-08-21",
+      "juveniles_noted": null,
+      "human_labels": [
+        "alarm call"
+      ],
+      "score": -5.621,
+      "fires_at_T": false
+    }
+  ]
+}

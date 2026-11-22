@@ -66,18 +66,20 @@ when it has a shape and a reason to happen now.
     and once for five contexts (0110). About 1,050 that matched no screen are
     unread and say little. There is no sealed text left for these questions.
 
-[ ] A false-alarm rate for the recording-level begging head. 0110
-    (2026-11-22): a begging head fit on 66 witnessed archive recordings
-    scores 0.9996 on 33 begging events from 11 observers outside the
-    archives — but only against mobs, roosts, food and flight, never against
-    ordinary calling. Before this is anything in the app: score the same
-    frozen head (`ArchiveHeads` in 0110's `run.py`, nothing refit) on
-    recordings whose description states no context and on Ben's kept
-    captures, declare a threshold first, and report how often it fires. If
-    that holds, "begging young present" is the first scene-level statement
-    with evidence behind it. Raptor mobbing (0.73) and "many crows" (the 0109
-    count head, ρ = 0.35 against stated numbers) are the next two, and are
-    not strong enough alone.
+[ ] A listening pool to settle the recording-level begging head. 0111
+    (2026-11-22) measured its false alarms with a threshold declared first:
+    21% on hand-labelled archive files with no begging flag (recall 69%),
+    4% on winter recordings from the rest of the corpus, and on the kept
+    captures it fired on the two labelled begging and none of the other 22.
+    By the rule written beforehand that is "not usable as it stands". What
+    is missing is false alarms on summer family calling, by ear: build a
+    pool from 0111's June–July draw (`data/experiments/
+    0111-begging-false-alarms/seasonal.json`) — the 75 recordings the head
+    fired on and 75 it did not — graded begging / not begging, registered
+    with `fieldserver/tools/register_pool.py`. Declare the pass mark before
+    the sitting (0111's was 5% false alarms, 70% recall) and take the
+    threshold from ordinary recordings, not from the five archive contexts.
+    Do not ship on 0110's 0.9996; that was begging against mobs and roosts.
 
 [ ] Roost, as heard, is mostly "many crows" (0110: the count head alone
     finds roosts as well as the roost head, 0.79 against 0.78). Report a
