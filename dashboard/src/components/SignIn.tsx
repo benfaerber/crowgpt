@@ -43,12 +43,11 @@ export function SignIn({
   return (
     <div className="card">
       <h2>Operator token</h2>
-      <p className="muted" style={{ fontSize: ".88rem", marginTop: 0 }}>
-        Paste the <strong>operator token</strong> printed by{" "}
-        <code>make -C fieldserver secrets</code>. Exchanged for a session token
-        kept in this browser only.
-        {hasRememberedSecret() ? " A saved token was rejected — this fleet's secret has changed." : ""}
-      </p>
+      {hasRememberedSecret() && (
+        <p className="muted" style={{ fontSize: ".88rem", marginTop: 0 }}>
+          A saved token was rejected — this fleet's secret has changed.
+        </p>
+      )}
       <form
         style={{ display: "flex", gap: ".6rem", flexWrap: "wrap" }}
         onSubmit={(event) => {
