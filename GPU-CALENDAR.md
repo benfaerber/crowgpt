@@ -21,7 +21,7 @@ reason and lost nothing by it.
 
 ## Booked
 
-- **2026-11-22 15:45 → 2026-11-22 23:00 (America/Denver)** — **Experiments 0112–0114**: EnCodec + CrowGPT Dual-AR 17M hidden-state extraction and Perch 2.0 embeddings over archive/0104/0110 crow windows and 0103 caws (a few GB), then ten short Dual-AR context fine-tunes for 0114 (~1–2 GB each). Whiskyjack; Ben asked for the three experiments. Killable on request.
+- ~~**2026-11-22 15:45 → 2026-11-22 23:00 (America/Denver)** — **Experiments 0112–0114**: EnCodec + CrowGPT Dual-AR 17M hidden-state extraction and Perch 2.0 embeddings over archive/0104/0110 crow windows and 0103 caws (a few GB), then ten short Dual-AR context fine-tunes for 0114 (~1–2 GB each). Whiskyjack; Ben asked for the three experiments. Killable on request.~~ Done 16:57; card released.
 
 - ~~**2026-11-21 21:04 → 2026-11-21 21:10 (America/Denver)** — **Experiment 0102 crow-masked Perch 2.0 Poe Family check**: Perch 2.0 inference over BirdNET-detected crow windows only (~200 windows across 25 kept captures, ~2 GB VRAM, ~20 s). Pinyon. Killable on request.~~ Done 21:05; card released.
 

@@ -81,6 +81,46 @@ when it has a shape and a reason to happen now.
     threshold from ordinary recordings, not from the five archive contexts.
     Do not ship on 0110's 0.9996; that was begging against mobs and roosts.
 
+[ ] Perched against flying, within one predator: the confirmatory test
+    (Whiskyjack, 2026-11-22)
+
+    0104 found perched-versus-flying within hawk at 0.857 (exploratory).
+    0112 declared it in advance and scored it with Perch, an independent
+    representation: 0.848 (p = 0.0025, Holm 0.01). Owl against hawk with
+    both perched stays at chance with all three representations. The next
+    step is a fresh, pre-registered set: perched against flying within one
+    predator as the only primary, on clips nobody has scored. The 0104 clips
+    are spent. The roof-station camera labels posture by construction.
+
+[ ] A graded axis beside the call type: caw duration first (Whiskyjack,
+    2026-11-22)
+
+    0113: restricted to windows where one crow is audible (the 0109 count
+    head at 90% one-crow precision), 47 graded features read the five
+    contexts at 0.665 (p = 0.0025). That is barely less than with every
+    crow window (0.687), so context is not only crowd. Caw duration moves
+    most: begging +0.95 SD (probably the fledgling's own calls, so a
+    different caller), flight -0.72 SD (the León finding that shorter caws
+    mean the signaller is flying, on only 11 recordings). Mobbing caws are
+    higher (+0.52) and faster (+0.47) from a single bird. Two follow-ups:
+    pre-register "flight caws are shorter" on more flight recordings, and
+    carry caw duration as a graded field beside call type when the
+    vocabulary next moves. The segmenter has never been checked against
+    hand caw counts. A sitting of a few dozen single-bird windows through
+    the pool system would settle that, and it should come first.
+
+[ ] A context token mostly buys crowd and timbre (Whiskyjack, 2026-11-22)
+
+    0114 fine-tuned CrowGPT with the five contexts as a prefix token and
+    measured held-out likelihood. Scene information is real (0.58 bits per
+    6 s chunk over a shuffled-label control, AUC 0.69 against 0.51). But
+    removing the 0109 count score takes it to 0.57, and three quarters of
+    the bits are in the fine codec stages (timbre and channel), not timing.
+    Context-conditioned generation should wait. If revisited: crowd as its
+    own token, context trained on single-bird chunks, and the bits
+    instrument (0114's run.py) rerun on roof-station audio, where the
+    context is known by construction.
+
 [ ] Roost, as heard, is mostly "many crows" (0110: the count head alone
     finds roosts as well as the roost head, 0.79 against 0.78). Report a
     crowd, not a roost, unless something separates them — time of day from
@@ -100,8 +140,12 @@ when it has a shape and a reason to happen now.
     dozen without anyone choosing them — a reason to put the camera in the
     first build of the station rather than a later one.
 
-[ ] Probe CrowGPT hidden states and Perch on 0102's 561 witnessed semantic
-    recordings (Pinyon, 2026-11-21)
+[x] Probe CrowGPT hidden states and Perch on 0102's 561 witnessed semantic
+    recordings (Pinyon, 2026-11-21) — DONE in 0112 (2026-11-22): neither
+    beats BirdNET on any meaning test (single caw 0.43 and 0.55 against
+    0.52; archive contexts 0.785 and 0.816 against 0.808). CrowGPT block 4
+    is the better crowd counter (0.845 against 0.806). Kept below for the
+    original reasoning.
 
     Experiment 0102 harvested 561 witnessed semantic-context American Crow
     recordings (18.0 hr) from Xeno-canto and Macaulay free-text remarks, with

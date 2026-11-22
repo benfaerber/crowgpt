@@ -1,0 +1,690 @@
+{
+  "primary_layer": "temporal block 4 of 6",
+  "single_caw": {
+    "dev_caws_scored": 2150,
+    "dev_caws_dropped_no_audio": 0,
+    "PRIMARY_crowgpt_b4": {
+      "n_caws": 2150,
+      "n_recordings": 100,
+      "n_pos_recs": 60,
+      "n_neg_recs": 40,
+      "n_groups": 82,
+      "primary_weighted_per_caw_auc": 0.4304,
+      "weighted_bal_acc": 0.4456,
+      "exploratory_unweighted_per_caw_auc": 0.4216,
+      "exploratory_rec_mean_caw_auc": 0.4008,
+      "perm_p": 0.8304,
+      "perm_mean": 0.4923
+    },
+    "birdnet_isolated_C0.05_as_0103": {
+      "n_caws": 2150,
+      "n_recordings": 100,
+      "n_pos_recs": 60,
+      "n_neg_recs": 40,
+      "n_groups": 82,
+      "primary_weighted_per_caw_auc": 0.5223,
+      "weighted_bal_acc": 0.5158,
+      "exploratory_unweighted_per_caw_auc": 0.5119,
+      "exploratory_rec_mean_caw_auc": 0.5442,
+      "perm_p": null,
+      "perm_mean": null
+    },
+    "perch_isolated": {
+      "n_caws": 2150,
+      "n_recordings": 100,
+      "n_pos_recs": 60,
+      "n_neg_recs": 40,
+      "n_groups": 82,
+      "primary_weighted_per_caw_auc": 0.5462,
+      "weighted_bal_acc": 0.5382,
+      "exploratory_unweighted_per_caw_auc": 0.5462,
+      "exploratory_rec_mean_caw_auc": 0.5633,
+      "perm_p": 0.1741,
+      "perm_mean": 0.4911
+    },
+    "exploratory_crowgpt_blocks": {
+      "b1": 0.4633,
+      "b2": 0.4434,
+      "b3": 0.455,
+      "b4": 0.4304,
+      "b5": 0.4532,
+      "b6": 0.4659
+    },
+    "S1_density_matched": {
+      "crowgpt_b4": {
+        "n_caws": 1589,
+        "n_recordings": 76,
+        "n_pos_recs": 38,
+        "n_neg_recs": 38,
+        "n_groups": 66,
+        "primary_weighted_per_caw_auc": 0.5456,
+        "weighted_bal_acc": 0.546,
+        "exploratory_unweighted_per_caw_auc": 0.5358,
+        "exploratory_rec_mean_caw_auc": 0.5644,
+        "perm_p": 0.2736,
+        "perm_mean": 0.4997
+      },
+      "birdnet": {
+        "n_caws": 1589,
+        "n_recordings": 76,
+        "n_pos_recs": 38,
+        "n_neg_recs": 38,
+        "n_groups": 66,
+        "primary_weighted_per_caw_auc": 0.571,
+        "weighted_bal_acc": 0.5584,
+        "exploratory_unweighted_per_caw_auc": 0.5387,
+        "exploratory_rec_mean_caw_auc": 0.6295,
+        "perm_p": 0.1294,
+        "perm_mean": 0.4959
+      },
+      "perch": {
+        "n_caws": 1589,
+        "n_recordings": 76,
+        "n_pos_recs": 38,
+        "n_neg_recs": 38,
+        "n_groups": 66,
+        "primary_weighted_per_caw_auc": 0.579,
+        "weighted_bal_acc": 0.549,
+        "exploratory_unweighted_per_caw_auc": 0.5782,
+        "exploratory_rec_mean_caw_auc": 0.6039,
+        "perm_p": 0.1294,
+        "perm_mean": 0.5037
+      }
+    }
+  },
+  "S2_archive_contexts": {
+    "recordings": 423,
+    "recordists": 249,
+    "per_context": {
+      "raptor_mobbing": 253,
+      "begging": 66,
+      "roost_gathering": 49,
+      "food_foraging": 36,
+      "flight_contact": 19
+    },
+    "birdnet": {
+      "macro_auc": 0.8083,
+      "ci95": [
+        0.7751,
+        0.8408
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.822,
+        "begging": 0.9475,
+        "roost_gathering": 0.9123,
+        "food_foraging": 0.6637,
+        "flight_contact": 0.6961
+      }
+    },
+    "perch": {
+      "macro_auc": 0.816,
+      "ci95": [
+        0.7784,
+        0.8545
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.8386,
+        "begging": 0.944,
+        "roost_gathering": 0.909,
+        "food_foraging": 0.7049,
+        "flight_contact": 0.6833
+      }
+    },
+    "crowgpt_b1": {
+      "macro_auc": 0.7762,
+      "ci95": [
+        0.7392,
+        0.8134
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.768,
+        "begging": 0.8918,
+        "roost_gathering": 0.8904,
+        "food_foraging": 0.6946,
+        "flight_contact": 0.6364
+      }
+    },
+    "crowgpt_b2": {
+      "macro_auc": 0.7617,
+      "ci95": [
+        0.7222,
+        0.8017
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.7962,
+        "begging": 0.9079,
+        "roost_gathering": 0.8834,
+        "food_foraging": 0.6962,
+        "flight_contact": 0.525
+      }
+    },
+    "crowgpt_b3": {
+      "macro_auc": 0.7866,
+      "ci95": [
+        0.7504,
+        0.8265
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.8414,
+        "begging": 0.9155,
+        "roost_gathering": 0.8838,
+        "food_foraging": 0.6925,
+        "flight_contact": 0.5997
+      }
+    },
+    "crowgpt_b4": {
+      "macro_auc": 0.7849,
+      "ci95": [
+        0.7483,
+        0.8214
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.8314,
+        "begging": 0.9201,
+        "roost_gathering": 0.8924,
+        "food_foraging": 0.7152,
+        "flight_contact": 0.5653
+      }
+    },
+    "crowgpt_b5": {
+      "macro_auc": 0.7918,
+      "ci95": [
+        0.7566,
+        0.8277
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.83,
+        "begging": 0.9284,
+        "roost_gathering": 0.8814,
+        "food_foraging": 0.7431,
+        "flight_contact": 0.5762
+      }
+    },
+    "crowgpt_b6": {
+      "macro_auc": 0.7871,
+      "ci95": [
+        0.7514,
+        0.8223
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.8414,
+        "begging": 0.9267,
+        "roost_gathering": 0.8929,
+        "food_foraging": 0.7493,
+        "flight_contact": 0.5251
+      }
+    },
+    "crowgpt_b4_minus_birdnet": {
+      "difference": -0.0234,
+      "ci95": [
+        -0.0637,
+        0.0166
+      ]
+    },
+    "perch_minus_birdnet": {
+      "difference": 0.0077,
+      "ci95": [
+        -0.0252,
+        0.038
+      ]
+    },
+    "exploratory_owl_vs_hawk_strict": {
+      "n": 146,
+      "owl": 79,
+      "birdnet": 0.7729,
+      "perch": 0.7202,
+      "crowgpt_b4": 0.713
+    }
+  },
+  "S3_crowd_inside_type": {
+    "segments": 2479,
+    "dropped_no_span": 0,
+    "birdnet": {
+      "mean": {
+        "auc": 0.8063,
+        "ci95": [
+          0.7708,
+          0.8371
+        ]
+      },
+      "mob": 0.8483,
+      "alert": 0.8061,
+      "scold": 0.8423,
+      "rattle": 0.7843,
+      "softSong": 0.8301,
+      "begging": 0.7267
+    },
+    "perch": {
+      "mean": {
+        "auc": 0.7842,
+        "ci95": [
+          0.7457,
+          0.8199
+        ]
+      },
+      "mob": 0.8483,
+      "alert": 0.8045,
+      "scold": 0.8519,
+      "rattle": 0.792,
+      "softSong": 0.7989,
+      "begging": 0.6098
+    },
+    "crowgpt_b4": {
+      "mean": {
+        "auc": 0.845,
+        "ci95": [
+          0.8042,
+          0.8749
+        ]
+      },
+      "mob": 0.8704,
+      "alert": 0.8599,
+      "scold": 0.8731,
+      "rattle": 0.8371,
+      "softSong": 0.8265,
+      "begging": 0.8027
+    }
+  },
+  "S4_posture": {
+    "birdnet": {
+      "perched_owl_vs_perched_hawk_strict": {
+        "n": 51,
+        "pos": 36,
+        "neg": 15,
+        "channels": 50,
+        "auc": 0.5389,
+        "perm_p": 0.399,
+        "perm_mean": 0.5032
+      },
+      "within_hawk_perched_vs_flying_nonstrict": {
+        "n": 48,
+        "pos": 27,
+        "neg": 21,
+        "channels": 47,
+        "auc": 0.8571,
+        "perm_p": 0.0025,
+        "perm_mean": 0.5081
+      }
+    },
+    "perch": {
+      "perched_owl_vs_perched_hawk_strict": {
+        "n": 51,
+        "pos": 36,
+        "neg": 15,
+        "channels": 50,
+        "auc": 0.6204,
+        "perm_p": 0.1746,
+        "perm_mean": 0.5016
+      },
+      "within_hawk_perched_vs_flying_nonstrict": {
+        "n": 48,
+        "pos": 27,
+        "neg": 21,
+        "channels": 47,
+        "auc": 0.8483,
+        "perm_p": 0.0025,
+        "perm_mean": 0.4948
+      }
+    },
+    "crowgpt_b4": {
+      "perched_owl_vs_perched_hawk_strict": {
+        "n": 51,
+        "pos": 36,
+        "neg": 15,
+        "channels": 50,
+        "auc": 0.4611,
+        "perm_p": 0.6085,
+        "perm_mean": 0.502
+      },
+      "within_hawk_perched_vs_flying_nonstrict": {
+        "n": 48,
+        "pos": 27,
+        "neg": 21,
+        "channels": 47,
+        "auc": 0.6984,
+        "perm_p": 0.0224,
+        "perm_mean": 0.5005
+      }
+    }
+  },
+  "S5_outside": {
+    "birdnet": {
+      "recordings": 230,
+      "events": 204,
+      "contexts": {
+        "raptor_mobbing": {
+          "events": 67,
+          "other_events": 137,
+          "interpretable": true,
+          "auc": 0.7312,
+          "p": 0.0,
+          "ci95": [
+            0.6229,
+            0.827
+          ],
+          "p_holm": 0.0
+        },
+        "begging": {
+          "events": 33,
+          "other_events": 171,
+          "interpretable": true,
+          "auc": 0.9996,
+          "p": 0.0,
+          "ci95": [
+            0.9986,
+            1.0
+          ],
+          "p_holm": 0.0
+        },
+        "roost_gathering": {
+          "events": 47,
+          "other_events": 157,
+          "interpretable": true,
+          "auc": 0.7763,
+          "p": 0.0,
+          "ci95": [
+            0.6925,
+            0.8608
+          ],
+          "p_holm": 0.0
+        },
+        "food_foraging": {
+          "events": 22,
+          "other_events": 182,
+          "interpretable": true,
+          "auc": 0.6501,
+          "p": 0.02167,
+          "ci95": [
+            0.5229,
+            0.7685
+          ],
+          "p_holm": 0.02612
+        },
+        "flight_contact": {
+          "events": 35,
+          "other_events": 169,
+          "interpretable": true,
+          "auc": 0.6335,
+          "p": 0.01306,
+          "ci95": [
+            0.5274,
+            0.7399
+          ],
+          "p_holm": 0.02612
+        }
+      },
+      "count_removed": {
+        "raptor_mobbing": {
+          "auc": 0.7028,
+          "ci95": [
+            0.5968,
+            0.7985
+          ]
+        },
+        "begging": {
+          "auc": 0.9915,
+          "ci95": [
+            0.9814,
+            1.0
+          ]
+        },
+        "roost_gathering": {
+          "auc": 0.6994,
+          "ci95": [
+            0.6093,
+            0.7907
+          ]
+        },
+        "food_foraging": {
+          "auc": 0.6189,
+          "ci95": [
+            0.4901,
+            0.7418
+          ]
+        },
+        "flight_contact": {
+          "auc": 0.6218,
+          "ci95": [
+            0.5146,
+            0.7255
+          ]
+        }
+      }
+    },
+    "perch": {
+      "recordings": 230,
+      "events": 204,
+      "contexts": {
+        "raptor_mobbing": {
+          "events": 67,
+          "other_events": 137,
+          "interpretable": true,
+          "auc": 0.7449,
+          "p": 0.0,
+          "ci95": [
+            0.6491,
+            0.8282
+          ],
+          "p_holm": 0.0
+        },
+        "begging": {
+          "events": 33,
+          "other_events": 171,
+          "interpretable": true,
+          "auc": 0.9984,
+          "p": 0.0,
+          "ci95": [
+            0.9964,
+            1.0
+          ],
+          "p_holm": 0.0
+        },
+        "roost_gathering": {
+          "events": 47,
+          "other_events": 157,
+          "interpretable": true,
+          "auc": 0.8107,
+          "p": 0.0,
+          "ci95": [
+            0.7256,
+            0.8967
+          ],
+          "p_holm": 0.0
+        },
+        "food_foraging": {
+          "events": 22,
+          "other_events": 182,
+          "interpretable": true,
+          "auc": 0.6721,
+          "p": 0.00848,
+          "ci95": [
+            0.5569,
+            0.782
+          ],
+          "p_holm": 0.01695
+        },
+        "flight_contact": {
+          "events": 35,
+          "other_events": 169,
+          "interpretable": true,
+          "auc": 0.6355,
+          "p": 0.01174,
+          "ci95": [
+            0.5155,
+            0.7548
+          ],
+          "p_holm": 0.01695
+        }
+      },
+      "count_removed": {
+        "raptor_mobbing": {
+          "auc": 0.7129,
+          "ci95": [
+            0.613,
+            0.8013
+          ]
+        },
+        "begging": {
+          "auc": 0.9881,
+          "ci95": [
+            0.9777,
+            0.9982
+          ]
+        },
+        "roost_gathering": {
+          "auc": 0.7132,
+          "ci95": [
+            0.6258,
+            0.8092
+          ]
+        },
+        "food_foraging": {
+          "auc": 0.6366,
+          "ci95": [
+            0.5165,
+            0.7508
+          ]
+        },
+        "flight_contact": {
+          "auc": 0.6162,
+          "ci95": [
+            0.491,
+            0.7375
+          ]
+        }
+      }
+    },
+    "crowgpt_b4": {
+      "recordings": 230,
+      "events": 204,
+      "contexts": {
+        "raptor_mobbing": {
+          "events": 67,
+          "other_events": 137,
+          "interpretable": true,
+          "auc": 0.6884,
+          "p": 1e-05,
+          "ci95": [
+            0.583,
+            0.7783
+          ],
+          "p_holm": 4e-05
+        },
+        "begging": {
+          "events": 33,
+          "other_events": 171,
+          "interpretable": true,
+          "auc": 0.9513,
+          "p": 0.0,
+          "ci95": [
+            0.921,
+            0.9902
+          ],
+          "p_holm": 0.0
+        },
+        "roost_gathering": {
+          "events": 47,
+          "other_events": 157,
+          "interpretable": true,
+          "auc": 0.7668,
+          "p": 0.0,
+          "ci95": [
+            0.6827,
+            0.8483
+          ],
+          "p_holm": 0.0
+        },
+        "food_foraging": {
+          "events": 22,
+          "other_events": 182,
+          "interpretable": true,
+          "auc": 0.6134,
+          "p": 0.08292,
+          "ci95": [
+            0.5038,
+            0.7269
+          ],
+          "p_holm": 0.16584
+        },
+        "flight_contact": {
+          "events": 35,
+          "other_events": 169,
+          "interpretable": true,
+          "auc": 0.5391,
+          "p": 0.46742,
+          "ci95": [
+            0.4325,
+            0.6528
+          ],
+          "p_holm": 0.46742
+        }
+      },
+      "count_removed": {
+        "raptor_mobbing": {
+          "auc": 0.6599,
+          "ci95": [
+            0.5536,
+            0.7521
+          ]
+        },
+        "begging": {
+          "auc": 0.8593,
+          "ci95": [
+            0.7812,
+            0.9791
+          ]
+        },
+        "roost_gathering": {
+          "auc": 0.6719,
+          "ci95": [
+            0.5851,
+            0.7614
+          ]
+        },
+        "food_foraging": {
+          "auc": 0.5597,
+          "ci95": [
+            0.4525,
+            0.6693
+          ]
+        },
+        "flight_contact": {
+          "auc": 0.5057,
+          "ci95": [
+            0.396,
+            0.6204
+          ]
+        }
+      }
+    }
+  },
+  "S4_S5_holm": {
+    "birdnet": {
+      "S5:raptor_mobbing": 0.0,
+      "S5:begging": 0.0,
+      "S5:roost_gathering": 0.0,
+      "S4:within_hawk_perched_vs_flying_nonstrict": 0.01,
+      "S5:flight_contact": 0.03918,
+      "S5:food_foraging": 0.04334,
+      "S4:perched_owl_vs_perched_hawk_strict": 0.399
+    },
+    "perch": {
+      "S5:raptor_mobbing": 0.0,
+      "S5:begging": 0.0,
+      "S5:roost_gathering": 0.0,
+      "S4:within_hawk_perched_vs_flying_nonstrict": 0.01,
+      "S5:food_foraging": 0.02544,
+      "S5:flight_contact": 0.02544,
+      "S4:perched_owl_vs_perched_hawk_strict": 0.1746
+    },
+    "crowgpt_b4": {
+      "S5:begging": 0.0,
+      "S5:roost_gathering": 0.0,
+      "S5:raptor_mobbing": 5e-05,
+      "S4:within_hawk_perched_vs_flying_nonstrict": 0.0896,
+      "S5:food_foraging": 0.24876,
+      "S5:flight_contact": 0.93484,
+      "S4:perched_owl_vs_perched_hawk_strict": 0.93484
+    }
+  }
+}

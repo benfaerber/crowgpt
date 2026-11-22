@@ -1,6 +1,6 @@
 # 0112 — Does CrowGPT hear what BirdNET throws away?
 
-**2026-11-22** · GPU for extraction, CPU for scoring · **answer: see Results**
+**2026-11-22** · GPU for extraction, CPU for scoring · **answer: no — CrowGPT on a single caw scores 0.430 (p = 0.83), and it never beats BirdNET on meaning; where it does win is counting crows (0.845 against 0.806). Perch independently confirms the posture lead (perched against flying hawk 0.848)**
 
 ## The question
 
@@ -87,4 +87,119 @@ Secondaries 2–5 are a family. They get Holm correction where a p is quoted.
 
 ## Results
 
-_Filled in after the single run._
+Run once over the full span set (`results.json`), after one fix described
+under Deviations. Every one of 2,150 dev caws had audio, and no
+representation dropped any. BirdNET's cached isolated-caw number reproduces
+0103 exactly (0.5223), and BirdNET's 0104 cells reproduce 0104 exactly
+(0.539 and 0.857). The new pipeline is reading the same audio as the old
+one.
+
+**PRIMARY: null.**
+
+| single caw, owl vs hawk (0103 dev) | weighted per-caw AUC | permutation p |
+|---|---:|---:|
+| **CrowGPT block 4** | **0.430** | 0.83 |
+| BirdNET isolated (0103's number) | 0.522 | — |
+| Perch isolated | 0.546 | 0.17 |
+
+Every CrowGPT block lies between 0.430 and 0.466. Density-matched (secondary
+1): CrowGPT 0.546 (p = 0.27), BirdNET 0.571 (p = 0.13), Perch 0.579
+(p = 0.13).
+
+**Secondary 2: five contexts in the archive** (423 recordings, 249
+recordists, macro one-vs-rest AUC):
+
+| | macro AUC | 95% interval |
+|---|---:|---:|
+| BirdNET | 0.808 | 0.775 – 0.841 |
+| Perch | 0.816 | 0.778 – 0.855 |
+| CrowGPT block 4 | 0.785 | 0.748 – 0.821 |
+| CrowGPT blocks 1–6 (exploratory) | 0.762 – 0.792 | |
+
+CrowGPT minus BirdNET: −0.023 (−0.064 to +0.017). Perch minus BirdNET:
++0.008 (−0.025 to +0.038). Strict owl against hawk (exploratory): BirdNET
+0.773, Perch 0.720, CrowGPT 0.713.
+
+**Secondary 3: one crow against several, inside a call type** (0109's
+segments, folds and head):
+
+| | mean within-type AUC | 95% interval | begging stratum |
+|---|---:|---:|---:|
+| **CrowGPT block 4** | **0.845** | 0.804 – 0.875 | 0.803 |
+| BirdNET (0109) | 0.806 | 0.771 – 0.837 | 0.727 |
+| Perch | 0.784 | 0.746 – 0.820 | 0.610 |
+
+**Secondary 4: posture in 0104's video set.**
+
+| | perched owl vs perched hawk, strict (36 v 15) | perched vs flying, within hawk (27 v 21) |
+|---|---:|---:|
+| BirdNET | 0.539 (p = 0.40) | 0.857 (p = 0.0025) |
+| Perch | 0.620 (p = 0.17) | **0.848** (p = 0.0025, Holm 0.01) |
+| CrowGPT block 4 | 0.461 (p = 0.61) | 0.698 (p = 0.022, Holm 0.09) |
+
+**Secondary 5: outside the archives, a second look** (230 recordings,
+frozen archive heads, event-level AUC):
+
+| | raptor | begging | roost | food | flight |
+|---|---:|---:|---:|---:|---:|
+| BirdNET (0110) | 0.731 | 1.000 | 0.776 | 0.650 | 0.634 |
+| Perch | 0.745 | 0.998 | 0.811 | 0.672 | 0.636 |
+| CrowGPT block 4 | 0.688 | 0.951 | 0.767 | 0.613 | 0.539 |
+
+## Reading
+
+- **The single-caw null holds with a second and a third representation.** A
+  model trained to predict the fine structure of crow audio, and Perch, both
+  find nothing in an isolated caw that says owl or hawk. CrowGPT's 0.43 is
+  below chance, which in cross-validation of this size is noise, not signal.
+  "No representation tried can hear the predator in one caw" is now the
+  honest status.
+- **CrowGPT is not a better meaning feature.** It trails BirdNET slightly on
+  contexts in the archive and outside it. Perch ties BirdNET everywhere.
+  BirdNET is not what has been holding the line back.
+- **CrowGPT is a better crowd counter.** It is ahead in every call type, and
+  most of all on begging, the stratum where 0109's head was weakest (0.80
+  against 0.73). Predicting the next 13 ms has to track how many voices
+  overlap. That makes it the better covariate for 0113's single-bird
+  selection in future work.
+- **Posture is confirmed by an independent representation.** Perch, trained
+  on different data with a different objective, reproduces BirdNET's
+  perched-against-flying separation within hawk (0.848 against 0.857), and
+  this time the contrast was declared before the run. Owl against hawk with
+  both perched stays at chance in all three. Of everything tested on this
+  line, the evidence still points to what the predator is doing, not which
+  predator it is.
+
+## Deviations
+
+- The first evaluation pass read only 229 of 0104's 310 clips. The other 81
+  (the pilot clips) live under `data/experiments/0103-raptor-mobbing/audio`,
+  and `sets.ClipSet` had looked only in 0104's folder. That pass gave n = 31
+  and 34 in the posture cells, and BirdNET did not reproduce 0104 (0.615
+  against 0.857), which is how the gap was found. The paths were fixed to come
+  from 0104's manifest, the 81 clips were scanned and embedded, and the whole
+  evaluation was rerun once. Only secondary 4 changed. The numbers above are
+  from the rerun.
+- The CrowGPT extractor was first run with raw codebook indices instead of
+  per-codebook vocabulary offsets. That run was stopped and its output
+  deleted before anything was scored. After the fix, the extractor's input
+  gives the model 5.10 nats per token on a real window, matching its own
+  loss path.
+- One 3.5-hour begging recording (archive id 28465) finished scanning after
+  the first extraction passes. Its spans were added by a resumed run before
+  scoring.
+
+## What it changed
+
+- **"Is BirdNET throwing the meaning away?" is answered: no.** Neither a crow
+  language model's hidden states nor Perch beat it on any meaning test. The
+  bottleneck is the labels and the confounds, not the listener. Future
+  context work can keep BirdNET as its feature.
+- **CrowGPT block 4 replaces BirdNET as the crowd covariate where it can be
+  afforded** (0.845 against 0.806, and 0.80 against 0.73 on begging). It needs
+  a GPU pass, so it is for experiments, not the analyzer.
+- **Posture versus flight within one predator is now the best-supported
+  contrast on the line**, with two representations at 0.85. It goes to
+  FUTURE.txt as the confirmatory test to pre-register: it needs fresh clips,
+  and the roof-station camera is still the clean source.
+- Nothing for the app.
