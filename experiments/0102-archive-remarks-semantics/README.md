@@ -70,22 +70,35 @@ Top witnessed predator triggers (American Crow):
 
 ### 3. Calibrated 4-class Threat Translator head & zero-shot Poe Family field check (`train_threat_head.py`)
 
-Trained a block-standardized One-vs-Rest logistic head with out-of-fold Platt sigmoid calibration on 365 strict witnessed American Crow archive recordings across 228 recordists (`owl=78`, `hawk=66`, `terrestrial=21` [12 `human_disturbance` + 9 `mammal_scold`], `non_threat=200`).
+Trained a block-standardized One-vs-Rest logistic head with out-of-fold Platt sigmoid calibration on **378** strict witnessed American Crow archive recordings across **234** recordists (`owl=79`, `hawk=67`, `terrestrial=26` [17 `human_disturbance` + 9 `mammal_scold`], `non_threat=206`; updated from an earlier 365-clip pass-1 run that had scored `0.786` macro AUC).
 
-| Arm (5-fold recordist-grouped CV) | Macro AUC | `sat > 0.99` | `owl` | `hawk` | `terrestrial` | `non_threat` | `owl vs hawk` | `owl vs ter` | `hawk vs ter` |
+| Arm (5-fold recordist-grouped CV, `n=378`) | Macro AUC | `sat > 0.99` | `owl` | `hawk` | `terrestrial` | `non_threat` | `owl vs hawk` | `owl vs ter` | `hawk vs ter` |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| BirdNET mean-only (1024d) | 0.765 | 0.6% | 0.874 | 0.717 | 0.622 | 0.847 | 0.783 | 0.697 | 0.665 |
-| BirdNET pooled-only (3072d) | 0.775 | 0.5% | 0.879 | 0.716 | 0.667 | 0.837 | 0.789 | 0.778 | 0.693 |
-| BirdNET mean + prosody + speed (`w=0.35`) | 0.771 | 0.5% | 0.879 | 0.737 | 0.626 | 0.842 | 0.798 | 0.687 | 0.687 |
-| **BirdNET pooled + prosody + speed (`w=0.35`)** | **0.786** | **0.7%** | **0.881** | **0.730** | **0.690** | **0.844** | **0.797** | **0.752** | **0.714** |
+| BirdNET mean-only (1024d) | 0.744 | 0.3% | 0.863 | 0.670 | 0.600 | 0.843 | 0.763 | 0.664 | 0.625 |
+| BirdNET pooled-only (3072d) | 0.750 | 0.1% | 0.857 | 0.668 | 0.648 | 0.828 | 0.774 | 0.680 | 0.621 |
+| BirdNET mean + prosody + speed (`w=0.35`) | 0.750 | 0.3% | 0.861 | 0.680 | 0.620 | 0.838 | 0.766 | 0.650 | 0.658 |
+| **BirdNET pooled + prosody + speed (`w=0.35`)** | **0.757** | **0.2%** | **0.859** | **0.685** | **0.653** | **0.831** | **0.775** | **0.663** | **0.664** |
 
-Saved the winning calibrated head to `data/models/american-crow/threat_clf.joblib` (gitignored) and metrics to `threat_metrics.json`. Out-of-fold Platt calibration cut probability saturation (`>0.99`) from 32% on the shipped call-type head down to **0.7%**.
+**Held-out operating-point precision & recall under the `lift >= 1.5` & `P(non_threat) < 0.70` verdict rule (378-clip OOF, `n=378`):**
 
-**Zero-shot validation on Ben's 29 kept Poe Family field captures (`fieldserver/instance/field.db`, `keep = 1`, 25 crow-detected, zero owls/hawks present):**
-- **Zero owl false alarms (`0 / 25` with `P_owl >= 0.5`)** across all crow-detected backyard captures, even where the shipped call-type head saturated `p(alarm) = 1.00`.
-- **`P(terrestrial)` separated Ben's witnessed stranger-alarm captures** (`#87`, `#88`, `#113`, `#154`, `#155`, `#156`, `#158`, `n=7`) **from his benign/feeding/fledgling captures** (`#69`, `#94`–`#97`, `#104`–`#105`, `#114`, `#116`, `n=9`) **at `0.810 AUC`** (median `0.051` vs. `0.022`; highest `P_ter = 0.10` on `#154`, `stranger_passing`).
-- **`P(owl)` on the same Stranger vs. Benign split was `0.508` (chance)** and `P(hawk)` was `0.222` — confirming `P(terrestrial)` is responding specifically to terrestrial/human alarm calls rather than generic loudness.
-- *Calibration note:* Because `terrestrial` is 5.8% of the training set (21/365), Platt-calibrated raw `P(terrestrial)` reflects that base rate (0.05–0.10 on positives vs. 0.02 on negatives). Downstream thresholding should use class likelihood ratios (`P(c) / prior(c)`) or balanced-prior calibration once more terrestrial examples are added.
+| Class | True count | Predicted | True positives | Precision | Recall |
+|---|---:|---:|---:|---:|---:|
+| `owl` | 79 | 90 | 51 | **0.567** | 0.646 |
+| `hawk` | 67 | 51 | 20 | **0.392** | 0.299 |
+| `terrestrial` | 26 | 21 | 2 | **0.095** | 0.077 |
+| `non_threat` | 206 | 216 | 167 | **0.773** | 0.811 |
+
+High ranking AUC did **not** translate to usable verdict-level precision: terrestrial verdicts were wrong 90% of the time (`2/21`) and hawk verdicts were wrong 61% of the time (`20/51`).
+
+**Zero-shot check on Ben's 29 kept Poe Family field captures (`fieldserver/instance/field.db`, `keep = 1`, 25 crow-detected, zero owls or hawks present) — NULL / UNDERPOWERED:**
+- **Hand-picked split (`n = 7` stranger alarms vs. `n = 9` benign/feeding/fledgling captures):** The stranger (`#87`, `#88`, `#113`, `#154`, `#155`, `#156`, `#158`) and benign (`#69`, `#94`–`#97`, `#104`–`#105`, `#114`, `#116`) ID lists were hand-picked by capture notes. On the 378-clip head, `P(terrestrial)` scored **`0.683` AUC** (median `0.049` vs. `0.030`, Mann-Whitney two-sided **`p = 0.243`**, one-sided `p = 0.122` — **not statistically significant**; the earlier `0.810` figure was from the smaller 365-clip head).
+- **Verdict-rule false alarms & misses:** While `0/25` crow-detected captures had an owl false alarm (`P_owl >= 0.5` or owl verdict), the verdict rule flagged **`7/29` kept captures (`6/25` crow-detected: `#69`, `#89`, `#94`, `#105`, `#158`, `#178`, `#197`) as `"hawk"`** despite no hawk being present, and **`0/7` stranger-alarm captures reached a `"terrestrial"` verdict** (max `P_ter = 0.082`, below the `1.5×` prior threshold of `~0.103`).
+- `P(owl)` on the same 7-vs-9 split was `0.532` (`p = 0.874`, null) and `P(hawk)` was `0.270` (`p = 0.142`, null).
+
+**Perch 2.0 vs. BirdNET comparison (`benchmark_perch.py`, `perch_threat_metrics.json`, `n=378`):**
+- On the 378-clip archive, Perch 2.0 pooled + prosody + speed reached `0.790` macro AUC (`owl` 0.844, `hawk` 0.697, `terrestrial` 0.781, `non_threat` 0.839) vs. BirdNET pooled + prosody + speed at `0.769` (`owl` 0.856, `hawk` 0.688, `terrestrial` 0.700, `non_threat` 0.830). With only 26 terrestrial clips, this difference is a **statistical tie** on the archive, and the 16 hand-picked Poe captures are far too small to rank the two backbones.
+
+**Deployment decision:** Because of the weak held-out verdict precision (`20/51` hawk, `2/21` terrestrial), `7/29` backyard hawk false alarms, and a whole-recording vs. per-region train/serve mismatch, the prototype `analyzer/` integration (commit `7185300`) was reverted (`94d5e81`) pending caw-level and posture-controlled validation in Experiment `0103`.
 
 ### 4. Confounded null: All-Corvus aerial predator vs. mammal scold
 
@@ -93,14 +106,17 @@ BirdNET scored **0.869 AUC** (`n=197`, 24 mammal vs. 173 owl/hawk), **but metada
 
 ## Caveats
 
-- **Perched vs. aerial ecology remains entangled with predator identity.** Owls are usually mobbed while perched in cover by a dense stationary chorus, whereas hawks are often mobbed in flight or brief flybys. That ecological difference likely explains part of the intensity/persistence gap (`p(alarm)` 0.984 vs. 0.308), though the within-alarm separation (0.711), spectral-only prosody (0.663), and GHO-vs-Barred split (0.773 prosody AUC, both perched owls) suggest threat level or predator-specific vocal modulation beyond mere perched/flying geometry.
-- **BirdNET hears background habitat.** Full-clip embeddings (0.840 macro AUC) edge out clean crow-only windows (0.811), confirming that background soundscape adds a small boost when unmasked. Always report crow-only masked windows and compare against prosody + metadata nulls.
+- **Recording-level, not call-level.** Every metric in 0102 is evaluated on whole-recording pooled embeddings and recording-level prosody/density summaries. It does **not** establish that an individual isolated crow caw differs between owl and hawk mobbing — see Experiment `0103`.
+- **Non-crow bystander mobbers are NOT masked.** Only BirdNET raptor/owl windows (`>= 0.05`) were masked in 0102. Blue Jays, Steller's Jays, chickadees, and other woodland mobbers that frequently join owl mobs remain unmasked inside crow windows and may contribute to BirdNET's 0.769–0.778 separation.
+- **Perched vs. aerial ecology remains entangled with predator identity.** Owls are usually mobbed while perched in cover by a dense stationary chorus, whereas hawks are often mobbed in flight or brief flybys. Posture was not coded in 0102; Experiment `0103` directly codes `perched` vs. `flying` from the archive remarks.
+- **Whole-recording vs. per-region train/serve mismatch.** Training pooled whole recordings (`duration_s`, `crow_frac`, full-file pooling) does not match per-region inference (`3–9s` spans); per-region accuracy has not been evaluated.
+- **BirdNET hears background habitat.** Full-clip embeddings (0.840 macro AUC) edge out clean crow-only windows (0.811), confirming that background soundscape adds a small boost when unmasked.
 - **Macaulay dominates the strict subset** (`n=139` of 144) because Xeno-canto has far fewer American Crow remarks with witnessed predator triggers.
 
 ## What it changed
 
-- **Replaced the assumption that archive data can't feed Problem 2 (semantics).** Free-text remarks already in `data/corvid.db` yielded **561 witnessed American Crow recordings (~18 hours)** across 10+ semantic contexts with zero fieldwork and zero crowdsourcing — 133× the current field-labeled audio volume.
-- **Established the first non-null, confounder-controlled semantic benchmark in the project:** 7-class witnessed semantic separation at **0.811 macro AUC** and strict zero-raptor owl-vs-hawk separation at **0.769 AUC** (`p = 0.005`, metadata null 0.469).
+- **Replaced the assumption that archive data can't feed Problem 2 (semantics).** Free-text remarks already in `data/corvid.db` yielded **561 witnessed American Crow recordings (~18 hours)** (580 after pass-2 terrestrial screening) across 10+ semantic contexts with zero fieldwork and zero crowdsourcing — 133× the current field-labeled audio volume.
+- **Established a recording-level semantic benchmark — and identified the confounds that still need clearing:** 7-class witnessed semantic separation at **0.811 macro AUC** and strict zero-raptor recording-level owl-vs-hawk separation at **0.769 AUC** (`p = 0.005`, metadata null 0.469, density-matched 0.667), while revealing that unmasked bystander species, predator posture, and recording-level chorus density remain confounded with predator identity.
 - **Flagged begging as recoverable from archive remarks:** 77 witnessed American Crow begging clips (67 crow-detected, 451.1 min total, **0.963 OvR AUC**) are immediately usable to bolster the weak begging class without waiting on seasonal fledglings.
-- **Built and validated the first calibrated threat-translation head (`train_threat_head.py` -> `data/models/american-crow/threat_clf.joblib`):** BirdNET pooled + prosody + speed reached **0.786 macro AUC** (`owl` 0.881, `owl vs hawk` 0.797, `sat > 0.99` = 0.7%), achieved **0/25 owl false alarms** on Ben's kept backyard Poe Family captures, and separated witnessed stranger-alarm captures from benign/feeding/fledgling captures zero-shot at **0.810 AUC** on `P(terrestrial)`.
-- **Added `labels.json`** (portable Xeno-canto + Macaulay semantic labels), `threat_metrics.json`, and `crowgpt.progress.Run`-instrumented scripts so future embedders (CrowGPT hidden states, Perch, HuBERT) can be benchmarked directly on the same 561 witnessed semantic recordings.
+- **Documented why the first 4-class threat head is NOT ready to ship:** On the 378-clip archive it reached **0.757 macro AUC** (`owl` 0.859, `hawk` 0.685, `terrestrial` 0.653), but held-out verdict precision was weak (`owl` 51/90, `hawk` 20/51, `terrestrial` 2/21) and zero-shot Poe Family validation was null (`0.683` AUC on hand-picked 7 vs. 9 captures, `p = 0.243`, `7/29` hawk false alarms, `0/7` stranger captures reaching a terrestrial verdict).
+- **Added `labels.json`** (portable Xeno-canto + Macaulay semantic labels), `threat_metrics.json`, `perch_threat_metrics.json`, and `crowgpt.progress.Run`-instrumented scripts as the baseline for Experiment `0103`.
