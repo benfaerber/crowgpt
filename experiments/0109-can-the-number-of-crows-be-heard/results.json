@@ -1,0 +1,163 @@
+{
+  "segments": 2479,
+  "one": 1903,
+  "several": 576,
+  "groups": 603,
+  "strata": [
+    "mob",
+    "alert",
+    "scold",
+    "rattle",
+    "softSong",
+    "begging"
+  ],
+  "primary_embedding_within_type": {
+    "mob": {
+      "one": 368,
+      "several": 366,
+      "auc": 0.8522,
+      "ci95": [
+        0.8166,
+        0.8875
+      ]
+    },
+    "alert": {
+      "one": 433,
+      "several": 111,
+      "auc": 0.8207,
+      "ci95": [
+        0.7614,
+        0.8796
+      ]
+    },
+    "scold": {
+      "one": 48,
+      "several": 56,
+      "auc": 0.8575,
+      "ci95": [
+        0.7764,
+        0.9202
+      ]
+    },
+    "rattle": {
+      "one": 468,
+      "several": 72,
+      "auc": 0.7887,
+      "ci95": [
+        0.6787,
+        0.8708
+      ]
+    },
+    "softSong": {
+      "one": 526,
+      "several": 76,
+      "auc": 0.8186,
+      "ci95": [
+        0.7425,
+        0.8715
+      ]
+    },
+    "begging": {
+      "one": 231,
+      "several": 73,
+      "auc": 0.6747,
+      "ci95": [
+        0.5643,
+        0.7615
+      ]
+    },
+    "mean": {
+      "auc": 0.8021,
+      "ci95": [
+        0.7622,
+        0.8339
+      ]
+    }
+  },
+  "secondary_duty_within_type": {
+    "mob": {
+      "one": 368,
+      "several": 366,
+      "auc": 0.6834,
+      "ci95": [
+        0.6305,
+        0.7376
+      ]
+    },
+    "alert": {
+      "one": 433,
+      "several": 111,
+      "auc": 0.6435,
+      "ci95": [
+        0.5726,
+        0.7157
+      ]
+    },
+    "scold": {
+      "one": 48,
+      "several": 56,
+      "auc": 0.6769,
+      "ci95": [
+        0.5788,
+        0.7667
+      ]
+    },
+    "rattle": {
+      "one": 468,
+      "several": 72,
+      "auc": 0.6338,
+      "ci95": [
+        0.5188,
+        0.7482
+      ]
+    },
+    "softSong": {
+      "one": 526,
+      "several": 76,
+      "auc": 0.6509,
+      "ci95": [
+        0.5655,
+        0.7421
+      ]
+    },
+    "begging": {
+      "one": 231,
+      "several": 73,
+      "auc": 0.7013,
+      "ci95": [
+        0.6055,
+        0.7843
+      ]
+    },
+    "mean": {
+      "auc": 0.665,
+      "ci95": [
+        0.6196,
+        0.7079
+      ]
+    }
+  },
+  "secondary_embedding_ignoring_type": {
+    "auc": 0.8591,
+    "ci95": [
+      0.8325,
+      0.8825
+    ]
+  },
+  "secondary_two_against_four_within_mob": {
+    "two": 136,
+    "four": 230,
+    "auc": 0.7329,
+    "ci95": [
+      0.6721,
+      0.7895
+    ]
+  },
+  "secondary_trained_off_mob_tested_on_mob": {
+    "auc": 0.7986,
+    "ci95": [
+      0.7612,
+      0.8337
+    ]
+  }
+}
