@@ -1,0 +1,93 @@
+{
+  "recordings": 423,
+  "chunks": 2718,
+  "recordists": 249,
+  "per_context_recordings": {
+    "raptor_mobbing": 253,
+    "begging": 66,
+    "roost_gathering": 49,
+    "food_foraging": 36,
+    "flight_contact": 19
+  },
+  "PRIMARY_true_label_macro_auc": {
+    "macro_auc": 0.6919,
+    "ci95": [
+      0.6542,
+      0.7293
+    ],
+    "per_context": {
+      "raptor_mobbing": 0.5816,
+      "begging": 0.7499,
+      "roost_gathering": 0.8032,
+      "food_foraging": 0.6535,
+      "flight_contact": 0.6714
+    }
+  },
+  "shuffled_control_macro_auc": {
+    "macro_auc": 0.5069,
+    "ci95": [
+      0.4705,
+      0.5446
+    ],
+    "per_context": {
+      "raptor_mobbing": 0.519,
+      "begging": 0.4394,
+      "roost_gathering": 0.4231,
+      "food_foraging": 0.6169,
+      "flight_contact": 0.536
+    }
+  },
+  "auc_margin_over_control": 0.185,
+  "bits": {
+    "true_bits_per_chunk": 0.4924,
+    "shuffled_bits_per_chunk": -0.1145,
+    "difference_recording_mean": 0.5751,
+    "ci95": [
+      0.2655,
+      0.8785
+    ]
+  },
+  "S1_per_context_bits": {
+    "raptor_mobbing": {
+      "true": -0.3965,
+      "shuffled": -0.203
+    },
+    "begging": {
+      "true": 2.3726,
+      "shuffled": 0.2531
+    },
+    "roost_gathering": {
+      "true": 2.3593,
+      "shuffled": -0.4817
+    },
+    "food_foraging": {
+      "true": 0.7737,
+      "shuffled": 0.875
+    },
+    "flight_contact": {
+      "true": -1.27,
+      "shuffled": -0.6884
+    }
+  },
+  "S2_crowd_removed": {
+    "macro_auc": 0.572,
+    "ci95": [
+      0.5278,
+      0.6189
+    ],
+    "per_context": {
+      "raptor_mobbing": 0.5257,
+      "begging": 0.6308,
+      "roost_gathering": 0.672,
+      "food_foraging": 0.4999,
+      "flight_contact": 0.5317
+    }
+  },
+  "S3_bits_by_stage": {
+    "true_coarse": 0.1213,
+    "true_fine": 0.3711,
+    "shuffled_coarse": -0.037,
+    "shuffled_fine": -0.0775
+  },
+  "reading": "null"
+}

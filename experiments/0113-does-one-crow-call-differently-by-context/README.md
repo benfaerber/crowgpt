@@ -1,6 +1,6 @@
 # 0113 — Does one crow call differently in different contexts?
 
-**2026-11-22** · CPU · **answer: see Results**
+**2026-11-22** · CPU · **answer: yes, narrowly — one crow's graded calling reads context at 0.665 (p = 0.0025), just over the 0.65 bar; removing the crowd costs almost nothing (0.687 with every crow window), and BirdNET's context signal mostly survives the same restriction (0.775 against 0.804)**
 
 ## The question
 
@@ -93,4 +93,95 @@ audible above the rest".
 
 ## Results
 
-_Filled in after the single run._
+Run once, `results.json`. 245 recordings from 149 recordists had at least
+three caws in single-bird windows; 2,206 of 4,603 pure-crow windows passed the
+cut.
+
+**The cut.** From 0109's out-of-fold scores, `P(several) < 0.583` keeps
+1,858 of 2,479 hand-labelled segments at 90.0% one-crow precision and 87.9%
+one-crow recall. Fixed before any archive window was scored.
+
+**Primary: passes, narrowly.**
+
+| | macro AUC | 95% interval | permutation p |
+|---|---:|---:|---:|
+| graded features, single-bird windows | **0.665** | 0.606 – 0.728 | 0.0025 (null mean 0.472) |
+
+Per context: raptor mobbing 0.711, food 0.697, begging 0.694, flight 0.692,
+roost 0.533. The cells are very unequal: raptor 162, begging 29, food 27,
+roost 16, flight 11.
+
+**Secondary.**
+
+| | macro AUC | 95% interval |
+|---|---:|---:|
+| 1. graded, all pure windows (crowd left in) | 0.687 | 0.629 – 0.746 |
+| 3. BirdNET mean, single-bird windows | 0.775 | 0.732 – 0.818 |
+| 3. BirdNET mean, all pure windows | 0.804 | 0.763 – 0.843 |
+| 4. graded single-bird, count score regressed out | 0.641 | 0.580 – 0.703 |
+| 4. BirdNET single-bird, count score regressed out | 0.746 | 0.700 – 0.791 |
+
+2. Owl against hawk from single-bird graded features: 0.610 (81 against 81).
+No permutation was declared for this number.
+
+5. Which features move, in standardised mean differences against the other
+four contexts, with recordist-bootstrap 95% intervals:
+
+| context | caw duration | median pitch | caw rate | median gap |
+|---|---:|---:|---:|---:|
+| begging | **+0.95** (0.51, 1.42) | **−0.73** (−1.36, −0.15) | **−0.48** (−0.84, −0.07) | **+0.90** (0.29, 1.47) |
+| raptor mobbing | −0.09 | **+0.52** (0.21, 0.83) | **+0.47** (0.23, 0.71) | −0.12 |
+| flight | **−0.72** (−1.19, −0.33) | −0.50 | −0.17 | −0.26 |
+| food | −0.35 | −0.11 | **−0.49** (−0.82, −0.13) | −0.26 |
+| roost | −0.21 | −0.15 | +0.01 | **−0.50** (−0.82, −0.19) |
+
+## Reading
+
+- **Context is not only crowd.** Every earlier context result could have been
+  "more birds were calling". Restricted to stretches where one bird is
+  audible, graded features still read context. Keeping only those stretches
+  costs 0.02, and regressing out what the count head still sees costs another
+  0.02. BirdNET's embedding behaves the same way, losing 0.03.
+- **The biggest single difference is begging, and it is probably a different
+  caller, not a different call.** Long, low, slow caws with long gaps are what
+  a fledgling's begging sounds like. In a begging recording the "one crow" is
+  most often the young bird. That makes it a statement about who is calling,
+  not about one adult changing its call.
+- **Flight caws are shorter (−0.72 SD).** This is the León result (shorter caws
+  when the signaller is flying) seen in American Crow archive audio, on 11
+  recordings. It is worth a proper test, not a claim.
+- **Raptor mobbing is higher and faster from a single bird.** This is the first
+  sign that a mobbing caw differs from other caws with crowd held fixed. Owl
+  against hawk from the same features is 0.61, which is weak.
+- Roost reads at chance from one bird (0.533), as 0110's "roost is crowd"
+  predicts.
+
+## Limits
+
+- Archive only, recordist-grouped cross-validation. There is no sealed set
+  left to replicate on (0110 spent it).
+- The segmenter has not been checked against hand caw counts, and none exist.
+  Single-bird windows are where it is most trustworthy, but that is argued,
+  not measured.
+- "Single bird" means one bird audible above the rest, by a head that is 90%
+  precise on hand labels and weakest on begging (0.675 within type in 0109).
+- Raptor mobbing is two thirds of the recordings. Roost and flight are 16 and
+  11, so their per-context numbers are thin.
+- Feature movements are descriptive. No threshold was set and none is
+  claimed.
+
+## What it changed
+
+- **"Context differences are crowd differences" is no longer the working
+  reading.** One audible crow's calling carries context at 0.665, and the
+  embedding keeps most of its signal on single-bird windows. The next context
+  claim can start from single-bird windows instead of having to argue the
+  crowd away.
+- **A graded axis beside the call type is now justified, as the León entry in
+  FUTURE.txt asked.** Caw duration is the strongest single axis: begging long,
+  flight short. Pitch and rate separate mobbing.
+- **The flight-caw-is-shorter observation goes into FUTURE.txt** as a
+  confirmatory test to pre-register. It needs more flight recordings than
+  eleven, or the roof-station camera.
+- Nothing for the app. A 0.665 ranking of whole archive recordings is a
+  research result.
