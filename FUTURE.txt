@@ -59,15 +59,30 @@ when it has a shape and a reason to happen now.
     should reach the app, the dashboard or the promo page — "calling density"
     is the honest name for what can be measured.
 
-[x] A sealed replication set for the archive findings — DONE in 0106
-    (2026-11-21): the corpus tooling supplied descriptions for the rows
-    outside the two archives (`data/cache/descriptions/descriptions.jsonl`,
-    2,475 American Crow recordings with text), and the model frozen on the
-    archives scored 0.753 (p = 0.0024) on 20 owl and 32 hawk events it had
-    never seen. Only the owl and hawk descriptions have been read. The other
-    ~2,300 are still unread: before anyone opens them, declare the next
-    question (begging, roost, food) and its test, so they can be a sealed set
-    a second time.
+[x] A sealed replication set for the archive findings — DONE in 0106 and
+    SPENT in 0110 (2026-11-22). The descriptions the corpus tooling supplied
+    for rows outside the two archives (`data/cache/descriptions/
+    descriptions.jsonl`) were used once for owl against hawk (0106: 0.753)
+    and once for five contexts (0110). About 1,050 that matched no screen are
+    unread and say little. There is no sealed text left for these questions.
+
+[ ] A false-alarm rate for the recording-level begging head. 0110
+    (2026-11-22): a begging head fit on 66 witnessed archive recordings
+    scores 0.9996 on 33 begging events from 11 observers outside the
+    archives — but only against mobs, roosts, food and flight, never against
+    ordinary calling. Before this is anything in the app: score the same
+    frozen head (`ArchiveHeads` in 0110's `run.py`, nothing refit) on
+    recordings whose description states no context and on Ben's kept
+    captures, declare a threshold first, and report how often it fires. If
+    that holds, "begging young present" is the first scene-level statement
+    with evidence behind it. Raptor mobbing (0.73) and "many crows" (the 0109
+    count head, ρ = 0.35 against stated numbers) are the next two, and are
+    not strong enough alone.
+
+[ ] Roost, as heard, is mostly "many crows" (0110: the count head alone
+    finds roosts as well as the roost head, 0.79 against 0.78). Report a
+    crowd, not a roost, unless something separates them — time of day from
+    capture metadata is the obvious candidate and costs nothing.
 
 [ ] Timestamped events are the right design and the archive has six of them
     (Alala, 2026-11-21)

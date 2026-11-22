@@ -1,0 +1,290 @@
+{
+  "coded_recordings": 490,
+  "extracted_ok": 490,
+  "primary_clean_windows": {
+    "recordings": 230,
+    "events": 204,
+    "observers": 137,
+    "trained_on": {
+      "raptor_mobbing": 253,
+      "begging": 66,
+      "roost_gathering": 49,
+      "food_foraging": 36,
+      "flight_contact": 19
+    },
+    "contexts": {
+      "raptor_mobbing": {
+        "events": 67,
+        "other_events": 137,
+        "interpretable": true,
+        "auc": 0.7312,
+        "p": 0.0,
+        "ci95": [
+          0.6229,
+          0.827
+        ],
+        "p_holm": 0.0
+      },
+      "begging": {
+        "events": 33,
+        "other_events": 171,
+        "interpretable": true,
+        "auc": 0.9996,
+        "p": 0.0,
+        "ci95": [
+          0.9986,
+          1.0
+        ],
+        "p_holm": 0.0
+      },
+      "roost_gathering": {
+        "events": 47,
+        "other_events": 157,
+        "interpretable": true,
+        "auc": 0.7763,
+        "p": 0.0,
+        "ci95": [
+          0.6925,
+          0.8608
+        ],
+        "p_holm": 0.0
+      },
+      "food_foraging": {
+        "events": 22,
+        "other_events": 182,
+        "interpretable": true,
+        "auc": 0.6501,
+        "p": 0.02167,
+        "ci95": [
+          0.5229,
+          0.7685
+        ],
+        "p_holm": 0.02612
+      },
+      "flight_contact": {
+        "events": 35,
+        "other_events": 169,
+        "interpretable": true,
+        "auc": 0.6335,
+        "p": 0.01306,
+        "ci95": [
+          0.5274,
+          0.7399
+        ],
+        "p_holm": 0.02612
+      }
+    },
+    "crowd": {
+      "raptor_mobbing": {
+        "duty_alone": 0.6348,
+        "count_alone": 0.6029,
+        "head_with_count_removed": {
+          "auc": 0.7028,
+          "ci95": [
+            0.5968,
+            0.7985
+          ]
+        }
+      },
+      "begging": {
+        "duty_alone": 0.3468,
+        "count_alone": 0.1843,
+        "head_with_count_removed": {
+          "auc": 0.9915,
+          "ci95": [
+            0.9814,
+            1.0
+          ]
+        }
+      },
+      "roost_gathering": {
+        "duty_alone": 0.6811,
+        "count_alone": 0.7885,
+        "head_with_count_removed": {
+          "auc": 0.6994,
+          "ci95": [
+            0.6093,
+            0.7907
+          ]
+        }
+      },
+      "food_foraging": {
+        "duty_alone": 0.3989,
+        "count_alone": 0.3084,
+        "head_with_count_removed": {
+          "auc": 0.6189,
+          "ci95": [
+            0.4901,
+            0.7418
+          ]
+        }
+      },
+      "flight_contact": {
+        "duty_alone": 0.2795,
+        "count_alone": 0.4113,
+        "head_with_count_removed": {
+          "auc": 0.6218,
+          "ci95": [
+            0.5146,
+            0.7255
+          ]
+        }
+      }
+    }
+  },
+  "secondary_all_crow_windows": {
+    "recordings": 232,
+    "events": 206,
+    "observers": 139,
+    "trained_on": {
+      "raptor_mobbing": 255,
+      "begging": 67,
+      "roost_gathering": 50,
+      "food_foraging": 36,
+      "flight_contact": 20
+    },
+    "contexts": {
+      "raptor_mobbing": {
+        "events": 68,
+        "other_events": 138,
+        "interpretable": true,
+        "auc": 0.7344,
+        "p": 0.0,
+        "ci95": [
+          0.6328,
+          0.8293
+        ],
+        "p_holm": 0.0
+      },
+      "begging": {
+        "events": 33,
+        "other_events": 173,
+        "interpretable": true,
+        "auc": 0.9995,
+        "p": 0.0,
+        "ci95": [
+          0.9979,
+          1.0
+        ],
+        "p_holm": 0.0
+      },
+      "roost_gathering": {
+        "events": 47,
+        "other_events": 159,
+        "interpretable": true,
+        "auc": 0.7915,
+        "p": 0.0,
+        "ci95": [
+          0.7151,
+          0.8708
+        ],
+        "p_holm": 0.0
+      },
+      "food_foraging": {
+        "events": 22,
+        "other_events": 184,
+        "interpretable": true,
+        "auc": 0.6458,
+        "p": 0.02569,
+        "ci95": [
+          0.5193,
+          0.7622
+        ],
+        "p_holm": 0.02569
+      },
+      "flight_contact": {
+        "events": 36,
+        "other_events": 170,
+        "interpretable": true,
+        "auc": 0.6943,
+        "p": 0.00025,
+        "ci95": [
+          0.5976,
+          0.7869
+        ],
+        "p_holm": 0.00051
+      }
+    },
+    "crowd": {
+      "raptor_mobbing": {
+        "duty_alone": 0.6375,
+        "count_alone": 0.5977,
+        "head_with_count_removed": {
+          "auc": 0.7103,
+          "ci95": [
+            0.6064,
+            0.803
+          ]
+        }
+      },
+      "begging": {
+        "duty_alone": 0.3475,
+        "count_alone": 0.1872,
+        "head_with_count_removed": {
+          "auc": 0.9916,
+          "ci95": [
+            0.9818,
+            1.0
+          ]
+        }
+      },
+      "roost_gathering": {
+        "duty_alone": 0.6815,
+        "count_alone": 0.7902,
+        "head_with_count_removed": {
+          "auc": 0.7091,
+          "ci95": [
+            0.6221,
+            0.8023
+          ]
+        }
+      },
+      "food_foraging": {
+        "duty_alone": 0.3992,
+        "count_alone": 0.311,
+        "head_with_count_removed": {
+          "auc": 0.6168,
+          "ci95": [
+            0.4912,
+            0.7345
+          ]
+        }
+      },
+      "flight_contact": {
+        "duty_alone": 0.2765,
+        "count_alone": 0.4126,
+        "head_with_count_removed": {
+          "auc": 0.677,
+          "ci95": [
+            0.573,
+            0.7756
+          ]
+        }
+      }
+    }
+  },
+  "count_head_transfer": {
+    "events": {
+      "1": 23,
+      "2": 31,
+      "3": 206
+    },
+    "spearman": 0.3483,
+    "p": 0.0,
+    "ci95": [
+      0.2511,
+      0.4372
+    ],
+    "one_against_more": {
+      "auc": 0.7327,
+      "ci95": [
+        0.6444,
+        0.8182
+      ],
+      "events": 237,
+      "other_events": 23
+    },
+    "duty_spearman": 0.2968,
+    "duty_p": 0.0
+  }
+}
