@@ -1,0 +1,197 @@
+{
+  "inventory": {
+    "all": {
+      "eagle_flying": 4,
+      "eagle_mixed": 3,
+      "eagle_on_ground": 6,
+      "eagle_perched": 25,
+      "hawk_flying": 21,
+      "hawk_mixed": 9,
+      "hawk_on_ground": 2,
+      "hawk_perched": 27,
+      "owl_on_ground": 3,
+      "owl_perched": 68
+    },
+    "strict": {
+      "eagle_flying": 1,
+      "eagle_mixed": 2,
+      "eagle_on_ground": 3,
+      "eagle_perched": 6,
+      "hawk_flying": 16,
+      "hawk_mixed": 6,
+      "hawk_perched": 15,
+      "owl_on_ground": 1,
+      "owl_perched": 37
+    },
+    "labelled": 310,
+    "excluded_not_clean": 20,
+    "excluded_not_north_america": 2,
+    "excluded_predator_not_visible_or_other": 120
+  },
+  "PRIMARY_perched_owl_vs_perched_hawk_strict": {
+    "n": 51,
+    "pos": 36,
+    "neg": 15,
+    "channels": 50,
+    "auc": 0.5389,
+    "perm_p": 0.399,
+    "perm_mean": 0.5032,
+    "density_null": {
+      "n": 51,
+      "pos": 36,
+      "neg": 15,
+      "channels": 50,
+      "auc": 0.5222
+    },
+    "owl_density": {
+      "n": 36,
+      "pure_crow_frac_median": 0.653,
+      "duty_cycle_median": 0.361,
+      "n_pure_windows_median": 8.0,
+      "duration_median_s": 39.0
+    },
+    "hawk_density": {
+      "n": 15,
+      "pure_crow_frac_median": 0.412,
+      "duty_cycle_median": 0.355,
+      "n_pure_windows_median": 6.0,
+      "duration_median_s": 50.8
+    }
+  },
+  "EXPLORATORY": {
+    "perched_owl_vs_hawk_nonstrict": {
+      "n": 94,
+      "pos": 67,
+      "neg": 27,
+      "channels": 91,
+      "auc": 0.6418,
+      "perm_p": 0.0449,
+      "perm_mean": 0.4957,
+      "density_null": {
+        "n": 94,
+        "pos": 67,
+        "neg": 27,
+        "channels": 91,
+        "auc": 0.6661
+      }
+    },
+    "perched_owl_vs_hawk_strict_no_channel_cap": {
+      "n": 52,
+      "pos": 37,
+      "neg": 15,
+      "channels": 50,
+      "auc": 0.609,
+      "perm_p": 0.197,
+      "perm_mean": 0.5088
+    },
+    "caw_44d_perched_owl_vs_hawk_strict": {
+      "n_caws": 1039,
+      "n_recs": 50,
+      "auc_weighted": 0.4293,
+      "auc_rec_mean": 0.4152
+    },
+    "caw_44d_perched_owl_vs_hawk_nonstrict": {
+      "n_caws": 2095,
+      "n_recs": 93,
+      "auc_weighted": 0.4724,
+      "auc_rec_mean": 0.4517
+    },
+    "within_hawk_perched_vs_flying_nonstrict": {
+      "n": 48,
+      "pos": 27,
+      "neg": 21,
+      "channels": 47,
+      "auc": 0.8571,
+      "perm_p": 0.0025,
+      "perm_mean": 0.5081,
+      "density_null": {
+        "n": 48,
+        "pos": 27,
+        "neg": 21,
+        "channels": 47,
+        "auc": 0.6093
+      }
+    },
+    "perched_hawk_vs_perched_eagle_nonstrict": {
+      "n": 52,
+      "pos": 27,
+      "neg": 25,
+      "channels": 50,
+      "auc": 0.76,
+      "perm_p": 0.005,
+      "perm_mean": 0.5073
+    },
+    "archive_model_zero_shot": {
+      "perched_owl_vs_perched_hawk_strict": {
+        "n": 51,
+        "pos": 36,
+        "neg": 15,
+        "train_n": 146,
+        "auc": 0.6593,
+        "mw_p": 0.0771,
+        "median_p_owl_pos": 0.823,
+        "median_p_owl_neg": 0.344
+      },
+      "perched_owl_vs_perched_hawk_nonstrict": {
+        "n": 94,
+        "pos": 67,
+        "neg": 27,
+        "train_n": 146,
+        "auc": 0.6739,
+        "mw_p": 0.0087,
+        "median_p_owl_pos": 0.722,
+        "median_p_owl_neg": 0.228
+      },
+      "perched_owl_vs_flying_hawk_nonstrict": {
+        "n": 88,
+        "pos": 67,
+        "neg": 21,
+        "train_n": 146,
+        "auc": 0.7868,
+        "mw_p": 0.0001,
+        "median_p_owl_pos": 0.722,
+        "median_p_owl_neg": 0.218
+      },
+      "perched_hawk_vs_flying_hawk_nonstrict": {
+        "n": 48,
+        "pos": 27,
+        "neg": 21,
+        "train_n": 146,
+        "auc": 0.5979,
+        "mw_p": 0.253,
+        "median_p_owl_pos": 0.228,
+        "median_p_owl_neg": 0.218
+      }
+    },
+    "density_by_cell_nonstrict": {
+      "owl_perched": {
+        "n": 67,
+        "pure_crow_frac_median": 0.548,
+        "duty_cycle_median": 0.369,
+        "n_pure_windows_median": 12.0,
+        "duration_median_s": 88.9
+      },
+      "hawk_perched": {
+        "n": 27,
+        "pure_crow_frac_median": 0.273,
+        "duty_cycle_median": 0.309,
+        "n_pure_windows_median": 6.0,
+        "duration_median_s": 56.9
+      },
+      "hawk_flying": {
+        "n": 21,
+        "pure_crow_frac_median": 0.167,
+        "duty_cycle_median": 0.177,
+        "n_pure_windows_median": 2.0,
+        "duration_median_s": 37.0
+      },
+      "eagle_perched": {
+        "n": 25,
+        "pure_crow_frac_median": 0.154,
+        "duty_cycle_median": 0.252,
+        "n_pure_windows_median": 4.0,
+        "duration_median_s": 76.0
+      }
+    }
+  }
+}
