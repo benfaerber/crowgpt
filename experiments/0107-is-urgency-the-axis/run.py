@@ -26,6 +26,7 @@ REPO = HERE.parents[1]
 DATA_DIR = Path(os.environ.get("DATA_DIR", REPO / "data"))
 CACHE = DATA_DIR / "experiments" / "0107-urgency"
 ARCHIVE_CACHE = DATA_DIR / "experiments" / "0102-archive-remarks"
+LABELS = REPO / "experiments" / "0102-archive-remarks-semantics" / "labels.json"
 
 sys.path.insert(0, str(REPO / "crowgpt" / "src"))
 sys.path.insert(0, str(REPO / "pipelines" / "ingest"))
@@ -145,9 +146,14 @@ class ArchiveRecordings:
     def __init__(self):
         self.meta = json.loads((ARCHIVE_CACHE / "records.json").read_text())
         self.features = np.load(ARCHIVE_CACHE / "features.npz")
+        committed = {
+            (r["source"], str(r["source_ref"])): r["context"]
+            for r in json.loads(LABELS.read_text()) if r["witnessed"]
+        }
         self.rows = [
             i for i, r in enumerate(self.meta)
             if r["slug"] == "american-crow" and r["witnessed"] and self.features["has_clean"][i]
+            and committed.get((r["source"], str(r["source_ref"]))) == r["context"]
         ]
 
     def tasks(self):
