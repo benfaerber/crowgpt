@@ -1,0 +1,178 @@
+{
+  "crowgpt_b4_cut": {
+    "representation": "crowgpt_b4",
+    "threshold_p_several": 0.652,
+    "segments_below": 1897,
+    "segments": 2479,
+    "one_crow_precision_below": 0.9004,
+    "one_crow_recall": 0.8975
+  },
+  "archive_pure_windows": 4603,
+  "archive_single_windows": 2282,
+  "eligible_recordings": 239,
+  "eligible_recordists": 153,
+  "per_context_n": {
+    "raptor_mobbing": 160,
+    "begging": 28,
+    "roost_gathering": 13,
+    "food_foraging": 26,
+    "flight_contact": 12
+  },
+  "PRIMARY_A_owl_vs_hawk_bout_syntax_28d": {
+    "n": 88,
+    "pos": 50,
+    "neg": 38,
+    "groups": 72,
+    "auc": 0.3532,
+    "perm_p": 0.9476,
+    "perm_mean": 0.4889,
+    "cadence_10d_auc": 0.4642,
+    "order_18d_auc": 0.3363,
+    "bag_47d_same_recs_auc": 0.6321,
+    "holm_p": 1.0,
+    "passes": false
+  },
+  "PRIMARY_B_within_bout_order_shuffle_5ctx": {
+    "real_order_18d": {
+      "macro_auc": 0.5805,
+      "ci95": [
+        0.5185,
+        0.6407
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.5234,
+        "begging": 0.5635,
+        "roost_gathering": 0.4782,
+        "food_foraging": 0.7039,
+        "flight_contact": 0.6336
+      }
+    },
+    "shuffled_within_bout_mean_auc": 0.5872,
+    "shuffled_within_bout_p95_auc": 0.63,
+    "real_minus_shuffled": -0.0067,
+    "shuffle_p": 0.6219,
+    "holm_p": 1.0,
+    "passes": false
+  },
+  "S4_within_bout_order_shuffle_owl_vs_hawk": {
+    "real_order_18d_auc": 0.3363,
+    "shuffled_mean_auc": 0.4746,
+    "real_minus_shuffled": -0.1383,
+    "shuffle_p": 0.9701
+  },
+  "S1_five_context_comparison": {
+    "bout_syntax_28d": {
+      "macro_auc": 0.649,
+      "ci95": [
+        0.5834,
+        0.7048
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.5653,
+        "begging": 0.7564,
+        "roost_gathering": 0.5715,
+        "food_foraging": 0.6667,
+        "flight_contact": 0.685
+      }
+    },
+    "cadence_10d": {
+      "macro_auc": 0.598,
+      "ci95": [
+        0.5292,
+        0.6575
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.5132,
+        "begging": 0.7617,
+        "roost_gathering": 0.5238,
+        "food_foraging": 0.5063,
+        "flight_contact": 0.685
+      }
+    },
+    "bag_47d_same_recs": {
+      "macro_auc": 0.6521,
+      "ci95": [
+        0.5923,
+        0.7106
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.6726,
+        "begging": 0.7583,
+        "roost_gathering": 0.3975,
+        "food_foraging": 0.6668,
+        "flight_contact": 0.7654
+      }
+    },
+    "bout_syntax_28d_crowd_removed": {
+      "macro_auc": 0.6389,
+      "ci95": [
+        0.5751,
+        0.6948
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.5509,
+        "begging": 0.7437,
+        "roost_gathering": 0.5752,
+        "food_foraging": 0.6161,
+        "flight_contact": 0.7085
+      }
+    },
+    "bag_47d_crowd_removed": {
+      "macro_auc": 0.6314,
+      "ci95": [
+        0.5701,
+        0.6906
+      ],
+      "per_context": {
+        "raptor_mobbing": 0.6428,
+        "begging": 0.7527,
+        "roost_gathering": 0.3931,
+        "food_foraging": 0.6354,
+        "flight_contact": 0.7327
+      }
+    }
+  },
+  "S2_great_horned_vs_barred_owl_single_bird": {
+    "bout_syntax_28d": {
+      "n": 46,
+      "pos": 33,
+      "neg": 13,
+      "groups": 36,
+      "auc": 0.4755,
+      "perm_p": 0.4688,
+      "perm_mean": 0.469
+    },
+    "bag_47d": {
+      "n": 46,
+      "pos": 33,
+      "neg": 13,
+      "groups": 36,
+      "auc": 0.9394,
+      "perm_p": 0.0025,
+      "perm_mean": 0.4635
+    }
+  },
+  "S3_early_15s_vs_sustained_within_recording": {
+    "ici_s": {
+      "n_paired_recordings": 70,
+      "early_median": 0.5375,
+      "sustained_median": 0.5417,
+      "sustained_minus_early_median": 0.0192,
+      "wilcoxon_p": 0.1663
+    },
+    "caw_dur_s": {
+      "n_paired_recordings": 70,
+      "early_median": 0.242,
+      "sustained_median": 0.2451,
+      "sustained_minus_early_median": 0.0046,
+      "wilcoxon_p": 0.3127
+    },
+    "f0_med_hz": {
+      "n_paired_recordings": 70,
+      "early_median": 1420.7364,
+      "sustained_median": 1405.1207,
+      "sustained_minus_early_median": -12.1971,
+      "wilcoxon_p": 0.2989
+    }
+  }
+}
