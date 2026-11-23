@@ -111,7 +111,7 @@ OWL = Screenplay(
         L("The test that settles it needs many more of these:\n"
           "a hawk sitting still while the crows mob it.", key="hawk",
           clip="hawk-still", under=True),
-        L("These are my crows. If you film yours doing that, I want it.", key="family",
+        L("These are my crows.\nIf you film yours doing that, I want it.", key="family",
           clip="family", gain=0.7, under=True, after=1.0),
         L("Scan yours at crowgpt.org.", key="title", after=3.5),
     ),

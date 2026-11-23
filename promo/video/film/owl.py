@@ -68,9 +68,9 @@ class Screen:
     LENS = 50.0
     WIDTH = 16.0
 
-    def __init__(self, stage, fonts, path, credit, centre, frame):
+    def __init__(self, stage, fonts, path, credit, centre, frame, strength=1.0):
         x, y, z = centre
-        material = Materials.picture(f"Footage {path.stem}", path)
+        material = Materials.picture(f"Footage {path.stem}", path, strength)
         texture = next(node for node in material.node_tree.nodes if node.type == "TEX_IMAGE")
         texture.image.source = "MOVIE"
         texture.image_user.frame_duration = texture.image.frame_duration
@@ -97,11 +97,13 @@ class OwlFilm(Feature):
     HAWK = "#8a5a36"
     YES, NO = CallColors.FLIGHT, CallColors.ALARM
     BOARD_LENS = 28.0
+    EXPOSURE = {"family": 0.6}
 
     def build(self):
         self.play = T.PLAY
         self.figures = Figures(self.stats)
         self.subtitles = Subtitles(self.stage, self.fonts, CaptionLayout.of(self.shape))
+        self._blend(self.subtitles.strip)
         self.clips = {name: Clip(Path(self.work) / f"{name}.wav", T.FPS) for name in T.SOUNDS}
         self.dusk = Dusk(self.stage)
         PowerLine(self.stage)
@@ -122,6 +124,15 @@ class OwlFilm(Feature):
         self._edit()
         return self.scene
 
+    @staticmethod
+    def _blend(material):
+        """A caption strip blended, not dithered: dithering stripes over moving footage."""
+        material.node_tree.nodes["Principled BSDF"].inputs["Alpha"].default_value = 0.8
+        if hasattr(material, "surface_render_method"):
+            material.surface_render_method = "BLENDED"
+        else:
+            material.blend_method = "BLEND"
+
     def _cut(self, frame, camera):
         self.cuts.append((frame, camera))
 
@@ -134,7 +145,8 @@ class OwlFilm(Feature):
         for index, line in enumerate(line for line in self.play.lines() if line.clip in SHOTS):
             credit = self.credits.get(line.clip, {}).get("credit")
             screen = Screen(self.stage, self.fonts, T.cut(line.clip), credit,
-                            (-1200.0 - index * 40.0, 0.0, 80.0), line.start)
+                            (-1200.0 - index * 40.0, 0.0, 80.0), line.start,
+                            self.EXPOSURE.get(line.clip, 1.0))
             shots.append((line.start, line.end, screen.camera))
         scene = sorted(self.cuts, key=lambda cut: cut[0])
 
