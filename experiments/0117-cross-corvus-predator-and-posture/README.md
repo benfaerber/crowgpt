@@ -1,50 +1,61 @@
 # 0117 — Do predator and posture signals conserve across *Corvus* species once geography is removed?
 
-> **Pre-registration (written and committed 2026-11-22 before reading/coding non-American-Crow archive remarks or scanning their audio).**
+**2026-11-22** · CPU (BirdNET) + GPU (Perch 2.0) · **answer: mixed, and pointing to posture/substrate rather than predator names — Eurasian → American Crow owl-vs-hawk zero-shot is null (0.491 BirdNET, 0.523 Perch; Eurasian owls rare at n = 4), and cross-*Corvus* strict perched owl vs. perched hawk is null in both backbones (22 vs. 16: 0.565 BirdNET, 0.565 Perch). Species-deconfounded mammal scold vs. avian raptor passes (0.873 BirdNET, Holm p = 0.0075; 0.876 Perch; 0.907 pure-recordist vs. 0.508 null; 0.919 within one Berlin recordist), and Eurasian *Corvus* hawk posture transfers zero-shot to North American `0104` hawk videos at 0.854 BirdNET (p = 0.00003)**
+
+> **Pre-registration (written and committed in `437b51c` before reading/coding non-American-Crow remarks; blind labels frozen in `09146d4` before scanning audio).**
 
 ## The question
 
-Every clean semantic test from `0103` to `0114` restricted itself to **American Crow**, leaving **6,316** downloaded Xeno-canto and Macaulay Library recordings with non-empty notes across other *Corvus* / corvid species sitting unused in `corvid.db` (`hooded-crow` 3,535, `common-raven` 1,262, `carrion-crow` 638, `eurasian-jackdaw` 565, `rook` 316, `large-billed-crow` 175). European recordists frequently name terrestrial mammals (*fox, cat, dog, badger, marten*) and raptor behaviors (*perched buzzard, goshawk*) that are rare in North American remarks.
+Every clean semantic test from `0103` to `0116` restricted itself to **American Crow**, leaving **8,908** downloaded Xeno-canto and Macaulay recordings (`6,316` with non-empty notes) across six other *Corvus* species (`hooded-crow`, `common-raven`, `carrion-crow`, `eurasian-jackdaw`, `rook`, `large-billed-crow`) unused in `corvid.db`. In `0102` (Section 4), naive cross-species pooling of mammal scolds vs. avian raptors hit `0.869` BirdNET AUC but failed its control because **metadata alone scored `0.799`** (European crows dominated mammal scolds while American Crows dominated raptor mobs).
 
-In `0102` (Section 4), naive cross-species pooling of mammal scolds vs. avian raptors hit `0.869` BirdNET AUC — and failed its control because **metadata alone scored `0.799`** (European crows dominated mammal scolds while American Crows dominated owl/hawk mobs).
-
-Two designs eliminate that species/continent confound **by construction**:
-1. **Zero-shot cross-continental transfer:** Train exclusively on **non-American *Corvus*** (Eurasian species) with per-species feature standardization, and evaluate **zero-shot on American Crow** (`0102` strict archive + `0104` strict video). Because 100% of the test set is one species on one continent, species and geography carry **zero** variance at evaluation.
-2. **In-fold species orthogonalization:** In pooled cross-*Corvus* cross-validation, standardize features within each species using training-fold statistics **and** linearly regress species one-hot indicators out of every feature inside each training fold, requiring any passing contrast to beat a `metadata + species` null.
+This experiment removes geography/species leakage by construction via **(1) zero-shot Eurasian *Corvus* → American Crow transfer** (where 100% of test clips are one species on one continent) and **(2) within-fold species z-scoring + species one-hot orthogonalization** paired with **within-species** recordist permutations.
 
 ## Pre-declared protocol
 
-### Step 1 — Blind remark coding across non-American *Corvus*
+1. **Blind remark coding (`09146d4`):** Keyword screening across all 8,908 downloaded non-American *Corvus* archive rows returned **454 candidates**, each blind-coded strictly from remark text into `owl_mobbing`, `hawk_mobbing`, `mammal_scold`, `human_disturbance`, or `none`, plus `witnessed`, `posture` (`perched, flying, mixed, unknown`), and `pred_vocal`. **160** recordings were coded as witnessed interactions (`labels.json`).
+2. **Pure-corvid BirdNET & Perch 2.0 extraction:** Scanned `187/188` witnessed recordings (including `0102`'s witnessed American Crow `mammal_scold` / `human_disturbance` rows for uniform windowing) with BirdNET (`min_conf=0.05`) and embedded **2,364** corvid spans with Perch 2.0 (`perch_v2`, 1536d). Pure-corvid strict rule: corvid `>= 0.25`, `non_corvid < 0.05` in window, `pred_vocal == False` (plus `pred_vocal_checklist == False` from `0116` on American Crow), and recording-wide `max_raptor_conf < 0.05`.
 
-- **Species in scope (`GENUS_CORVUS_NON_AMECRO`):** Downloaded Xeno-canto and Macaulay recordings in `corvid.db` for `hooded-crow`, `carrion-crow`, `common-raven`, `eurasian-jackdaw`, `rook`, and `large-billed-crow` (`slug != 'american-crow'`).
-- **Screen & blind coding:** Keyword screen over `rmk` / `mediaNotes` for raptors (owl, eagle-owl, tawny, barn/little/ural/long-eared/short-eared owl, hawk, goshawk, sparrowhawk, buzzard, kite, eagle, white-tailed/golden eagle, falcon, peregrine, kestrel, harrier, hobby, osprey), terrestrial mammals (fox, cat, dog, badger, marten, stoat, weasel, wolf, jackal, mammal), humans, and mobbing/scolding phrasing. Every candidate remark is read **blind to audio and model scores** and coded into:
-  - `context`: `owl_mobbing`, `hawk_mobbing`, `mammal_scold`, `human_disturbance`, or `none`
-  - `witnessed`: `true` only when the recordist observed the trigger/interaction during the recording (excluding guesses, unseen predators, and passive background species lists)
-  - `posture`: `perched`, `flying`, `mixed`, `unknown` (`0103`'s exact rules)
-  - `pred_vocal`: `true` if the remark or Xeno-canto `also` lists the predator calling.
-- Freeze `labels.json` before extracting any audio window.
+---
 
-### Step 2 — Pure-corvid BirdNET & Perch 2.0 window extraction
+## Results
 
-- Run BirdNET (`min_conf=0.05`, CPU) and Perch 2.0 (`perch_v2`, 1536d, `TF_FORCE_GPU_ALLOW_GROWTH=true`) on every witnessed non-American *Corvus* recording.
-- **Strict pure-corvid window rule (matching `0103`):** Target *Corvus* species (or BirdNET corvid where Carrion/Hooded split occurs, per `0089`) detected at `>= 0.25`, **zero non-corvid species `>= 0.05` in the window**, `pred_vocal == False`, and **zero BirdNET raptor/owl detections `>= 0.05` anywhere in the recording**.
+Run once (`results.json`), followed by a post-hoc recordist-concentration audit on Primary B documented below.
 
-### Step 3 — Co-primary tests (Holm-corrected as a family of 3)
+### Inventory of strict pure-corvid non-American *Corvus* recordings (`n = 75` strict of `127` usable pure)
 
-1. **Primary A — Zero-shot Eurasian *Corvus* → American Crow (`owl_mobbing` vs. `hawk_mobbing`, strict):**
-   - Train `LogisticRegression(C=0.05, solver="liblinear", class_weight="balanced")` on per-species z-scored **BirdNET 1024d** pure-corvid window means across strict Eurasian *Corvus* owl/hawk recordings (requires `>= 10` owl and `>= 10` hawk Eurasian recordings; otherwise declared underpowered).
-   - Score **zero-shot** (no refitting) on `0112`/`0102`'s strict American Crow owl/hawk archive recordings (z-scored across the American Crow set without using labels), evaluated by ROC-AUC, two-sided Mann–Whitney `p`, and 2,000-resample recordist bootstrap 95% CI.
-   - **Passes** if `AUC >= 0.65`, CI excludes `0.5`, and Holm `p < 0.05`.
-2. **Primary B — Species-deconfounded Avian Raptor (`owl` + `hawk`) vs. Terrestrial Mammal (`mammal_scold`) across all *Corvus*:**
-   - Combine strict witnessed Eurasian *Corvus* + American Crow (`0102`) recordings. Inside each fold of 5-fold recordist-grouped `StratifiedGroupKFold(seed=0)`, z-score within species using training-fold statistics (falling back to global training stats if `< 3` training rows in a species) **and** regress out one-hot species indicators before fitting `LogisticRegression(C=0.05, balanced)`.
-   - Compute `metadata + species` null (`species` one-hot + `lat, lng, duration_s, pure_corvid_frac`) under the same folds after the same species-residualization check (plus raw unresidualized metadata AUC to show the confound size).
-   - **Passes** if BirdNET `AUC >= 0.65`, Holm-adjusted 400-shuffle **within-species** recordist permutation `p < 0.05` (labels permuted across recordists *within each species* so species marginals are invariant!), and `AUC` exceeds the residualized density/metadata null by `>= 0.05`.
-3. **Primary C — Cross-*Corvus* strict Perched Owl vs. Perched Hawk:**
-   - Combine strict `perched` Eurasian *Corvus* recordings with strict `perched` American Crow archive recordings (`0116`). Same within-fold species z-scoring + species-indicator orthogonalization, 5-fold recordist-grouped ROC-AUC, and **400 within-species recordist permutations**.
-   - **Passes** if `AUC >= 0.65`, Holm `perm_p < 0.05`, and beats the density null by `>= 0.05`.
+- **By species & context (strict):** `hooded-crow` (`18 mammal_scold, 13 hawk_mobbing, 3 human_disturbance`), `carrion-crow` (`9 hawk_mobbing, 8 mammal_scold, 1 owl_mobbing, 1 human_disturbance`), `common-raven` (`11 hawk_mobbing, 3 owl_mobbing, 1 human_disturbance`), `eurasian-jackdaw` (`3 hawk_mobbing, 1 human_disturbance`), `rook` (`2 hawk_mobbing, 1 human_disturbance`), `large-billed-crow` (`1 human_disturbance`).
+- **Eurasian raptor posture skew (`non_amecro` strict):** Hawks are overwhelmingly flying (`18 flying, 4 perched, 2 mixed, 14 unknown`), while silent owls are rare in European archives (`3 perched, 1 unknown`; several Long-eared Owl mobs were excluded by `pred_vocal = true`).
 
-### Pre-declared secondary tests
+### Co-primary results (family of 3, Holm-adjusted)
 
-1. **S1 — Perch 2.0 (1536d)** on all three primaries (A, B, C) to verify representation independence.
-2. **S2 — Cross-*Corvus* within-hawk Perched vs. Flying** (species-deconfounded CV + zero-shot Eurasian *Corvus* perched-vs-flying → `0104` American Crow hawk videos!).
-3. **S3 — Per-species breakdown** for every species with `>= 8` recordings on each side of a contrast.
+| Co-primary test | Scope (`pos / neg`) | BirdNET AUC | BirdNET `p` (Holm `p`) | Perch 2.0 AUC (`p`) | Deconfounded Null AUC | Verdict |
+|---|---|---:|---:|---:|---:|---|
+| **Primary A:** Zero-shot Eurasian *Corvus* → American Crow (`owl` vs. `hawk`, strict) | Train `4 / 38` → Test `70 / 53` | **0.4914** (`0.385–0.605`) | `0.872` (**`0.872`**) | **0.5229** (`0.666`) | — (single test species) | **NULL** (train `< 10` owls) |
+| **Primary B:** Species-deconfounded Mammal Scold vs. Avian Raptor (strict, all *Corvus*) | `32 / 165` (`140` groups, 6 spp.) | **0.8729** | `0.0025` (**`0.0075`**) | **0.8759** (`0.0050`) | `0.6777` (raw meta `0.817`) | **PASSES** *(see audit below)* |
+| **Primary C:** Cross-*Corvus* strict Perched Owl vs. Perched Hawk | `22 / 16` (`36` groups, 4 spp.) | **0.5653** | `0.299` (**`0.599`**) | **0.5653** (`0.289`) | `0.4886` (raw meta `0.580`) | **NULL** (both `>= 15`!) |
+
+### Post-hoc audit of Primary B (`0.873` mammal scold vs. avian raptor) — why it passed, and two caveats
+
+Inspecting recordist identities inside the 32 strict `mammal_scold` rows revealed that **one Berlin recordist (Johannes Worona) contributed 23 of the 32 mammal scolds** (`18/18` in Hooded Crow and `5/8` in Carrion Crow, plus `7/13` Hooded Crow raptor mobs), and `eval.py` had prefixed group keys by species (`slug:recordist`), letting his Hooded Crow and Carrion Crow files sit in different folds (which also caused the residualized metadata null to read `0.678` instead of `0.50`). Four post-hoc checks isolate what is real and what is recordist concentration:
+
+1. **Grouping strictly by `recordist` across all species (`134` recordists, no `slug:` prefix):** The species-deconfounded density/metadata null drops to **`0.5083` (exact chance)**, and **BirdNET mammal-vs-raptor rises to `0.9068` (`perm_p = 0.005`)**. So cross-species recordist sharing did *not* inflate `0.873`; fixing it sharpened both the score and the null.
+2. **Within Johannes Worona alone (`23` mammal scolds vs. `7` raptor mobs, 5-fold CV — same recordist, same Berlin urban parks, same microphone family):** BirdNET scores **`0.9193` AUC**. Within a single observer's park recordings, crows scolding foxes/dogs/cats on the ground sound markedly different from crows mobbing kestrels/buzzards.
+3. **Excluding Johannes Worona completely (`9` mammal scolds from 9 independent recordists — 6 American Crow, 3 Carrion Crow — vs. `158` raptor mobs across 124 recordists):** Species-deconfounded BirdNET drops to **`0.7314`** (`perm_p = 0.0498`, deconfounded metadata null `0.608`).
+4. **Zero-shot Eurasian *Corvus* (`26` mammal vs. `23` raptor) → North American American Crow (`6` mammal vs. `123` raptor):** BirdNET **`0.664`** (`95% CI: 0.463–0.849`, `mw_p = 0.182`), Perch **`0.627`** (`mw_p = 0.304`) — positive direction, underpowered at `n = 6` American Crow mammal clips.
+
+**Ecological caveat on Primary B:** Terrestrial mammals (`fox, dog, cat, raccoon`) are **stationary/walking on the ground** while the crows scold from perches above, whereas Eurasian archive `hawk_mobbing` is **82% flying chases (`18:4` flying:perched)**. So `mammal_scold` vs. `avian_raptor` is entangled with **ground-perched scolding vs. aerial pursuit** — the same behavioral/postural contrast seen inside hawks, not proof of a taxonomic word for "mammal".
+
+### Secondary 2 — Cross-*Corvus* Hawk Posture (`perched` vs. `flying`) & Zero-Shot Continental Transfer
+
+| Test | Scope | BirdNET AUC (`p`) | Perch 2.0 AUC (`p`) | Deconfounded Null AUC |
+|---|---|---:|---:|---:|
+| All-*Corvus* strict archive within-hawk `perched` vs. `flying` | `16` perched / `29` flying (`41` groups, 6 spp.) | **0.7155** (`perm_p = 0.0274`) | — | `0.3556` |
+| **Zero-shot Eurasian *Corvus* archive hawk posture → North American `0104` hawk videos** | Train `5 / 33` (Eurasia) → Test `27 / 21` (`0104` NA video) | **0.8536** (`95% CI: 0.729–0.948`, **`mw_p = 0.00003`**) | **0.6631** (`95% CI: 0.496–0.815`, `mw_p = 0.056`) | — (single target set) |
+
+Even with only `5` perched vs. `33` flying Eurasian *Corvus* training clips, a BirdNET linear probe trained purely on European archive audio separates North American `0104` perched vs. flying hawk videos at **`0.854` AUC** zero-shot.
+
+## What it changed
+
+- **Cross-*Corvus* perched owl vs. perched hawk clears the `15`-per-class floor (`22` vs. `16`) and is null in both backbones (`0.565` BirdNET, `0.565` Perch).** Adding Eurasian *Corvus* perched raptors (including controlled Eagle-Owl and Goshawk dummy presentations) moves the needle toward `0.50`, not away from it.
+- **Posture/substrate transfers across species and continents; owl-vs-hawk identity does not.** Eurasian *Corvus* hawk posture (`perched` vs. `flying`) transfers zero-shot to American Crow video clips (`0.854` BirdNET), while Eurasian owl-vs-hawk transfers at `0.491`.
+- **Mammal scold vs. avian raptor separates strongly after species deconfounding (`0.873` / `0.907`, `0.919` within one Berlin recordist),** providing a promising ground-vs.-aerial threat axis — but it is carried heavily by one European recordist (`23/32` mammal clips) and confounded with ground-scolding vs. aerial-chase behavior until tested against **perched** raptors on multi-observer American Crow data.

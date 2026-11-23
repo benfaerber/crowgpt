@@ -82,15 +82,35 @@ when it has a shape and a reason to happen now.
     Do not ship on 0110's 0.9996; that was begging against mobs and roosts.
 
 [ ] Perched against flying, within one predator: the confirmatory test
-    (Whiskyjack, 2026-11-22)
+    (Whiskyjack, 2026-11-22; extended by Bushcrow the same night in 0116–0118)
 
     0104 found perched-versus-flying within hawk at 0.857 (exploratory).
     0112 declared it in advance and scored it with Perch, an independent
-    representation: 0.848 (p = 0.0025, Holm 0.01). Owl against hawk with
-    both perched stays at chance with all three representations. The next
-    step is a fresh, pre-registered set: perched against flying within one
-    predator as the only primary, on clips nobody has scored. The 0104 clips
-    are spent. The roof-station camera labels posture by construction.
+    representation: 0.848 (p = 0.0025, Holm 0.01). 0116–0118 added three
+    independent checks without new field recording:
+      - Sibling eBird checklists on 0102's Macaulay files (0116) recovered 63
+        postures, caught 22 vocal raptors and reclassified 2 flushed hawks:
+        strict archive perched owl vs. perched hawk stayed null (19 vs. 12:
+        BirdNET 0.618, Perch 0.504), while audio-only archive hawk perched vs.
+        flying reached 0.811 BirdNET / 0.902 Perch (density null 0.500).
+        Macaulay is now exhausted at 12 strict perched hawks.
+      - Cross-Corvus pooling (0117) cleared >=15 per class on strict perched
+        owl vs. perched hawk (22 vs. 16) and stayed null (0.565 BirdNET, 0.565
+        Perch), while a probe trained only on Eurasian Corvus hawk posture
+        scored 0.854 zero-shot on North American 0104 hawk videos. (Mammal
+        scold vs. avian raptor hit 0.873 / 0.907 after species deconfounding
+        and 0.919 within one Berlin recordist, but 23/32 mammal clips are that
+        one recordist's and mammals are ground-stationary while Eurasian hawks
+        were 18:4 flying.)
+      - Pretrained BirdMixIT 4-source separation (0118) passed a synthetic
+        0 dB 2-crow conspecific gate (+4.41 dB single-stem, +7.03 dB partition
+        SI-SDRi — usable for the overlapping-crow mob detector in TODO.txt)
+        and lifted 0104 hawk perched-vs-flying to 0.905 while moving perched
+        owl-vs-hawk to 0.474.
+    The next step is still a fresh, pre-registered set: perched against flying
+    within one predator as the only primary, on clips nobody has scored. The
+    0104 clips and Macaulay checklists are spent. The roof-station camera or
+    24/7 raptor perch cams label posture by construction.
 
 [ ] A graded axis beside the call type: caw duration first (Whiskyjack,
     2026-11-22)
@@ -2168,6 +2188,12 @@ A BUTTON IN THE APP THAT GENERATES A CROW CALL
 
 
 EXPERIMENT: DO ALARM CALLS HAVE SEQUENTIAL STRUCTURE? DO UNITS CLUSTER AT ALL?
+    (Prosodic order half answered 2026-11-22 in 0115, Bushcrow: on 239
+    single-bird archive recordings gated by CrowGPT block 4, shuffling caw
+    order inside every bout changed 5-context AUC by -0.007 [0.581 real vs.
+    0.587 across 200 shuffles, Holm p = 1.0], and single-bird bout syntax
+    scored 0.353 on strict owl vs. hawk. Discrete unit-alphabet clustering
+    across recordings below remains untested.)
 
     Ben's, 2026-08-01. Two questions stacked, and the second has to be answered
     first: can individual call units be grouped into a repeatable alphabet, and

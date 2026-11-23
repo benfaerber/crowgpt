@@ -1,0 +1,327 @@
+{
+  "inventory": {
+    "non_amecro_coded_witnessed": 160,
+    "non_amecro_usable_pure": 127,
+    "non_amecro_strict_by_slug_context": {
+      "carrion-crow_hawk_mobbing": 9,
+      "carrion-crow_human_disturbance": 1,
+      "carrion-crow_mammal_scold": 8,
+      "carrion-crow_owl_mobbing": 1,
+      "common-raven_hawk_mobbing": 11,
+      "common-raven_human_disturbance": 1,
+      "common-raven_owl_mobbing": 3,
+      "eurasian-jackdaw_hawk_mobbing": 3,
+      "eurasian-jackdaw_human_disturbance": 1,
+      "hooded-crow_hawk_mobbing": 13,
+      "hooded-crow_human_disturbance": 3,
+      "hooded-crow_mammal_scold": 18,
+      "large-billed-crow_human_disturbance": 1,
+      "rook_hawk_mobbing": 2,
+      "rook_human_disturbance": 1
+    },
+    "non_amecro_strict_raptor_posture": {
+      "hawk_mobbing_flying": 18,
+      "hawk_mobbing_mixed": 2,
+      "hawk_mobbing_perched": 4,
+      "hawk_mobbing_unknown": 14,
+      "owl_mobbing_perched": 3,
+      "owl_mobbing_unknown": 1
+    },
+    "amecro_strict_by_context": {
+      "owl_mobbing": 70,
+      "hawk_mobbing": 53,
+      "human_disturbance": 14,
+      "mammal_scold": 6
+    }
+  },
+  "PRIMARY_birdnet": {
+    "A_zeroshot_eurasian_to_amecro_owl_vs_hawk": {
+      "train_n": 42,
+      "train_pos": 4,
+      "train_neg": 38,
+      "underpowered_train": true,
+      "test_n": 123,
+      "test_pos": 70,
+      "test_neg": 53,
+      "auc": 0.4914,
+      "ci95": [
+        0.3848,
+        0.6054
+      ],
+      "mw_p": 0.87219,
+      "holm_p": 0.8722,
+      "passes": false
+    },
+    "B_raptor_vs_mammal_deconfounded": {
+      "n": 197,
+      "pos": 32,
+      "neg": 165,
+      "groups": 140,
+      "by_species": {
+        "american-crow": {
+          "pos": 6,
+          "neg": 123
+        },
+        "carrion-crow": {
+          "pos": 8,
+          "neg": 10
+        },
+        "common-raven": {
+          "pos": 0,
+          "neg": 14
+        },
+        "eurasian-jackdaw": {
+          "pos": 0,
+          "neg": 3
+        },
+        "hooded-crow": {
+          "pos": 18,
+          "neg": 13
+        },
+        "rook": {
+          "pos": 0,
+          "neg": 2
+        }
+      },
+      "auc": 0.8729,
+      "raw_metadata_plus_species_null_auc": 0.8167,
+      "species_deconfounded_density_meta_null_auc": 0.6777,
+      "perm_p": 0.0025,
+      "perm_mean": 0.5172,
+      "holm_p": 0.0075,
+      "passes": true
+    },
+    "C_perched_owl_vs_hawk_all_corvus": {
+      "n": 38,
+      "pos": 22,
+      "neg": 16,
+      "groups": 36,
+      "by_species": {
+        "american-crow": {
+          "pos": 19,
+          "neg": 12
+        },
+        "carrion-crow": {
+          "pos": 1,
+          "neg": 1
+        },
+        "common-raven": {
+          "pos": 2,
+          "neg": 2
+        },
+        "rook": {
+          "pos": 0,
+          "neg": 1
+        }
+      },
+      "auc": 0.5653,
+      "raw_metadata_plus_species_null_auc": 0.5795,
+      "species_deconfounded_density_meta_null_auc": 0.4886,
+      "perm_p": 0.2993,
+      "perm_mean": 0.4942,
+      "holm_p": 0.5986,
+      "passes": false
+    }
+  },
+  "S1_perch": {
+    "A_zeroshot_eurasian_to_amecro_owl_vs_hawk": {
+      "train_n": 42,
+      "train_pos": 4,
+      "train_neg": 38,
+      "underpowered_train": true,
+      "test_n": 123,
+      "test_pos": 70,
+      "test_neg": 53,
+      "auc": 0.5229,
+      "ci95": [
+        0.4126,
+        0.6483
+      ],
+      "mw_p": 0.66606
+    },
+    "B_raptor_vs_mammal_deconfounded": {
+      "n": 197,
+      "pos": 32,
+      "neg": 165,
+      "groups": 140,
+      "by_species": {
+        "american-crow": {
+          "pos": 6,
+          "neg": 123
+        },
+        "carrion-crow": {
+          "pos": 8,
+          "neg": 10
+        },
+        "common-raven": {
+          "pos": 0,
+          "neg": 14
+        },
+        "eurasian-jackdaw": {
+          "pos": 0,
+          "neg": 3
+        },
+        "hooded-crow": {
+          "pos": 18,
+          "neg": 13
+        },
+        "rook": {
+          "pos": 0,
+          "neg": 2
+        }
+      },
+      "auc": 0.8759,
+      "raw_metadata_plus_species_null_auc": 0.8167,
+      "species_deconfounded_density_meta_null_auc": 0.6777,
+      "perm_p": 0.005,
+      "perm_mean": 0.505
+    },
+    "C_perched_owl_vs_hawk_all_corvus": {
+      "n": 38,
+      "pos": 22,
+      "neg": 16,
+      "groups": 36,
+      "by_species": {
+        "american-crow": {
+          "pos": 19,
+          "neg": 12
+        },
+        "carrion-crow": {
+          "pos": 1,
+          "neg": 1
+        },
+        "common-raven": {
+          "pos": 2,
+          "neg": 2
+        },
+        "rook": {
+          "pos": 0,
+          "neg": 1
+        }
+      },
+      "auc": 0.5653,
+      "raw_metadata_plus_species_null_auc": 0.5795,
+      "species_deconfounded_density_meta_null_auc": 0.4886,
+      "perm_p": 0.2893,
+      "perm_mean": 0.4931
+    }
+  },
+  "S2_hawk_posture_cross_corvus": {
+    "all_corvus_strict_birdnet": {
+      "n": 45,
+      "pos": 16,
+      "neg": 29,
+      "groups": 41,
+      "by_species": {
+        "american-crow": {
+          "pos": 12,
+          "neg": 11
+        },
+        "carrion-crow": {
+          "pos": 1,
+          "neg": 5
+        },
+        "common-raven": {
+          "pos": 2,
+          "neg": 6
+        },
+        "eurasian-jackdaw": {
+          "pos": 0,
+          "neg": 2
+        },
+        "hooded-crow": {
+          "pos": 0,
+          "neg": 4
+        },
+        "rook": {
+          "pos": 1,
+          "neg": 1
+        }
+      },
+      "auc": 0.7155,
+      "raw_metadata_plus_species_null_auc": 0.5991,
+      "species_deconfounded_density_meta_null_auc": 0.3556,
+      "perm_p": 0.0274,
+      "perm_mean": 0.495
+    },
+    "all_corvus_nonstrict_birdnet": {
+      "n": 75,
+      "pos": 19,
+      "neg": 56,
+      "groups": 59,
+      "by_species": {
+        "american-crow": {
+          "pos": 14,
+          "neg": 23
+        },
+        "carrion-crow": {
+          "pos": 1,
+          "neg": 7
+        },
+        "common-raven": {
+          "pos": 2,
+          "neg": 15
+        },
+        "eurasian-jackdaw": {
+          "pos": 1,
+          "neg": 5
+        },
+        "hooded-crow": {
+          "pos": 0,
+          "neg": 5
+        },
+        "rook": {
+          "pos": 1,
+          "neg": 1
+        }
+      },
+      "auc": 0.6297,
+      "raw_metadata_plus_species_null_auc": 0.5799,
+      "species_deconfounded_density_meta_null_auc": 0.3684,
+      "perm_p": 0.1047,
+      "perm_mean": 0.4912
+    },
+    "zeroshot_eurasian_hawk_posture_to_0104_video_birdnet": {
+      "train_n": 38,
+      "train_pos": 5,
+      "train_neg": 33,
+      "underpowered_train": true,
+      "test_n": 48,
+      "test_pos": 27,
+      "test_neg": 21,
+      "auc": 0.8536,
+      "ci95": [
+        0.729,
+        0.9481
+      ],
+      "mw_p": 3e-05
+    }
+  },
+  "S3_within_species": {
+    "american-crow_owl_vs_hawk": {
+      "n": 123,
+      "pos": 70,
+      "neg": 53,
+      "channels": 99,
+      "auc": 0.7377,
+      "perm_p": 0.0025,
+      "perm_mean": 0.5066
+    },
+    "carrion-crow_mammal_vs_raptor": {
+      "n": 18,
+      "pos": 8,
+      "neg": 10,
+      "channels": 12,
+      "auc": 0.875,
+      "perm_p": 0.0723,
+      "perm_mean": 0.5484
+    },
+    "hooded-crow_mammal_vs_raptor": {
+      "n": 31,
+      "pos": 18,
+      "neg": 13,
+      "channels": 7,
+      "auc": null
+    }
+  }
+}
