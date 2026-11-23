@@ -1,0 +1,229 @@
+{
+  "inventory": {
+    "total_witnessed_owl_hawk_0102": 257,
+    "missing_window_tables": 4,
+    "usable_pure_crow_recordings": 231,
+    "strict_usable_recordings": 123,
+    "new_pred_vocal_caught_by_checklist": 22,
+    "posture_recovered_from_unknown": 63,
+    "before_0103_table": {
+      "hawk_mobbing_flying": 18,
+      "hawk_mobbing_mixed": 6,
+      "hawk_mobbing_not_in_0103": 66,
+      "hawk_mobbing_perched": 12,
+      "hawk_mobbing_unknown": 33,
+      "owl_mobbing_flying": 2,
+      "owl_mobbing_mixed": 5,
+      "owl_mobbing_not_in_0103": 43,
+      "owl_mobbing_perched": 16,
+      "owl_mobbing_unknown": 56
+    },
+    "after_checklist_all_coded": {
+      "hawk_mobbing_flying": 31,
+      "hawk_mobbing_mixed": 23,
+      "hawk_mobbing_perched": 17,
+      "hawk_mobbing_unknown": 64,
+      "owl_mobbing_flying": 5,
+      "owl_mobbing_mixed": 15,
+      "owl_mobbing_perched": 31,
+      "owl_mobbing_unknown": 71
+    },
+    "strict_pure_crow_cells": {
+      "hawk_mobbing_flying": 11,
+      "hawk_mobbing_mixed": 9,
+      "hawk_mobbing_perched": 12,
+      "hawk_mobbing_unknown": 21,
+      "owl_mobbing_flying": 4,
+      "owl_mobbing_mixed": 7,
+      "owl_mobbing_perched": 19,
+      "owl_mobbing_unknown": 40
+    },
+    "nonstrict_pure_crow_cells": {
+      "hawk_mobbing_flying": 23,
+      "hawk_mobbing_mixed": 20,
+      "hawk_mobbing_perched": 14,
+      "hawk_mobbing_unknown": 56,
+      "owl_mobbing_flying": 5,
+      "owl_mobbing_mixed": 14,
+      "owl_mobbing_perched": 30,
+      "owl_mobbing_unknown": 69
+    }
+  },
+  "PRIMARY_strict_archive_perched_owl_vs_hawk_birdnet": {
+    "n": 31,
+    "pos": 19,
+    "neg": 12,
+    "channels": 30,
+    "auc": 0.6184,
+    "perm_p": 0.182,
+    "perm_mean": 0.4909,
+    "density_null": {
+      "n": 31,
+      "pos": 19,
+      "neg": 12,
+      "channels": 30,
+      "auc": 0.4386
+    },
+    "power_status": "uninterpretable (<15 in a class)",
+    "passes": false,
+    "sensitivity_preserve_0103_non_unknown": {
+      "n": 33,
+      "pos": 19,
+      "neg": 14,
+      "channels": 32,
+      "auc": 0.7105,
+      "perm_p": 0.0499,
+      "perm_mean": 0.4993,
+      "density_null": {
+        "n": 33,
+        "pos": 19,
+        "neg": 14,
+        "channels": 32,
+        "auc": 0.5263
+      }
+    }
+  },
+  "S1_strict_archive_perched_other_reps": {
+    "perch": {
+      "n": 31,
+      "pos": 19,
+      "neg": 12,
+      "channels": 30,
+      "auc": 0.5044,
+      "perm_p": 0.4414,
+      "perm_mean": 0.4912,
+      "density_null": {
+        "n": 31,
+        "pos": 19,
+        "neg": 12,
+        "channels": 30,
+        "auc": 0.4386
+      }
+    },
+    "crowgpt_b4": {
+      "n": 31,
+      "pos": 19,
+      "neg": 12,
+      "channels": 30,
+      "auc": 0.6491,
+      "perm_p": 0.1521,
+      "perm_mean": 0.5004,
+      "density_null": {
+        "n": 31,
+        "pos": 19,
+        "neg": 12,
+        "channels": 30,
+        "auc": 0.4386
+      }
+    }
+  },
+  "S2_within_hawk_perched_vs_flying_archive": {
+    "strict_birdnet": {
+      "n": 23,
+      "pos": 12,
+      "neg": 11,
+      "channels": 22,
+      "auc": 0.8106,
+      "perm_p": 0.0299,
+      "perm_mean": 0.4986,
+      "density_null": {
+        "n": 23,
+        "pos": 12,
+        "neg": 11,
+        "channels": 22,
+        "auc": 0.5
+      }
+    },
+    "strict_perch": {
+      "n": 23,
+      "pos": 12,
+      "neg": 11,
+      "channels": 22,
+      "auc": 0.9015,
+      "perm_p": 0.0125,
+      "perm_mean": 0.5159,
+      "density_null": {
+        "n": 23,
+        "pos": 12,
+        "neg": 11,
+        "channels": 22,
+        "auc": 0.5
+      }
+    },
+    "nonstrict_birdnet": {
+      "n": 37,
+      "pos": 14,
+      "neg": 23,
+      "channels": 32,
+      "auc": 0.736,
+      "perm_p": 0.0499,
+      "perm_mean": 0.4888,
+      "density_null": {
+        "n": 37,
+        "pos": 14,
+        "neg": 23,
+        "channels": 32,
+        "auc": 0.4907
+      }
+    },
+    "nonstrict_perch": {
+      "n": 37,
+      "pos": 14,
+      "neg": 23,
+      "channels": 32,
+      "auc": 0.6708,
+      "perm_p": 0.0973,
+      "perm_mean": 0.4878,
+      "density_null": {
+        "n": 37,
+        "pos": 14,
+        "neg": 23,
+        "channels": 32,
+        "auc": 0.4907
+      }
+    }
+  },
+  "S3_pooled_archive_plus_video_strict_perched": {
+    "birdnet": {
+      "n": 82,
+      "pos_owl": 55,
+      "neg_hawk": 27,
+      "archive_n": 31,
+      "video_n": 51,
+      "groups": 80,
+      "auc": 0.6613,
+      "perm_p": 0.0499,
+      "perm_mean": 0.5045
+    },
+    "perch": {
+      "n": 82,
+      "pos_owl": 55,
+      "neg_hawk": 27,
+      "archive_n": 31,
+      "video_n": 51,
+      "groups": 80,
+      "auc": 0.5933,
+      "perm_p": 0.1771,
+      "perm_mean": 0.508
+    },
+    "crowgpt_b4": {
+      "n": 82,
+      "pos_owl": 55,
+      "neg_hawk": 27,
+      "archive_n": 31,
+      "video_n": 51,
+      "groups": 80,
+      "auc": 0.6478,
+      "perm_p": 0.0424,
+      "perm_mean": 0.5033
+    }
+  },
+  "secondary_holm_p": {
+    "S1_perch": 0.4563,
+    "S1_crowgpt_b4": 0.4563,
+    "S2_hawk_strict_birdnet": 0.1794,
+    "S2_hawk_nonstrict_birdnet": 0.2495,
+    "S3_pooled_birdnet": 0.2495,
+    "S3_pooled_perch": 0.4563
+  }
+}
