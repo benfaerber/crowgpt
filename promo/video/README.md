@@ -95,21 +95,27 @@ if Cycles cannot see one. Read `GPU-CALENDAR.md` first.
 
 ## The owl film
 
-`make -C promo video-owl` renders a standalone film, about three and a half
-minutes, on one question: crows mobbing an owl sound different from crows
-mobbing a hawk, so are they naming the predator? It follows experiments 0102
-to 0113: the archive result (0.78), its replication on new recordings
-(0.75), and the three suspects (a call that means owl, posture, the crowd),
-each with what its test found. It ends where they do, with a difference that is
-real and no evidence yet of a name, and asks for a recording of a perched hawk
-being mobbed.
+`make -C promo video-owl` renders a standalone film, about four minutes, on one
+question: crows mobbing an owl sound different from crows mobbing a hawk, so
+are they naming the predator? It follows experiments 0102 to 0113: the archive
+result (0.78), its replication on new recordings (0.75), and the three suspects
+(a call that means owl, posture, the crowd), each with what its test found. It
+ends where they do, with a difference that is real and no evidence yet of a
+name, and asks for footage of a perched hawk being mobbed.
 
-It is timed from its narration like the feature (`film/owl_screenplay.py`,
-`make -C promo video-owl-script`) and its scenes are methods of a `Feature`
-subclass in `film/owl.py`, so any of them can move into the feature unchanged.
-Every figure is written into the screenplay from the experiment READMEs, not
-from `promo/stats.json`. The crows heard are the family's own alarm calls, not
-an owl or hawk mob: the picture says what is being mobbed, the sound does not.
+It opens on real footage of crows mobbing owls and hawks, full frame with its
+own sound, and cuts back to it wherever a line describes one. The archive
+chapter quotes two recordists' remarks over their own Xeno-canto recordings, the
+posture chapter shows the clips 0104 labelled as the labeller saw them, and the
+family's photographs and their lightpost video close it.
+
+The footage lives with the corpus, not in the tree: `data/video/footage/shots.json`
+names each shot's file, start and on-screen credit, and `wall.json` the 0104
+strips. `render.py` cuts every shot to the length of the line that uses it into
+`data/video/footage/cut/` before rendering. Scenes are methods of a `Feature`
+subclass in `film/owl.py`, timed from `film/owl_screenplay.py`
+(`make -C promo video-owl-script`), so any of them can move into the feature.
+Figures are written into the screenplay from the experiment READMEs.
 
 ## Needs
 

@@ -5,6 +5,7 @@ scenes can later move into the feature unchanged. Every scene reads its frames
 from the owl screenplay.
 """
 
+import json
 import math
 import random
 from pathlib import Path
@@ -15,7 +16,8 @@ from .director import Camera
 from .explainer import Figures
 from .feature import Feature
 from .kit import Keys, Materials, Palette, Shapes
-from .props import CallColors, CaptionLayout, Chip, ScoreBars, Sign, Subtitles
+from .owl_screenplay import SHOTS
+from .props import CallColors, CaptionLayout, Chip, ScoreBars, Sign, Snapshot, Subtitles
 from .sets import Dusk, Lockup, PowerLine, SoundRings
 from .timeline import OwlTimeline as T
 
@@ -60,6 +62,34 @@ class Owl:
         return self
 
 
+class Screen:
+    """Real footage, full frame: a moving picture on a card that exactly fills its own camera."""
+
+    LENS = 50.0
+    WIDTH = 16.0
+
+    def __init__(self, stage, fonts, path, credit, centre, frame):
+        x, y, z = centre
+        material = Materials.picture(f"Footage {path.stem}", path)
+        texture = next(node for node in material.node_tree.nodes if node.type == "TEX_IMAGE")
+        texture.image.source = "MOVIE"
+        texture.image_user.frame_duration = texture.image.frame_duration
+        texture.image_user.frame_start = frame
+        texture.image_user.use_auto_refresh = True
+        height = self.WIDTH * 9.0 / 16.0
+        stage.add(f"Screen {path.stem}", Shapes.card("screen", self.WIDTH * 1.01, height * 1.01),
+                  material, location=centre)
+        if credit:
+            label = stage.text(f"Credit {path.stem}", credit, fonts.display, 0.34,
+                               Materials.glow("Credit", Palette.CREAM, 1.2),
+                               (x + self.WIDTH / 2.0 - 0.3, y - 0.05, z + height / 2.0 - 0.55),
+                               extrude=0.0, align="RIGHT")
+            label.rotation_euler = (math.pi / 2.0, 0.0, 0.0)
+        distance = self.WIDTH * self.LENS / 36.0
+        self.camera = Camera(stage, f"Footage camera {path.stem}", self.LENS)
+        self.camera.move(1, (x, y - distance, z), centre)
+
+
 class OwlFilm(Feature):
     CLOCK = T
     MOBBERS = [(-1.6, 0.9), (-0.85, 1.0), (-0.1, 0.95), (2.2, 0.9), (2.9, 1.0)]
@@ -77,6 +107,8 @@ class OwlFilm(Feature):
         PowerLine(self.stage)
         self.rings = SoundRings(self.stage)
         self.mobbers = []
+        self.cuts = []
+        self.credits = json.loads((T.FOOTAGE / "shots.json").read_text())
         self._the_mob()
         self._the_archive()
         self._the_replication()
@@ -87,7 +119,52 @@ class OwlFilm(Feature):
         self._one_bird()
         self._the_verdict()
         self._the_ask()
+        self._edit()
         return self.scene
+
+    def _cut(self, frame, camera):
+        self.cuts.append((frame, camera))
+
+    def _narrate(self, camera, scene, since=0, until=None):
+        """Captions are laid in by `_edit`, once every cut is known."""
+
+    def _edit(self):
+        """Footage takes the screen for its line; the scene's camera comes back after it."""
+        shots = []
+        for index, line in enumerate(line for line in self.play.lines() if line.clip in SHOTS):
+            credit = self.credits.get(line.clip, {}).get("credit")
+            screen = Screen(self.stage, self.fonts, T.cut(line.clip), credit,
+                            (-1200.0 - index * 40.0, 0.0, 80.0), line.start)
+            shots.append((line.start, line.end, screen.camera))
+        scene = sorted(self.cuts, key=lambda cut: cut[0])
+
+        def live(frame):
+            return [camera for start, camera in scene if start <= frame][-1]
+
+        final = {frame: camera for frame, camera in scene
+                 if not any(start <= frame < end for start, end, _ in shots)}
+        starts = {start for start, _, _ in shots}
+        for start, end, _ in shots:
+            if end not in starts and end <= T.END:
+                final[end] = live(end)
+        for start, _, camera in shots:
+            final[start] = camera
+        timeline = sorted(final.items())
+        for frame, camera in timeline:
+            Feature._cut(self, frame, camera)
+        self._caption(timeline)
+
+    def _caption(self, timeline):
+        """Each line on whichever cameras are live while it is on screen."""
+        for line in self.play.lines():
+            if not line.text:
+                continue
+            start, end = line.start + 2, line.spoken + 8
+            for index, (frame, camera) in enumerate(timeline):
+                until = timeline[index + 1][0] if index + 1 < len(timeline) else T.END + 1
+                shown, gone = max(start, frame), min(end, until - 1)
+                if shown < gone:
+                    self.subtitles.show(camera, self._worded(line), shown, gone)
 
     def _board(self, scene, x, title, title_at):
         """A score board on the floor, filmed square on, with its title above."""
@@ -106,38 +183,18 @@ class OwlFilm(Feature):
     def _hawk(self, name, size):
         return FlyingCrow(self.stage, name, Materials.surface(name, "#b0764a", 0.7), size=size)
 
-    def _mob_call(self, crow, start, direction):
-        clip = self.clips["mob"]
-        crow.caw(start, clip.envelope())
-        for onset in clip.onsets()[::2]:
-            self.rings.emit(start + onset, crow.beak_tip(), direction, reach=3.5, count=2)
-
     def _the_mob(self):
         scene = self.play.scene("mob")
         dice = random.Random(4)
         plumage = Plumage.living()
-        caw = scene.line("caw")
-        owl = Owl(self.stage, PowerLine.perch(self.OWL_X), size=0.72)
-        owl.leave(scene.at("hawk") - 4)
         for index, (x, size) in enumerate(self.MOBBERS):
             crow = PerchedCrow(self.stage, "Mobber", plumage)
             crow.place(PowerLine.perch(x), heading=0.0 if x < self.OWL_X else math.pi)
             crow.root.scale = (size, size, size)
             crow.look(1, yaw=dice.uniform(-0.4, 0.4))
-            direction = 1.0 if x < self.OWL_X else -1.0
-            self._mob_call(crow, caw.cue + index * 5, direction)
-            self._mob_call(crow, scene.at("owl") + dice.randint(0, 20), direction)
             self.mobbers.append(crow)
-        hawk = self._hawk("Hawk overhead", 2.6)
-        hawk.flap(0)
-        hawk.cross(scene.at("hawk") + 2, scene.at("question") + 30,
-                   (-9.0, 3.0, 7.6), (11.0, 3.0, 7.9))
-        self._title("owl or hawk?", (0.65, 1.0, 6.55), scene.at("question") + 10,
-                    size=0.32).leave(scene.end)
         camera = Camera(self.stage, "Mob camera", 40.0)
-        camera.move(1, (1.6, -4.2, 4.9), (0.6, 0.0, 5.4))
-        camera.move(scene.at("hawk"), (0.8, -6.8, 4.9), (0.6, 0.0, 5.75))
-        camera.move(scene.end, (0.5, -7.6, 4.8), (0.6, 0.0, 5.8))
+        camera.move(1, (0.8, -6.8, 4.9), (0.6, 0.0, 5.75))
         self._cut(1, camera)
         self._narrate(camera, scene)
 
@@ -145,6 +202,7 @@ class OwlFilm(Feature):
         scene, z, x = self.play.scene("archive"), self.FLOOR, 200.0
         self._light((x, -6.0, z + 4.0))
         self._title("written down by the recordist", (x, 0.0, z + 5.9), scene.start + 10)
+        self._remarks(scene, x - 30.0)
         dice = random.Random(9)
         cards = Materials.glow("Recording card", Palette.SKY_MID, 1.6)
         heard = Materials.glow("Raptor heard", self.HAWK, 2.0)
@@ -170,13 +228,30 @@ class OwlFilm(Feature):
         bars = self._board(scene, board, "owl mob or hawk mob?", scene.at("model"))
         bars.bar(scene.at("score") + 4, 0.0, "0.78", "the archive", CallColors.CALL)
 
+        notes = Camera(self.stage, "Remarks camera", self.BOARD_LENS)
+        notes.move(scene.start, (x - 30.8, -15.0, z + 2.4), (x - 30.0, 0.0, z + 2.4))
+        notes.move(scene.at("count"), (x - 29.2, -14.4, z + 2.4), (x - 30.0, 0.0, z + 2.4))
+        self._cut(scene.start, notes)
         camera = Camera(self.stage, "Archive camera", self.BOARD_LENS)
-        camera.move(scene.start, (x - 1.2, -15.0, z + 2.0), (x, 0.0, z + 2.0))
+        camera.move(scene.at("count"), (x - 1.2, -15.0, z + 2.0), (x, 0.0, z + 2.0))
         camera.move(scene.at("model") - 12, (x + 1.0, -14.2, z + 2.0), (x, 0.0, z + 2.0))
         camera.move(scene.at("model") + 8, (board - 1.6, -15.5, z + 2.9), (board - 0.6, 0.0, z + 2.9))
         camera.move(scene.end, (board + 0.4, -14.8, z + 2.9), (board - 0.4, 0.0, z + 2.9))
-        self._cut(scene.start, camera)
+        self._cut(scene.at("count"), camera)
         self._narrate(camera, scene)
+
+    def _remarks(self, scene, x):
+        z = self.FLOOR
+        self._light((x, -6.0, z + 4.0))
+        notes = [("owlnote", "xc-owl", "\"Natural mobbing from a group of 4 ...\nas they mobbed two Great Horned Owls\"",
+                  3.4),
+                 ("hawknote", "xc-hawk", "\"giving harsh scrapes and groans\nas it dive-bombs a sitting Cooper's Hawk\"",
+                  0.9)]
+        for key, clip, words, height in notes:
+            line = scene.line(key)
+            Sign(self.stage, self.fonts, words, (x, 0.0, z + height), 0.42).pop(line.start + 6)
+            Sign(self.stage, self.fonts, self.credits[clip]["credit"], (x, 0.0, z + height - 1.0),
+                 0.26, color=Palette.ACCENT, strength=1.6).pop(line.start + 14)
 
     def _the_replication(self):
         scene, z, x = self.play.scene("replicate"), self.FLOOR, 260.0
@@ -268,32 +343,43 @@ class OwlFilm(Feature):
     def _posture(self):
         scene, x = self.play.scene("posture"), 380.0
         z = self.FLOOR
-        bars = self._board(scene, x, "with the predator sitting still", scene.start + 30)
+        self._wall(scene, x + 180.0)
+        bars = self._board(scene, x, "with the predator sitting still", scene.at("perched"))
         bars.bar(scene.at("perched") + 20, -1.7, "0.54", "both perched",
                  CallColors.CALL)
         Sign(self.stage, self.fonts, "only 15 perched hawks", (x - 1.7, 0.0, z + 3.4), 0.3,
              color=self.NO, strength=2.0).pop(scene.at("few") + 10)
         bars.bar(scene.at("hawks") + 40, 1.7, "0.86", "hawk: still vs flying",
                  CallColors.BEGGING)
-        camera = self._board_camera("Posture camera", x, scene.start, scene.end)
-        self._cut(scene.start, camera)
+        camera = self._board_camera("Posture camera", x, scene.at("perched"), scene.end)
+        self._cut(scene.at("perched"), camera)
         self._narrate(camera, scene)
+
+    def _wall(self, scene, x):
+        """The real clips 0104 labelled, five frames each, as the labeller saw them."""
+        z = self.FLOOR
+        strips = json.loads((T.FOOTAGE / "wall.json").read_text())
+        width, height = 6.4, 0.72
+        for index, strip in enumerate(strips):
+            column, row = index % 2, index // 2
+            card = self.stage.add(
+                "Clip strip", Shapes.card("strip", width, height),
+                Materials.picture(f"Strip {index}", T.FOOTAGE.parents[1] / strip),
+                location=(x + (column - 0.5) * (width + 0.3), 0.0, z + 5.2 - row * (height + 0.12)))
+            Keys.pop(card, scene.start + 4 + index * 3)
+        camera = Camera(self.stage, "Wall camera", self.BOARD_LENS)
+        camera.move(scene.start, (x - 0.5, -17.0, z + 2.6), (x, 0.0, z + 2.6))
+        camera.move(scene.at("perched"), (x + 0.5, -15.5, z + 2.6), (x, 0.0, z + 2.6))
+        self._cut(scene.start, camera)
 
     def _one_bird(self):
         scene, z, x = self.play.scene("single"), self.FLOOR, 420.0
-        self._light((x - 5.0, -5.0, z + 4.0))
-        crow = PerchedCrow(self.stage, "Single", Plumage.living())
-        crow.place((x - 5.6, 0.0, z + 1.05))
-        crow.root.scale = (4.0, 4.0, 4.0)
-        self.stage.add("Single perch", Shapes.block("single perch", (2.4, 0.1, 0.1)),
-                       Materials.glow("Single perch", Palette.SKY_MID, 1.5),
-                       location=(x - 5.6, 0.0, z + 1.0))
         clip = self.clips["single"]
         start = scene.line("one").cue
-        crow.caw(start, clip.envelope())
-        tip = (x - 5.6 + 0.39 * 4.0, 0.0, z + 1.05 + 0.47 * 4.0)
+        self._snapshot("edgar-calling", "Edgar, calling on his own", (x - 6.2, 0.0, z + 3.0),
+                       scene.start + 6, scene.end + 12, size=3.4, lean=-0.03)
         for onset in clip.onsets():
-            self.rings.emit(start + onset, tip, 1.0, reach=4.0)
+            self.rings.emit(start + onset, (x - 4.2, -0.2, z + 3.6), 1.0, reach=2.0, count=2)
         bars = ScoreBars(self.stage, self.fonts, (x + 2.0, 0.0, z + 1.4))
         bars.bar(scene.at("score") + 10, 0.0, "0.61", "one crow, owl vs hawk", CallColors.CALL)
         camera = Camera(self.stage, "Single camera", self.BOARD_LENS)
@@ -328,11 +414,13 @@ class OwlFilm(Feature):
         hawk.root.scale = (1.15, 1.15, 1.15)
         Keys.pop(hawk.root, scene.start - 2, size=1.0)
         hawk.look(scene.start, yaw=-0.6)
-        for index, crow in enumerate(self.mobbers):
-            direction = 1.0 if crow.root.location.x < self.OWL_X else -1.0
-            self._mob_call(crow, scene.at("hawk") + 30 + index * 6, direction)
         Lockup(self.stage, self.fonts, self.logo, (-1.4, 2.0, 7.45), size=0.8).reveal(
             scene.at("title") + 20)
+        for index, (photo, caption, x) in enumerate((("thrasher", "Thrasher", -2.3),
+                                                     ("killer", "Killer", 3.1),
+                                                     ("streetlight", "Killer, Edgar, Shredder", 4.3))):
+            self._snapshot(photo, caption, (x, -0.6, 6.0), scene.at("title") + 30 + index * 8,
+                           T.END + 30, size=0.85, lean=0.05 if index % 2 else -0.05)
         self._flock(scene.at("title"))
         camera = Camera(self.stage, "Ask camera", 32.0)
         camera.move(scene.start, (0.9, -5.4, 4.9), (0.7, 0.0, 5.5))

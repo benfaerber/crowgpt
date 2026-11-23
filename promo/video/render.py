@@ -104,6 +104,62 @@ class Ingredients:
         font.save(self.workspace.work / "fredoka.ttf")
 
 
+class Footage:
+    """Real footage and archive recordings, cut to the seconds a film plays them.
+
+    Video becomes 720p at the film's rate with its own sound evened out (silence
+    when it has none); a recording becomes a wav. Films without footage skip it.
+    """
+
+    SIZE = "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2"
+
+    def __init__(self, workspace):
+        self.clock = workspace.clock
+
+    def _sources(self):
+        listed = self.clock.FOOTAGE / "shots.json"
+        if not listed.exists():
+            raise SystemExit(f"{listed} is missing: it lists the footage this film is cut from")
+        shots = {name: (self.clock.FOOTAGE.parents[1] / shot["file"], shot["start"])
+                 for name, shot in json.loads(listed.read_text()).items()}
+        return {**shots, **{name: (ASSETS / file, start)
+                            for name, (file, start, _) in self.clock.OWN.items()}}
+
+    def cut(self):
+        if not hasattr(self.clock, "uses"):
+            return
+        sources = self._sources()
+        for name, seconds in self.clock.uses().items():
+            source, start = sources[name]
+            out = self.clock.cut(name)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            fade = f"afade=t=in:d=0.15,afade=t=out:st={max(0.0, seconds - 0.3):.2f}:d=0.3"
+            level = f"loudnorm=I=-20:TP=-2,{fade}"
+            if out.suffix == ".wav":
+                subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", str(start), "-t",
+                                f"{seconds:.2f}", "-i", str(source), "-af", level, "-ac", "1",
+                                "-ar", "48000", str(out)], check=True)
+                continue
+            heard = self._has_sound(source)
+            silence = [] if heard else ["-f", "lavfi", "-t", f"{seconds:.2f}",
+                                        "-i", "anullsrc=r=48000:cl=mono"]
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", str(start), "-t",
+                            f"{seconds:.2f}", "-i", str(source), *silence,
+                            "-map", "0:v:0", "-map", "0:a:0" if heard else "1:a:0",
+                            "-vf", f"fps={self.clock.FPS},{self.SIZE}",
+                            *(["-af", level] if heard else []),
+                            "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p",
+                            "-c:a", "aac", "-ac", "1", "-ar", "48000", "-shortest", str(out)],
+                           check=True)
+
+    @staticmethod
+    def _has_sound(source):
+        streams = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a",
+                                  "-show_entries", "stream=index", "-of", "csv=p=0",
+                                  str(source)], capture_output=True, text=True).stdout
+        return bool(streams.strip())
+
+
 class Soundtrack:
     """Every call at the moment the picture plays it, over a quiet bed."""
 
@@ -387,12 +443,14 @@ def main():
     workspace = Workspace(options.film, options.quality, options.shape)
     blender = Blender(options.blender, options.device)
     if options.stills:
+        Footage(workspace).cut()
         Ingredients(workspace).prepare()
         blender.stills(workspace, options.quality, options.threads, options.stills)
         print(f"stills in {workspace.stills}")
         return
 
     if options.blend:
+        Footage(workspace).cut()
         Ingredients(workspace).prepare()
         narration = options.narration
         if options.scratch_voice:
@@ -407,6 +465,7 @@ def main():
     with run.stage("prepare"):
         if options.fresh:
             workspace.clear_frames()
+        Footage(workspace).cut()
         Ingredients(workspace).prepare()
         narration = options.narration
         if options.scratch_voice:

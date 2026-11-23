@@ -1,6 +1,9 @@
 """Each film's clock, shared by the Blender scene and the soundtrack mix."""
 
-from .owl_screenplay import OWL
+import os
+from pathlib import Path
+
+from .owl_screenplay import OWL, REMARKS, SHOTS
 from .screenplay import FEATURE
 
 
@@ -118,16 +121,44 @@ class FeatureTimeline(Narrated):
 
 
 class OwlTimeline(Narrated):
-    """The owl film. Its crows are the family's own alarm calls, not an owl or hawk mob."""
+    """The owl film. Real footage and archive recordings are cut to the line that uses them.
+
+    The footage and the archive files live with the corpus, outside the tree:
+    `data/video/footage/shots.json` says which file each shot is cut from, from
+    where, and whose it is. Shots of the family come from the promo's own assets.
+    """
 
     PLAY = OWL
     END = OWL.end
-    SOUNDS = {
-        "real": ("real-alarm-call.wav", None),
-        "generated": ("crowgpt2-preview.wav", None),
-        "mob": ("caws/adult-alarm-c.mp3", None),
-        "single": ("caws/edgar-alarm.mp3", None),
+    FOOTAGE = Path(os.environ.get("DATA_DIR") or Path(__file__).resolve().parents[3] / "data") \
+        / "video" / "footage"
+    OWN = {"family": ("crows-lightpost.mp4", 0.0, None)}
+    PHOTOS = {
+        "edgar-calling": ("edgar-calling.jpg", (0.2, 0.18, 0.7, 0.556)),
+        "edgar-wire": ("edgar-wire.jpg", (0.17, 0.3, 0.72, 0.72)),
+        "thrasher": ("hero-crow.jpg", (0.05, 0.31, 0.65, 0.76)),
+        "killer": ("killer-roof.jpg", (0.25, 0.32, 0.8, 0.73)),
+        "streetlight": ("pair-streetlight.jpg", (0.05, 0.14, 0.72, 0.645)),
     }
+
+    @classmethod
+    def uses(cls):
+        """Each shot or archive recording with the seconds of it the film plays."""
+        return {line.clip: (line.end - line.start) / cls.FPS for line in cls.PLAY.lines()
+                if line.clip in SHOTS + REMARKS}
+
+    @classmethod
+    def cut(cls, name):
+        return cls.FOOTAGE / "cut" / f"{name}.{'mp4' if name in SHOTS else 'wav'}"
+
+    @classmethod
+    def sounds(cls):
+        own = {"real": ("real-alarm-call.wav", None), "generated": ("crowgpt2-preview.wav", None),
+               "single": ("caws/edgar-alarm.mp3", None)}
+        return {**own, **{name: (str(cls.cut(name)), None) for name in cls.uses()}}
+
+
+OwlTimeline.SOUNDS = OwlTimeline.sounds()
 
 
 FILMS = {"short": Timeline, "explainer": ExplainerTimeline, "feature": FeatureTimeline,
