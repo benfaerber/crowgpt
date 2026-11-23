@@ -1,0 +1,127 @@
+{
+  "Stage0_conspecific_2crow_gate": {
+    "clean_one_crow_pool_clips": 288,
+    "batch_inference_supported": false,
+    "crowgpt_b4_threshold": 0.652,
+    "mix_0db_primary": {
+      "n_mixtures": 100,
+      "snr_db": 0.0,
+      "input_sisdr_median_db": 0.002,
+      "best_stem_sisdri_median_db": 4.409,
+      "best_stem_sisdri_iqr_db": [
+        0.242,
+        8.846
+      ],
+      "best_stem_frac_positive": 0.77,
+      "partition_sisdri_median_db": 7.034,
+      "partition_sisdri_iqr_db": [
+        2.419,
+        12.461
+      ],
+      "partition_frac_positive": 0.83
+    },
+    "mix_3db_secondary": {
+      "n_mixtures": 50,
+      "snr_db": 3.0,
+      "input_sisdr_median_db": -0.006,
+      "best_stem_sisdri_median_db": 4.805,
+      "best_stem_sisdri_iqr_db": [
+        2.478,
+        8.122
+      ],
+      "best_stem_frac_positive": 0.86,
+      "partition_sisdri_median_db": 9.052,
+      "partition_sisdri_iqr_db": [
+        5.54,
+        11.392
+      ],
+      "partition_frac_positive": 0.92
+    },
+    "gate_passes_2db": true,
+    "birdnet_count_head_0db": {
+      "mixture_p_several_median": 0.172,
+      "stem1_p_several_median": 0.1068,
+      "stem2_p_several_median": 0.0581,
+      "frac_stems_below_mixture": 0.48
+    }
+  },
+  "Primary_A_0103_dev_caw_owl_vs_hawk": {
+    "status": "binding_primary",
+    "multi_crow_windows": 643,
+    "kept_stems": 797,
+    "separated_stems_caw_44d": {
+      "n_caws": 1587,
+      "n_recordings": 82,
+      "n_pos_recs": 56,
+      "n_neg_recs": 26,
+      "n_groups": 67,
+      "primary_weighted_per_caw_auc": 0.5668,
+      "weighted_bal_acc": 0.5591,
+      "exploratory_unweighted_per_caw_auc": 0.5596,
+      "exploratory_rec_mean_caw_auc": 0.5989,
+      "perm_p": 0.187,
+      "perm_mean": 0.5019
+    },
+    "unseparated_same_windows_caw_44d": {
+      "n_caws": 1471,
+      "n_recordings": 81,
+      "n_pos_recs": 56,
+      "n_neg_recs": 25,
+      "n_groups": 66,
+      "primary_weighted_per_caw_auc": 0.4952,
+      "weighted_bal_acc": 0.521,
+      "exploratory_unweighted_per_caw_auc": 0.5002,
+      "exploratory_rec_mean_caw_auc": 0.4843,
+      "perm_p": 0.4913,
+      "perm_mean": 0.4956
+    },
+    "delta_weighted_auc": 0.0716,
+    "holm_p": 0.374
+  },
+  "Primary_B_0104_video_stem_birdnet": {
+    "status": "binding_primary",
+    "perched_owl_vs_perched_hawk_strict": {
+      "demixed": {
+        "n": 51,
+        "pos": 36,
+        "neg": 15,
+        "channels": 50,
+        "auc": 0.4741,
+        "perm_p": 0.601,
+        "perm_mean": 0.4954
+      },
+      "unseparated_0104": {
+        "n": 51,
+        "pos": 36,
+        "neg": 15,
+        "channels": 50,
+        "auc": 0.5389,
+        "perm_p": 0.399,
+        "perm_mean": 0.5032
+      },
+      "delta_auc": -0.0648,
+      "holm_p": 0.601
+    },
+    "within_hawk_perched_vs_flying_nonstrict": {
+      "demixed": {
+        "n": 48,
+        "pos": 27,
+        "neg": 21,
+        "channels": 47,
+        "auc": 0.9048,
+        "perm_p": 0.0025,
+        "perm_mean": 0.5088
+      },
+      "unseparated_0104": {
+        "n": 48,
+        "pos": 27,
+        "neg": 21,
+        "channels": 47,
+        "auc": 0.8571,
+        "perm_p": 0.0025,
+        "perm_mean": 0.5081
+      },
+      "delta_auc": 0.0477
+    }
+  }
+}
