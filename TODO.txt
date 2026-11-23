@@ -249,7 +249,7 @@ in phases/, anything needing a measurement belongs in experiments/.
     is the true one — which is another reason to keep (a) and (b) apart, because
     two birds really is two examples.
 
-[ ] Nothing can record what a call achieved
+[x] Nothing can record what a call achieved -> measured across corvid.db in 0119 (2026-11-22); decided NOT to add outcome schema yet
 
     Capture 104 is the case, and it is the most interesting recording in the
     corpus for exactly the reason nothing can express: the adult called twice,
@@ -279,6 +279,24 @@ in phases/, anything needing a measurement belongs in experiments/.
 
     Worth waiting for a second example before designing. One recording is an
     anecdote, and a schema built from one is usually built wrong.
+
+    0119 tested Capture 104's hypothesis (plus single-bird recruitment and
+    within-recording call cessation) across 5,161 deduplicated 24–300 s
+    American Crow recordings in corvid.db with verified live-mic tails:
+      - Interspersed non-begging adult calls after active begging (n = 405
+        checkpoints across 227 recordings) were followed by 15 s of begging
+        cessation 14.81% of the time vs. 2.84% after ongoing begging — but a
+        plain 3 s silent pause in begging with NO adult call (n = 836) was
+        followed by cessation 16.75% of the time, and adult call acoustics did
+        not separate stopped from continued begging (0.577 BirdNET, 0.453
+        caw_44d, Holm p = 0.219).
+      - Single-bird recruitment (`Solo -> Crowd`, 75 vs. 300) was null once
+        pre-existing distant crowd/SNR was regressed out (0.549, Holm p = 0.219),
+        and terminal calls before >= 15 s of live-mic silence (146 within-file
+        pairs) sat at 0.490 BirdNET / 0.483 caw_44d once 3 s window-edge phase
+        leakage (0.749 alone) was removed.
+    Decision: keep unusual sequences in free-text notes; do not add outcome
+    tags or response-link tables without synchronized video (roof station).
 
 [ ] The two halves that survived the withdrawn mic-gain entry
 

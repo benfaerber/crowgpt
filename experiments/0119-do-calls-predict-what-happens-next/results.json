@@ -1,0 +1,568 @@
+{
+  "catalogue_recordings": 5161,
+  "reference_thresholds": {
+    "T_single": 0.5826,
+    "one_crow_precision_below_T_single": 0.9004,
+    "one_crow_recall_below_T_single": 0.8791,
+    "T_crowd": 0.9236,
+    "T_crowd_mode": "80pct_several_precision",
+    "several_precision_above_T_crowd": 0.8013,
+    "several_recall_above_T_crowd": 0.441,
+    "segments_above_T_crowd": 317,
+    "T_beg_archive_90pct": -2.0026
+  },
+  "event_counts_and_audit": {
+    "A_counts": {
+      "pos": 75,
+      "neg_total": 1373,
+      "neg_used": 300
+    },
+    "B_pairs": 146,
+    "C_events_total": 238,
+    "C_stopped": 50,
+    "C_continued": 188,
+    "audit": {
+      "A_reject_eof_margin": 4680,
+      "B_reject_eof_margin": 5132,
+      "C_reject_noise_floor_shift": 405,
+      "C_reject_eof_margin": 2358,
+      "A_reject_noise_floor_shift": 460,
+      "B_reject_noise_floor_shift": 728,
+      "A_reject_zero_dropout": 439,
+      "C_reject_zero_dropout": 239,
+      "B_reject_zero_dropout": 518
+    }
+  },
+  "Primary_A_recruitment": {
+    "eligible_for_holm": true,
+    "n": 375,
+    "recruited_pos": 75,
+    "unrecruited_neg": 300,
+    "observers": 368,
+    "residualized_auc": 0.5489,
+    "residualized_ci95": [
+      0.471,
+      0.6229
+    ],
+    "perm_p": 0.13466,
+    "perm_mean": 0.4968,
+    "perm_n": 400,
+    "raw_birdnet_auc": 0.5896,
+    "nuisance_only_auc": 0.6686,
+    "nuisance_medians": {
+      "p_several_pos_vs_neg": [
+        0.169,
+        0.0256
+      ],
+      "duty_u_pos_vs_neg": [
+        0.2533,
+        0.22
+      ],
+      "snr_db_pos_vs_neg": [
+        9.69,
+        7.31
+      ]
+    },
+    "holm_p": 0.21946,
+    "passes": false
+  },
+  "Primary_B_cessation": {
+    "eligible_for_holm": true,
+    "paired_recordings": 146,
+    "windows_scored": 292,
+    "observers": 143,
+    "residualized_auc": 0.7703,
+    "residualized_ci95": [
+      0.722,
+      0.8157
+    ],
+    "perm_p": 0.00249,
+    "perm_mean": 0.5014,
+    "perm_n": 400,
+    "raw_birdnet_auc": 0.7695,
+    "nuisance_only_auc": 0.5367,
+    "S_B1_fly_away_fade_test": {
+      "median_snr_stop_minus_cont_db": -0.995,
+      "frac_terminal_quieter_snr": 0.5685,
+      "wilcoxon_snr_p": 0.076896,
+      "median_crow_rms_stop_minus_cont_db": -0.62,
+      "wilcoxon_rms_p": 0.381989,
+      "median_p_several_stop_minus_cont": -0.0056
+    },
+    "holm_p": 0.00747,
+    "passes": true
+  },
+  "Primary_C_begging_cessation": {
+    "eligible_for_holm": true,
+    "n": 238,
+    "stopped_pos": 50,
+    "continued_neg": 188,
+    "observers": 221,
+    "residualized_auc": 0.5765,
+    "residualized_ci95": [
+      0.4761,
+      0.6712
+    ],
+    "perm_p": 0.10973,
+    "perm_mean": 0.4851,
+    "perm_n": 400,
+    "raw_birdnet_auc": 0.6151,
+    "nuisance_only_auc": 0.5945,
+    "nuisance_medians": {
+      "crow_rms_db_stopped_vs_cont": [
+        -33.82,
+        -31.8
+      ],
+      "snr_db_stopped_vs_cont": [
+        8.38,
+        9.36
+      ],
+      "s_beg_stopped_vs_cont": [
+        -3.176,
+        -2.978
+      ]
+    },
+    "holm_p": 0.21946,
+    "passes": false
+  },
+  "S_caw44": {
+    "A_recruitment": {
+      "n": 367,
+      "pos": 72,
+      "neg": 295,
+      "auc_caw44": 0.5721,
+      "ci95": [
+        0.5076,
+        0.6392
+      ],
+      "features": {
+        "caw_dur_s": {
+          "pos_median": 0.2231,
+          "neg_median": 0.2178,
+          "smd_pos_minus_neg": 0.0522
+        },
+        "attack_frac": {
+          "pos_median": 0.3913,
+          "neg_median": 0.3732,
+          "smd_pos_minus_neg": 0.1503
+        },
+        "f0_med_hz": {
+          "pos_median": 1423.8522,
+          "neg_median": 1397.1918,
+          "smd_pos_minus_neg": 0.1044
+        },
+        "f0_slope_hz_s": {
+          "pos_median": 449.5137,
+          "neg_median": 480.75,
+          "smd_pos_minus_neg": -0.0501
+        },
+        "caw_rate_hz": {
+          "pos_median": 1.0,
+          "neg_median": 1.0,
+          "smd_pos_minus_neg": 0.3975
+        }
+      }
+    },
+    "B_cessation": {
+      "pairs": 140,
+      "auc_caw44": 0.4825,
+      "ci95": [
+        0.4282,
+        0.5347
+      ],
+      "features": {
+        "caw_dur_s": {
+          "pos_median": 0.2145,
+          "neg_median": 0.2145,
+          "smd_pos_minus_neg": -0.0106
+        },
+        "attack_frac": {
+          "pos_median": 0.3629,
+          "neg_median": 0.3933,
+          "smd_pos_minus_neg": -0.006
+        },
+        "f0_med_hz": {
+          "pos_median": 1365.8469,
+          "neg_median": 1383.5391,
+          "smd_pos_minus_neg": 0.0016
+        },
+        "f0_slope_hz_s": {
+          "pos_median": 398.1498,
+          "neg_median": 471.3402,
+          "smd_pos_minus_neg": 0.0262
+        },
+        "caw_rate_hz": {
+          "pos_median": 1.0,
+          "neg_median": 1.0,
+          "smd_pos_minus_neg": -0.1035
+        }
+      }
+    },
+    "C_begging_cessation": {
+      "n": 226,
+      "pos": 48,
+      "neg": 178,
+      "auc_caw44": 0.4531,
+      "ci95": [
+        0.3595,
+        0.5424
+      ],
+      "features": {
+        "caw_dur_s": {
+          "pos_median": 0.2461,
+          "neg_median": 0.2644,
+          "smd_pos_minus_neg": -0.2071
+        },
+        "attack_frac": {
+          "pos_median": 0.3735,
+          "neg_median": 0.3463,
+          "smd_pos_minus_neg": 0.1542
+        },
+        "f0_med_hz": {
+          "pos_median": 1411.9375,
+          "neg_median": 1438.9543,
+          "smd_pos_minus_neg": -0.0515
+        },
+        "f0_slope_hz_s": {
+          "pos_median": 568.9368,
+          "neg_median": 469.2147,
+          "smd_pos_minus_neg": 0.0572
+        },
+        "caw_rate_hz": {
+          "pos_median": 1.0,
+          "neg_median": 1.0,
+          "smd_pos_minus_neg": -0.041
+        }
+      }
+    }
+  },
+  "S_C1_begging_hazard": {
+    "adult_nonbeg_checkpoints": 405,
+    "adult_nonbeg_recordings": 227,
+    "ongoing_beg_checkpoints": 1866,
+    "ongoing_beg_recordings": 391,
+    "observers": 471,
+    "stop_rate_after_adult_nonbeg": 0.1481,
+    "stop_rate_after_ongoing_beg": 0.0284,
+    "delta_stop_rate": 0.1197,
+    "delta_ci95_observer_boot": [
+      0.0803,
+      0.1639
+    ],
+    "position_adjusted_delta": 0.1199,
+    "position_adjusted_ci95": [
+      0.0807,
+      0.1646
+    ]
+  },
+  "S_104_capture_104": {
+    "file_duration": 64.5,
+    "human_labels": [
+      {
+        "start_sec": 6.0,
+        "end_sec": 9.0,
+        "call_type": "begging",
+        "caller_role": "fledgling"
+      },
+      {
+        "start_sec": 9.0,
+        "end_sec": 27.0,
+        "call_type": "begging",
+        "caller_role": "fledgling"
+      },
+      {
+        "start_sec": 27.0,
+        "end_sec": 30.0,
+        "call_type": "begging",
+        "caller_role": "fledgling"
+      },
+      {
+        "start_sec": 39.0,
+        "end_sec": 42.0,
+        "call_type": "begging",
+        "caller_role": "fledgling"
+      },
+      {
+        "start_sec": 42.0,
+        "end_sec": 51.0,
+        "call_type": "call",
+        "caller_role": "adult_unsure"
+      }
+    ],
+    "windows": [
+      {
+        "window": "0-3s",
+        "start": 0.0,
+        "corvid": 0.0,
+        "american_crow": 0.0,
+        "s_beg": -4.645,
+        "p_several": 0.0,
+        "crow_rms_db": -53.66,
+        "snr_db": -10.28,
+        "duty_u": 0.19,
+        "adult_stop_score_raw": 5.969,
+        "adult_stop_score_res": 5.297
+      },
+      {
+        "window": "3-6s",
+        "start": 3.0,
+        "corvid": 0.133,
+        "american_crow": 0.052,
+        "s_beg": 1.018,
+        "p_several": 0.763,
+        "crow_rms_db": -50.06,
+        "snr_db": -4.21,
+        "duty_u": 0.89,
+        "adult_stop_score_raw": -2.263,
+        "adult_stop_score_res": -0.164
+      },
+      {
+        "window": "6-9s",
+        "start": 6.0,
+        "corvid": 0.562,
+        "american_crow": 0.145,
+        "s_beg": 0.84,
+        "p_several": 0.955,
+        "crow_rms_db": -52.64,
+        "snr_db": -5.73,
+        "duty_u": 0.603,
+        "adult_stop_score_raw": -5.181,
+        "adult_stop_score_res": -3.494
+      },
+      {
+        "window": "9-12s",
+        "start": 9.0,
+        "corvid": 0.573,
+        "american_crow": 0.573,
+        "s_beg": 1.431,
+        "p_several": 0.995,
+        "crow_rms_db": -52.28,
+        "snr_db": -10.76,
+        "duty_u": 0.573,
+        "adult_stop_score_raw": -3.717,
+        "adult_stop_score_res": -1.793
+      },
+      {
+        "window": "12-15s",
+        "start": 12.0,
+        "corvid": 0.528,
+        "american_crow": 0.528,
+        "s_beg": 2.01,
+        "p_several": 0.898,
+        "crow_rms_db": -55.16,
+        "snr_db": -6.3,
+        "duty_u": 0.277,
+        "adult_stop_score_raw": -4.247,
+        "adult_stop_score_res": -2.598
+      },
+      {
+        "window": "15-18s",
+        "start": 15.0,
+        "corvid": 0.36,
+        "american_crow": 0.323,
+        "s_beg": 3.097,
+        "p_several": 0.916,
+        "crow_rms_db": -52.55,
+        "snr_db": -4.69,
+        "duty_u": 0.31,
+        "adult_stop_score_raw": -3.632,
+        "adult_stop_score_res": -1.175
+      },
+      {
+        "window": "18-21s",
+        "start": 18.0,
+        "corvid": 0.605,
+        "american_crow": 0.605,
+        "s_beg": 7.016,
+        "p_several": 0.749,
+        "crow_rms_db": -54.66,
+        "snr_db": -5.88,
+        "duty_u": 0.35,
+        "adult_stop_score_raw": -8.654,
+        "adult_stop_score_res": -5.229
+      },
+      {
+        "window": "21-24s",
+        "start": 21.0,
+        "corvid": 0.411,
+        "american_crow": 0.411,
+        "s_beg": 7.106,
+        "p_several": 0.747,
+        "crow_rms_db": -49.42,
+        "snr_db": -3.05,
+        "duty_u": 0.407,
+        "adult_stop_score_raw": -7.664,
+        "adult_stop_score_res": -4.308
+      },
+      {
+        "window": "24-27s",
+        "start": 24.0,
+        "corvid": 0.695,
+        "american_crow": 0.695,
+        "s_beg": -1.46,
+        "p_several": 0.912,
+        "crow_rms_db": -54.2,
+        "snr_db": -5.37,
+        "duty_u": 0.463,
+        "adult_stop_score_raw": -6.267,
+        "adult_stop_score_res": -5.338
+      },
+      {
+        "window": "27-30s",
+        "start": 27.0,
+        "corvid": 0.287,
+        "american_crow": 0.206,
+        "s_beg": 0.467,
+        "p_several": 0.717,
+        "crow_rms_db": -53.81,
+        "snr_db": -4.86,
+        "duty_u": 0.533,
+        "adult_stop_score_raw": -3.179,
+        "adult_stop_score_res": -1.291
+      },
+      {
+        "window": "30-33s",
+        "start": 30.0,
+        "corvid": 0.071,
+        "american_crow": 0.0,
+        "s_beg": -4.733,
+        "p_several": 0.036,
+        "crow_rms_db": -49.81,
+        "snr_db": -5.24,
+        "duty_u": 0.883,
+        "adult_stop_score_raw": 3.685,
+        "adult_stop_score_res": 4.255
+      },
+      {
+        "window": "33-36s",
+        "start": 33.0,
+        "corvid": 0.596,
+        "american_crow": 0.059,
+        "s_beg": 2.966,
+        "p_several": 0.997,
+        "crow_rms_db": -53.02,
+        "snr_db": -7.73,
+        "duty_u": 0.73,
+        "adult_stop_score_raw": -7.082,
+        "adult_stop_score_res": -5.75
+      },
+      {
+        "window": "36-39s",
+        "start": 36.0,
+        "corvid": 0.509,
+        "american_crow": 0.092,
+        "s_beg": 5.524,
+        "p_several": 0.743,
+        "crow_rms_db": -52.38,
+        "snr_db": -6.57,
+        "duty_u": 0.753,
+        "adult_stop_score_raw": -5.382,
+        "adult_stop_score_res": -2.997
+      },
+      {
+        "window": "39-42s",
+        "start": 39.0,
+        "corvid": 0.44,
+        "american_crow": 0.14,
+        "s_beg": 3.772,
+        "p_several": 0.847,
+        "crow_rms_db": -53.62,
+        "snr_db": -6.42,
+        "duty_u": 0.46,
+        "adult_stop_score_raw": -3.384,
+        "adult_stop_score_res": -1.502
+      },
+      {
+        "window": "42-45s",
+        "start": 42.0,
+        "corvid": 0.29,
+        "american_crow": 0.29,
+        "s_beg": -2.377,
+        "p_several": 0.752,
+        "crow_rms_db": -61.83,
+        "snr_db": -14.27,
+        "duty_u": 0.017,
+        "adult_stop_score_raw": -0.934,
+        "adult_stop_score_res": 0.074
+      },
+      {
+        "window": "45-48s",
+        "start": 45.0,
+        "corvid": 0.262,
+        "american_crow": 0.262,
+        "s_beg": -4.041,
+        "p_several": 0.992,
+        "crow_rms_db": -61.06,
+        "snr_db": -13.72,
+        "duty_u": 0.01,
+        "adult_stop_score_raw": -1.815,
+        "adult_stop_score_res": -1.64
+      },
+      {
+        "window": "48-51s",
+        "start": 48.0,
+        "corvid": 0.463,
+        "american_crow": 0.463,
+        "s_beg": -4.211,
+        "p_several": 0.386,
+        "crow_rms_db": -61.67,
+        "snr_db": -16.44,
+        "duty_u": 0.013,
+        "adult_stop_score_raw": -0.585,
+        "adult_stop_score_res": -0.497
+      },
+      {
+        "window": "51-54s",
+        "start": 51.0,
+        "corvid": 0.458,
+        "american_crow": 0.051,
+        "s_beg": -2.49,
+        "p_several": 0.092,
+        "crow_rms_db": -59.0,
+        "snr_db": -12.5,
+        "duty_u": 0.05,
+        "adult_stop_score_raw": 0.201,
+        "adult_stop_score_res": -0.321
+      },
+      {
+        "window": "54-57s",
+        "start": 54.0,
+        "corvid": 0.0,
+        "american_crow": 0.0,
+        "s_beg": -6.764,
+        "p_several": 0.014,
+        "crow_rms_db": -61.27,
+        "snr_db": -12.3,
+        "duty_u": 0.0,
+        "adult_stop_score_raw": -1.369,
+        "adult_stop_score_res": -2.228
+      },
+      {
+        "window": "57-60s",
+        "start": 57.0,
+        "corvid": 0.0,
+        "american_crow": 0.0,
+        "s_beg": -7.906,
+        "p_several": 0.095,
+        "crow_rms_db": -58.81,
+        "snr_db": -11.83,
+        "duty_u": 0.06,
+        "adult_stop_score_raw": 2.545,
+        "adult_stop_score_res": 1.841
+      },
+      {
+        "window": "60-63s",
+        "start": 60.0,
+        "corvid": 0.0,
+        "american_crow": 0.0,
+        "s_beg": -6.319,
+        "p_several": 0.003,
+        "crow_rms_db": -57.96,
+        "snr_db": -12.16,
+        "duty_u": 0.047,
+        "adult_stop_score_raw": -1.122,
+        "adult_stop_score_res": -1.355
+      }
+    ]
+  }
+}

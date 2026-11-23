@@ -1,8 +1,8 @@
 # 0119 — Do crow calls predict what happens next?
 
-**2026-11-22** · CPU · **status: pre-registered, awaiting run**
+**2026-11-22** · CPU · **answer: no across all three call-level pragmatics tests — single-bird recruitment (0.549, Holm p = 0.219) and parental begging-cessation call acoustics (0.577, Holm p = 0.219) are null; within-recording terminal calls before silence pass on fixed 3 s BirdNET windows (0.770, Holm p = 0.0075) solely because BirdNET reads where inside the 3 s frame the bout starts vs. ends (0.749 phase-only), while the isolated caw itself sits at dead chance (0.490 BirdNET, 0.483 waveform)**
 
-> **Pre-registration (written and committed before scanning candidate windows, forming transition labels, or computing any rate or AUC).**
+> **Pre-registration (written and committed in `4aec1a1` before scanning candidate windows, forming transition labels, or computing any rate or AUC).**
 
 ## The question
 
@@ -21,76 +21,83 @@ All three questions generate their own time-locked `before -> focal call -> afte
 
 ### Corpus pool, deduplication, and observer grouping
 
-- **Eligible files:** Downloaded, analyzed `american-crow` recordings in `data/corvid.db` with verified audio duration **`24.0 s <= duration <= 300.0 s`** that contain at least one corvid detection in `detections` (`<= 300 s` prevents multi-hour unattended recorders from dominating compute or fold structure).
-- **Deduplication:** Recordings are deduplicated by `content_sha256` (keeping lowest `recordings.id`) so cross-posted files never enter twice.
+- **Eligible files:** Downloaded, analyzed `american-crow` recordings in `data/corvid.db` with verified audio duration **`24.0 s <= duration <= 300.0 s`** (`>= 31.0 s` general pool plus `24.0–31.0 s` begging-flagged files) containing at least one corvid detection (`5,161` deduplicated recordings scanned across 12 CPU workers, `0` scan failures).
+- **Deduplication:** Deduplicated by `content_sha256` (keeping lowest `recordings.id`).
 - **Observer grouping:** All cross-validation folds, bootstraps, and label permutations group strictly by `observer = group_key or normalized_recordist or f"rec:{id}"`.
 
 ### Window scan and live-mic tail gate
 
-Every candidate recording in the timestamp-eligible pools is scanned on a non-overlapping **3.0 s grid** (`WindowScanner` as in `0112`, `min_conf = 0.05`, reusing `0112`'s cached BirdNET detections/embeddings where available) alongside 22,050 Hz waveform envelope statistics per 3.0 s window:
-- `corvid`, `american_crow`, `raptor`, `other`, and `embedding` (`1024-d` BirdNET vector).
-- `rms_db` (broadband dBFS), `crow_rms_db` (`700–4500 Hz` bandpass dBFS), `noise_p10_db` (10th-percentile 50 ms frame dBFS inside the 3 s window), `snr_db = crow_rms_db - noise_p10_db`, `duty_u` (`0107`'s `700–4500 Hz` duty cycle scaled per recording), and `zero_frac` (fraction of samples with `|x| < 1e-5`).
+Every candidate recording was scanned on a non-overlapping **3.0 s grid** (`scan.py`, `min_conf = 0.05`, reusing `0112`'s cached BirdNET detections/embeddings where available) alongside 22,050 Hz waveform envelope statistics per 3.0 s window: `rms_db`, `crow_rms_db` (`700–4500 Hz`), `noise_p10_db` (10th-percentile 50 ms frame dBFS), `snr_db = crow_rms_db - noise_p10_db`, `duty_u` (`0107` duty cycle), and `zero_frac` (`|x| < 1e-5`).
 
-**Live-mic tail gate (`live_tail(t0, t1)`):** Any post-call observation span `[t0, t1]` is valid iff:
-1. `t1 <= file_duration - 1.0 s` (safety margin before EOF),
-2. Every 3.0 s window in `[t0, t1]` has `zero_frac < 0.05` (no digital silence, truncation, or mute), and
-3. `median(noise_p10_db in [t0, t1])` lies within **`[-6.0 dB, +6.0 dB]`** of the recording's pre-focal `noise_p10_db` median (rejecting fade-outs, gain cuts, and mic shutoffs).
+**Live-mic tail gate (`live_tail(t0, t1)`):** Any post-call observation span `[t0, t1]` had to satisfy (1) `t1 <= file_duration - 1.0 s`, (2) `zero_frac < 0.05` on every 3 s window (no digital silence, truncation, or mute), and (3) `median(noise_p10_db in [t0, t1])` within `[-6.0 dB, +6.0 dB]` of the recording's pre-focal `noise_p10_db` median (rejecting fade-outs, gain cuts, and mic shutoffs; rejected `1,593` noise-floor shifts and `1,196` dropout spans across the three screens).
 
-### Frozen reference heads and thresholds (fixed before touching `0119` windows)
+### Frozen reference heads and thresholds (fixed on `0109` / `0111` before touching `0119` windows)
 
-1. **Crowd head (`P_several`):** `0109`'s frozen `count_head.joblib` (`data/experiments/0109-crow-count/count_head.joblib`).
-   - **Single-bird cut (`T_single`):** `0113`'s pre-established 90% one-crow precision cut (`P_several < 0.583`).
-   - **Multi-crow arrival cut (`T_crowd`):** Fixed on `0109`'s out-of-fold scores alone as the smallest threshold achieving **`>= 80.0%` `several`-crow precision** on `0109`'s hand-labelled segments (falling back to `0.85` max OOF quantile if 80% is unreachable; computed before scoring any `0119` window).
-2. **Begging head (`S_beg`):** `0111`'s frozen `FrozenBeggingHead` (trained on `0102`'s witnessed archive recordings).
-   - **Active begging cut:** `S_beg >= 0.0` (the `1.0%` winter false-alarm boundary in `0111`), with `S_beg >= T_beg` (`-2.00`, `0111`'s 90%-recall archive boundary) used as the sensitive detector for post-call residual begging so lingering faint begging is not miscalled "stopped".
-   - **Strict non-begging adult call cut:** `S_beg < T_beg` (`-2.00`), ensuring an interspersed adult window is acoustically non-begging rather than a mislabelled begging tail.
+- **Crowd head (`P_several`, `0109`):** `T_single = 0.5826` (`90.04%` one-crow precision, `87.91%` recall on `0109`'s hand-labelled segments); `T_crowd = 0.9236` (`80.13%` multi-crow precision, `44.10%` recall, `317` OOF segments).
+- **Begging head (`S_beg`, `0111`):** `S_beg >= 0.0` active-begging boundary (`1.0%` winter false alarms in `0111`), `T_beg = -2.0026` (`90%` archive begging recall) used both as the sensitive check for lingering post-call begging and as `S_beg < T_beg` to guarantee an interspersed adult call is genuinely non-begging.
+
+### Co-primary tests (Holm–Bonferroni corrected family of 3)
+
+All three cleared the `>= 20` per-class floor and entered the Holm family (`StandardScaler + LogisticRegression(C=0.05, balanced)`, 5-fold observer-grouped CV, `>= 0.65` residualized AUC + Holm `p < 0.05` pass bar):
+1. **Primary A — Single-Bird Recruitment (`Solo -> Crowd` vs. `Solo -> Solo`):** Pure single-crow focal window `[t, t+3]` (`t >= 6 s`, zero multi-crow or raptor windows in `[t-9, t]`, valid `live_tail(t+3, t+24)`) followed by `>= 2` crowd windows (`P_several >= 0.924`) in `[t+6, t+24]` vs. zero `>= T_single` windows in `[t+3, t+24]` (`4×` negative cap, `seed=0`); `[P_several, duty_u, crow_rms_db, snr_db]` regressed out in-fold.
+2. **Primary B — Within-Recording Abrupt Cessation (`Continuing` vs. `Terminal` Single-Bird Call):** Strictly 1 matched pair per recording: earliest pure single-crow window `[t_cont, t_cont+3]` (`<= t_stop - 12 s`) followed by `>= 2` crow windows in `[t_cont+3, t_cont+18]`, paired against the final pure single-crow window `[t_stop, t_stop+3]` followed by `15 s` of verified live-mic silence (`max corvid < 0.10`, `mean duty_u < 0.05`); `[crow_rms_db, snr_db, P_several, duty_u]` regressed out in-fold, 400 within-recording sign-flip permutations.
+3. **Primary C — Parental Call Acoustics Before Begging Cessation:** Interspersed non-begging crow window (`american_crow >= 0.25`, `raptor < 0.05`, `S_beg < -2.003`) after active begging in `[t-12, t]`, predicting zero begging in `[t+3, t+18]` (`stopped = 1`) vs. `>= 2` begging windows (`continued = 0`); `[crow_rms_db, snr_db, P_several, S_beg]` regressed out in-fold.
 
 ---
 
-### Co-primary tests (Holm–Bonferroni corrected as one family)
+## Results
 
-Any primary with at least **20 events per class** enters the Holm family; any test below 20 per class is reported as underpowered and leaves the family (as in `0110`). Every discriminative test uses `StandardScaler() + LogisticRegression(C=0.05, class_weight="balanced", max_iter=3000)` in **5-fold observer-grouped cross-validation (seed 0)**.
+Run once (`scan.py` + `run.py` -> `results.json`), followed by a post-hoc forensic check (`audit.py` -> `audit_results.json`) explaining the 29-point gap between Primary B's 3 s BirdNET window score and its single-caw score.
 
-#### Primary A — Single-Bird Recruitment (`Solo -> Crowd` vs. `Solo -> Solo`)
-- **Eligibility (at most 1 earliest focal window `[t, t+3]` per recording):**
-  - Pre-span `[max(0, t - 9), t]` (`t >= 6.0 s`, `>= 2` windows): zero multi-crow windows (`all crow windows have P_several < T_single`) and `raptor < 0.05`.
-  - Focal window `[t, t + 3]`: strict pure single-crow window (`american_crow >= 0.25`, `other < 0.05`, `raptor < 0.05`, `P_several < T_single`).
-  - Post-span `[t + 6, t + 24]` (`18 s` after a 3 s guard `[t + 3, t + 6]`, passing `live_tail(t + 3, t + 24)`):
-    - **`recruited` (`y = 1`):** `>= 2` crow windows (`corvid >= 0.25`) in `[t + 6, t + 24]` have `P_several >= T_crowd`.
-    - **`unrecruited` (`y = 0`):** Zero windows in `[t + 3, t + 24]` have `P_several >= T_single` (capped at random `seed = 0` to at most `4 × n_recruited` negative recordings if negatives exceed `4×`, keeping CV fast while preserving full positive power).
-- **Binding metric:** Out-of-fold ROC-AUC on focal BirdNET `1024-d` embeddings **with `[P_several, duty_u, crow_rms_db, snr_db]` regressed out inside each training fold** (blocking faint pre-existing background crowd or loudness leakage), tested with **400 observer-level label permutations**.
-- **Pass bar:** Residualized ROC-AUC **`>= 0.65`** and Holm-adjusted `perm_p < 0.05`.
+### Co-primary summary
 
-#### Primary B — Within-Recording Abrupt Cessation / Scatter (`Continuing` vs. `Terminal` Single-Bird Call)
-- **Eligibility (strictly 1 matched pair `[t_cont, t_stop]` per recording):**
-  - Terminal focal window `[t_stop, t_stop + 3]`: pure single-crow window (`american_crow >= 0.25`, `other < 0.05`, `raptor < 0.05`, `P_several < T_single`), followed by `[t_stop + 3, t_stop + 18]` (`15 s`) passing `live_tail(t_stop + 3, t_stop + 18)` with **zero** corvid detections (`max corvid < 0.10`) and **mean `duty_u < 0.05`** (verifying genuine acoustic silence rather than missed faint caws).
-  - Paired earlier continuing window `[t_cont, t_cont + 3]` in the **exact same recording** (`t_cont <= t_stop - 12.0 s`): pure single-crow window (`american_crow >= 0.25`, `other < 0.05`, `raptor < 0.05`, `P_several < T_single`) followed by **`>= 2` crow windows** (`corvid >= 0.25`) in `[t_cont + 3, t_cont + 18]`. (If multiple `t_cont` qualify, choose the one closest in `snr_db` — or earliest before `t_stop - 12 s`; **fixed now: choose the earliest qualifying `t_cont`**, so loudness differences are observed honestly first in `S_B1` rather than hidden by selection, and then regressed out in the primary!)
-- **Binding metric:** 5-fold observer-grouped ROC-AUC (both members of every pair stay in the same fold) on BirdNET `1024-d` embeddings **with `[crow_rms_db, snr_db, P_several, duty_u]` regressed out inside each training fold**, tested against **400 within-recording sign-flip permutations** (randomly swapping `continuing` and `terminal` inside each recording).
-- **Pass bar:** Residualized ROC-AUC **`>= 0.65`** and Holm-adjusted paired sign-flip `perm_p < 0.05`.
-
-#### Primary C — Parental Call Acoustics Before Begging Cessation (Capture 104 Hypothesis)
-- **Eligibility (interspersed non-begging calls during active begging):**
-  - Recording contains verified begging (`>= 2` windows with `corvid >= 0.25` and `S_beg >= 0.0`).
-  - At focal window `[t, t + 3]` (`t >= 9.0 s`, `live_tail(t + 3, t + 18)` valid):
-    - Pre-span `[max(0, t - 12), t]` has active begging (`>= 2` crow windows with `S_beg >= T_beg`, at least one `>= 0.0`).
-    - Focal window `[t, t + 3]` is a **strict non-begging crow window**: `american_crow >= 0.25`, `raptor < 0.05`, and **`S_beg < T_beg`** (`-2.00`).
-    - Post-span `[t + 3, t + 18]` (`15 s`):
-      - **`begging_stopped` (`y = 1`):** Zero windows in `[t + 3, t + 18]` have `corvid >= 0.15` with `S_beg >= T_beg`.
-      - **`begging_continued` (`y = 0`):** `>= 2` windows in `[t + 3, t + 18]` have `corvid >= 0.25` with `S_beg >= T_beg`.
-    - Capped at **1 event per `(recording, outcome)`** (earliest `stopped = 0` and earliest `stopped = 1` if both occur in the same recording, as in Capture 104!), grouped by observer across folds.
-- **Binding metric:** 5-fold observer-grouped ROC-AUC on focal BirdNET `1024-d` embeddings **with `[crow_rms_db, snr_db, P_several, S_beg]` regressed out inside each training fold**, tested with **400 observer-level permutations**.
-- **Pass bar:** Residualized ROC-AUC **`>= 0.65`** and Holm-adjusted `perm_p < 0.05`.
+| Co-primary test | Sample (observers) | Residualized BirdNET 3 s AUC (95% CI) | Raw BirdNET AUC | Nuisance-only AUC | Single-caw `caw_44d` AUC | Holm `p` | Pre-reg rule |
+|---|---|---:|---:|---:|---:|---:|---|
+| **Primary A:** Single-bird recruitment (`Solo -> Crowd`) | `75` pos / `300` neg (`368` obs; `1,373` total neg) | **0.5489** (`0.471–0.623`) | 0.5896 | **0.6686** | 0.5721 | **0.219** | **NULL** |
+| **Primary B:** Within-recording cessation (`Continuing` vs. `Terminal`) | `146` pairs = `292` wins (`143` obs) | **0.7703** (`0.722–0.816`) | 0.7695 | 0.5367 | **0.4825** | **0.0075** | Passes on 3 s grid; **see phase audit below (isolated caw = `0.490`)** |
+| **Primary C:** Adult call acoustics before begging stops | `50` stop / `188` cont (`221` obs) | **0.5765** (`0.476–0.671`) | 0.6151 | 0.5945 | 0.4531 | **0.219** | **NULL** |
 
 ---
 
-### Pre-declared secondary & diagnostic checks
+### Deep dive & forensic audits
 
-1. **`S_leak` (Confound / Fade Audits for A, B, C):**
-   - Report raw (unresidualized) BirdNET `1024-d` AUC alongside the nuisance-only AUC (`[P_several, duty_u, crow_rms_db, snr_db]`).
-   - **`S_B1` (The "Bird Flew Away" test on Primary B):** Paired Wilcoxon signed-rank test on `snr_stop - snr_cont` and `crow_rms_stop - crow_rms_cont` within the same recording — directly measuring whether terminal calls before silence are quieter than continuing calls.
-2. **`S_caw44` (Interpretable Single-Caw Prosody & Spectrum):**
-   - Run `0103`'s `segment_caws_in_windows` + `extract_caw_44d` (amplitude-normalized per caw) on the focal windows of Primaries A, B, and C to test whether caw duration, F0, pitch slope, or attack sharpness move before recruitment, silence, or begging cessation.
-3. **`S_C1` (Event-Rate / Hazard Test — Do Adult Calls Stop Begging Above Baseline?):**
-   - Across active-begging checkpoints `[t, t + 3]` with `live_tail(t + 3, t + 18)`, compare empirical begging-cessation rate `P(begging_stopped)` after an **interspersed non-begging crow window** (`S_beg < T_beg`) vs. after an **ongoing begging window** (`S_beg >= 0.0`), with a 2,000-resample observer-clustered bootstrap 95% CI on the rate difference `Δp` (plus linear control for normalized recording position `t / duration` so end-of-bout timing cannot masquerade as adult suppression).
-4. **`S_104` (Out-of-Sample Capture 104 Walk):**
-   - Score Capture 104 (`field.db` `id = 104`, excluded from all `0119` fitting) across its 3 s windows (`0..63 s`) and report `S_beg`, `P_several`, `snr_db`, and the corpus-trained Primary C adult-cessation score on the two adult-call regions (`~27 s` vs. `42–51 s`).
+#### 1. Primary A (Recruitment): Pre-existing distant crowd carries the naive signal, not the focal caw
+- Even inside pure single-bird windows (`P_several < 0.583`), recordings where a crowd arrives in `[t+6, t+24]` already had higher residual `P_several` (`0.169` vs. `0.026` median) and higher `snr_db` (`9.69` vs. `7.31 dB`) at `[t, t+3]`, giving the 4-number nuisance baseline **`0.6686` AUC** on its own.
+- Once those nuisance terms are regressed out inside each fold, BirdNET drops to **`0.5489` (`Holm p = 0.219`)**, and isolated single-caw features (`caw_44d`, `n = 367`) score **`0.5721`** (`caw_dur_s` `0.223` vs. `0.218 s`, `f0_med_hz` `1424` vs. `1397 Hz`; only `caw_rate_hz` shows a slight positive shift, `SMD = +0.40`).
+
+#### 2. Primary B (Abrupt Cessation): Why 3 s BirdNET scored `0.770` while the caws themselves scored `0.483` / `0.490`
+- **`S_B1` ("Bird flew away" loudness check):** Terminal windows before silence are only marginally quieter than earlier continuing windows in the same recording (`median ΔSNR = -1.00 dB`, Wilcoxon `p = 0.077`; `median Δcrow_rms = -0.62 dB`, `p = 0.382`), so simple amplitude fade was weak (`nuisance_only_auc = 0.537`).
+- **The glaring discrepancy:** Pre-declared `S_caw44` segmented the caws inside the exact same `140` pairs and scored **`0.4825` AUC** — identical median caw duration (`0.2145 s` vs. `0.2145 s`), median F0 (`1366 Hz` vs. `1384 Hz`), and caw count (`3.0` vs. `3.0` caws, BirdNET `american_crow` confidence `0.918` vs. `0.911`).
+- **Post-hoc audit (`audit.py`):** Inspecting *where* inside the fixed `3.0 s` `[0, 3.0]` STFT grid the caws fall resolved the entire `0.770` vs. `0.483` gap:
+
+  | Diagnostic on the 146 within-recording pairs (`audit.py`) | Continuing window (`t_cont`) | Terminal window (`t_stop`) | OOF / Univariate AUC |
+  |---|---:|---:|---:|
+  | Segmented caw count / BirdNET `american_crow` conf | `3.0` / `0.911` | `3.0` / `0.918` | `0.482` / `0.484` |
+  | Last caw offset inside `[0, 3.0 s]` window | **`2.68 s`** | **`1.81 s`** | **`0.240`** (`0.760` inverted) |
+  | Second-half minus first-half crow-band dB (`h2 - h1`) | **`+3.62 dB`** (rises) | **`-5.36 dB`** (falls to silence) | **`0.243`** (`0.757` inverted) |
+  | 8 within-window phase/envelope scalars alone (`Z_phase`) | — | — | **`0.7487`** |
+  | BirdNET 3 s window with `Z_orig + Z_phase` regressed out | — | — | `0.6421` (below `0.65` bar) |
+  | 3 s real-audio window right-aligned to `last_caw_offset + 0.10 s` (`102` pairs) | — | — | `0.6030` |
+  | **Isolated last caw centered in 3 s zero buffer, BirdNET `1024-d` (`140` pairs)** | — | — | **`0.4898`** (dead chance) |
+
+  Because `t_cont` selected the *earliest* qualifying single-crow window (often a bout onset where calling starts mid-window and continues across `t_cont + 3.0 s`) whereas `t_stop` is the *final* window before silence (where calling stops mid-window at median `1.81 s` and `[1.81, 3.00 s]` is already silent), **BirdNET's 1024-d CNN embedding is reading horizontal energy placement inside its 3 s spectrogram (`0.749` from phase scalars alone)**! When the last caw itself is cut out and centered identically in BirdNET, separation collapses to **`0.4898`**, matching `caw_44d`'s **`0.4825`**. Crows do **not** emit a distinct "termination / scatter" caw before falling silent.
+
+#### 3. Primary C, `S_C1`, and Capture 104: Resolving the "Parental Shush" Hypothesis at Scale
+- **Acoustics (`Primary C`):** Across `238` interspersed non-begging adult calls (`50` followed by `15 s` of zero begging vs. `188` followed by continued begging across `221` observers), neither residualized BirdNET (`0.5765`, `Holm p = 0.219`) nor `caw_44d` (`0.4531`) separates calls that precede silence from calls that do not.
+- **Event rate (`S_C1`) and the silent-pause control (`audit.py`):**
+  - Pre-declared `S_C1` compared begging cessation in `[t+3, t+18]` after an **adult non-begging window** (`405` checkpoints across `227` recordings) against an **ongoing begging window** (`1,866` checkpoints across `391` recordings): begging stopped **`14.81%`** of the time after an adult call vs. **`2.84%`** after ongoing begging (`Δ = +11.97%`, observer-bootstrap `95% CI: +8.03% to +16.39%`; `+11.99%` adjusted for recording position).
+  - **Crucial post-hoc control (`audit.py`):** At an `adult_nonbeg` checkpoint (`S_beg < -2.00`), the fledgling has *already* paused begging during `[t, t+3]`. Checking the exact same `[t-12, t]` active-begging histories when `[t, t+3]` is a **3-second silent pause with NO crow calling at all (`corvid < 0.15`, `n = 836`)** yields a cessation rate of **`16.75%`** (`6.67%` when multiple birds overlap begging at `[t, t+3]`, `n = 90`).
+  - **Verdict on Capture 104:** An adult calling during a 3 s pause in begging is followed by cessation **slightly less often (`14.81%`) than an ordinary 3 s pause with no adult call (`16.75%`)**. On out-of-sample Capture 104 (`S_104`), the adult call region at `42–51 s` (`s_beg = -2.38..-4.21`) was actually `-8 to -9 dB` quieter (`crow_rms_db = -61.5 dB`) than the fledgling's begging (`-52.5 dB`) and scored near zero (`-1.64` to `+0.07`) on the corpus-trained cessation head. Capture 104's sequence ("adult called harder -> begging stopped") does not generalize as a vocal "shush" across `471` observers in `corvid.db`.
+
+---
+
+## Limits
+
+- `corvid.db` is observational audio without video: when calling stops for `>= 15 s` with a verified live microphone, audio alone cannot distinguish a raptor-triggered scatter freeze from a crow quietly perching or flying away silently — only that **the final caw before silence carries no acoustic signature (`0.490`)**.
+- Primary A tests whether an *unremarkable lone crow's* call predicts crowd arrival across general recordings; true predator-discovery recruitment in nature may happen within the first seconds before a human recordist starts recording (consistent with `0115`'s S3 finding on archive mobbing clips).
+
+## What it changed
+
+1. **Settles the Capture 104 / outcome-tag schema question in `TODO.txt` (*"Nothing can record what a call achieved"*) -> do not build outcome links yet:** `TODO.txt` warned *"One recording is an anecdote, and a schema built from one is usually built wrong."* Across `5,161` recordings (`405` adult-call checkpoints, `836` silent-pause controls), adult calls during begging neither raise cessation above a plain 3 s pause (`14.8%` vs. `16.8%`) nor differ acoustically when begging stops (`0.577` / `0.453`). Keep unusual sequences in free-text notes rather than adding `other_bird_fell_silent` or response-link tables to `fieldserver/` and `mobile/`.
+2. **Documents a new BirdNET representation trap (`3 s` within-window phase leakage):** BirdNET's `1024-d` vector is **not shift-invariant inside its 3.0 s window** — bout-onset windows (energy in `[1.5, 3.0 s]`) vs. bout-offset windows (energy in `[0, 1.5 s]`) separate at **`0.749–0.770` AUC** even when caw count, confidence, duty cycle, and isolated-caw BirdNET embeddings (`0.490`) are identical. Any future boundary or transition test using BirdNET embeddings must align windows to segmented call offsets or embed isolated calls.
+3. **Closes the observational audio-only search for hidden semantic/pragmatic caw types (`0102`–`0119`):** Across predator nouns (`0103`–`0118`) and time-locked call consequences (`0119`), individual caws do not carry discrete lexical words for owl vs. hawk, "come here", "scatter", or "stop begging". What crow calling reliably encodes in audio is **broad behavioral context (`begging`, `mobbing`, `roost`, `flight`), caller/crowd density (`0109`/`0112`), graded prosody (`0113`), and threat engagement/posture (`perched` vs. `flying`, `0.81–0.905`)**.

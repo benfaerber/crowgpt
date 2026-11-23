@@ -1,0 +1,63 @@
+{
+  "Primary_B_audit": {
+    "univariate_phase_and_conf": {
+      "am_crow_conf": {
+        "cont_median": 0.9113,
+        "stop_median": 0.9177,
+        "auc": 0.484
+      },
+      "corvid_conf": {
+        "cont_median": 0.9113,
+        "stop_median": 0.9177,
+        "auc": 0.484
+      },
+      "n_caws": {
+        "cont_median": 3.0,
+        "stop_median": 3.0,
+        "auc": 0.4823
+      },
+      "last_caw_offset_s": {
+        "cont_median": 2.6755,
+        "stop_median": 1.8106,
+        "auc": 0.2395
+      },
+      "h1_db": {
+        "cont_median": -41.772,
+        "stop_median": -29.5649,
+        "auc": 0.6525
+      },
+      "h2_db": {
+        "cont_median": -32.5256,
+        "stop_median": -42.834,
+        "auc": 0.3607
+      },
+      "h2_minus_h1_db": {
+        "cont_median": 3.6196,
+        "stop_median": -5.356,
+        "auc": 0.2429
+      },
+      "subband_low_db": {
+        "cont_median": -39.0523,
+        "stop_median": -38.3687,
+        "auc": 0.5206
+      }
+    },
+    "phase_conf_only_oof_auc": 0.7487,
+    "birdnet_residualized_on_orig_plus_phase_auc": 0.6421,
+    "calltype_clf_probs": {},
+    "isolated_last_caw_birdnet_pairs": 140,
+    "isolated_last_caw_birdnet_auc": 0.4898,
+    "right_aligned_3s_real_audio_pairs": 102,
+    "right_aligned_3s_real_audio_auc": 0.603
+  },
+  "S_C1_silent_pause_audit": {
+    "ongoing_begging_n": 1866,
+    "ongoing_begging_stop_rate": 0.0284,
+    "multi_bird_begging_n": 90,
+    "multi_bird_begging_stop_rate": 0.0667,
+    "adult_nonbeg_call_n": 405,
+    "adult_nonbeg_call_stop_rate": 0.1481,
+    "silent_3s_pause_no_crow_n": 836,
+    "silent_3s_pause_no_crow_stop_rate": 0.1675
+  }
+}
