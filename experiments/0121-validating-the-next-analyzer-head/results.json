@@ -1,0 +1,1170 @@
+{
+  "1_upstream_birdnet_gate_on_crowCount0": {
+    "n_garbage_segments_embedded": 572,
+    "pass_birdnet_candidate_ge_0.10": 122,
+    "pass_birdnet_candidate_rate": 0.2133,
+    "pass_birdnet_confident_ge_0.25": 98,
+    "pass_birdnet_confident_rate": 0.1713,
+    "blocked_upstream_by_birdnet_lt_0.10_rate": 0.7867,
+    "top_non_corvid_species_in_blocked_garbage": {
+      "Philippine Eagle": 9,
+      "Evening Grosbeak": 9,
+      "Golden-cheeked Warbler": 8,
+      "Herring Gull": 6,
+      "American Robin": 6,
+      "American Tree Sparrow": 5,
+      "Tufted Titmouse": 4,
+      "Blue Jay": 4
+    }
+  },
+  "2_grouped_cv_retrain_comparison": {
+    "M0_3072_no_none": {
+      "garbage_all_572": {
+        "n": 572,
+        "rejected_argmax_none": 0.0,
+        "false_call_p_gt_0.5": 0.8077
+      },
+      "garbage_leaked_past_birdnet_ge_0.10": {
+        "n": 122,
+        "rejected_argmax_none": 0.0,
+        "false_call_p_gt_0.5": 0.959
+      },
+      "garbage_leaked_past_birdnet_ge_0.25": {
+        "n": 98,
+        "rejected_argmax_none": 0.0,
+        "false_call_p_gt_0.5": 0.9694
+      },
+      "crowtools_single_label_core4": {
+        "n": 2110,
+        "false_abstain_argmax_none": 0.0,
+        "false_abstain_rule_none": 0.0,
+        "macro_f1_unconditional_argmax": 0.8479,
+        "macro_f1_conditional_non_abstained": 0.8479
+      },
+      "co_occurrence_multi_label_ct": {
+        "n_multi": 228,
+        "both_above_0.50": 63,
+        "both_above_0.30": 72
+      },
+      "within_archive_flight_call_auc": 0.7485,
+      "per_class": {
+        "alarm call": {
+          "auc_calls_only": 0.9428,
+          "ap_calls_only": 0.946,
+          "positives": 1227,
+          "auc_with_garbage": 0.8891,
+          "ap_with_garbage": 0.8416
+        },
+        "begging": {
+          "auc_calls_only": 0.9272,
+          "ap_calls_only": 0.789,
+          "positives": 283,
+          "auc_with_garbage": 0.9228,
+          "ap_with_garbage": 0.7548
+        },
+        "rattle": {
+          "auc_calls_only": 0.9545,
+          "ap_calls_only": 0.8809,
+          "positives": 623,
+          "auc_with_garbage": 0.9558,
+          "ap_with_garbage": 0.8648
+        },
+        "song": {
+          "auc_calls_only": 0.9033,
+          "ap_calls_only": 0.8121,
+          "positives": 597,
+          "auc_with_garbage": 0.8851,
+          "ap_with_garbage": 0.7446
+        },
+        "flight call": {
+          "auc_calls_only": 0.9452,
+          "ap_calls_only": 0.5755,
+          "positives": 40,
+          "auc_with_garbage": 0.9467,
+          "ap_with_garbage": 0.5746
+        }
+      }
+    },
+    "M1_1024_no_none": {
+      "garbage_all_572": {
+        "n": 572,
+        "rejected_argmax_none": 0.0,
+        "false_call_p_gt_0.5": 0.8601
+      },
+      "garbage_leaked_past_birdnet_ge_0.10": {
+        "n": 122,
+        "rejected_argmax_none": 0.0,
+        "false_call_p_gt_0.5": 0.8934
+      },
+      "garbage_leaked_past_birdnet_ge_0.25": {
+        "n": 98,
+        "rejected_argmax_none": 0.0,
+        "false_call_p_gt_0.5": 0.898
+      },
+      "crowtools_single_label_core4": {
+        "n": 2110,
+        "false_abstain_argmax_none": 0.0,
+        "false_abstain_rule_none": 0.0,
+        "macro_f1_unconditional_argmax": 0.8001,
+        "macro_f1_conditional_non_abstained": 0.8001
+      },
+      "co_occurrence_multi_label_ct": {
+        "n_multi": 228,
+        "both_above_0.50": 62,
+        "both_above_0.30": 75
+      },
+      "within_archive_flight_call_auc": 0.7413,
+      "per_class": {
+        "alarm call": {
+          "auc_calls_only": 0.9037,
+          "ap_calls_only": 0.8965,
+          "positives": 1227,
+          "auc_with_garbage": 0.8727,
+          "ap_with_garbage": 0.8038
+        },
+        "begging": {
+          "auc_calls_only": 0.9207,
+          "ap_calls_only": 0.7873,
+          "positives": 283,
+          "auc_with_garbage": 0.9151,
+          "ap_with_garbage": 0.7435
+        },
+        "rattle": {
+          "auc_calls_only": 0.8763,
+          "ap_calls_only": 0.7527,
+          "positives": 623,
+          "auc_with_garbage": 0.8504,
+          "ap_with_garbage": 0.6382
+        },
+        "song": {
+          "auc_calls_only": 0.8879,
+          "ap_calls_only": 0.7978,
+          "positives": 597,
+          "auc_with_garbage": 0.8626,
+          "ap_with_garbage": 0.7132
+        },
+        "flight call": {
+          "auc_calls_only": 0.8528,
+          "ap_calls_only": 0.2245,
+          "positives": 40,
+          "auc_with_garbage": 0.8335,
+          "ap_with_garbage": 0.1207
+        }
+      }
+    },
+    "M2_1024_ovr_with_none_legacy_rattle": {
+      "garbage_all_572": {
+        "n": 572,
+        "rejected_argmax_none": 0.6189,
+        "rejected_none_top_or_p_lt_0.40": 0.6626,
+        "false_call_remaining_argmax": 0.3811
+      },
+      "garbage_leaked_past_birdnet_ge_0.10": {
+        "n": 122,
+        "rejected_argmax_none": 0.2131,
+        "rejected_none_top_or_p_lt_0.40": 0.2951,
+        "false_call_remaining_argmax": 0.7869
+      },
+      "garbage_leaked_past_birdnet_ge_0.25": {
+        "n": 98,
+        "rejected_argmax_none": 0.2041,
+        "rejected_none_top_or_p_lt_0.40": 0.2959,
+        "false_call_remaining_argmax": 0.7959
+      },
+      "crowtools_single_label_core4": {
+        "n": 2110,
+        "false_abstain_argmax_none": 0.064,
+        "false_abstain_rule_none": 0.1085,
+        "macro_f1_unconditional_argmax": 0.7756,
+        "macro_f1_conditional_non_abstained": 0.8009
+      },
+      "co_occurrence_multi_label_ct": {
+        "n_multi": 228,
+        "both_above_0.50": 58,
+        "both_above_0.30": 69
+      },
+      "within_archive_flight_call_auc": 0.7377,
+      "per_class": {
+        "alarm call": {
+          "auc_calls_only": 0.8811,
+          "ap_calls_only": 0.8651,
+          "positives": 1227,
+          "auc_with_garbage": 0.8729,
+          "ap_with_garbage": 0.8048
+        },
+        "begging": {
+          "auc_calls_only": 0.91,
+          "ap_calls_only": 0.7615,
+          "positives": 283,
+          "auc_with_garbage": 0.9124,
+          "ap_with_garbage": 0.7375
+        },
+        "rattle": {
+          "auc_calls_only": 0.8681,
+          "ap_calls_only": 0.7394,
+          "positives": 623,
+          "auc_with_garbage": 0.8674,
+          "ap_with_garbage": 0.6858
+        },
+        "song": {
+          "auc_calls_only": 0.8698,
+          "ap_calls_only": 0.7709,
+          "positives": 597,
+          "auc_with_garbage": 0.8659,
+          "ap_with_garbage": 0.7255
+        },
+        "flight call": {
+          "auc_calls_only": 0.8463,
+          "ap_calls_only": 0.2696,
+          "positives": 40,
+          "auc_with_garbage": 0.8434,
+          "ap_with_garbage": 0.2256
+        }
+      }
+    },
+    "M2b_1024_ovr_with_none_pure_rattle": {
+      "garbage_all_572": {
+        "n": 572,
+        "rejected_argmax_none": 0.6538,
+        "rejected_none_top_or_p_lt_0.40": 0.7168,
+        "false_call_remaining_argmax": 0.3462
+      },
+      "garbage_leaked_past_birdnet_ge_0.10": {
+        "n": 122,
+        "rejected_argmax_none": 0.2377,
+        "rejected_none_top_or_p_lt_0.40": 0.3197,
+        "false_call_remaining_argmax": 0.7623
+      },
+      "garbage_leaked_past_birdnet_ge_0.25": {
+        "n": 98,
+        "rejected_argmax_none": 0.2347,
+        "rejected_none_top_or_p_lt_0.40": 0.3163,
+        "false_call_remaining_argmax": 0.7653
+      },
+      "crowtools_single_label_core4": {
+        "n": 2110,
+        "false_abstain_argmax_none": 0.0697,
+        "false_abstain_rule_none": 0.1289,
+        "macro_f1_unconditional_argmax": 0.8113,
+        "macro_f1_conditional_non_abstained": 0.8386
+      },
+      "co_occurrence_multi_label_ct": {
+        "n_multi": 228,
+        "both_above_0.50": 54,
+        "both_above_0.30": 66
+      },
+      "within_archive_flight_call_auc": 0.7377,
+      "per_class": {
+        "alarm call": {
+          "auc_calls_only": 0.8811,
+          "ap_calls_only": 0.8651,
+          "positives": 1227,
+          "auc_with_garbage": 0.8729,
+          "ap_with_garbage": 0.8048
+        },
+        "begging": {
+          "auc_calls_only": 0.91,
+          "ap_calls_only": 0.7615,
+          "positives": 283,
+          "auc_with_garbage": 0.9124,
+          "ap_with_garbage": 0.7375
+        },
+        "rattle": {
+          "auc_calls_only": 0.96,
+          "ap_calls_only": 0.8916,
+          "positives": 511,
+          "auc_with_garbage": 0.9621,
+          "ap_with_garbage": 0.8797
+        },
+        "song": {
+          "auc_calls_only": 0.8698,
+          "ap_calls_only": 0.7709,
+          "positives": 597,
+          "auc_with_garbage": 0.8659,
+          "ap_with_garbage": 0.7255
+        },
+        "flight call": {
+          "auc_calls_only": 0.8463,
+          "ap_calls_only": 0.2696,
+          "positives": 40,
+          "auc_with_garbage": 0.8434,
+          "ap_with_garbage": 0.2256
+        }
+      }
+    },
+    "M2c_1024_ovr_with_none_pure_rattle_C0.1": {
+      "garbage_all_572": {
+        "n": 572,
+        "rejected_argmax_none": 0.6853,
+        "rejected_none_top_or_p_lt_0.40": 0.7238,
+        "false_call_remaining_argmax": 0.3147
+      },
+      "garbage_leaked_past_birdnet_ge_0.10": {
+        "n": 122,
+        "rejected_argmax_none": 0.2541,
+        "rejected_none_top_or_p_lt_0.40": 0.3033,
+        "false_call_remaining_argmax": 0.7459
+      },
+      "garbage_leaked_past_birdnet_ge_0.25": {
+        "n": 98,
+        "rejected_argmax_none": 0.2347,
+        "rejected_none_top_or_p_lt_0.40": 0.2857,
+        "false_call_remaining_argmax": 0.7653
+      },
+      "crowtools_single_label_core4": {
+        "n": 2110,
+        "false_abstain_argmax_none": 0.0668,
+        "false_abstain_rule_none": 0.1071,
+        "macro_f1_unconditional_argmax": 0.8329,
+        "macro_f1_conditional_non_abstained": 0.8616
+      },
+      "co_occurrence_multi_label_ct": {
+        "n_multi": 228,
+        "both_above_0.50": 64,
+        "both_above_0.30": 84
+      },
+      "within_archive_flight_call_auc": 0.74,
+      "per_class": {
+        "alarm call": {
+          "auc_calls_only": 0.91,
+          "ap_calls_only": 0.909,
+          "positives": 1227,
+          "auc_with_garbage": 0.902,
+          "ap_with_garbage": 0.8618
+        },
+        "begging": {
+          "auc_calls_only": 0.9162,
+          "ap_calls_only": 0.7798,
+          "positives": 283,
+          "auc_with_garbage": 0.9185,
+          "ap_with_garbage": 0.7558
+        },
+        "rattle": {
+          "auc_calls_only": 0.9635,
+          "ap_calls_only": 0.8958,
+          "positives": 511,
+          "auc_with_garbage": 0.9655,
+          "ap_with_garbage": 0.8846
+        },
+        "song": {
+          "auc_calls_only": 0.8896,
+          "ap_calls_only": 0.7958,
+          "positives": 597,
+          "auc_with_garbage": 0.8861,
+          "ap_with_garbage": 0.7546
+        },
+        "flight call": {
+          "auc_calls_only": 0.8534,
+          "ap_calls_only": 0.2941,
+          "positives": 40,
+          "auc_with_garbage": 0.8497,
+          "ap_with_garbage": 0.2449
+        }
+      }
+    },
+    "M3_1024_softmax_with_none": {
+      "garbage_all_572": {
+        "n": 572,
+        "rejected_argmax_none": 0.6294,
+        "rejected_none_top_or_p_lt_0.40": 0.6294,
+        "false_call_remaining_argmax": 0.3706
+      },
+      "garbage_leaked_past_birdnet_ge_0.10": {
+        "n": 122,
+        "rejected_argmax_none": 0.2541,
+        "rejected_none_top_or_p_lt_0.40": 0.2541,
+        "false_call_remaining_argmax": 0.7459
+      },
+      "garbage_leaked_past_birdnet_ge_0.25": {
+        "n": 98,
+        "rejected_argmax_none": 0.2347,
+        "rejected_none_top_or_p_lt_0.40": 0.2347,
+        "false_call_remaining_argmax": 0.7653
+      },
+      "crowtools_single_label_core4": {
+        "n": 2110,
+        "false_abstain_argmax_none": 0.073,
+        "false_abstain_rule_none": 0.073,
+        "macro_f1_unconditional_argmax": 0.7994,
+        "macro_f1_conditional_non_abstained": 0.8304
+      },
+      "co_occurrence_multi_label_ct": {
+        "n_multi": 228,
+        "both_above_0.50": 0,
+        "both_above_0.30": 7
+      },
+      "within_archive_flight_call_auc": 0.7748,
+      "per_class": {
+        "alarm call": {
+          "auc_calls_only": 0.9212,
+          "ap_calls_only": 0.9137,
+          "positives": 1227,
+          "auc_with_garbage": 0.9083,
+          "ap_with_garbage": 0.8634
+        },
+        "begging": {
+          "auc_calls_only": 0.9038,
+          "ap_calls_only": 0.7579,
+          "positives": 283,
+          "auc_with_garbage": 0.906,
+          "ap_with_garbage": 0.7332
+        },
+        "rattle": {
+          "auc_calls_only": 0.8905,
+          "ap_calls_only": 0.8026,
+          "positives": 623,
+          "auc_with_garbage": 0.8871,
+          "ap_with_garbage": 0.7572
+        },
+        "song": {
+          "auc_calls_only": 0.8816,
+          "ap_calls_only": 0.7927,
+          "positives": 597,
+          "auc_with_garbage": 0.8757,
+          "ap_with_garbage": 0.7471
+        },
+        "flight call": {
+          "auc_calls_only": 0.8973,
+          "ap_calls_only": 0.3298,
+          "positives": 40,
+          "auc_with_garbage": 0.8941,
+          "ap_with_garbage": 0.3
+        }
+      }
+    }
+  },
+  "3_raptor_co_detection_threshold_calibration": {
+    "archive_561_calibration": {
+      "conf_ge_0.25": {
+        "recall_on_stated_vocal_raptor": 0.4737,
+        "n_stated_vocal": 19,
+        "rate_on_silent_raptor_mob": 0.1542,
+        "false_rate_on_non_raptor_scenes_all": 0.0723,
+        "false_rate_when_jay_detected": null,
+        "n_non_raptor_with_jay": 0,
+        "false_rate_when_no_jay": 0.0723,
+        "n_non_raptor_no_jay": 429
+      },
+      "conf_ge_0.50": {
+        "recall_on_stated_vocal_raptor": 0.4211,
+        "n_stated_vocal": 19,
+        "rate_on_silent_raptor_mob": 0.1125,
+        "false_rate_on_non_raptor_scenes_all": 0.0373,
+        "false_rate_when_jay_detected": null,
+        "n_non_raptor_with_jay": 0,
+        "false_rate_when_no_jay": 0.0373,
+        "n_non_raptor_no_jay": 429
+      },
+      "conf_ge_0.70": {
+        "recall_on_stated_vocal_raptor": 0.3684,
+        "n_stated_vocal": 19,
+        "rate_on_silent_raptor_mob": 0.0875,
+        "false_rate_on_non_raptor_scenes_all": 0.0186,
+        "false_rate_when_jay_detected": null,
+        "n_non_raptor_with_jay": 0,
+        "false_rate_when_no_jay": 0.0186,
+        "n_non_raptor_no_jay": 429
+      },
+      "conf_ge_0.80": {
+        "recall_on_stated_vocal_raptor": 0.3684,
+        "n_stated_vocal": 19,
+        "rate_on_silent_raptor_mob": 0.0833,
+        "false_rate_on_non_raptor_scenes_all": 0.014,
+        "false_rate_when_jay_detected": null,
+        "n_non_raptor_with_jay": 0,
+        "false_rate_when_no_jay": 0.014,
+        "n_non_raptor_no_jay": 429
+      }
+    },
+    "kept_29_captures": {
+      "conf_ge_0.25": {
+        "n_kept_captures_firing": 2,
+        "hits": [
+          {
+            "capture_id": 69,
+            "name": "Ben walk under crow tree and feed",
+            "display": "BirdNET also heard: Common Nighthawk (0.72)",
+            "jay_also_detected": false,
+            "notes_snippet": ""
+          },
+          {
+            "capture_id": 116,
+            "name": "Baby caws from north, family flies south",
+            "display": "BirdNET also heard: Cooper's Hawk (0.29)",
+            "jay_also_detected": false,
+            "notes_snippet": ""
+          }
+        ]
+      },
+      "conf_ge_0.50": {
+        "n_kept_captures_firing": 1,
+        "hits": [
+          {
+            "capture_id": 69,
+            "name": "Ben walk under crow tree and feed",
+            "display": "BirdNET also heard: Common Nighthawk (0.72)",
+            "jay_also_detected": false,
+            "notes_snippet": ""
+          }
+        ]
+      },
+      "conf_ge_0.70": {
+        "n_kept_captures_firing": 1,
+        "hits": [
+          {
+            "capture_id": 69,
+            "name": "Ben walk under crow tree and feed",
+            "display": "BirdNET also heard: Common Nighthawk (0.72)",
+            "jay_also_detected": false,
+            "notes_snippet": ""
+          }
+        ]
+      },
+      "conf_ge_0.80": {
+        "n_kept_captures_firing": 0,
+        "hits": []
+      }
+    }
+  },
+  "4_field_labels_and_kept_replay": {
+    "field_labels_comparison": {
+      "shipped_3072_no_none": {
+        "X_span": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 0,
+            "top1_unconditional": 0.8276,
+            "top1_non_abstained": 0.8276,
+            "predicted_breakdown": {
+              "alarm call": 35,
+              "rattle": 12,
+              "begging": 9,
+              "flight call": 2
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 0,
+            "top1_unconditional": 0.5909,
+            "top1_non_abstained": 0.5909,
+            "predicted_breakdown": {
+              "rattle": 12,
+              "alarm call": 6,
+              "begging": 2,
+              "flight call": 2
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 0,
+            "top1_unconditional": 0.9722,
+            "top1_non_abstained": 0.9722,
+            "predicted_breakdown": {
+              "alarm call": 29,
+              "begging": 7
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 0,
+            "predictions": [
+              "alarm call",
+              "alarm call"
+            ]
+          }
+        },
+        "X_win": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 0,
+            "top1_unconditional": 0.7931,
+            "top1_non_abstained": 0.7931,
+            "predicted_breakdown": {
+              "alarm call": 49,
+              "begging": 9
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 0,
+            "top1_unconditional": 0.5,
+            "top1_non_abstained": 0.5,
+            "predicted_breakdown": {
+              "alarm call": 20,
+              "begging": 2
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 0,
+            "top1_unconditional": 0.9722,
+            "top1_non_abstained": 0.9722,
+            "predicted_breakdown": {
+              "alarm call": 29,
+              "begging": 7
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 0,
+            "predictions": [
+              "alarm call",
+              "alarm call"
+            ]
+          }
+        }
+      },
+      "M2_1024_ovr_none_legacy_rattle": {
+        "X_span": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 15,
+            "top1_unconditional": 0.5172,
+            "top1_non_abstained": 0.6977,
+            "predicted_breakdown": {
+              "alarm call": 33,
+              "none": 15,
+              "begging": 6,
+              "song": 3,
+              "rattle": 1
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 2,
+            "top1_unconditional": 0.4545,
+            "top1_non_abstained": 0.5,
+            "predicted_breakdown": {
+              "alarm call": 16,
+              "none": 2,
+              "begging": 2,
+              "rattle": 1,
+              "song": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5556,
+            "top1_non_abstained": 0.8696,
+            "predicted_breakdown": {
+              "alarm call": 17,
+              "none": 13,
+              "begging": 4,
+              "song": 2
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "rattle"
+            ]
+          }
+        },
+        "X_win": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 18,
+            "top1_unconditional": 0.4655,
+            "top1_non_abstained": 0.675,
+            "predicted_breakdown": {
+              "alarm call": 29,
+              "none": 18,
+              "begging": 5,
+              "rattle": 3,
+              "song": 3
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 5,
+            "top1_unconditional": 0.3182,
+            "top1_non_abstained": 0.4118,
+            "predicted_breakdown": {
+              "alarm call": 12,
+              "none": 5,
+              "rattle": 3,
+              "begging": 1,
+              "song": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5556,
+            "top1_non_abstained": 0.8696,
+            "predicted_breakdown": {
+              "alarm call": 17,
+              "none": 13,
+              "begging": 4,
+              "song": 2
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "rattle"
+            ]
+          }
+        }
+      },
+      "M2b_1024_ovr_none_pure_rattle": {
+        "X_span": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 15,
+            "top1_unconditional": 0.5345,
+            "top1_non_abstained": 0.7209,
+            "predicted_breakdown": {
+              "alarm call": 33,
+              "none": 15,
+              "begging": 7,
+              "song": 3
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 2,
+            "top1_unconditional": 0.5,
+            "top1_non_abstained": 0.55,
+            "predicted_breakdown": {
+              "alarm call": 16,
+              "begging": 3,
+              "none": 2,
+              "song": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5556,
+            "top1_non_abstained": 0.8696,
+            "predicted_breakdown": {
+              "alarm call": 17,
+              "none": 13,
+              "begging": 4,
+              "song": 2
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "alarm call"
+            ]
+          }
+        },
+        "X_win": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 20,
+            "top1_unconditional": 0.4655,
+            "top1_non_abstained": 0.7105,
+            "predicted_breakdown": {
+              "alarm call": 29,
+              "none": 20,
+              "begging": 6,
+              "song": 3
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 7,
+            "top1_unconditional": 0.3182,
+            "top1_non_abstained": 0.4667,
+            "predicted_breakdown": {
+              "alarm call": 12,
+              "none": 7,
+              "begging": 2,
+              "song": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5556,
+            "top1_non_abstained": 0.8696,
+            "predicted_breakdown": {
+              "alarm call": 17,
+              "none": 13,
+              "begging": 4,
+              "song": 2
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "alarm call"
+            ]
+          }
+        }
+      },
+      "M2c_1024_ovr_none_pure_rattle_C0.1": {
+        "X_span": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 15,
+            "top1_unconditional": 0.5345,
+            "top1_non_abstained": 0.7209,
+            "predicted_breakdown": {
+              "alarm call": 31,
+              "none": 15,
+              "begging": 8,
+              "song": 3,
+              "flight call": 1
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 2,
+            "top1_unconditional": 0.5,
+            "top1_non_abstained": 0.55,
+            "predicted_breakdown": {
+              "alarm call": 16,
+              "begging": 3,
+              "none": 2,
+              "song": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5556,
+            "top1_non_abstained": 0.8696,
+            "predicted_breakdown": {
+              "alarm call": 15,
+              "none": 13,
+              "begging": 5,
+              "song": 2,
+              "flight call": 1
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "alarm call"
+            ]
+          }
+        },
+        "X_win": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 19,
+            "top1_unconditional": 0.4828,
+            "top1_non_abstained": 0.7179,
+            "predicted_breakdown": {
+              "alarm call": 28,
+              "none": 19,
+              "begging": 7,
+              "song": 3,
+              "flight call": 1
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 6,
+            "top1_unconditional": 0.3636,
+            "top1_non_abstained": 0.5,
+            "predicted_breakdown": {
+              "alarm call": 13,
+              "none": 6,
+              "begging": 2,
+              "song": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5556,
+            "top1_non_abstained": 0.8696,
+            "predicted_breakdown": {
+              "alarm call": 15,
+              "none": 13,
+              "begging": 5,
+              "song": 2,
+              "flight call": 1
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "alarm call"
+            ]
+          }
+        }
+      },
+      "M3_1024_softmax_none": {
+        "X_span": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 16,
+            "top1_unconditional": 0.5345,
+            "top1_non_abstained": 0.7381,
+            "predicted_breakdown": {
+              "alarm call": 26,
+              "none": 16,
+              "begging": 13,
+              "rattle": 1,
+              "flight call": 1,
+              "song": 1
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 3,
+            "top1_unconditional": 0.5455,
+            "top1_non_abstained": 0.6316,
+            "predicted_breakdown": {
+              "alarm call": 13,
+              "begging": 5,
+              "none": 3,
+              "rattle": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5278,
+            "top1_non_abstained": 0.8261,
+            "predicted_breakdown": {
+              "alarm call": 13,
+              "none": 13,
+              "begging": 8,
+              "flight call": 1,
+              "song": 1
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "rattle"
+            ]
+          }
+        },
+        "X_win": {
+          "kept_all_58": {
+            "n": 58,
+            "abstained_none": 21,
+            "top1_unconditional": 0.431,
+            "top1_non_abstained": 0.6757,
+            "predicted_breakdown": {
+              "alarm call": 22,
+              "none": 21,
+              "begging": 11,
+              "song": 2,
+              "rattle": 1,
+              "flight call": 1
+            }
+          },
+          "kept_multi_window_regions": {
+            "n": 22,
+            "abstained_none": 8,
+            "top1_unconditional": 0.2727,
+            "top1_non_abstained": 0.4286,
+            "predicted_breakdown": {
+              "alarm call": 9,
+              "none": 8,
+              "begging": 3,
+              "rattle": 1,
+              "song": 1
+            }
+          },
+          "kept_single_window_regions": {
+            "n": 36,
+            "abstained_none": 13,
+            "top1_unconditional": 0.5278,
+            "top1_non_abstained": 0.8261,
+            "predicted_breakdown": {
+              "alarm call": 13,
+              "none": 13,
+              "begging": 8,
+              "flight call": 1,
+              "song": 1
+            }
+          },
+          "kept_not_a_crow_2": {
+            "n": 2,
+            "rejected_as_none": 1,
+            "predictions": [
+              "none",
+              "rattle"
+            ]
+          }
+        }
+      }
+    },
+    "kept_human_call_labels_context": [
+      {
+        "capture_id": 69,
+        "span": "45.0-54.0s",
+        "label_note": null,
+        "capture_note_head": ""
+      },
+      {
+        "capture_id": 100,
+        "span": "0.0-12.0s",
+        "label_note": null,
+        "capture_note_head": "Five crows in front of the apartment: four on the ground (2 adult, 2 juvenile), one on a wire. Recordist said \"hi crows\""
+      },
+      {
+        "capture_id": 103,
+        "span": "0.0-9.0s",
+        "label_note": null,
+        "capture_note_head": "The Poe Family, about 30 m up on the apartment roofline.\n\nComposition: Edgar (1 year old, brood guard), 2 parents, 2 fle"
+      },
+      {
+        "capture_id": 104,
+        "span": "42.0-51.0s",
+        "label_note": null,
+        "capture_note_head": "WHAT HAPPENED, as the recordist heard it:\n  fledgling begging -> adult calls -> fledgling keeps begging -> adult calls a"
+      },
+      {
+        "capture_id": 105,
+        "span": "33.0-45.0s",
+        "label_note": null,
+        "capture_note_head": ""
+      },
+      {
+        "capture_id": 115,
+        "span": "21.0-54.0s",
+        "label_note": null,
+        "capture_note_head": ""
+      },
+      {
+        "capture_id": 176,
+        "span": "8.0-11.1s",
+        "label_note": null,
+        "capture_note_head": ""
+      },
+      {
+        "capture_id": 196,
+        "span": "10.3-13.6s",
+        "label_note": null,
+        "capture_note_head": ""
+      }
+    ],
+    "kept_29_region_replay": {
+      "confident_regions_ge_0.25": 54,
+      "confident_abstained_none_M2c": 11,
+      "candidate_regions_0.10_0.25": 23,
+      "candidate_abstained_none_M2c": 10,
+      "shipped_3072_region_distribution": {
+        "alarm call": 32,
+        "rattle": 17,
+        "begging": 4,
+        "flight call": 1
+      },
+      "uniform_1024_M2c_region_distribution": {
+        "alarm call": 38,
+        "none": 11,
+        "begging": 4,
+        "song": 1
+      },
+      "multi_window_region_changes_sample": [
+        {
+          "capture_id": 69,
+          "span": "45-54s (3 wins)",
+          "shipped_3072": "rattle (0.91)",
+          "uniform_1024_none": "alarm call (0.99)"
+        },
+        {
+          "capture_id": 94,
+          "span": "0-18s (6 wins)",
+          "shipped_3072": "rattle (1.00)",
+          "uniform_1024_none": "alarm call (0.96)"
+        },
+        {
+          "capture_id": 95,
+          "span": "15-21s (2 wins)",
+          "shipped_3072": "rattle (0.07)",
+          "uniform_1024_none": "alarm call (0.87)"
+        },
+        {
+          "capture_id": 96,
+          "span": "0-6s (2 wins)",
+          "shipped_3072": "rattle (0.69)",
+          "uniform_1024_none": "alarm call (0.98)"
+        },
+        {
+          "capture_id": 97,
+          "span": "0-12s (4 wins)",
+          "shipped_3072": "rattle (0.95)",
+          "uniform_1024_none": "alarm call (0.99)"
+        },
+        {
+          "capture_id": 100,
+          "span": "0-18s (6 wins)",
+          "shipped_3072": "rattle (1.00)",
+          "uniform_1024_none": "alarm call (0.96)"
+        },
+        {
+          "capture_id": 100,
+          "span": "48-60s (4 wins)",
+          "shipped_3072": "rattle (1.00)",
+          "uniform_1024_none": "alarm call (0.99)"
+        },
+        {
+          "capture_id": 100,
+          "span": "66-78s (4 wins)",
+          "shipped_3072": "rattle (0.95)",
+          "uniform_1024_none": "alarm call (0.99)"
+        },
+        {
+          "capture_id": 103,
+          "span": "0-9s (3 wins)",
+          "shipped_3072": "rattle (0.89)",
+          "uniform_1024_none": "none (0.86)"
+        },
+        {
+          "capture_id": 103,
+          "span": "24-30s (2 wins)",
+          "shipped_3072": "alarm call (0.97)",
+          "uniform_1024_none": "none (0.92)"
+        },
+        {
+          "capture_id": 104,
+          "span": "42-51s (3 wins)",
+          "shipped_3072": "rattle (0.96)",
+          "uniform_1024_none": "alarm call (0.97)"
+        },
+        {
+          "capture_id": 105,
+          "span": "33-45s (4 wins)",
+          "shipped_3072": "rattle (0.63)",
+          "uniform_1024_none": "alarm call (0.98)"
+        },
+        {
+          "capture_id": 113,
+          "span": "30-36s (2 wins)",
+          "shipped_3072": "rattle (0.98)",
+          "uniform_1024_none": "alarm call (0.53)"
+        },
+        {
+          "capture_id": 115,
+          "span": "21-54s (11 wins)",
+          "shipped_3072": "rattle (0.93)",
+          "uniform_1024_none": "alarm call (0.87)"
+        },
+        {
+          "capture_id": 116,
+          "span": "12-21s (3 wins)",
+          "shipped_3072": "flight call (0.78)",
+          "uniform_1024_none": "begging (0.75)"
+        }
+      ]
+    }
+  }
+}

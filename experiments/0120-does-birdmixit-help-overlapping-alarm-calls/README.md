@@ -1,52 +1,55 @@
 # 0120 — Does BirdMixIT source separation break the overlapping-crow ceiling on `mob` and `alert`?
 
-**2026-11-23** · GPU (~2 min BirdMixIT) + CPU (BirdNET) · **status: pre-registered, awaiting run**
+**2026-11-23** · GPU (~1 min BirdMixIT) + CPU (BirdNET) · **answer: no — under realistic serve-time gating (`P_several >= 0.583`), BirdMixIT lifts `two_or_more` mean `alert`/`mob` AP by only `+0.020` (`95% CI: -0.005 to +0.049` at `C = 1.0`) and `+0.007` (`-0.015 to +0.034` at `C = 0.05`), with direct `mob` vs. `alert` AUC unchanged (`0.790` vs. `0.790`); do not add BirdMixIT to `analyzer/`**
 
-> **Pre-registration (written and committed before running BirdMixIT on `crow-tools` alarm segments or scoring any classifier).**
+> **Pre-registration (written and committed in `52b3ade` before running BirdMixIT on `crow-tools` alarm segments or scoring any classifier).**
 
 ## The question
 
-Experiment `0036` (`overlap_wall.py` -> `overlap.json`) identified overlapping crows — not label count and not backbone size — as the bottleneck in the alarm family on the `2,338` keyed `crow-tools` segments:
-- **`alert`:** Average precision plunges from **`0.709`** on `one_crow` (`n = 1,793`, balanced accuracy `0.795`) to **`0.365`** on `two_or_more` (`n = 536`, balanced accuracy `0.638`, positive recall `0.404`).
-- **`mob`:** Balanced accuracy drops from **`0.743`** on `one_crow` to **`0.701`** on `two_or_more`, where raw AP (`0.867`) sits at just **`1.33×` prevalence (`0.651`)** vs. `2.93×` on `one_crow` — on crowd audio the classifier mostly predicts `"crowd => mob"`.
+Experiment `0036` (`overlap_wall.py` -> `overlap.json`) showed that overlapping crows are where `alert` and `mob` degrade on the `2,338` keyed `crow-tools` segments: `alert` AP drops from `0.722` on `one_crow` (`n = 1,793`) to `0.370` on `two_or_more` (`n = 536`), while `mob` balanced accuracy drops from `0.743` to `0.710` (`1.33×` prevalence AP).
 
-Experiment `0118` showed that Google Research's pretrained 22.05 kHz **BirdMixIT** 4-source model (`output_sources4`) cleanly separates synthetic `0 dB` 2-crow mixtures (`+4.41 dB` best-stem, `+7.03 dB` partition SI-SDRi) and lifted `0104` hawk posture classification from `0.857` to `0.905`.
-
-This experiment tests whether BirdMixIT earns a place inside `analyzer/` to separate `mob` from `alert` when multiple crows overlap — **under realistic serve-time gating (no human `crowCount` oracle)**, and against an explicit operational cost bar (adding a TensorFlow 1 separator to a CPU worker).
+Experiment `0118` proved that pretrained 22.05 kHz **BirdMixIT** (`output_sources4`) separates synthetic `0 dB` 2-crow mixtures (`+4.41 dB` single-stem, `+7.03 dB` partition SI-SDRi). This experiment tests whether BirdMixIT earns its operational weight (adding a TensorFlow 1 separator pass to a CPU worker) inside `analyzer/` under **realistic serve-time gating (no human `crowCount` oracle)**.
 
 ---
 
 ## Pre-declared protocol
 
-### Dataset & exact alignment with `0036/overlap_wall.py`
+- **Dataset & splits:** Exact `2,338` keyed `crow-tools` segments (`1,793` `one_crow`, `536` `two_or_more`, `9` `crowCount == 0`) on `overlap_wall.py`'s 5-fold recording-grouped CV (`StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=0)`).
+- **Serve-time crowd gate (zero oracle leakage):** Out-of-fold `P_several_oof` computed from unseparated `1024-d` BirdNET vectors (`C = 0.05`, matching `0109`), routing windows with `P_several_oof >= 0.5826` (`0113` cut) through BirdMixIT (`678` unique 3 s windows separated across gated + oracle sets; top-2 stems by `700–4500 Hz` RMS embedded with BirdNET `2.4`).
+- **Pre-declared ship bar:** `Δ mean_AP(alert, mob)` on `two_or_more` **`>= +0.030`** with recording-bootstrap `95% CI` excluding `0`, and `one_crow` 5-flag mean AP drop **`<= 0.010`**.
 
-- Exact `2,338` keyed `crow-tools` segments (`1,793` `crowCount == 1`, `536` `crowCount >= 2`, `9` `crowCount == 0`) and flags from `experiments/0036-what-would-more-labels-buy/results/{crowtools_keyed.npz, crowtools_flags.json}`.
-- **5-fold recording-grouped cross-validation** (`StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=0)`, grouped by `groups` = recording `file_id`), matching `overlap_wall.py` byte-for-byte.
+---
 
-### Realistic serve-time crowd gate (zero oracle `crowCount`)
+## Results
 
-At `analyzer/` inference time, human `crowCount` is unknown. Instead, every 3.0 s window's `1024-d` BirdNET vector (`X[:, :1024]`) is scored **out-of-fold** (on the exact same recording-grouped splits, trained on `crowCount == 1` vs. `crowCount >= 2` as in `0109`) to produce an honest out-of-fold crowd probability `P_several_oof`, with `0113`'s pre-established **`T_single = 0.5826`** cut:
-- Windows with `P_several_oof >= 0.5826` ("suspected multi-crow") are routed through **BirdMixIT (`output_sources4`)**.
-- We also separate all remaining `crowCount >= 2` windows so the **oracle-gated stratum upper bound** can be reported as a diagnostic secondary alongside realistic gating.
+Run once (`separate.py` + `run.py` -> `results.json`).
+- **Serve-time crowd gate (`P_several_oof >= 0.5826`):** Fired on `541 / 2,338` segments, catching **`65.5%`** (`351 / 536`) of `crowCount >= 2` segments with a **`10.4%`** (`187 / 1,793`) false-gate rate on `one_crow`.
 
-### Separation & BirdNET stem embedding
+### Summary across arms (`two_or_more` `n = 536`, `one_crow` `n = 1,793`)
 
-- For each 3.0 s window `[aligned_start, aligned_start + 3.0 s]` at `22,050 Hz`, run BirdMixIT (`4` waveform stems) and keep the **top 2 stems** by `700–4500 Hz` RMS (`>= 15%` of loudest stem, duplicating stem 1 if only 1 stem clears `15%`, matching `0118`), then embed each stem with BirdNET `2.4` (`1024-d`).
+| Arm | `two_or_more` `alert` AP | `two_or_more` `mob` AP | `two_or_more` Mean Alarm AP | `Δ Mean Alarm AP` (`95% CI`) | Direct `mob` vs. `alert` `2+` AUC (`n = 423`) | `one_crow` 5-Flag Mean AP | Ship Gate (`>= +0.030`) |
+|---|---:|---:|---:|---|---:|---:|---|
+| **Baseline (`unseparated`, `C = 1.0`)** | 0.3699 | 0.8684 | **0.6191** | — | 0.7674 | 0.7696 | — |
+| **Arm A (`gated_mix_plus_stems`, `C = 1.0`)** | 0.3954 | 0.8831 | **0.6392** | **`+0.0201`** (`-0.0047` to `+0.0494`) | 0.7693 | 0.7767 | **FAIL** |
+| **Arm B (`gated_stem_max_proba`, `C = 1.0`)** | 0.3587 | 0.8325 | **0.5956** | `-0.0235` (`-0.0515` to `+0.0041`) | — | 0.7743 | **FAIL** |
+| **Arm B (`gated_stem_mean_proba`, `C = 1.0`)** | 0.3611 | 0.8353 | **0.5982** | `-0.0209` (`-0.0501` to `+0.0085`) | — | 0.7726 | **FAIL** |
+| Arm C (`oracle_gated`, `C = 1.0`, *diagnostic*) | 0.4591 | 0.8675 | 0.6633 | *(leaks oracle `crowCount >= 2`)* | — | 0.7936 | — |
+| **Baseline (`unseparated`, `C = 0.05`)** | 0.4244 | 0.8850 | **0.6547** | — | **0.7898** | **0.8142** | — |
+| **Arm A (`gated_mix_plus_stems`, `C = 0.05`)** | 0.4284 | 0.8941 | **0.6613** | **`+0.0066`** (`-0.0153` to `+0.0336`) | **0.7902** | 0.8054 | **FAIL** |
 
-### Pre-declared model arms (compared on identical folds)
+---
 
-Baseline and all arms use `StandardScaler() + LogisticRegression(max_iter=2000, class_weight="balanced")` (`C = 1.0`, identical to `overlap_wall.py`, plus `C = 0.05` reported in secondary check to verify regularization does not alter the conclusion):
-1. **Baseline (`unseparated`):** Exact `overlap_wall.py` model on unseparated `1024-d` BirdNET window embeddings (`X[:, :1024]`, matching `X[:, :3072]` since single-window `std = 0` and `max = mean`).
-2. **Arm A (`gated_mix_plus_stems` — Primary candidate):** Concatenates `[e_mix (1024d), 0.5 * (e_s1 + e_s2) (1024d), |e_s1 - e_s2| (1024d)]` (`3072-d`) when `P_several_oof >= 0.5826`, and `[e_mix, e_mix, zeros(1024)]` when `P_several_oof < 0.5826` — preserving crowd context while exposing individual separated stem voices and inter-stem contrast.
-3. **Arm B (`gated_stem_max_proba` — Zero-width-change ensemble):** Fits a single-voice classifier on `one_crow` windows and scores gated multi-crow windows by `0.5 * P_mix + 0.5 * max(P(e_s1), P(e_s2))` (`mean` for `alert` vs. `max` tested).
-4. **Arm C (`oracle_gated_mix_plus_stems` — Diagnostic upper bound):** Same as Arm A but gated by ground-truth `crowCount >= 2`.
+## Three things the numbers explain
 
-### Primary metric & ship bar (fixed now)
+1. **Simple L2 regularization (`C = 0.05` vs. `C = 1.0`) buys almost twice what BirdMixIT buys, at zero runtime cost:**
+   - Tightening `LogisticRegression` from `C = 1.0` to `C = 0.05` on **unseparated** `1024-d` BirdNET vectors lifts `two_or_more` mean alarm AP from `0.6191` to **`0.6547` (`+0.0356`)** and `one_crow` 5-flag mean AP from `0.7696` to **`0.8142` (`+0.0446`)** — outperforming unregularized BirdMixIT (`0.6392`) without running a separator at all.
+   - Once `C = 0.05` is used on both sides, BirdMixIT's realistic serve-time gain shrinks to **`+0.0066`** (`95% CI: -0.0153 to +0.0336`), and direct `mob` vs. `alert` AUC on `two_or_more` is flat (`0.7898` vs. `0.7902`).
+2. **Why Arm B (`stem_only` probability blending) went negative (`-0.024`):**
+   - Scoring separated stems through a `one_crow` model erases the multi-bird acoustic context that distinguishes `mob` from solo calling and exposes BirdMixIT residual artifacts to a classifier trained on clean audio.
+3. **Why Oracle Arm C (`0.663` at `C = 1.0`, `0.687` at `C = 0.05`) would have been a trap without Arm A:**
+   - In Arm C, the `|e_s1 - e_s2|` block is non-zero *if and only if* human `crowCount >= 2`, handing the classifier the ground-truth human crowd label (`alert` drops in prevalence on crowds while `mob` jumps `0.19 -> 0.65`). Realistic `P_several_oof` gating in Arm A closed that leak.
 
-- **Primary metric:** Unweighted mean **Average Precision (AP)** across `alert` and `mob` within the **`two_or_more` (`crowCount >= 2`, `n = 536`)** stratum under **Arm A (`gated_mix_plus_stems`, realistic `P_several_oof` gating)** vs. **Baseline (`unseparated`)**, with a 2,000-resample recording-clustered bootstrap 95% CI on `Δ mean_AP`.
-- **Co-reported alarm contrast:** Direct `mob` vs. `alert` ROC-AUC & balanced accuracy on `crowCount >= 2` segments flagged exclusively `mob` or `alert`.
-- **Ship bar into `analyzer/`:** Because BirdMixIT adds a TensorFlow 1 separator pass to a CPU worker, Arm A (or Arm B) **passes for `analyzer/` integration** iff:
-  1. `Δ mean_AP(alert, mob)` on `two_or_more` is **`>= +0.030`** (`+3.0` AP points),
-  2. Recording-bootstrap 95% CI of `Δ mean_AP` excludes `0`, and
-  3. `one_crow` mean AP across all 5 flags (`alert, begging, softSong, rattle, mob`) drops by **`<= 0.010`**.
-  Otherwise BirdMixIT is **not** wired into `analyzer/`'s serving path.
+## What it changed
+
+- **Decision: do NOT wire BirdMixIT into `analyzer/` or the hosted worker.** Keeping `alert` + `mob` folded into `alarm call` in `analyzer/` remains the right call (`0012` + `0036`), and `analyzer/` avoids a heavy TensorFlow 1 runtime dependency for a `+0.007` non-significant difference.
+- **Keep `C` regularization in view for `0121`:** `C = 0.05–0.1` materially improves `1024-d` BirdNET logistic heads over `sklearn`'s `C = 1.0` default (`+0.036` to `+0.045` AP across strata).

@@ -21,7 +21,7 @@ reason and lost nothing by it.
 
 ## Booked
 
-- **2026-11-23 18:36 → 2026-11-23 19:15 (America/Denver)** — **Experiment 0120 BirdMixIT separation pass**: running pretrained BirdMixIT (`output_sources4`, ~2–3 GB VRAM, `per_process_gpu_memory_fraction=0.25`) over `~650` multi-crow / high-`P_several` 3 s `crow-tools` windows; 0121 is pure CPU. Bushcrow; Ben requested Track 2 validation (`0120 + 0121`). Killable on request.
+- ~~**2026-11-23 18:36 → 2026-11-23 19:15 (America/Denver)** — **Experiment 0120 BirdMixIT separation pass**: running pretrained BirdMixIT (`output_sources4`, ~2–3 GB VRAM, `per_process_gpu_memory_fraction=0.25`) over `~650` multi-crow / high-`P_several` 3 s `crow-tools` windows; 0121 is pure CPU. Bushcrow; Ben requested Track 2 validation (`0120 + 0121`). Killable on request.~~ Done 18:50; card released.
 
 - ~~**2026-11-22 21:14 → 2026-11-23 00:15 (America/Denver)** — **Experiments 0115–0118**: CPU for 0115–0116; Perch 2.0 embeddings on non-American *Corvus* windows (0117, ~2 GB VRAM with `TF_FORCE_GPU_ALLOW_GROWTH=true`) and BirdMixIT 4-stem separation on synthetic 2-crow mixtures + mob windows (0118, ~2–3 GB VRAM). Bushcrow; Ben authorized running alongside the active video render. Killable on request.~~ Done 21:42; card released.
 

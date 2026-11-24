@@ -1,0 +1,198 @@
+{
+  "no_garb": {
+    "garbage_572_rejected": 0.0,
+    "garbage_leaked_122_ge010_rejected": 0.0,
+    "garbage_leaked_98_ge025_rejected": 0.0,
+    "ct_false_abstain": 0.0,
+    "ct_macro_f1_uncond": 0.845,
+    "ct_macro_f1_cond": 0.845,
+    "per_class_auc_calls": {
+      "alarm call": 0.9267,
+      "begging": 0.9272,
+      "rattle": 0.9669,
+      "song": 0.9034,
+      "flight call": 0.8594
+    },
+    "per_class_ap_with_garbage": {
+      "alarm call": 0.8511,
+      "begging": 0.7628,
+      "rattle": 0.8772,
+      "song": 0.7363,
+      "flight call": 0.1411
+    },
+    "field_kept_alarm_beg_50_X_span": {
+      "n": 50,
+      "abstained": 0,
+      "acc_uncond": 0.9,
+      "multi_win_14_acc": 1.0
+    },
+    "field_kept_alarm_beg_50_X_win": {
+      "abstained": 0,
+      "acc_uncond": 0.84
+    },
+    "field_kept_8_contact_calls_predicted_as": {
+      "alarm call": 6,
+      "song": 1,
+      "flight call": 1
+    },
+    "field_kept_2_not_a_crow_predicted_as": [
+      "alarm call",
+      "alarm call"
+    ]
+  },
+  "garb_neg_floor035": {
+    "garbage_572_rejected": 0.6031,
+    "garbage_leaked_122_ge010_rejected": 0.1639,
+    "garbage_leaked_98_ge025_rejected": 0.1429,
+    "ct_false_abstain": 0.0735,
+    "ct_macro_f1_uncond": 0.8373,
+    "ct_macro_f1_cond": 0.868,
+    "per_class_auc_calls": {
+      "alarm call": 0.91,
+      "begging": 0.9162,
+      "rattle": 0.9635,
+      "song": 0.8896,
+      "flight call": 0.8534
+    },
+    "per_class_ap_with_garbage": {
+      "alarm call": 0.8618,
+      "begging": 0.7558,
+      "rattle": 0.8846,
+      "song": 0.7546,
+      "flight call": 0.2449
+    },
+    "field_kept_alarm_beg_50_X_span": {
+      "n": 50,
+      "abstained": 9,
+      "acc_uncond": 0.7,
+      "multi_win_14_acc": 0.7857
+    },
+    "field_kept_alarm_beg_50_X_win": {
+      "abstained": 10,
+      "acc_uncond": 0.66
+    },
+    "field_kept_8_contact_calls_predicted_as": {
+      "alarm call": 6,
+      "none": 1,
+      "song": 1
+    },
+    "field_kept_2_not_a_crow_predicted_as": [
+      "none",
+      "alarm call"
+    ]
+  },
+  "garb_neg_floor050": {
+    "garbage_572_rejected": 0.6434,
+    "garbage_leaked_122_ge010_rejected": 0.2377,
+    "garbage_leaked_98_ge025_rejected": 0.2143,
+    "ct_false_abstain": 0.0967,
+    "ct_macro_f1_uncond": 0.8332,
+    "ct_macro_f1_cond": 0.8746,
+    "per_class_auc_calls": {
+      "alarm call": 0.91,
+      "begging": 0.9162,
+      "rattle": 0.9635,
+      "song": 0.8896,
+      "flight call": 0.8534
+    },
+    "per_class_ap_with_garbage": {
+      "alarm call": 0.8618,
+      "begging": 0.7558,
+      "rattle": 0.8846,
+      "song": 0.7546,
+      "flight call": 0.2449
+    },
+    "field_kept_alarm_beg_50_X_span": {
+      "n": 50,
+      "abstained": 14,
+      "acc_uncond": 0.64,
+      "multi_win_14_acc": 0.7857
+    },
+    "field_kept_alarm_beg_50_X_win": {
+      "abstained": 14,
+      "acc_uncond": 0.6
+    },
+    "field_kept_8_contact_calls_predicted_as": {
+      "alarm call": 6,
+      "none": 1,
+      "song": 1
+    },
+    "field_kept_2_not_a_crow_predicted_as": [
+      "none",
+      "alarm call"
+    ]
+  },
+  "unweighted_none": {
+    "garbage_572_rejected": 0.6538,
+    "garbage_leaked_122_ge010_rejected": 0.1885,
+    "garbage_leaked_98_ge025_rejected": 0.1735,
+    "ct_false_abstain": 0.0521,
+    "ct_macro_f1_uncond": 0.8376,
+    "ct_macro_f1_cond": 0.8587,
+    "per_class_auc_calls": {
+      "alarm call": 0.91,
+      "begging": 0.9162,
+      "rattle": 0.9635,
+      "song": 0.8896,
+      "flight call": 0.8534
+    },
+    "per_class_ap_with_garbage": {
+      "alarm call": 0.8618,
+      "begging": 0.7558,
+      "rattle": 0.8846,
+      "song": 0.7546,
+      "flight call": 0.2449
+    },
+    "field_kept_alarm_beg_50_X_span": {
+      "n": 50,
+      "abstained": 10,
+      "acc_uncond": 0.7,
+      "multi_win_14_acc": 0.7857
+    },
+    "field_kept_alarm_beg_50_X_win": {
+      "abstained": 11,
+      "acc_uncond": 0.66
+    },
+    "field_kept_8_contact_calls_predicted_as": {
+      "alarm call": 6,
+      "none": 1,
+      "song": 1
+    },
+    "field_kept_2_not_a_crow_predicted_as": [
+      "none",
+      "alarm call"
+    ]
+  },
+  "shipped_3072_reference": {
+    "field_kept_alarm_beg_50_X_span": {
+      "n": 50,
+      "acc_uncond": 0.84,
+      "multi_win_14_acc": 0.5,
+      "multi_win_14_preds": {
+        "rattle": 6,
+        "alarm call": 5,
+        "begging": 2,
+        "flight call": 1
+      }
+    },
+    "field_kept_alarm_beg_50_X_win": {
+      "acc_uncond": 0.92
+    },
+    "field_kept_8_contact_calls_predicted_as": {
+      "rattle": 6,
+      "alarm call": 1,
+      "flight call": 1
+    },
+    "field_kept_2_not_a_crow_predicted_as": [
+      "alarm call",
+      "alarm call"
+    ]
+  },
+  "hp300_vs_class_weight_abstain_audit": {
+    "raw_no_hp300_kept_n": 50,
+    "balanced_none_abstain_on_raw_no_hp300": 12,
+    "unweighted_none_abstain_on_raw_no_hp300": 10,
+    "hp300_kept_58_balanced_none_abstain": 15,
+    "hp300_kept_58_unweighted_none_abstain": 11
+  }
+}
