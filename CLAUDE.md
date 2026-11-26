@@ -284,6 +284,7 @@ scream page — never for a sitting that produces a statistic.
   its one live call is the "Ask it yourself" buttons, which post to the hosted
   server's tokenless `/api/demo/*` and hide themselves when it does not answer
   `promo/video/` is the 3D film: a Blender scene written as Python (`make -C promo video`), frames and mp4 in `data/video/`
+- `shared/` — TypeScript both the dashboard and the promo compile in (no package, no deps): the shape of a scan's result and how to read it. A reading two pages must agree on goes here; how it is drawn stays with each page
 - `transcriber/` — the speech-to-text module the field server's dictation worker runs
 - `tools/` — repo-wide scripts, currently the corpus and database backup behind `make backup`
 - `crowgpt/` — generating crow calls; own venv carrying torch *and* birdnetlib

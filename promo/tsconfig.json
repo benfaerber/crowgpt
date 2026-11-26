@@ -10,5 +10,5 @@
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
-  "include": ["src", "stats.json"]
+  "include": ["src", "../shared", "stats.json"]
 }

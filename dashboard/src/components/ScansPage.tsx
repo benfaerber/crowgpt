@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
+import { describeCoDetection, percent } from "../../../shared/scan";
 import {
   deleteScanContribution,
-  fetchScanContributionUrl,
   promoteScanContribution,
   useFleetConfig,
-  useScanContribution,
   useScanContributions,
 } from "../api/client";
-import type { FleetConfig, RecentScan, ScanContribution } from "../api/types";
+import type { FleetConfig, RecentScan, ScanContribution, ScanHeard } from "../api/types";
 import { formatBytes, formatTime } from "../format";
-import { colorForCall, contextText, labelText } from "../vocab";
+import { colorForCall, labelText } from "../vocab";
+import { Pill } from "./detail-atoms";
+import { ScanDetail } from "./ScanDetail";
 
 /**
  * What strangers scanned on the promo site and let the project keep.
@@ -187,13 +188,16 @@ function ScanRow({
         <td>
           {row.kind}
           <div className="muted">
+            {row.format ? `${row.format.toUpperCase()} · ` : ""}
             {row.duration_sec != null ? `${row.duration_sec.toFixed(0)} s · ` : ""}
             {formatBytes(row.bytes)}
             {row.latitude != null ? " · located" : ""}
           </div>
         </td>
         <td className="muted">{row.requester_ip ?? "—"}</td>
-        <td>{row.kind === "photo" ? <span className="muted">a photo</span> : `${row.call_count} call region${row.call_count === 1 ? "" : "s"}`}</td>
+        <td>
+          <Heard heard={row.heard} config={config} />
+        </td>
         <td>
           {row.silent_confirmed_at ? (
             "no calls in it"
@@ -225,8 +229,8 @@ function ScanRow({
       </tr>
       {open ? (
         <tr>
-          <td colSpan={6}>
-            <ScanDetail id={row.id} kind={row.kind} config={config} deskUrl={row.desk_url} />
+          <td colSpan={6} className="scan-detail-cell">
+            <ScanDetail row={row} config={config} />
           </td>
         </tr>
       ) : null}
@@ -234,124 +238,62 @@ function ScanRow({
   );
 }
 
-function ScanDetail({
-  id,
-  kind,
-  config,
-  deskUrl,
-}: {
-  id: number;
-  kind: ScanContribution["kind"];
-  config: FleetConfig | undefined;
-  deskUrl: string | null;
-}) {
-  const detail = useScanContribution(id);
-  const file = useKeptFile(id);
-
-  if (detail.isPending) return <div className="muted">Loading…</div>;
-  if (!detail.data) return <div className="muted">Could not load this scan.</div>;
-  const { labels, context, calls } = detail.data;
-
-  return (
-    <div>
-      {file.error ? <div className="note">{file.error}</div> : null}
-      {file.url && kind === "photo" ? <img src={file.url} alt="" style={{ maxWidth: 360 }} /> : null}
-      {file.url && kind === "audio" ? <audio controls src={file.url} /> : null}
-      {file.url && kind === "video" ? <video controls src={file.url} style={{ maxWidth: 480 }} /> : null}
-
-      {kind !== "photo" ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Span</th>
-              <th>Scanner</th>
-              <th>Visitor</th>
-              <th>Context</th>
-            </tr>
-          </thead>
-          <tbody>
-            {spans(calls, labels).map((span) => (
-              <tr key={`${span.start}-${span.end}`}>
-                <td className="muted">
-                  {span.start.toFixed(1)}–{span.end.toFixed(1)} s
-                </td>
-                <td style={{ color: colorForCall(config, span.heard) }}>
-                  {span.heard ? labelText(config, span.heard) : <span className="muted">—</span>}
-                </td>
-                <td style={{ color: colorForCall(config, span.label?.call_type) }}>
-                  {span.label ? labelText(config, span.label.call_type) : <span className="muted">—</span>}
-                  {span.label?.caller_role ? <span className="muted"> · {span.label.caller_role}</span> : null}
-                </td>
-                <td className="muted">
-                  {span.label
-                    ? context
-                        .filter((event) => event.label_uuid === span.label?.client_uuid)
-                        .map((event) => contextText(config, event.key))
-                        .join(", ")
-                    : ""}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : null}
-      {deskUrl ? (
-        <div className="muted">
-          The visitor&apos;s labelling link: <a href={deskUrl} style={{ color: "inherit" }}>{deskUrl}</a>
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-interface Span {
-  start: number;
-  end: number;
-  heard?: string | null;
-  label?: { client_uuid: string; call_type: string; caller_role: string | null };
-}
-
-/** Every detection with the label on the same span beside it, then labels on spans of their own. */
-function spans(
-  calls: { start_sec: number; end_sec: number; call_type?: string | null }[],
-  labels: { client_uuid: string; start_sec: number; end_sec: number; call_type: string; caller_role: string | null }[],
-): Span[] {
-  const same = (a: number, b: number) => Math.abs(a - b) < 0.01;
-  const claimed = new Set<string>();
-  const out: Span[] = calls.map((call) => {
-    const label = labels.find(
-      (candidate) =>
-        !claimed.has(candidate.client_uuid) &&
-        same(candidate.start_sec, call.start_sec) &&
-        same(candidate.end_sec, call.end_sec),
+/**
+ * The scanner's answer in the row itself, so the pile can be read without
+ * opening anything: which bird a photo is of, which calls a recording holds.
+ */
+function Heard({ heard, config }: { heard: ScanHeard | null; config: FleetConfig | undefined }) {
+  if (heard === null) return <span className="muted">no result stored</span>;
+  if (heard.kind === "photo") {
+    if (heard.verdict === "other") {
+      return (
+        <>
+          Not a corvid
+          <div className="muted">looks like {heard.instead ?? "something else"}</div>
+        </>
+      );
+    }
+    const sure = heard.probability != null ? ` · ${percent(heard.probability)}` : "";
+    if (heard.verdict === "no_bird") {
+      return (
+        <>
+          No bird found
+          <div className="muted">
+            closest {heard.species ?? "—"}
+            {sure}
+          </div>
+        </>
+      );
+    }
+    return (
+      <>
+        {heard.species ?? "—"}
+        <span className="muted">{sure}</span>
+        {heard.birds > 1 ? <div className="muted">{heard.birds} birds in the frame</div> : null}
+      </>
     );
-    if (label) claimed.add(label.client_uuid);
-    return { start: call.start_sec, end: call.end_sec, heard: call.call_type, label };
-  });
-  for (const label of labels) {
-    if (!claimed.has(label.client_uuid)) out.push({ start: label.start_sec, end: label.end_sec, label });
   }
-  return out.sort((a, b) => a.start - b.start);
-}
-
-/** The kept file as a blob URL, since the route wants a header a media element cannot send. */
-function useKeptFile(id: number): { url?: string; error?: string } {
-  const [state, setState] = useState<{ url?: string; error?: string }>({});
-  useEffect(() => {
-    let live = true;
-    let made: string | undefined;
-    fetchScanContributionUrl(id).then(
-      (url) => {
-        made = url;
-        if (live) setState({ url });
-        else URL.revokeObjectURL(url);
-      },
-      (failure) => live && setState({ error: failure instanceof Error ? failure.message : String(failure) }),
-    );
-    return () => {
-      live = false;
-      if (made) URL.revokeObjectURL(made);
-    };
-  }, [id]);
-  return state;
+  if (heard.species.length === 0) return <span className="muted">no corvid</span>;
+  return (
+    <>
+      {heard.species.join(", ")}
+      <div className="pills scan-heard">
+        {heard.call_types.map(({ call_type, count }) => (
+          <Pill key={call_type} color={colorForCall(config, call_type)}>
+            {labelText(config, call_type)}
+            {count > 1 ? ` × ${count}` : ""}
+          </Pill>
+        ))}
+        {heard.call_types.length === 0 ? <span className="muted">species only</span> : null}
+        {heard.candidates ? (
+          <span className="muted">
+            {heard.candidates} candidate{heard.candidates === 1 ? "" : "s"}
+          </span>
+        ) : null}
+      </div>
+      {heard.co_detections.length ? (
+        <div className="muted">also {heard.co_detections.map(describeCoDetection).join(", ")}</div>
+      ) : null}
+    </>
+  );
 }

@@ -7,7 +7,9 @@ import {
   uploadPhotoForId,
   usePhotoIds,
 } from "../api/client";
+import { PhotoReading } from "../../../shared/scan";
 import type { PhotoIdentification, PhotoIdResult } from "../api/types";
+import { PhotoFrame, PhotoHeadline, SpeciesRanking } from "./photo-reading";
 
 /**
  * A test bench for the photo classifier: drop a photo, see which corvid
@@ -18,9 +20,6 @@ import type { PhotoIdentification, PhotoIdResult } from "../api/types";
  * shows the same results. The classifier runs in the photo worker; a photo
  * that stays "waiting" means that worker is not running on this server.
  */
-
-/** How many species to list under the answer. The rest are near zero. */
-const SHOWN = 4;
 
 /** A queued photo older than this is waiting on a worker that is not there. */
 const WORKER_PATIENCE_MS = 45_000;
@@ -47,30 +46,13 @@ function Photo({ item }: { item: PhotoIdentification }) {
 
   if (error) return <span className="chat-error">could not load the photo — {error}</span>;
   if (!url) return <span className="chat-meta">loading the photo…</span>;
-  const result = item.result;
-  const box = result?.bird_box;
   return (
-    <div className="photo-id-frame">
-      <img src={url} alt={item.original_name ?? "uploaded photo"} />
-      {result && box ? (
-        <div
-          className="photo-id-box"
-          title="where the classifier found the bird"
-          style={{
-            left: `${(box.left / result.width) * 100}%`,
-            top: `${(box.top / result.height) * 100}%`,
-            width: `${((box.right - box.left) / result.width) * 100}%`,
-            height: `${((box.bottom - box.top) / result.height) * 100}%`,
-          }}
-        />
-      ) : null}
-    </div>
+    <PhotoFrame
+      url={url}
+      alt={item.original_name ?? "uploaded photo"}
+      reading={item.result ? new PhotoReading(item.result) : undefined}
+    />
   );
-}
-
-function percent(probability: number): string {
-  const value = probability * 100;
-  return value >= 99.5 ? ">99%" : value < 1 ? "<1%" : `${value.toFixed(0)}%`;
 }
 
 function Notes({ item, result }: { item: PhotoIdentification; result: PhotoIdResult }) {
@@ -122,29 +104,11 @@ function Answer({ item }: { item: PhotoIdentification }) {
       </div>
     );
   }
-  const best = item.result.ranking[0];
-  const verdict = item.result.verdict ?? (item.result.bird_box ? "corvid" : "no_bird");
+  const reading = new PhotoReading(item.result);
   return (
     <>
-      <h3>{verdict === "other" ? "Not a corvid" : verdict === "no_bird" ? "No bird found" : best.common_name}</h3>
-      <span className="sci">
-        {verdict === "other"
-          ? `The detector sees ${item.result.instead ?? "something else"} and no bird. The ranking is what the head says anyway.`
-          : verdict === "no_bird"
-            ? `Closest match if there is a corvid in it: ${best.common_name}.`
-            : best.scientific_name}
-      </span>
-      <div className="bars">
-        {item.result.ranking.slice(0, SHOWN).map((score) => (
-          <div className="bar" key={score.slug}>
-            <div className="name">{score.common_name}</div>
-            <div className="track">
-              <div className="fill" style={{ width: `${score.probability * 100}%` }} />
-            </div>
-            <div className="v">{percent(score.probability)}</div>
-          </div>
-        ))}
-      </div>
+      <PhotoHeadline reading={reading} />
+      <SpeciesRanking reading={reading} count={PhotoReading.SHOWN} />
       <Notes item={item} result={item.result} />
     </>
   );

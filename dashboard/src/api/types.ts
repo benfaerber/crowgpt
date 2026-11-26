@@ -7,7 +7,12 @@
  * while these are read-model rows with join counts the app has no concept of.
  * The two clients speak to disjoint endpoints, so a shared type would be a
  * coupling with nothing behind it.
+ *
+ * What a scan's result looks like is the exception: the promo's Scan page
+ * reads the very same JSON, so those shapes live in ../../../shared/scan.
  */
+
+import type { CoDetection, PhotoResult, SoundResult } from "../../../shared/scan";
 
 export type ContributorRole = "contributor" | "operator" | "admin";
 export type CaptureStatus = "recording" | "uploaded" | "analyzing" | "analyzed";
@@ -208,6 +213,8 @@ export interface DetectedCall {
    * the numbers.
    */
   multi_label?: boolean;
+  /** Raptors BirdNET heard over this span. Only a scan's calls carry it. */
+  co_detections?: CoDetection[];
 }
 
 export interface Label {
@@ -271,13 +278,7 @@ export interface Observation {
   updated_at: string;
 }
 
-export interface CoDetection {
-  species: string;
-  scientific_name?: string | null;
-  confidence: number;
-  start?: number;
-  end?: number;
-}
+export type { CoDetection, PhotoResult, SoundResult };
 
 /** What the worker produced. The waveform was always here — just never drawn. */
 export interface Analysis {
@@ -715,17 +716,7 @@ export interface SpeciesScore {
 
 /** What the photo worker wrote back: the ranking, where the bird is, and
  *  which coordinates it considered (given, or read from the photo's EXIF). */
-export interface PhotoIdResult {
-  ranking: SpeciesScore[];
-  bird_box: { left: number; top: number; right: number; bottom: number; score: number; birds: number } | null;
-  verdict?: "corvid" | "no_bird" | "other";
-  instead?: string | null;
-  used_location: boolean;
-  latitude: number | null;
-  longitude: number | null;
-  width: number;
-  height: number;
-}
+export type PhotoIdResult = PhotoResult;
 
 /** One uploaded photo on the Photo ID page — the request and, once the worker
  *  finishes, the answer. */
@@ -784,14 +775,37 @@ export interface ScanLabel {
   call_type: string;
   caller_role: string | null;
   from_detection: number;
+  config_version: number | null;
   created_at: string;
 }
 
 export interface ScanContext {
   client_uuid: string;
+  /** Null when it describes the whole recording rather than one label. */
   label_uuid: string | null;
   key: string;
+  start_sec: number | null;
+  end_sec: number | null;
+  created_at: string;
 }
+
+/** The scanner's answer in a line, for a row in the pile. */
+export type ScanHeard =
+  | {
+      kind: "photo";
+      verdict: "corvid" | "no_bird" | "other";
+      instead: string | null;
+      species: string | null;
+      probability: number | null;
+      birds: number;
+    }
+  | {
+      kind: "sound";
+      species: string[];
+      call_types: { call_type: string; count: number }[];
+      candidates: number;
+      co_detections: CoDetection[];
+    };
 
 /** A file a visitor to the Scan page let the project keep. Not a capture. */
 export interface ScanContribution {
@@ -803,8 +817,14 @@ export interface ScanContribution {
   created_at: string;
   /** The address the file was uploaded from. Null on rows kept before revision 0043. */
   requester_ip: string | null;
+  /** The file's extension, which is all the server knows of its format. */
+  format: string;
   duration_sec: number | null;
+  /** The recording ran past what the scanner reads, and the rest was not heard. */
+  truncated: boolean;
   call_count: number;
+  /** Null on a row whose scan stored no result. */
+  heard: ScanHeard | null;
   silent_confirmed_at: string | null;
   promoted_capture_id: number | null;
   /** The visitor's labelling link. Absent on a photo, and on rows kept before the desk existed. */
@@ -831,6 +851,11 @@ export interface ScanContributionDetail extends ScanContribution {
   calls: DetectedCall[];
   labels: ScanLabel[];
   context: ScanContext[];
+  /** The worker's whole answer as stored. A sound result's `calls` are also
+   *  served above as `calls`, in the shape a capture's detections take. */
+  result: PhotoResult | SoundResult | null;
+  storage_ref: string;
+  public_id: string | null;
 }
 
 /** One UTC day of crowgpt.org traffic, as the traffic worker summarised it. */

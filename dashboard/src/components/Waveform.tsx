@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 
+import { TimelineGeometry } from "../../../shared/scan";
 import type { DetectedCall } from "../api/types";
 
 /**
@@ -31,24 +32,12 @@ export function Waveform({
 }) {
   const width = 1000;
   const height = 120;
-  const mid = height / 2;
-
-  // Bars, not a filled path: a peak envelope is a series of maxima, and
-  // interpolating between them draws a shape the audio never had.
-  const bars = useMemo(() => {
-    if (peaks.length === 0) return [];
-    const step = width / peaks.length;
-    return peaks.map((peak, index) => ({
-      x: index * step,
-      w: Math.max(0.5, step * 0.8),
-      h: Math.max(1, Math.min(1, peak) * (height - 8)),
-    }));
-  }, [peaks]);
+  const geometry = useMemo(() => new TimelineGeometry(duration, width, height), [duration]);
+  const bars = useMemo(() => geometry.bars(peaks), [geometry, peaks]);
 
   const seekFromEvent = (event: React.MouseEvent<SVGSVGElement>) => {
     const box = event.currentTarget.getBoundingClientRect();
-    const fraction = (event.clientX - box.left) / box.width;
-    onSeek(Math.max(0, Math.min(1, fraction)) * duration);
+    onSeek(geometry.secondsAt((event.clientX - box.left) / box.width));
   };
 
   if (peaks.length === 0 && calls.length === 0) return null;
@@ -69,8 +58,7 @@ export function Waveform({
       }}
     >
       {calls.map((call, index) => {
-        const x = (call.start_sec / duration) * width;
-        const w = Math.max(2, ((call.end_sec - call.start_sec) / duration) * width);
+        const { x, width: w } = geometry.band(call.start_sec, call.end_sec);
         const color = colorFor(call.call_type);
         return (
           <g key={index}>
@@ -91,9 +79,9 @@ export function Waveform({
         <rect
           key={index}
           x={bar.x}
-          y={mid - bar.h / 2}
-          width={bar.w}
-          height={bar.h}
+          y={bar.y}
+          width={bar.width}
+          height={bar.height}
           fill="var(--muted)"
           opacity={0.75}
         />
@@ -101,7 +89,7 @@ export function Waveform({
 
       {position != null && duration > 0 ? (
         <rect
-          x={(position / duration) * width}
+          x={geometry.x(position)}
           y={0}
           width={2}
           height={height}

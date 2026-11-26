@@ -183,6 +183,39 @@ class TestTheOperatorsPile:
                             headers=operator.headers).get_json()
         assert detail["labels"][0]["call_type"] == "alarm call"
 
+    def test_a_row_says_what_the_scanner_heard(self, client, scans, operator):
+        heard = {**RESULT, "co_detections": [{"species": "Cooper's Hawk", "confidence": 0.74}],
+                 "calls": RESULT["calls"] + [{**RESULT["calls"][0], "start": 1.5, "end": 2.0,
+                                              "candidate": True}]}
+        kept(scans, result=heard)
+        row = client.get("/api/fleet/scan-contributions",
+                         headers=operator.headers).get_json()["contributions"][0]
+        assert row["format"] == "wav" and row["truncated"] is False
+        assert row["heard"] == {
+            "kind": "sound", "species": ["Common Raven"],
+            "call_types": [{"call_type": "alarm call", "count": 2}], "candidates": 1,
+            "co_detections": heard["co_detections"]}
+        detail = client.get(f"/api/fleet/scan-contributions/{row['id']}",
+                            headers=operator.headers).get_json()
+        assert detail["result"] == heard
+        assert detail["storage_ref"].endswith(".wav")
+
+    def test_a_photo_row_names_the_bird_or_says_there_is_none(self, client, scans, operator):
+        crow = {"ranking": [{"slug": "american-crow", "common_name": "American Crow",
+                             "scientific_name": "Corvus brachyrhynchos", "probability": 0.93}],
+                "bird_box": {"left": 1, "top": 2, "right": 30, "bottom": 40, "score": 0.98,
+                             "birds": 2},
+                "used_location": False, "latitude": None, "longitude": None,
+                "location_source": None, "width": 64, "height": 48}
+        kept(scans, "crow.jpg", b"jpeg", crow)
+        kept(scans, "cat.jpg", b"jpeg", {**crow, "bird_box": None, "verdict": "other",
+                                         "instead": "cat"})
+        cat, bird = [row["heard"] for row in client.get(
+            "/api/fleet/scan-contributions", headers=operator.headers).get_json()["contributions"]]
+        assert bird == {"kind": "photo", "verdict": "corvid", "instead": None,
+                        "species": "American Crow", "probability": 0.93, "birds": 2}
+        assert (cat["verdict"], cat["instead"], cat["birds"]) == ("other", "cat", 0)
+
     def test_delete_removes_the_file_and_the_answers(self, client, scans, desk, operator):
         public_id = kept(scans)
         put_label(client, public_id)

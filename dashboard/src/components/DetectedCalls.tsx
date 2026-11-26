@@ -1,3 +1,4 @@
+import { coDetectionLine } from "../../../shared/scan";
 import type { Analysis, FleetConfig } from "../api/types";
 import { formatConfidence } from "../format";
 import { colorForCall, labelText } from "../vocab";
@@ -12,7 +13,7 @@ export function DetectedCalls({
   config: FleetConfig | undefined;
 }) {
   const calls = analysis?.calls ?? [];
-  const coDetections = analysis?.co_detections ?? [];
+  const alsoHeard = coDetectionLine(analysis?.co_detections);
   return (
     <>
       <h2 style={{ marginTop: "1.2rem" }}>
@@ -99,16 +100,13 @@ export function DetectedCalls({
           </table>
         </div>
       ) : null}
-      {coDetections.length > 0 ? (
+      {alsoHeard ? (
         <p
           className="muted"
           style={{ fontSize: ".82rem", marginTop: ".45rem" }}
           title="High-confidence raptor co-detection from BirdNET — reported strictly as another species heard on the audio, never as context or a reason for the crows calling"
         >
-          BirdNET also heard:{" "}
-          {coDetections
-            .map((det) => `${det.species} (${det.confidence.toFixed(2)})`)
-            .join(", ")}
+          {alsoHeard}
         </p>
       ) : null}
     </>

@@ -40,7 +40,15 @@ before wondering and written before working.
 
 ## Active
 
-- **Alala** — since 2026-11-21 18:44 — audit of externally available LABELLED corvid vocalisation data: DONE and reported to Ben in the terminal (web research only; nothing downloaded, nothing written to the tree but this line). Waiting on Ben's call about which leads to fetch or email. Server, phones, GPU untouched. Updated 2026-11-21 19:05.
+- **Fish Crow** — since 2026-11-25 18:33 — reviewed `cdb8ef8` for Ben (read-only), then rebuilt the dashboard's Kept scans detail: the row and the opened view show the scanner's whole answer (photo ranking and box, calls, co-detections, visitor labels), and `shared/scan` now holds the result-reading code the dashboard and the promo both compile in. Committed locally. Local `make field` restarted on it (:5100, healthy) and is my instance now; two test photo scans of mine sit in the local pile (ids 3, 4). NOT deployed, promo not republished. GPU, phones, hosted box untouched. Updated 2026-11-26 13:20.
+
+- **Tufted Jay** — since 2026-11-22 16:40 — owl film with real mobbing footage committed (6b56755, 19c9660); preview `data/video/crowgpt-owl-preview.mp4` sent to Ben, waiting on his review. Footage cut data-side under `data/video/footage`. Nothing running; GPU, server, phones, hosted box untouched; nothing pushed. Updated 2026-11-22 17:40.
+
+- ~~**Whiskyjack** — since 2026-11-22 15:28 — 0112 (CrowGPT/Perch no better than BirdNET on meaning; CrowGPT counts crows better; Perch confirms posture), 0113 (one crow's graded calling reads context, 0.665), 0114 (context token: narrow null, mostly crowd). All committed (397b06b, 6135a6e, 66a0487); GPU released 16:57. Server, phones, hosted box untouched; nothing pushed. Updated 2026-11-22 16:58.~~
+
+- **Piapiac** — since 2026-11-22 15:20 — corpus page quality indicators committed (remark text, grades, labels, other species, timed annotations); local `make field` restarted on it (:5100, healthy). Waiting on Ben's look. NOT deployed. Phones, GPU, hosted box untouched. Updated 2026-11-22 15:50.
+
+- **Alala** — since 2026-11-21 18:44 — for Ben, the archive-remarks path, all committed locally: 0104–0108, 0109 (crow-count head, 0.80 inside a call type), 0110 (frozen archive context heads outside the archives: begging 0.9996, roost 0.78 and mostly crowd, raptor mobbing 0.73), 0111 (begging head false alarms: 21% on hand-labelled archive files, 4% on winter phone recordings, right on all 24 kept captures — fails the pre-set bar; next step is a listening pool, in FUTURE). Idle now. Local field server is now Piapiac's instance (they restarted it; mine ended). Phones untouched; nothing pushed or deployed. Updated 2026-11-22 15:11.
 
 - **Pinyon** — since 2026-11-21 18:42 — GPU released 21:05. Acted on Alala's audit: reverted `7185300` (`94d5e81`), corrected `0102/README.md` (`b4efa8d`), and completed pre-registered Experiment `0103-caw-level-and-posture-controls` (locked `2023-01-01` temporal holdout, all-non-crow BirdNET masking, caw-level CV + single-shot holdout, blind posture coding across 148 strict remarks). Server, phones, and GPU untouched; nothing pushed or deployed. Updated 2026-11-21 22:05.
 
@@ -60,6 +68,8 @@ before wondering and written before working.
 
 
 ## Done
+
+- ~~**Bushcrow** — 2026-11-22 21:14 → 2026-11-25 17:17 — completed experiments 0115–0121 (437b51c..d946a1f) and shipped the 0121-validated 3-part analyzer upgrade locally (cdb8ef8): retrained `american-crow` on uniform 1024-d `birdnet_window_mean` (`C=0.1`, pure `crow-tools` `rattle`, AUC 0.966; archive `none` left out per 0121), emitted `"rattle"` instead of `"call"` on American Crow, added true taxonomic raptor co-detections (`>= 0.70`, revision 0045) rendered as `"BirdNET also heard: <Species> (<conf>)"` in dashboard and promo scan, rebuilt local static bundles, and restarted local `make field` (:5100 healthy on cdb8ef8). Phones and hosted box untouched; nothing pushed or deployed.~~
 
 - ~~**Currawong** — 2026-11-21 12:25 → 12:31 — built and registered blinded listening pool `quality-0101` (pool 9: `0101 Dual-AR q4_crisp CFG 1.6` vs `CrowGPT2`, 54 trials in 3 doses of 18, 30-min cooldown, 40 compares + 8 catches + 6 repeats, fresh unseen test groups and seed block `101500+`). GPU released 12:30.~~
 

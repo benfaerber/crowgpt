@@ -112,6 +112,8 @@ export default defineConfig({
   },
   server: {
     port: 5174,
+    // ../shared is compiled into this page and lives outside its root.
+    fs: { allow: [".."] },
     // The dev page calls its own origin like the /promo build does, and the
     // local field server answers.
     proxy: {

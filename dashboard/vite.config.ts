@@ -48,6 +48,8 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // ../shared is compiled into this page and lives outside its root.
+    fs: { allow: [".."] },
     proxy: {
       "/api": {
         target: process.env.FIELD_SERVER ?? "http://127.0.0.1:5100",

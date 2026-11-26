@@ -1,44 +1,21 @@
 /** A scanned photo: the visitor's own picture with the bird the classifier
  *  judged boxed on it, and the species ranked beside it. */
 
+import { PhotoReading, percent, type PhotoResult } from "../../shared/scan";
 import { el } from "./dom";
 
-interface SpeciesScore {
-  slug: string;
-  common_name: string;
-  scientific_name: string;
-  probability: number;
-}
-
-export interface PhotoResult {
-  ranking: SpeciesScore[];
-  bird_box: { left: number; top: number; right: number; bottom: number; birds: number } | null;
-  used_location: boolean;
-  latitude: number | null;
-  longitude: number | null;
-  location_source: "exif" | "given" | null;
-  width: number;
-  height: number;
-  /** "other": the photo is of something else, named in `instead`. */
-  verdict?: "corvid" | "no_bird" | "other";
-  instead?: string | null;
-}
-
-/** How many species to list. The rest are near zero. */
-const SHOWN = 4;
-
-function percent(probability: number): string {
-  const value = probability * 100;
-  if (value >= 99.5) return ">99%";
-  return value < 1 ? "<1%" : `${Math.round(value)}%`;
-}
+export type { PhotoResult };
 
 export class ScanPhoto {
+  private readonly reading: PhotoReading;
+
   constructor(
     private readonly result: PhotoResult,
     private readonly imageUrl: string,
     private readonly name: string,
-  ) {}
+  ) {
+    this.reading = new PhotoReading(result);
+  }
 
   render(): HTMLElement {
     const answer = el("div", { className: "scan-answer" }, ...this.headline());
@@ -46,16 +23,16 @@ export class ScanPhoto {
     return el("div", { className: "scan-photo" }, this.frame(), answer);
   }
 
-  private get verdict(): "corvid" | "no_bird" | "other" {
-    return this.result.verdict ?? (this.result.bird_box ? "corvid" : "no_bird");
+  private get verdict() {
+    return this.reading.verdict;
   }
 
   /** A species is only the headline when a bird was found. A cat named as
    *  the crow it least unlike is the answer this page must not give. */
   private headline(): HTMLElement[] {
-    const best = this.result.ranking[0];
+    const best = this.reading.best!;
     if (this.verdict === "other") {
-      const subject = this.result.instead ?? "something else";
+      const subject = this.reading.instead;
       const article = /^[aeiou]/.test(subject) ? "an" : "a";
       return [
         el("h3", { text: "Not a corvid" }),
@@ -79,16 +56,13 @@ export class ScanPhoto {
   private frame(): HTMLElement {
     const frame = el("div", { className: "scan-frame" },
       el("img", { attrs: { src: this.imageUrl, alt: this.name } }));
-    const box = this.result.bird_box;
+    const box = this.reading.box;
     if (box) {
       const outline = el("div", {
         className: "scan-box",
         attrs: { title: "The bird the classifier judged" },
       });
-      outline.style.left = `${(box.left / this.result.width) * 100}%`;
-      outline.style.top = `${(box.top / this.result.height) * 100}%`;
-      outline.style.width = `${((box.right - box.left) / this.result.width) * 100}%`;
-      outline.style.height = `${((box.bottom - box.top) / this.result.height) * 100}%`;
+      Object.assign(outline.style, box);
       frame.append(outline);
     }
     return frame;
@@ -96,7 +70,7 @@ export class ScanPhoto {
 
   private ranking(): HTMLElement {
     const list = el("ul", { className: "scan-ranking" });
-    for (const score of this.result.ranking.slice(0, SHOWN)) {
+    for (const score of this.reading.top()) {
       const fill = el("span", { className: "scan-ranking-fill" });
       fill.style.width = `${score.probability * 100}%`;
       list.append(el("li", {},
@@ -115,8 +89,8 @@ export class ScanPhoto {
     }
     if (this.result.bird_box === null) {
       notes.push("The ranking describes the whole photo, so treat it as a guess. A photo where the bird is larger in the frame may do better.");
-    } else if (this.result.bird_box.birds > 1) {
-      notes.push(`${this.result.bird_box.birds} birds were found; the largest was judged.`);
+    } else if (this.reading.birds > 1) {
+      notes.push(`${this.reading.birds} birds were found; the largest was judged.`);
     }
     if (this.result.used_location && this.result.location_source === "exif") {
       notes.push("The photo's own GPS tags say where it was taken, and that was used to rule species in and out.");

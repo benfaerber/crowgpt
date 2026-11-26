@@ -6,36 +6,16 @@
  *  seeks it there, so every detection can be checked by ear.
  */
 
+import {
+  TimelineGeometry,
+  clock,
+  coDetectionLine,
+  type ScanCall as Call,
+  type SoundResult,
+} from "../../shared/scan";
 import { el } from "./dom";
 
-export interface CoDetection {
-  species: string;
-  scientific_name?: string;
-  confidence: number;
-  start?: number;
-  end?: number;
-}
-
-export interface Call {
-  start: number;
-  end: number;
-  species: string;
-  scientific_name: string;
-  call_type: string | null;
-  confidence: number | null;
-  crow_conf: number;
-  candidate: boolean;
-  co_detections?: CoDetection[];
-}
-
-export interface SoundResult {
-  duration_sec: number;
-  waveform: number[];
-  calls: Call[];
-  co_detections?: CoDetection[];
-  truncated: boolean;
-  located: boolean;
-}
+export type { SoundResult };
 
 /** The call-type colours, as on the front page, the app and the dashboard.
  *  American Crow emits `rattle` rather than `call` (experiment 0012, 0121);
@@ -61,11 +41,6 @@ function svg(tag: string, attrs: Record<string, string | number>): SVGElement {
   return node;
 }
 
-function clock(seconds: number): string {
-  const whole = Math.max(0, Math.floor(seconds));
-  return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, "0")}`;
-}
-
 function colourOf(call: Call): string {
   return (call.call_type && CALL_COLOURS[call.call_type]) || NO_TYPE;
 }
@@ -77,10 +52,14 @@ function titleCase(text: string): string {
 export class ScanTimeline {
   private readonly playhead = svg("rect", { y: 0, width: 2, height: HEIGHT, class: "scan-playhead" });
 
+  private readonly geometry: TimelineGeometry;
+
   constructor(
     private readonly result: SoundResult,
     private readonly media: HTMLMediaElement,
-  ) {}
+  ) {
+    this.geometry = new TimelineGeometry(result.duration_sec, WIDTH, HEIGHT);
+  }
 
   render(): HTMLElement {
     const calls = this.result.calls;
@@ -113,8 +92,7 @@ export class ScanTimeline {
       "aria-label": `Waveform with ${this.result.calls.length} detected call regions`,
     });
     for (const call of this.result.calls) {
-      const x = (call.start / this.span) * WIDTH;
-      const width = Math.max(2, ((call.end - call.start) / this.span) * WIDTH);
+      const { x, width } = this.geometry.band(call.start, call.end);
       const band = svg("g", {});
       const title = svg("title", {});
       title.textContent = `${this.describe(call)} · ${clock(call.start)}–${clock(call.end)}`;
@@ -126,20 +104,13 @@ export class ScanTimeline {
       );
       chart.append(band);
     }
-    const peaks = this.result.waveform;
-    const step = WIDTH / Math.max(peaks.length, 1);
-    peaks.forEach((peak, index) => {
-      const height = Math.max(1, Math.min(1, peak) * (HEIGHT - 10));
-      chart.append(svg("rect", {
-        x: index * step, y: HEIGHT / 2 - height / 2,
-        width: Math.max(0.5, step * 0.8), height, class: "scan-bar",
-      }));
-    });
+    for (const bar of this.geometry.bars(this.result.waveform)) {
+      chart.append(svg("rect", { ...bar, class: "scan-bar" }));
+    }
     chart.append(this.playhead);
     chart.addEventListener("click", event => {
       const box = chart.getBoundingClientRect();
-      const fraction = Math.max(0, Math.min(1, ((event as MouseEvent).clientX - box.left) / box.width));
-      this.seek(fraction * this.span);
+      this.seek(this.geometry.secondsAt(((event as MouseEvent).clientX - box.left) / box.width));
     });
     return chart;
   }
@@ -198,13 +169,8 @@ export class ScanTimeline {
 
   private notes(): string[] {
     const notes: string[] = [];
-    if (this.result.co_detections && this.result.co_detections.length > 0) {
-      notes.push(
-        `BirdNET also heard: ${this.result.co_detections
-          .map(det => `${det.species} (${det.confidence.toFixed(2)})`)
-          .join(", ")}`,
-      );
-    }
+    const alsoHeard = coDetectionLine(this.result.co_detections);
+    if (alsoHeard) notes.push(alsoHeard);
     if (this.result.truncated) {
       notes.push(`Only the first ${Math.round(this.result.duration_sec)} seconds were scanned.`);
     }
@@ -229,7 +195,6 @@ export class ScanTimeline {
   }
 
   private movePlayhead(): void {
-    const x = Math.min(1, this.media.currentTime / this.span) * WIDTH;
-    this.playhead.setAttribute("x", String(x));
+    this.playhead.setAttribute("x", String(this.geometry.x(this.media.currentTime)));
   }
 }

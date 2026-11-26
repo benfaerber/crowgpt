@@ -30,6 +30,54 @@ class DeskFull(ValueError):
     pass
 
 
+class ScanReading:
+    """What the scanner made of one kept file, in a line.
+
+    The stored `result` is the worker's whole answer and the operator's detail
+    view serves it as it is. This is the part of it a row in the pile can
+    carry: enough to tell a crow photo from a cat, and an alarm from silence,
+    without opening anything.
+    """
+
+    def __init__(self, contribution):
+        self.kind = contribution["kind"]
+        self.result = contribution.get("result") or {}
+
+    def summary(self) -> dict | None:
+        if not self.result:
+            return None
+        return self._photo() if self.kind == "photo" else self._sound()
+
+    def _photo(self) -> dict:
+        ranking = self.result.get("ranking") or []
+        box = self.result.get("bird_box")
+        best = ranking[0] if ranking else {}
+        return {
+            "kind": "photo",
+            "verdict": self.result.get("verdict") or ("corvid" if box else "no_bird"),
+            "instead": self.result.get("instead"),
+            "species": best.get("common_name"),
+            "probability": best.get("probability"),
+            "birds": box["birds"] if box else 0,
+        }
+
+    def _sound(self) -> dict:
+        calls = self.result.get("calls") or []
+        species, call_types = [], {}
+        for call in calls:
+            if call.get("species") and call["species"] not in species:
+                species.append(call["species"])
+            if call.get("call_type"):
+                call_types[call["call_type"]] = call_types.get(call["call_type"], 0) + 1
+        return {
+            "kind": "sound",
+            "species": species,
+            "call_types": [{"call_type": key, "count": count} for key, count in call_types.items()],
+            "candidates": sum(1 for call in calls if call.get("candidate")),
+            "co_detections": self.result.get("co_detections") or [],
+        }
+
+
 class ScanDeskStore(Database):
     def __init__(self, db_path, kept_dir):
         super().__init__(db_path)
@@ -74,6 +122,7 @@ class ScanDeskStore(Database):
             "crow_conf": call.get("crow_conf"), "candidate": int(bool(call.get("candidate"))),
             "alternates": call.get("alternates") or [],
             "multi_label": bool(call.get("multi_label")),
+            "co_detections": call.get("co_detections") or [],
         } for call in found if "start" in call and "end" in call]
 
     def path(self, contribution) -> Path:

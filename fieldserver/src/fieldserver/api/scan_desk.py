@@ -33,7 +33,7 @@ from .demo import allowed_origins
 from ..core.throttle import Allowance
 from ..core.transcode import TranscodeError
 from ..stores.contributors import FLEET_ROLES
-from ..stores.scan_desk import DeskFull, ScanDeskStore
+from ..stores.scan_desk import DeskFull, ScanDeskStore, ScanReading
 
 DESK_DIR = Path(__file__).resolve().parents[1] / "static" / "label"
 
@@ -244,8 +244,11 @@ def register(app, d) -> None:
             "id": row["id"], "kind": row["kind"], "bytes": row["bytes"],
             "latitude": row["latitude"], "longitude": row["longitude"],
             "created_at": row["created_at"], "requester_ip": row["requester_ip"],
+            "format": Path(row["storage_ref"]).suffix.lstrip(".").lower(),
             "duration_sec": result.get("duration_sec"),
+            "truncated": bool(result.get("truncated")),
             "call_count": len(desk.calls(row)),
+            "heard": ScanReading(row).summary(),
             "silent_confirmed_at": row["silent_confirmed_at"],
             "promoted_capture_id": row["promoted_capture_id"],
             "desk_url": (request.url_root.rstrip("/") + f"/label/{row['public_id']}"
@@ -253,7 +256,8 @@ def register(app, d) -> None:
         }
         if detail:
             out.update(calls=desk.calls(row), labels=desk.labels(row["id"]),
-                       context=desk.context(row["id"]))
+                       context=desk.context(row["id"]), result=row["result"],
+                       storage_ref=row["storage_ref"], public_id=row["public_id"])
         else:
             out.update(label_count=row["label_count"], context_count=row["context_count"])
         return out
