@@ -88,3 +88,66 @@ LOCALISE_STEP = 1
 #: are near-ties by construction — capture 104's two best differ by 0.006, and
 #: picking one of them would dress a coin-flip as a measurement.
 LOCALISE_TOLERANCE = 0.9
+
+#: Minimum BirdNET confidence for reporting a co-detected raptor alongside the
+#: corvid detections ("BirdNET also heard: Cooper's Hawk (0.74)").
+#:
+#: Set high on purpose (experiment 0121): Blue and Steller's Jays imitate
+#: Red-tailed and Red-shouldered Hawks, and BirdNET otherwise drops every
+#: non-corvid detection on the floor. At >= 0.70 over true taxonomic raptor
+#: genera, false alarms are 0/29 on kept field captures and 1.9% (8/429) on
+#: non-raptor archive crow scenes while retaining clear vocal raptors — and a
+#: vocal raptor is both useful to surface honestly and the exact acoustic leak
+#: strict predator-call analyses must know to exclude.
+RAPTOR_MIN_CONF = 0.70
+
+#: Scientific genera of true raptors (Accipitriformes, Falconiformes,
+#: Strigiformes, Cathartiformes) present in BirdNET v2.4, plus recent splits
+#: (e.g. Astur, Tachyspiza, Aerospiza). Matching by genus avoids English
+#: substring traps like Common Nighthawk (Chordeiles minor, 0.72 on capture 69),
+#: Australian Owlet-nightjar (Aegotheles), Hawk-Cuckoos (Hierococcyx), Fowler's
+#: Toad (Anaxyrus fowleri), or Black-cowled Oriole (Icterus prosthemelas).
+RAPTOR_GENERA = frozenset({
+    # Accipitridae + Pandionidae + Sagittariidae
+    "accipiter", "aerospiza", "aegypius", "aquila", "astur", "aviceda",
+    "busarellus", "butastur", "buteo", "buteogallus", "chelictinia",
+    "chondrohierax", "circaetus", "circus", "clanga", "cryptoleucopteryx",
+    "dryotriorchis", "elanoides", "elanus", "erythrotriorchis", "eutriorchis",
+    "gampsonyx", "geranoaetus", "geranospiza", "gypaetus", "gypohierax", "gyps",
+    "haliaeetus", "haliastur", "hamirostra", "harpagus", "harpia",
+    "harpyhaliaetus", "harpyopsis", "helicolestes", "henicopernis",
+    "hieraaetus", "ichthyophaga", "ictinaetus", "ictinia", "kaupifalco",
+    "leptodon", "leucopternis", "lophaetus", "lophoictinia", "lophotriorchis",
+    "macheiramphus", "megatriorchis", "melierax", "micronisus", "milvus",
+    "morphnarchus", "morphnus", "necrosyrtes", "neophron", "nisaetus",
+    "pandion", "parabuteo", "pernis", "pithecophaga", "polemaetus",
+    "polyboroides", "pseudastur", "rostrhamus", "rupornis", "sagittarius",
+    "sarcogyps", "spilornis", "spizaetus", "stephanoaetus", "tachyspiza",
+    "terathopius", "torgos", "trigonoceps", "urotriorchis",
+    # Falconidae
+    "caracara", "daptrius", "falco", "herpetotheres", "ibycter", "micrastur",
+    "microhierax", "milvago", "neohierax", "phalcoboenus", "polihierax",
+    "spiziapteryx",
+    # Strigidae + Tytonidae
+    "aegolius", "asio", "athene", "bubo", "ciccaba", "glaucidium", "gymnasio",
+    "gymnoglaux", "jubula", "ketupa", "lophostrix", "margarobyas", "megascops",
+    "micrathene", "nesasio", "ninox", "nyctea", "otus", "phodilus",
+    "pseudoscops", "psiloscops", "ptilopsis", "pulsatrix", "sceloglaux",
+    "scotopelia", "speotyto", "strix", "surnia", "taenioptynx", "tyto",
+    "uroglaux", "xenoglaux",
+    # Cathartidae
+    "cathartes", "coragyps", "gymnogyps", "sarcoramphus", "vultur",
+})
+
+#: Whole-word fallback when a caller hands in a common name with no scientific
+#: name, guarded by NON_RAPTOR_TERMS so nighthawks/cuckoos/owlet-nightjars never
+#: slip through.
+RAPTOR_WORDS = frozenset({
+    "baza", "besra", "buzzard", "caracara", "condor", "eagle", "falcon",
+    "falconet", "goshawk", "gyrfalcon", "harrier", "hawk", "hobby", "kestrel",
+    "kite", "merlin", "osprey", "owl", "owlet", "shikra", "vulture",
+})
+NON_RAPTOR_TERMS = (
+    "nighthawk", "nightjar", "chordeiles", "lurocalis", "nyctiprogne",
+    "caprimulg", "aegotheles", "cuckoo", "hierococcyx", "coccyzus", "shrike",
+)

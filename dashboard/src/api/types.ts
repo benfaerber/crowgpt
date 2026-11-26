@@ -271,10 +271,20 @@ export interface Observation {
   updated_at: string;
 }
 
+export interface CoDetection {
+  species: string;
+  scientific_name?: string | null;
+  confidence: number;
+  start?: number;
+  end?: number;
+}
+
 /** What the worker produced. The waveform was always here — just never drawn. */
 export interface Analysis {
   capture_id: number;
   calls: DetectedCall[];
+  /** High-confidence raptor co-detections (>= 0.70); never context or cause. */
+  co_detections?: CoDetection[];
   duration?: number;
   /** Peak envelope, 0..1, computed once by the worker and stored. */
   waveform?: number[];

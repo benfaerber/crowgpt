@@ -26,6 +26,7 @@ import contextlib
 import hashlib
 import json
 import os
+import re
 import resource
 import subprocess
 import sys
@@ -62,6 +63,10 @@ try:
         LOCALISE_STEP,
         LOCALISE_TOLERANCE,
         LOCALISE_WINDOWS,
+        NON_RAPTOR_TERMS,
+        RAPTOR_GENERA,
+        RAPTOR_MIN_CONF,
+        RAPTOR_WORDS,
         REGION_GAP,
         WAVEFORM_BINS,
         WINDOW_SEC,
@@ -77,6 +82,10 @@ except ImportError:
         LOCALISE_STEP,
         LOCALISE_TOLERANCE,
         LOCALISE_WINDOWS,
+        NON_RAPTOR_TERMS,
+        RAPTOR_GENERA,
+        RAPTOR_MIN_CONF,
+        RAPTOR_WORDS,
         REGION_GAP,
         WAVEFORM_BINS,
         WINDOW_SEC,
@@ -197,22 +206,22 @@ def _check_bundle(bundle, model_path):
     if not feature:
         raise HeadMismatch(
             f"{model_path} does not say which feature space it was trained "
-            f"on; this analyzer produces '{pooling.FEATURE}'. Re-save the "
-            f"bundle with its `feature` recorded, or retrain it."
+            f"on; this analyzer produces {sorted(pooling.FEATURES)}. Re-save "
+            f"the bundle with its `feature` recorded, or retrain it."
         )
-    if feature != pooling.FEATURE:
+    if feature not in pooling.FEATURES:
         raise HeadMismatch(
             f"{model_path} was trained on '{feature}' features; this analyzer "
-            f"produces '{pooling.FEATURE}'. Retrain the head, or run the "
-            f"backbone it belongs to."
-        )
-    width = head_width(bundle)
-    if width and width != pooling.POOLED_DIM:
-        raise HeadMismatch(
-            f"{model_path} expects {width}-dim features "
-            f"({feature or 'backbone unrecorded'}); this analyzer produces "
-            f"{pooling.POOLED_DIM} ({pooling.FEATURE}). Retrain the head, or run "
+            f"produces {sorted(pooling.FEATURES)}. Retrain the head, or run "
             f"the backbone it belongs to."
+        )
+    expected_dim, _ = pooling.FEATURES[feature]
+    width = head_width(bundle)
+    if width and width != expected_dim:
+        raise HeadMismatch(
+            f"{model_path} expects {width}-dim features ({feature}); "
+            f"'{feature}' is {expected_dim}-dim. Retrain the head, or fix the "
+            f"recorded feature name."
         )
     return width
 
@@ -226,6 +235,7 @@ class SpeciesHead:
         self.path = Path(model_path)
         self.dim = _check_bundle(bundle, model_path)
         self.feature = bundle.get("feature")
+        self.pool = pooling.pool_for(self.feature)
         #: A one-vs-rest head's probabilities are independent and do not sum to
         #: one, so a second high class means it heard two things. A softmax's do
         #: compete, so the same shape of number means something weaker.
@@ -255,7 +265,8 @@ class SpeciesHead:
 
     def probabilities(self, embeddings):
         """{class: probability} for one pooled span. The shared primitive."""
-        proba = self.classifier.predict_proba(pool(embeddings).reshape(1, -1))[0]
+        pool_fn = getattr(self, "pool", pool)
+        proba = self.classifier.predict_proba(pool_fn(embeddings).reshape(1, -1))[0]
         return dict(zip(self.classes, (float(p) for p in proba)))
 
     def localise(self, windows, wanted):
@@ -485,26 +496,62 @@ def waveform_envelope(path: Path):
     return [round(float(v), 3) for v in env], round(duration, 2)
 
 
+_WORD_SPLIT = re.compile(r"[^a-z]+")
+
+
 def corvid_name(det):
     """The detection's common name if it is a corvid, else None."""
     blob = f"{det.get('common_name','')} {det.get('scientific_name','')}".lower()
     return det.get("common_name") if any(t in blob for t in CROW_TERMS) else None
 
 
-def analyze(path: Path, lat=None, lon=None, when=None):
-    """Corvid call regions in a recording.
+def raptor_name(det):
+    """The detection's common name if it is a true taxonomic raptor, else None.
 
-    `lat`/`lon`/`when` turn on BirdNET's species-occurrence filter, and they
-    matter more than they look. The model is global: without them it will
-    happily name a House Crow (South Asia) or a Carrion Crow (Europe) in Utah,
-    and because both have trained call-type heads, the wrong species then gets a
-    confidently-labelled call type hung off it. A misdetection that stops at
-    "some corvid" is recoverable; one that reaches the training manifest as a
-    labelled Carrion Crow is not.
+    Checks scientific genus first so non-raptors carrying raptor substrings in
+    English (`Common Nighthawk` Chordeiles minor, `Fowler's Toad` Anaxyrus
+    fowleri, `Black-cowled Oriole` Icterus prosthemelas, `Dark Hawk-Cuckoo`
+    Hierococcyx bocki) are never reported as raptors. Falls back to whole-word
+    English tokens only when `scientific_name` is absent.
+    """
+    common = (det.get("common_name") or "").strip()
+    if not common:
+        return None
+    sci = (det.get("scientific_name") or "").strip()
+    blob = f"{common} {sci}".lower()
+    if any(bad in blob for bad in NON_RAPTOR_TERMS):
+        return None
+    if sci:
+        genus = sci.split()[0].lower()
+        return common if genus in RAPTOR_GENERA else None
+    tokens = {tok for tok in _WORD_SPLIT.split(common.lower()) if tok}
+    return common if (tokens & RAPTOR_WORDS) else None
 
-    All three are optional because a clip uploaded from a browser has no GPS.
-    Without them the filter is off and the species should be read with
-    suspicion — `location_filtered` on each call says which it was.
+
+def _summarize_raptors(raptor_windows):
+    """Deduplicate raptor detections by species, keeping each species' peak window."""
+    by_species = {}
+    for w in raptor_windows:
+        prev = by_species.get(w["species"])
+        if prev is None or w["conf"] > prev["confidence"]:
+            by_species[w["species"]] = {
+                "species": w["species"],
+                "scientific_name": w["scientific_name"],
+                "confidence": round(float(w["conf"]), 3),
+                "start": w["start"],
+                "end": w["end"],
+            }
+    return sorted(by_species.values(), key=lambda d: (-d["confidence"], d["species"]))
+
+
+def analyze_with_co_detections(path: Path, lat=None, lon=None, when=None):
+    """Corvid call regions AND high-confidence co-detected raptors in one pass.
+
+    Returns `(calls, co_detections)`:
+    - `calls`: corvid call regions, each also carrying overlapping `co_detections`
+    - `co_detections`: recording-wide raptor co-detections (`>= RAPTOR_MIN_CONF`),
+      deduplicated per species so a hawk calling in a silent gap between two
+      crow bouts is still reported ("BirdNET also heard: Cooper's Hawk (0.74)").
     """
     located = lat is not None and lon is not None
     # The filter lives HERE, not in the worker, so every caller of analyze()
@@ -526,25 +573,68 @@ def analyze(path: Path, lat=None, lon=None, when=None):
                     for s in rec.embeddings}
 
     windows = []
+    raptor_windows = []
     for det in rec.detections:
+        conf = float(det["confidence"])
+        start = round(float(det["start_time"]), 2)
+        end = round(float(det["end_time"]), 2)
         species = corvid_name(det)
-        if species is None or det["confidence"] < CANDIDATE_MIN_CONF:
+        if species is not None and conf >= CANDIDATE_MIN_CONF:
+            emb = emb_by_start.get(start)
+            if emb is not None:
+                windows.append({
+                    "start": start,
+                    "end": end,
+                    "conf": conf,
+                    "species": species,
+                    "scientific_name": det.get("scientific_name", ""),
+                    "candidate": conf < CROW_MIN_CONF,
+                    "emb": emb,
+                })
             continue
-        emb = emb_by_start.get(round(det["start_time"], 2))
-        if emb is None:
-            continue
-        windows.append({
-            "start": round(float(det["start_time"]), 2),
-            "end": round(float(det["end_time"]), 2),
-            "conf": float(det["confidence"]),
-            "species": species,
-            "scientific_name": det.get("scientific_name", ""),
-            "candidate": det["confidence"] < CROW_MIN_CONF,
-            "emb": emb,
-        })
+        raptor = raptor_name(det)
+        if raptor is not None and conf >= RAPTOR_MIN_CONF:
+            raptor_windows.append({
+                "start": start,
+                "end": end,
+                "conf": conf,
+                "species": raptor,
+                "scientific_name": det.get("scientific_name", ""),
+            })
+
     windows.sort(key=lambda w: w["start"])
-    return [{**classify_region(r), "location_filtered": located}
-            for r in group_regions(windows)]
+    calls = []
+    for r in group_regions(windows):
+        classified = classify_region(r)
+        overlapping = [
+            rw for rw in raptor_windows
+            if rw["start"] < classified["end"] and rw["end"] > classified["start"]
+        ]
+        calls.append({
+            **classified,
+            "co_detections": _summarize_raptors(overlapping),
+            "location_filtered": located,
+        })
+    return calls, _summarize_raptors(raptor_windows)
+
+
+def analyze(path: Path, lat=None, lon=None, when=None):
+    """Corvid call regions in a recording.
+
+    `lat`/`lon`/`when` turn on BirdNET's species-occurrence filter, and they
+    matter more than they look. The model is global: without them it will
+    happily name a House Crow (South Asia) or a Carrion Crow (Europe) in Utah,
+    and because both have trained call-type heads, the wrong species then gets a
+    confidently-labelled call type hung off it. A misdetection that stops at
+    "some corvid" is recoverable; one that reaches the training manifest as a
+    labelled Carrion Crow is not.
+
+    All three are optional because a clip uploaded from a browser has no GPS.
+    Without them the filter is off and the species should be read with
+    suspicion — `location_filtered` on each call says which it was.
+    """
+    calls, _ = analyze_with_co_detections(path, lat=lat, lon=lon, when=when)
+    return calls
 
 
 def group_regions(windows):

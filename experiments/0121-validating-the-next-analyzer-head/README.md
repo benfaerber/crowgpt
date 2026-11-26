@@ -80,11 +80,11 @@ Comparing legacy `3072-d` (`[mean, std, max]`, archive `"call"` mixed into `ratt
 
 ---
 
-## Validated package ready for Ben's sign-off before touching `analyzer/`
+## What it changed
 
-1. **Retrain `american-crow/calltype_clf.joblib` on Uniform `1024-d` window-mean (`M.mean(0)`) with `C = 0.1` and pure `crow-tools` `rattle` — WITHOUT archive `garbage.npz` `"none"`:**
-   - Fixes multi-window field regions from `50%` -> `100%` (`84%` -> `90%` overall on `★kept`), removes the `std > 0` `flight call` / archive `"call"` bug, and achieves `0.967` grouped AUC on `rattle` with `0%` false abstentions on real field calls.
-   - Defer `"none"` until real **phone field negatives** (`not_a_crow` / quiet taps from the app) exist, since BirdNET already blocks `82.9%` of archive `crowCount == 0` upstream and archive `"none"` rejects `20–26%` of real phone calls.
-2. **Show `"call"` as `"rattle"`** (display mapping in UI/API, or `"rattle"` class name if wire-compatible with consumers — note `mobile` / `fieldserver` `CORE_CLASSES` check in `corpus.py`!).
-3. **Keep true taxonomic raptor detections at `conf >= 0.70`** in `analyzer/birdnet.py`, labelled strictly as co-detections (`"BirdNET also heard: <Species> (<conf>)"`), excluding nightjars (`Common Nighthawk`).
-4. **Leave BirdMixIT (`0120`), `crowd` (`0109`), and `calling_density` (`0107`) out of `analyzer/`.**
+1. **Retrained `pipelines/training/models/american-crow/{calltype_clf.joblib, metrics.json}` (`make train-crow` -> `pipelines/training/train_head.py --backbone birdnet --head onevsrest --source window-mean --write`):**
+   - Added `birdnet_window_mean` (`1024-d` `M.mean(0)`) alongside `birdnet_pooled_mean_std_max` (`3072-d`) in `pipelines/training/pooling.py` and `analyzer/birdnet.py` so the 5 archive-only corvid heads keep loading while American Crow runs on uniform `1024-d` (`C = 0.1`, pure `crow-tools` `rattle`).
+   - Kept archive `garbage.npz` `"none"` **out** of the shipped head (`82.9%` of `crowCount == 0` is already blocked by BirdNET `>= 0.25` upstream, and archive `"none"` falsely abstained on `20–26%` of real phone calls). Defer `"none"` until genuine phone field negatives exist.
+2. **Emitted `"rattle"` instead of `"call"` on American Crow:** `SEED_LABELS` already maps `("rattle", "call")`, and `promo/src/scan-timeline.ts` now colours `rattle` with the same `#6ea8fe` swatch.
+3. **Kept true taxonomic raptor co-detections at `RAPTOR_MIN_CONF = 0.70`:** `analyzer/birdnet.py` (`raptor_name` + `analyze_with_co_detections`), revision `0045_analysis_co_detections` on `analysis_results`, `dashboard/src/components/DetectedCalls.tsx`, and `promo/src/scan-timeline.ts` report them strictly as `"BirdNET also heard: <Species> (<conf>)"` while rejecting nightjars (`Common Nighthawk` *Chordeiles minor*) and substring look-alikes.
+4. **Left BirdMixIT (`0120`), `crowd` (`0109`), and `calling_density` (`0107`) out of `analyzer/`.**

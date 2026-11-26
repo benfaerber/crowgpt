@@ -19,7 +19,10 @@ _BIRDNET_NAMES = (
     "CROW_TERMS",
     "HEADS",
     "NoAudioTrack",
+    "RAPTOR_MIN_CONF",
     "analyze",
+    "analyze_with_co_detections",
+    "raptor_name",
     "to_wav",
     "waveform_envelope",
 )

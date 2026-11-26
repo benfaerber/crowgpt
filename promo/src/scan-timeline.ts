@@ -8,6 +8,14 @@
 
 import { el } from "./dom";
 
+export interface CoDetection {
+  species: string;
+  scientific_name?: string;
+  confidence: number;
+  start?: number;
+  end?: number;
+}
+
 export interface Call {
   start: number;
   end: number;
@@ -17,21 +25,27 @@ export interface Call {
   confidence: number | null;
   crow_conf: number;
   candidate: boolean;
+  co_detections?: CoDetection[];
 }
 
 export interface SoundResult {
   duration_sec: number;
   waveform: number[];
   calls: Call[];
+  co_detections?: CoDetection[];
   truncated: boolean;
   located: boolean;
 }
 
-/** The five classes' colours, as on the front page, the app and the dashboard. */
+/** The call-type colours, as on the front page, the app and the dashboard.
+ *  American Crow emits `rattle` rather than `call` (experiment 0012, 0121);
+ *  other species heads still carry `call`, and both share the blue swatch.
+ */
 const CALL_COLOURS: Record<string, string> = {
   "alarm call": "#f27070",
   "flight call": "#6bd28a",
   call: "#6ea8fe",
+  rattle: "#6ea8fe",
   begging: "#efb057",
   song: "#c58af9",
 };
@@ -184,6 +198,13 @@ export class ScanTimeline {
 
   private notes(): string[] {
     const notes: string[] = [];
+    if (this.result.co_detections && this.result.co_detections.length > 0) {
+      notes.push(
+        `BirdNET also heard: ${this.result.co_detections
+          .map(det => `${det.species} (${det.confidence.toFixed(2)})`)
+          .join(", ")}`,
+      );
+    }
     if (this.result.truncated) {
       notes.push(`Only the first ${Math.round(this.result.duration_sec)} seconds were scanned.`);
     }

@@ -89,15 +89,17 @@ class AnalysisStore(Database):
         return requeued, abandoned
 
     def complete(self, job_id, capture_id, duration, waveform, reliability,
-                 calls, model_version):
+                 calls, model_version, co_detections=None):
 
         with self._connect() as conn:
             cur = conn.execute(
                 "INSERT INTO analysis_results (job_id, capture_id, duration, "
-                "waveform_json, reliability_json, model_version, created_at) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                "waveform_json, reliability_json, model_version, created_at, "
+                "co_detections_json) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 (job_id, capture_id, duration, json.dumps(waveform),
-                 json.dumps(reliability), model_version, utc_now()))
+                 json.dumps(reliability), model_version, utc_now(),
+                 json.dumps(co_detections) if co_detections is not None else None))
             analysis_id = cur.lastrowid
             for c in calls:
                 # NULL rather than "[]" when the head offered nothing: an empty
@@ -163,6 +165,7 @@ class AnalysisStore(Database):
                 "reliability": json.loads(res["reliability_json"] or "{}"),
                 "model_version": res["model_version"],
                 "calls": calls,
+                "co_detections": json.loads(res["co_detections_json"] or "[]"),
             }
 
     @staticmethod

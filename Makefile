@@ -209,7 +209,7 @@ corpus-build:
 	$(BIRDNET) pipelines/ingest/build_dataset.py $(if $(DATASET),--dataset $(DATASET))
 
 train-crow:
-	$(BIRDNET) pipelines/ingest/train_american_crow.py
+	$(BIRDNET) pipelines/training/train_head.py --backbone birdnet --head onevsrest --source window-mean --write
 
 # crowgpt has its own venv (torch + birdnetlib in one) and its own Makefile;
 # `make -C crowgpt help` lists the stages. Not wired further in on purpose —

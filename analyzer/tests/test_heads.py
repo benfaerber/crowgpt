@@ -14,6 +14,7 @@ fast enough to run on every change to the pooling definition.
 """
 
 from pathlib import Path
+import sys
 
 import joblib
 import numpy as np
@@ -21,8 +22,6 @@ import pytest
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-
-import sys
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "pipelines" / "training"))
@@ -68,24 +67,36 @@ def test_there_are_heads_to_check():
     assert shipped_heads(), f"no call-type heads under {MODELS}"
 
 
-def test_every_shipped_head_matches_the_pooled_feature(bundles):
+def test_every_shipped_head_matches_its_declared_birdnet_feature(bundles):
     for path, bundle in bundles.items():
-        assert _check_bundle(bundle, path) == pooling.POOLED_DIM, path
+        feature = bundle.get("feature")
+        assert feature in pooling.FEATURES, path
+        expected_dim, _ = pooling.FEATURES[feature]
+        assert _check_bundle(bundle, path) == expected_dim, path
 
 
-def test_every_shipped_head_records_its_provenance(bundles):
-    """`feature` is required since 2026-08-09; a bundle without it is refused.
+def test_american_crow_uses_window_mean_and_emits_rattle_not_call(bundles):
+    """Experiment 0012 + 0121: American Crow runs on 1024-d window-mean and
+    names crow-tools' rattle detector `rattle` rather than `call`."""
+    crow_path = MODELS / "american-crow" / "calltype_clf.joblib"
+    bundle = bundles[crow_path]
+    assert bundle.get("feature") == pooling.MEAN_FEATURE
+    assert _check_bundle(bundle, crow_path) == pooling.MEAN_DIM
+    classes = set(bundle["classes"])
+    assert "rattle" in classes
+    assert "call" not in classes
+    assert "none" not in classes
 
-    The four heads that predated the metadata were stamped once their width
-    proved the space, so absence now means an unknown head, not an old one.
-    """
-    for path, bundle in bundles.items():
-        assert bundle.get("feature") == pooling.FEATURE, path
+    registry = HeadRegistry()
+    head = registry.for_species("American Crow")
+    probs = head.probabilities([np.zeros(pooling.SEGMENT_DIM), np.ones(pooling.SEGMENT_DIM)])
+    assert set(probs) == classes
 
 
 def test_width_is_recoverable_without_the_dim_key():
     """The width check falls back to the pipeline's own n_features_in_."""
     assert head_width(_head(pooling.POOLED_DIM)) == pooling.POOLED_DIM
+    assert head_width(_head(pooling.MEAN_DIM)) == pooling.MEAN_DIM
 
 
 def _head(dim, feature=None):
@@ -104,6 +115,11 @@ def test_a_wider_head_is_refused():
         _check_bundle(_head(4608, feature=pooling.FEATURE), "perch-head.joblib")
 
 
+def test_a_3072_head_claiming_window_mean_is_refused():
+    with pytest.raises(HeadMismatch, match="3072"):
+        _check_bundle(_head(pooling.POOLED_DIM, feature=pooling.MEAN_FEATURE), "mismatch.joblib")
+
+
 def test_a_head_with_no_recorded_feature_is_refused():
     """Absence is not a legacy head any more — it is unknown provenance."""
     with pytest.raises(HeadMismatch, match="does not say"):
@@ -117,6 +133,8 @@ def test_a_head_from_another_backbone_is_refused_even_at_the_right_width():
         _check_bundle(bundle, "impostor.joblib")
 
 
-def test_a_matching_head_passes():
+def test_matching_heads_pass():
     assert _check_bundle(_head(pooling.POOLED_DIM, feature=pooling.FEATURE),
-                         "fine.joblib") == pooling.POOLED_DIM
+                         "pooled.joblib") == pooling.POOLED_DIM
+    assert _check_bundle(_head(pooling.MEAN_DIM, feature=pooling.MEAN_FEATURE),
+                         "mean.joblib") == pooling.MEAN_DIM

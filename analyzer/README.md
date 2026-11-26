@@ -17,8 +17,8 @@ here.
 ## What it does
 
 1. **BirdNET** locates corvids in the recording and names the species.
-2. A **per-species call-type head** labels each detected region.
-3. Regions are grouped into calls, with a confidence and a reliability tier.
+2. A **per-species call-type head** labels each detected region (`rattle`, `alarm call`, `begging`, `song`, `flight call` on American Crow via uniform 1024-d window-mean pooling; 3072-d `mean+std+max` on the five archive-only corvid heads).
+3. Regions are grouped into calls, with a confidence and a reliability tier, while high-confidence true raptor detections (`>= 0.70`, experiment 0121) are kept alongside as honest co-detections (`"BirdNET also heard: Cooper's Hawk (0.74)"`, never as context or cause).
 
 A detected corvid with no trained head is still reported, species-only. It is
 never labelled with another species' model — a Rook's call type guessed by the

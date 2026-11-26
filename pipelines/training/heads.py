@@ -22,33 +22,46 @@ class MultiLabelHead:
     """One independent logistic regression per call type.
 
     The shipped alternative is a multiclass softmax, which cannot report a
-    co-occurrence: its probabilities sum to one, so "begging AND a caw" is not
-    something it can say however clear the audio. Worse, it never saw one —
+    co-occurrence: its probabilities sum to one, so "begging AND a rattle" is
+    not something it can say however clear the audio. Worse, it never saw one —
     every trainer drops segments carrying two labels, discarding 241 of
-    crow-tools' 2,494 rows including 23 `begging + call`.
+    crow-tools' 2,494 rows including 23 `begging + rattle`.
 
     Here each class is fitted against its own binary target built from the full
     label set, so a segment tagged both is a positive for both and teaches both.
+    Optional per-class row `masks` allow excluding rows where a class was not
+    annotated cleanly (for example, keeping weak archive generic `call` tags out
+    of `crow-tools` `rattle` while still training `flight call` and `alarm call`
+    on those rows; experiment 0121).
 
     `predict_proba` returns per-class probabilities that do **not** sum to one.
     Callers must not argmax them and call it a confidence — the whole point is
     that two can be high at once.
     """
 
-    def __init__(self, classes):
+    def __init__(self, classes, C: float = 1.0):
         self.classes = list(classes)
+        self.C = float(C)
         self.models = {}
 
-    def fit(self, X, Y):
+    def fit(self, X, Y, masks: dict[str, np.ndarray] | None = None):
         """`Y` is a sequence of label *sets*, not a single label per row."""
+        c_val = float(getattr(self, "C", 1.0))
         for cls in self.classes:
-            y = np.array([1 if cls in labels else 0 for labels in Y])
+            if masks and cls in masks:
+                idx = np.flatnonzero(np.asarray(masks[cls], dtype=bool))
+                X_cls = X[idx]
+                Y_cls = [Y[i] for i in idx]
+            else:
+                X_cls = X
+                Y_cls = Y
+            y = np.array([1 if cls in labels else 0 for labels in Y_cls])
             if len(set(y.tolist())) < 2:
                 continue
             self.models[cls] = make_pipeline(
                 StandardScaler(),
-                LogisticRegression(max_iter=5000, class_weight="balanced"),
-            ).fit(X, y)
+                LogisticRegression(C=c_val, max_iter=5000, class_weight="balanced"),
+            ).fit(X_cls, y)
         self.classes = [c for c in self.classes if c in self.models]
         return self
 

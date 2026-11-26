@@ -15,7 +15,7 @@ import joblib
 from birdnetlib import Recording
 from birdnetlib.analyzer import Analyzer
 
-from pooling import pool
+import pooling
 
 HERE = Path(__file__).resolve().parent
 # The per-species head the analyzer itself serves — the flat archive-only
@@ -24,7 +24,7 @@ MODEL = HERE / "models" / "american-crow" / "calltype_clf.joblib"
 DEVNULL = open(os.devnull, "w")
 
 
-def embed(path):
+def embed(path, feature=pooling.FEATURE):
     with contextlib.redirect_stdout(DEVNULL):
         analyzer = Analyzer()
         rec = Recording(analyzer, str(path), min_conf=0.1)
@@ -32,7 +32,8 @@ def embed(path):
     segs = rec.embeddings
     if not segs:
         raise SystemExit("No embeddings — is this an audio file with sound?")
-    return pool([s["embeddings"] for s in segs]).reshape(1, -1)
+    pool_fn = pooling.pool_for(feature)
+    return pool_fn([s["embeddings"] for s in segs]).reshape(1, -1)
 
 
 def main():
@@ -42,7 +43,8 @@ def main():
         raise SystemExit(f"No model at {MODEL} — run train_head.py first.")
     bundle = joblib.load(MODEL)
     model, classes = bundle["model"], bundle["classes"]
-    proba = model.predict_proba(embed(sys.argv[1]))[0]
+    feature = bundle.get("feature", pooling.FEATURE)
+    proba = model.predict_proba(embed(sys.argv[1], feature=feature))[0]
     ranked = sorted(zip(classes, proba), key=lambda kv: -kv[1])
     print(f"\n{Path(sys.argv[1]).name}")
     for c, p in ranked:

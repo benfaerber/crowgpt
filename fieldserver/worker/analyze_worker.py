@@ -79,7 +79,9 @@ def process(job, jobs, media_store, captures, qualities) -> int:
     wav = None
     try:
         wav = birdnet.to_wav(path)
-        calls = birdnet.analyze(wav, lat=lat, lon=lon, when=recorded_on(capture))
+        calls, co_detections = birdnet.analyze_with_co_detections(
+            wav, lat=lat, lon=lon, when=recorded_on(capture)
+        )
         # Same decoded WAV, so the quality numbers and the detections describe
         # one rendering of the audio. A quality failure must not fail the job:
         # `fail` is a dead end with no retries, and losing detections over a
@@ -95,7 +97,8 @@ def process(job, jobs, media_store, captures, qualities) -> int:
         if wav:
             wav.unlink(missing_ok=True)
     jobs.complete(job["id"], job["capture_id"], duration, env,
-                  birdnet.HEADS.reliability_payload(), calls, model_version())
+                  birdnet.HEADS.reliability_payload(), calls, model_version(),
+                  co_detections=co_detections)
     captures.set_status(job["capture_id"], "analyzed")
     return len(calls)
 
@@ -160,13 +163,16 @@ class VisitorScans:
                              formats=birdnet.VISITOR_FORMATS)
         try:
             envelope, duration = birdnet.waveform_envelope(wav)
-            calls = birdnet.analyze(wav, lat=scan["latitude"], lon=scan["longitude"])
+            calls, co_detections = birdnet.analyze_with_co_detections(
+                wav, lat=scan["latitude"], lon=scan["longitude"]
+            )
         finally:
             wav.unlink(missing_ok=True)
         return {
             "duration_sec": duration,
             "waveform": envelope,
             "calls": calls,
+            "co_detections": co_detections,
             "truncated": duration >= SOUND_SECONDS - 0.05,
             "located": scan["latitude"] is not None,
         }
